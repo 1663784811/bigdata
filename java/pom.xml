@@ -4,6 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <application.version>2.0</application.version>
+        <java.version>1.8</java.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+    </properties>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -17,25 +24,65 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!--    前端控制部分    -->
+        <module>bigdatabase/admin</module>
+        <module>bigdatabase/ctl</module>
+        <module>bigdatabase/sso</module>
+        <module>bigdatabase/web</module>
+
+
+        <!--    服务实现模块    -->
+
+
         <!--    公共部分    -->
         <module>common_code/cyyaw_jpa</module>
-        <module>common_code/cyyaw_common</module>
+        <module>common_code/common</module>
+        <module>common_code/itf</module>
 
-        <!--    实现模块    -->
-        <module>bigdatabase/cyyaw_weixin</module>
-        <module>bigdatabase/cyyaw_upload</module>
+
+        <!--    springcloud 部分    -->
+        <module>springcloud/gateway</module>
+        <module>springcloud/bootadmin</module>
+        <module>springcloud/config</module>
+        <module>springcloud/eureka</module>
+
 
     </modules>
 
-
     <dependencyManagement>
-
-
-
-
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 
+
+    <!--==========    上传到私服    ==============-->
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.1.110:6060/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.1.110:6060/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 
 </project>
