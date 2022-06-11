@@ -2,8 +2,6 @@ package cn.cyyaw.util.json;
 
 import cn.cyyaw.util.entity.User;
 import cn.cyyaw.util.tools.JsonUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.Test;
 
 public class JsonTest {
