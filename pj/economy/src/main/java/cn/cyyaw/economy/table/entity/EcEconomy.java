@@ -1,5 +1,6 @@
 package cn.cyyaw.economy.table.entity;
 
+import cn.cyyaw.jpa.entity.BaseTable;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,18 +10,30 @@ import java.io.Serializable;
 @Entity
 @Table(name = "ec_economy", catalog = "")
 @org.hibernate.annotations.Table(appliesTo = "ec_economy", comment = "股票")
-public class EcEconomy  implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic
-    @Column(name = "[id]", columnDefinition = "int COMMENT 'id'")
-    private Integer id;
-
+public class EcEconomy extends BaseTable implements Serializable {
 
     @Basic
-    @Column(name = "[name]", length = 45, nullable = true, columnDefinition = "varchar(45) COMMENT '名称'")
+    @Column(name = "ad_type", columnDefinition = "int COMMENT '地区类型{1:A股,2:港股,3:美股}'")
+    private Integer adType;
+
+
+
+    @Basic
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '股票名称'")
     private String name;
+
+
+    @Basic
+    @Column(name = "company_name", columnDefinition = "varchar(255) COMMENT '公司名称'")
+    private String companyName;
+
+
+
+
+
+
+
+
 
 
 }
