@@ -1,8 +1,8 @@
 package com.cyyaw.spider.task;
 
+import cn.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.spider.table.dao.PaATagDao;
 import com.cyyaw.spider.table.entity.PaATag;
-import cn.cyyaw.util.tools.StringUtilWHY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -192,7 +192,7 @@ public class DomainName {
                 for (PaATag paATag: content) {
                     String href = paATag.getHref();
                     if(!ObjectUtils.isEmpty(href)){
-                        String domainName = StringUtilWHY.getDomainName(href);
+                        String domainName = WhyStringUtil.getDomainName(href);
                         paATag.setDn(domainName);
                         paATagDao.save(paATag);
                         System.out.println("更新速度:"+ (num.getAndIncrement()));

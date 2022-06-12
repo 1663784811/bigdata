@@ -1,8 +1,8 @@
 package com.cyyaw.test;
 
+import cn.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.spider.run.RunSpider;
 import com.cyyaw.spider.run.StandardSpider;
-import cn.cyyaw.util.tools.StringUtilWHY;
 import org.junit.jupiter.api.Test;
 
 public class TestHttp {
@@ -26,7 +26,7 @@ public class TestHttp {
     public void test002(){
 
         String line = "dfdsfdsfdshttps://xxx.yyy.cn";
-        String domainName = StringUtilWHY.getDomainName(line);
+        String domainName = WhyStringUtil.getDomainName(line);
         System.out.println(domainName);
 
     }
