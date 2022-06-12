@@ -2,11 +2,8 @@ package com.cyyaw.test;
 
 import com.cyyaw.spider.run.RunSpider;
 import com.cyyaw.spider.run.StandardSpider;
-import com.cyyaw.spider.util.StringUtilWHY;
+import cn.cyyaw.util.tools.StringUtilWHY;
 import org.junit.jupiter.api.Test;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TestHttp {
 

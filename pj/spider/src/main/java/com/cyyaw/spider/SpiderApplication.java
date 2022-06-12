@@ -1,5 +1,6 @@
 package com.cyyaw.spider;
 
+import cn.cyyaw.util.tools.WhyStringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.spider.data.PageHandleData;
 import com.cyyaw.spider.data.PageHandleDataStandard;
@@ -13,9 +14,7 @@ import com.cyyaw.spider.table.dao.PaPageDao;
 import com.cyyaw.spider.table.entity.PaATag;
 import com.cyyaw.spider.table.entity.PaImg;
 import com.cyyaw.spider.table.entity.PaPage;
-import com.cyyaw.spider.util.StringUtilWHY;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -63,10 +62,10 @@ public class SpiderApplication implements ApplicationRunner {
                 boolean iswait = true;
                 while (true) {
                     try {
-                        if(iswait){
-                            if(WebPageData.pageList.size()>100){
-                                Thread.sleep(1000L *10);
-                            }else{
+                        if (iswait) {
+                            if (WebPageData.pageList.size() > 100) {
+                                Thread.sleep(1000L * 10);
+                            } else {
                                 Thread.sleep(100L);
                             }
                         }
@@ -87,10 +86,10 @@ public class SpiderApplication implements ApplicationRunner {
                                 WebPageData.pageList.add(map);
                                 System.out.println("================  爬取成功");
                                 iswait = true;
-                            }else{
+                            } else {
                                 iswait = false;
                             }
-                        }else{
+                        } else {
                             iswait = false;
                         }
                     }
@@ -122,7 +121,7 @@ public class SpiderApplication implements ApplicationRunner {
                             String description = pageHandleData.getDescription();
 
                             PaPage paPage = new PaPage();
-                            paPage.setId(StringUtilWHY.getUUID());
+                            paPage.setId(WhyStringUtil.getUUID());
                             paPage.setNote("");
                             paPage.setCreateTime(new Date());
                             if (null != type) {
@@ -138,7 +137,7 @@ public class SpiderApplication implements ApplicationRunner {
                             List<TagElement> imgList = pageHandleData.getTags("img");
                             for (TagElement img : imgList) {
                                 PaImg paImg = new PaImg();
-                                paImg.setId(StringUtilWHY.getUUID());
+                                paImg.setId(WhyStringUtil.getUUID());
                                 paImg.setNote("");
                                 paImg.setCreateTime(new Date());
                                 paImg.setPageId(paPage.getId());
@@ -147,7 +146,7 @@ public class SpiderApplication implements ApplicationRunner {
                                 String alt = attributes.getString("alt");
                                 paImg.setAlt(alt);
                                 String src = attributes.getString("src");
-                                if(null !=src && src.indexOf("data:")!=0){
+                                if (null != src && src.indexOf("data:") != 0) {
                                     paImg.setUrl(src);
                                 }
                                 paImgDao.save(paImg);
@@ -155,17 +154,17 @@ public class SpiderApplication implements ApplicationRunner {
 
                             // 获取页面所有 A 标签数据
                             List<TagElement> aList = pageHandleData.getTags("a");
-                            for (TagElement aTag: aList) {
+                            for (TagElement aTag : aList) {
 
                                 PaATag paATag = new PaATag();
-                                paATag.setId(StringUtilWHY.getUUID());
+                                paATag.setId(WhyStringUtil.getUUID());
                                 paATag.setNote("");
                                 paATag.setCreateTime(new Date());
                                 paATag.setPageId(paPage.getId());
                                 paATag.setTxt(aTag.getText());
                                 JSONObject attributes = aTag.getAttributes();
                                 String href = attributes.getString("href");
-                                if(!ObjectUtils.isEmpty(href)){
+                                if (!ObjectUtils.isEmpty(href)) {
                                     paATag.setHref(attributes.getString("href"));
                                     WebPageData.pageUrl.add(href);
                                 }
