@@ -13,7 +13,7 @@ public class Hao123Controller {
         // 打开浏览器
         Browser browser = new ChromeBrowser();
         // 打开网址
-        browser.open("https:///MissLan001");
+        browser.open("https://zh.stripchat.com/MissLan001");
         browser.clickElement(".btn-visitors-agreement-accept");
         //  获取
 
