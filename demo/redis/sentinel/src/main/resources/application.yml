@@ -1,0 +1,9 @@
+spring:
+  redis:
+    sentinel:
+      master: mymaster
+      nodes:
+        - 192.168.126.156:31756
+        - 192.168.126.155:31756
+        - 192.168.126.157:31756
+    connect-timeout: 1000
