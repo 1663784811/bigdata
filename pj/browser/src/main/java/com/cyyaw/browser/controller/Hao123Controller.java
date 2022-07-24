@@ -2,6 +2,7 @@ package com.cyyaw.browser.controller;
 
 import com.cyyaw.browser.core.Browser;
 import com.cyyaw.browser.core.ChromeBrowser;
+import com.cyyaw.browser.entity.PageElement;
 
 public class Hao123Controller {
 
@@ -13,9 +14,22 @@ public class Hao123Controller {
         // 打开浏览器
         Browser browser = new ChromeBrowser();
         // 打开网址
-        browser.open("https://zh.stripchat.com/MissLan001");
-        browser.clickElement(".btn-visitors-agreement-accept");
+
+        //browser.clickElement(".changePage");
         //  获取
+        boolean isOk = true;
+
+//        while (isOk) {
+            browser.open("http://data.10jqka.com.cn/market/zdfph/field/zdf/order/desc/ajax/1/free/1/page/40/free/1/");
+            String source = browser.getPageSource();
+            String str = "下一页";
+
+        PageElement pageElement = browser.find("");
+
+
+        //        changePage
+
+//        }
 
 
 //        driver.manage().window().maximize();
@@ -136,15 +150,6 @@ public class Hao123Controller {
 //        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
 //        driver.get("http://www.hao123.com/");
 //        String source = driver.getPageSource();
-
-
-
-
-
-
-
-
-
 
 
     }

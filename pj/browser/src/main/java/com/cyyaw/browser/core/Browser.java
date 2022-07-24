@@ -1,5 +1,7 @@
 package com.cyyaw.browser.core;
 
+import com.cyyaw.browser.entity.PageElement;
+
 public interface Browser {
 
 
@@ -13,6 +15,12 @@ public interface Browser {
      * @return
      */
     String getPageSource();
+
+
+    /**
+     *
+     */
+    PageElement find(String element);
 
 
     /**

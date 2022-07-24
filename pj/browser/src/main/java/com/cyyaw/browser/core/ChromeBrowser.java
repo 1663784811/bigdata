@@ -1,12 +1,15 @@
 package com.cyyaw.browser.core;
 
 
+import com.cyyaw.browser.entity.PageElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+
+import java.util.List;
 
 public class ChromeBrowser implements Browser {
 
@@ -34,6 +37,22 @@ public class ChromeBrowser implements Browser {
     }
 
     @Override
+    public PageElement find(String element) {
+        String type = element.substring(0, 1);
+        String name = element.substring(1);
+        By by = null;
+        if (".".equals(type)) {
+            by = By.className(element);
+        } else if ("#".equals(type)) {
+            by = By.id(name);
+        }
+        List<WebElement> elements = driver.findElements(by);
+        PageElement p = new PageElement();
+        p.setElementList(elements);
+        return p;
+    }
+
+    @Override
     public void clickRightElement(String element) {
         String type = element.substring(0, 1);
         String name = element.substring(1);
@@ -55,7 +74,7 @@ public class ChromeBrowser implements Browser {
             clickable = driver.findElement(By.className(name));
         } else if ("#".equals(type)) {
             clickable = driver.findElement(By.id(name));
-        }else{
+        } else {
             clickable = driver.findElement(By.tagName(element));
         }
         new Actions(driver).click(clickable).perform();
