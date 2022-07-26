@@ -20,7 +20,7 @@ public class Hao123Controller {
         boolean isOk = true;
 
 //        while (isOk) {
-            browser.open("http://data.10jqka.com.cn/market/zdfph/field/zdf/order/desc/ajax/1/free/1/page/40/free/1/");
+            browser.open("https://www.douyin.com/");
             String source = browser.getPageSource();
             String str = "下一页";
 

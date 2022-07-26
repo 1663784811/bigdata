@@ -1,0 +1,12 @@
+# 服务器端口号
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+    #active: prod
+  main:
+    allow-bean-definition-overriding: true
+
+
