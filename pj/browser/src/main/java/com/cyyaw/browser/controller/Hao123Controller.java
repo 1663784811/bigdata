@@ -1,10 +1,31 @@
 package com.cyyaw.browser.controller;
 
+import com.cyyaw.browser.controller.spider.SpiderPage;
 import com.cyyaw.browser.core.Browser;
 import com.cyyaw.browser.core.ChromeBrowser;
 import com.cyyaw.browser.entity.PageElement;
 
+import java.util.List;
+
+
 public class Hao123Controller {
+
+
+
+
+
+    public void run(){
+
+        List<SpiderPage> list = null;
+
+        //  线程池处理
+        // 决策器   分析url 用哪个   SpiderPage  来抓取
+
+        // 页面分析器： 分析页面、
+
+
+    }
+
 
 
     /**
