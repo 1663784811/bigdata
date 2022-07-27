@@ -4,10 +4,12 @@ import com.cyyaw.browser.controller.spider.SpiderPage;
 import com.cyyaw.browser.core.Browser;
 import com.cyyaw.browser.core.ChromeBrowser;
 import com.cyyaw.browser.entity.PageElement;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
+@Component
 public class Hao123Controller {
 
 
