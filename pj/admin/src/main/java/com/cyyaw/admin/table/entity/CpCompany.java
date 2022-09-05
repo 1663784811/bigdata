@@ -7,12 +7,14 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "cp_company")
 @org.hibernate.annotations.Table(appliesTo = "cp_company", comment = "公司")
-public class CpCompany extends BaseTable {
+public class CpCompany extends BaseTable implements Serializable {
+
     private static final long serialVersionUID = 1573661935283L;
 
     @Basic

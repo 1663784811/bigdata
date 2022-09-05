@@ -15,15 +15,15 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "cp_history")
-@org.hibernate.annotations.Table(appliesTo = "cp_history", comment = "公司历史")
-public class CpHistory extends BaseTable implements Serializable {
+@Table(name = "pp_history")
+@org.hibernate.annotations.Table(appliesTo = "pp_history", comment = "人历史")
+public class PpHistory extends BaseTable implements Serializable {
 
-    private static final long serialVersionUID = 157366193283L;
+    private static final long serialVersionUID = 15736693283L;
 
     @Basic
-    @Column(name = "cp_id", columnDefinition = "varchar(32) COMMENT '公司ID'")
-    private String cpId;
+    @Column(name = "pp_id", columnDefinition = "varchar(32) COMMENT '人ID'")
+    private String ppId;
 
     @Basic
     @Column(name = "history_time", columnDefinition = "datetime COMMENT '时间'")
