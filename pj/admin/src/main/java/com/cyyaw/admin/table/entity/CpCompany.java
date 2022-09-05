@@ -16,7 +16,7 @@ public class CpCompany extends BaseTable {
     private static final long serialVersionUID = 1573661935283L;
 
     @Basic
-    @Column(name = "[name]", columnDefinition = "varchar(255) COMMENT '公司名称'")
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '公司名称'")
     private String name;
 
 
