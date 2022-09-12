@@ -1,4 +1,4 @@
-package com.cyyaw.table.company.entity;
+package com.cyyaw.table.user.entity;
 
 
 import cn.cyyaw.jpa.entity.BaseTable;
