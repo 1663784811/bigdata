@@ -10,9 +10,10 @@ import org.springframework.context.ApplicationEvent;
 @Data
 public class SpiderFinish extends ApplicationEvent {
 
-    private String spiderData;
 
-    public SpiderFinish(String source) {
+    private SpiderData spiderData;
+
+    public SpiderFinish(SpiderData source) {
         super(source);
         this.spiderData = source;
     }

@@ -1,6 +1,7 @@
 package com.cyyaw.browser.listen;
 
 
+import com.cyyaw.browser.controller.DataAnalyze;
 import com.cyyaw.browser.controller.SpiderPage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,17 @@ public class ListenConfig {
     @EventListener(SpiderFinish.class)
     public void finish(SpiderFinish finish) {
         // 数据分析
-        log.info(" -----------------{}", finish.getSpiderData());
+        SpiderData spiderData = finish.getSpiderData();
+        log.info(" -----------------{}", spiderData.getSpiderData());
+
+        Map<String, DataAnalyze> spiderPageMap = applicationContext.getBeansOfType(DataAnalyze.class);
+        for (String key : spiderPageMap.keySet()) {
+            DataAnalyze dataAnalyze = spiderPageMap.get(key);
+            Boolean ok = dataAnalyze.urlRule(spiderData.getUrl());
+            if (ok) {
+                dataAnalyze.analyze(spiderData.getSpiderData());
+            }
+        }
 
     }
 

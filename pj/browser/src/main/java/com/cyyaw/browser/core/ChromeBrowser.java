@@ -33,6 +33,11 @@ public class ChromeBrowser implements Browser {
     }
 
     @Override
+    public String getUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    @Override
     public String getPageSource() {
         return driver.getPageSource();
     }
