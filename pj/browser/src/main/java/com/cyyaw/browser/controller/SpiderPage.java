@@ -1,4 +1,4 @@
-package com.cyyaw.browser.controller.spider;
+package com.cyyaw.browser.controller;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.cyyaw.browser.controller.data;
+package com.cyyaw.browser.controller;
 
 
 /**
