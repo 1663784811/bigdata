@@ -1,52 +1,44 @@
 package com.cyyaw.browser.listen;
 
 
-import com.cyyaw.browser.controller.spider.SpiderPage;
-import com.cyyaw.browser.core.Browser;
-import com.cyyaw.browser.core.ChromeBrowser;
+import com.cyyaw.browser.controller.DataAnalyze;
+import com.cyyaw.browser.controller.SpiderPage;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+@Slf4j
+@Configuration
 @EnableAsync
-@Component
 public class ListenConfig {
-
-    private static ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(10);
-
-    Browser browser = new ChromeBrowser();
-
-
-    @PostConstruct
-    public void init(){
-        browser.open("https://www.douyin.com/discover");
-
-        //     第一步：打开浏览器
-
-        //     第二步：打开网址
-
-        //     第三步：收信息
-
-
-
-    }
 
 
     @Autowired
     private ApplicationContext applicationContext;
 
 
-    public void aaa() {
-        String url = "";
-        spiderFn(url);
+    @PostConstruct
+    public void init(){
+        String url = "https://www.douyin.com/discover";
+        new Thread(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                Thread.sleep(5000L);
+                spiderFn(url);
+            }
+        }).start();
+
     }
 
     /**
@@ -71,7 +63,17 @@ public class ListenConfig {
     @EventListener(SpiderFinish.class)
     public void finish(SpiderFinish finish) {
         // 数据分析
-
+        SpiderData spiderData = finish.getSpiderData();
+        Map<String, DataAnalyze> spiderPageMap = applicationContext.getBeansOfType(DataAnalyze.class);
+        for (String key : spiderPageMap.keySet()) {
+            DataAnalyze dataAnalyze = spiderPageMap.get(key);
+            Boolean ok = dataAnalyze.urlRule(spiderData.getUrl());
+            if (ok) {
+                String html = spiderData.getHtml();
+                Document doc = Jsoup.parse(html);
+                dataAnalyze.analyze(doc);
+            }
+        }
 
     }
 

@@ -21,6 +21,7 @@ public class ChromeBrowser implements Browser {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");//禁用沙箱
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
         //chromeOptions.addArguments("--headless"); //无头浏览器，这样不会打开浏览器窗口
         driver = new ChromeDriver(chromeOptions);
     }
@@ -29,6 +30,11 @@ public class ChromeBrowser implements Browser {
     @Override
     public void open(String url) {
         driver.get(url);
+    }
+
+    @Override
+    public String getUrl() {
+        return driver.getCurrentUrl();
     }
 
     @Override

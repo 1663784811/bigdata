@@ -11,6 +11,11 @@ public interface Browser {
     void open(String url);
 
     /**
+     * 获取Url
+     */
+    String getUrl();
+
+    /**
      * 获取源码
      * @return
      */
