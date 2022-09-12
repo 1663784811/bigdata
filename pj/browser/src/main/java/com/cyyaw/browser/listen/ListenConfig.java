@@ -63,7 +63,6 @@ public class ListenConfig {
         // 数据分析
         SpiderData spiderData = finish.getSpiderData();
         log.info(" -----------------{}", spiderData.getSpiderData());
-
         Map<String, DataAnalyze> spiderPageMap = applicationContext.getBeansOfType(DataAnalyze.class);
         for (String key : spiderPageMap.keySet()) {
             DataAnalyze dataAnalyze = spiderPageMap.get(key);
