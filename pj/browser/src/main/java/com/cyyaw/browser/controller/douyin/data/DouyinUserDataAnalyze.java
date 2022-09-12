@@ -1,6 +1,7 @@
 package com.cyyaw.browser.controller.douyin.data;
 
 import com.cyyaw.browser.controller.DataAnalyze;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 
@@ -17,10 +18,10 @@ public class DouyinUserDataAnalyze implements DataAnalyze {
     }
 
     @Override
-    public void analyze(String data) {
+    public void analyze(Document document) {
 
 
-        System.out.println(data);
+        System.out.println(document);
 
 
 

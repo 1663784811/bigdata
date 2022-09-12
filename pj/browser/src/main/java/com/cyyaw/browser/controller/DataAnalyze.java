@@ -1,6 +1,8 @@
 package com.cyyaw.browser.controller;
 
 
+import org.jsoup.nodes.Document;
+
 /**
  * 数据分析
  */
@@ -17,7 +19,7 @@ public interface DataAnalyze {
     /**
      * 分析数据
      */
-    void analyze(String data);
+    void analyze(Document document);
 
 
 }

@@ -35,7 +35,7 @@ public abstract class SpiderPageAbstract implements SpiderPage{
         if(null != context){
             SpiderData spiderData = new SpiderData();
             spiderData.setUrl(url);
-            spiderData.setSpiderData(pageSource);
+            spiderData.setHtml(pageSource);
             context.publishEvent(new SpiderFinish(spiderData));
         }
     }

@@ -5,6 +5,8 @@ import com.cyyaw.browser.controller.DataAnalyze;
 import com.cyyaw.browser.controller.SpiderPage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +69,9 @@ public class ListenConfig {
             DataAnalyze dataAnalyze = spiderPageMap.get(key);
             Boolean ok = dataAnalyze.urlRule(spiderData.getUrl());
             if (ok) {
-                dataAnalyze.analyze(spiderData.getSpiderData());
+                String html = spiderData.getHtml();
+                Document doc = Jsoup.parse(html);
+                dataAnalyze.analyze(doc);
             }
         }
 
