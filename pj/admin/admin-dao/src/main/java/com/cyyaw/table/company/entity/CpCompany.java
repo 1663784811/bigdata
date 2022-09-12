@@ -1,4 +1,4 @@
-package com.cyyaw.admin.table.entity;
+package com.cyyaw.table.company.entity;
 
 import cn.cyyaw.jpa.entity.BaseTable;
 import lombok.Data;
