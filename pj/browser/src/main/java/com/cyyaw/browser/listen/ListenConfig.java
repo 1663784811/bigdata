@@ -2,20 +2,21 @@ package com.cyyaw.browser.listen;
 
 
 import com.cyyaw.browser.controller.SpiderPage;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
-@EnableAsync
-@Component
 @Slf4j
+@Configuration
+@EnableAsync
 public class ListenConfig {
 
 
@@ -25,8 +26,16 @@ public class ListenConfig {
 
     @PostConstruct
     public void init(){
-        String url = "https://www.douyin.com/discover";
-        spiderFn(url);
+        String url = "https://www.douyin.com";
+        new Thread(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                Thread.sleep(5000L);
+                spiderFn(url);
+            }
+        }).start();
+
     }
 
     /**

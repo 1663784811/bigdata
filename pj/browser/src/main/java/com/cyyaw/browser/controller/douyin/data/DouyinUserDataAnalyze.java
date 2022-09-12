@@ -19,6 +19,11 @@ public class DouyinUserDataAnalyze implements DataAnalyze {
     @Override
     public void analyze(String data) {
 
+
+        System.out.println(data);
+
+
+
     }
 
 
