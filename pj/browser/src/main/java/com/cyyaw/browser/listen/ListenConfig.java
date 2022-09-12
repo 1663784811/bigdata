@@ -60,7 +60,7 @@ public class ListenConfig {
     @EventListener(SpiderFinish.class)
     public void finish(SpiderFinish finish) {
         // 数据分析
-        log.info(" -----------------{}", finish);
+        log.info(" -----------------{}", finish.getSpiderData());
 
     }
 
