@@ -28,8 +28,12 @@ public class Data10jqkaDataAnalyze  implements DataAnalyze {
         Elements rows = doc.select(".m-table tbody tr");
 
         for (Element element : rows) {
-            String text = element.text();
-            System.out.println(text);
+            Elements td = element.select("td");
+
+            Element element1 = td.get(2);
+
+
+
 
         }
     }
