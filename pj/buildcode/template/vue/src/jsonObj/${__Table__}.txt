@@ -1,0 +1,72 @@
+import {EXPLAINFIELD,render,filterRemote} from "@/assets/common/js/global.js";
+
+let json ={
+    "title": "${javaData.tableNote!}",
+    "fieldArr": [
+        <#list vueJsons as column>
+<#if column_index != 0 >,</#if>{
+<#if column.type == 'selection'>
+    "width":60,
+</#if>
+    "key":"${column.key!}",
+    "title":"${column.title!}",
+<#if column.type != 'html'>
+    "type":"${column.type!}",
+</#if>
+    "length":${(column.length!255)?c},
+<#if column.isRequire>
+    "isrequire":${column.isRequire?string('true','false')},
+</#if>
+<#if (!(column.regStr)??)>
+    "regstr":"${column.regStr!}",
+</#if>
+<#if (!(column.message)??)>
+    "message":"${column.message!}",
+</#if>
+<#if ((column.controlType)??)>
+    "controltype":"${column.controlType!}",
+</#if>
+<#if column.javaType == 'integer'>
+    "max":"${column.max!}",
+    "min":"${column.min!}",
+</#if>
+<#if column.format == 'integer'>
+    "format":"${column.format!}",
+</#if>
+<#if column.isShowColumn>
+    "isshowcolumn":${column.isShowColumn?string('true','false')},
+</#if>
+<#if column.isWhere>
+    "iswhere":${column.isWhere?string('true','false')},
+</#if>
+<#if column.filters?? && ( column.filters?size > 0 ) >
+    "render": render,
+    "filterRemote": filterRemote,
+    "filters": [
+        <#list column.filters as filters>
+        <#if filters_index != 0>,</#if>{
+            "value":${filters.value!},
+            "label":"${filters.label!}"
+        }
+        </#list>
+    ],
+</#if>
+    "javawhere":"${column.javaWhere!}",
+    "javatype":"${column.javaType!}"
+}
+</#list>
+]
+};
+
+//==== 解释json数据
+const obj = EXPLAINFIELD(json);
+//=====  标题
+export const TitleJson = obj.title;
+//===== 添加字段
+export const addFieldDataJson = obj.addFieldData;
+//===== 修改字段
+export const updateFieldDataJson = obj.updateFieldData;
+//=====  表头
+export const TableHeaderJson = obj.TableHeader;
+//=====  搜索字段
+export const searchWhereJson = obj.searchWhere;
