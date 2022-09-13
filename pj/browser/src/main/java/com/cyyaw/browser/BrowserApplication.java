@@ -2,9 +2,11 @@ package com.cyyaw.browser;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 
 
+@EntityScan(basePackages = {"com.cyyaw.table"})
 @SpringBootApplication
 public class BrowserApplication {
 

@@ -21,7 +21,7 @@ public class DouyinUserDataAnalyze implements DataAnalyze {
     public void analyze(Document document) {
 
 
-        System.out.println(document);
+        //System.out.println(document);
 
 
 
