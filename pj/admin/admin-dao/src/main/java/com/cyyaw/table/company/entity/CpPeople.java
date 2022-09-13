@@ -1,4 +1,4 @@
-package com.cyyaw.table.user.entity;
+package com.cyyaw.table.company.entity;
 
 import cn.cyyaw.jpa.entity.BaseTable;
 import com.fasterxml.jackson.annotation.JsonFormat;

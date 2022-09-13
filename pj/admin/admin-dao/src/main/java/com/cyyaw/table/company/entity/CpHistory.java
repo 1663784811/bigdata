@@ -32,11 +32,11 @@ public class CpHistory extends BaseTable implements Serializable {
     private Date historyTime;
 
     @Basic
-    @Column(name = "describe", columnDefinition = "text default '' COMMENT '描述'")
-    private String describe;
+    @Column(name = "cp_describe", columnDefinition = "text COMMENT '描述'")
+    private String cpDescribe;
 
     @Basic
-    @Column(name = "analysis", columnDefinition = "text default '' COMMENT '分析'")
+    @Column(name = "analysis", columnDefinition = "text COMMENT '分析'")
     private String analysis;
 
 
