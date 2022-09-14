@@ -10,12 +10,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
-public class Data10jqkaDataAnalyze  implements DataAnalyze {
+public class Data10jqkaDataAnalyze implements DataAnalyze {
 
     @Autowired
     private CpCompanyDao cpCompanyDao;
@@ -39,23 +41,23 @@ public class Data10jqkaDataAnalyze  implements DataAnalyze {
             Elements td = element.select("td");
             String name = td.get(2).text();
 
-            CpCompany cpCompany = new CpCompany();
-            cpCompany.setName(name);
-            cpCompany.setEstablishTime(null);
-            cpCompany.setLegalPerson(null);
-            cpCompany.setTid(WhyStringUtil.getUUID());
-            cpCompany.setCreateTime(new Date());
-            cpCompany.setDel(0);
-            cpCompany.setNote("");
-            cpCompanyDao.save(cpCompany);
+            CpCompany company = new CpCompany();
+            company.setName(name);
+            Example<CpCompany> example = Example.of(company);
+            List<CpCompany> all = cpCompanyDao.findAll(example);
+            if (all.size() == 0) {
+                CpCompany cpCompany = new CpCompany();
+                cpCompany.setName(name);
+                cpCompany.setEstablishTime(null);
+                cpCompany.setLegalPerson(null);
+                cpCompany.setTid(WhyStringUtil.getUUID());
+                cpCompany.setCreateTime(new Date());
+                cpCompany.setDel(0);
+                cpCompany.setNote("");
+                cpCompanyDao.save(cpCompany);
+            }
         }
     }
-
-
-
-
-
-
 
 
 }
