@@ -32,10 +32,9 @@ public class Data10jqkaSpider extends SpiderPageAbstract {
 
     @Override
     public void spider(String url) {
-
+        super.spider(url);
         WebElement next = null;
         do {
-            super.spider(url);
             super.spiderFinish();
             Browser browser = super.getBrowser();
             PageElement pageElement = browser.find(".changePage");
