@@ -13,15 +13,32 @@ public class PageElement {
 
     private List<WebElement> elementList;
 
-    public WebElement getElement(){
+    public WebElement getElement() {
         WebElement webElement = elementList.get(index.get());
         return webElement;
     }
 
-    public void aa (){
-
+    public int size() {
+        if (null != elementList) {
+            return elementList.size();
+        } else {
+            return 0;
+        }
     }
 
+    public WebElement getIndex(int index) {
+        return elementList.get(index);
+    }
+
+    public WebElement getNext() {
+        int i = index.get();
+        if(i<size()){
+            index.set(i+1);
+            return elementList.get(index.get());
+        }else {
+            return null;
+        }
+    }
 
 
 }

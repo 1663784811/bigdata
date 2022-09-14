@@ -3,6 +3,7 @@ package com.cyyaw.browser.controller.data10jqka.spider;
 
 import cn.hutool.core.net.url.UrlBuilder;
 import com.cyyaw.browser.controller.SpiderPageAbstract;
+import com.cyyaw.browser.core.Browser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,10 @@ public class Data10jqkaSpider extends SpiderPageAbstract {
 
         super.spider(url);
         super.spiderFinish();
+
+        Browser browser = super.getBrowser();
+        browser.find(".changePage");
+
 
         // 判断是否有下一页，有则获取下一页数据
 
