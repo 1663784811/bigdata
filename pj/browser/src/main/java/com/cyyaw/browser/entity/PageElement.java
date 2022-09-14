@@ -26,7 +26,7 @@ public class PageElement {
         }
     }
 
-    public WebElement getIndex(int index) {
+    public WebElement getIndexElement(int index) {
         return elementList.get(index);
     }
 
