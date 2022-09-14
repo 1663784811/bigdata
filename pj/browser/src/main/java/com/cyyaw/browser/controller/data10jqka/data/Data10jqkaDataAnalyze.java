@@ -51,7 +51,7 @@ public class Data10jqkaDataAnalyze implements DataAnalyze {
                 CpCompany cpCompany = new CpCompany();
                 cpCompany.setName(name);
                 cpCompany.setStockType(1);
-                cpCompany.setName(name);
+                cpCompany.setStockName(name);
                 cpCompany.setStockNo(no);
                 cpCompany.setEstablishTime(null);
                 cpCompany.setLegalPerson(null);
