@@ -37,10 +37,12 @@ public class Data10jqkaDataAnalyze implements DataAnalyze {
     public void analyze(Document doc) {
         Elements rows = doc.select(".m-table tbody tr");
 
+
+
         for (Element element : rows) {
             Elements td = element.select("td");
             String name = td.get(2).text();
-
+            String no = td.get(1).text();
             CpCompany company = new CpCompany();
             company.setName(name);
             Example<CpCompany> example = Example.of(company);
@@ -48,6 +50,9 @@ public class Data10jqkaDataAnalyze implements DataAnalyze {
             if (all.size() == 0) {
                 CpCompany cpCompany = new CpCompany();
                 cpCompany.setName(name);
+                cpCompany.setStockType(1);
+                cpCompany.setName(name);
+                cpCompany.setStockNo(no);
                 cpCompany.setEstablishTime(null);
                 cpCompany.setLegalPerson(null);
                 cpCompany.setTid(WhyStringUtil.getUUID());

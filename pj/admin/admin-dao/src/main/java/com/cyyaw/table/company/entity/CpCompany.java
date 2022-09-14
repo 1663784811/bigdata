@@ -35,6 +35,15 @@ public class CpCompany extends BaseTable implements Serializable {
     @Column(name = "legal_person", columnDefinition = "varchar(255) COMMENT '法人'")
     private String legalPerson;
 
+    @Basic
+    @Column(name = "stock_type", columnDefinition = "int COMMENT '地区类型{1:A股,2:港股,3:美股}'")
+    private Integer stockType;
 
+    @Basic
+    @Column(name = "stock_name", columnDefinition = "varchar(255) COMMENT '股票名称'")
+    private String stockName;
 
+    @Basic
+    @Column(name = "stock_no", columnDefinition = "varchar(32) COMMENT '证券代码'")
+    private String stockNo;
 }
