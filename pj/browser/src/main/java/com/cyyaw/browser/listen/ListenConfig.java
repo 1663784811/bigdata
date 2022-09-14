@@ -72,6 +72,7 @@ public class ListenConfig {
                 String html = spiderData.getHtml();
                 Document doc = Jsoup.parse(html);
                 dataAnalyze.analyze(doc);
+                dataAnalyze.afterHandle(doc);
             }
         }
 

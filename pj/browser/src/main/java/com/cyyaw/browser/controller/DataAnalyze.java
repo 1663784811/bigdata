@@ -21,5 +21,9 @@ public interface DataAnalyze {
      */
     void analyze(Document document);
 
+    /**
+     * after处理
+     */
+    void afterHandle(Document document);
 
 }
