@@ -45,6 +45,11 @@ public class Data10jqkaSpider extends SpiderPageAbstract {
                 if("下一页".equals(text)){
                     indexElement.click();
                     next = indexElement;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }
