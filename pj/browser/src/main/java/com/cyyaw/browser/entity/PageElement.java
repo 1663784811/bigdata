@@ -34,7 +34,7 @@ public class PageElement {
         int i = index.get();
         if(i<size()){
             index.set(i+1);
-            return elementList.get(index.get());
+            return elementList.get(i);
         }else {
             return null;
         }
