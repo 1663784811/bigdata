@@ -48,7 +48,7 @@ public class ChromeBrowser implements Browser {
         String name = element.substring(1);
         By by = null;
         if (".".equals(type)) {
-            by = By.className(element);
+            by = By.className(name);
         } else if ("#".equals(type)) {
             by = By.id(name);
         }
