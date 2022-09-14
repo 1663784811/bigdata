@@ -4,6 +4,7 @@ package com.cyyaw.browser.controller.data10jqka.data;
 import cn.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.net.url.UrlBuilder;
 import com.cyyaw.browser.controller.DataAnalyze;
+import com.cyyaw.browser.controller.DataAnalyzeAbstract;
 import com.cyyaw.table.company.dao.CpCompanyDao;
 import com.cyyaw.table.company.entity.CpCompany;
 import org.jsoup.nodes.Document;
@@ -17,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class Data10jqkaDataAnalyze implements DataAnalyze {
+public class Data10jqkaDataAnalyze extends DataAnalyzeAbstract {
 
     @Autowired
     private CpCompanyDao cpCompanyDao;

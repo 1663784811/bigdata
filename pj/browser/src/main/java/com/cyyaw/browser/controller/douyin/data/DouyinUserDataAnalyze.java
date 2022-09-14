@@ -1,6 +1,7 @@
 package com.cyyaw.browser.controller.douyin.data;
 
 import com.cyyaw.browser.controller.DataAnalyze;
+import com.cyyaw.browser.controller.DataAnalyzeAbstract;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
  * 抖音用户数据分析
  */
 @Component
-public class DouyinUserDataAnalyze implements DataAnalyze {
+public class DouyinUserDataAnalyze extends DataAnalyzeAbstract {
 
 
     @Override
