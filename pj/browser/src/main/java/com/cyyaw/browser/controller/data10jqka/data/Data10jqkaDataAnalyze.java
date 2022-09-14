@@ -1,16 +1,24 @@
 package com.cyyaw.browser.controller.data10jqka.data;
 
 
+import cn.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.net.url.UrlBuilder;
 import com.cyyaw.browser.controller.DataAnalyze;
+import com.cyyaw.table.company.dao.CpCompanyDao;
+import com.cyyaw.table.company.entity.CpCompany;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class Data10jqkaDataAnalyze  implements DataAnalyze {
 
+    @Autowired
+    private CpCompanyDao cpCompanyDao;
 
     @Override
     public boolean urlRule(String url) {
@@ -29,12 +37,17 @@ public class Data10jqkaDataAnalyze  implements DataAnalyze {
 
         for (Element element : rows) {
             Elements td = element.select("td");
+            String name = td.get(2).text();
 
-            Element element1 = td.get(2);
-
-
-
-
+            CpCompany cpCompany = new CpCompany();
+            cpCompany.setName(name);
+            cpCompany.setEstablishTime(null);
+            cpCompany.setLegalPerson(null);
+            cpCompany.setTid(WhyStringUtil.getUUID());
+            cpCompany.setCreateTime(new Date());
+            cpCompany.setDel(0);
+            cpCompany.setNote("");
+            cpCompanyDao.save(cpCompany);
         }
     }
 
