@@ -1,0 +1,15 @@
+server:
+  port: 18080
+  tomcat:
+    connection-timeout: 10ms
+
+spring:
+  application:
+    name: admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+

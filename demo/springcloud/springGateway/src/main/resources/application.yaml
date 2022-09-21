@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: admin
+          uri: lb://admin
+          predicates:
+            - Path=/admin/**
+      httpclient:
+        pool:
+          max-idle-time: 6000ms
+          max-connections: 10
+
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
