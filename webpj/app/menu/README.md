@@ -1,7 +1,20 @@
-# Vue 3 + Vite
+#经历
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+出生
 
-## Recommended IDE Setup
+说话
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+走路
+
+读书
+
+工作
+
+创业
+
+结婚生子
+
+亲人离去
+
+老去
+

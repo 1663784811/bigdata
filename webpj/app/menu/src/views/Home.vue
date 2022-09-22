@@ -20,7 +20,7 @@ export default {
   name: "Home.vue",
   setup() {
     const value1 = 1;
-    const value2 = 3;
+    const value2 = 'a' ;
     const option1 = [
       { text: '全部商品', value: 0 },
       { text: '新款商品', value: 1 },
