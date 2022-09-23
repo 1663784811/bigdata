@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
+import LayOut from '@/views/LayOut.vue'
 
 const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: LayOut,
+        children:[
+            {
+                path: 'profile',
+                component: Home,
+            }
+        ]
     },
     {
         path: '/spider',
