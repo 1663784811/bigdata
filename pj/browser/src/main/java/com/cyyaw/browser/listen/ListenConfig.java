@@ -64,15 +64,18 @@ public class ListenConfig {
     public void finish(SpiderFinish finish) {
         // 数据分析
         SpiderData spiderData = finish.getSpiderData();
+
         Map<String, DataAnalyze> spiderPageMap = applicationContext.getBeansOfType(DataAnalyze.class);
         for (String key : spiderPageMap.keySet()) {
             DataAnalyze dataAnalyze = spiderPageMap.get(key);
-            Boolean ok = dataAnalyze.urlRule(spiderData.getUrl());
+            String url = spiderData.getUrl();
+            String host = spiderData.getHost();
+            Boolean ok = dataAnalyze.urlRule(url);
             if (ok) {
                 String html = spiderData.getHtml();
                 Document doc = Jsoup.parse(html);
                 dataAnalyze.analyze(doc);
-                dataAnalyze.afterHandle(doc);
+                dataAnalyze.afterHandle(host,url,doc);
             }
         }
 

@@ -24,6 +24,6 @@ public interface DataAnalyze {
     /**
      * after处理
      */
-    void afterHandle(Document document);
+    void afterHandle(String host, String url, Document doc);
 
 }

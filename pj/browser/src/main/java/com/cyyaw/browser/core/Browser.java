@@ -39,4 +39,9 @@ public interface Browser {
      */
     void clickElement(String s);
 
+    /**
+     * 获取域名
+     */
+    String getHost();
+
 }

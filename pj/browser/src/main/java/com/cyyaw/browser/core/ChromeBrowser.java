@@ -1,6 +1,8 @@
 package com.cyyaw.browser.core;
 
 
+import cn.hutool.core.net.url.UrlBuilder;
+import cn.hutool.core.util.CharsetUtil;
 import com.cyyaw.browser.entity.PageElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -84,5 +86,12 @@ public class ChromeBrowser implements Browser {
             clickable = driver.findElement(By.tagName(element));
         }
         new Actions(driver).click(clickable).perform();
+    }
+
+    @Override
+    public String getHost() {
+        String url = getUrl();
+        UrlBuilder builder = UrlBuilder.ofHttp(url, CharsetUtil.CHARSET_UTF_8);
+        return builder.getHost();
     }
 }

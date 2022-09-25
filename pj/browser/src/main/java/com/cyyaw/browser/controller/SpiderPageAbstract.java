@@ -32,9 +32,11 @@ public abstract class SpiderPageAbstract implements SpiderPage{
         // 发布事件
         String pageSource = browser.getPageSource();
         String url = browser.getUrl();
+        String host = browser.getHost();
         if(null != context){
             SpiderData spiderData = new SpiderData();
             spiderData.setUrl(url);
+            spiderData.setHost(host);
             spiderData.setHtml(pageSource);
             context.publishEvent(new SpiderFinish(spiderData));
         }
