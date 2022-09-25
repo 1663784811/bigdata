@@ -34,5 +34,9 @@ public class SpiderNickName extends BaseTable implements Serializable {
     @Column(name = "content", columnDefinition = "text COMMENT '内容'")
     private String content;
 
+    @Basic
+    @Column(name = "href", columnDefinition = "text COMMENT 'href'")
+    private String href;
+
 
 }

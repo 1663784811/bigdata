@@ -20,6 +20,11 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
     @Override
     public void spider(String url) {
         super.spider(url);
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         super.spiderFinish();
     }
 }

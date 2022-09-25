@@ -1,8 +1,9 @@
 package com.cyyaw.browser.controller.douyin.data;
 
-import com.cyyaw.browser.controller.DataAnalyze;
 import com.cyyaw.browser.controller.DataAnalyzeAbstract;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 
@@ -22,8 +23,16 @@ public class DouyinUserDataAnalyze extends DataAnalyzeAbstract {
     public void analyze(Document document) {
 
 
-        //System.out.println(document);
+        Elements elements = document.select(".PSMUj2A_ .LmoNsGLD");
+        for (Element element : elements) {
+            String href = element.select(".B3AsdZT9").first().attr("href");
+            String nickName = element.select(".O23tuHy1").first().text();
+            String content = element.select(".B8CDxCkp").first().text();
+            String url = "";
 
+
+
+        }
 
 
     }
