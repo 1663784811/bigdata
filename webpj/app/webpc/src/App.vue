@@ -4,6 +4,13 @@
 
 <style lang="scss">
 
+.content{
+  max-width: 1200px;
+  min-width: 1200px;
+  margin: auto;
+
+}
+
 .router-fade-enter-active, .router-fade-leave-active {
   transition: opacity .3s;
 }
