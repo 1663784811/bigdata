@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="content">
+    <div class="container">
       <div class="headerLeft">
         <div class="logoBox">
           <h1>程式科技</h1>
@@ -24,7 +24,7 @@
   </div>
   <router-view></router-view>
   <div class="footer">
-    <div class="content">
+    <div class="container">
       <div class="footerWebInfo">
         <div class="">
           <h3>我们业务</h3>
@@ -68,7 +68,6 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  margin-bottom: 100px;
   background: #001938;
   min-width: 1200px;
 }
