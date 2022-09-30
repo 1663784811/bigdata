@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="container">
+    <div class="container headerContainer">
       <div class="headerLeft">
         <div class="logoBox">
           <h1>程式科技</h1>
@@ -68,8 +68,24 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: #001938;
+  background: #343434;
+  color: #f1f1f1;
   min-width: 1200px;
+  .headerContainer{
+    display: flex;
+    justify-content: space-between;
+    .headerRight{
+      .linkType{
+        display: flex;
+        justify-content: space-between;
+      }
+      .webMenu{
+        display: flex;
+
+        }
+    }
+  }
+
 }
 
 .footer {
