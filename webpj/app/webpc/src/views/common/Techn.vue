@@ -46,7 +46,7 @@ export default {
 
 
 .techn {
-
+  margin-top: 100px;
   .nbt {
     text-align: center;
     h1{
