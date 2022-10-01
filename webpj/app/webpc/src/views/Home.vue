@@ -13,8 +13,8 @@
     </van-swipe>
   </div>
 
-  <IntroduceBox></IntroduceBox>
-  <IntroduceBox></IntroduceBox>
+  <Techn></Techn>
+
   <IntroduceBox></IntroduceBox>
 
 </template>
@@ -22,11 +22,13 @@
 <script>
 
 import IntroduceBox from "@/views/common/IntroduceBox.vue";
+import Techn from "@/views/common/Techn.vue"
 
 export default {
   name: "Home.vue",
   components:{
-    IntroduceBox
+    IntroduceBox,
+    Techn
   },
   data() {
     return {
