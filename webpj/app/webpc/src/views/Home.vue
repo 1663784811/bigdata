@@ -12,26 +12,26 @@
       </van-swipe-item>
     </van-swipe>
   </div>
-  <div>
-    <div class="container">
-      <div>品牌价值</div>
-      <div>
-        一起，站到互联网的最高端！
-      </div>
-      <div>
-        <div>sesessee</div>
-      </div>
-    </div>
-  </div>
+
+  <IntroduceBox></IntroduceBox>
+  <IntroduceBox></IntroduceBox>
+  <IntroduceBox></IntroduceBox>
 
 </template>
 
 <script>
+
+import IntroduceBox from "@/views/common/IntroduceBox.vue";
+
 export default {
   name: "Home.vue",
-
+  components:{
+    IntroduceBox
+  },
   data() {
-    return {}
+    return {
+
+    }
   },
   setup() {
 
@@ -44,7 +44,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bannerBox{
+.bannerBox {
   margin: 10px 0;
 }
+
+
 </style>
