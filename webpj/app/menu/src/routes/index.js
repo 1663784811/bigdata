@@ -4,6 +4,8 @@ import MainLayOut from '@/views/MainLayOut.vue'
 import User from '@/views/User.vue'
 import Order from '@/views/Order.vue'
 import StoreHome from "@/views/StoreHome.vue";
+import Settlement from "@/views/Settlement.vue";
+
 
 const routes = [
     {
@@ -29,6 +31,11 @@ const routes = [
         path: '/StoreHome',
         name: 'StoreHome',
         component: StoreHome
+    },
+    {
+        path: '/Settlement',
+        name: 'Settlement',
+        component: Settlement
     },
     {
         path: '/spider',
