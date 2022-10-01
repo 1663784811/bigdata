@@ -6,15 +6,25 @@
 
 
 
+    <van-grid>
+      <van-grid-item v-for="value in 8" :key="value" icon="photo-o" text="文字" />
+    </van-grid>
+
+
     <div class="storeList">
       <div v-for="(item, index) in storeList"  >
-          {{item.storeName}}
+          <div @click="clickStore">
+            {{item.storeName}}
+          </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+
 export default {
   name: "Home.vue",
 
@@ -36,6 +46,11 @@ export default {
   },
   methods: {
     reload() {
+    },
+    clickStore(){
+      this.$router.push({
+        name:'StoreHome'
+      });
     }
   }
 }

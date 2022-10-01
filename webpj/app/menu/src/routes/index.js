@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue'
 import MainLayOut from '@/views/MainLayOut.vue'
 import User from '@/views/User.vue'
 import Order from '@/views/Order.vue'
+import StoreHome from "@/views/StoreHome.vue";
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
                 component: Order,
             }
         ]
+    },
+    {
+        path: '/StoreHome',
+        name: 'StoreHome',
+        component: StoreHome
     },
     {
         path: '/spider',
