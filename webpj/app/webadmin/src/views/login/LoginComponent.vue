@@ -116,14 +116,9 @@
   </n-el>
 </template>
 
-<script lang="ts">
+<script>
 import {computed, defineComponent, ref} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
-import ImageBg1 from '@/assets/img_login_bg.png'
-import {post, Response} from '@/api/http'
-import {login} from '@/api/url'
-import {DeviceType, UserState} from '@/store/types'
-import {useMessage} from 'naive-ui'
+// import {DeviceType, UserState} from '@/store/types.js'
 import {
   PhonePortraitOutline as PhoneIcon,
   LockClosedOutline as PasswordIcon,
@@ -131,51 +126,22 @@ import {
   LogoAlipay,
   LogoWechat,
 } from '@vicons/ionicons5'
-import useAppInfo from '@/hooks/useAppInfo'
-import useUserStore from '@/store/modules/user'
-import useAppConfigStore from '@/store/modules/app-config'
 
 export default defineComponent({
   name: 'Login',
   components: {PhoneIcon, PasswordIcon, LogoGithub, LogoAlipay, LogoWechat},
   setup() {
-    const {version} = useAppInfo()
+    const version = '11.00'
     const username = ref('admin')
     const password = ref('123456')
     const autoLogin = ref(true)
     const loading = ref(false)
-    const router = useRouter()
-    const route = useRoute()
-    const userStore = useUserStore()
-    const message = useMessage()
-    const appConfig = useAppConfigStore()
+
     const isMobileScreen = computed(() => {
-      return appConfig.deviceType === DeviceType.MOBILE
+
     })
     const onLogin = () => {
-      loading.value = true
-      post({
-        url: login,
-        data: {
-          username: username.value,
-          password: password.value,
-        },
-      })
-          .then(({data}: Response) => {
-            userStore.saveUser(data as UserState).then(() => {
-              router
-                  .replace({
-                    path: route.query.redirect ? (route.query.redirect as string) : '/',
-                  })
-                  .then(() => {
-                    loading.value = false
-                  })
-            })
-          })
-          .catch((error) => {
-            loading.value = false
-            message.error(error.message)
-          })
+
     }
     return {
       isMobileScreen,
@@ -184,7 +150,7 @@ export default defineComponent({
       autoLogin,
       loading,
       onLogin,
-      ImageBg1,
+      ImageBg1:'11',
       version,
     }
   },
