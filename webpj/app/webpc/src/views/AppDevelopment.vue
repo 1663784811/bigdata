@@ -2,7 +2,7 @@
   <HeaderImg/>
   <Techn></Techn>
   <div>
-    dfe
+    公众号、小程序、微信支付
   </div>
 </template>
 

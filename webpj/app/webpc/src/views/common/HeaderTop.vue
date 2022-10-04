@@ -21,8 +21,7 @@
         <div class="webMenu">
            <router-link  class="menuItem" to="/home">首页</router-link>
           <router-link  class="menuItem" to="/project">项目案例</router-link>
-           <router-link  class="menuItem" to="/appDevelopment">APP定制</router-link>
-           <router-link  class="menuItem" to="/wechat">微信开发</router-link>
+           <router-link  class="menuItem" to="/appDevelopment">APP/微信开发</router-link>
            <router-link  class="menuItem" to="/about">关于我们</router-link>
         </div>
       </div>
