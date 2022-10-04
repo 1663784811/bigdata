@@ -5,7 +5,6 @@ import router from "./routes";
 
 
 import './style/common.scss';
-// import './style/mixin.scss';
 
 const pinia = createPinia();
 const app = createApp(App);

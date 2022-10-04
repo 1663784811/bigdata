@@ -44,7 +44,12 @@ export default {
   .headerContainer {
     display: flex;
     justify-content: space-between;
-
+    .logoBox{
+      h1{
+        padding: 40px 0;
+        font-size: 32px;
+      }
+    }
     .headerRight {
       display: flex;
       align-items: center;
