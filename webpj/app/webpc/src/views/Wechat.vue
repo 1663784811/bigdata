@@ -1,7 +1,7 @@
 <template>
   <HeaderImg />
   <div>
-    sdfds
+    公众号、小程序、微信支付
   </div>
 </template>
 
