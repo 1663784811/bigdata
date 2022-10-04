@@ -7,19 +7,8 @@
         </div>
       </div>
       <div class="headerRight">
-        <div class="linkType" style="display: none">
-          <div>
-            电话：020-38894803
-          </div>
-          <div>
-            手机：135350617808
-          </div>
-          <div>
-            QQ: 3467840
-          </div>
-        </div>
         <div class="webMenu">
-           <router-link  class="menuItem" to="/home">首页</router-link>
+           <router-link  class="menuItem active" to="/home">首页</router-link>
           <router-link  class="menuItem" to="/project">项目案例</router-link>
            <router-link  class="menuItem" to="/appDevelopment">APP/微信开发</router-link>
            <router-link  class="menuItem" to="/about">关于我们</router-link>
@@ -64,9 +53,20 @@ export default {
         justify-content: flex-end;
         .menuItem {
           font-size: 16px;
-          margin-left: 10px;
+          margin: 0 6px;
           color: #111;
-          padding: 6px 6px;
+          padding: 8px 26px;
+          &.active{
+            background: #006a93;
+            padding: 8px 20px;
+            border-radius: 6px;
+            color: #e9e8e8;
+          }
+          &:hover{
+            background: #006a93;
+            border-radius: 6px;
+            color: #e9e8e8;
+          }
         }
       }
     }
