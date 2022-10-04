@@ -97,7 +97,7 @@ export default {
       background: #f9f9f9;
       padding: 20px 50px 50px 50px;
       border-radius: 10px;
-      box-shadow: 0 0 22px #000;
+      box-shadow: 0 0 10px #404040;
 
       h3 {
         font-weight: normal;
@@ -132,6 +132,7 @@ export default {
         padding: 16px 0;
         border-radius: 6px;
         color: #fff;
+        cursor: pointer;
       }
     }
   }
