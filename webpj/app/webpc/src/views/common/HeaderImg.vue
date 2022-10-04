@@ -6,6 +6,7 @@
         <div class="col-12">
           <h1>关于我们</h1>
           <p>不断创新、追求卓越</p>
+          <p>不断推陈出新，为客户创造更多的品牌价值</p>
         </div>
       </div>
     </div>
@@ -60,6 +61,10 @@ export default {
       h1{
         margin: 20px 0;
         font-weight: normal;
+      }
+      p{
+        margin: 12px 0;
+        color: #cdcdcd;
       }
     }
   }
