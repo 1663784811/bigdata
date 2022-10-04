@@ -20,11 +20,11 @@
           </div>
         </div>
         <div class="webMenu">
-          <div class="menuItem">首页</div>
-          <div class="menuItem">APP定制</div>
-          <div class="menuItem">微信开发</div>
-          <div class="menuItem">项目案例</div>
-          <div class="menuItem">关于我们</div>
+           <router-link  class="menuItem" to="/home">首页</router-link>
+           <router-link  class="menuItem" to="/appDevelopment">APP定制</router-link>
+           <router-link  class="menuItem" to="/wechat">微信开发</router-link>
+           <router-link  class="menuItem" to="/project">项目案例</router-link>
+           <router-link  class="menuItem" to="/about">关于我们</router-link>
         </div>
       </div>
     </div>
@@ -62,6 +62,7 @@ export default {
         .menuItem {
           font-size: 16px;
           margin-left: 20px;
+          color: #f1f1f1;
         }
       }
     }
