@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import MainLayOut from '@/views/MainLayOut.vue'
 import User from '@/views/User.vue'
-import Order from '@/views/Order.vue'
 import About from "@/views/About.vue";
 import Project from "@/views/Project.vue";
 import Wechat from "@/views/Wechat.vue";
