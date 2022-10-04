@@ -39,7 +39,7 @@ export default {
   }
 
   .row-height {
-    height: 60vh;
+    height: 50vh;
     display: flex;
     align-items: center;
 

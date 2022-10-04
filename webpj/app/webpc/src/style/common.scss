@@ -6,6 +6,10 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
   box-sizing: border-box;
 }
 
+input,textarea{
+  background: none;
+}
+
 ol, ul {
   list-style: none;
 }
