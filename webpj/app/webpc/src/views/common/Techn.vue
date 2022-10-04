@@ -53,8 +53,10 @@ export default {
       font-weight: normal;
       font-size: 26px;
       color: #333;
+      margin: 20px 0;
     }
     p {
+      margin: 16px;
       color: #7b8082;
       font-size: 16px;
     }
@@ -63,12 +65,12 @@ export default {
   .tove {
     display: flex;
     justify-content: space-between;
-
+    margin-top: 60px;
 
     .teclist {
-      margin-top: 35px;
       line-height: 25px;
-      width: 250px;
+      width: 25%;
+      margin: 8px;
       background: #006a93;
       border-radius: 10px;
       padding: 20px;
@@ -78,12 +80,12 @@ export default {
       .cgreen {
         color: #81c40d;
         font-size: 26px;
-        margin-top: 15px;
+        margin: 20px 0;
       }
 
       h2 {
         font-size: 36px;
-        margin-top: 15px;
+        margin: 20px 0;
       }
     }
   }

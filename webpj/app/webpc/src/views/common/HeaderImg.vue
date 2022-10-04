@@ -58,7 +58,8 @@ export default {
         font-weight: 500;
       }
       h1{
-        margin: 30px;
+        margin: 20px 0;
+        font-weight: normal;
       }
     }
   }
