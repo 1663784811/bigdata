@@ -7,7 +7,7 @@
 <script>
 
 import {ref} from 'vue';
-import headerTop from "@/views/common/headerTop.vue";
+import headerTop from "@/views/common/HeaderTop.vue";
 import webFooter from "@/views/common/webFooter.vue";
 
 export default {

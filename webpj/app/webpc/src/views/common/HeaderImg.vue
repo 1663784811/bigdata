@@ -38,7 +38,7 @@ export default {
   }
 
   .row-height {
-    height: 50vh;
+    height: 60vh;
     display: flex;
     align-items: center;
 
@@ -56,6 +56,9 @@ export default {
       .main-heading {
         font-size: 46px;
         font-weight: 500;
+      }
+      h1{
+        margin: 30px;
       }
     }
   }

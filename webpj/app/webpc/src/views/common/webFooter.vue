@@ -41,19 +41,27 @@ export default {
   background: #343434;
   min-width: 1200px;
   color: #f1f1f1;
+  padding-bottom: 50px;
 
   .footerWebInfo {
     padding: 20px;
     display: flex;
     justify-content: space-between;
 
+    h3 {
+      margin: 20px 0;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
     .webInfoMiddle {
 
     }
 
     .webInfoRight {
-      margin-top: 60px;
-
+      margin-top: 10px;
       .infoText {
         text-align: center;
         margin: 16px 0;
@@ -62,7 +70,7 @@ export default {
   }
 
   .recordInfo {
-    padding: 46px 0;
+    padding: 40px;
     text-align: center;
   }
 }
