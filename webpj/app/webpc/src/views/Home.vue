@@ -13,9 +13,14 @@
     </van-swipe>
   </div>
 
+  <BoxNote />
+
   <Techn></Techn>
 
+  <BoxNote />
+
   <IntroduceBox></IntroduceBox>
+
 
   <div class="submitBox">
     <div class="container submitRow">
@@ -56,12 +61,14 @@
 
 import IntroduceBox from "@/views/common/IntroduceBox.vue";
 import Techn from "@/views/common/Techn.vue"
+import BoxNote from "@/views/common/BoxNote.vue";
 
 export default {
   name: "Home.vue",
   components: {
     IntroduceBox,
-    Techn
+    Techn,
+    BoxNote
   },
   data() {
     return {}
