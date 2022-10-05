@@ -3,6 +3,28 @@ import Mock from 'mockjs'
 
 export const adminRoutes = [
   {
+    menuUrl: '/admin',
+    menuName: '蜘蛛',
+    routeName: 'spider',
+    icon: 'icon-dashboard',
+    parentPath: '',
+    children: [
+      {
+        parentPath: '/index',
+        menuUrl: '/index/home',
+        menuName: '公司列表',
+        routeName: 'home',
+      },
+      {
+        parentPath: '/index',
+        menuUrl: '/index/work-place',
+        menuName: '工作台',
+        routeName: 'workPlace',
+        isRootPath: true,
+      },
+    ],
+  },
+  {
     menuUrl: '/index',
     menuName: 'Dashborad',
     routeName: 'dashborad',

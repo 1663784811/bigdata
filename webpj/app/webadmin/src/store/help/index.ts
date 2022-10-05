@@ -15,10 +15,6 @@ export function loadComponents() {
 export const asynComponents = loadComponents()
 
 export function getComponent(it: OriginRoute) {
-  // return defineAsyncComponent({
-  //   loader: asynComponents[getFilePath(it)],
-  //   loadingComponent: LoadingComponent,
-  // })
   return asynComponents[getFilePath(it)]
 }
 
@@ -121,6 +117,7 @@ export function generatorRoutes(res: Array<OriginRoute>) {
       tempRoutes.push(route)
     }
   })
+  console.log(tempRoutes)
   return tempRoutes
 }
 
@@ -147,6 +144,7 @@ export function mapTwoLevelRouter(srcRoutes: Array<RouteRecordRaw>) {
       parentRoutes && parentRoutes.length > 0 && (route.children = parentRoutes)
       tempRoutes.push(route)
     })
+    console.log(tempRoutes)
     return tempRoutes
   }
   return []
