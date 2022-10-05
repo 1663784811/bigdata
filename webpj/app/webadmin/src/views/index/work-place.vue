@@ -187,6 +187,7 @@
       const fastActionClick = ({ path = '/' }) => {
         router.push(path)
       }
+      console.log('sssssssssssssssssssssddd')
       return {
         isMobileScreen,
         waitingItmes,

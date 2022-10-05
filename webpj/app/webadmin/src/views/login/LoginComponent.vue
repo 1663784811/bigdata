@@ -1,18 +1,6 @@
 <template>
   <n-el>
     <div class="flex login-container" v-if="!isMobileScreen">
-      <div class="left">
-        <img :src="ImageBg1" />
-        <div class="content-wrapper">
-          <div class="logo-wrapper">
-            <img src="../../assets/logo.png" />
-          </div>
-          <div class="title">Admin Work</div>
-          <div class="sub-title">Vue3 + Vite2 + Typescript + Naive UI</div>
-          <div class="flex-1 flex justify-center items-center ttppii"> 生活，应该还有诗和远方 </div>
-          <div class="bottom-wrapper">Admin Work {{ version }} · Made by qingqingxuan</div>
-        </div>
-      </div>
       <div class="right">
         <div class="form-wrapper">
           <div class="form-title">账号登录</div>
@@ -34,9 +22,9 @@
             />
           </div>
           <div class="mt-6">
-            <n-button type="primary" class="login" :loading="loading" @click="onLogin">
-              登录
-            </n-button>
+            <n-button type="primary" class="login" :loading="loading" @click="onLogin"
+              >登录</n-button
+            >
           </div>
           <div class="mt-6 my-width flex-sub">
             <div class="flex justify-between">
@@ -63,8 +51,8 @@
     </div>
     <div v-else class="m-login-container">
       <div class="header">
-        <div class="the-p"> P </div>
-        <div class="mt-4 text-lg font-bold text-white"> Admin Work </div>
+        <div class="the-p"> P</div>
+        <div class="mt-4 text-lg font-bold text-white"> Admin Work</div>
       </div>
       <div class="content">
         <n-input round placeholder="请输入用户名/手机号" size="large" v-model:value="username">
@@ -90,9 +78,7 @@
             </n-icon>
           </template>
         </n-input>
-        <n-button class="mt-20" round type="primary" block :loading="loading" @click="onLogin">
-          登录
-        </n-button>
+        <n-button class="mt-20" round type="primary" block :loading="loading" @click="onLogin">登录</n-button>
         <div class="flex justify-between mt-4">
           <n-checkbox v-model:checked="autoLogin" color="#fff">自动登录</n-checkbox>
           <a class="text-white" type="primary">忘记密码？</a>
@@ -125,15 +111,16 @@
   import { DeviceType, UserState } from '@/store/types'
   import { useMessage } from 'naive-ui'
   import {
-    PhonePortraitOutline as PhoneIcon,
     LockClosedOutline as PasswordIcon,
-    LogoGithub,
     LogoAlipay,
+    LogoGithub,
     LogoWechat,
+    PhonePortraitOutline as PhoneIcon,
   } from '@vicons/ionicons5'
   import useAppInfo from '@/hooks/useAppInfo'
   import useUserStore from '@/store/modules/user'
   import useAppConfigStore from '@/store/modules/app-config'
+
   export default defineComponent({
     name: 'Login',
     components: { PhoneIcon, PasswordIcon, LogoGithub, LogoAlipay, LogoWechat },
@@ -199,26 +186,30 @@
       transform: translateX(0);
     }
   }
+
   .login-container {
     position: relative;
     overflow: hidden;
     height: 100vh;
     width: 100%;
-    @media screen and(max-width:960px) {
+    @media screen and(max-width: 960px) {
       .left {
         display: none !important;
       }
     }
+
     .left {
       display: block;
       position: relative;
       min-width: 450px;
       width: 450px;
+
       & > img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
+
       &::after {
         content: '';
         position: absolute;
@@ -229,6 +220,7 @@
         background-color: rgba(0, 0, 0, 0.6);
         z-index: 2;
       }
+
       .content-wrapper {
         position: absolute;
         top: 0;
@@ -240,21 +232,25 @@
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+
         .logo-wrapper {
           width: 80px;
           margin-top: 30%;
         }
+
         .title {
           margin-top: 10px;
           color: #ffffff;
           font-weight: bold;
           font-size: 24px;
         }
+
         .sub-title {
           margin-top: 10px;
           color: #f5f5f5;
           font-size: 16px;
         }
+
         .ttppii {
           color: #ffffff;
           font-weight: 500;
@@ -264,6 +260,7 @@
           text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color),
             0 0 50px var(--primary-color), 0 0 150px var(--primary-color);
         }
+
         .bottom-wrapper {
           margin-bottom: 5%;
           color: #c0c0c0;
@@ -271,6 +268,7 @@
         }
       }
     }
+
     .right {
       flex: 1;
       display: flex;
@@ -278,6 +276,7 @@
       flex-direction: column;
       align-items: center;
       background: linear-gradient(to bottom, var(--primary-color));
+
       .form-wrapper {
         width: 50%;
         max-width: 500px;
@@ -285,23 +284,28 @@
         border: 1px solid #f0f0f0;
         padding: 20px;
         box-shadow: 0px 0px 7px #dddddd;
+
         .form-title {
           font-size: 26px;
           margin-bottom: 20px;
           font-weight: bold;
         }
+
         .item-wrapper {
           width: 100%;
         }
+
         .login {
           width: 100%;
         }
       }
+
       .third-login {
         width: 50%;
       }
     }
   }
+
   .m-login-container {
     position: relative;
     height: 100vh;
@@ -315,6 +319,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       .the-p {
         width: 100px;
         height: 100px;
@@ -328,6 +333,7 @@
         font-weight: bold;
       }
     }
+
     .top-line {
       background-image: linear-gradient(
         to right,
@@ -338,29 +344,36 @@
       height: 1px;
       background-color: #ffffff;
     }
+
     .content {
       height: 40vh;
       margin: 5% 10%;
       border-radius: 10px;
+
       :deep(.n-input) {
         background-color: rgba(183, 183, 183, 0);
       }
+
       :deep(.n-input .n-input__input-el, .n-input .n-input__textarea-el) {
         color: #fff;
       }
+
       :deep(.n-checkbox .n-checkbox__label) {
         color: #fff;
       }
     }
+
     .footer {
       position: absolute;
       left: 10%;
       right: 10%;
       bottom: 10%;
+
       :deep(.n-divider .n-divider__title) {
         color: #c3c3c3;
         font-size: 14px;
       }
+
       :deep(.n-divider:not(.n-divider--dashed) .n-divider__line) {
         background-color: rgba(117, 117, 117);
       }

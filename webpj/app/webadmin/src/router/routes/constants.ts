@@ -2,7 +2,7 @@ import { LAYOUT } from '@/store/keys'
 
 export const constantRoutes = [
   {
-    path: '/login',
+    path: '/login/:id?',
     name: 'Login',
     component: () => import('@/views/login/index.vue'),
     meta: {
