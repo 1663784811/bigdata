@@ -59,8 +59,7 @@
 </template>
 
 <script lang="ts">
-  import { post } from '@/api/http'
-  import { getTableList } from '@/api/url'
+  import { getCompany } from '@/api/api'
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, onMounted, ref, shallowReactive, watch } from 'vue'
@@ -80,15 +79,7 @@
 
       const expandAllFlag = ref(false)
       function doRefresh() {
-        post({
-          url: getTableList,
-          data: () => {
-            return {
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            }
-          },
-        })
+        getCompany({ page: pagination.page, pageSize: pagination.pageSize })
           .then((res) => {
             table.handleSuccess(res)
             pagination.setTotalSize((res as any).totalSize)
