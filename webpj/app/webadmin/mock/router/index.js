@@ -10,7 +10,11 @@ export const adminRoutes = [
     parentPath: '',
     children: [
       {
-        parentPath: '/index',
+        menuUrl: '/home/Home',
+        menuName: '首页',
+        routeName: 'Homes',
+      },
+      {
         menuUrl: '/company/Company',
         menuName: '公司列表',
         routeName: 'company',
