@@ -60,18 +60,10 @@
 <script lang="ts">
   import { post } from '@/api/http'
   import { getTableList } from '@/api/url'
-  import { renderTag } from '@/hooks/form'
-  import {
-    TableActionModel,
-    usePagination,
-    useRenderAction,
-    useRowKey,
-    useTable,
-    useTableColumn,
-    useTableHeight,
-  } from '@/hooks/table'
-  import { DataTableColumn, NAvatar, useDialog, useMessage } from 'naive-ui'
+  import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
+  import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, h, onMounted, ref, shallowReactive, watch } from 'vue'
+  import { companyPageSetting } from '@/api/pageSettingApi'
   export default defineComponent({
     name: 'Company',
     setup() {
@@ -81,167 +73,10 @@
       const message = useMessage()
       const pagination = usePagination(doRefresh)
       const checkedRowKeys = [] as Array<any>
-      const departmentData = [
-        {
-          label: '东部地区',
-          key: 1,
-          children: [
-            {
-              label: '总裁部',
-              key: 11,
-            },
-            {
-              label: '财务部',
-              key: 12,
-            },
-            {
-              label: '技术部',
-              key: 13,
-            },
-            {
-              label: '销售部',
-              key: 14,
-            },
-          ],
-        },
-        {
-          label: '西部地区',
-          key: 2,
-          children: [
-            {
-              label: '总裁部',
-              key: 21,
-            },
-            {
-              label: '财务部',
-              key: 22,
-            },
-            {
-              label: '技术部',
-              key: 23,
-            },
-            {
-              label: '销售部',
-              key: 24,
-            },
-          ],
-        },
-        {
-          label: '南部地区',
-          key: 3,
-          children: [
-            {
-              label: '总裁部',
-              key: 31,
-            },
-            {
-              label: '财务部',
-              key: 32,
-            },
-            {
-              label: '技术部',
-              key: 33,
-            },
-            {
-              label: '销售部',
-              key: 34,
-            },
-          ],
-        },
-        {
-          label: '北部地区',
-          key: 4,
-          children: [
-            {
-              label: '总裁部',
-              key: 41,
-            },
-            {
-              label: '财务部',
-              key: 42,
-            },
-            {
-              label: '技术部',
-              key: 43,
-            },
-            {
-              label: '销售部',
-              key: 44,
-            },
-          ],
-        },
-      ]
-      const tableColumns = useTableColumn(
-        [
-          table.selectionColumn,
-          table.indexColumn,
-          {
-            title: '名称',
-            key: 'nickName',
-          },
-          {
-            title: '性别',
-            key: 'gender',
-            width: 80,
-            render: (rowData) => {
-              return h('div', rowData.gender === 0 ? '男' : '女')
-            },
-          },
-          {
-            title: '头像',
-            key: 'avatar',
-            render: (rowData: any) => {
-              return h(
-                NAvatar,
-                {
-                  circle: true,
-                  size: 'small',
-                },
-                { default: () => rowData.nickName.substring(0, 1) }
-              )
-            },
-          },
-          {
-            title: '地址',
-            key: 'address',
-          },
-          {
-            title: '上次登录时间',
-            key: 'lastLoginTime',
-          },
-          {
-            title: '上次登录IP',
-            key: 'lastLoginIp',
-          },
-          {
-            title: '状态',
-            key: 'status',
-            render: (rowData) =>
-              renderTag(!!rowData.status ? '正常' : '禁用', {
-                type: !!rowData.status ? 'success' : 'error',
-                size: 'small',
-              }),
-          },
-          {
-            title: '操作',
-            key: 'actions',
-            fixed: 'right',
-            width: 80,
-            render: (rowData) => {
-              return useRenderAction([
-                {
-                  label: '删除',
-                  type: 'error',
-                  onClick: onDeleteItem.bind(null, rowData),
-                },
-              ] as TableActionModel[])
-            },
-          },
-        ],
-        {
-          align: 'center',
-        } as DataTableColumn
-      )
+      const pageSetting = companyPageSetting()
+      const departmentData = pageSetting.components.department.column
+      const tableColumns = pageSetting.components.table0.column
+
       const expandAllFlag = ref(false)
       function doRefresh() {
         post({
