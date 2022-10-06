@@ -25,6 +25,7 @@
           />
         </n-card>
       </n-grid-item>
+      <!--   表格   -->
       <n-grid-item :span="19">
         <div>
           <TableBody>
@@ -62,7 +63,7 @@
   import { getTableList } from '@/api/url'
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
-  import { defineComponent, h, onMounted, ref, shallowReactive, watch } from 'vue'
+  import { defineComponent, onMounted, ref, shallowReactive, watch } from 'vue'
   import { companyPageSetting } from '@/api/pageSettingApi'
   export default defineComponent({
     name: 'Company',

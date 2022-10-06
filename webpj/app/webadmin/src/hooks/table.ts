@@ -49,6 +49,9 @@ export const useTableHeight = async function (): Promise<number> {
   })
 }
 
+/**
+ * 使用表格
+ */
 export const useTable = function <T = any>(): Table<T> {
   const dataList = ref<Array<T>>()
   const selectRows = ref<Array<string | number>>()
