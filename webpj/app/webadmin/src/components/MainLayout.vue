@@ -28,9 +28,6 @@
       <section class="main-section">
         <Main />
       </section>
-      <section class="footer-wrapper">
-        <Footer />
-      </section>
       <n-back-top :listen-to="listenTo1" />
     </div>
     <n-back-top :listen-to="listenTo2" />
@@ -136,7 +133,7 @@
       background-color: #333333;
     }
     .main-section {
-      min-height: calc(100% - #{$footerHeight} - 10px);
+      min-height: calc(100% - 2px);
       overflow-x: hidden;
     }
     .fixed-nav-bar {
