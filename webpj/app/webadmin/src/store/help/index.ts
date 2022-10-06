@@ -15,7 +15,9 @@ export function loadComponents() {
 export const asynComponents = loadComponents()
 
 export function getComponent(it: OriginRoute) {
-  return asynComponents[getFilePath(it)]
+  const vf = asynComponents[getFilePath(it)]
+  console.log('数据：', it, vf)
+  return vf
 }
 
 export function getFilePath(it: OriginRoute) {

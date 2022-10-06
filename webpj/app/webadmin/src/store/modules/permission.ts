@@ -29,7 +29,7 @@ const usePermissionStore = defineStore('permission-route', {
     async getRoutes(data: { userId: number; roleId: number }) {
       try {
         const res = await post({ url: baseAddress + getMenuListByRoleId, data })
-        console.log(res.data)
+        console.log('ssddss', res.data)
         return generatorRoutes(res.data)
       } catch (error) {
         console.log(
