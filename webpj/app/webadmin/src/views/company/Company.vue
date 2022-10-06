@@ -29,7 +29,7 @@
         <div>
           <TableBody>
             <template #header>
-              <TableHeader ref="tableHeaderRef" :show-filter="false">
+              <TableHeader ref="tableHeaderRef" :show-filter="true">
                 <template #top-right>
                   <DeleteButton @delete="onDeleteItems" />
                 </template>
