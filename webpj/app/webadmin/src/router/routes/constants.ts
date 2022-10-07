@@ -65,4 +65,12 @@ export const constantRoutes = [
       hidden: true,
     },
   },
+  {
+    path: '/sql/page',
+    name: '数据库sql',
+    component: () => import('@/views/sql/sqlPage.vue'),
+    meta: {
+      hidden: true,
+    },
+  },
 ]
