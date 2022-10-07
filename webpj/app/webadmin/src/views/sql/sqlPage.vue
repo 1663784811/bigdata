@@ -41,9 +41,15 @@
 </template>
 
 <script>
+  import { getSqlList } from '@/api/api'
+
   export default {
     name: 'SqlPage',
     setup() {
+      getSqlList().then((res) => {
+        console.log(res)
+      })
+
       return {
         sqlData: '',
         countData: '',

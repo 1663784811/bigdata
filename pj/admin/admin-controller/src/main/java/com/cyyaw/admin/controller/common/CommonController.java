@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -62,16 +63,15 @@ public class CommonController {
 
 
     @RequestMapping("/sqlList")
-    public void sqlList(){
+    public List<CSql> sqlList(){
 
-        commonService.sqlList();
-
+      return  commonService.sqlList();
     }
 
     @RequestMapping("/updateSql")
-    public void updateSql(CSql cSql){
+    public CSql updateSql(CSql cSql){
 
-        commonService.updateSql(cSql);
+       return commonService.updateSql(cSql);
     }
 
 }
