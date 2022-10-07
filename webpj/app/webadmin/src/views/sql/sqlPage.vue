@@ -1,6 +1,13 @@
 <template>
   <div class="sqlPage">
-    <div class="sqlLeft"> s </div>
+    <div class="sqlLeft">
+      <div class="searchBox">
+        <n-input size="small" round placeholder="小" />
+      </div>
+      <div class="listBox">
+        <div class="listItem" v-for="item in 20"> ssdf</div>
+      </div>
+    </div>
     <div class="sqlRight">
       <div class="row">
         <div class="label">ID</div>
@@ -52,6 +59,21 @@
       width: 200px;
       height: 100vh;
       background: #191919;
+      padding: 10px;
+      .searchBox {
+        padding-bottom: 10px;
+      }
+      .listBox {
+        .listItem {
+          color: #fff;
+          padding: 6px;
+          &:hover {
+            color: #111;
+            background: #fff;
+            cursor: pointer;
+          }
+        }
+      }
     }
     .sqlRight {
       flex: 1;
