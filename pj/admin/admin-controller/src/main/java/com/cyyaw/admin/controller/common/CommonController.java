@@ -2,6 +2,7 @@ package com.cyyaw.admin.controller.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.admin.service.CommonService;
+import com.cyyaw.table.sql.entity.CSql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +61,17 @@ public class CommonController {
     }
 
 
+    @RequestMapping("/sqlList")
+    public void sqlList(){
+
+        commonService.sqlList();
+
+    }
+
+    @RequestMapping("/updateSql")
+    public void updateSql(CSql cSql){
+
+        commonService.updateSql(cSql);
+    }
 
 }

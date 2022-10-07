@@ -1,4 +1,4 @@
-package com.cyyaw.admin;
+package com.cyyaw;
 
 
 import lombok.extern.slf4j.Slf4j;

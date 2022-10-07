@@ -3,6 +3,7 @@ package com.cyyaw.admin.dao.impl;
 
 import cn.cyyaw.util.tools.DateUtils;
 import cn.cyyaw.util.tools.SqlUtils;
+import cn.cyyaw.util.tools.WhyStringUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -94,7 +95,7 @@ public class CommonDaoImpl implements CommonDao {
                     for (int j = 0; j < data.size(); j++) {
                         JSONObject mm = data.getJSONObject(j);
                         String id = mm.getString(columnName);
-                        if (StringUtilWHY.isEmpty(id)) {
+                        if (WhyStringUtil.isEmpty(id)) {
                             addArr.add(mm);
                         } else {
                             updateArr.add(mm);
@@ -117,17 +118,17 @@ public class CommonDaoImpl implements CommonDao {
                         String dataType = js.getString("data_type");
                         String cn = obj.getString(name);
                         // 初始化数据
-                        if (StringUtilWHY.isEmpty(cn) && name.equals("tid")) {
-                            cn = StringUtilWHY.getUUID();
-                        } else if (StringUtilWHY.isEmpty(cn) && name.equals("createtime")) {
+                        if (WhyStringUtil.isEmpty(cn) && name.equals("tid")) {
+                            cn = WhyStringUtil.getUUID();
+                        } else if (WhyStringUtil.isEmpty(cn) && name.equals("createtime")) {
                             cn = DateUtils.getStringDate(new Date());
-                        } else if (StringUtilWHY.isEmpty(cn) && name.equals("del")) {
+                        } else if (WhyStringUtil.isEmpty(cn) && name.equals("del")) {
                             cn = "0";
                         }
                         if (
                             (!"datetime".equals(dataType) && null != cn)
                             ||  "treecode".equals(name)
-                            || (!StringUtilWHY.isEmpty(cn) )
+                            || (!WhyStringUtil.isEmpty(cn) )
                         ) {
                             if (datakey.length() > 0) {
                                 datakey.append(",`" + name + "`");
@@ -165,7 +166,7 @@ public class CommonDaoImpl implements CommonDao {
                                 JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(setcode.get(0)));
                                 trint = js.getInteger("treecode");
                             }
-                            String tr = StringUtilWHY.createStrLength(trint + "", 3, "0");
+                            String tr = WhyStringUtil.createStrLength(trint + "", 3, "0");
                             obj.put("treecode", parentTreeCode+tr);
                             list.set(index, parentTreeCode+tr);
                         }
@@ -176,7 +177,7 @@ public class CommonDaoImpl implements CommonDao {
             }
             // 修改
             if (updateArr.size() > 0) {
-                if (!StringUtilWHY.isEmpty(pk)) {
+                if (!WhyStringUtil.isEmpty(pk)) {
                     for (int i = 0; i < updateArr.size(); i++) {
                         String pkvalue = null;
                         StringBuffer sb = new StringBuffer();
@@ -191,7 +192,7 @@ public class CommonDaoImpl implements CommonDao {
                             String dataType = js.getString("data_type");
                             String columnKey = js.getString("column_key");
                             String cn = obj.getString(name);
-                            if ((!"datetime".equals(dataType) && null != cn) || (!StringUtilWHY.isEmpty(cn) )) {
+                            if ((!"datetime".equals(dataType) && null != cn) || (!WhyStringUtil.isEmpty(cn) )) {
                                 if (columnKey.equals("PRI")) {
                                     pkvalue = cn;
                                 } else {
@@ -237,7 +238,7 @@ public class CommonDaoImpl implements CommonDao {
                                         JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(setcode.get(0)));
                                         trint = js.getInteger("treecode");
                                     }
-                                    String tr = StringUtilWHY.createStrLength(trint + "", 3, "0");
+                                    String tr = WhyStringUtil.createStrLength(trint + "", 3, "0");
                                     obj.put("treecode", parentTreeCode+tr);
                                 }
                             }
@@ -282,7 +283,7 @@ public class CommonDaoImpl implements CommonDao {
                     for (int j = 0; j < data.size(); j++) {
                         JSONObject mm = data.getJSONObject(j);
                         String id = mm.getString(columnName);
-                        if (!StringUtilWHY.isEmpty(id)) {
+                        if (!WhyStringUtil.isEmpty(id)) {
                             delArr.add(mm);
                         }
                     }
@@ -295,7 +296,7 @@ public class CommonDaoImpl implements CommonDao {
                 for(int i=0; i<delArr.size(); i++){
                     slist.add(delArr.getJSONObject(i).getString(pk));
                 }
-                String sql = "delete FROM "+table + " where " + pk+" in ("+ StringUtilWHY.createStr(slist.size(),"?",",")+")";
+                String sql = "delete FROM "+table + " where " + pk+" in ("+ WhyStringUtil.createStr(slist.size(),"?",",")+")";
                 jdbcTemplate.update(sql, slist.toArray());
             }
         }
