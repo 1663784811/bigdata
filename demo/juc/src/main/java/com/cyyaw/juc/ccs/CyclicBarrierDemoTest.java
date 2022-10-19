@@ -26,6 +26,10 @@ public class CyclicBarrierDemoTest {
                 }
             },String.valueOf(i)).start();
         }
+
+
+        System.out.println("====================");
+
     }
 
 

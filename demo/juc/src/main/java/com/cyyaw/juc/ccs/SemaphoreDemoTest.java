@@ -30,6 +30,9 @@ public class SemaphoreDemoTest {
                 }
             }, String.valueOf(i)).start();
         }
+
+        System.out.println("==========================================");
+
     }
 
 
