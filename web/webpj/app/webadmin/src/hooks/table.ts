@@ -11,6 +11,7 @@ export interface TableActionModel {
 }
 
 interface Table<T = any> {
+  tableColumns: any
   dataList: Ref<T[] | undefined>
   bordered: Ref<Boolean>
   selectRows: Ref<Array<string | number> | undefined>
@@ -52,7 +53,14 @@ export const useTableHeight = async function (): Promise<number> {
 /**
  * 使用表格
  */
-export const useTable = function <T = any>(): Table<T> {
+import { companyPageSetting } from '@/api/pageSettingApi'
+
+export const useTable = function <T = any>(tableId?: string): Table<T> {
+  console.log('tableId:', tableId)
+
+  const pageSetting = companyPageSetting()
+  const tableColumns = pageSetting.components.table0.column as any
+
   const dataList = ref<Array<T>>()
   const selectRows = ref<Array<string | number>>()
   const tableHeaderRef = ref<TableHeaderType | null>(null)
@@ -69,6 +77,9 @@ export const useTable = function <T = any>(): Table<T> {
     selectRows.value = tempSelectRows
   }
   return {
+    // 表头
+    tableColumns,
+    // 数据
     dataList,
     tableHeaderRef,
     tableFooterRef,

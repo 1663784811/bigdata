@@ -75,15 +75,22 @@
   import { DataFormType, FormItem, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
   import usePermissionStore from '@/store/modules/permission'
+  import pageConfig from '@/store/modules/pageConfig'
   import { renderInput, renderSwitch, renderTreeSelect } from '@/hooks/form'
   import IconSelector from '@/components/common/IconSelector.vue'
   export default defineComponent({
     name: 'Company',
     setup() {
+      /**
+       * 获取页面配置
+       */
+      const aa = pageConfig().getPageConfig()
+      console.log('=====seessseee==', aa)
+
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
       const modalDialog = ref<ModalDialogType | null>(null)
-      const table = useTable()
+      const table = useTable('table-company')
       const rowKey = useRowKey('id')
       const naiveDialog = useDialog()
       const message = useMessage()
@@ -92,9 +99,9 @@
       const checkedRowKeys = [] as Array<any>
       const pageSetting = companyPageSetting()
       const departmentData = pageSetting.components.department.column
-      const tableColumns = pageSetting.components.table0.column
       const dataForm = ref<DataFormType | null>(null)
       const expandAllFlag = ref(false)
+
       /**
        * 刷新
        */
@@ -297,7 +304,7 @@
         pattern: ref(''),
         expandAllFlag,
         departmentData,
-        tableColumns,
+
         pagination,
         onDeleteItem,
         onDeleteItems,
