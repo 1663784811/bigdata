@@ -22,8 +22,9 @@ function http<T = any>({ url, data, method, headers, beforeRequest, afterRequest
   const successHandler = (res: AxiosResponse<Response<T>>) => {
     if (res.data.code === 200) {
       return res.data
+    } else {
+      throw new Error(res.data.msg || '请求失败，未知异常')
     }
-    throw new Error(res.data.msg || '请求失败，未知异常')
   }
   const failHandler = (error: Response<Error>) => {
     afterRequest && afterRequest()

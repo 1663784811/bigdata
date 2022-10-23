@@ -4,8 +4,13 @@ export const companyPageSetting = () => {
       table0: {
         column: [
           {
-            title: 'Name',
-            key: 'name',
+            title: 'tid',
+            key: 'tid',
+            type: 'selection',
+          },
+          {
+            title: '账号',
+            key: 'account',
           },
           {
             title: 'Age',
