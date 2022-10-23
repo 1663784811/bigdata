@@ -1,5 +1,15 @@
 import { DataTableColumn, TreeSelectOption } from 'naive-ui'
 import { TablePropsType } from '@/types/components'
+import pageConfig from '@/store/modules/pageConfig'
+
+/**
+ * 页面配置获取
+ */
+export function getPageConfig(pageId: string) {
+  const pageData = pageConfig().$state.pageData
+  console.log('===============', pageData)
+  return pageData[pageId]
+}
 
 export function isExternal(path: string) {
   return /^(https?:|mailto:|tel:)/.test(path)

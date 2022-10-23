@@ -71,11 +71,10 @@
   import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, h, onMounted, Ref, ref, shallowReactive, unref, watch } from 'vue'
   import { companyPageSetting } from '@/api/pageSettingApi'
-  import { sortColumns, transformTreeSelect } from '@/utils'
+  import { sortColumns, transformTreeSelect, getPageConfig } from '@/utils'
   import { DataFormType, FormItem, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
   import usePermissionStore from '@/store/modules/permission'
-  import pageConfig from '@/store/modules/pageConfig'
   import { renderInput, renderSwitch, renderTreeSelect } from '@/hooks/form'
   import IconSelector from '@/components/common/IconSelector.vue'
   export default defineComponent({
@@ -84,13 +83,13 @@
       /**
        * 获取页面配置
        */
-      const aa = pageConfig().getPageConfig()
-      console.log('=====seessseee==', aa)
-
+      const pageConfigJson = getPageConfig('company') as any
+      // 表格配置
+      const table = useTable(pageConfigJson['tableCompany'])
+      //
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
       const modalDialog = ref<ModalDialogType | null>(null)
-      const table = useTable('table-company')
       const rowKey = useRowKey('id')
       const naiveDialog = useDialog()
       const message = useMessage()
@@ -176,7 +175,7 @@
       // 添加页面
       function onAddItem() {
         actionModel = 'add'
-        console.log('sssssssss')
+        console.log('sssssssss', modalDialog.value)
         modalDialog.value?.show().then(() => {
           dataForm.value?.reset()
         })

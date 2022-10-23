@@ -53,14 +53,9 @@ export const useTableHeight = async function (): Promise<number> {
 /**
  * 使用表格
  */
-import { companyPageSetting } from '@/api/pageSettingApi'
 
-export const useTable = function <T = any>(tableId?: string): Table<T> {
-  console.log('tableId:', tableId)
-
-  const pageSetting = companyPageSetting()
-  const tableColumns = pageSetting.components.table0.column as any
-
+export const useTable = function <T = any>(tableConfig?: any): Table<T> {
+  const tableColumns = tableConfig ? (tableConfig.column as any) : []
   const dataList = ref<Array<T>>()
   const selectRows = ref<Array<string | number>>()
   const tableHeaderRef = ref<TableHeaderType | null>(null)
