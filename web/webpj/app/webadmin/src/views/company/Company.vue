@@ -104,7 +104,7 @@
         // 获取数据
         getCompany({
           page: pagination.page,
-          pageSize: pagination.pageSize,
+          size: pagination.pageSize,
           code: 'a',
         })
           .then((res) => {
