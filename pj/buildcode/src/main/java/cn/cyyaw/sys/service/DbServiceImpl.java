@@ -1,15 +1,15 @@
-package cn.cyyaw.sys.service;
+package com.cyyaw.sys.service;
 
 
-import cn.cyyaw.code.table.dao.CFieldDao;
-import cn.cyyaw.code.table.dao.CTableDao;
-import cn.cyyaw.code.table.entity.CField;
-import cn.cyyaw.code.table.entity.CTable;
-import cn.cyyaw.buildcode.croe.tools.OperationTools;
-import cn.cyyaw.buildcode.croe.database.DataBase;
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
-import cn.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.code.table.dao.CFieldDao;
+import com.cyyaw.code.table.dao.CTableDao;
+import com.cyyaw.code.table.entity.CField;
+import com.cyyaw.code.table.entity.CTable;
+import com.cyyaw.buildcode.croe.tools.OperationTools;
+import com.cyyaw.buildcode.croe.database.DataBase;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

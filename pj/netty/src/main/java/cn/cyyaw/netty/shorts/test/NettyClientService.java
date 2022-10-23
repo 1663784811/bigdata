@@ -1,4 +1,4 @@
-package cn.cyyaw.netty.shorts.test;
+package com.cyyaw.netty.shorts.test;
 
 public interface NettyClientService {
 

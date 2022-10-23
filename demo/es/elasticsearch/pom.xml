@@ -12,7 +12,7 @@
     </parent>
 
 
-    <groupId>cn.cyyaw</groupId>
+    <groupId>com.cyyaw</groupId>
     <artifactId>elasticsearch</artifactId>
     <version>2.0.0</version>
 

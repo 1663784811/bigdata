@@ -4,9 +4,9 @@ import ${basePackage}.service.${__Table__}Service;
 import ${basePackage}.table.entity.${__Table__};
 import ${basePackage}.table.entityconst.${__Table__}Const;
 
-import cn.cyyaw.jpa.BaseConstants;
-import cn.cyyaw.util.entity.SelectEntity;
-import cn.cyyaw.util.tools.*;
+import com.cyyaw.jpa.BaseConstants;
+import com.cyyaw.util.entity.SelectEntity;
+import com.cyyaw.util.tools.*;
 
 <#list javaColumns as column>
     <#if column.isFk>

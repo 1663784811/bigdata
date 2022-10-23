@@ -1,6 +1,6 @@
-package cn.cyyaw.buildcode;
+package com.cyyaw.buildcode;
 
-import cn.cyyaw.buildcode.env.controller.CodeController;
+import com.cyyaw.buildcode.env.controller.CodeController;
 import org.junit.Test;
 
 import java.io.IOException;

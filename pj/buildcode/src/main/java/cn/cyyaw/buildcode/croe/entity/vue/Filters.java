@@ -1,4 +1,4 @@
-package cn.cyyaw.buildcode.croe.entity.vue;
+package com.cyyaw.buildcode.croe.entity.vue;
 
 import lombok.Data;
 

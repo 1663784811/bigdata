@@ -1,4 +1,4 @@
-package cn.cyyaw.netty.shorts.test;
+package com.cyyaw.netty.shorts.test;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;

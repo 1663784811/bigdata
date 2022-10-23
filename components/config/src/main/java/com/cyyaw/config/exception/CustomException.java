@@ -1,6 +1,6 @@
 package com.cyyaw.config.exception;
 
-import cn.cyyaw.util.tools.WhyException;
+import com.cyyaw.util.tools.WhyException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.web.servlet.HandlerExceptionResolver;

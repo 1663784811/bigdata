@@ -1,6 +1,6 @@
 package ${basePackage}.table.dao;
 
-import cn.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseDao;
 import ${basePackage}.table.entity.${__Table__};
 
 <#list javaColumns as column>

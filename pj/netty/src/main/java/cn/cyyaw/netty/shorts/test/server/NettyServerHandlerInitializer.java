@@ -1,7 +1,7 @@
-package cn.cyyaw.netty.shorts.test.server;
+package com.cyyaw.netty.shorts.test.server;
 
-import cn.cyyaw.netty.shorts.test.server.NettyServer;
-import cn.cyyaw.netty.shorts.test.server.NettyServerHandler;
+import com.cyyaw.netty.shorts.test.server.NettyServer;
+import com.cyyaw.netty.shorts.test.server.NettyServerHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;

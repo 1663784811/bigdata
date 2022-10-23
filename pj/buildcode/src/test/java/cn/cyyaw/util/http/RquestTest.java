@@ -1,6 +1,6 @@
-package cn.cyyaw.util.http;
+package com.cyyaw.util.http;
 
-import cn.cyyaw.util.tools.HttpClientUtil;
+import com.cyyaw.util.tools.HttpClientUtil;
 
 public class RquestTest implements Runnable {
 

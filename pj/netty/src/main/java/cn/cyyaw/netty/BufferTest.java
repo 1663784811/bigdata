@@ -1,4 +1,4 @@
-package cn.cyyaw.netty;
+package com.cyyaw.netty;
 
 import java.nio.IntBuffer;
 

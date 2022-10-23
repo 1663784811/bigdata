@@ -1,4 +1,4 @@
-package cn.cyyaw.demo.jpa;
+package com.cyyaw.demo.jpa;
 
 
 import org.springframework.boot.SpringApplication;

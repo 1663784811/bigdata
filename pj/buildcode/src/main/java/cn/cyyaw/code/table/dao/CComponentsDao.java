@@ -1,8 +1,8 @@
-package cn.cyyaw.code.table.dao;
+package com.cyyaw.code.table.dao;
 
 
-import cn.cyyaw.code.table.entity.CComponents;
-import cn.cyyaw.jpa.BaseDao;
+import com.cyyaw.code.table.entity.CComponents;
+import com.cyyaw.jpa.BaseDao;
 
 public interface CComponentsDao extends BaseDao<CComponents, Integer> {
 

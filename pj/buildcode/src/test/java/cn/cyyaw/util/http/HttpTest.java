@@ -1,4 +1,4 @@
-package cn.cyyaw.util.http;
+package com.cyyaw.util.http;
 
 public class HttpTest {
 

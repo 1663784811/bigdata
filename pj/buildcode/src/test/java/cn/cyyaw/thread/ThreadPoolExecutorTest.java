@@ -1,4 +1,4 @@
-package cn.cyyaw.thread;
+package com.cyyaw.thread;
 
 public class ThreadPoolExecutorTest {
 

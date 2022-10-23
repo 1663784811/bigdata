@@ -1,12 +1,12 @@
-package cn.cyyaw.code.service.impl;
+package com.cyyaw.code.service.impl;
 
-import cn.cyyaw.code.table.dao.CTableDao;
-import cn.cyyaw.code.table.entity.CTable;
-import cn.cyyaw.jpa.BaseDao;
-import cn.cyyaw.jpa.BaseService;
-import cn.cyyaw.code.service.CFieldService;
-import cn.cyyaw.code.table.entity.CField;
-import cn.cyyaw.code.table.dao.CFieldDao;
+import com.cyyaw.code.table.dao.CTableDao;
+import com.cyyaw.code.table.entity.CTable;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
+import com.cyyaw.code.service.CFieldService;
+import com.cyyaw.code.table.entity.CField;
+import com.cyyaw.code.table.dao.CFieldDao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

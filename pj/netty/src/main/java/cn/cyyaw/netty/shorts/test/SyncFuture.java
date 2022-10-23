@@ -1,4 +1,4 @@
-package cn.cyyaw.netty.shorts.test;
+package com.cyyaw.netty.shorts.test;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;

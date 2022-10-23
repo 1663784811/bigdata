@@ -1,6 +1,6 @@
 package com.cyyaw.spider;
 
-import cn.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.util.tools.WhyStringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.spider.data.PageHandleData;
 import com.cyyaw.spider.data.PageHandleDataStandard;

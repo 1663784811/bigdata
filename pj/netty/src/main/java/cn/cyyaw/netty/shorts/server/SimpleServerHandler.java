@@ -1,4 +1,4 @@
-package cn.cyyaw.netty.shorts.server;
+package com.cyyaw.netty.shorts.server;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

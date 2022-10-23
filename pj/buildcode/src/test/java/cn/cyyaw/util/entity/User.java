@@ -1,4 +1,4 @@
-package cn.cyyaw.util.entity;
+package com.cyyaw.util.entity;
 
 import lombok.Data;
 

@@ -1,8 +1,8 @@
-package cn.cyyaw.buildcode.extend.controller;
+package com.cyyaw.buildcode.extend.controller;
 
 
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
 
 /**
  * @author why

@@ -1,4 +1,4 @@
-package cn.cyyaw.netty.shorts.client;
+package com.cyyaw.netty.shorts.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;

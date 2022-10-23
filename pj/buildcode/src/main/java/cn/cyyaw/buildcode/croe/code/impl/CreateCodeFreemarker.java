@@ -1,6 +1,6 @@
-package cn.cyyaw.buildcode.croe.code.impl;
+package com.cyyaw.buildcode.croe.code.impl;
 
-import cn.cyyaw.buildcode.croe.code.CreateCode;
+import com.cyyaw.buildcode.croe.code.CreateCode;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

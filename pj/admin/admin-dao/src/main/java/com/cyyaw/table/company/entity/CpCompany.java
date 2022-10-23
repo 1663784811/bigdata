@@ -1,6 +1,6 @@
 package com.cyyaw.table.company.entity;
 
-import cn.cyyaw.jpa.entity.BaseTable;
+import com.cyyaw.jpa.entity.BaseTable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

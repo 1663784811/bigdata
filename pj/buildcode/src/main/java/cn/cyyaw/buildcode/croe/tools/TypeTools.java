@@ -1,9 +1,9 @@
-package cn.cyyaw.buildcode.croe.tools;
+package com.cyyaw.buildcode.croe.tools;
 
 
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.vue.Filters;
-import cn.cyyaw.buildcode.croe.entity.vue.VueJson;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.vue.Filters;
+import com.cyyaw.buildcode.croe.entity.vue.VueJson;
 
 import java.util.ArrayList;
 import java.util.List;

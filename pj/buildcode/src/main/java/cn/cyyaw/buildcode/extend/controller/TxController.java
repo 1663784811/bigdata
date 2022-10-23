@@ -1,4 +1,4 @@
-package cn.cyyaw.buildcode.extend.controller;
+package com.cyyaw.buildcode.extend.controller;
 
 /**
  * @author why

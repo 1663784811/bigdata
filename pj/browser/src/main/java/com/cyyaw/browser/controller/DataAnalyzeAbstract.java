@@ -1,6 +1,6 @@
 package com.cyyaw.browser.controller;
 
-import cn.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileWriter;

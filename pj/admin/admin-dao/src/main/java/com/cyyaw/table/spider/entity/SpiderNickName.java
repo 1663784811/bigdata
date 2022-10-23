@@ -1,7 +1,7 @@
 package com.cyyaw.table.spider.entity;
 
 
-import cn.cyyaw.jpa.entity.BaseTable;
+import com.cyyaw.jpa.entity.BaseTable;
 import lombok.Data;
 
 import javax.persistence.Basic;

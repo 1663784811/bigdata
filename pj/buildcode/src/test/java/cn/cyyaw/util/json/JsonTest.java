@@ -1,7 +1,7 @@
-package cn.cyyaw.util.json;
+package com.cyyaw.util.json;
 
-import cn.cyyaw.util.entity.User;
-import cn.cyyaw.util.tools.JsonUtil;
+import com.cyyaw.util.entity.User;
+import com.cyyaw.util.tools.JsonUtil;
 import org.junit.Test;
 
 public class JsonTest {

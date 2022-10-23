@@ -1,7 +1,7 @@
-package cn.cyyaw.sys;
+package com.cyyaw.sys;
 
-import cn.cyyaw.code.table.entity.CComponents;
-import cn.cyyaw.util.tools.ResponseUtils;
+import com.cyyaw.code.table.entity.CComponents;
+import com.cyyaw.util.tools.ResponseUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,6 +1,6 @@
 package com.cyyaw.spider.task;
 
-import cn.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.spider.table.dao.PaATagDao;
 import com.cyyaw.spider.table.entity.PaATag;
 import org.springframework.beans.factory.annotation.Autowired;

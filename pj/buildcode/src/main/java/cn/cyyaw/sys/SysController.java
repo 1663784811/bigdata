@@ -1,17 +1,17 @@
-package cn.cyyaw.sys;
+package com.cyyaw.sys;
 
 
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
-import cn.cyyaw.buildcode.env.controller.CodeController;
-import cn.cyyaw.code.service.CPageComponentsService;
-import cn.cyyaw.code.table.dao.CFieldDao;
-import cn.cyyaw.code.table.dao.CTableDao;
-import cn.cyyaw.code.table.entity.CField;
-import cn.cyyaw.code.table.entity.CPageComponents;
-import cn.cyyaw.code.table.entity.CTable;
-import cn.cyyaw.jpa.BaseConstants;
-import cn.cyyaw.sys.service.DbService;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.env.controller.CodeController;
+import com.cyyaw.code.service.CPageComponentsService;
+import com.cyyaw.code.table.dao.CFieldDao;
+import com.cyyaw.code.table.dao.CTableDao;
+import com.cyyaw.code.table.entity.CField;
+import com.cyyaw.code.table.entity.CPageComponents;
+import com.cyyaw.code.table.entity.CTable;
+import com.cyyaw.jpa.BaseConstants;
+import com.cyyaw.sys.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

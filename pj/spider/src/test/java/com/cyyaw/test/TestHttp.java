@@ -1,6 +1,6 @@
 package com.cyyaw.test;
 
-import cn.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.spider.run.RunSpider;
 import com.cyyaw.spider.run.StandardSpider;
 import org.junit.jupiter.api.Test;

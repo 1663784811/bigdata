@@ -1,7 +1,7 @@
-package cn.cyyaw.code.service;
+package com.cyyaw.code.service;
 
-import cn.cyyaw.code.table.entity.CField;
-import cn.cyyaw.jpa.BaseTableService;
+import com.cyyaw.code.table.entity.CField;
+import com.cyyaw.jpa.BaseTableService;
 
 import java.util.List;
 

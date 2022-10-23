@@ -1,4 +1,4 @@
-package cn.cyyaw.code.table.entityconst;
+package com.cyyaw.code.table.entityconst;
 
 /**
  * 表常量

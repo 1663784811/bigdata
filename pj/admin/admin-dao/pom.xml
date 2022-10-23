@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>cn.cyyaw</groupId>
+    <groupId>com.cyyaw</groupId>
     <artifactId>admin-dao</artifactId>
     <version>2.0.0</version>
 
@@ -46,13 +46,13 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.cyyaw</groupId>
+            <groupId>com.cyyaw</groupId>
             <artifactId>jpa</artifactId>
             <version>2.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>cn.cyyaw</groupId>
+            <groupId>com.cyyaw</groupId>
             <artifactId>common</artifactId>
             <version>2.0.0</version>
             <scope>compile</scope>

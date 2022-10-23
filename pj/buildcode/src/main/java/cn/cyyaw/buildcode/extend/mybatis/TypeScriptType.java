@@ -1,9 +1,9 @@
-package cn.cyyaw.buildcode.extend.mybatis;
+package com.cyyaw.buildcode.extend.mybatis;
 
-import cn.cyyaw.buildcode.extend.CodeTemplate;
-import cn.cyyaw.buildcode.croe.tools.OperationTools;
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.extend.CodeTemplate;
+import com.cyyaw.buildcode.croe.tools.OperationTools;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
 
 import java.util.List;
 

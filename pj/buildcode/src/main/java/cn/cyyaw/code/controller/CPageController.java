@@ -1,12 +1,12 @@
-package cn.cyyaw.code.controller;
+package com.cyyaw.code.controller;
 
-import cn.cyyaw.code.service.CPageService;
-import cn.cyyaw.code.table.entity.CPage;
-import cn.cyyaw.code.table.entityconst.CPageConst;
-import cn.cyyaw.jpa.BaseConstants;
-import cn.cyyaw.jpa.util.entity.SelectEntity;
-import cn.cyyaw.jpa.util.tools.JpaUtils;
-import cn.cyyaw.util.tools.*;
+import com.cyyaw.code.service.CPageService;
+import com.cyyaw.code.table.entity.CPage;
+import com.cyyaw.code.table.entityconst.CPageConst;
+import com.cyyaw.jpa.BaseConstants;
+import com.cyyaw.jpa.util.entity.SelectEntity;
+import com.cyyaw.jpa.util.tools.JpaUtils;
+import com.cyyaw.util.tools.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

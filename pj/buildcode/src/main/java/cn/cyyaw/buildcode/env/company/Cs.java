@@ -1,8 +1,8 @@
-package cn.cyyaw.buildcode.env.company;
+package com.cyyaw.buildcode.env.company;
 
-import cn.cyyaw.buildcode.extend.CodeTemplate;
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.extend.CodeTemplate;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
 
 import java.util.List;
 

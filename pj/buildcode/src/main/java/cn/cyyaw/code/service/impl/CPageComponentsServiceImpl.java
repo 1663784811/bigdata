@@ -1,10 +1,10 @@
-package cn.cyyaw.code.service.impl;
+package com.cyyaw.code.service.impl;
 
-import cn.cyyaw.code.service.CPageComponentsService;
-import cn.cyyaw.code.table.dao.CPageComponentsDao;
-import cn.cyyaw.code.table.entity.CPageComponents;
-import cn.cyyaw.jpa.BaseDao;
-import cn.cyyaw.jpa.BaseService;
+import com.cyyaw.code.service.CPageComponentsService;
+import com.cyyaw.code.table.dao.CPageComponentsDao;
+import com.cyyaw.code.table.entity.CPageComponents;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

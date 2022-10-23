@@ -1,7 +1,7 @@
-package cn.cyyaw.code.table.dao;
+package com.cyyaw.code.table.dao;
 
-import cn.cyyaw.code.table.entity.CPage;
-import cn.cyyaw.jpa.BaseDao;
+import com.cyyaw.code.table.entity.CPage;
+import com.cyyaw.jpa.BaseDao;
 
 
 public interface CPageDao extends BaseDao<CPage, Integer> {

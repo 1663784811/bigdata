@@ -1,4 +1,4 @@
-package cn.cyyaw.economy;
+package com.cyyaw.economy;
 
 
 import org.springframework.boot.SpringApplication;

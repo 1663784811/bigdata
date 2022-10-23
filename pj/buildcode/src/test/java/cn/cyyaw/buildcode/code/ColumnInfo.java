@@ -1,4 +1,4 @@
-package cn.cyyaw.buildcode.code;
+package com.cyyaw.buildcode.code;
 
 
 import lombok.Data;

@@ -2,7 +2,7 @@ package com.cyyaw.jpa;
 
 import com.cyyaw.jpa.util.entity.SelectModel;
 import com.cyyaw.jpa.util.tools.JpaUtils;
-import cn.cyyaw.util.tools.WhySpecification;
+import com.cyyaw.util.tools.WhySpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

@@ -1,7 +1,7 @@
-package cn.cyyaw.buildcode.croe.database;
+package com.cyyaw.buildcode.croe.database;
 
 
-import cn.cyyaw.buildcode.croe.entity.java.*;
+import com.cyyaw.buildcode.croe.entity.java.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

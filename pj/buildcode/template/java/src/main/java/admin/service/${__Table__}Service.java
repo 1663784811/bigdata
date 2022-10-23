@@ -1,7 +1,7 @@
 package ${basePackage}.service;
 
 import ${basePackage}.table.entity.${__Table__};
-import cn.cyyaw.jpa.BaseTableService;
+import com.cyyaw.jpa.BaseTableService;
 <#list javaColumns as column>
 <#if column.isFk>
 import java.util.List;<#break>

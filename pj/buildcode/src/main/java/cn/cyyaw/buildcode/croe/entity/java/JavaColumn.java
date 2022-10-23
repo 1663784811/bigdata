@@ -1,4 +1,4 @@
-package cn.cyyaw.buildcode.croe.entity.java;
+package com.cyyaw.buildcode.croe.entity.java;
 
 import lombok.Data;
 

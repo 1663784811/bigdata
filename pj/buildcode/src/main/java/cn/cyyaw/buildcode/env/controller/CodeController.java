@@ -1,18 +1,18 @@
-package cn.cyyaw.buildcode.env.controller;
+package com.cyyaw.buildcode.env.controller;
 
-import cn.cyyaw.buildcode.env.company.Cs;
-import cn.cyyaw.buildcode.croe.code.CreateCode;
-import cn.cyyaw.buildcode.croe.code.impl.CreateCodeFreemarker;
-import cn.cyyaw.buildcode.croe.database.DataBase;
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
-import cn.cyyaw.buildcode.croe.tools.InterfaceToos;
-import cn.cyyaw.buildcode.croe.tools.OperationTools;
-import cn.cyyaw.buildcode.croe.tools.TypeTools;
-import cn.cyyaw.buildcode.extend.controller.TxVue;
-import cn.cyyaw.buildcode.extend.mybatis.MybatisXmlMapper;
-import cn.cyyaw.buildcode.extend.mybatis.TkJavaEntity;
-import cn.cyyaw.buildcode.extend.mybatis.TypeScriptType;
+import com.cyyaw.buildcode.env.company.Cs;
+import com.cyyaw.buildcode.croe.code.CreateCode;
+import com.cyyaw.buildcode.croe.code.impl.CreateCodeFreemarker;
+import com.cyyaw.buildcode.croe.database.DataBase;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.croe.tools.InterfaceToos;
+import com.cyyaw.buildcode.croe.tools.OperationTools;
+import com.cyyaw.buildcode.croe.tools.TypeTools;
+import com.cyyaw.buildcode.extend.controller.TxVue;
+import com.cyyaw.buildcode.extend.mybatis.MybatisXmlMapper;
+import com.cyyaw.buildcode.extend.mybatis.TkJavaEntity;
+import com.cyyaw.buildcode.extend.mybatis.TypeScriptType;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class CodeController {
                     //===========================================
 
                     //基础包
-                    map.put("basePackage", "cn.cyyaw.weixin.admin");
+                    map.put("basePackage", "com.cyyaw.weixin.admin");
                     //基础路径
                     map.put("basePathVue", "");
                     //===========================================

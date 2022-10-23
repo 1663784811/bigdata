@@ -1,4 +1,4 @@
-package cn.cyyaw.util.json;
+package com.cyyaw.util.json;
 
 public interface Food {
     enum Coffee implements Food {

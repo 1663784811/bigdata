@@ -1,13 +1,13 @@
-package cn.cyyaw.code.controller;
+package com.cyyaw.code.controller;
 
-import cn.cyyaw.code.service.CFieldService;
-import cn.cyyaw.code.table.entity.CField;
-import cn.cyyaw.code.table.entityconst.CFieldConst;
+import com.cyyaw.code.service.CFieldService;
+import com.cyyaw.code.table.entity.CField;
+import com.cyyaw.code.table.entityconst.CFieldConst;
 
-import cn.cyyaw.jpa.BaseConstants;
-import cn.cyyaw.jpa.util.entity.SelectEntity;
-import cn.cyyaw.jpa.util.tools.JpaUtils;
-import cn.cyyaw.util.tools.*;
+import com.cyyaw.jpa.BaseConstants;
+import com.cyyaw.jpa.util.entity.SelectEntity;
+import com.cyyaw.jpa.util.tools.JpaUtils;
+import com.cyyaw.util.tools.*;
 
 
 import lombok.extern.slf4j.Slf4j;

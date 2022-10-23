@@ -1,7 +1,7 @@
 package ${basePackage}.service.impl;
 
-import cn.cyyaw.jpa.BaseDao;
-import cn.cyyaw.jpa.BaseService;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import ${basePackage}.service.${__Table__}Service;
 import ${basePackage}.table.entity.${__Table__};
 import ${basePackage}.table.dao.${__Table__}Dao;

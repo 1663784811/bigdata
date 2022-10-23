@@ -1,4 +1,4 @@
-package cn.cyyaw.netty;
+package com.cyyaw.netty;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

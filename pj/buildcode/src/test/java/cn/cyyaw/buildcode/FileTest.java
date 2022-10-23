@@ -1,4 +1,4 @@
-package cn.cyyaw.buildcode;
+package com.cyyaw.buildcode;
 
 import org.junit.Test;
 

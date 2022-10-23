@@ -1,9 +1,9 @@
-package cn.cyyaw.buildcode;
+package com.cyyaw.buildcode;
 
-import cn.cyyaw.buildcode.croe.database.DataBase;
-import cn.cyyaw.buildcode.croe.entity.java.JavaColumn;
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
-import cn.cyyaw.buildcode.croe.entity.java.PrimaryKeys;
+import com.cyyaw.buildcode.croe.database.DataBase;
+import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.croe.entity.java.PrimaryKeys;
 import org.junit.Test;
 
 import java.sql.SQLException;

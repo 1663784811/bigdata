@@ -1,6 +1,6 @@
-package cn.cyyaw.buildcode.extend;
+package com.cyyaw.buildcode.extend;
 
-import cn.cyyaw.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.buildcode.croe.entity.java.JavaData;
 
 public interface CodeTemplate {
 

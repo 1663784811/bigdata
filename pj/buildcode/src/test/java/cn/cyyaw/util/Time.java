@@ -1,4 +1,4 @@
-package cn.cyyaw.util;
+package com.cyyaw.util;
 
 import org.junit.Test;
 

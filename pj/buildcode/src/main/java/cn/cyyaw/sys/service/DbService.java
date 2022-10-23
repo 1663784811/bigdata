@@ -1,4 +1,4 @@
-package cn.cyyaw.sys.service;
+package com.cyyaw.sys.service;
 
 import org.springframework.transaction.annotation.Transactional;
 

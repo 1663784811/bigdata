@@ -1,6 +1,6 @@
-package cn.cyyaw;
+package com.cyyaw;
 
-import cn.cyyaw.util.tools.HttpClientUtil;
+import com.cyyaw.util.tools.HttpClientUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

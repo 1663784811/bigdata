@@ -1,8 +1,8 @@
-//package cn.cyyaw.buildcode.code;
+//package com.cyyaw.buildcode.code;
 //
 //
-//import cn.cyyaw.buildcode.croe.code.CreateCode;
-//import cn.cyyaw.buildcode.croe.code.CreateCodeFreemarker;
+//import com.cyyaw.buildcode.croe.code.CreateCode;
+//import com.cyyaw.buildcode.croe.code.CreateCodeFreemarker;
 //import org.junit.Test;
 //
 //import java.io.IOException;
