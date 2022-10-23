@@ -90,6 +90,7 @@
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
       const modalDialog = ref<ModalDialogType | null>(null)
+
       const rowKey = useRowKey('id')
       const naiveDialog = useDialog()
       const message = useMessage()
@@ -303,7 +304,7 @@
         pattern: ref(''),
         expandAllFlag,
         departmentData,
-
+        modalDialog,
         pagination,
         onDeleteItem,
         onDeleteItems,
