@@ -1,4 +1,4 @@
-package cn.cyyaw.config;
+package com.cyyaw.config.converter;
 
 import org.springframework.core.convert.converter.Converter;
 

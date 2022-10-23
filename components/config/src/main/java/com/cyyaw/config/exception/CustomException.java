@@ -1,4 +1,4 @@
-package cn.cyyaw.config.exception;
+package com.cyyaw.config.exception;
 
 import cn.cyyaw.util.tools.WhyException;
 import org.apache.shiro.authc.AuthenticationException;

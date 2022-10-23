@@ -1,7 +1,7 @@
-package cn.cyyaw.config;
+package com.cyyaw.config.converter;
 
 
-import cn.cyyaw.config.exception.CustomException;
+import com.cyyaw.config.exception.CustomException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;

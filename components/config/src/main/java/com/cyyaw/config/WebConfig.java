@@ -1,4 +1,4 @@
-package cn.cyyaw.config;
+package com.cyyaw.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

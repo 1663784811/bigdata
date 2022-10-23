@@ -1,4 +1,4 @@
-package cn.cyyaw.config.exception;
+package com.cyyaw.config.exception;
 
 /**
  * 页面错误码枚举
