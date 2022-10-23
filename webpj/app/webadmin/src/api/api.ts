@@ -9,7 +9,7 @@ export const loginAdmin = (parameter: any) => {
 
 export const getCompany = (parameter: any) => {
   return post({
-    url: 'http://cyyaw.com/admin/login',
+    url: 'http://127.0.0.1:8080/home/common/query',
     data: parameter,
   })
 }
