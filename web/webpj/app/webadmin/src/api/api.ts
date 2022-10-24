@@ -20,3 +20,10 @@ export const getSqlList = (parameter: any) => {
     data: parameter,
   })
 }
+
+export const saveSql = (parameter: any) => {
+  return post({
+    url: 'http://127.0.0.1:8080/home/common/saveSql',
+    data: parameter,
+  })
+}
