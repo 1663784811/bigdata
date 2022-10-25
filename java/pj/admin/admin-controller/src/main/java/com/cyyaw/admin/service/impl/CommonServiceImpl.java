@@ -43,7 +43,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public CSql updateSql(CSql cSql) {
+    public CSql saveSql(CSql cSql) {
         Integer id = cSql.getId();
         if (null != id) {
             CSql old = cSqlDao.findByid(id);

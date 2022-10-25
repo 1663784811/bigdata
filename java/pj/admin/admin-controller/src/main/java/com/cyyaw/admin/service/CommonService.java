@@ -25,9 +25,14 @@ public interface CommonService {
      */
     Map<String, Object> delete(JSONObject json);
 
+    /**
+     * 获取sql列表
+     */
     List<CSql> sqlList();
 
-
-    CSql updateSql(CSql cSql);
+    /**
+     * 保存数据
+     */
+    CSql saveSql(CSql cSql);
 
 }
