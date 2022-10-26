@@ -1,4 +1,4 @@
-const company = {
+const people = {
   tableCompany: {
     column: [
       {
@@ -7,28 +7,16 @@ const company = {
         type: 'selection',
       },
       {
-        title: '企业法人',
-        key: 'legal_person',
+        title: '昵称',
+        key: 'nick_name',
       },
       {
-        title: '公司名称',
-        key: 'name',
+        title: '来源域名',
+        key: 'host',
       },
       {
-        title: '股票名称',
-        key: 'stock_name',
-      },
-      {
-        title: '股票类型',
-        key: 'stock_type',
-      },
-      {
-        title: '股票号',
-        key: 'stock_no',
-      },
-      {
-        title: '标签',
-        key: 'tags',
+        title: 'url',
+        key: 'url',
       },
     ],
   },
@@ -126,4 +114,4 @@ const company = {
   },
 }
 
-export default company
+export default people
