@@ -30,6 +30,10 @@ const company = {
         title: '标签',
         key: 'tags',
       },
+      {
+        title: '操作',
+        key: 'operation',
+      },
     ],
   },
   department: {
