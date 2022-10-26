@@ -7,19 +7,23 @@ const company = {
         type: 'selection',
       },
       {
-        title: '账号',
-        key: 'account',
+        title: '公司名称',
+        key: 'name',
       },
       {
-        title: '测试  ',
-        key: 'age',
+        title: '股票名称',
+        key: 'stock_name',
       },
       {
-        title: 'Address',
-        key: 'address',
+        title: '股票类型',
+        key: 'stock_type',
       },
       {
-        title: 'Tags',
+        title: '股票号',
+        key: 'stock_no',
+      },
+      {
+        title: '标签',
         key: 'tags',
       },
     ],
