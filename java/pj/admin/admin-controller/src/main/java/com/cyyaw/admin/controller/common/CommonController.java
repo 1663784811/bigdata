@@ -3,6 +3,7 @@ package com.cyyaw.admin.controller.common;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.admin.service.CommonService;
 import com.cyyaw.table.sql.entity.CSql;
+import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,10 @@ public class CommonController {
      * @return
      */
     @RequestMapping("/query")
-    public Map<String, Object> query(@RequestBody Map<String,Object> map) {
+    public Map<String, Object> query(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject();
-        for (String key: map.keySet()) {
-            json.put(key,map.get(key));
+        for (String key : map.keySet()) {
+            json.put(key, map.get(key));
         }
         return commonService.query(json);
     }
@@ -41,10 +42,10 @@ public class CommonController {
      * 通用修改或添加
      */
     @RequestMapping("/update")
-    public Map<String, Object> update(@RequestBody Map<String,Object> map) {
+    public Map<String, Object> update(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject();
-        for (String key: map.keySet()) {
-            json.put(key,map.get(key));
+        for (String key : map.keySet()) {
+            json.put(key, map.get(key));
         }
         return commonService.update(json);
     }
@@ -53,25 +54,25 @@ public class CommonController {
      * 通用删除
      */
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestBody Map<String,Object> map) {
+    public Map<String, Object> delete(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject();
-        for (String key: map.keySet()) {
-            json.put(key,map.get(key));
+        for (String key : map.keySet()) {
+            json.put(key, map.get(key));
         }
         return commonService.delete(json);
     }
 
 
     @RequestMapping("/sqlList")
-    public List<CSql> sqlList(){
-
-      return  commonService.sqlList();
+    public BaseResult sqlList() {
+        List<CSql> data = commonService.sqlList();
+        return BaseResult.ok(data);
     }
 
-    @RequestMapping("/updateSql")
-    public CSql updateSql(CSql cSql){
-
-       return commonService.updateSql(cSql);
+    @RequestMapping("/saveSql")
+    public BaseResult saveSql(@RequestBody CSql cSql) {
+        CSql data = commonService.saveSql(cSql);
+        return BaseResult.ok(data);
     }
 
 }

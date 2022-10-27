@@ -19,6 +19,16 @@ export const adminRoutes = [
         menuName: '公司列表',
         routeName: 'company',
       },
+      {
+        menuUrl: '/company/People',
+        menuName: '人物列表',
+        routeName: 'people',
+      },
+      {
+        menuUrl: '/company/SpiderNickName',
+        menuName: '网络昵称',
+        routeName: 'SpiderNickName',
+      },
     ],
   },
   {
