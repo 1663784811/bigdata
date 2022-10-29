@@ -1,5 +1,6 @@
 package com.cyyaw.browser.controller.douyin.data;
 
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.browser.controller.data.DataAnalyzeAbstract;
 import com.cyyaw.browser.listen.SpiderData;
 import com.cyyaw.table.spider.dao.SpiderNickNameDao;
@@ -35,19 +36,21 @@ public class DouyinUserDataAnalyze extends DataAnalyzeAbstract {
         Elements elements = document.select(".ARHQtNo4");
         for (Element element : elements) {
             String nickName = element.select(".J9zL1Z55").first().text();
-            String content = element.select(".NDykH66P").first().text();
-            String href = element.select("a").first().attr("href");
-            SpiderNickName spiderNickName = new SpiderNickName();
-            spiderNickName.setHost(host);
-            spiderNickName.setUrl(url);
-            spiderNickName.setNickName(nickName);
-            spiderNickName.setContent(content);
-            spiderNickName.setHref(href);
-            spiderNickName.setTid(WhyStringUtil.getUUID());
-            spiderNickName.setCreateTime(new Date());
-            spiderNickName.setDel(0);
-            spiderNickName.setNote("抖音");
-            spiderNickNameDao.save(spiderNickName);
+            if(StrUtil.isNotBlank(nickName)){
+                String content = element.select(".NDykH66P").first().text();
+                String href = element.select("a").first().attr("href");
+                SpiderNickName spiderNickName = new SpiderNickName();
+                spiderNickName.setHost(host);
+                spiderNickName.setUrl(url);
+                spiderNickName.setNickName(nickName);
+                spiderNickName.setContent(content);
+                spiderNickName.setHref(href);
+                spiderNickName.setTid(WhyStringUtil.getUUID());
+                spiderNickName.setCreateTime(new Date());
+                spiderNickName.setDel(0);
+                spiderNickName.setNote("抖音");
+                spiderNickNameDao.save(spiderNickName);
+            }
         }
     }
 
