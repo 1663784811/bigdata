@@ -1,8 +1,8 @@
 package com.cyyaw.browser.listen;
 
 
-import com.cyyaw.browser.controller.DataAnalyze;
-import com.cyyaw.browser.controller.SpiderPage;
+import com.cyyaw.browser.controller.data.DataAnalyze;
+import com.cyyaw.browser.controller.data.SpiderPage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;

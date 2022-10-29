@@ -2,7 +2,7 @@ package com.cyyaw.browser.controller.data10jqka.spider;
 
 
 import cn.hutool.core.net.url.UrlBuilder;
-import com.cyyaw.browser.controller.SpiderPageAbstract;
+import com.cyyaw.browser.controller.data.SpiderPageAbstract;
 import com.cyyaw.browser.core.Browser;
 import com.cyyaw.browser.entity.PageElement;
 import org.openqa.selenium.WebElement;

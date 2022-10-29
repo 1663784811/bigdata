@@ -1,4 +1,4 @@
-package com.cyyaw.browser.controller;
+package com.cyyaw.browser.controller.data;
 
 
 import org.jsoup.nodes.Document;

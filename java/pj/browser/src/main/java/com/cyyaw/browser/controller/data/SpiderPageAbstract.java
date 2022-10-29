@@ -1,4 +1,4 @@
-package com.cyyaw.browser.controller;
+package com.cyyaw.browser.controller.data;
 
 import com.cyyaw.browser.core.Browser;
 import com.cyyaw.browser.core.ChromeBrowser;

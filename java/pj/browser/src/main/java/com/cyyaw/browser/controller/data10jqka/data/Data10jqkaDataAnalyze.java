@@ -3,8 +3,7 @@ package com.cyyaw.browser.controller.data10jqka.data;
 
 import com.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.net.url.UrlBuilder;
-import com.cyyaw.browser.controller.DataAnalyze;
-import com.cyyaw.browser.controller.DataAnalyzeAbstract;
+import com.cyyaw.browser.controller.data.DataAnalyzeAbstract;
 import com.cyyaw.table.company.dao.CpCompanyDao;
 import com.cyyaw.table.company.entity.CpCompany;
 import org.jsoup.nodes.Document;

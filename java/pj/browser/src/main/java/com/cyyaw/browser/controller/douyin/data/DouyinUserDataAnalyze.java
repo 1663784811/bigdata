@@ -1,6 +1,6 @@
 package com.cyyaw.browser.controller.douyin.data;
 
-import com.cyyaw.browser.controller.DataAnalyzeAbstract;
+import com.cyyaw.browser.controller.data.DataAnalyzeAbstract;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

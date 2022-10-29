@@ -1,6 +1,6 @@
 package com.cyyaw.browser.controller.hao123.spider;
 
-import com.cyyaw.browser.controller.SpiderPageAbstract;
+import com.cyyaw.browser.controller.data.SpiderPageAbstract;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,6 @@
 package com.cyyaw.browser.controller.douyin.spider;
 
-import com.cyyaw.browser.controller.SpiderPageAbstract;
+import com.cyyaw.browser.controller.data.SpiderPageAbstract;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 

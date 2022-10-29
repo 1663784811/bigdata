@@ -1,4 +1,4 @@
-package com.cyyaw.browser.controller;
+package com.cyyaw.browser.controller.data;
 
 import com.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.date.DateUtil;
