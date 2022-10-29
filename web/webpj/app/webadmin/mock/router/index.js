@@ -32,6 +32,25 @@ export const adminRoutes = [
     ],
   },
   {
+    menuUrl: '/config',
+    menuName: '配置',
+    routeName: 'config',
+    icon: 'icon-dashboard',
+    parentPath: '',
+    children: [
+      {
+        menuUrl: '/config/tag',
+        menuName: '标签',
+        routeName: 'tag',
+      },
+      {
+        menuUrl: '/config/tagLink',
+        menuName: '标签关联',
+        routeName: 'tagLink',
+      },
+    ],
+  },
+  {
     menuUrl: '/index',
     menuName: 'Dashborad',
     routeName: 'dashborad',
