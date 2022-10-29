@@ -27,7 +27,7 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
         while (i<100000){
             i++;
             try {
-                Thread.sleep(1000L);
+                Thread.sleep(2000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
