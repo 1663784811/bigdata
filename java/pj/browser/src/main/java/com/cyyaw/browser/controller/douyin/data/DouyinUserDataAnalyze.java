@@ -1,10 +1,17 @@
 package com.cyyaw.browser.controller.douyin.data;
 
 import com.cyyaw.browser.controller.data.DataAnalyzeAbstract;
+import com.cyyaw.browser.listen.SpiderData;
+import com.cyyaw.table.spider.dao.SpiderNickNameDao;
+import com.cyyaw.table.spider.entity.SpiderNickName;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 
 /**
@@ -13,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DouyinUserDataAnalyze extends DataAnalyzeAbstract {
 
+    @Autowired
+    private SpiderNickNameDao spiderNickNameDao;
 
     @Override
     public boolean urlRule(String url) {
@@ -20,21 +29,26 @@ public class DouyinUserDataAnalyze extends DataAnalyzeAbstract {
     }
 
     @Override
-    public void analyze(Document document) {
-
-
-        Elements elements = document.select(".PSMUj2A_ .LmoNsGLD");
+    public void analyze(Document document, SpiderData spiderData) {
+        String url = spiderData.getUrl();
+        String host = spiderData.getHost();
+        Elements elements = document.select(".ARHQtNo4");
         for (Element element : elements) {
-            String href = element.select(".B3AsdZT9").first().attr("href");
-            String nickName = element.select(".O23tuHy1").first().text();
-            String content = element.select(".B8CDxCkp").first().text();
-            String url = "";
-
-
-
+            String nickName = element.select(".J9zL1Z55").first().text();
+            String content = element.select(".NDykH66P").first().text();
+            String href = element.select("a").first().attr("href");
+            SpiderNickName spiderNickName = new SpiderNickName();
+            spiderNickName.setHost(host);
+            spiderNickName.setUrl(url);
+            spiderNickName.setNickName(nickName);
+            spiderNickName.setContent(content);
+            spiderNickName.setHref(href);
+            spiderNickName.setTid(WhyStringUtil.getUUID());
+            spiderNickName.setCreateTime(new Date());
+            spiderNickName.setDel(0);
+            spiderNickName.setNote("抖音");
+            spiderNickNameDao.save(spiderNickName);
         }
-
-
     }
 
 

@@ -74,7 +74,7 @@ public class ListenConfig {
             if (ok) {
                 String html = spiderData.getHtml();
                 Document doc = Jsoup.parse(html);
-                dataAnalyze.analyze(doc);
+                dataAnalyze.analyze(doc, spiderData);
                 dataAnalyze.afterHandle(host,url,doc);
             }
         }

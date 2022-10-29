@@ -1,11 +1,12 @@
 package com.cyyaw.browser.controller.data10jqka.data;
 
 
-import com.cyyaw.util.tools.WhyStringUtil;
 import cn.hutool.core.net.url.UrlBuilder;
 import com.cyyaw.browser.controller.data.DataAnalyzeAbstract;
+import com.cyyaw.browser.listen.SpiderData;
 import com.cyyaw.table.company.dao.CpCompanyDao;
 import com.cyyaw.table.company.entity.CpCompany;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -34,9 +35,8 @@ public class Data10jqkaDataAnalyze extends DataAnalyzeAbstract {
     }
 
     @Override
-    public void analyze(Document doc) {
+    public void analyze(Document doc, SpiderData spiderData) {
         Elements rows = doc.select(".m-table tbody tr");
-
 
 
         for (Element element : rows) {

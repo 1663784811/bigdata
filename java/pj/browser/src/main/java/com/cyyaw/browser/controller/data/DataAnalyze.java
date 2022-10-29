@@ -1,6 +1,7 @@
 package com.cyyaw.browser.controller.data;
 
 
+import com.cyyaw.browser.listen.SpiderData;
 import org.jsoup.nodes.Document;
 
 /**
@@ -19,7 +20,7 @@ public interface DataAnalyze {
     /**
      * 分析数据
      */
-    void analyze(Document document);
+    void analyze(Document document, SpiderData spiderData);
 
     /**
      * after处理
