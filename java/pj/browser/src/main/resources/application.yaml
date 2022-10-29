@@ -7,7 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     url: jdbc:mysql://139.198.115.132:3306/config?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai

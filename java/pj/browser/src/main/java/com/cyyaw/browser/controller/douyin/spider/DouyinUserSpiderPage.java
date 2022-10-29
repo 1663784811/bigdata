@@ -25,13 +25,13 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
         super.spider(url);
         int i=0;
         while (i<100000){
+            System.out.println("次数："+ i);
             i++;
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            super.spiderFinish();
             Browser browser = super.getBrowser();
             PageElement pageElement = browser.find(".ARHQtNo4");
             int size = pageElement.size();
@@ -40,7 +40,6 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
                 browser.scroll(indexElement);
             }
         }
-
-
+        super.spiderFinish();
     }
 }
