@@ -22,31 +22,25 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
 
     @Override
     public void spider(String url) {
-
         super.spider(url);
-        WebElement next = null;
-        do {
+        int i=0;
+        while (i<100000){
+            i++;
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             super.spiderFinish();
             Browser browser = super.getBrowser();
-
-            PageElement pageElement = browser.find(".P0JKdlC1");
-
-
-            next = null;
-            for (int i = 0; i < pageElement.size(); i++) {
-                WebElement indexElement = pageElement.getIndexElement(i);
-                String text = indexElement.getText();
-                if("下一页".equals(text)){
-                    indexElement.click();
-                    next = indexElement;
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                }
+            PageElement pageElement = browser.find(".ARHQtNo4");
+            int size = pageElement.size();
+            if(size>0){
+                WebElement indexElement = pageElement.getIndexElement(size - 1);
+                browser.scroll(indexElement);
             }
-        }while (next!=null);
+        }
+
+
     }
 }

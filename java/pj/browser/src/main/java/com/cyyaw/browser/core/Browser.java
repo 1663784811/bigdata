@@ -1,6 +1,7 @@
 package com.cyyaw.browser.core;
 
 import com.cyyaw.browser.entity.PageElement;
+import org.openqa.selenium.WebElement;
 
 public interface Browser {
 
@@ -40,7 +41,7 @@ public interface Browser {
      */
     void clickElement(String s);
 
-    void scroll(String element);
+    void scroll(WebElement element);
 
     // ====================================  事件END
 

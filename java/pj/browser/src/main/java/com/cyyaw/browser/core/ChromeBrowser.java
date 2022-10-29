@@ -6,6 +6,7 @@ import cn.hutool.core.util.CharsetUtil;
 import com.cyyaw.browser.entity.PageElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -73,10 +74,8 @@ public class ChromeBrowser implements Browser {
     }
 
     @Override
-    public void scroll(String element) {
-
-
-//        new Actions(driver).scr(1, 1).perform();
+    public void scroll(WebElement element) {
+        new Actions(driver).moveToElement(element, 0, 0).perform();
     }
 
     private WebElement getWebElement(String element) {
