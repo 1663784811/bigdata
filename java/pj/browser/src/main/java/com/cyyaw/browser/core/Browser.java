@@ -23,11 +23,12 @@ public interface Browser {
 
 
     /**
-     *
+     * 获取某个元素
      */
     PageElement find(String element);
 
 
+    // =====================================  事件  START
     /**
      * 右键点击某个元素
      */
@@ -38,6 +39,10 @@ public interface Browser {
      * @param s
      */
     void clickElement(String s);
+
+    void scroll(String element);
+
+    // ====================================  事件END
 
     /**
      * 获取域名

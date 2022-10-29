@@ -62,31 +62,37 @@ public class ChromeBrowser implements Browser {
 
     @Override
     public void clickRightElement(String element) {
-        String type = element.substring(0, 1);
-        String name = element.substring(1);
-        if (".".equals(type)) {
-            WebElement clickable = driver.findElement(By.className(name));
-            new Actions(driver).contextClick(clickable).perform();
-        } else if ("#".equals(type)) {
-            WebElement clickable = driver.findElement(By.id(name));
-            new Actions(driver).contextClick(clickable).perform();
-        }
+        WebElement clickable = getWebElement(element);
+        new Actions(driver).contextClick(clickable).perform();
     }
 
     @Override
     public void clickElement(String element) {
-        String type = element.substring(0, 1);
-        String name = element.substring(1);
-        WebElement clickable = null;
-        if (".".equals(type)) {
-            clickable = driver.findElement(By.className(name));
-        } else if ("#".equals(type)) {
-            clickable = driver.findElement(By.id(name));
-        } else {
-            clickable = driver.findElement(By.tagName(element));
-        }
+        WebElement clickable = getWebElement(element);
         new Actions(driver).click(clickable).perform();
     }
+
+    @Override
+    public void scroll(String element) {
+
+
+//        new Actions(driver).scr(1, 1).perform();
+    }
+
+    private WebElement getWebElement(String element) {
+        String type = element.substring(0, 1);
+        String name = element.substring(1);
+        WebElement webElement = null;
+        if (".".equals(type)) {
+            webElement = driver.findElement(By.className(name));
+        } else if ("#".equals(type)) {
+            webElement = driver.findElement(By.id(name));
+        } else {
+            webElement = driver.findElement(By.tagName(element));
+        }
+        return webElement;
+    }
+
 
     @Override
     public String getHost() {

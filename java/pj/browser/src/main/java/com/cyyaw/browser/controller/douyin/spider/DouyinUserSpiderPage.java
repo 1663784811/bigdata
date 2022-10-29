@@ -28,7 +28,10 @@ public class DouyinUserSpiderPage extends SpiderPageAbstract {
         do {
             super.spiderFinish();
             Browser browser = super.getBrowser();
-            PageElement pageElement = browser.find(".changePage");
+
+            PageElement pageElement = browser.find(".P0JKdlC1");
+
+
             next = null;
             for (int i = 0; i < pageElement.size(); i++) {
                 WebElement indexElement = pageElement.getIndexElement(i);
