@@ -4,7 +4,6 @@ import company from './pagesetting/company'
 import people from './pagesetting/people'
 import SpiderNickName from './pagesetting/SpiderNickName'
 import { getPageConfig } from '@/api/api'
-import { generatorRoutes } from '@/store/help'
 
 const pageConfig = defineStore('pageConfig', {
   state: () => {
