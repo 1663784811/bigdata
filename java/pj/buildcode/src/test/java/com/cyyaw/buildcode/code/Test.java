@@ -9,7 +9,7 @@ import java.sql.*;
  */
 public class Test {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        String driverName="jdbc:mysql://139.198.115.132:3306/config";
+        String driverName="jdbc:mysql://127.0.0.1:3306/config";
         String userName="root";
         String userPwd="because";
         Class.forName("com.mysql.cj.jdbc.Driver");
