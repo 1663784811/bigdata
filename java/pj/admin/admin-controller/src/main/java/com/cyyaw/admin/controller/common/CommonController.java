@@ -113,7 +113,7 @@ public class CommonController {
                 String pageId = cPageComponents.getPageId();
                 if (tid.equals(pageId)) {
                     String components_code = cPageComponents.getComponents_code();
-                    cpData.put(components_code, components_code);
+                    cpData.put(components_code, cPageComponents);
                 }
             }
             PageRest pageRest = new PageRest();
