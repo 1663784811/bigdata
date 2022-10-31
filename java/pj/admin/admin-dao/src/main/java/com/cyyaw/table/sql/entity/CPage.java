@@ -26,5 +26,7 @@ public class CPage extends BaseTable implements Serializable {
     @Column(name = "page_icon", columnDefinition = "text COMMENT '图标'")
     private String pageIcon;
 
-
+    @Basic
+    @Column(name = "page_code", columnDefinition = "varchar(32) not null COMMENT 'pageCode'")
+    private String pageCode;
 }

@@ -3,7 +3,6 @@ package com.cyyaw.buildcode.croe.tools;
 
 import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
