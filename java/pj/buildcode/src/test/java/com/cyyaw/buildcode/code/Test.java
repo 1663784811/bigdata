@@ -14,7 +14,7 @@ public class Test {
         String userPwd="because";
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection(driverName,userName,userPwd);
-        getTableInfo(con,con.createStatement(),"t_admin");
+        getTableInfo(con,con.createStatement(),"");
     }
     /**
      * 取得一张表的结构信息

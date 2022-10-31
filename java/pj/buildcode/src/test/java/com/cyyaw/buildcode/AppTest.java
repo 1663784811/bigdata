@@ -16,7 +16,7 @@ public class AppTest {
 
         CodeController codeController = new CodeController();
 
-        codeController.buildCode("jdbc:mysql://139.198.115.132:3306/config", "root", "because", "");
+        codeController.buildCode("jdbc:mysql://127.0.0.1:3306/config", "root", "because", "");
 
     }
 
