@@ -27,3 +27,10 @@ export const saveSql = (parameter: any) => {
     data: parameter,
   })
 }
+
+export const getPageConfig = (parameter: any) => {
+  return post({
+    url: 'http://127.0.0.1:8080/home/common/getPageConfig',
+    data: parameter,
+  })
+}
