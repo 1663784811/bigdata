@@ -9,6 +9,7 @@
           class="listItem"
           v-for="(item, index) in sqlList"
           :key="index"
+          :class="{ activity: sqlData.tid === item.tid }"
           @click="selectSqlData(item, index)"
         >
           <div> {{ item.name }}</div>
@@ -122,6 +123,11 @@
           padding: 6px;
 
           &:hover {
+            color: #111;
+            background: #fff;
+            cursor: pointer;
+          }
+          &.activity {
             color: #111;
             background: #fff;
             cursor: pointer;
