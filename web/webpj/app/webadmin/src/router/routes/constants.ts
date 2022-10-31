@@ -73,4 +73,12 @@ export const constantRoutes = [
       hidden: true,
     },
   },
+  {
+    path: '/sql/pageConfig',
+    name: 'pageConfig',
+    component: () => import('@/views/sql/pageConfig.vue'),
+    meta: {
+      hidden: true,
+    },
+  },
 ]
