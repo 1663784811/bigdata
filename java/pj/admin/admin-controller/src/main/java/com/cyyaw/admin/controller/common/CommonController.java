@@ -1,9 +1,11 @@
 package com.cyyaw.admin.controller.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.admin.service.CPageComponentsService;
 import com.cyyaw.admin.service.CPageService;
 import com.cyyaw.admin.service.CommonService;
 import com.cyyaw.table.sql.entity.CPage;
+import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.sql.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +34,8 @@ public class CommonController {
 
     @Autowired
     private CPageService cPageService;
+
+    private CPageComponentsService cPageComponentsService;
 
     /**
      * 通用查询
@@ -100,17 +104,23 @@ public class CommonController {
         data.put("people", json);
         data.put("SpiderNickName", json);
 
+        List<CPageComponents> cPageComponentsList =  cPageComponentsService.findAll();
+
         for (int i = 0; i < pages.size(); i++) {
             CPage cPage = pages.get(i);
+            String tid = cPage.getTid();
             String pageCode = cPage.getPageCode();
-
-
-
-
-
-
+            List<CPageComponents> cpData = new ArrayList<>();
+            for (int j = 0; j < cPageComponentsList.size(); j++) {
+                CPageComponents cPageComponents = cPageComponentsList.get(i);
+                String pageId = cPageComponents.getPageId();
+                if(tid.equals(pageId)){
+                    cpData.add(cPageComponents);
+                }
+            }
             PageRest pageRest = new PageRest();
             BeanUtils.copyProperties(cPage,pageRest);
+            pageRest.setData(cpData);
             data.put(pageCode, pageRest);
         }
 
