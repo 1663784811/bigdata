@@ -10,7 +10,7 @@ import java.util.Date;
 
 
 @Data
-@Entity(name = "base_table")
+@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BaseTable implements Serializable {
 
