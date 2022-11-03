@@ -37,6 +37,7 @@ public class CustomException implements HandlerExceptionResolver {
             mav.addObject("code", 500);
             mav.addObject("message", "系统异常");
         }
+        ex.printStackTrace();
         return mav;
     }
 }
