@@ -1,6 +1,6 @@
 const tag = {
   mainTable: {
-    column: [
+    data: [
       {
         title: 'tid',
         key: 'tid',
