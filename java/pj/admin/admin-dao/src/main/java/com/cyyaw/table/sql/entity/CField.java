@@ -38,14 +38,21 @@ public class CField implements Serializable{
     // ==================================================
 
     @Basic
+    @Column(name="c_page_components_id", columnDefinition = "varchar(255) COMMENT 'c_page_components表tid'")
+    private String cPageComponentsId;
+
+    @Basic
+    @Column(name="c_table_id", columnDefinition = "varchar(255) COMMENT 'ctableid表tid'")
+    private String cTableId;
+    // ==================================================
+
+    @Basic
     @Column(name="column_name", columnDefinition = "varchar(255) COMMENT '字段名'")
     private String columnName;
     @Basic
     @Column(name="control_type", columnDefinition = "varchar(255) COMMENT '控件类型'")
     private String controlType;
-    @Basic
-    @Column(name="c_table_id", columnDefinition = "varchar(255) COMMENT 'ctableid表tid'")
-    private String cTableId;
+
     @Basic
     @Column(name="db_type", columnDefinition = "varchar(255) COMMENT '数据库字段类型'")
     private String dbType;

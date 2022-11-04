@@ -3,6 +3,7 @@ package com.cyyaw.admin.controller.common;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.admin.service.*;
+import com.cyyaw.table.sql.dao.CFieldDao;
 import com.cyyaw.table.sql.entity.CPage;
 import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.sql.entity.CSql;
@@ -42,6 +43,11 @@ public class CommonController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private CFieldService cFieldService;
+
+
 
     /**
      * 通用查询
@@ -122,7 +128,8 @@ public class CommonController {
                     if(StrUtil.isNotBlank(components_code)){
                         JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(cPageComponents));
                         if("mainTable".equals(components_code)){
-
+                            String cPageComponentsTid = cPageComponents.getTid();
+                            cFieldService.findByCPageComponentsId(cPageComponentsTid);
                         }
                         js.put("data","asdfef");
                         cpData.put(components_code, js);
