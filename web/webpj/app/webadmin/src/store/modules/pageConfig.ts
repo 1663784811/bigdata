@@ -19,8 +19,11 @@ const pageConfig = defineStore('pageConfig', {
   actions: {
     async getPageConfig(data: {}) {
       const res = await getPageConfig(data)
-      this.$state.pageData = res.data
-      console.log('=======sssss===========', this.$state.pageData)
+      const resData = res.data
+      for (const resDataKey in resData) {
+        console.log(resDataKey)
+        this.$state.pageData[resDataKey] = resData[resDataKey]
+      }
     },
   },
 })
