@@ -110,7 +110,7 @@ public class CommonController {
             String pageCode = cPage.getPageCode();
             JSONObject cpData = new JSONObject();
             for (int j = 0; j < cPageComponentsList.size(); j++) {
-                CPageComponents cPageComponents = cPageComponentsList.get(i);
+                CPageComponents cPageComponents = cPageComponentsList.get(j);
                 String pageId = cPageComponents.getPageId();
                 if (tid.equals(pageId)) {
                     String components_code = cPageComponents.getComponents_code();
