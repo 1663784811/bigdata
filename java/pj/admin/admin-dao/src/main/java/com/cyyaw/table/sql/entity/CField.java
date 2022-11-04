@@ -105,7 +105,7 @@ public class CField implements Serializable{
     @Column(name="java_where", columnDefinition = "varchar(255) COMMENT 'java条件'")
     private String javaWhere;
     @Basic
-    @Column(name="key", columnDefinition = "varchar(255) COMMENT '键值'")
+    @Column(name="[key]", columnDefinition = "varchar(255) COMMENT '键值'")
     private String key;
     @Basic
     @Column(name="length", columnDefinition = "int COMMENT '长度'")
