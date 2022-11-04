@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.admin.service.*;
 import com.cyyaw.table.sql.dao.CFieldDao;
+import com.cyyaw.table.sql.entity.CField;
 import com.cyyaw.table.sql.entity.CPage;
 import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.sql.entity.CSql;
@@ -129,9 +130,9 @@ public class CommonController {
                         JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(cPageComponents));
                         if("mainTable".equals(components_code)){
                             String cPageComponentsTid = cPageComponents.getTid();
-                            cFieldService.findByCPageComponentsId(cPageComponentsTid);
+                            List<CField> cFieldList = cFieldService.findByCPageComponentsId(cPageComponentsTid);
+                            js.put("data",cFieldList);
                         }
-                        js.put("data","asdfef");
                         cpData.put(components_code, js);
                     }
                 }

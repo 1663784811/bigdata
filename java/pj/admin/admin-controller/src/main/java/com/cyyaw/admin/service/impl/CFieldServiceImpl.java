@@ -18,6 +18,6 @@ public class CFieldServiceImpl implements CFieldService {
     @Override
     public List<CField> findByCPageComponentsId(String cPageComponentsTid) {
 
-        return cFieldDao.findByCPageComponentsId(cPageComponentsTid);;
+        return cFieldDao.findByCPageComponentsId(cPageComponentsTid);
     }
 }
