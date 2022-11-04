@@ -21,8 +21,8 @@ const tag = {
         },
       ],
     },
-    department: {
-      column: [
+    leftTree: {
+      data: [
         {
           label: '东部地区',
           key: 1,

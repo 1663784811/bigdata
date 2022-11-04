@@ -70,7 +70,6 @@
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, h, onMounted, Ref, ref, shallowReactive, unref, watch } from 'vue'
-  import { companyPageSetting } from '@/api/pageSettingApi'
   import { sortColumns, transformTreeSelect, getPageConfig } from '@/utils'
   import { DataFormType, FormItem, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
@@ -85,10 +84,11 @@
        */
       const pageConfigJson = getPageConfig('tag') as any
       const componentsJson = pageConfigJson['data']
-      // 表格配置
       const table = useTable(componentsJson['mainTable'])
-      const aa = componentsJson['department']
-      console.log(aa)
+      const leftTree = componentsJson['leftTree']
+      const departmentData = leftTree['data']
+      // ======================
+      console.log(leftTree)
       //
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
@@ -100,8 +100,7 @@
       const permissionStore = usePermissionStore()
       const pagination = usePagination(doRefresh)
       const checkedRowKeys = [] as Array<any>
-      const pageSetting = companyPageSetting()
-      const departmentData = pageSetting.components.department.column
+
       const dataForm = ref<DataFormType | null>(null)
       const expandAllFlag = ref(false)
 

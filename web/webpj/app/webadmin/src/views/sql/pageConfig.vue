@@ -1,22 +1,22 @@
 <template>
   <div class="sqlPage">
-    <div class="sqlLeft">
+    <div class="columnItem">
       <div class="searchBox">
         <n-input size="small" round placeholder="页面配置" />
       </div>
       <div class="listBox">
         <div
           class="listItem"
-          v-for="(item, index) in sqlList"
+          v-for="(item, index) in dataList"
           :key="index"
-          :class="{ activity: sqlData.tid === item.tid }"
-          @click="selectSqlData(item, index)"
+          :class="{ activity: selectData.tid === item.tid }"
+          @click="clickSelectData(item, index)"
         >
           <div> {{ item.name }}</div>
         </div>
       </div>
     </div>
-    <div class="sqlRight">
+    <div class="columnItem">
       <div>
         <n-button type="success" @click="addData">新增</n-button>
       </div>
@@ -24,29 +24,61 @@
         <div class="row">
           <div class="label">ID</div>
           <div class="content">
-            <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData" />
+            <n-input v-model:value="selectData.tid" type="text" placeholder="selectData" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">页码</div>
+          <div class="content">
+            <n-input v-model:value="selectData.pageCode" type="text" placeholder="pageCode" />
           </div>
         </div>
         <div class="row">
           <div class="label">名称</div>
           <div class="content">
-            <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData" />
+            <n-input v-model:value="selectData.name" type="text" placeholder="name" />
           </div>
         </div>
-        <div class="row">
-          <div class="label">sql</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.sqlcontent" type="textarea" placeholder="sqlData" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">count</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.countsql" type="textarea" placeholder="countData" />
-          </div>
-        </div>
+
         <div class="row submitBox">
           <n-button type="success" @click="saveData">保存</n-button>
+        </div>
+      </div>
+    </div>
+    <div class="columnItem">
+      <div class="searchBox">组件列表</div>
+      <div class="listBox">
+        <div
+          class="listItem"
+          v-for="(item, index) in componentsList"
+          :key="index"
+          :class="{ activity: componentsData.tid === item.tid }"
+          @click="selectComponentsData(item, index)"
+        >
+          <div> {{ item.name }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="columnItem">
+      <div>组件数据</div>
+      <div>
+        <div class="row">
+          <div class="label">类型</div>
+          <div class="content">
+            <n-select v-model:value="componentsData.components_code" :options="options" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">ID</div>
+          <div class="content">
+            <n-input v-model:value="selectData.tid" type="text" placeholder="selectData" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">ID</div>
+          <div class="content">
+            <n-input v-model:value="selectData.tid" type="text" placeholder="selectData" />
+          </div>
         </div>
       </div>
     </div>
@@ -54,15 +86,27 @@
 </template>
 
 <script>
-  import { getSqlList, saveSql } from '../../api/api'
+  import { getPageConfig, saveSql } from '../../api/api'
 
   export default {
     name: 'SqlPage',
     data() {
       return {
-        sqlList: [],
-        sqlData: {},
+        dataList: [],
+        selectData: {},
+        componentsList: {},
+        componentsData: {},
         countData: '',
+        options: [
+          {
+            label: '主表格',
+            value: 'mainTable',
+          },
+          {
+            label: '左边树组件',
+            value: 'leftTree',
+          },
+        ],
       }
     },
     created() {
@@ -73,31 +117,38 @@
        * 获取数据
        */
       getDataList() {
-        getSqlList().then((res) => {
-          this.sqlList = res.data
+        getPageConfig().then((res) => {
+          this.dataList = res.data
         })
       },
       /**
        * 选择数据
        */
-      selectSqlData(data) {
-        this.sqlData = data
+      clickSelectData(data) {
+        this.selectData = data
+        this.componentsList = this.selectData.data
+      },
+      /**
+       * 选择数据
+       */
+      selectComponentsData(data) {
+        this.componentsData = data
       },
 
       /**
        * 保存数据
        */
       saveData() {
-        saveSql(this.sqlData).catch((res) => {
-          this.sqlData = res.data
+        saveSql(this.selectData).catch((res) => {
+          this.selectData = res.data
         })
       },
       /**
        * 添加数据
        */
       addData() {
-        console.log('ssssssss', this.sqlData)
-        this.sqlData = {}
+        console.log('ssssssss', this.selectData)
+        this.selectData = {}
       },
     },
   }
@@ -107,11 +158,12 @@
   .sqlPage {
     display: flex;
 
-    .sqlLeft {
+    .columnItem {
       width: 200px;
       height: 100vh;
-      background: #191919;
+      background: #d3d3d3;
       padding: 10px;
+      margin-right: 1px;
 
       .searchBox {
         padding-bottom: 10px;
