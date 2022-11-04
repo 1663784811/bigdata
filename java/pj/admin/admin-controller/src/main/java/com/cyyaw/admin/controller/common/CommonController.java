@@ -2,13 +2,11 @@ package com.cyyaw.admin.controller.common;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.cyyaw.admin.service.CPageComponentsService;
-import com.cyyaw.admin.service.CPageService;
-import com.cyyaw.admin.service.CSqlService;
-import com.cyyaw.admin.service.CommonService;
+import com.cyyaw.admin.service.*;
 import com.cyyaw.table.sql.entity.CPage;
 import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.sql.entity.CSql;
+import com.cyyaw.table.tag.entity.Tag;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,9 @@ public class CommonController {
     @Autowired
     private CSqlService cSqlService;
 
+
+    @Autowired
+    private TagService tagService;
 
     /**
      * 通用查询
@@ -98,14 +99,18 @@ public class CommonController {
      */
     @RequestMapping("/getPageConfig")
     public BaseResult getPageConfig() {
-        List<CPage> pages = cPageService.findAll();
+        // 查页面
+        List<CPage> pageList = cPageService.findAll();
         JSONObject data = new JSONObject();
         String aa = "{\"tableCompany\":{\"column\":[{\"title\":\"tid\",\"key\":\"tid\",\"type\":\"selection\"},{\"title\":\"企业法人\",\"key\":\"legal_person\"},{\"title\":\"公司名称\",\"key\":\"name\"},{\"title\":\"股票名称\",\"key\":\"stock_name\"},{\"title\":\"股票类型\",\"key\":\"stock_type\"},{\"title\":\"股票号\",\"key\":\"stock_no\"},{\"title\":\"标签\",\"key\":\"tags\"},{\"title\":\"操作\",\"key\":\"operation\"}]},\"department\":{\"column\":[{\"label\":\"东部地区\",\"key\":1,\"children\":[{\"label\":\"总裁部\",\"key\":11},{\"label\":\"财务部\",\"key\":12},{\"label\":\"技术部\",\"key\":13},{\"label\":\"销售部\",\"key\":14}]},{\"label\":\"西部地区\",\"key\":2,\"children\":[{\"label\":\"总裁部\",\"key\":21},{\"label\":\"财务部\",\"key\":22},{\"label\":\"技术部\",\"key\":23},{\"label\":\"销售部\",\"key\":24}]},{\"label\":\"南部地区\",\"key\":3,\"children\":[{\"label\":\"总裁部\",\"key\":31},{\"label\":\"财务部\",\"key\":32},{\"label\":\"技术部\",\"key\":33},{\"label\":\"销售部\",\"key\":34}]},{\"label\":\"北部地区\",\"key\":4,\"children\":[{\"label\":\"总裁部\",\"key\":41},{\"label\":\"财务部\",\"key\":42},{\"label\":\"技术部\",\"key\":43},{\"label\":\"销售部\",\"key\":44}]}]}}";
         JSONObject json = JSONObject.parseObject(aa);
-
+        // 查组件
         List<CPageComponents> cPageComponentsList = cPageComponentsService.findAll();
-        for (int i = 0; i < pages.size(); i++) {
-            CPage cPage = pages.get(i);
+        // 查表格字段
+        List<Tag> tagList = tagService.findAll();
+
+        for (int i = 0; i < pageList.size(); i++) {
+            CPage cPage = pageList.get(i);
             String tid = cPage.getTid();
             String pageCode = cPage.getPageCode();
             JSONObject cpData = new JSONObject();
@@ -115,7 +120,12 @@ public class CommonController {
                 if (tid.equals(pageId)) {
                     String components_code = cPageComponents.getComponents_code();
                     if(StrUtil.isNotBlank(components_code)){
-                        cpData.put(components_code, cPageComponents);
+                        JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(cPageComponents));
+                        if("mainTable".equals(components_code)){
+
+                        }
+                        js.put("data","asdfef");
+                        cpData.put(components_code, js);
                     }
                 }
             }
