@@ -56,6 +56,7 @@ export const useTableHeight = async function (): Promise<number> {
 
 export const useTable = function <T = any>(tableConfig?: any): Table<T> {
   const tableColumns = tableConfig && tableConfig.data ? (tableConfig.data as any) : []
+  console.log('sesssssssssssss', tableColumns)
   const dataList = ref<Array<T>>()
   const selectRows = ref<Array<string | number>>()
   const tableHeaderRef = ref<TableHeaderType | null>(null)

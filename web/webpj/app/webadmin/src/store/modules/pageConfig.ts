@@ -23,7 +23,7 @@ const pageConfig = defineStore('pageConfig', {
       const res = await getPageConfig(data)
       const resData = res.data
       for (const resDataKey in resData) {
-        console.log(resDataKey)
+        console.log('============页面配置数据==============', resData)
         this.$state.pageData[resDataKey] = resData[resDataKey]
       }
     },

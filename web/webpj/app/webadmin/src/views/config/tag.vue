@@ -84,8 +84,11 @@
        * 获取页面配置
        */
       const pageConfigJson = getPageConfig('tag') as any
+      const componentsJson = pageConfigJson['data']
       // 表格配置
-      const table = useTable(pageConfigJson['mainTable'])
+      const table = useTable(componentsJson['mainTable'])
+      const aa = componentsJson['department']
+      console.log(aa)
       //
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
