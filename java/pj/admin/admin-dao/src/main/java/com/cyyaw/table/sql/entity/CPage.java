@@ -37,6 +37,7 @@ public class CPage implements Serializable {
     @Column(name = "note", columnDefinition = "varchar(255) default '' COMMENT '备注'")
     private String note;
 
+    // ==================================================
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '名称'")
