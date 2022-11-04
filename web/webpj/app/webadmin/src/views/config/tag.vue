@@ -83,9 +83,9 @@
       /**
        * 获取页面配置
        */
-      const pageConfigJson = getPageConfig('company') as any
+      const pageConfigJson = getPageConfig('tag') as any
       // 表格配置
-      const table = useTable(pageConfigJson['tableCompany'])
+      const table = useTable(pageConfigJson['mainTable'])
       //
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import company from './pagesetting/company'
 import people from './pagesetting/people'
 import SpiderNickName from './pagesetting/SpiderNickName'
+import tag from './pagesetting/tag'
 import { getPageConfig } from '@/api/api'
 
 const pageConfig = defineStore('pageConfig', {
@@ -12,6 +13,7 @@ const pageConfig = defineStore('pageConfig', {
         company,
         people,
         SpiderNickName,
+        tag,
       } as any,
     }
   },
