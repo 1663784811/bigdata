@@ -8,7 +8,7 @@ import pageConfig from '@/store/modules/pageConfig'
 export function getPageConfig(pageId: string) {
   const pageData = pageConfig().$state.pageData
   console.log('===============', pageData)
-  return pageData[pageId]
+  return pageData[pageId] ? pageData[pageId] : {}
 }
 
 export function isExternal(path: string) {

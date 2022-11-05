@@ -46,7 +46,6 @@
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, h, onMounted, Ref, ref, shallowReactive, unref, watch } from 'vue'
-  import { companyPageSetting } from '@/api/pageSettingApi'
   import { sortColumns, transformTreeSelect, getPageConfig } from '@/utils'
   import { DataFormType, FormItem, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
@@ -59,10 +58,12 @@
       /**
        * 获取页面配置
        */
-      const pageConfigJson = getPageConfig('company') as any
-      // 表格配置
-      const table = useTable(pageConfigJson['tableCompany'])
-      //
+      const pageConfigJson = getPageConfig('tagLink') as any
+      const componentsJson = pageConfigJson['data'] ? pageConfigJson['data'] : {}
+      const table = useTable(componentsJson['mainTable'])
+      const leftTree = componentsJson['leftTree'] ? componentsJson['leftTree'] : {}
+      const departmentData = leftTree['data'] ? leftTree['data'] : {}
+      //================
       let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
       const modalDialog = ref<ModalDialogType | null>(null)
@@ -73,8 +74,6 @@
       const permissionStore = usePermissionStore()
       const pagination = usePagination(doRefresh)
       const checkedRowKeys = [] as Array<any>
-      const pageSetting = companyPageSetting()
-      const departmentData = pageSetting.components.department.column
       const dataForm = ref<DataFormType | null>(null)
       const expandAllFlag = ref(false)
 
@@ -172,9 +171,9 @@
       watch(
         () => expandAllFlag.value,
         (newVal) => {
-          newVal
-            ? getExpandedKeys.push(...departmentData.map((it) => it.key))
-            : (getExpandedKeys.length = 0)
+          // newVal
+          //   ? getExpandedKeys.push(...departmentData.map((it) => it.key))
+          //   : (getExpandedKeys.length = 0)
         }
       )
       onMounted(async () => {
@@ -279,7 +278,6 @@
         rowKey,
         pattern: ref(''),
         expandAllFlag,
-        departmentData,
         modalDialog,
         pagination,
         onDeleteItem,

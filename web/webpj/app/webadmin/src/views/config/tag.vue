@@ -83,10 +83,10 @@
        * 获取页面配置
        */
       const pageConfigJson = getPageConfig('tag') as any
-      const componentsJson = pageConfigJson['data']
+      const componentsJson = pageConfigJson['data'] ? pageConfigJson['data'] : {}
       const table = useTable(componentsJson['mainTable'])
-      const leftTree = componentsJson['leftTree']
-      const departmentData = leftTree['data']
+      const leftTree = componentsJson['leftTree'] ? componentsJson['leftTree'] : {}
+      const departmentData = leftTree['data'] ? leftTree['data'] : {}
       // ======================
       console.log(leftTree)
       //

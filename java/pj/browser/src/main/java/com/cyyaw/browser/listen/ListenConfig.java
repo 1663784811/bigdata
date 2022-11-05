@@ -29,7 +29,7 @@ public class ListenConfig {
 
     @PostConstruct
     public void init(){
-        String url = "https://www.douyin.com/discover";
+        String url = "http://data.10jqka.com.cn/funds/ggzjl/";
         new Thread(new Runnable() {
             @SneakyThrows
             @Override
