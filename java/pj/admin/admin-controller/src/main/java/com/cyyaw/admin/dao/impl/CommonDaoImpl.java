@@ -36,8 +36,8 @@ public class CommonDaoImpl implements CommonDao {
         size = size == null ? 30 : size;
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
         if (sqlRowSet.next()) {
-            String countsql = sqlRowSet.getString("countsql");
-            String sqlcontent = sqlRowSet.getString("sqlcontent");
+            String countsql = sqlRowSet.getString("count_sql");
+            String sqlcontent = sqlRowSet.getString("content_sql");
             // 第二步：替换字符串
             String querySql = SqlUtils.explainSql(sqlcontent, json) + " limit " + ((page - 1) * size + "," + size);
             String countSql = SqlUtils.explainSql(countsql, json);
