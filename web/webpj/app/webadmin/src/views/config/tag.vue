@@ -59,7 +59,7 @@
     </n-grid>
     <ModalDialog ref="modalDialog" @confirm="onConfirm" content-height="50vh">
       <template #content>
-        <DataForm ref="dataForm" :options="itemFormOptions" />
+        <FormBox :options="itemFormOptions" />
       </template>
     </ModalDialog>
   </div>

@@ -10,6 +10,7 @@
     :style="bodyStyle"
     :segmented="segmented"
     display-directive="show"
+    :mask-closable="false"
   >
     <div :style="{ maxHeight: '60vh', height: contentHeight }">
       <n-scrollbar class="pl-5 pr-5">
