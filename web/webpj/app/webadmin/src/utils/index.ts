@@ -87,3 +87,19 @@ export function transformTreeSelect(
   })
   return tempSelections
 }
+
+/**
+ * 获取添加字段
+ */
+export function getAddField(mainTable: any) {
+  const data = mainTable && mainTable.data ? mainTable.data : []
+  const arr = []
+  for (let i = 0; i < data.length; i++) {
+    arr.push(data[i])
+  }
+  return arr
+}
+/**
+ * 获取修改字段
+ */
+export function getUpdateField() {}

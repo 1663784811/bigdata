@@ -35,7 +35,7 @@
     </n-grid>
     <ModalDialog ref="modalDialog" @confirm="onConfirm" content-height="50vh">
       <template #content>
-        <FormBox ref="formBox" />
+        <FormBox ref="formBox" :formBoxField="formBoxField" />
       </template>
     </ModalDialog>
   </div>
@@ -46,7 +46,7 @@
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
   import { defineComponent, onMounted, ref, shallowReactive, watch } from 'vue'
-  import { sortColumns, getPageConfig } from '@/utils'
+  import { sortColumns, getPageConfig, getAddField } from '@/utils'
   import { DataFormType, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
   import usePermissionStore from '@/store/modules/permission'
@@ -58,8 +58,12 @@
        */
       const pageConfigJson = getPageConfig('tagLink') as any
       const componentsJson = pageConfigJson['data'] ? pageConfigJson['data'] : {}
-      const table = useTable(componentsJson['mainTable'])
+      const mainTable = componentsJson['mainTable']
+      const table = useTable(mainTable)
+      const addField = getAddField(mainTable)
+      console.log(addField)
       const leftTree = componentsJson['leftTree'] ? componentsJson['leftTree'] : {}
+
       const departmentData = leftTree['data'] ? leftTree['data'] : {}
       //================
       let tempItem: { menuUrl: string } | null = null
@@ -123,7 +127,6 @@
       }
       //
       function onConfirm() {
-        console.log('seeeeeeeeeeeeeee', ref('formBox').value)
         if (dataForm.value?.validator()) {
           const params = dataForm.value?.generatorParams()
           if (tempItem) {
@@ -135,13 +138,7 @@
           message.success('模拟修改菜单成功, 参数为:' + JSON.stringify(params))
         }
       }
-      // 添加页面
-      function onAddItem() {
-        console.log('sssssssss', modalDialog.value)
-        modalDialog.value?.show().then(() => {
-          dataForm.value?.reset()
-        })
-      }
+
       function onRowCheck(rowKeys: Array<any>) {
         checkedRowKeys.length = 0
         checkedRowKeys.push(...rowKeys)
@@ -169,7 +166,7 @@
 
       return {
         ...table,
-        onAddItem,
+        addField,
         onUpdateTable,
         rowKey,
         pattern: ref(''),
@@ -184,6 +181,22 @@
         onCheckedKeys,
         onConfirm,
       }
+    },
+    data() {
+      return {
+        formBoxField: [],
+      }
+    },
+    methods: {
+      // 添加页面
+      onAddItem: function () {
+        this.formBoxField = this.addField
+        console.log(this.addField)
+        // console.log('sssssssss', this.modalDialog.value)
+        // this.modalDialog.value?.show().then(() => {
+        //   this.modalDialog.value?.reset()
+        // })
+      },
     },
   })
 </script>

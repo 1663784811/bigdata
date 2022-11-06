@@ -25,7 +25,7 @@
   export default {
     name: 'FormBox',
     props: {
-      value: {
+      formBoxField: {
         type: Array,
         require: true,
         default() {
@@ -73,6 +73,16 @@
           },
         ],
       }
+    },
+    watch: {
+      formBoxField() {
+        console.log(this.formBoxField)
+      },
+    },
+    methods: {
+      getFormValue() {
+        return this.formValue
+      },
     },
   }
 </script>
