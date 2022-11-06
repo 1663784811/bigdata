@@ -35,7 +35,7 @@
     </n-grid>
     <ModalDialog ref="modalDialog" @confirm="onConfirm" content-height="50vh">
       <template #content>
-        <FormBox :options="itemFormOptions" />
+        <FormBox ref="formBox" />
       </template>
     </ModalDialog>
   </div>
@@ -45,13 +45,11 @@
   import { getCompany } from '@/api/api'
   import { usePagination, useRowKey, useTable, useTableHeight } from '@/hooks/table'
   import { useDialog, useMessage } from 'naive-ui'
-  import { defineComponent, h, onMounted, Ref, ref, shallowReactive, unref, watch } from 'vue'
-  import { sortColumns, transformTreeSelect, getPageConfig } from '@/utils'
-  import { DataFormType, FormItem, ModalDialogType, TablePropsType } from '@/types/components'
+  import { defineComponent, onMounted, ref, shallowReactive, watch } from 'vue'
+  import { sortColumns, getPageConfig } from '@/utils'
+  import { DataFormType, ModalDialogType, TablePropsType } from '@/types/components'
   import { findRouteByUrl } from '@/store/help'
   import usePermissionStore from '@/store/modules/permission'
-  import { renderInput, renderSwitch, renderTreeSelect } from '@/hooks/form'
-  import IconSelector from '@/components/common/IconSelector.vue'
   export default defineComponent({
     name: 'Company',
     setup() {
@@ -64,7 +62,6 @@
       const leftTree = componentsJson['leftTree'] ? componentsJson['leftTree'] : {}
       const departmentData = leftTree['data'] ? leftTree['data'] : {}
       //================
-      let actionModel = 'add'
       let tempItem: { menuUrl: string } | null = null
       const modalDialog = ref<ModalDialogType | null>(null)
 
@@ -126,31 +123,20 @@
       }
       //
       function onConfirm() {
-        if (actionModel === 'add') {
-          if (dataForm.value?.validator()) {
-            message.success(
-              '模拟创建菜单成功, 参数为:' + JSON.stringify(dataForm.value?.generatorParams())
-            )
-          }
-        } else {
-          if (dataForm.value?.validator()) {
-            const params = dataForm.value?.generatorParams()
-            if (tempItem) {
-              const tempRoute = findRouteByUrl(
-                permissionStore.getPermissionSideBar,
-                tempItem.menuUrl
-              )
-              if (tempRoute && tempRoute.meta && tempRoute.meta.badge) {
-                ;(tempRoute.meta as any).badge = (params as any).badge || ''
-              }
+        console.log('seeeeeeeeeeeeeee', ref('formBox').value)
+        if (dataForm.value?.validator()) {
+          const params = dataForm.value?.generatorParams()
+          if (tempItem) {
+            const tempRoute = findRouteByUrl(permissionStore.getPermissionSideBar, tempItem.menuUrl)
+            if (tempRoute && tempRoute.meta && tempRoute.meta.badge) {
+              ;(tempRoute.meta as any).badge = (params as any).badge || ''
             }
-            message.success('模拟修改菜单成功, 参数为:' + JSON.stringify(params))
           }
+          message.success('模拟修改菜单成功, 参数为:' + JSON.stringify(params))
         }
       }
       // 添加页面
       function onAddItem() {
-        actionModel = 'add'
         console.log('sssssssss', modalDialog.value)
         modalDialog.value?.show().then(() => {
           dataForm.value?.reset()
@@ -181,98 +167,8 @@
         doRefresh()
       })
 
-      const itemFormOptions = [
-        {
-          label: '上级菜单',
-          key: 'parentPath',
-          value: ref(null),
-          validator: (formItem, message) => {
-            if (!formItem.value.value) {
-              message.error('请选择上级菜单')
-              return false
-            }
-            return true
-          },
-          render: (formItem) =>
-            renderTreeSelect(
-              formItem.value,
-              transformTreeSelect(unref(table.dataList)!, 'menuName', 'menuUrl'),
-              {
-                showPath: true,
-              }
-            ),
-        },
-        {
-          label: '菜单名称',
-          key: 'menuName',
-          required: true,
-          value: ref(null),
-          render: (formItem) =>
-            renderInput(formItem.value, {
-              placeholder: '请输入菜单名称',
-            }),
-        },
-        {
-          label: '菜单地址',
-          key: 'menuUrl',
-          required: true,
-          value: ref(null),
-          disabled: ref(false),
-          render: (formItem) =>
-            renderInput(formItem.value, {
-              placeholder: '请输入菜单地址',
-              disabled: (formItem.disabled as Ref<boolean>).value,
-            }),
-          reset: (formItem) => {
-            formItem.value.value = null
-            ;(formItem.disabled as Ref<boolean>).value = false
-          },
-        },
-        {
-          label: '外链地址',
-          key: 'outLink',
-          value: ref(null),
-          render: (formItem) =>
-            renderInput(formItem.value, {
-              placeholder: '请输入外链地址',
-            }),
-        },
-        {
-          label: '菜单图标',
-          key: 'icon',
-          value: ref(null),
-          render: (formItem) => {
-            return h(IconSelector, {
-              defaultIcon: formItem.value.value,
-              onUpdateIcon: (newIcon: any) => {
-                formItem.value.value = newIcon.name
-              },
-            })
-          },
-        },
-        {
-          label: '是否缓存',
-          key: 'cacheable',
-          value: ref(false),
-          render: (formItem) => renderSwitch(formItem.value),
-        },
-        {
-          label: '是否隐藏',
-          key: 'hidden',
-          value: ref(false),
-          render: (formItem) => renderSwitch(formItem.value),
-        },
-        {
-          label: '是否固定',
-          key: 'affix',
-          value: ref(true),
-          render: (formItem) => renderSwitch(formItem.value),
-        },
-      ] as Array<FormItem>
-
       return {
         ...table,
-        itemFormOptions,
         onAddItem,
         onUpdateTable,
         rowKey,
