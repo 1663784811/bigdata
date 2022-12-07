@@ -9,11 +9,12 @@ import AppDevelopment from "@/views/AppDevelopment.vue";
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'root',
         component: MainLayOut,
         children:[
             {
-                path: 'home',
+                path: '',
+                name:'home',
                 component: Home,
             },
             {
