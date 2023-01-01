@@ -20,7 +20,7 @@ public class Tag implements Serializable{
     @Column(name="id", columnDefinition = "int auto_increment not null COMMENT 'id'")
     private Integer id;
     @Basic
-    @Column(name="create_time", columnDefinition = "datetime default 'CURRENT_TIMESTAMP' COMMENT '创建时间'")
+    @Column(name="create_time", columnDefinition = "datetime COMMENT '创建时间'")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
@@ -33,6 +33,8 @@ public class Tag implements Serializable{
     @Basic
     @Column(name="tid", columnDefinition = "varchar(32) default '' not null COMMENT 'tid'")
     private String tid;
+
+
     @Basic
     @Column(name="name", columnDefinition = "varchar(255) COMMENT '标签名'")
     private String name;

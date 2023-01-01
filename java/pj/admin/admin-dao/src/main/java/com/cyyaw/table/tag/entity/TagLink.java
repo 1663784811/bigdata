@@ -20,7 +20,7 @@ public class TagLink implements Serializable{
     @Column(name="id", columnDefinition = "int auto_increment not null COMMENT 'id'")
     private Integer id;
     @Basic
-    @Column(name="create_time", columnDefinition = "datetime default 'CURRENT_TIMESTAMP' COMMENT '创建时间'")
+    @Column(name="create_time", columnDefinition = "datetime COMMENT '创建时间'")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
