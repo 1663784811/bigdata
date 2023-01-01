@@ -30,11 +30,7 @@ public class CommonDaoImpl implements CommonDao {
     public CommonRest query(JSONObject json) {
         CommonRest rest = new CommonRest();
         //第一步：查询  sql 字符串
-        Integer page = json.getInteger("page");
-        Integer size = json.getInteger("size");
         String code = json.getString("code");
-        page = page == null ? 1 : page;
-        size = size == null ? 30 : size;
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
         if (sqlRowSet.next()) {
             String countsql = sqlRowSet.getString("count_sql");
