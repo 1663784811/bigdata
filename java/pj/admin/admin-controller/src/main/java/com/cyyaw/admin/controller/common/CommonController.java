@@ -3,13 +3,13 @@ package com.cyyaw.admin.controller.common;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.admin.service.*;
-import com.cyyaw.table.sql.dao.CFieldDao;
 import com.cyyaw.table.sql.entity.CField;
 import com.cyyaw.table.sql.entity.CPage;
 import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.sql.entity.CSql;
 import com.cyyaw.table.tag.entity.Tag;
 import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.CommonRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,31 +49,32 @@ public class CommonController {
     private CFieldService cFieldService;
 
 
-
     /**
      * 通用查询
      *
      * @return
      */
     @RequestMapping("/query")
-    public Map<String, Object> query(@RequestBody Map<String, Object> map) {
+    public BaseResult query(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject();
         for (String key : map.keySet()) {
             json.put(key, map.get(key));
         }
-        return commonService.query(json);
+        CommonRest query = commonService.query(json);
+        return BaseResult.ok(query);
     }
 
     /**
      * 通用修改或添加
      */
     @RequestMapping("/update")
-    public Map<String, Object> update(@RequestBody Map<String, Object> map) {
+    public BaseResult update(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject();
         for (String key : map.keySet()) {
             json.put(key, map.get(key));
         }
-        return commonService.update(json);
+        Map<String, Object> update = commonService.update(json);
+        return BaseResult.ok(update);
     }
 
     /**
@@ -126,12 +127,12 @@ public class CommonController {
                 String pageId = cPageComponents.getPageId();
                 if (tid.equals(pageId)) {
                     String components_code = cPageComponents.getComponents_code();
-                    if(StrUtil.isNotBlank(components_code)){
+                    if (StrUtil.isNotBlank(components_code)) {
                         JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(cPageComponents));
-                        if("mainTable".equals(components_code)){
+                        if ("mainTable".equals(components_code)) {
                             String cPageComponentsTid = cPageComponents.getTid();
                             List<CField> cFieldList = cFieldService.findByCPageComponentsId(cPageComponentsTid);
-                            js.put("data",cFieldList);
+                            js.put("data", cFieldList);
                         }
                         cpData.put(components_code, js);
                     }
@@ -140,7 +141,7 @@ public class CommonController {
             PageRest pageRest = new PageRest();
             BeanUtils.copyProperties(cPage, pageRest);
             pageRest.setData(cpData);
-            if(StrUtil.isNotBlank(pageCode)){
+            if (StrUtil.isNotBlank(pageCode)) {
                 data.put(pageCode, pageRest);
             }
         }

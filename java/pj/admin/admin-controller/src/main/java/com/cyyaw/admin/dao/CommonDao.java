@@ -1,6 +1,7 @@
 package com.cyyaw.admin.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.util.tools.CommonRest;
 
 import java.util.Map;
 
@@ -12,7 +13,12 @@ public interface CommonDao {
      * @param json
      * @return
      */
-    Map<String, Object> query(JSONObject json);
+    CommonRest query(JSONObject json);
+
+    /**
+     * 通用查询
+     */
+    CommonRest query(String countSql, String querySql, JSONObject json, boolean touName);
 
     /**
      * 通用更新

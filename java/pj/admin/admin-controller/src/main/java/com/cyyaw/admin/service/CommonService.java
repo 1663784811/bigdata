@@ -2,6 +2,7 @@ package com.cyyaw.admin.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.table.sql.entity.CSql;
+import com.cyyaw.util.tools.CommonRest;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public interface CommonService {
     /**
      * 通用查询
      */
-    Map<String, Object>  query(JSONObject json);
+    CommonRest query(JSONObject json);
 
     /**
      * 通用更新

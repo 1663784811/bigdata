@@ -5,6 +5,7 @@ import com.cyyaw.admin.dao.CommonDao;
 import com.cyyaw.admin.service.CommonService;
 import com.cyyaw.table.sql.dao.CSqlDao;
 import com.cyyaw.table.sql.entity.CSql;
+import com.cyyaw.util.tools.CommonRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CommonServiceImpl implements CommonService {
 
 
     @Override
-    public Map<String, Object> query(JSONObject json) {
+    public CommonRest query(JSONObject json) {
         return commonDao.query(json);
     }
 
