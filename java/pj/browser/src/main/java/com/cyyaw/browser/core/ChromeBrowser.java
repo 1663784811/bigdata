@@ -6,7 +6,6 @@ import cn.hutool.core.util.CharsetUtil;
 import com.cyyaw.browser.entity.PageElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,12 +19,15 @@ public class ChromeBrowser implements Browser {
 
 
     public ChromeBrowser() {
+        // start chrome  --flag-switches-begin --flag-switches-end --remote-debugging-port=9887
+        // https://www.cnblogs.com/testway/p/16676195.html
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");//禁用沙箱
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
         //chromeOptions.addArguments("--headless"); //无头浏览器，这样不会打开浏览器窗口
+        //
         driver = new ChromeDriver(chromeOptions);
     }
 

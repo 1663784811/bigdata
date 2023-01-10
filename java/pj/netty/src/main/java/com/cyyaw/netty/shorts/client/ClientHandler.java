@@ -13,7 +13,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     private ChannelHandlerContext ctx;
     private ChannelPromise promise;
-    private NettyMessage response;
+    private com.cyyaw.netty.shorts.client.NettyMessage response;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -23,7 +23,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        NettyMessage message = (NettyMessage) msg;
+        com.cyyaw.netty.shorts.client.NettyMessage message = (com.cyyaw.netty.shorts.client.NettyMessage) msg;
         if (message != null && message.getType() == "ss") {
             response = message;
             promise.setSuccess();
@@ -46,7 +46,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         return promise;
     }
 
-    public NettyMessage getResponse(){
+    public com.cyyaw.netty.shorts.client.NettyMessage getResponse(){
         return response;
     }
 

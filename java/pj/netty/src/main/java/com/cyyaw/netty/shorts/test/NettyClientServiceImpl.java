@@ -19,7 +19,7 @@ public class NettyClientServiceImpl implements NettyClientService {
 
 
     //缓存接口这里是LoadingCache，LoadingCache在缓存项不存在时可以自动加载缓存
-    private static LoadingCache<String, SyncFuture> futureCache = CacheBuilder.newBuilder()
+    private static LoadingCache<String, com.cyyaw.netty.shorts.test.SyncFuture> futureCache = CacheBuilder.newBuilder()
             //设置缓存容器的初始容量为10
             .initialCapacity(100)
             // maximumSize 设置缓存大小
@@ -36,9 +36,9 @@ public class NettyClientServiceImpl implements NettyClientService {
                 }
             })
             //build方法中可以指定CacheLoader，在缓存不存在时通过CacheLoader的实现自动加载缓存
-            .build(new CacheLoader<String, SyncFuture>() {
+            .build(new CacheLoader<String, com.cyyaw.netty.shorts.test.SyncFuture>() {
                 @Override
-                public SyncFuture load(String key) throws Exception {
+                public com.cyyaw.netty.shorts.test.SyncFuture load(String key) throws Exception {
                     // 当获取key的缓存不存在时，不需要自动添加
                     return null;
                 }
@@ -47,7 +47,7 @@ public class NettyClientServiceImpl implements NettyClientService {
     @Override
     public String sendSyncMsg(String text, String dataId, String serviceId) {
 
-        SyncFuture<String> syncFuture = new SyncFuture<String>();
+        com.cyyaw.netty.shorts.test.SyncFuture<String> syncFuture = new com.cyyaw.netty.shorts.test.SyncFuture<String>();
         // 放入缓存中
         futureCache.put(dataId, syncFuture);
 
@@ -69,7 +69,7 @@ public class NettyClientServiceImpl implements NettyClientService {
         String dataId = object.getString("dataId");
 
         // 从缓存中获取数据
-        SyncFuture<String> syncFuture = futureCache.getIfPresent(dataId);
+        com.cyyaw.netty.shorts.test.SyncFuture<String> syncFuture = futureCache.getIfPresent(dataId);
 
         // 如果不为null, 则通知返回
         if (syncFuture != null) {

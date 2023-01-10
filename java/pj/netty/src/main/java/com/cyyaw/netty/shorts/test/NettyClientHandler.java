@@ -19,7 +19,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
 
     @Autowired
-    private NettyClientService service;
+    private com.cyyaw.netty.shorts.test.NettyClientService service;
 
     @Autowired
     private NettyClient nettyClient;

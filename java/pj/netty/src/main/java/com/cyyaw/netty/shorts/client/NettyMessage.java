@@ -8,6 +8,6 @@ public class NettyMessage {
 
     private String type;
 
-    private NettyRequest body;
+    private com.cyyaw.netty.shorts.client.NettyRequest body;
 
 }

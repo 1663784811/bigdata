@@ -190,8 +190,8 @@
     methods: {
       // 添加页面
       onAddItem: function () {
-        this.formBoxField = this.addField
-        console.log(this.addField)
+        // this.formBoxField = this.addField
+        console.log(this.formBoxField)
         // console.log('sssssssss', this.modalDialog.value)
         // this.modalDialog.value?.show().then(() => {
         //   this.modalDialog.value?.reset()

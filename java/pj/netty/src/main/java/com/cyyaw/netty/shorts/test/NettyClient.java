@@ -52,7 +52,7 @@ public class NettyClient {
      * @Fields clientHandlerInitilizer : 初始化
      */
     @Autowired
-    private NettyClientHandlerInitilizer clientHandlerInitilizer;
+    private com.cyyaw.netty.shorts.test.NettyClientHandlerInitilizer clientHandlerInitilizer;
 
     /**
      * @Description: 启动客户端
@@ -139,7 +139,7 @@ public class NettyClient {
      * @Author:杨攀
      * @Since: 2019年9月12日下午5:08:47
      */
-    public String sendSyncMsg(String message, SyncFuture<String> syncFuture) {
+    public String sendSyncMsg(String message, com.cyyaw.netty.shorts.test.SyncFuture<String> syncFuture) {
 
         String result = "";
 

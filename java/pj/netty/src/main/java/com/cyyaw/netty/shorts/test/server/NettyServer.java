@@ -43,7 +43,7 @@ public class NettyServer {
     private Integer port = 8888;
 
     @Autowired
-    private NettyServerHandlerInitializer handlerInitializer;
+    private com.cyyaw.netty.shorts.test.server.NettyServerHandlerInitializer handlerInitializer;
 
     /**
      * @throws InterruptedException

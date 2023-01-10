@@ -39,7 +39,7 @@ public class Server {
                 pipeline.addLast(new StringEncoder(Charset.forName("GB2312")));
                 pipeline.addLast(new StringDecoder(Charset.forName("GB2312")));
 
-                pipeline.addLast(new SimpleServerHandler());
+                pipeline.addLast(new com.cyyaw.netty.shorts.server.SimpleServerHandler());
             }
         });
         bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
