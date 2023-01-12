@@ -8,6 +8,9 @@ import SvgIcon from '@/components/svg-icon/index.vue'
 import { asyncRoutes } from '@/router/routes/async'
 import { LAYOUT } from '../keys'
 
+/**
+ * 加载文件
+ */
 export function loadComponents() {
   return import.meta.glob('/src/views/**/*.vue')
 }
@@ -80,6 +83,9 @@ export function filterRoutesFromLocalRoutes(
   return filterRoute
 }
 
+/**
+ * 是否是菜单
+ */
 export function isMenu(it: OriginRoute) {
   return it.children && it.children.length > 0
 }
@@ -89,7 +95,11 @@ export function getNameByUrl(menuUrl: string) {
   return toHump(temp[temp.length - 1])
 }
 
+/**
+ * 从网络加载路由
+ */
 export function generatorRoutes(res: Array<OriginRoute>) {
+  console.log('==============加载路由', res)
   const tempRoutes: Array<RouteRecordRaw> = []
   res.forEach((it) => {
     const isMenuFlag = isMenu(it)
@@ -135,6 +145,7 @@ export function mapTwoLevelRouter(srcRoutes: Array<RouteRecordRaw>) {
       }
     })
   }
+
   if (srcRoutes && srcRoutes.length > 0) {
     const tempRoutes = [] as Array<RouteRecordRaw>
     srcRoutes.forEach((it) => {
@@ -146,7 +157,7 @@ export function mapTwoLevelRouter(srcRoutes: Array<RouteRecordRaw>) {
       parentRoutes && parentRoutes.length > 0 && (route.children = parentRoutes)
       tempRoutes.push(route)
     })
-    console.log(tempRoutes)
+    console.log('返回路由数据:', tempRoutes)
     return tempRoutes
   }
   return []
@@ -188,6 +199,7 @@ export function transfromMenu(originRoutes: Array<RouteRecordRaw>): Array<MenuOp
     }
     return item.meta?.title || ''
   }
+
   if (!originRoutes) {
     return []
   }

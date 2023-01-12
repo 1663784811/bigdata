@@ -10,16 +10,21 @@ import lombok.extern.slf4j.Slf4j;
 public class SimpleServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-        System.out.println(msg);
+        System.out.println("接收数据:"+msg);
+
+
         ChannelFuture future = ctx.channel().writeAndFlush(msg);
 
-        future.addListener(new ChannelFutureListener() {
+        ChannelFuture future1 = future.addListener(new ChannelFutureListener() {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
                 boolean success = future.isSuccess();
-                System.out.println("是否成功:"+ success +"    返回的数据:"+ msg);
+                System.out.println("是否成功:" + success + "    返回的数据:" + msg);
             }
         });
+
+
+
 
     }
 

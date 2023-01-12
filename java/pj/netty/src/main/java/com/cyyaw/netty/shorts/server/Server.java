@@ -34,12 +34,22 @@ public class Server {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new LengthFieldPrepender(8,0, false));
-                pipeline.addLast(new LengthFieldBasedFrameDecoder(8888888, 0, 8,0,8));
+
+                // 编码器
+                LengthFieldPrepender lengthFieldPrepender = new LengthFieldPrepender(8, 0, false);
+
+                pipeline.addLast(lengthFieldPrepender);
+
+                // 解码器
+                MyDecoder decoder = new MyDecoder(88888, 0, 8, 0, 8);
+                pipeline.addLast(decoder);
+
+
+                // =============
                 pipeline.addLast(new StringEncoder(Charset.forName("GB2312")));
                 pipeline.addLast(new StringDecoder(Charset.forName("GB2312")));
 
-                pipeline.addLast(new com.cyyaw.netty.shorts.server.SimpleServerHandler());
+                pipeline.addLast(new SimpleServerHandler());
             }
         });
         bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
