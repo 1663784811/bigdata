@@ -1,4 +1,4 @@
-package com.cyyaw.admin.dao;
+package com.cyyaw.admin.common.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.util.tools.CommonRest;

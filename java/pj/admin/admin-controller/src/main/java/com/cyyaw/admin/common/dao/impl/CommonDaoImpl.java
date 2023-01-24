@@ -1,10 +1,10 @@
-package com.cyyaw.admin.dao.impl;
+package com.cyyaw.admin.common.dao.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cyyaw.admin.dao.CommonDao;
+import com.cyyaw.admin.common.dao.CommonDao;
 import com.cyyaw.util.tools.CommonRest;
 import com.cyyaw.util.tools.DateUtils;
 import com.cyyaw.util.tools.SqlUtils;

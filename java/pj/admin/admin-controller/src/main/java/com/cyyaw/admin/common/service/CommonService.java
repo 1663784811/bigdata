@@ -1,4 +1,4 @@
-package com.cyyaw.admin.service;
+package com.cyyaw.admin.common.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.table.sql.entity.CSql;

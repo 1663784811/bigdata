@@ -1,8 +1,8 @@
-package com.cyyaw.admin.service.impl;
+package com.cyyaw.admin.common.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cyyaw.admin.dao.CommonDao;
-import com.cyyaw.admin.service.CommonService;
+import com.cyyaw.admin.common.dao.CommonDao;
+import com.cyyaw.admin.common.service.CommonService;
 import com.cyyaw.table.sql.dao.CSqlDao;
 import com.cyyaw.table.sql.entity.CSql;
 import com.cyyaw.util.tools.CommonRest;

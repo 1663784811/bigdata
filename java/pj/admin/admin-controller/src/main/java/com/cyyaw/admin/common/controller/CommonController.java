@@ -1,7 +1,8 @@
-package com.cyyaw.admin.controller.common;
+package com.cyyaw.admin.common.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.admin.common.service.CommonService;
 import com.cyyaw.admin.service.*;
 import com.cyyaw.table.sql.entity.CField;
 import com.cyyaw.table.sql.entity.CPage;
@@ -23,7 +24,7 @@ import java.util.Map;
 /**
  * 公共模块
  */
-@RequestMapping("/home/common")
+@RequestMapping("/admin/common")
 @RestController
 public class CommonController {
 
@@ -55,11 +56,7 @@ public class CommonController {
      * @return
      */
     @RequestMapping("/query")
-    public BaseResult query(@RequestBody Map<String, Object> map) {
-        JSONObject json = new JSONObject();
-        for (String key : map.keySet()) {
-            json.put(key, map.get(key));
-        }
+    public BaseResult query(@RequestBody JSONObject json) {
         CommonRest query = commonService.query(json);
         return BaseResult.ok(query);
     }
@@ -68,11 +65,7 @@ public class CommonController {
      * 通用修改或添加
      */
     @RequestMapping("/update")
-    public BaseResult update(@RequestBody Map<String, Object> map) {
-        JSONObject json = new JSONObject();
-        for (String key : map.keySet()) {
-            json.put(key, map.get(key));
-        }
+    public BaseResult update(@RequestBody JSONObject json) {
         Map<String, Object> update = commonService.update(json);
         return BaseResult.ok(update);
     }
@@ -81,11 +74,7 @@ public class CommonController {
      * 通用删除
      */
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestBody Map<String, Object> map) {
-        JSONObject json = new JSONObject();
-        for (String key : map.keySet()) {
-            json.put(key, map.get(key));
-        }
+    public Map<String, Object> delete(@RequestBody JSONObject json) {
         return commonService.delete(json);
     }
 
