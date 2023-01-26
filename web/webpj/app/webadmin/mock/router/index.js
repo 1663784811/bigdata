@@ -634,5 +634,5 @@ export const editorRoutes = [
 ]
 
 Mock.mock(RegExp(getMenuList), 'post', function () {
-  return Mock.mock({ code: 200, data: adminRoutes, msg: '获取菜单列表成功' })
+  return Mock.mock({ code: 2000, data: adminRoutes, msg: '获取菜单列表成功' })
 })

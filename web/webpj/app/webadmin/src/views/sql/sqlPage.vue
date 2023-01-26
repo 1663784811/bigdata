@@ -9,7 +9,7 @@
           class="listItem"
           v-for="(item, index) in sqlList"
           :key="index"
-          :class="{ activity: sqlData.tid === item.tid }"
+          :class="{ activity: (sqlData && sqlData.tid === item.tid) }"
           @click="selectSqlData(item, index)"
         >
           <div> {{ item.name }}</div>
@@ -36,13 +36,13 @@
         <div class="row">
           <div class="label">sql</div>
           <div class="content">
-            <n-input v-model:value="sqlData.sqlcontent" type="textarea" placeholder="sqlData" />
+            <n-input v-model:value="sqlData.contentSql" type="textarea" placeholder="sqlData" />
           </div>
         </div>
         <div class="row">
           <div class="label">count</div>
           <div class="content">
-            <n-input v-model:value="sqlData.countsql" type="textarea" placeholder="countData" />
+            <n-input v-model:value="sqlData.countSql" type="textarea" placeholder="countData" />
           </div>
         </div>
         <div class="row submitBox">
@@ -55,6 +55,7 @@
 
 <script>
   import { getSqlList, saveSql } from '../../api/api'
+  import {useMessage} from "naive-ui";
 
   export default {
     name: 'SqlPage',
@@ -73,8 +74,8 @@
        * 获取数据
        */
       getDataList() {
-        getSqlList().then((res) => {
-          this.sqlList = res.data
+        getSqlList({}).then((res) => {
+          this.sqlList = res.data;
         })
       },
       /**
@@ -88,15 +89,15 @@
        * 保存数据
        */
       saveData() {
-        saveSql(this.sqlData).catch((res) => {
-          this.sqlData = res.data
+        saveSql(this.sqlData).then((res) => {
+          this.sqlData = res.data;
+          useMessage().success('ssss');
         })
       },
       /**
        * 添加数据
        */
       addData() {
-        console.log('ssssssss', this.sqlData)
         this.sqlData = {}
       },
     },

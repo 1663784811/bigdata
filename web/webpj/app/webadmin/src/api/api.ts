@@ -18,7 +18,7 @@ export const getCompany = (parameter: any) => {
 }
 
 export const getSqlList = (parameter: any) => {
-    return post({
+    return get({
         url: `${baseUrl}/admin/common/sqlList`,
         data: parameter,
     })

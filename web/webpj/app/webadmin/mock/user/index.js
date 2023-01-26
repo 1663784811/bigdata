@@ -8,7 +8,7 @@ Mock.mock(RegExp(login), 'post', function (options) {
   const username = JSON.parse(options.body).username
   const data = {}
   if (username === 'admin') {
-    baseData.code = 200
+    baseData.code = 2000
     baseData.msg = '登录成功'
     data.nickName = '超级管理员'
     data.userName = 'admin'
@@ -24,7 +24,7 @@ Mock.mock(RegExp(login), 'post', function (options) {
     ]
     baseData.data = data
   } else if (username === 'editor') {
-    baseData.code = 200
+    baseData.code = 2000
     baseData.msg = '登录成功'
     data.nickName = '编辑员'
     data.userName = 'editor'
@@ -69,7 +69,7 @@ Mock.mock(RegExp(getMenuListByRoleId), 'post', function (options) {
   }
   if (parseInt(roleId) === 1) {
     // 超级管理员
-    return Mock.mock({ code: 200, data: adminRoutes, msg: '获取菜单列表成功' })
+    return Mock.mock({ code: 2000, data: adminRoutes, msg: '获取菜单列表成功' })
   } else if (parseInt(roleId) === 2) {
     // 编辑
     return Mock.mock({
