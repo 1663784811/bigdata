@@ -18,40 +18,44 @@
         </div>
       </div>
     </div>
-    <div class="sqlRight">
-      <div>
-        <n-button type="success" @click="addData">新增</n-button>
+    <!--==================    ====================-->
+    <n-modal
+        v-model:show="showModal"
+        :mask-closable=false
+    >
+      <div class="sqlRight">
+        <div>
+          <div class="row">
+            <div class="label">ID</div>
+            <div class="content">
+              <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="label">名称</div>
+            <div class="content">
+              <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="label">sql</div>
+            <div class="content">
+              <n-input v-model:value="sqlData.contentSql" type="textarea" :rows="8" placeholder="sqlData"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="label">count</div>
+            <div class="content">
+              <n-input v-model:value="sqlData.countSql" type="textarea" :rows="8" placeholder="countData"/>
+            </div>
+          </div>
+          <div class="row submitBox">
+            <n-button class="submitBtn" type="warning" @click="showModal=false">取消</n-button>
+            <n-button class="submitBtn" type="success" @click="saveData">保存</n-button>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="row">
-          <div class="label">ID</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">名称</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">sql</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.contentSql" type="textarea" placeholder="sqlData"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">count</div>
-          <div class="content">
-            <n-input v-model:value="sqlData.countSql" type="textarea" placeholder="countData"/>
-          </div>
-        </div>
-        <div class="row submitBox">
-          <n-button type="success" @click="saveData">保存</n-button>
-        </div>
-      </div>
-    </div>
+    </n-modal>
   </div>
 </template>
 
@@ -69,6 +73,7 @@ export default {
       sqlList: [],
       sqlData: {},
       countData: '',
+      showModal: true,
       columns: [
         {
           title: 'ID',
@@ -197,35 +202,40 @@ export default {
       }
     }
   }
+}
+.sqlRight {
+  padding: 40px 20px 0 20px;
+  background: #ffffff;
+  width: 80vw;
+  border-radius: 8px;
 
-  .sqlRight {
-    flex: 1;
+  .row {
+    display: flex;
     padding: 10px;
+    margin-bottom: 10px;
+    background: #f0f0f0;
 
-    .row {
+    .label {
+      width: 100px;
+      padding: 0 10px;
       display: flex;
-      padding: 10px;
-      margin-bottom: 10px;
-      background: #f0f0f0;
-
-      .label {
-        width: 100px;
-        padding: 0 10px;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-items: right;
-      }
-
-      .content {
-        flex: 1;
-      }
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-items: right;
     }
 
-    .submitBox {
-      padding-left: 100px;
-      display: block;
-      background: none;
+    .content {
+      flex: 1;
+    }
+  }
+
+  .submitBox {
+    padding-left: 100px;
+    display: flex;
+    justify-content: right;
+    background: none;
+    .submitBtn{
+      margin: 0 10px;
     }
   }
 }
