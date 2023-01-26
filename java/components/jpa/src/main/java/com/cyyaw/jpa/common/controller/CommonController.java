@@ -6,6 +6,7 @@ import com.cyyaw.jpa.common.dao.CommonDao;
 import com.cyyaw.table.sql.dao.CFieldDao;
 import com.cyyaw.table.sql.dao.CPageComponentsDao;
 import com.cyyaw.table.sql.dao.CPageDao;
+import com.cyyaw.table.sql.dao.CSqlDao;
 import com.cyyaw.table.sql.entity.CField;
 import com.cyyaw.table.sql.entity.CPage;
 import com.cyyaw.table.sql.entity.CPageComponents;
@@ -47,6 +48,9 @@ public class CommonController {
     @Autowired
     private CFieldDao cFieldDao;
 
+    @Autowired
+    private CSqlDao cSqlDao;
+
 
     /**
      * 通用查询
@@ -79,16 +83,27 @@ public class CommonController {
 
     @RequestMapping("/sqlList")
     public BaseResult sqlList() {
-//        List<CSql> data = commonService.sqlList();
-//        return BaseResult.ok(data);
-        return null;
+        List<CSql> data = cSqlDao.findAll();
+        return BaseResult.ok(data);
     }
 
     @RequestMapping("/saveSql")
     public BaseResult saveSql(@RequestBody CSql cSql) {
-//        CSql data = commonService.saveSql(cSql);
-//        return BaseResult.ok(data);
-        return null;
+        String tid = cSql.getTid();
+        if (StrUtil.isNotBlank(tid)) {
+            Integer id = cSql.getId();
+            if (null != id) {
+                CSql old = cSqlDao.findByid(id);
+                BeanUtils.copyProperties(cSql, old);
+                CSql data = cSqlDao.save(old);
+                return BaseResult.ok(data);
+            } else {
+                CSql data = cSqlDao.save(cSql);
+                return BaseResult.ok(data);
+            }
+        } else {
+            return BaseResult.fail("没有tID");
+        }
     }
 
     /**
@@ -129,7 +144,7 @@ public class CommonController {
             }
             JSONObject pageRest = new JSONObject();
             BeanUtils.copyProperties(cPage, pageRest);
-            pageRest.put("data",cpData);
+            pageRest.put("data", cpData);
             if (StrUtil.isNotBlank(pageCode)) {
                 data.put(pageCode, pageRest);
             }

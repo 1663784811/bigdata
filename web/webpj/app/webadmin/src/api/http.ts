@@ -21,7 +21,8 @@ export interface Response<T = any> {
 function http<T = any>({ url, data, method, headers, beforeRequest, afterRequest }: HttpOption) {
   const successHandler = (res: AxiosResponse<Response<T>>) => {
     console.log('========返回的数据======', url, res.data)
-    if (res.data.code === 200) {
+    // @ts-ignore
+    if (res.code === 200) {
       return res.data
     } else {
       throw new Error(res.data.msg || '请求失败，未知异常')
