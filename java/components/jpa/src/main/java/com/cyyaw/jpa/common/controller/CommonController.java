@@ -1,12 +1,117 @@
 package com.cyyaw.jpa.common.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.jpa.common.dao.CommonDao;
+import com.cyyaw.table.sql.entity.CSql;
+import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.CommonRest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
+
+/**
+ * 公共模块
+ */
 @RequestMapping("/admin/common")
 @RestController
 public class CommonController {
 
 
+    @Autowired
+    private CommonDao commonDao;
 
+
+    /**
+     * 通用查询
+     *
+     * @return
+     */
+    @RequestMapping("/query")
+    public BaseResult query(@RequestBody JSONObject json) {
+        CommonRest query = commonDao.query(json);
+        return BaseResult.ok(query);
+    }
+
+    /**
+     * 通用修改或添加
+     */
+    @RequestMapping("/update")
+    public BaseResult update(@RequestBody JSONObject json) {
+        Map<String, Object> update = commonDao.update(json);
+        return BaseResult.ok(update);
+    }
+
+    /**
+     * 通用删除
+     */
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(@RequestBody JSONObject json) {
+        return commonDao.delete(json);
+    }
+
+
+    @RequestMapping("/sqlList")
+    public BaseResult sqlList() {
+//        List<CSql> data = commonService.sqlList();
+//        return BaseResult.ok(data);
+        return null;
+    }
+
+    @RequestMapping("/saveSql")
+    public BaseResult saveSql(@RequestBody CSql cSql) {
+//        CSql data = commonService.saveSql(cSql);
+//        return BaseResult.ok(data);
+        return null;
+    }
+
+    /**
+     *
+     */
+    @RequestMapping("/getPageConfig")
+    public BaseResult getPageConfig() {
+//        // 查页面
+//        List<CPage> pageList = commonDao.findAll();
+//        JSONObject data = new JSONObject();
+//        String aa = "{\"tableCompany\":{\"column\":[{\"title\":\"tid\",\"key\":\"tid\",\"type\":\"selection\"},{\"title\":\"企业法人\",\"key\":\"legal_person\"},{\"title\":\"公司名称\",\"key\":\"name\"},{\"title\":\"股票名称\",\"key\":\"stock_name\"},{\"title\":\"股票类型\",\"key\":\"stock_type\"},{\"title\":\"股票号\",\"key\":\"stock_no\"},{\"title\":\"标签\",\"key\":\"tags\"},{\"title\":\"操作\",\"key\":\"operation\"}]},\"department\":{\"column\":[{\"label\":\"东部地区\",\"key\":1,\"children\":[{\"label\":\"总裁部\",\"key\":11},{\"label\":\"财务部\",\"key\":12},{\"label\":\"技术部\",\"key\":13},{\"label\":\"销售部\",\"key\":14}]},{\"label\":\"西部地区\",\"key\":2,\"children\":[{\"label\":\"总裁部\",\"key\":21},{\"label\":\"财务部\",\"key\":22},{\"label\":\"技术部\",\"key\":23},{\"label\":\"销售部\",\"key\":24}]},{\"label\":\"南部地区\",\"key\":3,\"children\":[{\"label\":\"总裁部\",\"key\":31},{\"label\":\"财务部\",\"key\":32},{\"label\":\"技术部\",\"key\":33},{\"label\":\"销售部\",\"key\":34}]},{\"label\":\"北部地区\",\"key\":4,\"children\":[{\"label\":\"总裁部\",\"key\":41},{\"label\":\"财务部\",\"key\":42},{\"label\":\"技术部\",\"key\":43},{\"label\":\"销售部\",\"key\":44}]}]}}";
+//        JSONObject json = JSONObject.parseObject(aa);
+//        // 查组件
+//        List<CPageComponents> cPageComponentsList = cPageComponentsService.findAll();
+//        // 查表格字段
+//        List<Tag> tagList = tagService.findAll();
+//
+//        for (int i = 0; i < pageList.size(); i++) {
+//            CPage cPage = pageList.get(i);
+//            String tid = cPage.getTid();
+//            String pageCode = cPage.getPageCode();
+//            JSONObject cpData = new JSONObject();
+//            for (int j = 0; j < cPageComponentsList.size(); j++) {
+//                CPageComponents cPageComponents = cPageComponentsList.get(j);
+//                String pageId = cPageComponents.getPageId();
+//                if (tid.equals(pageId)) {
+//                    String components_code = cPageComponents.getComponents_code();
+//                    if (StrUtil.isNotBlank(components_code)) {
+//                        JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(cPageComponents));
+//                        if ("mainTable".equals(components_code)) {
+//                            String cPageComponentsTid = cPageComponents.getTid();
+//                            List<CField> cFieldList = cFieldService.findByCPageComponentsId(cPageComponentsTid);
+//                            js.put("data", cFieldList);
+//                        }
+//                        cpData.put(components_code, js);
+//                    }
+//                }
+//            }
+//            PageRest pageRest = new PageRest();
+//            BeanUtils.copyProperties(cPage, pageRest);
+//            pageRest.setData(cpData);
+//            if (StrUtil.isNotBlank(pageCode)) {
+//                data.put(pageCode, pageRest);
+//            }
+//        }
+//        return BaseResult.ok(data);
+        return null;
+    }
 }

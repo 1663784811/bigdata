@@ -1,9 +1,7 @@
 package com.cyyaw.init;
-import java.util.Date;
 
 import com.cyyaw.table.sql.dao.CPageComponentsDao;
 import com.cyyaw.table.sql.dao.CPageDao;
-import com.cyyaw.table.sql.entity.CPageComponents;
 import com.cyyaw.table.tag.dao.TagDao;
 import com.cyyaw.table.tag.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +37,10 @@ public class InitApplication {
 //        components.setSort(0);
 //        cPageComponentsDao.save(components);
 //        tag();
-   }
+    }
 
 
-    public void tag(){
+    public void tag() {
 //        Tag tag = getTag(1);
 //        tag.setId(0);
 //        tag.setCreateTime(new Date());
@@ -59,23 +57,15 @@ public class InitApplication {
     }
 
 
-
-
-    public Tag getTag(Integer id){
+    public Tag getTag(Integer id) {
         Tag obj = tagDao.findByid(id);
-        if(null == obj){
+        if (null == obj) {
             Tag tag = new Tag();
             tag.setId(id);
             return tag;
         }
         return obj;
     }
-
-
-
-
-
-
 
 
 }
