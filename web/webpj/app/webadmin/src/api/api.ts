@@ -1,36 +1,39 @@
-import { post } from '@/api/http'
+import {get, post} from '@/api/http'
+
+const baseUrl = "http://127.0.0.1:8080";
+
 
 export const loginAdmin = (parameter: any) => {
-  return post({
-    url: '/admin/login',
-    data: parameter,
-  })
+    return post({
+        url: '/admin/login',
+        data: parameter,
+    })
 }
 
 export const getCompany = (parameter: any) => {
-  return post({
-    url: 'http://127.0.0.1:8080/home/common/query',
-    data: parameter,
-  })
+    return post({
+        url: `${baseUrl}/admin/common/query`,
+        data: parameter,
+    })
 }
 
 export const getSqlList = (parameter: any) => {
-  return post({
-    url: 'http://127.0.0.1:8080/home/common/sqlList',
-    data: parameter,
-  })
+    return post({
+        url: `${baseUrl}/admin/common/sqlList`,
+        data: parameter,
+    })
 }
 
 export const saveSql = (parameter: any) => {
-  return post({
-    url: 'http://127.0.0.1:8080/home/common/saveSql',
-    data: parameter,
-  })
+    return post({
+        url: `${baseUrl}/admin/common/saveSql`,
+        data: parameter,
+    })
 }
 
 export const getPageConfig = (parameter: any) => {
-  return post({
-    url: 'http://127.0.0.1:8080/home/common/getPageConfig',
-    data: parameter,
-  })
+    return get({
+        url: `${baseUrl}/admin/common/getPageConfig`,
+        data: parameter,
+    })
 }
