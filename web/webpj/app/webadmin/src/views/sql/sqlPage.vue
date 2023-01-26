@@ -28,30 +28,32 @@
           <div class="row">
             <div class="label">ID</div>
             <div class="content">
-              <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData"/>
+              <n-input v-model:value="sqlData.tid" :disabled="editor" type="text" placeholder="sqlData"/>
             </div>
           </div>
           <div class="row">
             <div class="label">名称</div>
             <div class="content">
-              <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData"/>
+              <n-input v-model:value="sqlData.name" :disabled="editor" type="text" placeholder="sqlData"/>
             </div>
           </div>
           <div class="row">
             <div class="label">sql</div>
             <div class="content">
-              <n-input v-model:value="sqlData.contentSql" type="textarea" :rows="8" placeholder="sqlData"/>
+              <n-input v-model:value="sqlData.contentSql" :disabled="editor" type="textarea" :rows="8"
+                       placeholder="sqlData"/>
             </div>
           </div>
           <div class="row">
             <div class="label">count</div>
             <div class="content">
-              <n-input v-model:value="sqlData.countSql" type="textarea" :rows="8" placeholder="countData"/>
+              <n-input v-model:value="sqlData.countSql" :disabled="editor" type="textarea" :rows="8"
+                       placeholder="countData"/>
             </div>
           </div>
           <div class="row submitBox">
             <n-button class="submitBtn" type="warning" @click="showModal=false">取消</n-button>
-            <n-button class="submitBtn" type="success" @click="saveData">保存</n-button>
+            <n-button class="submitBtn" type="success" @click="saveData" v-show="!editor">保存</n-button>
           </div>
         </div>
       </div>
@@ -73,7 +75,8 @@ export default {
       sqlList: [],
       sqlData: {},
       countData: '',
-      showModal: true,
+      showModal: false,
+      editor: false,
       columns: [
         {
           title: 'ID',
@@ -104,14 +107,20 @@ export default {
             const check = h(NButton,
                 {
                   size: 'small',
-                  type: "primary"
+                  type: "primary",
+                  onClick: () => {
+                    this.selectSqlData(rowData, true)
+                  }
                 },
                 {default: () => '查看'}
             )
             const update = h(NButton,
                 {
                   size: 'small',
-                  type: "warning"
+                  type: "warning",
+                  onClick: () => {
+                    this.selectSqlData(rowData, false)
+                  }
                 },
                 {default: () => '修改'}
             )
@@ -139,7 +148,10 @@ export default {
     /**
      * 选择数据
      */
-    selectSqlData(data) {
+    selectSqlData(data, editor = false) {
+      this.showModal = true;
+      this.editor = editor;
+
       this.sqlData = data
     },
 
@@ -203,6 +215,7 @@ export default {
     }
   }
 }
+
 .sqlRight {
   padding: 40px 20px 0 20px;
   background: #ffffff;
@@ -234,7 +247,8 @@ export default {
     display: flex;
     justify-content: right;
     background: none;
-    .submitBtn{
+
+    .submitBtn {
       margin: 0 10px;
     }
   }
