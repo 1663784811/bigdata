@@ -2,17 +2,19 @@
   <div class="sqlPage">
     <div class="sqlLeft">
       <div class="searchBox">
-        <n-input size="small" round placeholder="小" />
+        <n-input size="small" round placeholder="小"/>
+        <n-button class="searchBtn" type="primary">搜索</n-button>
       </div>
       <div class="listBox">
-        <div
-          class="listItem"
-          v-for="(item, index) in sqlList"
-          :key="index"
-          :class="{ activity: (sqlData && sqlData.tid === item.tid) }"
-          @click="selectSqlData(item, index)"
-        >
-          <div> {{ item.name }}</div>
+        <n-data-table
+            :columns="columns"
+            :data="sqlList"
+            :pagination="pagination"
+            :bordered="true"
+            striped
+        />
+        <div class="pageBox">
+          <n-pagination v-model:page="page" :page-count="100"/>
         </div>
       </div>
     </div>
@@ -24,25 +26,25 @@
         <div class="row">
           <div class="label">ID</div>
           <div class="content">
-            <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData" />
+            <n-input v-model:value="sqlData.tid" type="text" placeholder="sqlData"/>
           </div>
         </div>
         <div class="row">
           <div class="label">名称</div>
           <div class="content">
-            <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData" />
+            <n-input v-model:value="sqlData.name" type="text" placeholder="sqlData"/>
           </div>
         </div>
         <div class="row">
           <div class="label">sql</div>
           <div class="content">
-            <n-input v-model:value="sqlData.contentSql" type="textarea" placeholder="sqlData" />
+            <n-input v-model:value="sqlData.contentSql" type="textarea" placeholder="sqlData"/>
           </div>
         </div>
         <div class="row">
           <div class="label">count</div>
           <div class="content">
-            <n-input v-model:value="sqlData.countSql" type="textarea" placeholder="countData" />
+            <n-input v-model:value="sqlData.countSql" type="textarea" placeholder="countData"/>
           </div>
         </div>
         <div class="row submitBox">
@@ -54,118 +56,177 @@
 </template>
 
 <script>
-  import { getSqlList, saveSql } from '../../api/api'
-  import {useMessage} from "naive-ui";
+import {getSqlList, saveSql} from '../../api/api'
+import {h} from 'vue'
 
-  export default {
-    name: 'SqlPage',
-    data() {
-      return {
-        sqlList: [],
-        sqlData: {},
-        countData: '',
-      }
-    },
-    created() {
-      this.getDataList()
-    },
-    methods: {
-      /**
-       * 获取数据
-       */
-      getDataList() {
-        getSqlList({}).then((res) => {
-          this.sqlList = res.data;
-        })
-      },
-      /**
-       * 选择数据
-       */
-      selectSqlData(data) {
-        this.sqlData = data
-      },
+import {NButton} from 'naive-ui'
 
-      /**
-       * 保存数据
-       */
-      saveData() {
-        saveSql(this.sqlData).then((res) => {
-          this.sqlData = res.data;
-          useMessage().success('ssss');
-        })
-      },
-      /**
-       * 添加数据
-       */
-      addData() {
-        this.sqlData = {}
-      },
+
+export default {
+  name: 'SqlPage',
+  data() {
+    return {
+      sqlList: [],
+      sqlData: {},
+      countData: '',
+      columns: [
+        {
+          title: 'ID',
+          key: 'select',
+          type: 'selection',
+        },
+        {
+          title: 'ID',
+          key: 'tid'
+        },
+        {
+          title: '名称',
+          key: 'name'
+        },
+        {
+          title: '分类',
+          key: 'type'
+        },
+        {
+          title: '备注',
+          key: 'tags'
+        },
+        {
+          title: '操作',
+          key: 'actions',
+          width: 150,
+          render: (rowData) => {
+            const check = h(NButton,
+                {
+                  size: 'small',
+                  type: "primary"
+                },
+                {default: () => '查看'}
+            )
+            const update = h(NButton,
+                {
+                  size: 'small',
+                  type: "warning"
+                },
+                {default: () => '修改'}
+            )
+
+            return h('div', [check, update]);
+          }
+        }
+      ],
+      pagination: false,
+      page: 1
+    }
+  },
+  created() {
+    this.getDataList()
+  },
+  methods: {
+    /**
+     * 获取数据
+     */
+    getDataList() {
+      getSqlList({}).then((res) => {
+        this.sqlList = res.data;
+      })
     },
-  }
+    /**
+     * 选择数据
+     */
+    selectSqlData(data) {
+      this.sqlData = data
+    },
+
+    /**
+     * 保存数据
+     */
+    saveData() {
+      saveSql(this.sqlData).then((res) => {
+        this.sqlData = res.data;
+      })
+    },
+    /**
+     * 添加数据
+     */
+    addData() {
+      this.sqlData = {}
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  .sqlPage {
-    display: flex;
+.sqlPage {
 
-    .sqlLeft {
-      width: 200px;
-      height: 100vh;
-      background: #191919;
-      padding: 10px;
+  .sqlLeft {
+    padding: 10px;
+    height: 100vh;
 
-      .searchBox {
-        padding-bottom: 10px;
-      }
+    .searchBox {
+      padding-bottom: 10px;
+      max-width: 560px;
+      margin: 60px auto;
+      display: flex;
 
-      .listBox {
-        .listItem {
-          color: #fff;
-          padding: 6px;
-
-          &:hover {
-            color: #111;
-            background: #fff;
-            cursor: pointer;
-          }
-          &.activity {
-            color: #111;
-            background: #fff;
-            cursor: pointer;
-          }
-        }
+      .searchBtn {
+        margin-left: 10px;
       }
     }
 
-    .sqlRight {
-      flex: 1;
-      padding: 10px;
+    .listBox {
+      .listItem {
+        padding: 6px;
 
-      .row {
-        display: flex;
-        padding: 10px;
-        margin-bottom: 10px;
-        background: #f0f0f0;
-
-        .label {
-          width: 100px;
-          padding: 0 10px;
-          display: flex;
-          flex-direction: row-reverse;
-          align-items: center;
-          justify-items: right;
+        &:hover {
+          color: #111;
+          cursor: pointer;
         }
 
-        .content {
-          flex: 1;
+        &.activity {
+          color: #111;
+          background: #fff;
+          cursor: pointer;
         }
       }
 
-      .submitBox {
-        padding-left: 100px;
-        display: block;
-        background: none;
+      .pageBox {
+        display: flex;
+        margin: 30px;
+        justify-content: center;
       }
     }
   }
+
+  .sqlRight {
+    flex: 1;
+    padding: 10px;
+
+    .row {
+      display: flex;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f0f0f0;
+
+      .label {
+        width: 100px;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-items: right;
+      }
+
+      .content {
+        flex: 1;
+      }
+    }
+
+    .submitBox {
+      padding-left: 100px;
+      display: block;
+      background: none;
+    }
+  }
+}
 </style>
