@@ -48,8 +48,8 @@ public class CommonDaoImpl implements CommonDao {
     public CommonRest query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
         Integer page = json.getInteger("page");
         Integer size = json.getInteger("size");
-        page = (page == null || page < 0) ? 1 : page;
-        size = (size == null || size < 0) ? 30 : size;
+        page = (page == null || page <= 0) ? 1 : page;
+        size = (size == null || size <= 0) ? 30 : size;
         // ================
         String querySql = sqlcontent + " limit " + ((page - 1) * size + "," + size);
         String countSql = SqlUtils.explainSql(sqlCount, json);
