@@ -1,5 +1,6 @@
 package com.cyyaw.config.exception;
 
+import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.util.tools.WhyException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -16,7 +17,10 @@ public class CustomException implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         //判断是否是异步请求
         ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-        if (ex instanceof ConstraintViolationException) {
+        if (ex instanceof IllegalStateException) {
+            mav.addObject("code", WebErrCodeEnum.WEB_ILLEGALSTATE.getCode());
+            mav.addObject("message", WebErrCodeEnum.WEB_ILLEGALSTATE.getMsg());
+        } else if (ex instanceof ConstraintViolationException) {
             mav.addObject("code", WebErrCodeEnum.DATA_ERR_RELATION.getCode());
             mav.addObject("message", WebErrCodeEnum.DATA_ERR_RELATION.getMsg());
         } else if ("The current Subject is not authenticated.  Access denied.".equals(ex.getMessage())) {

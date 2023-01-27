@@ -14,6 +14,11 @@ public enum WebErrCodeEnum {
     WEB_ERR(4000, "操作失败"),
 
     /**
+     * 控制层
+     */
+    WEB_ILLEGALSTATE(5000, "传参错误"),
+
+    /**
      * 登录相关
      */
     WEB_LOGINERR(6000, "登录失败"),
