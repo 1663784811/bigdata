@@ -4,6 +4,7 @@
       <div class="searchBox">
         <n-input size="small" round placeholder="小"/>
         <n-button class="searchBtn" type="primary">搜索</n-button>
+        <n-button class="searchBtn" type="warning" @click="addData">添加</n-button>
       </div>
       <div class="listBox">
         <n-data-table
@@ -14,7 +15,12 @@
             striped
         />
         <div class="pageBox">
-          <n-pagination v-model:page="page" :page-count="100"/>
+          <n-pagination
+              v-model:page="pageData.page"
+              :page-count="Math.ceil(pageData.total/(pageData.size>0?pageData.size:1))"
+              :on-update:page="updatePage"
+          />
+          <div class="pageText">共{{ pageData.total }}条数据</div>
         </div>
       </div>
     </div>
@@ -63,12 +69,11 @@
 
 <script>
 import {getSqlList, saveSql} from '../../api/api'
-import {h} from 'vue'
+import {h, defineComponent} from 'vue'
 
-import {NButton} from 'naive-ui'
+import {NButton } from 'naive-ui'
 
-
-export default {
+export default defineComponent({
   name: 'SqlPage',
   data() {
     return {
@@ -78,14 +83,14 @@ export default {
       showModal: false,
       editor: false,
       columns: [
+        // {
+        //   type: 'selection',
+        //   rowKey: 'id',
+        // },
         {
           title: 'ID',
-          key: 'select',
-          type: 'selection',
-        },
-        {
-          title: 'ID',
-          key: 'tid'
+          key: 'tid',
+          width: 250
         },
         {
           title: '名称',
@@ -102,8 +107,9 @@ export default {
         {
           title: '操作',
           key: 'actions',
-          width: 150,
-          render: (rowData) => {
+          width: 200,
+          render: (rowData, rowKey) => {
+            console.log(rowKey)
             const check = h(NButton,
                 {
                   size: 'small',
@@ -124,13 +130,27 @@ export default {
                 },
                 {default: () => '修改'}
             )
-
-            return h('div', [check, update]);
+            const del = h(NButton,
+                {
+                  size: 'small',
+                  type: "error",
+                  onClick: () => {
+                    this.warning(rowData)
+                  }
+                },
+                {default: () => '删除'}
+            )
+            return h('div', [check, update, del]);
           }
         }
       ],
       pagination: false,
-      page: 1
+      pageData: {
+        page: 0,
+        pageTotal: 0,
+        total: 0,
+        size: 0
+      }
     }
   },
   created() {
@@ -141,8 +161,10 @@ export default {
      * 获取数据
      */
     getDataList() {
-      getSqlList({}).then((res) => {
+      this.sqlList = [];
+      getSqlList(this.pageData).then((res) => {
         this.sqlList = res.data;
+        this.pageData = res.result;
       })
     },
     /**
@@ -161,6 +183,7 @@ export default {
     saveData() {
       saveSql(this.sqlData).then((res) => {
         this.sqlData = res.data;
+        this.getDataList();
       })
     },
     /**
@@ -168,9 +191,32 @@ export default {
      */
     addData() {
       this.sqlData = {}
+      this.showModal = true;
+      this.editor = false;
     },
+    updatePage(page) {
+      this.pageData.page = page
+      this.getDataList();
+    },
+    delData(rowData) {
+      console.log('删除数据', rowData);
+      console.log(this);
+
+      this.dialog.warning({
+        title: '警告',
+        content: '你确定？',
+        positiveText: '确定',
+        negativeText: '不确定',
+        onPositiveClick: () => {
+          message.success('确定')
+        },
+        onNegativeClick: () => {
+          message.error('不确定')
+        }
+      })
+    }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -209,8 +255,14 @@ export default {
 
       .pageBox {
         display: flex;
+        align-items: center;
         margin: 30px;
         justify-content: center;
+
+        .pageText {
+          margin: 0 10px;
+          color: #999;
+        }
       }
     }
   }
