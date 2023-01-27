@@ -82,9 +82,12 @@ public class CommonController {
 
 
     @RequestMapping("/sqlList")
-    public BaseResult sqlList() {
-        List<CSql> data = cSqlDao.findAll();
-        return BaseResult.ok(data);
+    public BaseResult sqlList(@RequestBody JSONObject json) {
+        String sqlCount = "select count(*) as count from c_sql";
+        String sqlContent = "select * from c_sql ";
+        boolean touName = true;
+        CommonRest query = commonDao.query(sqlCount, sqlContent, json, touName);
+        return BaseResult.ok(query);
     }
 
     @RequestMapping("/saveSql")
