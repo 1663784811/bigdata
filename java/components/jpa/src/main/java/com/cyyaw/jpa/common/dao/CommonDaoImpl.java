@@ -48,8 +48,8 @@ public class CommonDaoImpl implements CommonDao {
     public CommonRest query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
         Integer page = json.getInteger("page");
         Integer size = json.getInteger("size");
-        page = page == null ? 1 : page;
-        size = size == null ? 30 : size;
+        page = (page == null || page < 0) ? 1 : page;
+        size = (size == null || size < 0) ? 30 : size;
         // ================
         String querySql = sqlcontent + " limit " + ((page - 1) * size + "," + size);
         String countSql = SqlUtils.explainSql(sqlCount, json);
@@ -153,11 +153,7 @@ public class CommonDaoImpl implements CommonDao {
                         } else if (WhyStringUtil.isEmpty(cn) && name.equals("del")) {
                             cn = "0";
                         }
-                        if (
-                                (!"datetime".equals(dataType) && null != cn)
-                                        || "treecode".equals(name)
-                                        || (!WhyStringUtil.isEmpty(cn))
-                        ) {
+                        if ((!"datetime".equals(dataType) && null != cn) || "treecode".equals(name) || (!WhyStringUtil.isEmpty(cn))) {
                             if (datakey.length() > 0) {
                                 datakey.append(",`" + name + "`");
                             } else {

@@ -17,9 +17,7 @@ import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.CommonRest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -81,12 +79,12 @@ public class CommonController {
     }
 
 
-    @RequestMapping("/sqlList")
-    public BaseResult sqlList(@RequestBody JSONObject json) {
+    @GetMapping("/sqlList")
+    public BaseResult sqlList(@RequestBody @RequestParam Map<String, Object> json) {
         String sqlCount = "select count(*) as count from c_sql";
         String sqlContent = "select * from c_sql ";
         boolean touName = true;
-        CommonRest query = commonDao.query(sqlCount, sqlContent, json, touName);
+        CommonRest query = commonDao.query(sqlCount, sqlContent, new JSONObject(json), touName);
         return BaseResult.ok(query);
     }
 
