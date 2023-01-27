@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "vant": "^4.0.9",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^4.0.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "unplugin-vue-components": "^0.22.12",
     "vite": "^4.0.0"

@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <van-button type="primary" text="ss"/>
-  </div>
-
+  <router-view></router-view>
 </template>
 
 <script setup>
