@@ -1,10 +1,10 @@
 <template>
   <div class="userInfo">
-    <div>
-      ddd
+    <div class="userInfoItem">
+      <Icon type="md-notifications" />
     </div>
-    <div>
-      sdf
+    <div class="userInfoItem">
+      <Icon type="md-contact" />
     </div>
   </div>
 </template>
@@ -15,9 +15,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .userInfo{
   display: flex;
-
+  justify-items: center;
+  align-items: center;
+  padding: 0 20px;
+  .userInfoItem{
+    font-size: 22px;
+    color: #fff;
+    padding: 0 16px;
+    cursor: pointer;
+  }
 }
 </style>
