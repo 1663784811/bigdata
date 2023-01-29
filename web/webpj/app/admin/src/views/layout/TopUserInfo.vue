@@ -1,6 +1,11 @@
 <template>
   <div class="userInfo">
-    se
+    <div>
+      ddd
+    </div>
+    <div>
+      sdf
+    </div>
   </div>
 </template>
 
@@ -11,5 +16,8 @@ export default {
 </script>
 
 <style scoped>
+.userInfo{
+  display: flex;
 
+}
 </style>
