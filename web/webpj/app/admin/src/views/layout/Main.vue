@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 .topBox {
-  background: #19be6b;
+  background: #17233d;
   display: flex;
   justify-content: left;
 }

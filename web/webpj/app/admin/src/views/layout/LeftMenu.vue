@@ -1,5 +1,5 @@
 <template>
-  <Menu :theme="theme" active-name="1">
+  <Menu active-name="1">
     <MenuGroup title="内容管理">
       <MenuItem name="1">
         <Icon type="md-document" />
