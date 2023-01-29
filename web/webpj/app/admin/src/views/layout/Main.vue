@@ -7,7 +7,7 @@
   <div class="mainBox">
     <LeftMenu />
     <div class="mainContent">
-      mainBox
+      <router-view />
     </div>
   </div>
 </template>

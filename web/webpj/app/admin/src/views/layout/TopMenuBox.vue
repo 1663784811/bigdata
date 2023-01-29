@@ -1,29 +1,36 @@
 <template>
   <div class="menuBox">
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
+    <div class="menuItem" v-for="(item,index) in menuArr" :key="index" @click="gotoPage(item.routeName)">
+      <Icon :type="item.icon"/>
+      {{ item.name }}
     </div>
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
-    </div>
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
-    </div>
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
-    </div>
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
-    </div>
-    <div class="menuItem">
-      <Icon type="md-settings" />系统设置
-    </div>
+
   </div>
 </template>
 
 <script>
+import {ref} from "vue";
+
 export default {
-  name: "TopMenuBox"
+  name: "TopMenuBox",
+  setup() {
+
+    const menuArr = ref([
+      {
+        name: 'Sql配置',
+        icon: 'md-settings',
+        routeName: 'sqlConfig'
+      }
+    ]);
+
+    function gotoPage(routeName) {
+      this.router.push({name: routeName})
+    }
+
+    return {
+      menuArr, gotoPage
+    }
+  }
 }
 </script>
 
@@ -32,10 +39,12 @@ export default {
   flex: 1;
   display: flex;
   align-items: center;
-  .menuItem{
+
+  .menuItem {
     color: #fff;
     padding: 0 10px;
-    &:hover{
+
+    &:hover {
       color: #ccc;
       cursor: pointer;
     }

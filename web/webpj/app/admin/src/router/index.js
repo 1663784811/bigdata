@@ -17,12 +17,12 @@ export const router = createRouter({
             path: '/',
             component: import('@/views/layout/Main.vue'),
             children:[
-
+                {
+                    path:'/sql/config',
+                    component: import('@/views/sql/Config.vue'),
+                    name: 'sqlConfig'
+                }
             ]
-        },
-        {
-            path: '/login',
-            component: import('@/views/login/index.vue')
-        },
+        }
     ]
 })
