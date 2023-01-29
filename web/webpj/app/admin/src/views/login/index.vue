@@ -1,8 +1,10 @@
 <template>
   <div>
 
+    <div class="loginBox">
+      <login-box/>
+    </div>
 
-    <login-box />
 
   </div>
 </template>
@@ -14,14 +16,18 @@ import LoginBox from "@/views/login/LoginBox.vue";
 
 export default defineComponent({
   name: 'Login',
-  components:{
-    'login-box':LoginBox
+  components: {
+    'login-box': LoginBox
   },
   setup() {
     return {}
   },
 })
 </script>
-<style>
+<style scoped>
+.loginBox {
+  width: 400px;
+  margin: 20vh auto auto;
+}
 
 </style>
