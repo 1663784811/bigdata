@@ -27,6 +27,11 @@ export default {
         name: '爬虫监控',
         icon: 'md-settings',
         routeName: 'spiderMonitor'
+      },
+      {
+        name: '数据处理',
+        icon: 'md-settings',
+        routeName: 'spiderData'
       }
     ]);
 

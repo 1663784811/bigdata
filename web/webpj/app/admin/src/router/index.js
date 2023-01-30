@@ -26,6 +26,11 @@ export const router = createRouter({
                     path:'/spider/Monitor',
                     component: import('@/views/spider/spiderMonitor.vue'),
                     name: 'spiderMonitor'
+                },
+                {
+                    path:'/spider/Data',
+                    component: import('@/views/spider/spiderData.vue'),
+                    name: 'spiderData'
                 }
             ]
         }
