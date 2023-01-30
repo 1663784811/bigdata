@@ -58,6 +58,7 @@
 
 <script setup>
 import {ref} from "vue";
+import {getSqlList} from '@/api/api.js'
 
 const pageData = ref({
   page: 0,
@@ -76,13 +77,12 @@ let sqlData = ref({
 
 
 const addData = () => {
-  sqlData = ref({});
+  sqlData.value = {};
   modalData.value.showModal = true;
 }
 
 
 // =====================================  表格
-
 const tableData = ref({
   columns: [
     {
@@ -141,7 +141,14 @@ const tableData = ref({
 
   ]
 })
-
+const loadTableData = () => {
+  tableData.value.data = [];
+  getSqlList(pageData.value).then((res) => {
+    tableData.value.data = res.data;
+    pageData.value = res.result;
+  })
+}
+loadTableData();
 // =====================================
 
 const Save = () => {
