@@ -10,10 +10,12 @@
 
 <script>
 import {ref} from "vue";
+import {useRouter} from 'vue-router'
 
 export default {
   name: "TopMenuBox",
   setup() {
+    const $r = useRouter();
 
     const menuArr = ref([
       {
@@ -24,7 +26,7 @@ export default {
     ]);
 
     function gotoPage(routeName) {
-      this.router.push({name: routeName})
+      $r.push({name: routeName})
     }
 
     return {

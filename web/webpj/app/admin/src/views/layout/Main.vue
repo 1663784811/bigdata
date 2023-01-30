@@ -5,9 +5,9 @@
     <TopUserInfo/>
   </div>
   <div class="mainBox">
-    <LeftMenu />
+    <LeftMenu/>
     <div class="mainContent">
-      <router-view />
+      <router-view/>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .topBox {
   background: #17233d;
   display: flex;
@@ -39,6 +39,9 @@ export default {
 .mainBox {
   display: flex;
 
+  .mainContent {
+    flex: 1;
+  }
 }
 
 

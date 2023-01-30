@@ -83,10 +83,10 @@ export default defineComponent({
       showModal: false,
       editor: false,
       columns: [
-        // {
-        //   type: 'selection',
-        //   rowKey: 'id',
-        // },
+        {
+          type: 'selection',
+          rowKey: 'id',
+        },
         {
           title: 'ID',
           key: 'tid',
