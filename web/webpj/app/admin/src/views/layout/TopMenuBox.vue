@@ -22,6 +22,11 @@ export default {
         name: 'Sql配置',
         icon: 'md-settings',
         routeName: 'sqlConfig'
+      },
+      {
+        name: '爬虫监控',
+        icon: 'md-settings',
+        routeName: 'spiderMonitor'
       }
     ]);
 

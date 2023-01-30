@@ -21,6 +21,11 @@ export const router = createRouter({
                     path:'/sql/config',
                     component: import('@/views/sql/Config.vue'),
                     name: 'sqlConfig'
+                },
+                {
+                    path:'/spider/Monitor',
+                    component: import('@/views/spider/spiderMonitor.vue'),
+                    name: 'spiderMonitor'
                 }
             ]
         }
