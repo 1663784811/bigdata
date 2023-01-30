@@ -3,14 +3,25 @@
     <div class="sqlLeft">
       <!--    搜索    -->
       <div class="searchBox">
-        <Input search enter-button placeholder="搜索"/>
+        <Input search enter-button placeholder="搜索" @on-search="search"/>
         <Button type="primary" class="searchBtn" @click="addData">添加</Button>
       </div>
       <!--   表格   -->
       <div class="listBox">
-        <Table border ref="selection" :columns="tableData.columns" :data="tableData.data"></Table>
+        <Table border ref="selection" :columns="tableData.columns" :data="tableData.data">
+          <!--   表格操作  -->
+          <template #operation="{ row, index }">
+            <Button size="small" type="info" @click="selectTableData(row,index,true)" style="margin-right: 5px">
+              查看
+            </Button>
+            <Button size="small" type="warning" @click="selectTableData(row,index,true)" style="margin-right: 5px">
+              修改
+            </Button>
+            <Button size="small" type="error" @click="delTableData(row,index)">删除</Button>
+          </template>
+        </Table>
         <div class="pageBox">
-          <Page :total="pageData.total" show-elevator/>
+          <Page :total="pageData.total" :page-size="pageData.size" @on-change="changePage" show-elevator/>
         </div>
       </div>
     </div>
@@ -59,12 +70,21 @@
 <script setup>
 import {ref} from "vue";
 import {getSqlList} from '@/api/api.js'
+import {Modal} from 'view-ui-plus'
+
 
 const pageData = ref({
   page: 0,
   total: 0,
-  size: 0
+  size: 30
 });
+
+const changePage = (page) => {
+  pageData.value.page = page;
+  loadTableData();
+}
+
+// ====================================
 
 let sqlData = ref({
   tid: '',
@@ -74,7 +94,10 @@ let sqlData = ref({
 });
 
 // =====================================  搜索
-
+const search = () => {
+  pageData.value.page = 1;
+  loadTableData();
+}
 
 const addData = () => {
   sqlData.value = {};
@@ -109,7 +132,8 @@ const tableData = ref({
     },
     {
       title: '操作',
-      key: 'actions',
+      key: 'operation',
+      slot: 'operation',
       width: 200,
     }
   ],
@@ -145,10 +169,33 @@ const loadTableData = () => {
   tableData.value.data = [];
   getSqlList(pageData.value).then((res) => {
     tableData.value.data = res.data;
-    pageData.value = res.result;
+    pageData.value = {
+      ...pageData.value,
+      ...res.result
+    };
   })
 }
 loadTableData();
+
+const selectTableData = (row, index, editor = false) => {
+  modalData.value.showModal = true;
+  modalData.value.editor = editor;
+  sqlData.value = row;
+}
+/**
+ * 删除数据
+ */
+const delTableData = (row, index) => {
+  Modal.confirm({
+    title: '是否删除?',
+    content: `${row.name}`,
+    okText: '删除',
+    onOk: () => {
+      console.log("onOk");
+    },
+  });
+
+}
 // =====================================
 
 const Save = () => {
@@ -160,6 +207,7 @@ const Cancel = () => {
 
 const modalData = ref({
   showModal: false,
+  editor: false,
   Save,
   Cancel
 })
@@ -172,7 +220,6 @@ const modalData = ref({
 .sqlPage {
   .sqlLeft {
     padding: 10px;
-    height: 100vh;
 
     .searchBox {
       padding-bottom: 10px;
