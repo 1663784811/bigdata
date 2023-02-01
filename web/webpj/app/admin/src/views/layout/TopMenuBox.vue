@@ -32,6 +32,16 @@ export default {
         name: '数据处理',
         icon: 'md-settings',
         routeName: 'spiderData'
+      },
+      {
+        name: '企业管理',
+        icon: 'md-settings',
+        routeName: 'enterprise'
+      },
+      {
+        name: '商城管理',
+        icon: 'md-settings',
+        routeName: 'shopping'
       }
     ]);
 

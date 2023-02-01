@@ -31,6 +31,16 @@ export const router = createRouter({
                     path:'/spider/Data',
                     component: import('@/views/spider/spiderData.vue'),
                     name: 'spiderData'
+                },
+                {
+                    path:'/enterprise/List',
+                    component: import('@/views/enterprise/List.vue'),
+                    name: 'enterprise'
+                },
+                {
+                    path:'/shopping/shoppingList',
+                    component: import('@/views/shopping/ShoppingList.vue'),
+                    name: 'shopping'
                 }
             ]
         }
