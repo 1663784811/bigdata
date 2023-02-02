@@ -1,10 +1,9 @@
 package com.cyyaw.service.impl;
 
-import com.cyyaw.config.common.service.BaseDao;
-import com.cyyaw.config.common.service.BaseService;
-import com.cyyaw.config.table.service.AActivityService;
-import com.cyyaw.config.table.table.dao.activity.AActivityDao;
-import com.cyyaw.config.table.table.entity.activity.AActivity;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
+import com.cyyaw.service.AActivityService;
+import com.cyyaw.table.activity.AActivity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
