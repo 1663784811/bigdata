@@ -1,10 +1,10 @@
 package com.cyyaw.tx.web.service.impl;
 
-
-import com.cyyaw.table.enterprise.entity.EStore;
-import com.cyyaw.table.goods.GGoods;
-import com.cyyaw.table.goods.GGoodsSearch;
-import com.cyyaw.table.goods.GStoreGoodsSku;
+import com.cyyaw.entity.GoodsEntity;
+import com.cyyaw.table.admin.enterprise.entity.EStore;
+import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.GGoodsSearch;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 import com.cyyaw.tx.web.service.GGoodsService;
 import com.cyyaw.tx.web.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
 import com.cyyaw.service.GStoreGoodsSkuService;
-import com.cyyaw.table.goods.GStoreGoodsSku;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import lombok.extern.slf4j.Slf4j;

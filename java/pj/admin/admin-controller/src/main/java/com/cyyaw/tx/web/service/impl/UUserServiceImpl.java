@@ -3,7 +3,7 @@ package com.cyyaw.tx.web.service.impl;
 
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
-import com.cyyaw.table.tadmin.UUser;
+import com.cyyaw.table.admin.tadmin.UUser;
 import com.cyyaw.tx.web.service.UUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

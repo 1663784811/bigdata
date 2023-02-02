@@ -1,7 +1,7 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.table.tadmin.UUser;
+import com.cyyaw.table.admin.tadmin.UUser;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.tx.web.service.UUserService;

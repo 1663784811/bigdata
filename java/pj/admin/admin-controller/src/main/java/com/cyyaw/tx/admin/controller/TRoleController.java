@@ -3,7 +3,7 @@ package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
 import com.cyyaw.service.TRoleService;
-import com.cyyaw.table.tadmin.TRole;
+import com.cyyaw.table.admin.tadmin.TRole;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.cyyaw.tx.web.service;
 
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.tadmin.UUser;
+import com.cyyaw.table.admin.tadmin.UUser;
 
 public interface UUserService extends BaseTableService<UUser, Integer> {
 

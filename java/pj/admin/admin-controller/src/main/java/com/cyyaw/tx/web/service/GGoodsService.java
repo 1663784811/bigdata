@@ -2,11 +2,10 @@ package com.cyyaw.tx.web.service;
 
 import com.cyyaw.jpa.BaseTableService;
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.table.goods.GDetails;
-import com.cyyaw.table.goods.GGoods;
-import com.cyyaw.table.goods.GPhoto;
-import com.cyyaw.table.goods.GStoreGoodsSku;
-import com.cyyaw.util.tools.PageRespone;
+import com.cyyaw.table.store.goods.GDetails;
+import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.GPhoto;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 
 public interface GGoodsService extends BaseTableService<GGoods, Integer> {
     /**

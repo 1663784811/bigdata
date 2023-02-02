@@ -2,7 +2,7 @@ package com.cyyaw.tx.admin.controller;
 
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.table.goods.GGoodsSearch;
+import com.cyyaw.table.store.goods.GGoodsSearch;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.tx.web.service.GGoodsSearchService;

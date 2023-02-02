@@ -1,8 +1,8 @@
 package com.cyyaw.service;
 
 
-import com.cyyaw.config.common.service.BaseTableService;
-import com.cyyaw.config.table.table.entity.WBanner;
+import com.cyyaw.jpa.BaseTableService;
+import com.cyyaw.table.web.WBanner;
 
 public interface WBannerService extends BaseTableService<WBanner, Integer> {
 

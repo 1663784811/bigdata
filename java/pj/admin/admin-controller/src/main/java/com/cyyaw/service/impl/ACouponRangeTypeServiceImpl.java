@@ -1,11 +1,9 @@
 package com.cyyaw.service.impl;
 
-
-import com.cyyaw.config.common.service.BaseDao;
-import com.cyyaw.config.common.service.BaseService;
-import com.cyyaw.config.table.service.ACouponRangeTypeService;
-import com.cyyaw.config.table.table.dao.activity.ACouponRangeTypeDao;
-import com.cyyaw.config.table.table.entity.activity.ACouponRangeType;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
+import com.cyyaw.service.ACouponRangeTypeService;
+import com.cyyaw.table.store.activity.ACouponRangeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,9 +4,9 @@ package com.cyyaw.tx.web.service;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
-import com.cyyaw.table.tadmin.TAdmin;
-import com.cyyaw.table.tadmin.TPower;
-import com.cyyaw.table.tadmin.TRole;
+import com.cyyaw.table.admin.tadmin.TAdmin;
+import com.cyyaw.table.admin.tadmin.TPower;
+import com.cyyaw.table.admin.tadmin.TRole;
 
 import java.util.List;
 

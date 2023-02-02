@@ -1,7 +1,7 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.service.TPowerService;
-import com.cyyaw.table.tadmin.TPower;
+import com.cyyaw.table.admin.tadmin.TPower;
 import com.cyyaw.util.tools.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
