@@ -1,4 +1,4 @@
-package com.cyyaw.table.spider.entity;
+package com.cyyaw.table.spider.spider.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
