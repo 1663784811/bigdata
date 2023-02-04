@@ -32,6 +32,7 @@
         @on-ok="modalData.Save()"
         @on-cancel="modalData.Cancel()"
         :mask-closable="false"
+        :loading="true"
         width="80wh"
     >
       <div class="modalBox">
@@ -69,7 +70,7 @@
 
 <script setup>
 import {ref} from "vue";
-import {getSqlList} from '@/api/api.js'
+import {getSqlList, saveSql} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
 
 
@@ -199,7 +200,16 @@ const delTableData = (row, index) => {
 // =====================================
 
 const Save = () => {
-  console.log('dddd')
+  saveSql(sqlData.value).then((rest) => {
+    console.log(rest);
+    sqlData.value = rest.data;
+    loadTableData();
+    modalData.value.showModal = false;
+  }).catch(err => {
+    console.log('dddd');
+
+  })
+  return false;
 }
 const Cancel = () => {
   console.log('dddd')
