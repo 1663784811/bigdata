@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "u_address")
-@org.hibernate.annotations.Table(appliesTo = "u_address", comment = "用户地址")
-public class UAddress  implements Serializable {
-    private static final long serialVersionUID = 1587301172382985L;
+@Table(name = "t_statistics")
+@org.hibernate.annotations.Table(appliesTo = "t_statistics", comment = "统计表")
+public class TStatistics implements Serializable {
+    private static final long serialVersionUID = 1568782627332870L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,33 +39,29 @@ public class UAddress  implements Serializable {
 
 
     @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
+    @Column(name = "adduser", length = 10, columnDefinition = "int COMMENT '新增用户'")
+    private Integer adduser;
 
     @Basic
-    @Column(name = "province",  columnDefinition = "varchar(32) COMMENT '省份'")
-    private String province;
+    @Column(name = "man", length = 10, columnDefinition = "int COMMENT '男生'")
+    private Integer man;
     @Basic
-    @Column(name = "city", columnDefinition = "varchar(32) COMMENT '城市'")
-    private String city;
+    @Column(name = "women", length = 10, columnDefinition = "int COMMENT '女生'")
+    private Integer women;
     @Basic
-    @Column(name = "district",  columnDefinition = "varchar(32) COMMENT '地区'")
-    private String district;
+    @Column(name = "[unknown]", length = 10, columnDefinition = "int COMMENT '未知'")
+    private Integer unknown;
     @Basic
-    @Column(name = "address", columnDefinition = "varchar(255) COMMENT '地址'")
-    private String address;
-
+    @Column(name = "userall", length = 10, columnDefinition = "int COMMENT '所有用户'")
+    private Integer userall;
     @Basic
-    @Column(name = "phone",  columnDefinition = "varchar(15) COMMENT '手机号'")
-    private String phone;
-
+    @Column(name = "visit", length = 10, columnDefinition = "int COMMENT '今天访问量'")
+    private Integer visit;
     @Basic
-    @Column(name = "name",  columnDefinition = "varchar(32) COMMENT '姓名'")
-    private String name;
-
+    @Column(name = "visitall", length = 10, columnDefinition = "int COMMENT '总访问量'")
+    private Integer visitall;
     @Basic
-    @Column(name = "default_is", columnDefinition = "int COMMENT '是否默认{0:否,1:是}'")
-    private Integer defaultIs;
-
+    @Column(name = "weixinuser", length = 10, columnDefinition = "int COMMENT '微信用户'")
+    private Integer weixinuser;
 
 }

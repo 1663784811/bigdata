@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,11 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "u_friends_group")
-@org.hibernate.annotations.Table(appliesTo = "u_friends_group", comment = "好友分组表")
-public class UFriendsGroup implements Serializable {
+@Table(name = "u_group")
+@org.hibernate.annotations.Table(appliesTo = "u_group", comment = "用户群")
+public class UGroup  implements Serializable {
 
-    private static final long serialVersionUID = 13663042723582985L;
+    private static final long serialVersionUID = 13663012723682985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,12 +38,27 @@ public class UFriendsGroup implements Serializable {
 
     // =================================================================================
 
-    @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
+
 
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '分组名称'")
+    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '群名称'")
     private String name;
+
+    @Basic
+    @Column(name = "logo", columnDefinition = "varchar(255) default '' COMMENT '群logo'")
+    private String logo;
+
+    @Basic
+    @Column(name = "introduce", columnDefinition = "varchar(255) default '' COMMENT '群简介'")
+    private String introduce;
+
+    @Basic
+    @Column(name = "address", columnDefinition = "varchar(255) default '' COMMENT '地址'")
+    private String address;
+
+    @Basic
+    @Column(name = "type", length = 10, columnDefinition = "int not null default '0' COMMENT '群类型{0:聊天,1:客服}'")
+    private Integer type;
+
 
 }

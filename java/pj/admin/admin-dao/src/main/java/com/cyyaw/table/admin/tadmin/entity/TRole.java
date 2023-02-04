@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,11 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "u_group")
-@org.hibernate.annotations.Table(appliesTo = "u_group", comment = "用户群")
-public class UGroup  implements Serializable {
-
-    private static final long serialVersionUID = 13663012723682985L;
+@Table(name = "t_role")
+@org.hibernate.annotations.Table(appliesTo = "t_role", comment = "角色表")
+public class TRole implements Serializable {
+    private static final long serialVersionUID = 1568782627448808L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,26 +38,19 @@ public class UGroup  implements Serializable {
     // =================================================================================
 
 
-
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '群名称'")
+    @Column(name = "code", length = 32, columnDefinition = "varchar(32) COMMENT '授权码'")
+    private String code;
+    @Basic
+    @Column(name = "name", length = 32, columnDefinition = "varchar(32) COMMENT '角色名称'")
     private String name;
 
-    @Basic
-    @Column(name = "logo", columnDefinition = "varchar(255) default '' COMMENT '群logo'")
-    private String logo;
 
     @Basic
-    @Column(name = "introduce", columnDefinition = "varchar(255) default '' COMMENT '群简介'")
-    private String introduce;
-
+    @Column(name = "pid", length = 10, columnDefinition = "int COMMENT '父级ID'")
+    private Integer pid;
     @Basic
-    @Column(name = "address", columnDefinition = "varchar(255) default '' COMMENT '地址'")
-    private String address;
-
-    @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int not null default '0' COMMENT '群类型{0:聊天,1:客服}'")
-    private Integer type;
-
+    @Column(name = "treecode", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    private String treecode;
 
 }

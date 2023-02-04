@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_dictionary")
-@org.hibernate.annotations.Table(appliesTo = "t_dictionary", comment = "字典表")
-public class TDictionary implements Serializable {
-    private static final long serialVersionUID = 1587301175682985L;
+@Table(name = "t_admin_power")
+@org.hibernate.annotations.Table(appliesTo = "t_admin_power", comment = "管理员_权限表")
+public class TAdminPower implements Serializable {
+    private static final long serialVersionUID = 1568782627140356L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,28 +38,14 @@ public class TDictionary implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int not null COMMENT '字典类型'")
-    private Integer type;
+    @Column(name = "tadminid", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
+    private String tadminid;
+    @Basic
+    @Column(name = "tadminroleid", columnDefinition = "varchar(32) COMMENT '管理员角色表ID'")
+    private String tadminroleid;
 
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '名称'")
-    private String name;
-
-    @Basic
-    @Column(name = "[value]", columnDefinition = "varchar(255) COMMENT '值'")
-    private String value;
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Column(name = "tpowerid", columnDefinition = "varchar(32) COMMENT '权限表ID'")
+    private String tpowerid;
 
 }

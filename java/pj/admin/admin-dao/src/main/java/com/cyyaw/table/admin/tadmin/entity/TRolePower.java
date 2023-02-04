@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_admin_role")
-@org.hibernate.annotations.Table(appliesTo = "t_admin_role", comment = "管理员角色表")
-public class TAdminRole implements Serializable {
-    private static final long serialVersionUID = 1568782627170401L;
+@Table(name = "t_role_power")
+@org.hibernate.annotations.Table(appliesTo = "t_role_power", comment = "角色权限表")
+public class TRolePower implements Serializable {
+    private static final long serialVersionUID = 1568782627458514L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,11 +39,11 @@ public class TAdminRole implements Serializable {
 
 
     @Basic
-    @Column(name = "tadminid", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
-    private String tadminid;
+    @Column(name = "tpowerid", columnDefinition = "varchar(32) COMMENT '权限表ID'")
+    private String tpowerid;
+
     @Basic
     @Column(name = "troleid", columnDefinition = "varchar(32) COMMENT '角色表ID'")
     private String troleid;
-
 
 }

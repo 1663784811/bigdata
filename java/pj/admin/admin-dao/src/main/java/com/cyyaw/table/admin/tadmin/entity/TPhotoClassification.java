@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_admin_message")
-@org.hibernate.annotations.Table(appliesTo = "t_admin_message", comment = "管理员_消息表")
-public class TAdminMessage implements Serializable {
-    private static final long serialVersionUID = 1568782627113938L;
+@Table(name = "t_photo_classification")
+@org.hibernate.annotations.Table(appliesTo = "t_photo_classification", comment = "图片分类")
+public class TPhotoClassification implements Serializable {
+    private static final long serialVersionUID = 1387301173682985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,14 +38,11 @@ public class TAdminMessage implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态{0:未读,1:已读}'")
-    private Integer status;
-
+    @Column(name = "path", columnDefinition = "varchar(255) COMMENT '图片路径'")
+    private String path;
     @Basic
-    @Column(name = "tadminid", length = 32, columnDefinition = "varchar(32) COMMENT 'admin表id'")
-    private String tadminid;
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '图片名'")
+    private String name;
 
-    @Basic
-    @Column(name = "tmessageid", length = 32, columnDefinition = "varchar(32) COMMENT '消息表id'")
-    private String tmessageid;
+
 }

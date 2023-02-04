@@ -1,7 +1,7 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.entity.GGoods;
 import com.cyyaw.tx.web.service.GGoodsService;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;

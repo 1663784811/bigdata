@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_role")
-@org.hibernate.annotations.Table(appliesTo = "t_role", comment = "角色表")
-public class TRole implements Serializable {
-    private static final long serialVersionUID = 1568782627448808L;
+@Table(name = "u_group_user")
+@org.hibernate.annotations.Table(appliesTo = "u_group_user", comment = "群用户关联表")
+public class UGroupUser implements Serializable {
+
+    private static final long serialVersionUID = 13663052723582985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,18 +40,20 @@ public class TRole implements Serializable {
 
 
     @Basic
-    @Column(name = "code", length = 32, columnDefinition = "varchar(32) COMMENT '授权码'")
-    private String code;
-    @Basic
-    @Column(name = "name", length = 32, columnDefinition = "varchar(32) COMMENT '角色名称'")
-    private String name;
-
+    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userid;
 
     @Basic
-    @Column(name = "pid", length = 10, columnDefinition = "int COMMENT '父级ID'")
-    private Integer pid;
+    @Column(name = "groupid", columnDefinition = "varchar(32) not null COMMENT 'u_groupid表id'")
+    private String groupid;
+
     @Basic
-    @Column(name = "treecode", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
-    private String treecode;
+    @Column(name = "grade", length = 10, columnDefinition = "int not null default '0' COMMENT '等级'")
+    private Integer grade;
+
+    @Basic
+    @Column(name = "type", length = 10, columnDefinition = "int not null default '0' COMMENT '用户类型{0:普通人,1:群主,2:管理员}'")
+    private Integer type;
+
 
 }

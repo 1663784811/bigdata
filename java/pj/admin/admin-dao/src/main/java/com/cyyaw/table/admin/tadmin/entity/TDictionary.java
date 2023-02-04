@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,11 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "u_group_message")
-@org.hibernate.annotations.Table(appliesTo = "u_group_message", comment = "群消息")
-public class UGroupMessage implements Serializable {
-
-    private static final long serialVersionUID = 13663017723582985L;
+@Table(name = "t_dictionary")
+@org.hibernate.annotations.Table(appliesTo = "t_dictionary", comment = "字典表")
+public class TDictionary implements Serializable {
+    private static final long serialVersionUID = 1587301175682985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,27 +38,28 @@ public class UGroupMessage implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "groupid", columnDefinition = "varchar(32) not null COMMENT 'u_groupid群表id'")
-    private String groupid;
-
-    @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
-
-    @Basic
-    @Column(name = "username", columnDefinition = "varchar(32) not null COMMENT '用户名'")
-    private String username;
-
-    @Basic
-    @Column(name = "face", columnDefinition = "varchar(255) COMMENT '用户头像'")
-    private String face;
-
-    @Basic
-    @Column(name = "type",length = 10, columnDefinition = "int  not null COMMENT '消息类型{0:文字,1:图片,2:视频}'")
+    @Column(name = "type", length = 10, columnDefinition = "int not null COMMENT '字典类型'")
     private Integer type;
 
     @Basic
-    @Column(name = "content", columnDefinition = "text COMMENT '消息内容'")
-    private String content;
+    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '名称'")
+    private String name;
+
+    @Basic
+    @Column(name = "[value]", columnDefinition = "varchar(255) COMMENT '值'")
+    private String value;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

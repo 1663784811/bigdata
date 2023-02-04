@@ -1,4 +1,4 @@
-package com.cyyaw.table.admin.tadmin;
+package com.cyyaw.table.admin.tadmin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_photo_classification")
-@org.hibernate.annotations.Table(appliesTo = "t_photo_classification", comment = "图片分类")
-public class TPhotoClassification implements Serializable {
-    private static final long serialVersionUID = 1387301173682985L;
+@Table(name = "u_friends_user")
+@org.hibernate.annotations.Table(appliesTo = "u_friends_user", comment = "好友关联表")
+public class UFriendsUser implements Serializable {
+
+    private static final long serialVersionUID = 1366301723582985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,11 +39,17 @@ public class TPhotoClassification implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "path", columnDefinition = "varchar(255) COMMENT '图片路径'")
-    private String path;
+    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(当前用户)id'")
+    private String userid;
+
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '图片名'")
-    private String name;
+    @Column(name = "touserid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(好友)id'")
+    private String touserid;
+
+
+    @Basic
+    @Column(name = "friendsgroupid", columnDefinition = "varchar(32) COMMENT 'u_friends_group好友分组表id'")
+    private String friendsgroupid;
 
 
 }
