@@ -25,15 +25,11 @@ public class SqlServiceImpl implements SqlService {
 
     @Override
     public BaseResult<CSql> sqlList(SelectEntity select) {
-
         int page = select.getPage();
         int size = select.getSize();
-
         CSql cSql = new CSql();
         ExampleMatcher matcher = ExampleMatcher.matching();
-
-
-        PageRequest of = PageRequest.of(page, size);
+        PageRequest of = PageRequest.of(page - 1, size);
         Example<CSql> ex = Example.of(cSql, matcher);
         Page<CSql> sqlPage = cSqlDao.findAll(ex, of);
 

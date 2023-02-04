@@ -75,7 +75,7 @@ import {Modal} from 'view-ui-plus'
 
 
 const pageData = ref({
-  page: 0,
+  page: 1,
   total: 0,
   size: 30
 });
