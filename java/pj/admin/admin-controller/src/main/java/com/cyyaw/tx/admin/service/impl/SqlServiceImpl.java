@@ -33,7 +33,7 @@ public class SqlServiceImpl implements SqlService {
         Example<CSql> ex = Example.of(cSql, matcher);
         Page<CSql> sqlPage = cSqlDao.findAll(ex, of);
 
-        int number = sqlPage.getNumber();
+        int number = sqlPage.getNumber() + 1;
         int sizeN = sqlPage.getSize();
         long total = sqlPage.getTotalElements();
         BaseResult.Result result = new BaseResult.Result(number, sizeN, total);
