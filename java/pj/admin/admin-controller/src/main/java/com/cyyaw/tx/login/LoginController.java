@@ -3,7 +3,6 @@ package com.cyyaw.tx.login;
 
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.LoginRequest;
-import com.cyyaw.service.TPowerService;
 import com.cyyaw.table.admin.tadmin.TAdmin;
 import com.cyyaw.table.admin.tadmin.TPower;
 import com.cyyaw.util.tools.BaseResult;
