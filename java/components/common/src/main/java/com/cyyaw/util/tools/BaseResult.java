@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class BaseResult implements Serializable {
+public class BaseResult<T> implements Serializable {
 
     /**
      * 分页信息
@@ -14,7 +14,7 @@ public class BaseResult implements Serializable {
     /**
      * 主要数据 可能是Object 或  Arr
      */
-    private Object data;
+    private T data;
     /**
      * 提示信息
      */
