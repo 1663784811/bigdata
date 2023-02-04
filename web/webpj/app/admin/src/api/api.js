@@ -7,5 +7,5 @@ const baseUrl = "http://127.0.0.1:8080";
  * 获取表格数据
  */
 export const getSqlList = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/common/sqlList`, parameter)
+    return AJAXGET(`${baseUrl}/admin/common/sql/sqlList`, parameter)
 }

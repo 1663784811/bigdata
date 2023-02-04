@@ -5,9 +5,7 @@ import com.cyyaw.table.confit.entity.CSql;
 import com.cyyaw.tx.admin.service.SqlService;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/admin/common/sql")
 @RestController
@@ -19,6 +17,18 @@ public class SqlController {
     @GetMapping("/sqlList")
     public BaseResult<CSql> sqlList(SelectEntity select) {
         return sqlService.sqlList(select);
+    }
+
+    @PostMapping("/saveSql")
+    public BaseResult saveSql(@RequestBody CSql cSql) {
+        CSql save = sqlService.save(cSql);
+        return BaseResult.ok(save);
+    }
+
+    @PostMapping("/delSql")
+    public BaseResult delSql(@RequestBody Integer idArr[]){
+        sqlService.delSql(idArr);
+        return BaseResult.ok("删除成功");
     }
 
 

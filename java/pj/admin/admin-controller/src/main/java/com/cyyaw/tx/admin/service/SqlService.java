@@ -8,4 +8,8 @@ public interface SqlService {
 
     BaseResult<CSql> sqlList(SelectEntity select);
 
+    CSql save(CSql cSql);
+
+    void delSql(Integer[] idArr);
+
 }
