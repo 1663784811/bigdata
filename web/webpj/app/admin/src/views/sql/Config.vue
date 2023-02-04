@@ -191,8 +191,10 @@ const delTableData = (row, index) => {
     title: '是否删除?',
     content: `${row.name}`,
     okText: '删除',
+    loading: true,
     onOk: () => {
-      console.log("onOk");
+      console.log("onOk", this);
+      Modal.remove();
     },
   });
 
