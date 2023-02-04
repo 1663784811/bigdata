@@ -1,8 +1,8 @@
 package com.cyyaw.tx.admin.service.impl;
 
+import com.cyyaw.table.confit.dao.CPageComponentsDao;
+import com.cyyaw.table.confit.entity.CPageComponents;
 import com.cyyaw.tx.admin.service.CPageComponentsService;
-import com.cyyaw.table.sql.dao.CPageComponentsDao;
-import com.cyyaw.table.sql.entity.CPageComponents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

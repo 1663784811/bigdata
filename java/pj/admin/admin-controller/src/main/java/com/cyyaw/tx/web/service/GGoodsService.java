@@ -6,6 +6,10 @@ import com.cyyaw.table.store.goods.GDetails;
 import com.cyyaw.table.store.goods.GGoods;
 import com.cyyaw.table.store.goods.GPhoto;
 import com.cyyaw.table.store.goods.GStoreGoodsSku;
+import com.cyyaw.util.tools.PageRespone;
+
+
+import java.util.List;
 
 public interface GGoodsService extends BaseTableService<GGoods, Integer> {
     /**

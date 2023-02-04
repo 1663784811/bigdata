@@ -1,6 +1,7 @@
 package com.cyyaw.tx.admin.service;
 
-import com.cyyaw.table.tag.entity.Tag;
+
+import com.cyyaw.table.spider.tag.entity.Tag;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.config.table.table.entity.goods.GGoods;
-import com.cyyaw.config.table.table.entity.goods.GStoreGoodsSku;
+import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 import lombok.Data;
 
 import java.math.BigDecimal;

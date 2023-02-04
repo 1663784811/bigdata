@@ -1,7 +1,6 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.service.WBannerService;
 import com.cyyaw.table.web.WBanner;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;

@@ -1,9 +1,9 @@
 package com.cyyaw.init;
 
-import com.cyyaw.table.sql.dao.CPageComponentsDao;
-import com.cyyaw.table.sql.dao.CPageDao;
-import com.cyyaw.table.tag.dao.TagDao;
-import com.cyyaw.table.tag.entity.Tag;
+import com.cyyaw.table.confit.dao.CPageComponentsDao;
+import com.cyyaw.table.confit.dao.CPageDao;
+import com.cyyaw.table.spider.tag.dao.TagDao;
+import com.cyyaw.table.spider.tag.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

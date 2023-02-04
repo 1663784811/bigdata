@@ -1,16 +1,13 @@
 package com.cyyaw.service.impl;
 
-import com.cyyaw.config.common.entity.ComputGoods;
-import com.cyyaw.config.common.entity.ComputGoodsRst;
-import com.cyyaw.config.common.entity.GoodsRst;
-import com.cyyaw.config.common.service.BaseDao;
-import com.cyyaw.config.common.service.BaseService;
-import com.cyyaw.config.common.util.IdWorker;
-import com.cyyaw.config.table.service.GStoreGoodsSkuService;
-import com.cyyaw.config.table.table.dao.goods.GGoodsDao;
-import com.cyyaw.config.table.table.dao.goods.GStoreGoodsSkuDao;
-import com.cyyaw.config.table.table.entity.goods.GGoods;
-import com.cyyaw.config.table.table.entity.goods.GStoreGoodsSku;
+import com.cyyaw.entity.ComputGoods;
+import com.cyyaw.entity.ComputGoodsRst;
+import com.cyyaw.entity.GoodsRst;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
+import com.cyyaw.service.GStoreGoodsSkuService;
+import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

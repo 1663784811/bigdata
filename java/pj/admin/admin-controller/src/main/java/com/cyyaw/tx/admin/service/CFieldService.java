@@ -1,6 +1,7 @@
 package com.cyyaw.tx.admin.service;
 
-import com.cyyaw.table.sql.entity.CField;
+
+import com.cyyaw.table.confit.entity.CField;
 
 import java.util.List;
 

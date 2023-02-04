@@ -1,6 +1,7 @@
 package com.cyyaw.tx.admin.service;
 
-import com.cyyaw.table.sql.entity.CSql;
+
+import com.cyyaw.table.confit.entity.CSql;
 
 import java.util.List;
 

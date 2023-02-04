@@ -1,6 +1,6 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.table.tadmin.UUser;
+import com.cyyaw.table.admin.tadmin.UUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

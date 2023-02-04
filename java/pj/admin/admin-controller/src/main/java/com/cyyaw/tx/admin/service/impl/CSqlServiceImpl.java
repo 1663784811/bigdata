@@ -1,8 +1,9 @@
 package com.cyyaw.tx.admin.service.impl;
 
+import com.cyyaw.table.confit.dao.CSqlDao;
+import com.cyyaw.table.confit.entity.CSql;
 import com.cyyaw.tx.admin.service.CSqlService;
-import com.cyyaw.table.sql.dao.CSqlDao;
-import com.cyyaw.table.sql.entity.CSql;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

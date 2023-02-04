@@ -1,7 +1,7 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.table.order.ODetails;
-import com.cyyaw.table.order.OOrder;
+import com.cyyaw.table.store.order.ODetails;
+import com.cyyaw.table.store.order.OOrder;
 import lombok.Data;
 
 import java.util.List;

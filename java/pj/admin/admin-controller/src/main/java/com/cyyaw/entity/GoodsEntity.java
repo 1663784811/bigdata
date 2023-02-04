@@ -1,10 +1,10 @@
 package com.cyyaw.entity;
 
 
-import com.cyyaw.table.enterprise.entity.EStore;
-import com.cyyaw.table.goods.GGoods;
-import com.cyyaw.table.goods.GGoodsSearch;
-import com.cyyaw.table.goods.GStoreGoodsSku;
+import com.cyyaw.table.admin.enterprise.entity.EStore;
+import com.cyyaw.table.store.goods.GGoods;
+import com.cyyaw.table.store.goods.GGoodsSearch;
+import com.cyyaw.table.store.goods.GStoreGoodsSku;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

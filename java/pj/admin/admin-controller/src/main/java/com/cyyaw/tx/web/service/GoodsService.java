@@ -4,6 +4,8 @@ import com.cyyaw.entity.GoodsEntity;
 import com.cyyaw.table.store.goods.GGoodsSearch;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface GoodsService {
 
     /**
