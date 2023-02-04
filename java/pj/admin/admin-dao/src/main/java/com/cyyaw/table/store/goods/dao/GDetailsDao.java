@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GDetailsDao extends BaseDao<GDetails, Integer> {
 
-    @Query("select m from GDetails m where m.goodsid = ?1")
+    @Query("select m from GDetails m where m.goodsId = ?1")
     List<GDetails> findByGoodsid(String goodsId);
 
 }

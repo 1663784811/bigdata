@@ -11,6 +11,6 @@ import java.util.List;
 public interface UGroupMessageDao extends BaseDao<UGroupMessage, Integer> {
 
 
-    @Query("select m from UGroupMessage m where m.groupid = ?1 and m.createtime <= ?2 ")
+    @Query("select m from UGroupMessage m where m.groupId = ?1 and m.createTime <= ?2 ")
     List<UGroupMessage> findByGroupidAndCreatetime(String groupid, Date createtime, Pageable pageable);
 }

@@ -39,12 +39,12 @@ public class UGroupMessage implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "groupid", columnDefinition = "varchar(32) not null COMMENT 'u_groupid群表id'")
-    private String groupid;
+    @Column(name = "group_id", columnDefinition = "varchar(32) not null COMMENT 'u_groupid群表id'")
+    private String groupId;
 
     @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
+    @Column(name = "userId", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userId;
 
     @Basic
     @Column(name = "username", columnDefinition = "varchar(32) not null COMMENT '用户名'")
