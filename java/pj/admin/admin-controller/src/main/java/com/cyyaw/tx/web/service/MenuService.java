@@ -1,7 +1,8 @@
 package com.cyyaw.tx.web.service;
 
 
-import com.cyyaw.table.admin.tadmin.TPower;
+
+import com.cyyaw.table.admin.tadmin.entity.TPower;
 
 import java.util.List;
 

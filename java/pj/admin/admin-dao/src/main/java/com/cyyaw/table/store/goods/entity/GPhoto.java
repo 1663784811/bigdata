@@ -36,6 +36,9 @@ public class GPhoto implements Serializable {
     private String note;
     // =================================================================================
 
+    @Basic
+    @Column(name = "goods_id",  columnDefinition = "varchar(32) COMMENT '商品ID'")
+    private String goodsId;
 
     @Basic
     @Column(name = "photo",  columnDefinition = "varchar(255) COMMENT '商品图片'")

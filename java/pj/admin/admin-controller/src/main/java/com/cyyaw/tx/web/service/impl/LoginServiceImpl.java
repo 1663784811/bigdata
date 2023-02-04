@@ -1,15 +1,25 @@
 package com.cyyaw.tx.web.service.impl;
 
+import com.cyyaw.config.exception.WebException;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
-import com.cyyaw.table.admin.tadmin.TAdmin;
-import com.cyyaw.table.admin.tadmin.TPower;
-import com.cyyaw.table.admin.tadmin.TRole;
-import com.cyyaw.table.admin.tadmin.UUser;
+import com.cyyaw.table.admin.tadmin.dao.TAdminDao;
+import com.cyyaw.table.admin.tadmin.dao.TRoleDao;
+import com.cyyaw.table.admin.tadmin.dao.UUserDao;
+import com.cyyaw.table.admin.tadmin.entity.TAdmin;
+import com.cyyaw.table.admin.tadmin.entity.TPower;
+import com.cyyaw.table.admin.tadmin.entity.TRole;
+import com.cyyaw.table.admin.tadmin.entity.UUser;
+import com.cyyaw.tx.web.dao.TAdminDaoSystem;
+import com.cyyaw.tx.web.dao.TPowerSystem;
+import com.cyyaw.tx.web.dao.TRoleDaoSystem;
+import com.cyyaw.util.tools.JwtTokenUtils;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.tx.web.service.LoginService;
 import com.cyyaw.tx.web.service.UUserService;
+import com.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -143,12 +153,12 @@ public class LoginServiceImpl implements LoginService {
             user = uUserList.get(0);
         }else{
             UUser uUser = new UUser();
-            uUser.setAccount(IdWorker.nextId());
-            uUser.setPassword(IdWorker.nextId());
+            uUser.setAccount(WhyStringUtil.getUUID());
+            uUser.setPassword(WhyStringUtil.getUUID());
             uUser.setOpenid(openid);
-            uUser.setCreatetime(new Date());
+            uUser.setCreateTime(new Date());
             uUser.setDel(0);
-            uUser.setTid(IdWorker.nextId());
+            uUser.setTid(WhyStringUtil.getUUID());
             uUser.setBalance(BigDecimal.ZERO);
             uUser.setUnionid(unionid);
             user = uUserService.save(uUser);
@@ -220,7 +230,7 @@ public class LoginServiceImpl implements LoginService {
         // 添加用户
         String encode = BCryptUtil.encode(password);
         TAdmin t = new TAdmin();
-        t.setTid(IdWorker.nextId());
+        t.setTid(WhyStringUtil.getUUID());
         t.setAccount(userName);
         t.setPassword(encode);
         TAdmin save = tAdminDao.save(t);

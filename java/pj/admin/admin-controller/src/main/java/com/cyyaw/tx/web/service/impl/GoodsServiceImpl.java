@@ -1,10 +1,14 @@
 package com.cyyaw.tx.web.service.impl;
 
 import com.cyyaw.entity.GoodsEntity;
+import com.cyyaw.table.admin.enterprise.dao.EStoreDao;
 import com.cyyaw.table.admin.enterprise.entity.EStore;
-import com.cyyaw.table.store.goods.GGoods;
-import com.cyyaw.table.store.goods.GGoodsSearch;
-import com.cyyaw.table.store.goods.GStoreGoodsSku;
+import com.cyyaw.table.store.goods.dao.GGoodsDao;
+import com.cyyaw.table.store.goods.dao.GGoodsSearchDao;
+import com.cyyaw.table.store.goods.dao.GStoreGoodsSkuDao;
+import com.cyyaw.table.store.goods.entity.GGoods;
+import com.cyyaw.table.store.goods.entity.GGoodsSearch;
+import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;
 import com.cyyaw.tx.web.service.GGoodsService;
 import com.cyyaw.tx.web.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +66,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         for (int i = 0; i < list.size(); i++) {
             GGoodsSearch js = list.get(i);
-            goodsids.add(js.getGoodsid());
-            storegoodsids.add(js.getStoregoodsid());
+            goodsids.add(js.getGoodsId());
+            storegoodsids.add(js.getStoreGoodsId());
         }
         // 查商品详情
         List<GGoods> goodsInfo = gGoodsDao.findByTidIn(goodsids);
@@ -80,8 +84,8 @@ public class GoodsServiceImpl implements GoodsService {
             GGoodsSearch goodsSearch = list.get(i);
             goodsEntity.setGoodsSearch(goodsSearch);
 
-            String goodsid = goodsSearch.getGoodsid();
-            String storegoodsid = goodsSearch.getStoregoodsid();
+            String goodsid = goodsSearch.getGoodsId();
+            String storegoodsid = goodsSearch.getStoreGoodsId();
 
             for (int g = 0; g < goodsInfo.size(); g++) {
                 GGoods gGoods = goodsInfo.get(g);
@@ -138,7 +142,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsids.add(gGoods.getTid());
         List<GStoreGoodsSku> gStoreGoodsSkuList = gStoreGoodsSkuDao.findAllByGoodsid(goodsids);
         // 查门店
-        String storegoodsid = gGoods.getStoreid();
+        String storegoodsid = gGoods.getStoreId();
         EStore eStore = eStoreDao.findByTid(storegoodsid);
 
         //================ 数据

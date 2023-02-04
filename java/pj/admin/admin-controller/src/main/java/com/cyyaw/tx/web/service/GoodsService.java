@@ -1,7 +1,8 @@
 package com.cyyaw.tx.web.service;
 
+
 import com.cyyaw.entity.GoodsEntity;
-import com.cyyaw.table.store.goods.GGoodsSearch;
+import com.cyyaw.table.store.goods.entity.GGoodsSearch;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

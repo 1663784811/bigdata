@@ -1,14 +1,20 @@
 package com.cyyaw.tx.web.service.impl;
 
+import com.cyyaw.config.exception.WebException;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.table.store.goods.GDetails;
-import com.cyyaw.table.store.goods.GGoods;
-import com.cyyaw.table.store.goods.GPhoto;
-import com.cyyaw.table.store.goods.GStoreGoodsSku;
+import com.cyyaw.table.store.goods.dao.GDetailsDao;
+import com.cyyaw.table.store.goods.dao.GGoodsDao;
+import com.cyyaw.table.store.goods.dao.GPhotoDao;
+import com.cyyaw.table.store.goods.dao.GStoreGoodsSkuDao;
+import com.cyyaw.table.store.goods.entity.GDetails;
+import com.cyyaw.table.store.goods.entity.GGoods;
+import com.cyyaw.table.store.goods.entity.GPhoto;
+import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.tx.web.service.GGoodsService;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.PageRequest;
@@ -53,12 +59,12 @@ public class GGoodsServiceImpl extends BaseService<GGoods, Integer> implements G
     public GGoods saveGoods(GGoods gGoods, List<GPhoto> photoList, List<GStoreGoodsSku> skuList, GDetails gDetails) {
         // === 第一步: 保存商品数据
         if(null == gGoods.getTid()){
-            gGoods.setTid(StringUtilWHY.getUUID());
+            gGoods.setTid(WhyStringUtil.getUUID());
         }
-        if(null == gGoods.getCreatetime()){
-            gGoods.setCreatetime(new Date());
+        if(null == gGoods.getCreateTime()){
+            gGoods.setCreateTime(new Date());
         }
-        if(StringUtilWHY.isEmpty(gGoods.getName())){
+        if(WhyStringUtil.isEmpty(gGoods.getName())){
             WebException.fail("请输入商品名称");
         }
         GGoods goods = gGoodsDao.save(gGoods);
@@ -66,29 +72,29 @@ public class GGoodsServiceImpl extends BaseService<GGoods, Integer> implements G
         // === 第二步: 保存图片列表
         for(int i=0;i<photoList.size();i++){
             GPhoto gPhoto = photoList.get(i);
-            if(null == gPhoto.getCreatetime()){
-                gPhoto.setCreatetime(new Date());
+            if(null == gPhoto.getCreateTime()){
+                gPhoto.setCreateTime(new Date());
             }
-            gPhoto.setGoodsid(goodsTid);
+            gPhoto.setGoodsId(goodsTid);
             gPhotoDao.save(gPhoto);
         }
         //==== 第三步：保存sku
         for(int i=0;i<skuList.size();i++){
             GStoreGoodsSku sku = skuList.get(i);
-            if(null == sku.getCreatetime()){
-                sku.setCreatetime(new Date());
+            if(null == sku.getCreateTime()){
+                sku.setCreateTime(new Date());
             }
             if(null == sku.getTid()){
-                sku.setTid(StringUtilWHY.getUUID());
+                sku.setTid(WhyStringUtil.getUUID());
             }
             sku.setGoodsid(goodsTid);
             gStoreGoodsSkuDao.save(sku);
         }
         //==== 第四步：保存商品详情
-        if(null == gDetails.getCreatetime()){
-            gDetails.setCreatetime(new Date());
+        if(null == gDetails.getCreateTime()){
+            gDetails.setCreateTime(new Date());
         }
-        gDetails.setGoodsid(goodsTid);
+        gDetails.setGoodsId(goodsTid);
         gDetailsDao.save(gDetails);
         return goods;
     }
