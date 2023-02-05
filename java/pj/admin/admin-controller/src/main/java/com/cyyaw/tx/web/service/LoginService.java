@@ -79,6 +79,11 @@ public interface LoginService {
      */
     AdminAuthToken loginUserNameAndPassword(String enterpriseId,String userName, String password);
 
+    /**
+     * 注册
+     * @param registerInfo
+     * @return
+     */
     TAdmin adminRegister(LoginRequest registerInfo);
 
 }

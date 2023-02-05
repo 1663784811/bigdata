@@ -4,6 +4,8 @@ import com.cyyaw.config.exception.WebException;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
+import com.cyyaw.table.admin.enterprise.dao.EEnterpriseDao;
+import com.cyyaw.table.admin.enterprise.entity.EEnterprise;
 import com.cyyaw.table.admin.tadmin.dao.TAdminDao;
 import com.cyyaw.table.admin.tadmin.dao.TRoleDao;
 import com.cyyaw.table.admin.tadmin.dao.UUserDao;
@@ -52,6 +54,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private TRoleDao tRoleDao;
+
+    @Autowired
+    private EEnterpriseDao eEnterpriseDao;
 
 
     @Override
@@ -223,15 +228,25 @@ public class LoginServiceImpl implements LoginService {
         String enterpriseId = registerInfo.getEnterpriseId();
         String password = registerInfo.getPassword();
         String passwordEd = registerInfo.getPasswordEd();
+
+        // 判断密码
         if (password == null || (!password.equals(passwordEd))) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "再次密码不一致");
         }
+
+        // 判断企业
+        EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseTid(enterpriseId);
+        if (eEnterprise == null) {
+            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "企业不存在");
+        }
+
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
         TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
+
         // 添加用户
         String encode = BCryptUtil.encode(password);
         TAdmin t = new TAdmin();
