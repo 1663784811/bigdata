@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "t_admin_power")
-@org.hibernate.annotations.Table(appliesTo = "t_admin_power", comment = "管理员_权限表")
+@org.hibernate.annotations.Table(appliesTo = "t_admin_power", comment = "管理员_禁用权限表")
 public class TAdminPower implements Serializable {
     private static final long serialVersionUID = 1568782627140356L;
 
@@ -38,14 +38,11 @@ public class TAdminPower implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "tadminid", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
-    private String tadminid;
-    @Basic
-    @Column(name = "tadminroleid", columnDefinition = "varchar(32) COMMENT '管理员角色表ID'")
-    private String tadminroleid;
+    @Column(name = "admin_id", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
+    private String adminId;
 
     @Basic
-    @Column(name = "tpowerid", columnDefinition = "varchar(32) COMMENT '权限表ID'")
-    private String tpowerid;
+    @Column(name = "power_id", columnDefinition = "varchar(32) COMMENT '权限表ID'")
+    private String powerId;
 
 }
