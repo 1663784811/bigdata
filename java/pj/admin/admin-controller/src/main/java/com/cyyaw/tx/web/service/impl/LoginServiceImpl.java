@@ -54,8 +54,6 @@ public class LoginServiceImpl implements LoginService {
     private TRoleDao tRoleDao;
 
 
-
-
     @Override
     public TAdmin getLoignInfo(String account) {
         List<TAdmin> tAdmins = tAdminDaoSystem.getLoignInfo(account);
@@ -149,9 +147,9 @@ public class LoginServiceImpl implements LoginService {
         // 第一步: 查用户
         List<UUser> uUserList = uUserDao.findByOpenId(openid);
         UUser user = null;
-        if(null != uUserList && uUserList.size()>0){
+        if (null != uUserList && uUserList.size() > 0) {
             user = uUserList.get(0);
-        }else{
+        } else {
             UUser uUser = new UUser();
             uUser.setAccount(WhyStringUtil.getUUID());
             uUser.setPassword(WhyStringUtil.getUUID());
@@ -168,12 +166,12 @@ public class LoginServiceImpl implements LoginService {
         // 第三步: 查角色
         List<TRole> roleList = new ArrayList<>();
         StringBuffer sb = new StringBuffer("user");
-        if(null != roleList && roleList.size()>0){
-            for (TRole role:roleList) {
-                if(sb.length()>0){
+        if (null != roleList && roleList.size() > 0) {
+            for (TRole role : roleList) {
+                if (sb.length() > 0) {
                     sb.append(role.getCode());
-                }else{
-                    sb.append(","+role.getCode());
+                } else {
+                    sb.append("," + role.getCode());
                 }
             }
         }
@@ -186,24 +184,28 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public AdminAuthToken loginUserNameAndPassword(String userName, String password) {
+    public AdminAuthToken loginUserNameAndPassword(String enterpriseId, String userName, String password) {
         // 第一步: 查用户
-        TAdmin tAdmin = tAdminDao.findByAccount(userName);
-        if(ObjectUtils.isEmpty(tAdmin)){ WebException.fail(WebErrCodeEnum.WEB_LOGINERR,"用户名不存在");}
+        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
+        if (ObjectUtils.isEmpty(tAdmin)) {
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+        }
         String account = tAdmin.getAccount();
         String tid = tAdmin.getTid();
         String passworded = tAdmin.getPassword();
         // 第二步: 对比密码
-        if(!BCryptUtil.matches(password, passworded)){ WebException.fail(WebErrCodeEnum.WEB_LOGINERR,"密码错误");}
+        if (!BCryptUtil.matches(password, passworded)) {
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+        }
         // 第三步: 查角色
         List<TRole> roleList = tRoleDao.findByAdminId(tid);
         StringBuffer sb = new StringBuffer();
-        if(null != roleList && roleList.size()>0){
-            for (TRole role:roleList) {
-                if(sb.length()>0){
+        if (null != roleList && roleList.size() > 0) {
+            for (TRole role : roleList) {
+                if (sb.length() > 0) {
                     sb.append(role.getCode());
-                }else{
-                    sb.append(","+role.getCode());
+                } else {
+                    sb.append("," + role.getCode());
                 }
             }
         }
@@ -218,14 +220,17 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public TAdmin adminRegister(LoginRequest registerInfo) {
+        String enterpriseId = registerInfo.getEnterpriseId();
         String password = registerInfo.getPassword();
-        String passworded = registerInfo.getPassworded();
-        if(password==null || (!password.equals(passworded))){ WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR,"再次密码不一致");}
+        String passwordEd = registerInfo.getPasswordEd();
+        if (password == null || (!password.equals(passwordEd))) {
+            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "再次密码不一致");
+        }
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
-        TAdmin tAdmin = tAdminDao.findByAccount(userName);
-        if(!ObjectUtils.isEmpty(tAdmin)){
-            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR,"用户已存在");
+        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
+        if (!ObjectUtils.isEmpty(tAdmin)) {
+            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
         // 添加用户
         String encode = BCryptUtil.encode(password);

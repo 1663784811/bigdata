@@ -27,6 +27,6 @@ public class LoginRequest implements Serializable {
     private String password;
 
     @ApiModelProperty(value = "确认密码", example = "password")
-    private String passworded;
+    private String passwordEd;
 
 }

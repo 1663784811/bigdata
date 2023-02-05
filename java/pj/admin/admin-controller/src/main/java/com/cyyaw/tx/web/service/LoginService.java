@@ -77,7 +77,7 @@ public interface LoginService {
      * @param password
      * @return
      */
-    AdminAuthToken loginUserNameAndPassword(String userName, String password);
+    AdminAuthToken loginUserNameAndPassword(String enterpriseId,String userName, String password);
 
     TAdmin adminRegister(LoginRequest registerInfo);
 

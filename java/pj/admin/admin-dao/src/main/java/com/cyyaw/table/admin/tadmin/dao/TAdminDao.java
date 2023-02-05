@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TAdminDao extends BaseDao<TAdmin, Integer> {
 
-    @Query("select m from TAdmin m where m.account = ?1")
-    TAdmin findByAccount(String account);
+    @Query("select m from TAdmin m where m.enterpriseId = ?1 and m.account = ?2")
+    TAdmin findByAccount(String enterpriseId, String account);
 
 
 

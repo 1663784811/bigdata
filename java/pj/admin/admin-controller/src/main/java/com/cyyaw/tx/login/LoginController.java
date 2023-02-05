@@ -33,7 +33,10 @@ public class LoginController {
     @ApiOperation(value = "后台登录", notes = "后台登录")
     @PostMapping(value = "/admin/login")
     public BaseResult login(@RequestBody LoginRequest loginRequest) {
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(loginRequest.getUserName(), loginRequest.getPassword());
+        String enterpriseId = loginRequest.getEnterpriseId();
+        String userName = loginRequest.getUserName();
+        String password = loginRequest.getPassword();
+        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseId, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
