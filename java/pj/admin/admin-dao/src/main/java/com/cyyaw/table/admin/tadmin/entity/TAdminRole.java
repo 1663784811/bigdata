@@ -39,11 +39,12 @@ public class TAdminRole implements Serializable {
 
 
     @Basic
-    @Column(name = "tadminid", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
-    private String tadminid;
+
+    @Column(name = "admin_id", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
+    private String adminId;
     @Basic
-    @Column(name = "troleid", columnDefinition = "varchar(32) COMMENT '角色表ID'")
-    private String troleid;
+    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色表ID'")
+    private String roleId;
 
 
 }

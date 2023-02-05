@@ -9,7 +9,7 @@ import java.util.List;
 public interface TPowerDao extends BaseDao<TPower, Integer> {
 
 
-    @Query("select m from TPower m where m.tid in ( select t from TAdminPower t where t.tadminid = ?1)")
+    @Query("select m from TPower m where m.tid in ( select t from TAdminPower t where t.adminId = ?1)")
     List<TPower> findAdminPower(String tid);
 
 }

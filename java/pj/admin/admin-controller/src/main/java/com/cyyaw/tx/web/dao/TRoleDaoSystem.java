@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TRoleDaoSystem extends BaseDao<TAdmin,Integer> {
 
-    @Query("select m from TRole m where m.tid in ( select s.troleid from TAdminRole s where s.tadminid = ?1 )")
+    @Query("select m from TRole m where m.tid in ( select s.roleId from TAdminRole s where s.adminId = ?1 )")
     List<TRole> getRolesByTAdminTid(String tid);
 }
