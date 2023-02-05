@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/admin/user")
 @RestController()
-public class AdminInfoController{
+public class AdminUserController {
 
-
-
-
-
-
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
     @GetMapping(value = "/info")
     public BaseResult info() {
 //        AdminAuthToken authToken = getAdminInfo();
@@ -22,5 +22,13 @@ public class AdminInfoController{
     }
 
 
+    /**
+     * 获取用户菜单
+     */
+
+    public void aaa(){
+
+
+    }
 
 }
