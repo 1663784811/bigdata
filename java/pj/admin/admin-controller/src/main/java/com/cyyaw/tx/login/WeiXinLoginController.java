@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login/weixin")
-public class WeixinLoginController {
+public class WeiXinLoginController {
 
 
     public void login(){
