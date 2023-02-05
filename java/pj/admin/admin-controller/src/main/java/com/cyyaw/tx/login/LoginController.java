@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/login")
+@RequestMapping("/login/admin")
 @RestController
 public class LoginController {
 
@@ -31,7 +31,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "后台登录", notes = "后台登录")
-    @PostMapping(value = "/admin/login")
+    @PostMapping(value = "/login")
     public BaseResult login(@RequestBody LoginRequest loginRequest) {
         String enterpriseId = loginRequest.getEnterpriseId();
         String userName = loginRequest.getUserName();
@@ -45,7 +45,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "管理员注册", notes = "用户注册")
-    @PostMapping(value = "/admin/register")
+    @PostMapping(value = "/register")
     public BaseResult register(@RequestBody LoginRequest registerInfo) {
         TAdmin tAdmin = loginService.adminRegister(registerInfo);
         tAdmin.setPassword(null);
