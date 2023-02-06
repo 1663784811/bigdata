@@ -39,11 +39,11 @@ public class TRolePower implements Serializable {
 
 
     @Basic
-    @Column(name = "tpowerid", columnDefinition = "varchar(32) COMMENT '权限表ID'")
-    private String tpowerid;
+    @Column(name = "power_id", columnDefinition = "varchar(32) COMMENT '权限表ID'")
+    private String powerId;
 
     @Basic
-    @Column(name = "troleid", columnDefinition = "varchar(32) COMMENT '角色表ID'")
-    private String troleid;
+    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色表ID'")
+    private String roleId;
 
 }
