@@ -38,11 +38,11 @@ public class TPower implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "pid", length = 32, columnDefinition = "varchar(32) COMMENT '父级ID'")
+    @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
     private String pid;
     @Basic
-    @Column(name = "treecode", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
-    private String treecode;
+    @Column(name = "tree_code", columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    private String treeCode;
 
     @Basic
     @Column(name = "code", columnDefinition = "varchar(255) COMMENT '受权码'")
@@ -51,17 +51,17 @@ public class TPower implements Serializable {
     @Column(name = "icon", columnDefinition = "varchar(255) COMMENT '图标'")
     private String icon;
     @Basic
-    @Column(name = "name", length = 32, columnDefinition = "varchar(32) COMMENT '名称'")
+    @Column(name = "name", columnDefinition = "varchar(32) COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "powertype", length = 10, columnDefinition = "int COMMENT '权限类型{1:菜单,2:按钮}'")
-    private Integer powertype;
+    @Column(name = "power_type", columnDefinition = "int COMMENT '权限类型{1:菜单,2:按钮}'")
+    private Integer powerType;
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
     private Integer status;
     @Basic
-    @Column(name = "ispower", length = 10, columnDefinition = "int not null default '0' COMMENT '是否受权限控制{1:是,0:否}'")
-    private Integer ispower;
+    @Column(name = "is_power", columnDefinition = "int not null default '0' COMMENT '是否受权限控制{1:是,0:否}'")
+    private Integer isPower;
     @Basic
     @Column(name = "url", columnDefinition = "varchar(255) COMMENT 'url'")
     private String url;
