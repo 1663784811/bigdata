@@ -31,13 +31,29 @@ public class AdminUserController {
 
     /**
      * 获取用户菜单
+     *
      * @return
      */
     @GetMapping(value = "/adminMenu")
-    public BaseResult adminMenu(){
+    public BaseResult adminMenu() {
         String adminId = "";
         TreeEntity treeEntity = adminUserService.adminMenu(adminId);
         return BaseResult.ok(treeEntity);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
