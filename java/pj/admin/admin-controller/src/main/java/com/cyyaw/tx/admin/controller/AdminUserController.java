@@ -1,5 +1,6 @@
 package com.cyyaw.tx.admin.controller;
 
+import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.tx.admin.service.AdminUserService;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,13 @@ public class AdminUserController {
 
     /**
      * 获取用户菜单
+     * @return
      */
     @GetMapping(value = "/adminMenu")
-    public void adminMenu(){
-
-        adminUserService.adminMenu();
-
-
-
+    public BaseResult adminMenu(){
+        String adminId = "";
+        TreeEntity treeEntity = adminUserService.adminMenu(adminId);
+        return BaseResult.ok(treeEntity);
     }
 
 }
