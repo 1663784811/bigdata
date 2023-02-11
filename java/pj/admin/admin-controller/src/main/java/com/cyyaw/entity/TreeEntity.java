@@ -26,21 +26,54 @@ public class TreeEntity<T> {
             if (StrUtil.isBlank(pid)) {
                 root.add(node);
             } else {
-                boolean have = false;
+                // 添加到节点
+                boolean h = false;
                 for (int i = 0; i < root.size(); i++) {
-                    Node<T> nodeItem = root.get(i);
-                    String nodePid = nodeItem.getPid();
-                    List<Node> children = nodeItem.getChildren();
-                    // ========
-
+                    Node<T> tree = root.get(i);
+                    boolean b = this.addTreeToForest(tree, node);
+                    if (b) {
+                        h = true;
+                        break;
+                    }
                 }
-                if (!have) {
+                if (!h) {
                     root.add(node);
+                }
+                // 整理森林
+                for (int i = root.size() - 1; i < 1; i++) {
+                    Node<T> tNode = root.get(i);
+                    String treePid = tNode.getPid();
+                    if (StrUtil.isNotBlank(treePid)) {
+                        int size = root.size();
+                        Node<T> nexTreeNode = root.get(i - 1);
+                        boolean b = this.addTreeToForest(nexTreeNode, tNode);
+                        if (b) {
+                            root.remove(i);
+                        }
+                    }
                 }
             }
         } else {
             root.add(node);
         }
+    }
+
+
+    private boolean addTreeToForest(Node<T> tree, TreeEntity.Node<T> node) {
+        String treeId = tree.getTid();
+        String pid = node.getPid();
+        List<Node> children = tree.getChildren();
+        if (treeId.equals(pid)) {
+            children.add(node);
+            return true;
+        } else {
+            for (int i = 0; i < children.size(); i++) {
+                Node childNode = children.get(i);
+                boolean b = addTreeToForest(childNode, node);
+                return b;
+            }
+        }
+        return false;
     }
 
 
