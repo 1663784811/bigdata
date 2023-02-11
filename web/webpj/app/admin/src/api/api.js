@@ -10,6 +10,14 @@ export const getSqlList = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/common/sql/sqlList`, parameter)
 }
 
+/**
+ * 保存SQL
+ */
 export const saveSql = (parameter) => {
     return AJAXPOST(`${baseUrl}/admin/common/sql/saveSql`, parameter, 1)
+}
+
+
+export const apiAdminMenu = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
 }

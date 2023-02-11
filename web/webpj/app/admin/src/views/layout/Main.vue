@@ -12,21 +12,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LogoBox from "@/views/layout/LogoBox.vue";
 import TopMenuBox from "@/views/layout/TopMenuBox.vue";
 import TopUserInfo from "@/views/layout/TopUserInfo.vue";
 import LeftMenu from "@/views/layout/LeftMenu.vue";
 
-export default {
-  name: "Main",
-  components: {
-    LogoBox,
-    TopMenuBox,
-    TopUserInfo,
-    LeftMenu
-  }
-}
+
+
+
+
+
 </script>
 
 <style scoped lang="less">

@@ -1,59 +1,24 @@
 <template>
   <div class="menuBox">
-    <div class="menuItem" v-for="(item,index) in menuArr" :key="index" @click="gotoPage(item.routeName)">
-      <Icon :type="item.icon"/>
+    <div class="menuItem" v-for="(item,index) in store.menuList" :key="index" @click="gotoPage(item.routeName)">
+      <Icon type="md-settings"/>
       {{ item.name }}
     </div>
 
   </div>
 </template>
 
-<script>
-import {ref} from "vue";
+<script setup>
 import {useRouter} from 'vue-router'
+import {adminMenu} from '@/store/adminMenu.js'
 
-export default {
-  name: "TopMenuBox",
-  setup() {
-    const $r = useRouter();
-
-    const menuArr = ref([
-      {
-        name: 'Sql配置',
-        icon: 'md-settings',
-        routeName: 'sqlConfig'
-      },
-      {
-        name: '爬虫监控',
-        icon: 'md-settings',
-        routeName: 'spiderMonitor'
-      },
-      {
-        name: '数据处理',
-        icon: 'md-settings',
-        routeName: 'spiderData'
-      },
-      {
-        name: '企业管理',
-        icon: 'md-settings',
-        routeName: 'enterprise'
-      },
-      {
-        name: '商城管理',
-        icon: 'md-settings',
-        routeName: 'shopping'
-      }
-    ]);
-
-    function gotoPage(routeName) {
-      $r.push({name: routeName})
-    }
-
-    return {
-      menuArr, gotoPage
-    }
-  }
+const store = adminMenu()
+const router = useRouter();
+const gotoPage = function (routeName) {
+  router.push({name: routeName})
 }
+
+
 </script>
 
 <style scoped lang="less">
