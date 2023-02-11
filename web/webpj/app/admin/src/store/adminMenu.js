@@ -31,7 +31,7 @@ export const adminMenu = defineStore('adminMenu', () => {
         }
     ])
     apiAdminMenu({}).then((res) => {
-        menuList.value = res.data;
+        menuList.value.push(... res.data);
     })
     return {menuList}
 })

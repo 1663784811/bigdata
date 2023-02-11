@@ -15,6 +15,7 @@ import {adminMenu} from '@/store/adminMenu.js'
 const store = adminMenu()
 const router = useRouter();
 const gotoPage = function (routeName) {
+  console.log(routeName)
   router.push({name: routeName})
 }
 

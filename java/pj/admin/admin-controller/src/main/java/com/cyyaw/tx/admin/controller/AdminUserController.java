@@ -39,7 +39,7 @@ public class AdminUserController {
      */
     @GetMapping(value = "/adminMenu")
     public BaseResult adminMenu() {
-        String adminId = "";
+        String adminId = "admin";
         List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId);
         return BaseResult.ok(arr);
     }
