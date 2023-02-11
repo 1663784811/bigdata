@@ -15,7 +15,7 @@ public class TreeEntity<T> {
     /**
      * 森林
      */
-    private List<Node<T>> root;
+    private List<Node<T>> root = new ArrayList<>();
 
     /**
      * 添加数据
@@ -26,20 +26,17 @@ public class TreeEntity<T> {
             if (StrUtil.isBlank(pid)) {
                 root.add(node);
             } else {
-
                 boolean have = false;
                 for (int i = 0; i < root.size(); i++) {
                     Node<T> nodeItem = root.get(i);
                     String nodePid = nodeItem.getPid();
                     List<Node> children = nodeItem.getChildren();
-
                     // ========
 
                 }
                 if (!have) {
                     root.add(node);
                 }
-
             }
         } else {
             root.add(node);
