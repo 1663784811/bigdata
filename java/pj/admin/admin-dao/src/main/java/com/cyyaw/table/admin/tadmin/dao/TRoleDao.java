@@ -10,6 +10,6 @@ import java.util.List;
 public interface TRoleDao extends BaseDao<TRole, Integer> {
 
 
-    @Query("select m from TRole m where m.id in ( select t.roleId from TAdminRole t where t.adminId = ?1)")
+    @Query("select m from TRole m where m.tid in ( select t.roleId from TAdminRole t where t.adminId = ?1)")
     List<TRole> findByAdminId(String tid);
 }

@@ -10,6 +10,6 @@ import java.util.List;
 public interface MenuDao  extends BaseDao<TPower, Integer> {
 
 
-    @Query("select m from TPower m where m.tid in( select t.powerId from TAdminPower t where t.adminId = ?1) or m.ispower = 0 order by m.sort asc ")
+    @Query("select m from TPower m where m.tid in( select t.powerId from TAdminPower t where t.adminId = ?1) or m.isPower = 0 order by m.sort asc ")
     List<TPower> getAdminMenu(String tid);
 }

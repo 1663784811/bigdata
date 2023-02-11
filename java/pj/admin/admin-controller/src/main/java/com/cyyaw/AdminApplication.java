@@ -15,7 +15,6 @@ public class AdminApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(AdminApplication.class, args);
         log.info("------------ 启动成功 ---------");
-
         InitApplication bean = run.getBean(InitApplication.class);
         bean.init();
     }

@@ -48,9 +48,10 @@ public class TRole implements Serializable {
 
     @Basic
     @Column(name = "pid", length = 10, columnDefinition = "int COMMENT '父级ID'")
-    private Integer pid;
+    private String pid;
+
     @Basic
-    @Column(name = "treecode", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
-    private String treecode;
+    @Column(name = "tree_code", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    private String treeCode;
 
 }
