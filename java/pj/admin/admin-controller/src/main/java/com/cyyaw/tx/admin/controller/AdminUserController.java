@@ -1,12 +1,15 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.entity.TreeEntity;
+import com.cyyaw.table.admin.tadmin.entity.TPower;
 import com.cyyaw.tx.admin.service.AdminUserService;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequestMapping("/admin/user")
 @RestController()
@@ -37,8 +40,8 @@ public class AdminUserController {
     @GetMapping(value = "/adminMenu")
     public BaseResult adminMenu() {
         String adminId = "";
-        TreeEntity treeEntity = adminUserService.adminMenu(adminId);
-        return BaseResult.ok(treeEntity);
+        List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId);
+        return BaseResult.ok(arr);
     }
 
 

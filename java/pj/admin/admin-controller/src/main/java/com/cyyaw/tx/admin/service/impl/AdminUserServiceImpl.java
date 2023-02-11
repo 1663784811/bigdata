@@ -6,6 +6,7 @@ import com.cyyaw.table.admin.tadmin.dao.TRoleDao;
 import com.cyyaw.table.admin.tadmin.entity.TPower;
 import com.cyyaw.table.admin.tadmin.entity.TRole;
 import com.cyyaw.tx.admin.service.AdminUserService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 
     @Override
-    public TreeEntity adminMenu(String adminId) {
+    public List<TreeEntity.Node<TPower>> adminMenu(String adminId) {
         // 第一步: 查询用户角色
         List<TRole> roles = tRoleDao.findByAdminId(adminId);
         // 第二步: 查询角色权限
@@ -41,7 +42,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             node.setPid(tpower.getPid());
             treeEntity.add(node);
         }
-        return treeEntity;
+        return treeEntity.getRoot();
     }
 
 
