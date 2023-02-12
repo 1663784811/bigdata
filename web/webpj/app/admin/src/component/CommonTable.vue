@@ -14,7 +14,8 @@
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
-      <Table border ref="selection" :columns="tableConfig.columns" :data="tableConfig.data">
+      <Table border ref="selection" :columns="tableConfig.columns" :data="tableConfig.data"
+             :loading="tableConfig.loading">
         <template #operation="{ row, index }">
           <Button size="small" v-if="operation.show" type="info"
                   @click="selectTableData(row,index,true)"
@@ -52,7 +53,7 @@
     <div class="modalBox">
       <div>
         <div class="row" v-for="(item,index) in saveData.columns" :key="index">
-          <div class="label">{{ item.name }}</div>
+          <div class="label">{{ item.name }}:</div>
           <div class="content">
             <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
           </div>
@@ -132,7 +133,8 @@ const searchObj = ref({
 const tableConfig = ref({
   columns: [],
   data: [],
-  pageData: {}
+  pageData: {},
+  loading: false
 });
 
 const saveData = ref({
@@ -144,8 +146,14 @@ const saveData = ref({
 // ======================================================
 
 const loadTableData = () => {
+  tableConfig.value.loading = true;
   commonRequest(searchObj.value.searchUrl, tableConfig.value.pageData).then((res) => {
+    tableConfig.value.loading = false;
     tableConfig.value.data = res.data;
+  }).catch(err => {
+    tableConfig.value.loading = false;
+    tableConfig.value.data = [];
+    console.log(err);
   })
 }
 setTimeout(() => {
@@ -160,6 +168,7 @@ const search = () => {
 }
 
 const addData = () => {
+  saveData.value.data = {};
   modalData.value.showModal = true;
 }
 
@@ -177,6 +186,7 @@ const delSelect = () => {
 
 const selectTableData = (row, index, editor) => {
   modalData.value.showModal = true;
+  saveData.value.data = row;
 }
 
 const delTableData = (row, index) => {
@@ -311,6 +321,24 @@ watch(() => props.delUrl, () => {
   }
 }
 
+.modalBox {
+  .row {
+    display: flex;
+    padding: 10px 0;
+
+    .label {
+      width: 150px;
+      padding-right: 10px;
+      align-items: center;
+      display: flex;
+      justify-content: right;
+    }
+
+    .content {
+      flex: 1;
+    }
+  }
+}
 
 </style>
 
