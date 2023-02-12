@@ -8,7 +8,7 @@ export const pageConfig = defineStore('pageConfig', () => {
                 search: {
                     searchUrl: '/admin/common/sql/sqlList',
                     saveUrl: '/admin/common/sql/saveSql',
-                    delUrl: 'sss',
+                    delUrl: '/admin/common/sql/delSql',
                     columns: [
                         {
                             key: 'name',

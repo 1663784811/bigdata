@@ -66,7 +66,7 @@
 <script setup>
 import {ref, watch} from "vue"
 import {commonRequest} from "@/api/api";
-import {Modal} from "view-ui-plus";
+import {Message, Modal} from "view-ui-plus";
 
 const props = defineProps({
   searchColumns: {
@@ -144,7 +144,9 @@ const saveData = ref({
 });
 
 // ======================================================
-
+/**
+ * 加载数据
+ */
 const loadTableData = () => {
   tableConfig.value.loading = true;
   commonRequest(searchObj.value.searchUrl, tableConfig.value.pageData).then((res) => {
@@ -196,8 +198,22 @@ const delTableData = (row, index) => {
     okText: '删除',
     loading: true,
     onOk: () => {
-      console.log("onOk", this);
-      Modal.remove();
+      const url = searchObj.value.delUrl;
+      console.log(url);
+      commonRequest(url, [], 'post').then((rest) => {
+        Message.success({
+          content: `${rest.data ? rest.data : rest.msg}`,
+          onClose: () => {
+            Modal.remove();
+            loadTableData();
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        Message.error({
+          content: `${err}`,
+        })
+      })
     },
   });
 }
@@ -211,11 +227,20 @@ const changePage = () => {
 const Save = () => {
   const url = searchObj.value.saveUrl;
   commonRequest(url, saveData.value.data, 'post').then((rest) => {
-    modalData.value.showModal = false;
     saveData.value.data = rest.data;
-    loadTableData();
+    Message.success({
+      content: `${rest.msg}`,
+      onClose: () => {
+        modalData.value.showModal = false;
+        loadTableData();
+      }
+    })
+
   }).catch(err => {
     console.log('错误:', err);
+    Message.error({
+      content: `${err}`
+    })
   })
   return false;
 }
@@ -233,10 +258,9 @@ const modalData = ref({
 
 // ===================================================
 watch(() => props.tableColumns, () => {
-  console.log('dddddddddddd');
   tableConfig.value.columns = props.tableColumns
-
 }, {deep: true, immediate: true})
+
 watch(() => props.tableData, () => {
   tableConfig.value.data = props.tableData
 }, {deep: true, immediate: true})
