@@ -87,6 +87,26 @@ const props = defineProps({
     type: Object,
     default: undefined,
     required: false
+  },
+  saveColumns: {
+    type: Array,
+    default: [],
+    required: false
+  },
+  searchUrl: {
+    type: String,
+    default: "",
+    required: false
+  },
+  saveUrl: {
+    type: String,
+    default: "",
+    required: false
+  },
+  delUrl: {
+    type: String,
+    default: "",
+    required: false
   }
 });
 
@@ -116,9 +136,6 @@ const saveData = ref({
 // ======================================================
 
 const loadTableData = () => {
-  console.log('=========================================')
-  console.log('=========================================')
-  console.log('=========================================')
   console.log('=========================================')
   console.log('=========================================')
   tableConfig.value.data = [];
@@ -176,6 +193,7 @@ const changePage = () => {
 
 // ===================================================
 const Save = () => {
+
   saveSql(sqlData.value).then((rest) => {
     console.log(rest);
     // sqlData.value = rest.data;
@@ -225,6 +243,10 @@ watch(() => props.operation, () => {
       tableConfig.value.columns.push(operationColumns.value);
     }
   }
+}, {deep: true, immediate: true})
+
+watch(() => props.saveColumns, () => {
+  saveData.value.columns = props.saveColumns
 }, {deep: true, immediate: true})
 
 

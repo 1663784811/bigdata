@@ -6,6 +6,9 @@ export const pageConfig = defineStore('pageConfig', () => {
         role: {
             commonTable: {
                 search: {
+                    searchUrl: 'sss',
+                    saveUrl: 'ddd',
+                    delUrl: 'sss',
                     columns: [
                         {
                             key: 'name',
@@ -16,11 +19,25 @@ export const pageConfig = defineStore('pageConfig', () => {
                     ]
                 },
                 save: {
+
                     columns: [
                         {
-                            key: '',
-                            name: '',
-                            type: '',
+                            key: 'name',
+                            name: '名称',
+                            type: 'input',
+                            note: '名称备注'
+                        },
+                        {
+                            key: 'name1',
+                            name: '名称1',
+                            type: 'input',
+                            note: '名称备注'
+                        },
+                        {
+                            key: 'name2',
+                            name: '名称2',
+                            type: 'input',
+                            note: '名称备注'
                         }
                     ]
                 },

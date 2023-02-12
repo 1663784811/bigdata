@@ -5,6 +5,10 @@
         :table-columns="tableData.columns"
         :table-data="tableData.data"
         :operation="tableData.operation"
+        :save-columns="tableData.saveColumns"
+        :search-url="tableData.searchUrl"
+        :save-url="tableData.saveUrl"
+        :del-url="tableData.delUrl"
     />
 
 
@@ -36,6 +40,10 @@ const tableData = ref({
   search: commonTable.search,
   columns: commonTable.columns,
   operation: commonTable.operation,
+  saveColumns: commonTable.save.columns,
+  searchUrl: commonTable.search.searchUrl,
+  saveUrl: commonTable.search.saveUrl,
+  delUrl: commonTable.search.delUrl,
   data: [
     {
       name: 'John Brown',
