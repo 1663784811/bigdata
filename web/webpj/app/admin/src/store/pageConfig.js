@@ -6,7 +6,22 @@ export const pageConfig = defineStore('pageConfig', () => {
         role: {
             commonTable: {
                 search: {
-
+                    columns: [
+                        {
+                            key: '',
+                            name: '',
+                            type: '',
+                        }
+                    ]
+                },
+                save: {
+                    columns: [
+                        {
+                            key: '',
+                            name: '',
+                            type: '',
+                        }
+                    ]
                 },
                 columns: [
                     {

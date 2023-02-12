@@ -177,8 +177,17 @@ watch(() => props.tableData, () => {
 
 watch(() => props.operation, () => {
   if (props.operation) {
+    const columns = tableConfig.value.columns;
     const isInclude = tableConfig.value.columns.indexOf(operationColumns.value);
-    if (isInclude == -1) {
+    let h = false;
+    for (let i = 0; i < columns.length; i++) {
+      const obj = columns[i];
+      if (obj && obj.slot === 'operation') {
+        h = true;
+        break;
+      }
+    }
+    if (!h) {
       tableConfig.value.columns.push(operationColumns.value);
     }
   }
