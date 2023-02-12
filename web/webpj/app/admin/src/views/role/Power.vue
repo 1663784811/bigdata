@@ -1,8 +1,9 @@
 <template>
   <div>
     <CommonTable
-      :table-columns="tableData.columns"
-      :table-data="tableData.data"
+        :table-columns="tableData.columns"
+        :table-data="tableData.data"
+        :operation="tableData.operation"
     />
 
 
@@ -14,6 +15,13 @@
 import {ref} from "vue";
 import {Modal} from "view-ui-plus";
 import CommonTable from '@/component/CommonTable.vue'
+import {pageConfig} from '@/store/pageConfig.js'
+
+
+const usePageConfig = pageConfig();
+const role = usePageConfig.getPageConfig("role");
+
+const commonTable = role.commonTable;
 
 
 const pageData = ref({
@@ -24,36 +32,8 @@ const pageData = ref({
 
 
 const tableData = ref({
-  columns: [
-    {
-      type: 'selection',
-      rowKey: 'id',
-      width: 60
-    },
-    {
-      title: 'ID',
-      key: 'tid',
-      width: 250
-    },
-    {
-      title: '名称',
-      key: 'name'
-    },
-    {
-      title: '分类',
-      key: 'type'
-    },
-    {
-      title: '备注',
-      key: 'tags'
-    },
-    {
-      title: '操作',
-      key: 'operation',
-      slot: 'operation',
-      width: 200,
-    }
-  ],
+  columns: commonTable.columns,
+  operation: commonTable.operation,
   data: [
     {
       name: 'John Brown',

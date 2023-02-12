@@ -2,7 +2,6 @@
   <div class="commonTable">
     <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
-      {{ form }}
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
         <Input placeholder="aad" style="width: auto"/>
@@ -20,21 +19,30 @@
         <div class="inputLabel">名称:</div>
         <Input placeholder="aad" style="width: auto"/>
       </div>
-      <div class="searchBtn">
-        <Button type="primary" icon="ios-search">搜索</Button>
+      <div class="btnBox">
+        <Button class="btn" type="success" icon="ios-search">搜索</Button>
+        <Button class="btn" type="warning" icon="ios-search">添加</Button>
+        <Button class="btn" type="error" icon="ios-search">删除</Button>
       </div>
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
       <Table border ref="selection" :columns="tableConfig.columns" :data="tableConfig.data">
         <template #operation="{ row, index }">
-          <Button size="small" type="info" @click="selectTableData(row,index,true)" style="margin-right: 5px">
+          <Button size="small" v-if="operation.show" type="info"
+                  @click="selectTableData(row,index,true)"
+                  style="margin-right: 5px">
             查看
           </Button>
-          <Button size="small" type="warning" @click="selectTableData(row,index,true)" style="margin-right: 5px">
+          <Button size="small" v-if="operation.update" type="warning"
+                  @click="selectTableData(row,index,true)"
+                  style="margin-right: 5px">
             修改
           </Button>
-          <Button size="small" type="error" @click="delTableData(row,index)">删除</Button>
+          <Button size="small" v-if="operation.del" type="error"
+                  @click="delTableData(row,index)">
+            删除
+          </Button>
         </template>
       </Table>
     </div>
@@ -101,9 +109,18 @@ const props = defineProps({
     default: [],
     required: false
   },
-
+  operation: {
+    type: Object,
+    default: undefined,
+    required: false
+  }
 });
 
+const operationColumns = ref({
+  title: '操作',
+  slot: 'operation',
+  width: 200,
+});
 
 const tableConfig = ref({
   columns: [],
@@ -111,7 +128,7 @@ const tableConfig = ref({
   pageData: {}
 });
 
-const selectTableData = (row, index) => {
+const selectTableData = (row, index, editor) => {
   modalData.value.showModal = true;
 }
 
@@ -143,17 +160,28 @@ const Cancel = () => {
 const modalData = ref({
   showModal: false,
   editor: false,
-  data:{},
+  data: {},
   Save,
   Cancel
 })
 
 // ===================================================
 watch(() => props.tableColumns, () => {
+  console.log('dddddddddddd');
   tableConfig.value.columns = props.tableColumns
+
 }, {deep: true, immediate: true})
 watch(() => props.tableData, () => {
   tableConfig.value.data = props.tableData
+}, {deep: true, immediate: true})
+
+watch(() => props.operation, () => {
+  if (props.operation) {
+    const isInclude = tableConfig.value.columns.indexOf(operationColumns.value);
+    if (isInclude == -1) {
+      tableConfig.value.columns.push(operationColumns.value);
+    }
+  }
 }, {deep: true, immediate: true})
 
 
@@ -177,8 +205,12 @@ watch(() => props.tableData, () => {
       }
     }
 
-    .searchBtn {
+    .btnBox {
       margin-left: 10px;
+
+      .btn {
+        margin: 0 6px;
+      }
     }
   }
 
