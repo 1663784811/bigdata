@@ -174,25 +174,20 @@ const addData = () => {
   modalData.value.showModal = true;
 }
 
-const delSelect = () => {
-  Modal.confirm({
-    title: '是否删除,选择的数据?',
-    okText: '删除',
-    loading: true,
-    onOk: () => {
-      console.log("onOk", this);
-      Modal.remove();
-    },
-  });
-}
-
 const selectTableData = (row, index, editor) => {
   modalData.value.showModal = true;
   saveData.value.data = row;
 }
 
+const delSelect = () => {
+  delTableDataFn([])
+}
+
 const delTableData = (row, index) => {
-  console.log(row)
+  delTableDataFn([row.id])
+}
+
+const delTableDataFn = (idArr = []) => {
   Modal.confirm({
     title: '是否删除?',
     okText: '删除',
@@ -200,7 +195,7 @@ const delTableData = (row, index) => {
     onOk: () => {
       const url = searchObj.value.delUrl;
       console.log(url);
-      commonRequest(url, [], 'post').then((rest) => {
+      commonRequest(url, idArr, 'post').then((rest) => {
         Message.success({
           content: `${rest.data ? rest.data : rest.msg}`,
           onClose: () => {
