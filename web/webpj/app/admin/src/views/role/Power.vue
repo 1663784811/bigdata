@@ -1,6 +1,7 @@
 <template>
   <div>
     <CommonTable
+        :search-columns="tableData.search.columns"
         :table-columns="tableData.columns"
         :table-data="tableData.data"
         :operation="tableData.operation"
@@ -32,6 +33,7 @@ const pageData = ref({
 
 
 const tableData = ref({
+  search: commonTable.search,
   columns: commonTable.columns,
   operation: commonTable.operation,
   data: [

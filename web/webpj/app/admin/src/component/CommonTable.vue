@@ -2,27 +2,14 @@
   <div class="commonTable">
     <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
-      <div class="searchRow">
-        <div class="inputLabel">名称:</div>
-        <Input placeholder="aad" style="width: auto"/>
-      </div>
-
-      <div class="searchRow">
-        <div class="inputLabel">名称:</div>
-        <Input placeholder="aad" style="width: auto"/>
-      </div>
-      <div class="searchRow">
-        <div class="inputLabel">名称:</div>
-        <Input placeholder="aad" style="width: auto"/>
-      </div>
-      <div class="searchRow">
-        <div class="inputLabel">名称:</div>
-        <Input placeholder="aad" style="width: auto"/>
+      <div class="searchRow" v-for="(item,index) in searchColumns" :key="index">
+        <div class="inputLabel">{{ item.name }}:</div>
+        <Input :placeholder="item.note" style="width: auto"/>
       </div>
       <div class="btnBox">
-        <Button class="btn" type="success" icon="ios-search">搜索</Button>
-        <Button class="btn" type="warning" icon="ios-search">添加</Button>
-        <Button class="btn" type="error" icon="ios-search">删除</Button>
+        <Button class="btn" type="success" icon="ios-search" @click="search">搜索</Button>
+        <Button class="btn" type="warning" icon="ios-search" @click="addData">添加</Button>
+        <Button class="btn" type="error" icon="ios-search" @click="delSelect">删除</Button>
       </div>
     </div>
     <!--  ===========================  表格 ========================================  -->
@@ -97,8 +84,14 @@
 <script setup>
 import {watch, ref} from "vue"
 import {saveSql} from "@/api/api";
+import {Modal} from "view-ui-plus";
 
 const props = defineProps({
+  searchColumns: {
+    type: Array,
+    default: [],
+    required: false
+  },
   tableColumns: {
     type: Array,
     default: [],
@@ -122,19 +115,58 @@ const operationColumns = ref({
   width: 200,
 });
 
+const selectionColumns = ref({
+  type: 'selection',
+  rowKey: 'id',
+  width: 60
+})
+
 const tableConfig = ref({
   columns: [],
   data: [],
   pageData: {}
 });
 
+// ======================================================
+const search = () => {
+  tableConfig.value.pageData.page = 1;
+  // loadTableData();
+  console.log("search")
+}
+
+const addData = () => {
+  modalData.value.showModal = true;
+}
+
+const delSelect = () => {
+  Modal.confirm({
+    title: '是否删除,选择的数据?',
+    okText: '删除',
+    loading: true,
+    onOk: () => {
+      console.log("onOk", this);
+      Modal.remove();
+    },
+  });
+}
+
 const selectTableData = (row, index, editor) => {
   modalData.value.showModal = true;
 }
 
 const delTableData = (row, index) => {
-
+  console.log(row)
+  Modal.confirm({
+    title: '是否删除?',
+    okText: '删除',
+    loading: true,
+    onOk: () => {
+      console.log("onOk", this);
+      Modal.remove();
+    },
+  });
 }
+
 
 const changePage = () => {
 

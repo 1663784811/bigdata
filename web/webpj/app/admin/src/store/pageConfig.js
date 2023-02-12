@@ -8,9 +8,10 @@ export const pageConfig = defineStore('pageConfig', () => {
                 search: {
                     columns: [
                         {
-                            key: '',
-                            name: '',
-                            type: '',
+                            key: 'name',
+                            name: '名称',
+                            type: 'input',
+                            note: '名称备注'
                         }
                     ]
                 },
@@ -24,11 +25,6 @@ export const pageConfig = defineStore('pageConfig', () => {
                     ]
                 },
                 columns: [
-                    {
-                        type: 'selection',
-                        rowKey: 'id',
-                        width: 60
-                    },
                     {
                         title: 'ID',
                         key: 'tid',
