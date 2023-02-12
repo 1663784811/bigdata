@@ -41,6 +41,11 @@ export const router = createRouter({
                     path:'/shopping/shoppingList',
                     component: import('@/views/shopping/ShoppingList.vue'),
                     name: 'shopping'
+                },
+                {
+                    path:'/role/power',
+                    component: import('@/views/role/Power.vue'),
+                    name: 'power'
                 }
             ]
         }

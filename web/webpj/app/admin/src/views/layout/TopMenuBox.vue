@@ -4,7 +4,6 @@
       <Icon type="md-settings"/>
       {{ item.name }}
     </div>
-
   </div>
 </template>
 

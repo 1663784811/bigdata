@@ -28,6 +28,11 @@ export const adminMenu = defineStore('adminMenu', () => {
             name: '商城管理',
             icon: 'md-settings',
             routeName: 'shopping'
+        },
+        {
+            name: '权限管理',
+            icon: 'md-settings',
+            routeName: 'power'
         }
     ])
     apiAdminMenu({}).then((res) => {
