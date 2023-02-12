@@ -51,39 +51,20 @@
   >
     <div class="modalBox">
       <div>
-        <div class="row">
-          <div class="label">ID</div>
+        <div class="row" v-for="(item,index) in saveData.columns" :key="index">
+          <div class="label">{{ item.name }}</div>
           <div class="content">
-            <Input v-model="modalData.data.tid" placeholder="ID"/>
+            <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
           </div>
         </div>
-        <div class="row">
-          <div class="label">名称</div>
-          <div class="content">
-            <Input v-model="modalData.data.name" placeholder="名称"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">sql</div>
-          <div class="content">
-            <Input v-model="modalData.data.contentSql" placeholder="sql" type="textarea" :rows="8"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="label">count</div>
-          <div class="content">
-            <Input v-model="modalData.data.countSql" placeholder="sql" type="textarea" :rows="8"/>
-          </div>
-        </div>
-
       </div>
     </div>
   </Modal>
 </template>
 
 <script setup>
-import {watch, ref} from "vue"
-import {saveSql} from "@/api/api";
+import {ref, watch} from "vue"
+import {getSqlList, saveSql} from "@/api/api";
 import {Modal} from "view-ui-plus";
 
 const props = defineProps({
@@ -127,11 +108,32 @@ const tableConfig = ref({
   pageData: {}
 });
 
+const saveData = ref({
+  columns: [],
+  data: {}
+});
+
+// ======================================================
+
+const loadTableData = () => {
+  console.log('=========================================')
+  console.log('=========================================')
+  console.log('=========================================')
+  console.log('=========================================')
+  console.log('=========================================')
+  tableConfig.value.data = [];
+  getSqlList(tableConfig.value.pageData).then((res) => {
+    console.log(res)
+  })
+}
+loadTableData();
+
+
 // ======================================================
 const search = () => {
   tableConfig.value.pageData.page = 1;
-  // loadTableData();
   console.log("search")
+  loadTableData();
 }
 
 const addData = () => {
