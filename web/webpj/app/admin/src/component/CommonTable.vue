@@ -144,15 +144,13 @@ const saveData = ref({
 // ======================================================
 
 const loadTableData = () => {
-  console.log('=========================================')
-  console.log('=========================================')
-  tableConfig.value.data = [];
   commonRequest(searchObj.value.searchUrl, tableConfig.value.pageData).then((res) => {
-    console.log(res)
+    tableConfig.value.data = res.data;
   })
 }
-loadTableData();
-
+setTimeout(() => {
+  loadTableData();
+}, 1000)
 
 // ======================================================
 const search = () => {
@@ -201,14 +199,13 @@ const changePage = () => {
 
 // ===================================================
 const Save = () => {
-  commonRequest(saveUrl, sqlData.value, 'post').then((rest) => {
-    console.log(rest);
-    // sqlData.value = rest.data;
-    // loadTableData();
+  const url = searchObj.value.saveUrl;
+  commonRequest(url, saveData.value.data, 'post').then((rest) => {
     modalData.value.showModal = false;
+    saveData.value.data = rest.data;
+    loadTableData();
   }).catch(err => {
-    console.log('dddd');
-
+    console.log('错误:', err);
   })
   return false;
 }

@@ -6,8 +6,8 @@ export const pageConfig = defineStore('pageConfig', () => {
         role: {
             commonTable: {
                 search: {
-                    searchUrl: 'sss',
-                    saveUrl: 'ddd',
+                    searchUrl: '/admin/common/sql/sqlList',
+                    saveUrl: '/admin/common/sql/saveSql',
                     delUrl: 'sss',
                     columns: [
                         {
