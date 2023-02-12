@@ -1,8 +1,8 @@
 <template>
   <div class="commonTable">
-    <!--  搜索  -->
+    <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
-
+      {{ form }}
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
         <Input placeholder="aad" style="width: auto"/>
@@ -20,14 +20,11 @@
         <div class="inputLabel">名称:</div>
         <Input placeholder="aad" style="width: auto"/>
       </div>
-
-
       <div class="searchBtn">
         <Button type="primary" icon="ios-search">搜索</Button>
       </div>
-
     </div>
-    <!--  表格  -->
+    <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
       <Table border ref="selection" :columns="tableConfig.columns" :data="tableConfig.data">
         <template #operation="{ row, index }">
@@ -41,54 +38,81 @@
         </template>
       </Table>
     </div>
-
-    <!-- 分页 -->
+    <!-- ========================================  分页  ======================================== -->
     <div class="pageBox">
       <Page :total="tableConfig.pageData.total" :page-size="tableConfig.pageData.size" @on-change="changePage"
             show-elevator/>
     </div>
   </div>
+  <!--==================    ====================-->
+  <Modal
+      v-model="modalData.showModal"
+      title="数据"
+      @on-ok="modalData.Save()"
+      @on-cancel="modalData.Cancel()"
+      :mask-closable="false"
+      :loading="true"
+      width="80wh"
+  >
+    <div class="modalBox">
+      <div>
+        <div class="row">
+          <div class="label">ID</div>
+          <div class="content">
+            <Input v-model="modalData.data.tid" placeholder="ID"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">名称</div>
+          <div class="content">
+            <Input v-model="modalData.data.name" placeholder="名称"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">sql</div>
+          <div class="content">
+            <Input v-model="modalData.data.contentSql" placeholder="sql" type="textarea" :rows="8"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="label">count</div>
+          <div class="content">
+            <Input v-model="modalData.data.countSql" placeholder="sql" type="textarea" :rows="8"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <script setup>
+import {watch, ref} from "vue"
+import {saveSql} from "@/api/api";
 
-const tableConfig = {
-  columns: [
-    {
-      type: 'selection',
-      rowKey: 'id',
-      width: 60
-    },
-    {
-      title: 'ID',
-      key: 'tid',
-      width: 250
-    },
-    {
-      title: '名称',
-      key: 'name'
-    },
-    {
-      title: '分类',
-      key: 'type'
-    },
-    {
-      title: '备注',
-      key: 'tags'
-    },
-    {
-      title: '操作',
-      key: 'operation',
-      slot: 'operation',
-      width: 200,
-    }
-  ],
+const props = defineProps({
+  tableColumns: {
+    type: Array,
+    default: [],
+    required: false
+  },
+  tableData: {
+    type: Array,
+    default: [],
+    required: false
+  },
+
+});
+
+
+const tableConfig = ref({
+  columns: [],
   data: [],
   pageData: {}
-}
+});
 
 const selectTableData = (row, index) => {
-
+  modalData.value.showModal = true;
 }
 
 const delTableData = (row, index) => {
@@ -98,6 +122,40 @@ const delTableData = (row, index) => {
 const changePage = () => {
 
 }
+
+// ===================================================
+const Save = () => {
+  saveSql(sqlData.value).then((rest) => {
+    console.log(rest);
+    // sqlData.value = rest.data;
+    // loadTableData();
+    modalData.value.showModal = false;
+  }).catch(err => {
+    console.log('dddd');
+
+  })
+  return false;
+}
+const Cancel = () => {
+  console.log('dddd')
+}
+
+const modalData = ref({
+  showModal: false,
+  editor: false,
+  data:{},
+  Save,
+  Cancel
+})
+
+// ===================================================
+watch(() => props.tableColumns, () => {
+  tableConfig.value.columns = props.tableColumns
+}, {deep: true, immediate: true})
+watch(() => props.tableData, () => {
+  tableConfig.value.data = props.tableData
+}, {deep: true, immediate: true})
+
 
 </script>
 

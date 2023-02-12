@@ -1,6 +1,9 @@
 <template>
   <div>
-    <CommonTable />
+    <CommonTable
+      :table-columns="tableData.columns"
+      :table-data="tableData.data"
+    />
 
 
   </div>
