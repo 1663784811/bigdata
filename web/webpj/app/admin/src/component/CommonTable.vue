@@ -5,26 +5,25 @@
 
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
-        <Input prefix="ios-contact" placeholder="Enter name" style="width: auto"/>
+        <Input placeholder="aad" style="width: auto"/>
       </div>
 
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
-        <Input prefix="ios-contact" placeholder="Enter name" style="width: auto"/>
+        <Input placeholder="aad" style="width: auto"/>
       </div>
-
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
-        <Input prefix="ios-contact" placeholder="Enter name" style="width: auto"/>
+        <Input placeholder="aad" style="width: auto"/>
       </div>
-
       <div class="searchRow">
         <div class="inputLabel">名称:</div>
-        <Input prefix="ios-contact" placeholder="Enter name" style="width: auto"/>
+        <Input placeholder="aad" style="width: auto"/>
       </div>
+
 
       <div class="searchBtn">
-        <Button type="primary" icon="ios-search">Search</Button>
+        <Button type="primary" icon="ios-search">搜索</Button>
       </div>
 
     </div>
@@ -116,7 +115,7 @@ const changePage = () => {
       margin-right: 10px;
 
       .inputLabel {
-        margin-right: 10px;
+        margin-right: 4px;
       }
     }
 
