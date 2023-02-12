@@ -18,23 +18,13 @@
 <script setup>
 
 import {ref} from "vue";
-import {Modal} from "view-ui-plus";
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
-
 
 const usePageConfig = pageConfig();
 const role = usePageConfig.getPageConfig("role");
 
 const commonTable = role.commonTable;
-
-
-const pageData = ref({
-  page: 1,
-  total: 0,
-  size: 30
-});
-
 
 const tableData = ref({
   search: commonTable.search,
@@ -72,34 +62,6 @@ const tableData = ref({
 
   ]
 })
-
-
-// ===============================
-const selectTableData = (row, index, editor = false) => {
-  console.log(row);
-}
-/**
- * 删除数据
- */
-const delTableData = (row, index) => {
-  Modal.confirm({
-    title: '是否删除?',
-    content: `${row.name}`,
-    okText: '删除',
-    loading: true,
-    onOk: () => {
-      console.log("onOk", this);
-      Modal.remove();
-    },
-  });
-}
-
-
-const changePage = (page) => {
-  pageData.value.page = page;
-  // loadTableData();
-}
-
 
 </script>
 

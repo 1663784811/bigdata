@@ -2,7 +2,7 @@
   <div class="commonTable">
     <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
-      <div class="searchRow" v-for="(item,index) in searchColumns" :key="index">
+      <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index">
         <div class="inputLabel">{{ item.name }}:</div>
         <Input :placeholder="item.note" style="width: auto"/>
       </div>
@@ -64,7 +64,7 @@
 
 <script setup>
 import {ref, watch} from "vue"
-import {getSqlList, saveSql} from "@/api/api";
+import {commonRequest} from "@/api/api";
 import {Modal} from "view-ui-plus";
 
 const props = defineProps({
@@ -122,6 +122,13 @@ const selectionColumns = ref({
   width: 60
 })
 
+const searchObj = ref({
+  columns: [],
+  searchUrl: '',
+  delUrl: '',
+  saveUrl: '',
+});
+
 const tableConfig = ref({
   columns: [],
   data: [],
@@ -129,6 +136,7 @@ const tableConfig = ref({
 });
 
 const saveData = ref({
+  url: '',
   columns: [],
   data: {}
 });
@@ -139,7 +147,7 @@ const loadTableData = () => {
   console.log('=========================================')
   console.log('=========================================')
   tableConfig.value.data = [];
-  getSqlList(tableConfig.value.pageData).then((res) => {
+  commonRequest(searchObj.value.searchUrl, tableConfig.value.pageData).then((res) => {
     console.log(res)
   })
 }
@@ -193,8 +201,7 @@ const changePage = () => {
 
 // ===================================================
 const Save = () => {
-
-  saveSql(sqlData.value).then((rest) => {
+  commonRequest(saveUrl, sqlData.value, 'post').then((rest) => {
     console.log(rest);
     // sqlData.value = rest.data;
     // loadTableData();
@@ -249,6 +256,21 @@ watch(() => props.saveColumns, () => {
   saveData.value.columns = props.saveColumns
 }, {deep: true, immediate: true})
 
+watch(() => props.searchColumns, () => {
+  searchObj.value.columns = props.searchColumns
+}, {deep: true, immediate: true})
+
+watch(() => props.searchUrl, () => {
+  searchObj.value.searchUrl = props.searchUrl
+}, {deep: true, immediate: true})
+
+watch(() => props.saveUrl, () => {
+  searchObj.value.saveUrl = props.saveUrl
+}, {deep: true, immediate: true})
+
+watch(() => props.delUrl, () => {
+  searchObj.value.delUrl = props.delUrl
+}, {deep: true, immediate: true})
 
 </script>
 
