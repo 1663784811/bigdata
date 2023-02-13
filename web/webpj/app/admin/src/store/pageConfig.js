@@ -70,8 +70,6 @@ export const pageConfig = defineStore('pageConfig', () => {
         }
     })
     const getPageConfig = (pageCode) => {
-
-
         return pageConfigList.value[pageCode]
     }
     return {pageConfigList, getPageConfig}

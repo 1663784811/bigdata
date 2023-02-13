@@ -35,8 +35,17 @@ export const adminMenu = defineStore('adminMenu', () => {
             routeName: 'power'
         }
     ])
+
+    const nowMenu = ref({});
+
+    const setNowMenu = (menu) => {
+        nowMenu.value = menu;
+    }
+
     apiAdminMenu({}).then((res) => {
-        menuList.value.push(... res.data);
+        menuList.value.push(...res.data);
     })
-    return {menuList}
+
+
+    return {menuList, nowMenu, setNowMenu}
 })

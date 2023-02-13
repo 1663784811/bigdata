@@ -1,6 +1,6 @@
 <template>
   <div class="menuBox">
-    <div class="menuItem" v-for="(item,index) in store.menuList" :key="index" @click="gotoPage(item.routeName)">
+    <div class="menuItem" v-for="(item,index) in store.menuList" :key="index" @click="gotoPage(item)">
       <Icon type="md-settings"/>
       {{ item.name }}
     </div>
@@ -13,9 +13,10 @@ import {adminMenu} from '@/store/adminMenu.js'
 
 const store = adminMenu()
 const router = useRouter();
-const gotoPage = function (routeName) {
-  console.log(routeName)
-  router.push({name: routeName})
+const gotoPage = function (item) {
+  console.log(item)
+  store.setNowMenu(item)
+  router.push({name: item.routeName})
 }
 
 
