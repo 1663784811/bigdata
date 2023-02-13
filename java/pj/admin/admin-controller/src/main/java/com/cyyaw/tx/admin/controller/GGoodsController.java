@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @Slf4j
-@RequestMapping("/admin/ggoods")
+@RequestMapping("/admin/goods")
 @RestController
 public class GGoodsController {
 

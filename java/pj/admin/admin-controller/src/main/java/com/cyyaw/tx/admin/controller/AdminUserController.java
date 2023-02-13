@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RequestMapping("/admin/user")
-@RestController()
+@RestController
 public class AdminUserController {
 
     @Autowired

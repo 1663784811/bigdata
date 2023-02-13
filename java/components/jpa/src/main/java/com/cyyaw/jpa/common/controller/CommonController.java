@@ -3,18 +3,20 @@ package com.cyyaw.jpa.common.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.common.dao.CommonDao;
-import com.cyyaw.table.sql.dao.CFieldDao;
-import com.cyyaw.table.sql.dao.CPageComponentsDao;
-import com.cyyaw.table.sql.dao.CPageDao;
-import com.cyyaw.table.sql.dao.CSqlDao;
-import com.cyyaw.table.sql.entity.CField;
-import com.cyyaw.table.sql.entity.CPage;
-import com.cyyaw.table.sql.entity.CPageComponents;
-import com.cyyaw.table.sql.entity.CSql;
-import com.cyyaw.table.tag.dao.TagDao;
-import com.cyyaw.table.tag.entity.Tag;
+import com.cyyaw.table.confit.dao.CFieldDao;
+import com.cyyaw.table.confit.dao.CPageComponentsDao;
+import com.cyyaw.table.confit.dao.CPageDao;
+import com.cyyaw.table.confit.dao.CSqlDao;
+import com.cyyaw.table.confit.entity.CField;
+import com.cyyaw.table.confit.entity.CPage;
+import com.cyyaw.table.confit.entity.CPageComponents;
+import com.cyyaw.table.confit.entity.CSql;
+import com.cyyaw.table.spider.tag.dao.TagDao;
+import com.cyyaw.table.spider.tag.entity.Tag;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.CommonRest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +25,9 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * 公共模块
- */
-@RequestMapping("/admin/common")
+@Api(tags = "公共模块")
 @RestController
+@RequestMapping("/admin/common")
 public class CommonController {
 
 
@@ -50,29 +50,24 @@ public class CommonController {
     private CSqlDao cSqlDao;
 
 
-    /**
-     * 通用查询
-     *
-     * @return
-     */
-    @RequestMapping("/query")
-    public BaseResult query(@RequestBody JSONObject json) {
+    @ApiOperation(value = "通用查询")
+    @GetMapping("/query")
+    public BaseResult query(@RequestBody @RequestParam Map<String, Object> map) {
+        JSONObject json = new JSONObject(map);
         CommonRest query = commonDao.query(json);
         return BaseResult.ok(query);
     }
 
-    /**
-     * 通用修改或添加
-     */
+
+    @ApiOperation(value = "通用修改或添加")
     @RequestMapping("/update")
     public BaseResult update(@RequestBody JSONObject json) {
         Map<String, Object> update = commonDao.update(json);
         return BaseResult.ok(update);
     }
 
-    /**
-     * 通用删除
-     */
+
+    @ApiOperation(value = "通用删除")
     @RequestMapping("/delete")
     public Map<String, Object> delete(@RequestBody JSONObject json) {
         return commonDao.delete(json);

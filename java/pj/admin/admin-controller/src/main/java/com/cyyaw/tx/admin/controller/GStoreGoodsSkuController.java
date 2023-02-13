@@ -1,6 +1,6 @@
 //package com.cyyaw.tx.admin.controller;
 //
-//import com.cyyaw.table.store.goods.GStoreGoodsSku;
+//import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;
 //import com.cyyaw.util.tools.BaseResult;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
