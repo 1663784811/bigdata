@@ -5,7 +5,7 @@
     <TopUserInfo/>
   </div>
   <div class="mainBox">
-    <LeftMenu v-if="1!==1" />
+    <LeftMenu />
     <div class="mainContent">
       <router-view/>
     </div>

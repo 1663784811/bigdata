@@ -15,12 +15,25 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
+import {useRoute} from 'vue-router'
+
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
+const $router = useRoute();
 const usePageConfig = pageConfig();
 const role = usePageConfig.getPageConfig("role");
+
+
+onMounted(function () {
+  console.log('sssssssssssssssssssss', $router.query.id);
+
+  // route.push({
+  //   name: 'search',
+  //   query: {/**/},
+  // })
+});
 
 const commonTable = role.commonTable;
 

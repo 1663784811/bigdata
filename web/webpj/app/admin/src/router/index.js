@@ -44,7 +44,7 @@ export const router = createRouter({
                 },
                 {
                     path:'/role/power',
-                    component: import('@/views/role/Power.vue'),
+                    component: import('@/views/common/CommonTablePage.vue'),
                     name: 'power'
                 }
             ]

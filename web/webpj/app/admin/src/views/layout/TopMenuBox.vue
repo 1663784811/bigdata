@@ -1,6 +1,6 @@
 <template>
   <div class="menuBox">
-    <div class="menuItem" v-for="(item,index) in store.menuList" :key="index" @click="gotoPage(item)">
+    <div class="menuItem" v-for="(item,index) in store.topMenu" :key="index" @click="gotoPage(item)">
       <Icon type="md-settings"/>
       {{ item.name }}
     </div>

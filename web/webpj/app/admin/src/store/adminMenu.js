@@ -3,21 +3,58 @@ import {ref} from "vue";
 import {apiAdminMenu} from "@/api/api.js"
 
 export const adminMenu = defineStore('adminMenu', () => {
-    const menuList = ref([
+    const leftMenu = ref([]);
+    const topMenu = ref([
         {
-            name: 'Sql配置',
+            name: '配置',
             icon: 'md-settings',
-            routeName: 'sqlConfig'
+            routeName: 'sqlConfig',
+            children: [
+                {
+                    name: 'SQL',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                },
+                {
+                    name: '页面',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                }
+            ]
         },
         {
             name: '爬虫监控',
             icon: 'md-settings',
-            routeName: 'spiderMonitor'
+            routeName: 'spiderMonitor',
+            children: [
+                {
+                    name: 'SQL',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                },
+                {
+                    name: '页面',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                }
+            ]
         },
         {
             name: '数据处理',
             icon: 'md-settings',
-            routeName: 'spiderData'
+            routeName: 'spiderData',
+            children: [
+                {
+                    name: 'SQL',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                },
+                {
+                    name: '页面',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                }
+            ]
         },
         {
             name: '企业管理',
@@ -43,9 +80,16 @@ export const adminMenu = defineStore('adminMenu', () => {
     }
 
     apiAdminMenu({}).then((res) => {
-        menuList.value.push(...res.data);
+        topMenu.value.push(...res.data);
+        if (res.children) {
+            leftMenu.value = res.children;
+        } else {
+            leftMenu.value = [];
+        }
+
+
     })
 
 
-    return {menuList, nowMenu, setNowMenu}
+    return {topMenu, nowMenu, setNowMenu}
 })

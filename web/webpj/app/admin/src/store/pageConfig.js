@@ -5,10 +5,22 @@ export const pageConfig = defineStore('pageConfig', () => {
     const pageConfigList = ref({
         role: {
             commonTable: {
+                requestObj: {
+                    queryRequest: {
+                        url: '/admin/common/query',
+                        parameter: {
+                            code: 'save_table'
+                        }
+                    },
+                    saveRequest: {
+                        url: '/admin/common/sql/saveSql',
+
+                    },
+                    delRequest: {
+                        url: '/admin/common/sql/delSql',
+                    }
+                },
                 search: {
-                    searchUrl: '/admin/common/sql/sqlList',
-                    saveUrl: '/admin/common/sql/saveSql',
-                    delUrl: '/admin/common/sql/delSql',
                     columns: [
                         {
                             key: 'name',
@@ -48,8 +60,8 @@ export const pageConfig = defineStore('pageConfig', () => {
                         width: 250
                     },
                     {
-                        title: '名称',
-                        key: 'name'
+                        title: '账号',
+                        key: 'account'
                     },
                     {
                         title: '分类',

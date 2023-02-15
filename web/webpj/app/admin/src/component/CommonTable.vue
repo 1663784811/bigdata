@@ -94,21 +94,22 @@ const props = defineProps({
     default: [],
     required: false
   },
-  searchUrl: {
-    type: String,
-    default: "",
-    required: false
-  },
-  saveUrl: {
-    type: String,
-    default: "",
-    required: false
-  },
-  delUrl: {
-    type: String,
-    default: "",
+  requestObj: {
+    type: Object,
+    default: {
+      queryRequest: {
+        url: ''
+      },
+      saveRequest: {
+        url: '',
+      },
+      delRequest: {
+        url: ''
+      }
+    },
     required: false
   }
+
 });
 
 const operationColumns = ref({
@@ -125,9 +126,18 @@ const selectionColumns = ref({
 
 const searchObj = ref({
   columns: [],
-  searchUrl: '',
-  delUrl: '',
-  saveUrl: '',
+  queryRequest: {
+    url: '',
+    parameter: {}
+  },
+  saveRequest: {
+    url: '',
+    parameter: {}
+  },
+  delRequest: {
+    url: '',
+    parameter: {}
+  }
 });
 
 const tableConfig = ref({
@@ -149,7 +159,13 @@ const saveData = ref({
  */
 const loadTableData = () => {
   tableConfig.value.loading = true;
-  commonRequest(searchObj.value.searchUrl, tableConfig.value.pageData).then((res) => {
+  commonRequest(
+      searchObj.value.queryRequest.url,
+      {
+        ...searchObj.value.queryRequest.parameter,
+        ...tableConfig.value.pageData
+      }
+  ).then((res) => {
     tableConfig.value.loading = false;
     tableConfig.value.data = res.data;
   }).catch(err => {
@@ -193,7 +209,7 @@ const delTableDataFn = (idArr = []) => {
     okText: '删除',
     loading: true,
     onOk: () => {
-      const url = searchObj.value.delUrl;
+      const url = searchObj.value.delRequest.url;
       console.log(url);
       commonRequest(url, idArr, 'post').then((rest) => {
         Message.success({
@@ -220,7 +236,7 @@ const changePage = () => {
 
 // ===================================================
 const Save = () => {
-  const url = searchObj.value.saveUrl;
+  const url = searchObj.value.saveRequest.url;
   commonRequest(url, saveData.value.data, 'post').then((rest) => {
     saveData.value.data = rest.data;
     Message.success({
@@ -286,16 +302,10 @@ watch(() => props.searchColumns, () => {
   searchObj.value.columns = props.searchColumns
 }, {deep: true, immediate: true})
 
-watch(() => props.searchUrl, () => {
-  searchObj.value.searchUrl = props.searchUrl
-}, {deep: true, immediate: true})
-
-watch(() => props.saveUrl, () => {
-  searchObj.value.saveUrl = props.saveUrl
-}, {deep: true, immediate: true})
-
-watch(() => props.delUrl, () => {
-  searchObj.value.delUrl = props.delUrl
+watch(() => props.requestObj, () => {
+  searchObj.value.queryRequest = props.requestObj.queryRequest;
+  searchObj.value.saveRequest = props.requestObj.saveRequest;
+  searchObj.value.delRequest = props.requestObj.delRequest;
 }, {deep: true, immediate: true})
 
 </script>

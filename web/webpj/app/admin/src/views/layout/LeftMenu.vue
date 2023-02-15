@@ -1,15 +1,14 @@
 <template>
   <Menu active-name="1">
-    <MenuGroup title="内容管理">
-      <MenuItem name="1">
-        <Icon type="md-document" />
-        文章管理
-      </MenuItem>
-      <MenuItem name="2">
-        <Icon type="md-chatbubbles" />
-        评论管理
-      </MenuItem>
-    </MenuGroup>
+
+    <MenuItem name="1">
+      <Icon type="md-document" />
+      文章管理
+    </MenuItem>
+    <MenuItem name="2">
+      <Icon type="md-chatbubbles" />
+      评论管理
+    </MenuItem>
     <MenuGroup title="统计分析">
       <MenuItem name="3">
         <Icon type="md-heart" />
@@ -23,10 +22,15 @@
   </Menu>
 </template>
 
-<script>
-export default {
-  name: "LeftMenu"
-}
+<script setup>
+import {adminMenu} from '@/store/adminMenu.js'
+const store = adminMenu()
+
+
+
+
+
+
 </script>
 
 <style scoped>
