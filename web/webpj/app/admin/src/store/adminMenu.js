@@ -2,7 +2,7 @@ import {defineStore} from 'pinia'
 import {ref} from "vue";
 import {apiAdminMenu} from "@/api/api.js"
 
-export const adminMenu = defineStore('adminMenu', () => {
+export const useAdminMenuStore = defineStore('adminMenu', () => {
     const leftMenu = ref([]);
     const topMenu = ref([
         {
@@ -77,19 +77,22 @@ export const adminMenu = defineStore('adminMenu', () => {
 
     const setNowMenu = (menu) => {
         nowMenu.value = menu;
+        if (menu && menu.children && menu.children.length > 0) {
+            leftMenu.value = menu.children;
+        } else {
+            leftMenu.value = [];
+        }
     }
 
     apiAdminMenu({}).then((res) => {
         topMenu.value.push(...res.data);
-        if (res.children) {
-            leftMenu.value = res.children;
-        } else {
-            leftMenu.value = [];
-        }
-
-
     })
 
 
-    return {topMenu, nowMenu, setNowMenu}
+    return {
+        topMenu,
+        nowMenu,
+        setNowMenu,
+        leftMenu
+    }
 })

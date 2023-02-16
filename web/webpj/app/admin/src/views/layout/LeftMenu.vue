@@ -1,35 +1,23 @@
 <template>
-  <Menu active-name="1">
-
-    <MenuItem name="1">
-      <Icon type="md-document" />
-      文章管理
-    </MenuItem>
-    <MenuItem name="2">
-      <Icon type="md-chatbubbles" />
-      评论管理
-    </MenuItem>
-    <MenuGroup title="统计分析">
-      <MenuItem name="3">
-        <Icon type="md-heart" />
-        用户留存
-      </MenuItem>
-      <MenuItem name="4">
-        <Icon type="md-leaf" />
-        流失用户
-      </MenuItem>
-    </MenuGroup>
+  <Menu v-if="store.leftMenu && store.leftMenu.length>0">
+    <Submenu name="1" v-for="(item,index) in store.leftMenu" :key="index">
+      <template #title>
+        <Icon type="ios-paper"/>
+        内容管理
+      </template>
+      <MenuItem name="1-1">文章管理</MenuItem>
+      <MenuItem name="1-2">评论管理</MenuItem>
+      <MenuItem name="1-3">举报管理</MenuItem>
+    </Submenu>
   </Menu>
 </template>
 
 <script setup>
-import {adminMenu} from '@/store/adminMenu.js'
-const store = adminMenu()
+import {useAdminMenuStore} from '@/store/adminMenu.js'
 
+const store = useAdminMenuStore();
 
-
-
-
+console.log('ssssssssssssss', store.leftMenu)
 
 </script>
 

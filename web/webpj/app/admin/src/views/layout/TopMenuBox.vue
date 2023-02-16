@@ -9,13 +9,13 @@
 
 <script setup>
 import {useRouter} from 'vue-router'
-import {adminMenu} from '@/store/adminMenu.js'
+import {useAdminMenuStore} from '@/store/adminMenu.js'
 
-const store = adminMenu()
+const store = useAdminMenuStore()
 const router = useRouter();
 const gotoPage = function (item) {
   console.log(item)
-  store.setNowMenu(item)
+  store.setNowMenu(item);
   router.push({name: item.routeName})
 }
 
