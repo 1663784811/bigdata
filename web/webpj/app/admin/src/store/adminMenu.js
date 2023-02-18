@@ -11,12 +11,12 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
             routeName: 'sqlConfig',
             children: [
                 {
-                    name: 'SQL',
+                    name: 'SQL配置',
                     icon: 'md-settings',
-                    routeName: 'spiderMonitor'
+                    routeName: 'sqlConfig'
                 },
                 {
-                    name: '页面',
+                    name: '页面配置',
                     icon: 'md-settings',
                     routeName: 'spiderMonitor'
                 }
