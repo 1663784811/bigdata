@@ -18,7 +18,18 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                 {
                     name: '页面配置',
                     icon: 'md-settings',
-                    routeName: 'spiderMonitor'
+                    routeName: 'CommonTablePage',
+                    query: {
+                        pageId: "pageConfig",
+                    },
+                },
+                {
+                    name: '通用表格',
+                    icon: 'md-settings',
+                    routeName: 'CommonTablePage',
+                    query: {
+                        pageId: "CommonTablePage",
+                    },
                 }
             ]
         },

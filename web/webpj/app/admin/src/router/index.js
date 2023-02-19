@@ -18,6 +18,11 @@ export const router = createRouter({
             component: import('@/views/layout/Main.vue'),
             children:[
                 {
+                    path:'/common/CommonTablePage',
+                    component: import('@/views/common/CommonTablePage.vue'),
+                    name: 'CommonTablePage'
+                },
+                {
                     path:'/sql/config',
                     component: import('@/views/sql/Config.vue'),
                     name: 'sqlConfig'

@@ -33,11 +33,22 @@ import {useRouter} from "vue-router";
 const store = useAdminMenuStore();
 const router = useRouter();
 
-console.log('ssssssssssssss', store.leftMenu)
 
 const clickMenu = (item) => {
-  router.push({name: item.routeName})
+  let query = {};
+  if (item.query) {
+    query = item.query;
+  }
+  router.replace({
+    name: item.routeName,
+    query: {
+      ...query
+    }
+  })
+
 }
+
+
 
 
 </script>
