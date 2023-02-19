@@ -80,7 +80,24 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
         {
             name: '权限管理',
             icon: 'md-settings',
-            routeName: 'power'
+            routeName: 'power',
+            children:[
+                {
+                    name: '权限分配',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                },
+                {
+                    name: '角色管理',
+                    icon: 'md-settings',
+                    routeName: 'spiderMonitor'
+                },
+                {
+                    name: '权限菜单',
+                    icon: 'md-settings',
+                    routeName: 'power'
+                }
+            ]
         }
     ])
 
