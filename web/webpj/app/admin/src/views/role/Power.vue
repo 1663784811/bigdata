@@ -25,6 +25,7 @@ const $router = useRoute();
 const usePageConfig = pageConfig();
 const role = usePageConfig.getPageConfig("power");
 const query = $router.query;
+console.log('sssssseeeeeeeeeeeeeeeeeeeeeeee')
 
 const commonTable = role.commonTable;
 

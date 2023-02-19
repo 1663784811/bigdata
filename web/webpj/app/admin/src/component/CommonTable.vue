@@ -53,7 +53,7 @@
     <div class="modalBox">
       <div>
         <div class="row" v-for="(item,index) in saveData.columns" :key="index">
-          <div class="label">{{ item.name }}:</div>
+          <div class="label">{{ item.title }}:</div>
           <div class="content">
             <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
           </div>
@@ -279,7 +279,6 @@ watch(() => props.tableData, () => {
 watch(() => props.operation, () => {
   if (props.operation) {
     const columns = tableConfig.value.columns;
-    const isInclude = tableConfig.value.columns.indexOf(operationColumns.value);
     let h = false;
     for (let i = 0; i < columns.length; i++) {
       const obj = columns[i];
