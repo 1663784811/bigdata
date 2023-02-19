@@ -32,7 +32,7 @@ public interface CommonDao {
      * @param json
      * @return
      */
-    Map<String, Object> update(JSONObject json);
+    Map<String, Object> save(JSONObject json);
 
     /**
      * 通用删除

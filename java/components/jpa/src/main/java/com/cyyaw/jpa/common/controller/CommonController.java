@@ -62,7 +62,7 @@ public class CommonController {
     @ApiOperation(value = "通用修改或添加")
     @RequestMapping("/update")
     public BaseResult update(@RequestBody JSONObject json) {
-        Map<String, Object> update = commonDao.update(json);
+        Map<String, Object> update = commonDao.save(json);
         return BaseResult.ok(update);
     }
 
