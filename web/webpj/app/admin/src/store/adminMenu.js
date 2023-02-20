@@ -92,13 +92,62 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
         {
             name: '商城管理',
             icon: 'md-settings',
-            routeName: 'shopping'
+            routeName: 'shopping',
+            children: [
+                {
+                    name: '商城列表',
+                    icon: 'md-settings',
+                    routeName: 'shoppingList'
+                },
+                {
+                    name: '商品管理',
+                    icon: 'md-settings',
+                    routeName: 'goodsList'
+                },
+                {
+                    name: '货品管理',
+                    icon: 'md-settings',
+                    routeName: 'goodsList'
+                },
+            ]
         },
         {
-            name: '权限管理',
+            name: '听心出行',
+            icon: 'md-settings',
+            routeName: 'shopping',
+            children: [
+                {
+                    name: '车辆管理',
+                    icon: 'md-settings',
+                    routeName: 'shoppingList'
+                },
+                {
+                    name: '商品管理',
+                    icon: 'md-settings',
+                    routeName: 'goodsList'
+                },
+                {
+                    name: '货品管理',
+                    icon: 'md-settings',
+                    routeName: 'goodsList'
+                },
+            ]
+        },
+        {
+            name: '用户管理',
             icon: 'md-settings',
             routeName: 'power',
-            children:[
+            children: [
+                {
+                    name: '用户管理',
+                    icon: 'md-settings',
+                    routeName: 'user'
+                },
+                {
+                    name: '管理员管理',
+                    icon: 'md-settings',
+                    routeName: 'adminPower'
+                },
                 {
                     name: '权限分配',
                     icon: 'md-settings',

@@ -48,6 +48,11 @@ export const router = createRouter({
                     name: 'shopping'
                 },
                 {
+                    path:'/role/user',
+                    component: import('@/views/role/User.vue'),
+                    name: 'user'
+                },
+                {
                     path:'/role/AdminPower',
                     component: import('@/views/role/AdminPower.vue'),
                     name: 'adminPower'
