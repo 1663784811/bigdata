@@ -40,20 +40,20 @@ public class UUser implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "account", length = 32, columnDefinition = "varchar(32) COMMENT '账号'")
+    @Column(name = "account", columnDefinition = "varchar(32) COMMENT '账号'")
     private String account;
     @Basic
-    @Column(name = "password", length = 32, columnDefinition = "varchar(32) COMMENT '密码'")
+    @Column(name = "password", columnDefinition = "varchar(32) COMMENT '密码'")
     private String password;
     @Basic
-    @Column(name = "truename", length = 32, columnDefinition = "varchar(32) COMMENT '真实姓名'")
-    private String truename;
+    @Column(name = "true_name", columnDefinition = "varchar(32) COMMENT '真实姓名'")
+    private String trueName;
     @Basic
-    @Column(name = "phone", length = 15, columnDefinition = "varchar(15) COMMENT '手机号'")
+    @Column(name = "phone", columnDefinition = "varchar(15) COMMENT '手机号'")
     private String phone;
     @Basic
-    @Column(name = "nickname", length = 32, columnDefinition = "varchar(32) COMMENT '昵称'")
-    private String nickname;
+    @Column(name = "nick_name", columnDefinition = "varchar(32) COMMENT '昵称'")
+    private String nickName;
     @Basic
     @Column(name = "face", columnDefinition = "varchar(255) COMMENT '用户头像'")
     private String face;
@@ -63,53 +63,53 @@ public class UUser implements Serializable {
     private String sex;
 
     @Basic
-    @Column(name = "canlogintime", length = 19, columnDefinition = "datetime COMMENT '可登录时间'")
+    @Column(name = "can_login_time", columnDefinition = "datetime COMMENT '可登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date canlogintime;
+    private Date canLoginTime;
     @Basic
     @Column(name = "email", columnDefinition = "varchar(255) COMMENT '邮箱'")
     private String email;
     @Basic
-    @Column(name = "ip", length = 60, columnDefinition = "varchar(60) COMMENT '最后登录IP'")
+    @Column(name = "ip", columnDefinition = "varchar(60) COMMENT '最后登录IP'")
     private String ip;
     @Basic
-    @Column(name = "lastlogintime", length = 19, columnDefinition = "datetime COMMENT '最后登录时间'")
+    @Column(name = "last_login_time", columnDefinition = "datetime COMMENT '最后登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastlogintime;
+    private Date lastLoginTime;
     @Basic
-    @Column(name = "salt", length = 32, columnDefinition = "varchar(32) COMMENT '加密盐'")
+    @Column(name = "salt", columnDefinition = "varchar(32) COMMENT '加密盐'")
     private String salt;
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
     private Integer status;
 
     @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int COMMENT '会员类型{0:普通会员,1:客服}'")
+    @Column(name = "type", columnDefinition = "int COMMENT '会员类型{0:普通会员,1:客服}'")
     private Integer type;
 
     @Basic
-    @Column(name = "adminid", unique = true, columnDefinition = "varchar(32) COMMENT '客服t_admin表id'")
-    private String adminid;
+    @Column(name = "admin_id", columnDefinition = "varchar(32) COMMENT '客服t_admin表id'")
+    private String adminId;
 
 
     @Basic
-    @Column(name="balance", columnDefinition = "decimal(18,2) COMMENT '余额'")
+    @Column(name = "balance", columnDefinition = "decimal(18,2) COMMENT '余额'")
     private BigDecimal balance;
 
     @Basic
-    @Column(name = "integral", length = 10, columnDefinition = "int COMMENT '积分'")
+    @Column(name = "integral", columnDefinition = "int COMMENT '积分'")
     private Integer integral;
 
     @Basic
-    @Column(name = "openid", unique = true, columnDefinition = "varchar(64) COMMENT '微信openid'")
-    private String openid;
+    @Column(name = "open_id", columnDefinition = "varchar(64) COMMENT '微信openid'")
+    private String openId;
 
     @Basic
-    @Column(name = "unionid", unique = true, columnDefinition = "varchar(64) COMMENT '微信unionid'")
-    private String unionid;
+    @Column(name = "union_id", columnDefinition = "varchar(64) COMMENT '微信unionid'")
+    private String unionId;
 
 }
