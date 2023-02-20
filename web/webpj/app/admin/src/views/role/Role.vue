@@ -16,12 +16,11 @@
 <script setup>
 
 import {ref} from "vue";
-
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const config = usePageConfig.getPageConfig("power");
+const config = usePageConfig.getPageConfig("role");
 
 const commonTable = config.commonTable;
 

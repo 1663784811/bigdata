@@ -4,12 +4,15 @@ export const role = {
             queryRequest: {
                 url: '/admin/common/query',
                 parameter: {
-                    code: 'save_table'
+                    code: 'select_t_role'
                 }
             },
             saveRequest: {
-                url: '/admin/common/sql/saveSql',
-
+                url: '/admin/common/save',
+                parameter: {
+                    table: 't_role',
+                    data:[]
+                }
             },
             delRequest: {
                 url: '/admin/common/sql/delSql',
@@ -29,42 +32,243 @@ export const role = {
 
             columns: [
                 {
-                    key: 'name',
-                    name: '名称',
-                    type: 'input',
-                    note: '名称备注'
+                    width: 60,
+                    key: "id",
+                    title: "id",
+                    type: "selection",
+                    length: 10,
+                    controlType: "hidden",
+                    max: "",
+                    min: "",
+                    isShowColumn: true,
+                    javaWhere: "equals",
+                    javaType: "integer"
                 },
                 {
-                    key: 'name1',
-                    name: '名称1',
-                    type: 'input',
-                    note: '名称备注'
+                    key: "code",
+                    title: "授权码",
+                    length: 32,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
                 },
                 {
-                    key: 'name2',
-                    name: '名称2',
-                    type: 'input',
-                    note: '名称备注'
+                    key: "create_time",
+                    title: "创建时间",
+                    length: 19,
+                    controlType: "datetime",
+                    isShowColumn: true,
+                    isWhere: true,
+                    sortable: "custom",
+                    javaWhere: "equals",
+                    javaType: "date"
+                },
+                {
+                    key: "del",
+                    title: "是否删除",
+                    length: 10,
+                    controlType: "integer",
+                    max: "",
+                    min: "",
+                    isShowColumn: true,
+                    isWhere: true,
+                    filters: [
+                        {
+                            value: 0,
+                            label: "否"
+                        }
+                        , {
+                            value: 1,
+                            label: "是"
+                        }
+                    ],
+                    javaWhere: "equals",
+                    javaType: "integer"
+                },
+                {
+                    key: "name",
+                    title: "角色名称",
+                    length: 32,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
+                },
+                {
+                    key: "note",
+                    title: "备注",
+                    length: 255,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
+                },
+                {
+                    key: "pid",
+                    title: "父级ID",
+                    length: 10,
+                    controlType: "integer",
+                    max: "",
+                    min: "",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "equals",
+                    javaType: "integer"
+                },
+                {
+                    key: "tid",
+                    title: "tid",
+                    length: 32,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
+                },
+                {
+                    key: "treecode",
+                    title: "树码(一级三位)",
+                    length: 32,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
+                },
+                {
+                    key: "tree_code",
+                    title: "树码(一级三位)",
+                    length: 32,
+                    controlType: "input",
+                    isShowColumn: true,
+                    isWhere: true,
+                    javaWhere: "like",
+                    javaType: "string"
                 }
             ]
         },
         columns: [
             {
-                title: 'ID',
-                key: 'tid',
-                width: 250
+                width: 60,
+                key: "id",
+                title: "id",
+                type: "selection",
+                length: 10,
+                controlType: "hidden",
+                max: "",
+                min: "",
+                isShowColumn: true,
+                javaWhere: "equals",
+                javaType: "integer"
             },
             {
-                title: '账号',
-                key: 'account'
+                key: "code",
+                title: "授权码",
+                length: 32,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
             },
             {
-                title: '分类',
-                key: 'type'
+                key: "create_time",
+                title: "创建时间",
+                length: 19,
+                controlType: "datetime",
+                isShowColumn: true,
+                isWhere: true,
+                sortable: "custom",
+                javaWhere: "equals",
+                javaType: "date"
             },
             {
-                title: '备注',
-                key: 'tags'
+                key: "del",
+                title: "是否删除",
+                length: 10,
+                controlType: "integer",
+                max: "",
+                min: "",
+                isShowColumn: true,
+                isWhere: true,
+                filters: [
+                    {
+                        value: 0,
+                        label: "否"
+                    }
+                    , {
+                        value: 1,
+                        label: "是"
+                    }
+                ],
+                javaWhere: "equals",
+                javaType: "integer"
+            },
+            {
+                key: "name",
+                title: "角色名称",
+                length: 32,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
+            },
+            {
+                key: "note",
+                title: "备注",
+                length: 255,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
+            },
+            {
+                key: "pid",
+                title: "父级ID",
+                length: 10,
+                controlType: "integer",
+                max: "",
+                min: "",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "equals",
+                javaType: "integer"
+            },
+            {
+                key: "tid",
+                title: "tid",
+                length: 32,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
+            },
+            {
+                key: "treecode",
+                title: "树码(一级三位)",
+                length: 32,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
+            },
+            {
+                key: "tree_code",
+                title: "树码(一级三位)",
+                length: 32,
+                controlType: "input",
+                isShowColumn: true,
+                isWhere: true,
+                javaWhere: "like",
+                javaType: "string"
             }
         ],
         operation: {

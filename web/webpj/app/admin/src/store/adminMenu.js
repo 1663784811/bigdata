@@ -90,7 +90,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                 {
                     name: '角色管理',
                     icon: 'md-settings',
-                    routeName: 'spiderMonitor'
+                    routeName: 'role'
                 },
                 {
                     name: '权限菜单',

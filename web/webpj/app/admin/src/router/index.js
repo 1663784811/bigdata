@@ -48,14 +48,14 @@ export const router = createRouter({
                     name: 'shopping'
                 },
                 {
-                    path:'/role/power',
-                    component: import('@/views/role/Power.vue'),
-                    name: 'power'
+                    path:'/role/role',
+                    component: import('@/views/role/Role.vue'),
+                    name: 'role'
                 },
                 {
                     path:'/role/power',
-                    component: import('@/views/common/CommonTablePage.vue'),
-                    name: 'powerddd'
+                    component: import('@/views/role/Power.vue'),
+                    name: 'power'
                 }
             ]
         }

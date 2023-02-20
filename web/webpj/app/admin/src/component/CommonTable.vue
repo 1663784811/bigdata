@@ -47,7 +47,7 @@
       @on-ok="modalData.Save()"
       @on-cancel="modalData.Cancel()"
       :mask-closable="false"
-      :loading="true"
+      :loading="modalData.loading"
       width="80wh"
   >
     <div class="modalBox">
@@ -236,8 +236,16 @@ const changePage = () => {
 
 // ===================================================
 const Save = () => {
-  const url = searchObj.value.saveRequest.url;
-  commonRequest(url, saveData.value.data, 'post').then((rest) => {
+  let url = searchObj.value.saveRequest.url;
+  let parameter = saveData.value.data;
+  if (!url || url === '/admin/common/save') {
+    url = "/admin/common/save";
+    parameter = {
+      ...searchObj.value.saveRequest.parameter,
+      data: [saveData.value.data]
+    }
+  }
+  commonRequest(url, parameter, 'post').then((rest) => {
     saveData.value.data = rest.data;
     Message.success({
       content: `${rest.msg}`,
@@ -248,18 +256,19 @@ const Save = () => {
     })
 
   }).catch(err => {
+    modalData.value.loading = false;
     console.log('错误:', err);
     Message.error({
       content: `${err}`
     })
   })
-  return false;
 }
 const Cancel = () => {
   console.log('dddd')
 }
 
 const modalData = ref({
+  loading: false,
   showModal: false,
   editor: false,
   data: {},

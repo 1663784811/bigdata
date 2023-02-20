@@ -8,8 +8,11 @@ export const power = {
                 }
             },
             saveRequest: {
-                url: '/admin/common/sql/saveSql',
-
+                url: '/admin/common/save',
+                parameter: {
+                    table: 't_power',
+                    data:[]
+                }
             },
             delRequest: {
                 url: '/admin/common/sql/delSql',
