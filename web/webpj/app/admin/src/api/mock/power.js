@@ -31,19 +31,6 @@ export const power = {
         save: {
             columns: [
                 {
-                    width: 60,
-                    key: "id",
-                    title: "id",
-                    type: "selection",
-                    length: 10,
-                    controlType: "hidden",
-                    max: "",
-                    min: "",
-                    isShowColumn: true,
-                    javaWhere: "equals",
-                    javaType: "integer"
-                }
-                , {
                     key: "code",
                     title: "受权码",
                     length: 255,
@@ -306,49 +293,6 @@ export const power = {
                 javaType: "integer"
             }
             , {
-                key: "code",
-                title: "受权码",
-                length: 255,
-                controlType: "input",
-                isShowColumn: true,
-                isWhere: true,
-                javaWhere: "like",
-                javaType: "string"
-            }
-            , {
-                key: "create_time",
-                title: "创建时间",
-                length: 19,
-                controlType: "datetime",
-                isShowColumn: true,
-                isWhere: true,
-                sortable: "custom",
-                javaWhere: "equals",
-                javaType: "date"
-            }
-            , {
-                key: "del",
-                title: "是否删除",
-                length: 10,
-                controlType: "integer",
-                max: "",
-                min: "",
-                isShowColumn: true,
-                isWhere: true,
-                filters: [
-                    {
-                        value: 0,
-                        label: "否"
-                    }
-                    , {
-                        value: 1,
-                        label: "是"
-                    }
-                ],
-                javaWhere: "equals",
-                javaType: "integer"
-            }
-            , {
                 key: "icon",
                 title: "图标",
                 length: 255,
@@ -357,28 +301,6 @@ export const power = {
                 isWhere: true,
                 javaWhere: "like",
                 javaType: "string"
-            }
-            , {
-                key: "ispower",
-                title: "是否受权限控制",
-                length: 10,
-                controlType: "integer",
-                max: "",
-                min: "",
-                isShowColumn: true,
-                isWhere: true,
-                filters: [
-                    {
-                        value: 1,
-                        label: "是"
-                    }
-                    , {
-                        value: 0,
-                        label: "否"
-                    }
-                ],
-                javaWhere: "equals",
-                javaType: "integer"
             }
             , {
                 key: "name",
@@ -391,19 +313,9 @@ export const power = {
                 javaType: "string"
             }
             , {
-                key: "note",
-                title: "备注",
+                key: "url",
+                title: "url",
                 length: 255,
-                controlType: "input",
-                isShowColumn: true,
-                isWhere: true,
-                javaWhere: "like",
-                javaType: "string"
-            }
-            , {
-                key: "pid",
-                title: "父级ID",
-                length: 32,
                 controlType: "input",
                 isShowColumn: true,
                 isWhere: true,
@@ -433,18 +345,6 @@ export const power = {
                 javaType: "integer"
             }
             , {
-                key: "sort",
-                title: "排序",
-                length: 10,
-                controlType: "integer",
-                max: "",
-                min: "",
-                isShowColumn: true,
-                isWhere: true,
-                javaWhere: "equals",
-                javaType: "integer"
-            }
-            , {
                 key: "status",
                 title: "状态",
                 length: 10,
@@ -467,28 +367,8 @@ export const power = {
                 javaType: "integer"
             }
             , {
-                key: "tid",
-                title: "tid",
-                length: 32,
-                controlType: "input",
-                isShowColumn: true,
-                isWhere: true,
-                javaWhere: "like",
-                javaType: "string"
-            }
-            , {
-                key: "treecode",
-                title: "树码(一级三位)",
-                length: 32,
-                controlType: "input",
-                isShowColumn: true,
-                isWhere: true,
-                javaWhere: "like",
-                javaType: "string"
-            }
-            , {
-                key: "url",
-                title: "url",
+                key: "code",
+                title: "受权码",
                 length: 255,
                 controlType: "input",
                 isShowColumn: true,
@@ -497,53 +377,20 @@ export const power = {
                 javaType: "string"
             }
             , {
-                key: "is_power",
-                title: "是否受权限控制",
-                length: 10,
-                controlType: "integer",
-                max: "",
-                min: "",
+                key: "create_time",
+                title: "创建时间",
+                length: 19,
+                controlType: "datetime",
                 isShowColumn: true,
                 isWhere: true,
-                filters: [
-                    {
-                        value: 1,
-                        label: "是"
-                    }
-                    , {
-                        value: 0,
-                        label: "否"
-                    }
-                ],
+                sortable: "custom",
                 javaWhere: "equals",
-                javaType: "integer"
+                javaType: "date"
             }
             , {
-                key: "power_type",
-                title: "权限类型",
-                length: 10,
-                controlType: "integer",
-                max: "",
-                min: "",
-                isShowColumn: true,
-                isWhere: true,
-                filters: [
-                    {
-                        value: 1,
-                        label: "菜单"
-                    }
-                    , {
-                        value: 2,
-                        label: "按钮"
-                    }
-                ],
-                javaWhere: "equals",
-                javaType: "integer"
-            }
-            , {
-                key: "tree_code",
-                title: "树码(一级三位)",
-                length: 32,
+                key: "note",
+                title: "备注",
+                length: 255,
                 controlType: "input",
                 isShowColumn: true,
                 isWhere: true,

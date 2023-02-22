@@ -1,5 +1,6 @@
 package com.cyyaw.jpa.common.dao;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -85,7 +86,7 @@ public class CommonDaoImpl implements CommonDao {
                     Object value = null;
                     Object dateTime = mapObj.get(key);
                     if (dateTime instanceof Timestamp) {
-                        value = DateUtils.getStringDate((Timestamp) dateTime);
+                        value = DateUtil.formatDateTime((Timestamp) dateTime);
                     } else {
                         value = dateTime;
                     }
