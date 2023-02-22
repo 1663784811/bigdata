@@ -1,5 +1,6 @@
 package com.cyyaw.util.tools;
 
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -175,7 +176,7 @@ public class WhySpecification<T> implements Specification<T> {
                         pred = cb.notEqual(root.get(column).as(Double.class), Double.valueOf(value));
                         break;
                     case "date":
-                        pred = cb.notEqual(root.get(column).as(Date.class), DateUtils.getDate(value));
+                        pred = cb.notEqual(root.get(column).as(Date.class), DateUtil.parse(value).toJdkDate());
                         break;
                     case "string":
                         pred = cb.notEqual(root.get(column).as(String.class), value);
