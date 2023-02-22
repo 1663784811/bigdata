@@ -3,6 +3,7 @@ package com.cyyaw.jpa.common.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.common.dao.CommonDao;
+import com.cyyaw.jpa.util.entity.CommonSaveData;
 import com.cyyaw.table.confit.dao.CFieldDao;
 import com.cyyaw.table.confit.dao.CPageComponentsDao;
 import com.cyyaw.table.confit.dao.CPageDao;
@@ -61,8 +62,8 @@ public class CommonController {
 
     @ApiOperation(value = "通用修改或添加")
     @RequestMapping("/save")
-    public BaseResult save(@RequestBody JSONObject json) {
-        Map<String, Object> update = commonDao.save(json);
+    public BaseResult save(@RequestBody CommonSaveData commonSaveData) {
+        Map<String, Object> update = commonDao.save(commonSaveData);
         return BaseResult.ok(update);
     }
 

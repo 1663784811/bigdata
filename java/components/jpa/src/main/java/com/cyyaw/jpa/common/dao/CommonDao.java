@@ -1,6 +1,7 @@
 package com.cyyaw.jpa.common.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.jpa.util.entity.CommonSaveData;
 import com.cyyaw.util.tools.CommonRest;
 
 import java.util.List;
@@ -28,11 +29,8 @@ public interface CommonDao {
 
     /**
      * 通用更新
-     *
-     * @param json
-     * @return
      */
-    Map<String, Object> save(JSONObject json);
+    Map<String, Object> save(CommonSaveData commonSaveData);
 
     /**
      * 通用删除
