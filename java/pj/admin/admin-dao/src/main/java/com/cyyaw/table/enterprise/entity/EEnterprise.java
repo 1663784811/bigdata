@@ -1,4 +1,5 @@
-package com.cyyaw.table.store.goods.entity;
+package com.cyyaw.table.enterprise.entity;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "e_enterprise")
+@org.hibernate.annotations.Table(appliesTo = "e_enterprise", comment = "企业表")
+public class EEnterprise implements Serializable {
+    private static final long serialVersionUID = 156878262756870L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,29 +38,39 @@ public class GDepository implements Serializable {
 
     // =================================================================================
 
-
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
-
+    @Column(name = "code", columnDefinition = "varchar(32) not null COMMENT '企业编号'")
+    private String code;
     @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
-
-    @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "address",   length = 32, columnDefinition = "varchar(255) COMMENT '仓库地址'")
-    private String address;
-
+    @Column(name = "url", columnDefinition = "varchar(255) COMMENT 'url地址'")
+    private String url;
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
-
+    @Column(name = "logo", columnDefinition = "varchar(255) COMMENT 'logo图片'")
+    private String logo;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-package com.cyyaw.table.store.goods.entity;
+package com.cyyaw.table.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "u_address")
+@org.hibernate.annotations.Table(appliesTo = "u_address", comment = "用户地址")
+public class UAddress  implements Serializable {
+    private static final long serialVersionUID = 1587301172382985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,27 +39,33 @@ public class GDepository implements Serializable {
 
 
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
+    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userid;
 
     @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
-
+    @Column(name = "province",  columnDefinition = "varchar(32) COMMENT '省份'")
+    private String province;
     @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
-    private String name;
+    @Column(name = "city", columnDefinition = "varchar(32) COMMENT '城市'")
+    private String city;
     @Basic
-    @Column(name = "address",   length = 32, columnDefinition = "varchar(255) COMMENT '仓库地址'")
+    @Column(name = "district",  columnDefinition = "varchar(32) COMMENT '地区'")
+    private String district;
+    @Basic
+    @Column(name = "address", columnDefinition = "varchar(255) COMMENT '地址'")
     private String address;
 
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
+    @Column(name = "phone",  columnDefinition = "varchar(15) COMMENT '手机号'")
+    private String phone;
+
+    @Basic
+    @Column(name = "name",  columnDefinition = "varchar(32) COMMENT '姓名'")
+    private String name;
+
+    @Basic
+    @Column(name = "default_is", columnDefinition = "int COMMENT '是否默认{0:否,1:是}'")
+    private Integer defaultIs;
 
 
 }

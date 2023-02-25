@@ -1,4 +1,4 @@
-package com.cyyaw.table.store.goods.entity;
+package com.cyyaw.table.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "t_dictionary")
+@org.hibernate.annotations.Table(appliesTo = "t_dictionary", comment = "字典表")
+public class TDictionary implements Serializable {
+    private static final long serialVersionUID = 1587301175682985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,29 +37,29 @@ public class GDepository implements Serializable {
 
     // =================================================================================
 
+    @Basic
+    @Column(name = "type", length = 10, columnDefinition = "int not null COMMENT '字典类型'")
+    private Integer type;
 
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
-
-    @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
-
-    @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
+    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '名称'")
     private String name;
-    @Basic
-    @Column(name = "address",   length = 32, columnDefinition = "varchar(255) COMMENT '仓库地址'")
-    private String address;
 
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
+    @Column(name = "[value]", columnDefinition = "varchar(255) COMMENT '值'")
+    private String value;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

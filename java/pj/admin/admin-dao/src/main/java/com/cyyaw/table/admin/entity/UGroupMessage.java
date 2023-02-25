@@ -1,4 +1,4 @@
-package com.cyyaw.table.store.goods.entity;
+package com.cyyaw.table.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "u_group_message")
+@org.hibernate.annotations.Table(appliesTo = "u_group_message", comment = "群消息")
+public class UGroupMessage implements Serializable {
+
+    private static final long serialVersionUID = 13663017723582985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,29 +38,28 @@ public class GDepository implements Serializable {
 
     // =================================================================================
 
+    @Basic
+    @Column(name = "group_id", columnDefinition = "varchar(32) not null COMMENT 'u_groupid群表id'")
+    private String groupId;
 
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
+    @Column(name = "userId", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userId;
 
     @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
+    @Column(name = "username", columnDefinition = "varchar(32) not null COMMENT '用户名'")
+    private String username;
 
     @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
-    private String name;
-    @Basic
-    @Column(name = "address",   length = 32, columnDefinition = "varchar(255) COMMENT '仓库地址'")
-    private String address;
+    @Column(name = "face", columnDefinition = "varchar(255) COMMENT '用户头像'")
+    private String face;
 
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
+    @Column(name = "type",length = 10, columnDefinition = "int  not null COMMENT '消息类型{0:文字,1:图片,2:视频}'")
+    private Integer type;
 
+    @Basic
+    @Column(name = "content", columnDefinition = "text COMMENT '消息内容'")
+    private String content;
 
 }

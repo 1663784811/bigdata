@@ -1,4 +1,4 @@
-package com.cyyaw.table.store.goods.entity;
+package com.cyyaw.table.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "t_role")
+@org.hibernate.annotations.Table(appliesTo = "t_role", comment = "角色表")
+public class TRole implements Serializable {
+    private static final long serialVersionUID = 1568782627448808L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,27 +39,19 @@ public class GDepository implements Serializable {
 
 
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
-
+    @Column(name = "code", length = 32, columnDefinition = "varchar(32) COMMENT '授权码'")
+    private String code;
     @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
-
-    @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
+    @Column(name = "name", length = 32, columnDefinition = "varchar(32) COMMENT '角色名称'")
     private String name;
-    @Basic
-    @Column(name = "address",   length = 32, columnDefinition = "varchar(255) COMMENT '仓库地址'")
-    private String address;
+
 
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
+    @Column(name = "pid", length = 10, columnDefinition = "int COMMENT '父级ID'")
+    private String pid;
 
+    @Basic
+    @Column(name = "tree_code", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    private String treeCode;
 
 }
