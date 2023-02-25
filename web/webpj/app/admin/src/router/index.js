@@ -1,72 +1,27 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
+import {enterprise} from './enterprise.js'
+import {common} from './common.js'
+import {sql} from './sql.js'
+import {role} from './role.js'
+import {spider} from './spider.js'
+import {shopping} from './shopping.js'
+import {login} from './login.js'
 
 
 export const router = createRouter({
     history: createWebHashHistory(),
     routes: [
-        {
-            path: '/login',
-            name: 'login',
-            meta: {
-                title: 'Login - 登录',
-                hideInMenu: true
-            },
-            component: () => import('@/views/login/index.vue')
-        },
+        login,
         {
             path: '/',
             component: import('@/views/layout/Main.vue'),
-            children:[
-                {
-                    path:'/common/CommonTablePage',
-                    component: import('@/views/common/CommonTablePage.vue'),
-                    name: 'CommonTablePage'
-                },
-                {
-                    path:'/sql/config',
-                    component: import('@/views/sql/Config.vue'),
-                    name: 'sqlConfig'
-                },
-                {
-                    path:'/spider/Monitor',
-                    component: import('@/views/spider/spiderMonitor.vue'),
-                    name: 'spiderMonitor'
-                },
-                {
-                    path:'/spider/Data',
-                    component: import('@/views/spider/spiderData.vue'),
-                    name: 'spiderData'
-                },
-                {
-                    path:'/enterprise/List',
-                    component: import('@/views/enterprise/List.vue'),
-                    name: 'enterprise'
-                },
-                {
-                    path:'/shopping/shoppingList',
-                    component: import('@/views/shopping/ShoppingList.vue'),
-                    name: 'shopping'
-                },
-                {
-                    path:'/role/user',
-                    component: import('@/views/role/User.vue'),
-                    name: 'user'
-                },
-                {
-                    path:'/role/AdminPower',
-                    component: import('@/views/role/AdminPower.vue'),
-                    name: 'adminPower'
-                },
-                {
-                    path:'/role/role',
-                    component: import('@/views/role/Role.vue'),
-                    name: 'role'
-                },
-                {
-                    path:'/role/power',
-                    component: import('@/views/role/Power.vue'),
-                    name: 'power'
-                }
+            children: [
+                enterprise,
+                common,
+                sql,
+                role,
+                spider,
+                shopping
             ]
         }
     ]

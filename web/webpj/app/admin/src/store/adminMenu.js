@@ -6,6 +6,28 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
     const leftMenu = ref([]);
     const topMenu = ref([
         {
+            name: '企业管理',
+            icon: 'md-settings',
+            routeName: 'enterprise',
+            children: [
+                {
+                    name: '企业管理',
+                    icon: 'md-settings',
+                    routeName: 'enterpriseList'
+                },
+                {
+                    name: '门店管理',
+                    icon: 'md-settings',
+                    routeName: 'storeList'
+                },
+                {
+                    name: '仓库管理',
+                    icon: 'md-settings',
+                    routeName: 'storeList'
+                }
+            ]
+        },
+        {
             name: '配置',
             icon: 'md-settings',
             routeName: 'sqlConfig',
@@ -64,28 +86,6 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     name: '页面',
                     icon: 'md-settings',
                     routeName: 'spiderMonitor'
-                }
-            ]
-        },
-        {
-            name: '企业管理',
-            icon: 'md-settings',
-            routeName: 'enterprise',
-            children: [
-                {
-                    name: '企业管理',
-                    icon: 'md-settings',
-                    routeName: 'enterpriseList'
-                },
-                {
-                    name: '门店管理',
-                    icon: 'md-settings',
-                    routeName: 'storeList'
-                },
-                {
-                    name: '仓库管理',
-                    icon: 'md-settings',
-                    routeName: 'storeList'
                 }
             ]
         },

@@ -1,6 +1,9 @@
 package com.cyyaw;
+import com.alibaba.fastjson.JSONArray;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.common.dao.CommonDao;
+import com.cyyaw.jpa.util.entity.CommonSaveData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,12 +24,21 @@ public class TestApplication {
         CommonDao bean = run.getBean(CommonDao.class);
 
 
+        CommonSaveData commonSaveData = new CommonSaveData();
 
-//        bean.save();
+        JSONArray array = new JSONArray();
 
 
+        JSONObject obj =  new JSONObject();
+
+        obj.put("del", 1);
 
 
+        array.add(obj);
+        commonSaveData.setTable("t_power");
+        commonSaveData.setData(array);
+
+        bean.save(commonSaveData);
     }
 
 }
