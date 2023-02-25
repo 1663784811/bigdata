@@ -7,32 +7,32 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     enterprise:  # 企业
-      url: jdbc:mysql://139.198.115.132:3306/t_enterprise?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_enterprise?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
     admin:   # 用户
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://ip:port/t_admin?characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: xxxxxxxx
+      password: because
+      driver-class-name: com.mysql.cj.jdbc.Driver
     store:  # 商城
-      url: jdbc:mysql://139.198.115.132:3306/t_store?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_store?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
     config:  # 配置
-      url: jdbc:mysql://139.198.115.132:3306/t_config?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_config?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
     spider:  # 爬虫
-      url: jdbc:mysql://139.198.115.132:3306/t_spider?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_spider?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
     web:  # 门户
-      url: jdbc:mysql://139.198.115.132:3306/t_web?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      jdbc-url: jdbc:mysql://139.198.115.132:3306/t_web?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
