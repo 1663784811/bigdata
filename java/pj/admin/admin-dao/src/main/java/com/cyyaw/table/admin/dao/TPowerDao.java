@@ -17,4 +17,13 @@ public interface TPowerDao extends BaseDao<TPower, Integer> {
     List<TPower> findPowerByRole(@Param("rolesId") List<String> rolesId);
 
 
+    @Query("select m from TPower m where m.tid in( select t.powerId from TAdminPower t where t.adminId = ?1) or m.isPower = 0 order by m.sort asc ")
+    List<TPower> getAdminMenu(String tid);
+
+
+    @Query("select m from TPower m where m.tid in ( select t.powerId from TAdminPower t where t.adminId = ?1)")
+    List<TPower> getTPowerByTAdminTid(String tid);
+
+
+
 }

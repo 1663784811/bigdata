@@ -5,6 +5,7 @@ import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.table.admin.dao.TAdminDao;
+import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.dao.TRoleDao;
 import com.cyyaw.table.admin.dao.UUserDao;
 import com.cyyaw.table.admin.entity.TAdmin;
@@ -13,15 +14,11 @@ import com.cyyaw.table.admin.entity.TRole;
 import com.cyyaw.table.admin.entity.UUser;
 import com.cyyaw.table.enterprise.dao.EEnterpriseDao;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
-import com.cyyaw.tx.web.dao.TAdminDaoSystem;
-import com.cyyaw.tx.web.dao.TPowerSystem;
-import com.cyyaw.tx.web.dao.TRoleDaoSystem;
 import com.cyyaw.tx.web.service.LoginService;
 import com.cyyaw.tx.web.service.UUserService;
 import com.cyyaw.util.tools.JwtTokenUtils;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.util.tools.WhyStringUtil;
-import com.cyyaw.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -34,14 +31,9 @@ import java.util.List;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
-    private TAdminDaoSystem tAdminDaoSystem;
 
     @Autowired
-    private TRoleDaoSystem tRoleDaoSystem;
-
-    @Autowired
-    private TPowerSystem tPowerSystem;
+    private TPowerDao tPowerDao;
 
     @Autowired
     private UUserDao uUserDao;
@@ -60,8 +52,8 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public TAdmin getLoignInfo(String account) {
-        List<TAdmin> tAdmins = tAdminDaoSystem.getLoignInfo(account);
+    public TAdmin getLoignInfo(String account, String enterpriseId) {
+        List<TAdmin> tAdmins = tAdminDao.getLoignInfo(account, enterpriseId);
         if (tAdmins == null || tAdmins.size() == 0) {
             WebException.fail("账号不存在");
         } else if (tAdmins.size() > 1) {
@@ -72,12 +64,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<TRole> getRolesByTAdminTid(String tid) {
-        return tRoleDaoSystem.getRolesByTAdminTid(tid);
+        return tRoleDao.getRolesByTAdminTid(tid);
     }
 
     @Override
     public List<TPower> getTPowerByTAdminTid(String tid) {
-        return tPowerSystem.getTPowerByTAdminTid(tid);
+        return tPowerDao.getTPowerByTAdminTid(tid);
     }
 
     /**
@@ -88,7 +80,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public TAdmin register(TAdmin tAdmin) {
-//        List<TAdmin> tAdmins = tAdminDaoSystem.getLoignInfo(tAdmin.getAccount());
+//        List<TAdmin> tAdmins = tAdminDao.getLoignInfo(tAdmin.getAccount());
 //        if (tAdmins != null && tAdmins.size() > 0) WebException.fail("账号已经被注册");
 //        String tid = StringUtilWHY.getUUID();
 //        String salt = StringUtilWHY.getRandomString(20);
@@ -103,7 +95,7 @@ public class LoginServiceImpl implements LoginService {
 //        tAdmin1.setCanlogintime(new Date());
 //        tAdmin1.setCreatetime(new Date());
 //        tAdmin1.setStatus(0);
-//        return tAdminDaoSystem.save(tAdmin1);
+//        return tAdminDao.save(tAdmin1);
         return null;
     }
 
@@ -119,12 +111,12 @@ public class LoginServiceImpl implements LoginService {
 //        Subject subject = SecurityUtils.getSubject();
 //        Session session = subject.getSession();
 //        TAdmin oldeTAdmin = (TAdmin) session.getAttribute(ShiroEnum.USERINFO);
-//        TAdmin tAdmin = tAdminDaoSystem.findByid(oldeTAdmin.getId());
+//        TAdmin tAdmin = tAdminDao.findByid(oldeTAdmin.getId());
 //        String hash = new SimpleHash(hashAlgorithmName, password, tAdmin.getSalt(), hashIterations).toString();
 //        if (!tAdmin.getPassword().equals(hash)) WebException.fail("原密码错误");
 //        String hash1 = new SimpleHash(hashAlgorithmName, newpassword, tAdmin.getSalt(), hashIterations).toString();
 //        tAdmin.setPassword(hash1);
-//        return tAdminDaoSystem.save(tAdmin);
+//        return tAdminDao.save(tAdmin);
         return null;
     }
 
@@ -139,9 +131,9 @@ public class LoginServiceImpl implements LoginService {
 //        Subject subject = SecurityUtils.getSubject();
 //        Session session = subject.getSession();
 //        TAdmin oldeTAdmin = (TAdmin) session.getAttribute(ShiroEnum.USERINFO);
-//        TAdmin tAdmin1 = tAdminDaoSystem.findByid(oldeTAdmin.getId());
+//        TAdmin tAdmin1 = tAdminDao.findByid(oldeTAdmin.getId());
 //        WhyBeanUtils.copyPropertiesAccess(tAdmin, tAdmin1, LoginConstants.UpdateColumnArr);
-//        TAdmin save = tAdminDaoSystem.save(tAdmin1);
+//        TAdmin save = tAdminDao.save(tAdmin1);
 //        session.setAttribute(ShiroEnum.USERINFO, save);
 //        return save;
         return null;
@@ -199,9 +191,9 @@ public class LoginServiceImpl implements LoginService {
         String tid = tAdmin.getTid();
         String passworded = tAdmin.getPassword();
         // 第二步: 对比密码
-        if (!BCryptUtil.matches(password, passworded)) {
-            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
-        }
+//        if (!BCryptUtil.matches(password, passworded)) {
+//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+//        }
         // 第三步: 查角色
         List<TRole> roleList = tRoleDao.findByAdminId(tid);
         StringBuffer sb = new StringBuffer();
@@ -248,11 +240,11 @@ public class LoginServiceImpl implements LoginService {
         }
 
         // 添加用户
-        String encode = BCryptUtil.encode(password);
+//        String encode = BCryptUtil.encode(password);
         TAdmin t = new TAdmin();
         t.setTid(WhyStringUtil.getUUID());
         t.setAccount(userName);
-        t.setPassword(encode);
+//        t.setPassword(encode);
         TAdmin save = tAdminDao.save(t);
         return save;
     }
