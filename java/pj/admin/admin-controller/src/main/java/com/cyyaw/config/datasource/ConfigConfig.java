@@ -39,7 +39,7 @@ public class ConfigConfig {
     private JpaProperties jpaProperties;
 
     @Primary
-    @Bean(name = "entityManagerPrimary")
+    @Bean(name = "entityManagerConfig")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }

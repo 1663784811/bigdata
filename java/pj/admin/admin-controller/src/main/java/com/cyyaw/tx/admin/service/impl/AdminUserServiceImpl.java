@@ -1,10 +1,10 @@
 package com.cyyaw.tx.admin.service.impl;
 
 import com.cyyaw.entity.TreeEntity;
-import com.cyyaw.table.admin.tadmin.dao.TPowerDao;
-import com.cyyaw.table.admin.tadmin.dao.TRoleDao;
-import com.cyyaw.table.admin.tadmin.entity.TPower;
-import com.cyyaw.table.admin.tadmin.entity.TRole;
+import com.cyyaw.table.admin.dao.TPowerDao;
+import com.cyyaw.table.admin.dao.TRoleDao;
+import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.table.admin.entity.TRole;
 import com.cyyaw.tx.admin.service.AdminUserService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;

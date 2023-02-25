@@ -1,19 +1,17 @@
 package com.cyyaw.init;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.cyyaw.table.admin.tadmin.dao.*;
-import com.cyyaw.table.admin.tadmin.entity.*;
-import com.cyyaw.table.confit.dao.CPageComponentsDao;
-import com.cyyaw.table.confit.dao.CPageDao;
+import com.cyyaw.table.admin.dao.*;
+import com.cyyaw.table.admin.entity.*;
+import com.cyyaw.table.config.dao.CPageComponentsDao;
+import com.cyyaw.table.config.dao.CPageDao;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.table.spider.tag.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 初始化

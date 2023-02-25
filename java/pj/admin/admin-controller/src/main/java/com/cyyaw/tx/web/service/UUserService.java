@@ -3,7 +3,7 @@ package com.cyyaw.tx.web.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.admin.tadmin.entity.UUser;
+import com.cyyaw.table.admin.entity.UUser;
 
 public interface UUserService extends BaseTableService<UUser, Integer> {
 

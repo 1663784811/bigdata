@@ -1,6 +1,6 @@
 package com.cyyaw.tx.web.service.impl;
 
-import com.cyyaw.table.admin.tadmin.entity.TPower;
+import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.tx.web.dao.MenuDao;
 import com.cyyaw.tx.web.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;

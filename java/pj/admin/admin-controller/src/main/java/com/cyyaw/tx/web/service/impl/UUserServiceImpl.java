@@ -4,8 +4,8 @@ package com.cyyaw.tx.web.service.impl;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
-import com.cyyaw.table.admin.tadmin.dao.UUserDao;
-import com.cyyaw.table.admin.tadmin.entity.UUser;
+import com.cyyaw.table.admin.dao.UUserDao;
+import com.cyyaw.table.admin.entity.UUser;
 import com.cyyaw.tx.web.service.UUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
             user = uUserList.get(0);
         }
         user.setFace(wxMaUserInfo.getAvatarUrl());
-        user.setNickname(wxMaUserInfo.getNickName());
+        user.setNickName(wxMaUserInfo.getNickName());
         user.setSex(wxMaUserInfo.getGender());
         return uUserDao.save(user);
     }

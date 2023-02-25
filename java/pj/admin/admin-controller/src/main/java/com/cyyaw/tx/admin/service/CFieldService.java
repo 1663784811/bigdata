@@ -1,8 +1,6 @@
 package com.cyyaw.tx.admin.service;
 
-
-import com.cyyaw.table.confit.entity.CField;
-
+import com.cyyaw.table.config.entity.CField;
 import java.util.List;
 
 public interface CFieldService {

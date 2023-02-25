@@ -1,8 +1,8 @@
 package com.cyyaw.tx.web.service.impl;
 
 import com.cyyaw.entity.GoodsEntity;
-import com.cyyaw.table.admin.enterprise.dao.EStoreDao;
-import com.cyyaw.table.admin.enterprise.entity.EStore;
+import com.cyyaw.table.enterprise.dao.EStoreDao;
+import com.cyyaw.table.enterprise.entity.EStore;
 import com.cyyaw.table.store.goods.dao.GGoodsDao;
 import com.cyyaw.table.store.goods.dao.GGoodsSearchDao;
 import com.cyyaw.table.store.goods.dao.GStoreGoodsSkuDao;

@@ -1,8 +1,8 @@
 package com.cyyaw.tx.web.dao;
 
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.admin.tadmin.entity.TAdmin;
-import com.cyyaw.table.admin.tadmin.entity.TRole;
+import com.cyyaw.table.admin.entity.TAdmin;
+import com.cyyaw.table.admin.entity.TRole;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.cyyaw.tx.web.dao;
 
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.admin.tadmin.entity.TAdminMessage;
+import com.cyyaw.table.admin.entity.TAdminMessage;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 

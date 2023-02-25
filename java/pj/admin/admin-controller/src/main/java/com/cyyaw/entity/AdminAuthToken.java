@@ -1,9 +1,8 @@
 package com.cyyaw.entity;
 
-
-import com.cyyaw.table.admin.tadmin.entity.TAdmin;
-import com.cyyaw.table.admin.tadmin.entity.TPower;
-import com.cyyaw.table.admin.tadmin.entity.TRole;
+import com.cyyaw.table.admin.entity.TAdmin;
+import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.table.admin.entity.TRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,7 +11,6 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
  * @author why
  */
 @Data

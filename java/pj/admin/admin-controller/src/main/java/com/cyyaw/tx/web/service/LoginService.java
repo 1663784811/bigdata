@@ -4,9 +4,9 @@ package com.cyyaw.tx.web.service;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
-import com.cyyaw.table.admin.tadmin.entity.TAdmin;
-import com.cyyaw.table.admin.tadmin.entity.TPower;
-import com.cyyaw.table.admin.tadmin.entity.TRole;
+import com.cyyaw.table.admin.entity.TAdmin;
+import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.table.admin.entity.TRole;
 
 import java.util.List;
 
@@ -73,14 +73,16 @@ public interface LoginService {
 
     /**
      * 后台登录
+     *
      * @param userName
      * @param password
      * @return
      */
-    AdminAuthToken loginUserNameAndPassword(String enterpriseId,String userName, String password);
+    AdminAuthToken loginUserNameAndPassword(String enterpriseId, String userName, String password);
 
     /**
      * 注册
+     *
      * @param registerInfo
      * @return
      */

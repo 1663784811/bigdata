@@ -26,7 +26,7 @@ import java.util.Map;
         transactionManagerRef = "transactionManagerWeb",
         basePackages = {"com.cyyaw.table.web"}
 )
-public class WebConfig {
+public class WebConfigDataSource {
 
     @Autowired
     @Qualifier("webDataSource")
@@ -39,7 +39,7 @@ public class WebConfig {
     private JpaProperties jpaProperties;
 
     @Primary
-    @Bean(name = "entityManagerPrimary")
+    @Bean(name = "entityManagerWebConfig")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }

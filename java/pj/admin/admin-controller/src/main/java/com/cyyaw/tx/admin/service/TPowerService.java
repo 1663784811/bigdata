@@ -2,7 +2,7 @@ package com.cyyaw.tx.admin.service;
 
 
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.admin.tadmin.entity.TPower;
+import com.cyyaw.table.admin.entity.TPower;
 
 import java.util.List;
 

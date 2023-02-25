@@ -1,6 +1,6 @@
 package com.cyyaw.tx.admin.service;
 
-import com.cyyaw.table.confit.entity.CPage;
+import com.cyyaw.table.config.entity.CPage;
 
 import java.util.List;
 
