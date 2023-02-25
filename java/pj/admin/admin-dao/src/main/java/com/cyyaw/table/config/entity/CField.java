@@ -1,4 +1,4 @@
-package com.cyyaw.table.confit.entity;
+package com.cyyaw.table.config.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package com.cyyaw.table.confit.dao;
+package com.cyyaw.table.config.dao;
 
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.confit.entity.CField;
+import com.cyyaw.table.config.entity.CField;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;

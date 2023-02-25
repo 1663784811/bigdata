@@ -1,4 +1,4 @@
-package com.cyyaw.table.confit.entity;
+package com.cyyaw.table.config.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -8,14 +8,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
 @Data
 @Entity
-@Table(name = "c_page")
-@org.hibernate.annotations.Table(appliesTo = "c_page", comment = "页面")
-public class CPage implements Serializable {
-
-    private static final long serialVersionUID = 166582321135876L;
+@Table(name = "c_sql")
+@org.hibernate.annotations.Table(appliesTo = "c_sql", comment = "查询语句")
+public class CSql implements Serializable {
+    private static final long serialVersionUID = 1665182321135876L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,14 +38,13 @@ public class CPage implements Serializable {
     // ==================================================
 
     @Basic
+    @Column(name = "count_sql", columnDefinition = "text COMMENT 'count数量'")
+    private String countSql;
+    @Basic
     @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '名称'")
     private String name;
-
     @Basic
-    @Column(name = "page_icon", columnDefinition = "text COMMENT '图标'")
-    private String pageIcon;
+    @Column(name = "content_sql", columnDefinition = "text COMMENT 'sql内容'")
+    private String contentSql;
 
-    @Basic
-    @Column(name = "page_code", columnDefinition = "varchar(32) not null COMMENT 'pageCode'")
-    private String pageCode;
 }

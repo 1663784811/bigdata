@@ -1,4 +1,4 @@
-package com.cyyaw.table.confit.entity;
+package com.cyyaw.table.config.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +10,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "c_sql")
-@org.hibernate.annotations.Table(appliesTo = "c_sql", comment = "查询语句")
-public class CSql implements Serializable {
-    private static final long serialVersionUID = 1665182321135876L;
+@Table(name = "c_page_components")
+@org.hibernate.annotations.Table(appliesTo = "c_page_components", comment = "页面组件")
+public class CPageComponents implements Serializable {
+
+    private static final long serialVersionUID = 1667229296952725L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,14 +38,23 @@ public class CSql implements Serializable {
 
     // ==================================================
 
+
     @Basic
-    @Column(name = "count_sql", columnDefinition = "text COMMENT 'count数量'")
-    private String countSql;
+    @Column(name = "page_id", columnDefinition = "varchar(45) COMMENT '页面ID'")
+    private String pageId;
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '名称'")
+    @Column(name = "name", columnDefinition = "varchar(45) COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "content_sql", columnDefinition = "text COMMENT 'sql内容'")
-    private String contentSql;
-
+    @Column(name = "components_code", columnDefinition = "varchar(45) COMMENT '类型'")
+    private String components_code;
+    @Basic
+    @Column(name = "data", columnDefinition = "text COMMENT '数据'")
+    private String data;
+    @Basic
+    @Column(name = "icon", columnDefinition = "varchar(255) COMMENT 'icon图标'")
+    private String icon;
+    @Basic
+    @Column(name = "sort", columnDefinition = "int COMMENT '排序'")
+    private Integer sort;
 }

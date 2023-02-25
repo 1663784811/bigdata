@@ -31,6 +31,11 @@ spring:
       username: root
       password: because
       driver-class-name: com.mysql.cj.jdbc.Driver
+    web:  # 门户
+      url: jdbc:mysql://139.198.115.132:3306/t_web?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: because
+      driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 

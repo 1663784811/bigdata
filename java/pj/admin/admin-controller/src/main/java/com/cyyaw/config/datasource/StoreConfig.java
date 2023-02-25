@@ -21,14 +21,16 @@ import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryPrimary",
-        transactionManagerRef = "transactionManagerPrimary",
-        basePackages = {"com.summer.springboot.jpa.multiple.repository.primary"})
-public class PrimaryConfig {
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactoryStore",
+        transactionManagerRef = "transactionManagerStore",
+        basePackages = {"com.cyyaw.table.store"}
+)
+public class StoreConfig {
 
     @Autowired
-    @Qualifier("primaryDataSource")
-    private DataSource primaryDataSource;
+    @Qualifier("storeDataSource")
+    private DataSource dataSource;
 
     @Autowired
     private HibernateProperties hibernateProperties;
@@ -43,17 +45,17 @@ public class PrimaryConfig {
     }
 
     @Primary
-    @Bean(name = "entityManagerFactoryPrimary")    //primary实体工厂
+    @Bean(name = "entityManagerFactoryStore")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
-        return builder.dataSource(primaryDataSource)
+        return builder.dataSource(dataSource)
                 .properties(getHibernateProperties())
-                .packages("com.summer.springboot.jpa.multiple.entity.primary")     //换成你自己的实体类所在位置
-                .persistenceUnit("primaryPersistenceUnit")
+                .packages("com.cyyaw.table.store")
+                .persistenceUnit("storePersistenceUnit")
                 .build();
     }
 
     @Primary
-    @Bean(name = "transactionManagerPrimary")
+    @Bean(name = "transactionManagerStore")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
     }
