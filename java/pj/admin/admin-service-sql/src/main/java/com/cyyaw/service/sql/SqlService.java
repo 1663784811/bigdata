@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.service;
+package com.cyyaw.service.sql;
 
 import com.cyyaw.entity.SelectEntity;
 import com.cyyaw.table.config.entity.CSql;

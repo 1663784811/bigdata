@@ -1,8 +1,8 @@
-package com.cyyaw.tx.admin.service.impl;
+package com.cyyaw.service.sql.impl;
 
+import com.cyyaw.service.sql.CFieldService;
 import com.cyyaw.table.config.dao.CFieldDao;
 import com.cyyaw.table.config.entity.CField;
-import com.cyyaw.tx.admin.service.CFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
