@@ -5,7 +5,11 @@ import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.cyyaw.jpa.BaseTableService;
 import com.cyyaw.table.admin.entity.UUser;
 
-public interface UUserService extends BaseTableService<UUser, Integer> {
+public interface UUserService {
+
+    UUser save(UUser uUser);
+
+
 
 
     UUser findByAccountAndPassword(String account, String password);
@@ -18,4 +22,7 @@ public interface UUserService extends BaseTableService<UUser, Integer> {
     UUser findByAccount(String account);
 
     UUser upateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo);
+
+
+
 }

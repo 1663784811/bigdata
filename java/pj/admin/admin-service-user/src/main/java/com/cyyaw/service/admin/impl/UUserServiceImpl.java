@@ -2,11 +2,9 @@ package com.cyyaw.service.admin.impl;
 
 
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
-import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.jpa.BaseService;
+import com.cyyaw.service.admin.UUserService;
 import com.cyyaw.table.admin.dao.UUserDao;
 import com.cyyaw.table.admin.entity.UUser;
-import com.cyyaw.service.admin.UUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +15,14 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUserService {
+public class UUserServiceImpl implements UUserService {
 
     @Autowired
     private UUserDao uUserDao;
 
     @Override
-    public BaseDao getBaseDao() {
-        return uUserDao;
+    public UUser save(UUser uUser) {
+        return uUserDao.save(uUser);
     }
 
     @Override

@@ -71,6 +71,9 @@ public class LoginController {
         loginRequest.setEnterpriseId(tid);
         TAdmin admin = loginService.adminRegister(loginRequest);
         admin.setPassword(null);
+        // 第三步:分配权限
+
+
         return BaseResult.ok(admin, "注册成功");
     }
 
