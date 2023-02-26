@@ -51,4 +51,16 @@ public class LoginController {
         return BaseResult.ok(tAdmin, "注册成功");
     }
 
+
+    @ApiOperation(value = "企业注册", notes = "用户注册")
+    @PostMapping(value = "/register")
+    public BaseResult registera(@RequestBody LoginRequest registerInfo) {
+        TAdmin tAdmin = loginService.adminRegister(registerInfo);
+        tAdmin.setPassword(null);
+        return BaseResult.ok(tAdmin, "注册成功");
+    }
+
+
+
+
 }
