@@ -62,19 +62,19 @@ public class ACoupon implements Serializable {
     private Date endtime;
 
     @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int COMMENT '优惠券类型{0:通用}'")
+    @Column(name = "type",columnDefinition = "int COMMENT '优惠券类型{0:通用}'")
     private Integer type;
 
     @Basic
-    @Column(name = "algorithm", length = 10, columnDefinition = "int default '0' COMMENT '结算算法{0:默认}'")
+    @Column(name = "algorithm",columnDefinition = "int default '0' COMMENT '结算算法{0:默认}'")
     private Integer algorithm;
 
     @Basic
-    @Column(name = "[range]", length = 10, columnDefinition = "int COMMENT '使用范围{0:门店,1:商场,2:通用}'")
+    @Column(name = "[range]",columnDefinition = "int COMMENT '使用范围{0:门店,1:商场,2:通用}'")
     private Integer range;
 
     @Basic
-    @Column(name = "rangetype", length = 10, columnDefinition = "int COMMENT '使用范围类型{0:通用,1:商品,2:品类,3:品牌}'")
+    @Column(name = "rangetype",columnDefinition = "int COMMENT '使用范围类型{0:通用,1:商品,2:品类,3:品牌}'")
     private Integer rangetype;
 
 }

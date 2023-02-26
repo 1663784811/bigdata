@@ -38,24 +38,24 @@ public class GType implements Serializable {
 
 
     @Basic
-    @Column(name = "pid", length = 32, columnDefinition = "varchar(32) COMMENT '父级ID'")
+    @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
     private String pid;
     @Basic
-    @Column(name = "treecode", length = 10, columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    @Column(name = "treecode",columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
     private String treecode;
 
     @Basic
-    @Column(name = "name", length = 32, columnDefinition = "varchar(32) COMMENT '品类名称'")
+    @Column(name = "name", columnDefinition = "varchar(32) COMMENT '品类名称'")
     private String name;
     @Basic
     @Column(name = "img", columnDefinition = "varchar(255) COMMENT '图标'")
     private String img;
 
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
+    @Column(name = "status",columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
     private Integer status;
 
     @Basic
-    @Column(name = "sort", length = 10, columnDefinition = "int default '1' COMMENT '排序'")
+    @Column(name = "sort",columnDefinition = "int default '1' COMMENT '排序'")
     private Integer sort;
 }

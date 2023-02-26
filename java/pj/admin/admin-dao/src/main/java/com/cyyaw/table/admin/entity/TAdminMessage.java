@@ -38,14 +38,14 @@ public class TAdminMessage implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态{0:未读,1:已读}'")
+    @Column(name = "status",columnDefinition = "int COMMENT '状态{0:未读,1:已读}'")
     private Integer status;
 
     @Basic
-    @Column(name = "tadminid", length = 32, columnDefinition = "varchar(32) COMMENT 'admin表id'")
+    @Column(name = "tadminid", columnDefinition = "varchar(32) COMMENT 'admin表id'")
     private String tadminid;
 
     @Basic
-    @Column(name = "tmessageid", length = 32, columnDefinition = "varchar(32) COMMENT '消息表id'")
+    @Column(name = "tmessageid", columnDefinition = "varchar(32) COMMENT '消息表id'")
     private String tmessageid;
 }

@@ -48,11 +48,11 @@ public class UGroupUser implements Serializable {
     private String groupid;
 
     @Basic
-    @Column(name = "grade", length = 10, columnDefinition = "int not null default '0' COMMENT '等级'")
+    @Column(name = "grade",columnDefinition = "int not null default '0' COMMENT '等级'")
     private Integer grade;
 
     @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int not null default '0' COMMENT '用户类型{0:普通人,1:群主,2:管理员}'")
+    @Column(name = "type",columnDefinition = "int not null default '0' COMMENT '用户类型{0:普通人,1:群主,2:管理员}'")
     private Integer type;
 
 

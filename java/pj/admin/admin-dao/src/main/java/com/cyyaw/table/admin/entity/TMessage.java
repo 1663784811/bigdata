@@ -39,17 +39,17 @@ public class TMessage implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "author", length = 32, columnDefinition = "varchar(32) COMMENT '作者'")
+    @Column(name = "author", columnDefinition = "varchar(32) COMMENT '作者'")
     private String author;
     @Basic
     @Column(name = "content", columnDefinition = "varchar(255) COMMENT '内容'")
     private String content;
     @Basic
-    @Column(name = "mssagetype", length = 10, columnDefinition = "int COMMENT '消息类型'")
+    @Column(name = "mssagetype",columnDefinition = "int COMMENT '消息类型'")
     private Integer mssagetype;
 
     @Basic
-    @Column(name = "orginal", length = 10, columnDefinition = "int COMMENT '是否原创{0:否,1:是}'")
+    @Column(name = "orginal",columnDefinition = "int COMMENT '是否原创{0:否,1:是}'")
     private Integer orginal;
     @Basic
     @Column(name = "publishtime", length = 19, columnDefinition = "datetime COMMENT '发布时间'")
@@ -58,12 +58,12 @@ public class TMessage implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishtime;
     @Basic
-    @Column(name = "status", length = 10, columnDefinition = "int COMMENT '状态'")
+    @Column(name = "status",columnDefinition = "int COMMENT '状态'")
     private Integer status;
     @Basic
     @Column(name = "title", columnDefinition = "varchar(255) COMMENT '标题'")
     private String title;
     @Basic
-    @Column(name = "url", length = 32, columnDefinition = "varchar(32) COMMENT 'url'")
+    @Column(name = "url", columnDefinition = "varchar(32) COMMENT 'url'")
     private String url;
 }

@@ -55,10 +55,10 @@ public class GGoods implements Serializable {
     @Column(name="high_price", columnDefinition = "decimal(18,2) COMMENT '最高价格'")
     private BigDecimal highPrice;
     @Basic
-    @Column(name = "type_code",   length = 32, columnDefinition = "varchar(32) COMMENT '品类Code'")
+    @Column(name = "type_code",   columnDefinition = "varchar(32) COMMENT '品类Code'")
     private String typeCode;
     @Basic
-    @Column(name = "brand_code",   length = 32, columnDefinition = "varchar(32) COMMENT '品牌Code'")
+    @Column(name = "brand_code",   columnDefinition = "varchar(32) COMMENT '品牌Code'")
     private String brandCode;
     @Basic
     @Column(name = "photo",  columnDefinition = "varchar(255) COMMENT '商品图片'")

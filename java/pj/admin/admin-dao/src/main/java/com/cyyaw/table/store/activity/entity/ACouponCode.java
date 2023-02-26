@@ -43,7 +43,7 @@ public class ACouponCode implements Serializable {
     private String code;
 
     @Basic
-    @Column(name = "[status]", length = 10, columnDefinition = "int COMMENT '状态{0:未领取,1:已领取,2:已使用}'")
+    @Column(name = "[status]",columnDefinition = "int COMMENT '状态{0:未领取,1:已领取,2:已使用}'")
     private Integer status;
 
     @Basic

@@ -51,6 +51,6 @@ public class ACouponUser implements Serializable {
     private String acouponid;
 
     @Basic
-    @Column(name = "[status]", length = 10, columnDefinition = "int COMMENT '状态{1:已领取,2:已使用,3:已转赠}'")
+    @Column(name = "[status]",columnDefinition = "int COMMENT '状态{1:已领取,2:已使用,3:已转赠}'")
     private Integer status;
 }

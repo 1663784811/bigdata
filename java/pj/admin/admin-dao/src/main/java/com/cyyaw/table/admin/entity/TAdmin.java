@@ -67,7 +67,7 @@ public class TAdmin implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastlogintime;
     @Basic
-    @Column(name = "nickname", length = 32, nullable = true, columnDefinition = "varchar(32) COMMENT '昵称'")
+    @Column(name = "nickname", nullable = true, columnDefinition = "varchar(32) COMMENT '昵称'")
     private String nickname;
     @Basic
     @Column(name = "password", length = 64, nullable = true, columnDefinition = "varchar(32) COMMENT '密码'")
@@ -76,12 +76,12 @@ public class TAdmin implements Serializable {
     @Column(name = "phone", length = 15, nullable = true, columnDefinition = "varchar(15) COMMENT '手机号'")
     private String phone;
     @Basic
-    @Column(name = "salt", length = 32, nullable = true, columnDefinition = "varchar(32) COMMENT '加密盐'")
+    @Column(name = "salt", nullable = true, columnDefinition = "varchar(32) COMMENT '加密盐'")
     private String salt;
     @Basic
-    @Column(name = "status", length = 10, nullable = true, columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
+    @Column(name = "status",nullable = true, columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
     private Integer status;
     @Basic
-    @Column(name = "truename", length = 32, nullable = true, columnDefinition = "varchar(32) COMMENT '真实姓名'")
+    @Column(name = "truename", nullable = true, columnDefinition = "varchar(32) COMMENT '真实姓名'")
     private String truename;
 }

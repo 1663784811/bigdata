@@ -38,7 +38,7 @@ public class TDictionary implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "type", length = 10, columnDefinition = "int not null COMMENT '字典类型'")
+    @Column(name = "type",columnDefinition = "int not null COMMENT '字典类型'")
     private Integer type;
 
     @Basic

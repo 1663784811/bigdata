@@ -39,29 +39,29 @@ public class TStatistics implements Serializable {
 
 
     @Basic
-    @Column(name = "adduser", length = 10, columnDefinition = "int COMMENT '新增用户'")
+    @Column(name = "adduser",columnDefinition = "int COMMENT '新增用户'")
     private Integer adduser;
 
     @Basic
-    @Column(name = "man", length = 10, columnDefinition = "int COMMENT '男生'")
+    @Column(name = "man",columnDefinition = "int COMMENT '男生'")
     private Integer man;
     @Basic
-    @Column(name = "women", length = 10, columnDefinition = "int COMMENT '女生'")
+    @Column(name = "women",columnDefinition = "int COMMENT '女生'")
     private Integer women;
     @Basic
-    @Column(name = "[unknown]", length = 10, columnDefinition = "int COMMENT '未知'")
+    @Column(name = "[unknown]",columnDefinition = "int COMMENT '未知'")
     private Integer unknown;
     @Basic
-    @Column(name = "userall", length = 10, columnDefinition = "int COMMENT '所有用户'")
+    @Column(name = "userall",columnDefinition = "int COMMENT '所有用户'")
     private Integer userall;
     @Basic
-    @Column(name = "visit", length = 10, columnDefinition = "int COMMENT '今天访问量'")
+    @Column(name = "visit",columnDefinition = "int COMMENT '今天访问量'")
     private Integer visit;
     @Basic
-    @Column(name = "visitall", length = 10, columnDefinition = "int COMMENT '总访问量'")
+    @Column(name = "visitall",columnDefinition = "int COMMENT '总访问量'")
     private Integer visitall;
     @Basic
-    @Column(name = "weixinuser", length = 10, columnDefinition = "int COMMENT '微信用户'")
+    @Column(name = "weixinuser",columnDefinition = "int COMMENT '微信用户'")
     private Integer weixinuser;
 
 }
