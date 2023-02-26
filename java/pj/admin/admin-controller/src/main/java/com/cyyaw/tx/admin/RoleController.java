@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.controller;
+package com.cyyaw.tx.admin;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

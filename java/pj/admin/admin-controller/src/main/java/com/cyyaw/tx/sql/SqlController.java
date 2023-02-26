@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.controller;
+package com.cyyaw.tx.sql;
 
 import com.cyyaw.entity.SelectEntity;
 import com.cyyaw.service.sql.SqlService;

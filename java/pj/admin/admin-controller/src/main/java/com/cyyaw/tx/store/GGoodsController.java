@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.controller;
+package com.cyyaw.tx.store;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
 import com.cyyaw.table.store.goods.entity.GGoods;

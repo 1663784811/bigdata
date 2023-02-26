@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.controller;
+package com.cyyaw.tx.admin;
 
 import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.service.admin.AdminUserService;
