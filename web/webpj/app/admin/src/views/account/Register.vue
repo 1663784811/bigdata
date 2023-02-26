@@ -48,6 +48,17 @@
         </div>
       </div>
 
+
+      <div class="inputBox">
+        <Result type="success" title="注册成功">
+          <template #desc>
+            注册成功,您的后台登录地址: http://cyyyaw.com/account/login/xxxxx
+          </template>
+        </Result>
+      </div>
+
+
+
       <div class="btnBox">
         <Button type="success">上一步</Button>
         <Button type="success">下一步</Button>
