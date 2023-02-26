@@ -1,11 +1,14 @@
 package com.cyyaw.tx.login;
 
 import com.cyyaw.entity.AdminAuthToken;
+import com.cyyaw.entity.EnterpriseRegisterRequest;
 import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.service.admin.LoginService;
 import com.cyyaw.service.admin.TPowerService;
+import com.cyyaw.service.enterprise.EEnterpriseService;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.table.enterprise.entity.EEnterprise;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,10 @@ public class LoginController {
 
     @Autowired
     private TPowerService tPowerService;
+
+    @Autowired
+    private EEnterpriseService eEnterpriseService;
+
 
     @ApiOperation(value = "退出登录", notes = "退出登录")
     @GetMapping(value = "/logout")
@@ -52,15 +59,20 @@ public class LoginController {
     }
 
 
-    @ApiOperation(value = "企业注册", notes = "用户注册")
-    @PostMapping(value = "/registeraaa")
-    public BaseResult registera(@RequestBody LoginRequest registerInfo) {
-        TAdmin tAdmin = loginService.adminRegister(registerInfo);
-        tAdmin.setPassword(null);
-        return BaseResult.ok(tAdmin, "注册成功");
+    @ApiOperation(value = "企业注册", notes = "企业注册")
+    @PostMapping(value = "/enterpriseRegister")
+    public BaseResult enterpriseRegister(@RequestBody EnterpriseRegisterRequest enterpriseRegisterRequest) {
+        EEnterprise eEnterprise = enterpriseRegisterRequest.getEEnterprise();
+        LoginRequest loginRequest = enterpriseRegisterRequest.getAdmin();
+        // 第一步：保存企业信息
+        EEnterprise e = eEnterpriseService.registerEnterprise(eEnterprise);
+        // 第二步：保存负责人信息
+        String tid = e.getTid();
+        loginRequest.setEnterpriseId(tid);
+        TAdmin admin = loginService.adminRegister(loginRequest);
+        admin.setPassword(null);
+        return BaseResult.ok(admin, "注册成功");
     }
-
-
 
 
 }

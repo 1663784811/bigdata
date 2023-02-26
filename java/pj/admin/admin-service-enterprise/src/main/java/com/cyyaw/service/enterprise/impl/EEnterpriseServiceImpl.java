@@ -18,15 +18,15 @@ public class EEnterpriseServiceImpl implements EEnterpriseService {
 
     /**
      * 注册企业
-     *
-     * @param enterprise
-     * @return
      */
     @Override
+    public EEnterprise save(EEnterprise enterprise) {
+        return eEnterpriseDao.save(enterprise);
+    }
+
+    @Override
     public EEnterprise registerEnterprise(EEnterprise enterprise) {
-        // 第一步: 注册企业
-        EEnterprise save = eEnterpriseDao.save(enterprise);
-        return save;
+        return save(enterprise);
     }
 }
 
