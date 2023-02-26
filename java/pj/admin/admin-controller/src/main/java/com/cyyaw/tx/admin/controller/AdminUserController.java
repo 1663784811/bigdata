@@ -1,8 +1,8 @@
 package com.cyyaw.tx.admin.controller;
 
 import com.cyyaw.entity.TreeEntity;
+import com.cyyaw.service.admin.AdminUserService;
 import com.cyyaw.table.admin.entity.TPower;
-import com.cyyaw.tx.admin.service.AdminUserService;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

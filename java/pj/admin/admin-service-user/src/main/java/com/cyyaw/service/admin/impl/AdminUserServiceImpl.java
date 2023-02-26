@@ -1,11 +1,11 @@
 package com.cyyaw.service.admin.impl;
 
 import com.cyyaw.entity.TreeEntity;
+import com.cyyaw.service.admin.AdminUserService;
 import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.dao.TRoleDao;
 import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.table.admin.entity.TRole;
-import com.cyyaw.tx.admin.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,10 +2,10 @@ package com.cyyaw.tx.login;
 
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.LoginRequest;
+import com.cyyaw.service.admin.LoginService;
+import com.cyyaw.service.admin.TPowerService;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.table.admin.entity.TPower;
-import com.cyyaw.tx.admin.service.LoginService;
-import com.cyyaw.tx.admin.service.TPowerService;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class LoginController {
 
 
     @ApiOperation(value = "企业注册", notes = "用户注册")
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/registeraaa")
     public BaseResult registera(@RequestBody LoginRequest registerInfo) {
         TAdmin tAdmin = loginService.adminRegister(registerInfo);
         tAdmin.setPassword(null);
