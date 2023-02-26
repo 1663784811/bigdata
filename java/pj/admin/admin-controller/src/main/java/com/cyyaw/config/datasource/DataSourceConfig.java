@@ -15,7 +15,6 @@ public class DataSourceConfig {
     @Bean(name = "enterpriseDataSource")
     @Qualifier("enterpriseDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.enterprise")
-    @Primary
     public DataSource enterprise() {
         return DataSourceBuilder.create().build();
     }
@@ -37,6 +36,7 @@ public class DataSourceConfig {
     }
 
 
+    @Primary
     @Bean(name = "configDataSource")
     @Qualifier("configDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.config")

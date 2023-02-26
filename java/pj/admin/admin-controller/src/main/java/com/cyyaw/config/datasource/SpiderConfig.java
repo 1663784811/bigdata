@@ -38,13 +38,11 @@ public class SpiderConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    @Primary
     @Bean(name = "entityManagerSpider")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }
 
-    @Primary
     @Bean(name = "entityManagerFactorySpider")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
         return builder.dataSource(dataSource)
@@ -54,7 +52,6 @@ public class SpiderConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "transactionManagerSpider")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());

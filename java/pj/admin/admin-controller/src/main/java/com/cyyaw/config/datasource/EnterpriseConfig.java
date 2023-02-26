@@ -38,13 +38,11 @@ public class EnterpriseConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    @Primary
     @Bean(name = "entityManagerEnterprise")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }
 
-    @Primary
     @Bean(name = "entityManagerFactoryEnterprise")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
         return builder.dataSource(dataSource)
@@ -54,7 +52,6 @@ public class EnterpriseConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "transactionManagerEnterprise")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());

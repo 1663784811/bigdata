@@ -38,13 +38,11 @@ public class StoreConfig {
     @Autowired
     private JpaProperties jpaProperties;
 
-    @Primary
     @Bean(name = "entityManagerStore")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
     }
 
-    @Primary
     @Bean(name = "entityManagerFactoryStore")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary (EntityManagerFactoryBuilder builder) {
         return builder.dataSource(dataSource)
@@ -54,7 +52,6 @@ public class StoreConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "transactionManagerStore")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
