@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.service.impl;
+package com.cyyaw.service.admin.impl;
 
 import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.table.admin.dao.TPowerDao;

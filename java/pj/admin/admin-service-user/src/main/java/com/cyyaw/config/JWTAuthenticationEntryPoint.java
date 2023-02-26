@@ -1,4 +1,4 @@
-package com.cyyaw.tx.config;
+package com.cyyaw.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.util.tools.BaseResult;

@@ -1,4 +1,4 @@
-package com.cyyaw.tx.config;
+package com.cyyaw.config;
 
 import com.cyyaw.config.exception.WebException;
 import com.cyyaw.util.tools.JwtTokenUtils;

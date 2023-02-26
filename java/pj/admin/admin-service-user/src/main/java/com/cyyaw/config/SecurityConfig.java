@@ -1,4 +1,4 @@
-package com.cyyaw.tx.config;
+package com.cyyaw.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

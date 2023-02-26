@@ -1,11 +1,11 @@
-package com.cyyaw.tx.admin.service.impl;
+package com.cyyaw.service.admin.impl;
 
 
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
 import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.entity.TPower;
-import com.cyyaw.tx.admin.service.TPowerService;
+import com.cyyaw.service.admin.TPowerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

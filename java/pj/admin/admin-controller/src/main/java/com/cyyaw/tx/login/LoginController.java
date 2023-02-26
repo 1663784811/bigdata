@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.login;
+package com.cyyaw.tx.login;
 
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.LoginRequest;

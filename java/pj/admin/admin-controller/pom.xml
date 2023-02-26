@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>com.cyyaw</groupId>
-            <artifactId>admin-controller-user</artifactId>
+            <artifactId>admin-service-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--   =========================================================     -->

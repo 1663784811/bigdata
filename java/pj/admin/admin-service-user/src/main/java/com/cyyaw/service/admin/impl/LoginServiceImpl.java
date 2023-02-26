@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.service.impl;
+package com.cyyaw.service.admin.impl;
 
 import com.cyyaw.config.exception.WebException;
 import com.cyyaw.entity.AdminAuthToken;
@@ -14,8 +14,8 @@ import com.cyyaw.table.admin.entity.TRole;
 import com.cyyaw.table.admin.entity.UUser;
 import com.cyyaw.table.enterprise.dao.EEnterpriseDao;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
-import com.cyyaw.tx.admin.service.LoginService;
-import com.cyyaw.tx.admin.service.UUserService;
+import com.cyyaw.service.admin.LoginService;
+import com.cyyaw.service.admin.UUserService;
 import com.cyyaw.util.tools.JwtTokenUtils;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.util.tools.WhyStringUtil;

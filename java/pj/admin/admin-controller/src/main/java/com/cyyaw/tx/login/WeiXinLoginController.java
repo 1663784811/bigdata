@@ -1,4 +1,4 @@
-package com.cyyaw.tx.admin.login;
+package com.cyyaw.tx.login;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

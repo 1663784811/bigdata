@@ -1,8 +1,8 @@
-package com.cyyaw.tx.admin.service.impl;
+package com.cyyaw.service.admin.impl;
 
 import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.entity.TPower;
-import com.cyyaw.tx.admin.service.MenuService;
+import com.cyyaw.service.admin.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

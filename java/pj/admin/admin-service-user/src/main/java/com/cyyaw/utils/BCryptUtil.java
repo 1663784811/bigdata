@@ -1,4 +1,4 @@
-package com.cyyaw.tx.utils;
+package com.cyyaw.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
