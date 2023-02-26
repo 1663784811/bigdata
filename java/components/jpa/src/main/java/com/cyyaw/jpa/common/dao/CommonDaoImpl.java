@@ -25,26 +25,25 @@ import java.util.Map;
 @Repository
 public class CommonDaoImpl implements CommonDao {
 
-//    @Autowired
-//    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
 
     @Override
     public CommonRest query(JSONObject json) {
-//        CommonRest rest = new CommonRest();
-//        //第一步：查询  sql 字符串
-//        String code = json.getString("code");
-//        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
-//        if (sqlRowSet.next()) {
-//            String countsql = sqlRowSet.getString("count_sql");
-//            String sqlcontent = sqlRowSet.getString("content_sql");
-//            return query(countsql, sqlcontent, json, false);
-//        } else {
-//            rest.setCode(-1);
-//            rest.setMsg("找不到可用条件");
-//        }
-//        return rest;
-        return null;
+        CommonRest rest = new CommonRest();
+        //第一步：查询  sql 字符串
+        String code = json.getString("code");
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
+        if (sqlRowSet.next()) {
+            String countsql = sqlRowSet.getString("count_sql");
+            String sqlcontent = sqlRowSet.getString("content_sql");
+            return query(countsql, sqlcontent, json, false);
+        } else {
+            rest.setCode(-1);
+            rest.setMsg("找不到可用条件");
+        }
+        return rest;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.cyyaw.tx.web.service;
+package com.cyyaw.tx.admin.service;
 
 
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;

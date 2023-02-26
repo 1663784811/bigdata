@@ -1,13 +1,12 @@
-package com.cyyaw.tx.login;
-
+package com.cyyaw.tx.admin.login;
 
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.tx.admin.service.LoginService;
 import com.cyyaw.tx.admin.service.TPowerService;
 import com.cyyaw.util.tools.BaseResult;
-import com.cyyaw.tx.web.service.LoginService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
