@@ -2,7 +2,7 @@
   <div class="container">
     <div class="title">企业注册</div>
     <div class="steps">
-      <Steps :current="1">
+      <Steps :current="stepIndex">
         <Step title="企业" content="请填写企业基本信息"></Step>
         <Step title="负责人" content="请填写负责人信息"></Step>
         <Step title="完成" content="注册完成"></Step>
@@ -10,10 +10,10 @@
     </div>
     <div class="registerBox">
 
-      <div class="inputBox">
+      <div class="inputBox" v-show="stepIndex===0">
         <div class="inputRow">
           <div class="label">企业名称:</div>
-          <Input prefix="ios-contact" placeholder="企业名称"/>
+          <Input prefix="ios-contact" v-model="registerData.eEnterprise.name" placeholder="企业名称"/>
         </div>
         <div class="inputRow">
           <div class="label">简称:</div>
@@ -21,7 +21,7 @@
         </div>
         <div class="inputRow">
           <div class="label">地址:</div>
-          <Input prefix="ios-contact" placeholder="Enter name"/>
+          <Input prefix="ios-contact" v-model="registerData.eEnterprise.address" placeholder="地址"/>
         </div>
         <div class="inputRow">
           <div class="label">行业:</div>
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="inputBox">
+      <div class="inputBox" v-show="stepIndex===1">
         <div class="inputRow">
           <div class="label">负责人名称:</div>
           <Input prefix="ios-contact" placeholder="企业名称"/>
@@ -49,7 +49,7 @@
       </div>
 
 
-      <div class="inputBox">
+      <div class="inputBox" v-show="stepIndex===2">
         <Result type="success" title="注册成功">
           <template #desc>
             注册成功,您的后台登录地址: http://cyyyaw.com/account/login/xxxxx
@@ -58,17 +58,33 @@
       </div>
 
 
-
       <div class="btnBox">
-        <Button type="success">上一步</Button>
-        <Button type="success">下一步</Button>
+        <Button type="success" @click="clickPrevious">上一步</Button>
+        <Button type="success" @click="clickNext">下一步</Button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import {ref} from "vue";
 
+const stepIndex = ref(0);
+const registerData = ref({
+  eEnterprise: {
+    name: '',
+    address: ''
+  },
+  admin: {}
+});
+
+const clickNext = () => {
+  stepIndex.value++;
+}
+
+const clickPrevious = () => {
+  stepIndex.value--;
+}
 
 </script>
 <style scoped lang="less">

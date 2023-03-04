@@ -112,7 +112,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
             ]
         },
         {
-            name: '听心出行',
+            name: '位置服务',
             icon: 'md-settings',
             routeName: 'shopping',
             children: [

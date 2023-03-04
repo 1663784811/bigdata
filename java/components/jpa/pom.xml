@@ -76,6 +76,9 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/java</directory>
+            </resource>
         </resources>
         <testResources>
             <testResource>
