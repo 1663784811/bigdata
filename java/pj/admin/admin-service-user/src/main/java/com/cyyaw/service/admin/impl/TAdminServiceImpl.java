@@ -6,9 +6,12 @@ import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+
+@Service
 public class TAdminServiceImpl implements TAdminService {
 
     @Autowired
@@ -17,6 +20,12 @@ public class TAdminServiceImpl implements TAdminService {
     @Override
     public TAdmin findById(Integer id) {
         return tAdminDao.findByid(id);
+    }
+
+    @Override
+    public TAdmin findByTid(String tid) {
+//        return tAdminDao;
+        return null;
     }
 
     @Override

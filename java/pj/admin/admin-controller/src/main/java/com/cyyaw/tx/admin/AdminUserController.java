@@ -1,4 +1,5 @@
 package com.cyyaw.tx.admin;
+import com.cyyaw.service.admin.TAdminService;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.google.common.collect.Lists;
 
@@ -21,6 +22,8 @@ public class AdminUserController {
     @Autowired
     private AdminUserService adminUserService;
 
+    @Autowired
+    private TAdminService tAdminService;
 
     /**
      * 获取用户信息
@@ -32,12 +35,12 @@ public class AdminUserController {
 //        AdminAuthToken authToken = getAdminInfo();
         String adminId = "";
 
-        new TAdmin();
+//        tAdminService.findById(j);
 
         AdminAuthToken authToken = new AdminAuthToken();
         authToken.setJwtToken("");
 
-        authToken.setTAdmin();
+//        authToken.setTAdmin();
 
 
         authToken.setAuthList(Lists.newArrayList());
