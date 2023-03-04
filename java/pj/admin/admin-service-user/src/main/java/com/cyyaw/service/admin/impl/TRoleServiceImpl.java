@@ -11,12 +11,15 @@ import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.table.admin.entity.TRole;
 import com.cyyaw.table.admin.entity.TRolePower;
 import com.cyyaw.util.tools.WhyStringUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TRoleServiceImpl implements TRoleService {
 
@@ -36,14 +39,18 @@ public class TRoleServiceImpl implements TRoleService {
 
     @Override
     public TRole save(TRole tRole) {
-
-
-        tRole.setTid(WhyStringUtil.getUUID());
-        tRole.setCreateTime(new Date());
-        tRole.setDel(0);
-        tRole.setNote("");
-
-        return tRoleDao.save(tRole);
+        Integer id = tRole.getId();
+        if (null != id) {
+            TRole role = tRoleDao.findByid(id);
+            BeanUtils.copyProperties(tRole, role);
+            return tRoleDao.save(role);
+        } else {
+            tRole.setTid(WhyStringUtil.getUUID());
+            tRole.setCreateTime(new Date());
+            tRole.setDel(0);
+            tRole.setNote("");
+            return tRoleDao.save(tRole);
+        }
     }
 
     @Override
@@ -54,6 +61,7 @@ public class TRoleServiceImpl implements TRoleService {
         TRole tRole = new TRole();
         tRole.setCode(RoleCode.admin.getCode());
         tRole.setName("负责人");
+        tRole.setTreeCode("");
         tRole.setEnterpriseId(enterpriseId);
         TRole save = this.save(tRole);
         String roleId = save.getTid();
@@ -68,6 +76,7 @@ public class TRoleServiceImpl implements TRoleService {
      * 绑定菜单
      */
     public void binPower(List<TPower> tPowers, String roleId) {
+        log.info("------------绑定菜单 ----{}----{} ", tPowers, roleId);
         for (int i = 0; i < tPowers.size(); i++) {
             TPower tPower = tPowers.get(i);
             TRolePower tRolePower = new TRolePower();
@@ -85,6 +94,7 @@ public class TRoleServiceImpl implements TRoleService {
      * 绑定角色
      */
     public TAdminRole binRole(String adminId, String roleId) {
+        log.info("------------绑定角色 ----{}----{} ", adminId, roleId);
         List<TAdminRole> roles = tAdminRoleDao.findByAdminIdAndRoleID(adminId, roleId);
         if (roles.size() > 0) {
             return roles.get(0);

@@ -12,11 +12,13 @@ import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/login/admin")
 @RestController
 public class LoginController {
@@ -67,6 +69,7 @@ public class LoginController {
     @ApiOperation(value = "企业注册", notes = "企业注册")
     @PostMapping(value = "/enterpriseRegister")
     public BaseResult enterpriseRegister(@RequestBody EnterpriseRegisterRequest enterpriseRegisterRequest) {
+        log.info("------------企业注册----------{}", enterpriseRegisterRequest);
         EEnterprise eEnterprise = enterpriseRegisterRequest.getEEnterprise();
         LoginRequest loginRequest = enterpriseRegisterRequest.getAdmin();
         // 第一步：保存企业信息
