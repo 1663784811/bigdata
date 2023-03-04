@@ -4,6 +4,7 @@ import com.cyyaw.config.exception.WebException;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
 import com.cyyaw.entity.LoginRequest;
+import com.cyyaw.service.admin.TAdminService;
 import com.cyyaw.table.admin.dao.TAdminDao;
 import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.dao.TRoleDao;
@@ -30,6 +31,13 @@ import java.util.List;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+
+
+    //===============
+    @Autowired
+    private TAdminService tAdminService;
+
+    //===============
 
 
     @Autowired
@@ -235,7 +243,8 @@ public class LoginServiceImpl implements LoginService {
         t.setTid(WhyStringUtil.getUUID());
         t.setAccount(userName);
 //        t.setPassword(encode);
-        TAdmin save = tAdminDao.save(t);
+        TAdmin save = tAdminService.save(t);
+
         return save;
     }
 

@@ -1,5 +1,8 @@
 package com.cyyaw.tx.admin;
+import com.cyyaw.table.admin.entity.TAdmin;
+import com.google.common.collect.Lists;
 
+import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.service.admin.AdminUserService;
 import com.cyyaw.table.admin.entity.TPower;
@@ -27,8 +30,19 @@ public class AdminUserController {
     @GetMapping(value = "/info")
     public BaseResult info() {
 //        AdminAuthToken authToken = getAdminInfo();
-//        return BaseResult.ok(authToken);
-        return BaseResult.ok();
+        String adminId = "";
+
+        new TAdmin();
+
+        AdminAuthToken authToken = new AdminAuthToken();
+        authToken.setJwtToken("");
+
+        authToken.setTAdmin();
+
+
+        authToken.setAuthList(Lists.newArrayList());
+        authToken.setRoleList(Lists.newArrayList());
+        return BaseResult.ok(authToken);
     }
 
 
