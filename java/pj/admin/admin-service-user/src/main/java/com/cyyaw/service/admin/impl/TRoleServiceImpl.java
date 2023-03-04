@@ -5,9 +5,11 @@ import com.cyyaw.service.admin.TPowerService;
 import com.cyyaw.service.admin.TRoleService;
 import com.cyyaw.table.admin.dao.TAdminRoleDao;
 import com.cyyaw.table.admin.dao.TRoleDao;
+import com.cyyaw.table.admin.dao.TRolePowerDao;
 import com.cyyaw.table.admin.entity.TAdminRole;
 import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.table.admin.entity.TRole;
+import com.cyyaw.table.admin.entity.TRolePower;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class TRoleServiceImpl implements TRoleService {
 
     @Autowired
     private TAdminRoleDao tAdminRoleDao;
+
+    @Autowired
+    private TRolePowerDao tRolePowerDao;
 
 
     @Override
@@ -53,12 +58,32 @@ public class TRoleServiceImpl implements TRoleService {
         TRole save = this.save(tRole);
         String roleId = save.getTid();
         // 绑定菜单
-
-
+        binPower(tPowers, roleId);
         // 绑定角色
         binRole(adminId, roleId);
     }
 
+
+    /**
+     * 绑定菜单
+     */
+    public void binPower(List<TPower> tPowers, String roleId) {
+        for (int i = 0; i < tPowers.size(); i++) {
+            TPower tPower = tPowers.get(i);
+            TRolePower tRolePower = new TRolePower();
+            tRolePower.setTid(WhyStringUtil.getUUID());
+            tRolePower.setCreateTime(new Date());
+            tRolePower.setDel(0);
+            tRolePower.setNote("初始化绑定");
+            tRolePower.setPowerId(tPower.getTid());
+            tRolePower.setRoleId(roleId);
+            tRolePowerDao.save(tRolePower);
+        }
+    }
+
+    /**
+     * 绑定角色
+     */
     public TAdminRole binRole(String adminId, String roleId) {
         List<TAdminRole> roles = tAdminRoleDao.findByAdminIdAndRoleID(adminId, roleId);
         if (roles.size() > 0) {
@@ -68,7 +93,7 @@ public class TRoleServiceImpl implements TRoleService {
             obj.setTid(WhyStringUtil.getUUID());
             obj.setCreateTime(new Date());
             obj.setDel(0);
-            obj.setNote("");
+            obj.setNote("初始化");
             obj.setAdminId(adminId);
             obj.setRoleId(roleId);
             return tAdminRoleDao.save(obj);

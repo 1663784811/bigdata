@@ -9,13 +9,12 @@ public interface TPowerService {
 
     /**
      * 查询用户权限
-     *
-     * @param tid
-     * @return
      */
     List<TPower> findAdminPower(String tid);
 
-
+    /**
+     * 初始化菜单
+     */
     List<TPower> initPower(String enterpriseId);
 
 

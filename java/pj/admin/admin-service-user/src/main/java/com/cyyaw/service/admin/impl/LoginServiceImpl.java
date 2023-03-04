@@ -218,27 +218,17 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public TAdmin adminRegister(LoginRequest registerInfo) {
         String enterpriseId = registerInfo.getEnterpriseId();
-        String password = registerInfo.getPassword();
-        String passwordEd = registerInfo.getPasswordEd();
-
-        // 判断密码
-        if (password == null || (!password.equals(passwordEd))) {
-            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "再次密码不一致");
-        }
-
         // 判断企业
         EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseTid(enterpriseId);
         if (eEnterprise == null) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "企业不存在");
         }
-
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
         TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
-
         // 添加用户
 //        String encode = BCryptUtil.encode(password);
         TAdmin t = new TAdmin();

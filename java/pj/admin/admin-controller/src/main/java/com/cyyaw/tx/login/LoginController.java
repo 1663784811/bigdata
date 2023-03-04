@@ -5,6 +5,7 @@ import com.cyyaw.entity.EnterpriseRegisterRequest;
 import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.service.admin.LoginService;
 import com.cyyaw.service.admin.TPowerService;
+import com.cyyaw.service.admin.TRoleService;
 import com.cyyaw.service.enterprise.EEnterpriseService;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.table.admin.entity.TPower;
@@ -28,6 +29,10 @@ public class LoginController {
 
     @Autowired
     private EEnterpriseService eEnterpriseService;
+
+
+    @Autowired
+    private TRoleService tRoleService;
 
 
     @ApiOperation(value = "退出登录", notes = "退出登录")
@@ -72,8 +77,7 @@ public class LoginController {
         TAdmin admin = loginService.adminRegister(loginRequest);
         admin.setPassword(null);
         // 第三步:分配权限
-
-
+        tRoleService.initRole(tid, admin.getTid());
         return BaseResult.ok(admin, "注册成功");
     }
 
