@@ -5,9 +5,11 @@
     <TopUserInfo/>
   </div>
   <div class="mainBox">
-    <LeftMenu />
+    <LeftMenu/>
     <div class="mainContent">
-      <router-view/>
+      <div style="background: #fff">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -17,10 +19,6 @@ import LogoBox from "@/views/layout/LogoBox.vue";
 import TopMenuBox from "@/views/layout/TopMenuBox.vue";
 import TopUserInfo from "@/views/layout/TopUserInfo.vue";
 import LeftMenu from "@/views/layout/LeftMenu.vue";
-
-
-
-
 
 
 </script>
@@ -34,9 +32,11 @@ import LeftMenu from "@/views/layout/LeftMenu.vue";
 
 .mainBox {
   display: flex;
+  height: calc(100% - 50px);
 
   .mainContent {
     flex: 1;
+    padding: 15px;
   }
 }
 

@@ -4,9 +4,12 @@ import com.cyyaw.entity.SelectEntity;
 import com.cyyaw.service.sql.SqlService;
 import com.cyyaw.table.config.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+@Api(tags = "SQL配置模块")
 @RequestMapping("/admin/common/sql")
 @RestController
 public class SqlController {

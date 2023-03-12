@@ -37,6 +37,9 @@ public class CustomException implements HandlerExceptionResolver {
         } else if (ex instanceof SQLException) {
             mav.addObject("code", 500);
             mav.addObject("message", ex.getMessage());
+        } else if(ex instanceof WebException){
+            mav.addObject("code", 500);
+            mav.addObject("message", ex.getMessage());
         } else {
             mav.addObject("code", 500);
             mav.addObject("message", "系统异常");

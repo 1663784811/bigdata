@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 200px; background: #aaa">
+  <div style="width: 200px; background: #fff">
     <Menu v-if="store.leftMenu && store.leftMenu.length>0" width="200px">
 
       <template v-for="(item,index) in store.leftMenu" :key="index">
