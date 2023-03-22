@@ -13,7 +13,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                 {
                     name: '企业管理',
                     icon: 'md-settings',
-                    routeName: 'enterpriseList'
+                    routeName: 'enterprise'
                 },
                 {
                     name: '门店管理',

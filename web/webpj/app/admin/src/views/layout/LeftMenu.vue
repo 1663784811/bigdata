@@ -35,6 +35,7 @@ const router = useRouter();
 
 
 const clickMenu = (item) => {
+  console.log('=================',item)
   let query = {};
   if (item.query) {
     query = item.query;

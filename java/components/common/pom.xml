@@ -175,4 +175,22 @@
             </plugin>
         </plugins>
     </build>
+
+
+
+    <distributionManagement>
+        <repository>
+            <id>admin</id>
+            <name>admin</name>
+            <url>http://192.168.118.8:8081/repository/gm-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>admin</id>
+            <name>admin</name>
+            <url>http://192.168.118.8:8081/repository/gm/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+
 </project>
