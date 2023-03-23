@@ -1,7 +1,11 @@
 package com.cyyaw.jpa;
 
 import cn.hutool.json.JSONObject;
+import com.cyyaw.jpa.util.tools.JpaUtils;
 import com.cyyaw.util.tools.PageRespone;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -11,27 +15,25 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
 
     @Override
     public List<T> findAll(JSONObject json) {
-
-
-
-        String sort = json.getStr("sort");
-
-
-
+        String sortStr = json.getStr("sort");
+        Sort sort = JpaUtils.getSort(sortStr);
+        Specification<T> sp = new JpaSpecification(json);
         if (null != sort) {
-//            return getBaseDao().findAll(new JpaSpecification<T>(json), sort);
-
-
+            return getBaseDao().findAll(sp, sort);
         } else {
-            return getBaseDao().findAll(new JpaSpecification<T>(json));
+            return getBaseDao().findAll(sp);
         }
-        return null;
     }
 
     @Override
     public PageRespone<T> findPage(JSONObject json) {
-//        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
-        return null;
+        String sortStr = json.getStr("sort");
+        Integer page = json.getInt("page");
+        Integer size = json.getInt("size");
+        Sort sort = JpaUtils.getSort(sortStr);
+        PageRequest pa = JpaUtils.getPageRequest(page, size, sort);
+        Specification<T> sp = new JpaSpecification(json);
+        return (PageRespone<T>) getBaseDao().findAll(sp, pa);
     }
 
     @Override
