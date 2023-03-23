@@ -2,6 +2,9 @@ package com.cyyaw.tx.enterprise;
 
 
 import com.cyyaw.service.enterprise.EEnterpriseService;
+import com.cyyaw.table.enterprise.entity.EEnterprise;
+import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.PageRespone;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,17 +22,10 @@ public class EnterpriseController {
     private EEnterpriseService eEnterpriseService;
 
     @GetMapping("/findAll")
-    public void findAll(Map<String,Object> map){
-
-
-//        eEnterpriseService.find
-
-
-
-
-
+    public BaseResult<EEnterprise> findAll(Map<String, Object> map) {
+        PageRespone<EEnterprise> page = eEnterpriseService.findPage(map);
+        return BaseResult.ok(page);
     }
-
 
 
 }

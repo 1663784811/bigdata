@@ -1,5 +1,6 @@
 package com.cyyaw.jpa;
 
+import com.cyyaw.util.tools.PageRespone;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
     }
 
     @Override
-    public Page<T> findPage(Map<String, Object> map) {
+    public PageRespone<T> findPage(Map<String, Object> map) {
 //        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
         return null;
     }

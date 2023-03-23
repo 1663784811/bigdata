@@ -1,5 +1,7 @@
 package com.cyyaw.service.enterprise.impl;
 
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.service.enterprise.EEnterpriseService;
 import com.cyyaw.table.enterprise.dao.EEnterpriseDao;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
@@ -18,19 +20,14 @@ import java.util.Map;
 @Service
 @Transactional
 @Slf4j
-public class EEnterpriseServiceImpl implements EEnterpriseService {
+public class EEnterpriseServiceImpl extends BaseService<EEnterprise, Integer> implements EEnterpriseService {
 
     @Autowired
     private EEnterpriseDao eEnterpriseDao;
 
     @Override
-    public List<EEnterprise> findAll(Map<String,Object> map) {
-        return null;
-    }
-
-    @Override
-    public PageRespone<EEnterprise> findPage(Map<String,Object> map) {
-        return null;
+    public BaseDao getBaseDao() {
+        return eEnterpriseDao;
     }
 
     /**
@@ -48,15 +45,8 @@ public class EEnterpriseServiceImpl implements EEnterpriseService {
             enterprise.setCreateTime(new Date());
             return eEnterpriseDao.save(enterprise);
         }
-
     }
 
-    @Override
-    public boolean delById(Integer[] id) {
-
-
-        return false;
-    }
 
     @Override
     public EEnterprise registerEnterprise(EEnterprise enterprise) {
