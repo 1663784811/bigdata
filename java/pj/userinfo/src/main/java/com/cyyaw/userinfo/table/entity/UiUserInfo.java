@@ -1,6 +1,5 @@
 package com.cyyaw.userinfo.table.entity;
 
-import com.cyyaw.jpa.entity.BaseTable;
 import lombok.Data;
 
 import javax.persistence.Basic;

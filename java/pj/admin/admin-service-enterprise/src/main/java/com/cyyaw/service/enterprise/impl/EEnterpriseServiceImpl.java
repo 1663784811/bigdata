@@ -3,6 +3,7 @@ package com.cyyaw.service.enterprise.impl;
 import com.cyyaw.service.enterprise.EEnterpriseService;
 import com.cyyaw.table.enterprise.dao.EEnterpriseDao;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
+import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,6 +21,16 @@ public class EEnterpriseServiceImpl implements EEnterpriseService {
 
     @Autowired
     private EEnterpriseDao eEnterpriseDao;
+
+    @Override
+    public List<EEnterprise> findAll() {
+        return null;
+    }
+
+    @Override
+    public PageRespone<EEnterprise> findPage() {
+        return null;
+    }
 
     /**
      * 注册企业
@@ -36,6 +48,13 @@ public class EEnterpriseServiceImpl implements EEnterpriseService {
             return eEnterpriseDao.save(enterprise);
         }
 
+    }
+
+    @Override
+    public boolean delById(Integer[] id) {
+
+
+        return false;
     }
 
     @Override

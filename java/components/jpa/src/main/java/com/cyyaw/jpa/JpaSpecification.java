@@ -1,4 +1,4 @@
-package com.cyyaw.util.tools;
+package com.cyyaw.jpa;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
@@ -13,32 +13,26 @@ import java.util.*;
 
 /**
  * jsonStr 格式
- *
- * @param <T>
  */
 @Slf4j
-public class WhySpecification<T> implements Specification<T> {
+public class JpaSpecification<T> implements Specification<T> {
     /**
      * json查询条件
      */
     private String jsonStr;
-    /**
-     * 允许查询的数组
-     */
-    private String[] columnArr;
+
     /**
      * 条件描述对象
      */
     private Predicate pred = null;
+
     /**
      * 查询条件
      *
-     * @param jsonStr   查询字符串
-     * @param columnArr 允许查询条件
+     * @param jsonStr 查询字符串
      */
-    public WhySpecification(String jsonStr, String... columnArr) {
+    public JpaSpecification(String jsonStr) {
         this.jsonStr = jsonStr;
-        this.columnArr = columnArr;
     }
 
 
@@ -96,9 +90,7 @@ public class WhySpecification<T> implements Specification<T> {
             if (keyArr.length == 3) {
                 //  and_string_accound
                 Predicate p = null;
-                if (null == columnArr || columnArr.length == 0 || ArrayUtils.isStr(keyArr[2], columnArr)) {
-                    p = getPredicate(root, cb, keyArr[0], keyArr[1], keyArr[2], entry.getValue().toString());
-                }
+                p = getPredicate(root, cb, keyArr[0], keyArr[1], keyArr[2], entry.getValue().toString());
                 if (null != p) {
                     predicateList.add(p);
                 }

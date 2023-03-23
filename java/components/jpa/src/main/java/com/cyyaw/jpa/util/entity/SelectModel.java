@@ -39,15 +39,9 @@ public interface SelectModel {
      */
     String getSort();
 
+    /**
+     * 设置排序
+     */
     void setSort(String sort);
 
-    /**
-     * 排序
-     * 0 默认 ASC
-     * 1 倒序 DESC
-     */
-    int getLine();
-
-    void setLine(int line);
-    
 }
