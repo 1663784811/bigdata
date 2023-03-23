@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -23,12 +24,12 @@ public class EEnterpriseServiceImpl implements EEnterpriseService {
     private EEnterpriseDao eEnterpriseDao;
 
     @Override
-    public List<EEnterprise> findAll() {
+    public List<EEnterprise> findAll(Map<String,Object> map) {
         return null;
     }
 
     @Override
-    public PageRespone<EEnterprise> findPage() {
+    public PageRespone<EEnterprise> findPage(Map<String,Object> map) {
         return null;
     }
 

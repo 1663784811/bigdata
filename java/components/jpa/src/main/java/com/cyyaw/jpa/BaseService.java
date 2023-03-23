@@ -1,30 +1,29 @@
 package com.cyyaw.jpa;
 
-import com.cyyaw.jpa.util.entity.SelectModel;
-import com.cyyaw.jpa.util.tools.JpaUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class BaseService<T, D> implements BaseTableService<T, D> {
     public abstract BaseDao getBaseDao();
 
     @Override
-    public List<T> findAll(String jsonStr, SelectModel selectModel) {
-        Sort sort = JpaUtils.getSort(selectModel);
-        if (null != sort) {
-            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), sort);
-        } else {
-            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr));
-        }
+    public List<T> findAll(Map<String, Object> map) {
+//        Sort sort = JpaUtils.getSort(selectModel);
+//        if (null != sort) {
+//            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), sort);
+//        } else {
+//            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr));
+//        }
+        return null;
     }
 
     @Override
-    public Page<T> findPage(String jsonStr, PageRequest pageRequest) {
-        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
+    public Page<T> findPage(Map<String, Object> map) {
+//        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
+        return null;
     }
 
     @Override
@@ -41,10 +40,4 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
     public void del(D[] ds) {
         getBaseDao().deleteInBatch(getBaseDao().findByidIsIn(ds));
     }
-
-    @Override
-    public void del(D d) {
-        getBaseDao().deleteById(d);
-    }
-
 }

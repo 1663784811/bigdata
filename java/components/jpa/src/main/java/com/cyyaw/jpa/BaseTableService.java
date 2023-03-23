@@ -1,22 +1,20 @@
 package com.cyyaw.jpa;
 
-import com.cyyaw.jpa.util.entity.SelectModel;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BaseTableService<T, D> {
 
-    List<T> findAll(String jsonStr, SelectModel selectModel);
+    List<T> findAll(Map<String, Object> map);
 
-    Page<T> findPage(String jsonStr, PageRequest pageRequest);
+    Page<T> findPage(Map<String, Object> map);
 
     T findId(D id);
 
     T save(T t);
 
-    void del(D[] idArr);
+    void del(D ...idArr);
 
-    void del(D d);
 }
