@@ -1,28 +1,35 @@
 package com.cyyaw.jpa;
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.util.tools.PageRespone;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Map;
 
 
 public abstract class BaseService<T, D> implements BaseTableService<T, D> {
     public abstract BaseDao getBaseDao();
 
     @Override
-    public List<T> findAll(Map<String, Object> map) {
-//        Sort sort = JpaUtils.getSort(selectModel);
-//        if (null != sort) {
-//            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), sort);
-//        } else {
-//            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr));
-//        }
+    public List<T> findAll(JSONObject json) {
+
+
+
+        String sort = json.getStr("sort");
+
+
+
+        if (null != sort) {
+//            return getBaseDao().findAll(new JpaSpecification<T>(json), sort);
+
+
+        } else {
+            return getBaseDao().findAll(new JpaSpecification<T>(json));
+        }
         return null;
     }
 
     @Override
-    public PageRespone<T> findPage(Map<String, Object> map) {
+    public PageRespone<T> findPage(JSONObject json) {
 //        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
         return null;
     }

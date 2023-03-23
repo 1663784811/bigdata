@@ -1,20 +1,20 @@
 package com.cyyaw.jpa;
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.util.tools.PageRespone;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BaseTableService<T, D> {
 
-    List<T> findAll(Map<String, Object> map);
+    List<T> findAll(JSONObject json);
 
-    PageRespone<T> findPage(Map<String, Object> map);
+    PageRespone<T> findPage(JSONObject json);
 
     T findId(D id);
 
     T save(T t);
 
-    void del(D ...idArr);
+    void del(D... idArr);
 
 }

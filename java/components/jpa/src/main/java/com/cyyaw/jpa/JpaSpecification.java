@@ -1,6 +1,7 @@
 package com.cyyaw.jpa;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.json.JSONObject;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,7 +20,7 @@ public class JpaSpecification<T> implements Specification<T> {
     /**
      * json查询条件
      */
-    private String jsonStr;
+    private JSONObject json;
 
     /**
      * 条件描述对象
@@ -28,11 +29,9 @@ public class JpaSpecification<T> implements Specification<T> {
 
     /**
      * 查询条件
-     *
-     * @param jsonStr 查询字符串
      */
-    public JpaSpecification(String jsonStr) {
-        this.jsonStr = jsonStr;
+    public JpaSpecification(JSONObject json) {
+        this.json = json;
     }
 
 
@@ -49,10 +48,10 @@ public class JpaSpecification<T> implements Specification<T> {
         if (pred != null) {
             return pred;
         }
-        if (null == jsonStr || jsonStr.length() == 0) {
-            return null;
-        }
-        return getZuHeChaXunPredicate(root, query, cb, jsonStr);
+//        if (null == jsonStr || jsonStr.length() == 0) {
+//            return null;
+//        }
+        return getZuHeChaXunPredicate(root, query, cb, json);
     }
 
     /**
@@ -64,13 +63,12 @@ public class JpaSpecification<T> implements Specification<T> {
      * @param jsonStr 组合查询的条件json
      * @return the zu he cha xun predicate
      */
-    public final Predicate getZuHeChaXunPredicate(final Root<T> root, final CriteriaQuery<?> query, final CriteriaBuilder cb, final String jsonStr) {
-        HashMap<String, Object> mapChaXun = JSON.parseObject(jsonStr, HashMap.class);
+    public final Predicate getZuHeChaXunPredicate(final Root<T> root, final CriteriaQuery<?> query, final CriteriaBuilder cb, final JSONObject json) {
         // 如果转换的json对象为空或长度为0，则退出
-        if (mapChaXun == null || mapChaXun.size() == 0) {
+        if (json == null || json.size() == 0) {
             return null;
         }
-        pred = jsonPredicate(root, cb, jsonStr, null);
+        pred = jsonPredicate(root, cb, json, null);
         return pred;
     }
 
@@ -80,12 +78,11 @@ public class JpaSpecification<T> implements Specification<T> {
      *
      * @return
      */
-    public Predicate jsonPredicate(final Root<T> root, final CriteriaBuilder cb, String jsonStr, String type) {
+    public Predicate jsonPredicate(final Root<T> root, final CriteriaBuilder cb, JSONObject json, String type) {
         //解释json
-        HashMap<String, Object> mapjson = JSON.parseObject(jsonStr, HashMap.class);
         List<Predicate> predicateList = new ArrayList<>();
         int i = 0;
-        for (Map.Entry<String, Object> entry : mapjson.entrySet()) {
+        for (Map.Entry<String, Object> entry : json.entrySet()) {
             String keyArr[] = entry.getKey().split("_");
             if (keyArr.length == 3) {
                 //  and_string_accound
@@ -96,8 +93,7 @@ public class JpaSpecification<T> implements Specification<T> {
                 }
             } else {
                 if (keyArr.length == 1) {
-                    // and:{}
-                    Predicate predicate1 = jsonPredicate(root, cb, entry.getValue().toString(), keyArr[0]);
+                    Predicate predicate1 = jsonPredicate(root, cb, new JSONObject(entry.getValue()), keyArr[0]);
                     if (null != predicate1) {
                         predicateList.add(predicate1);
                     }

@@ -1,6 +1,7 @@
 package com.cyyaw.tx.enterprise;
 
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.service.enterprise.EEnterpriseService;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
 import com.cyyaw.util.tools.BaseResult;
@@ -23,7 +24,7 @@ public class EnterpriseController {
 
     @GetMapping("/findAll")
     public BaseResult<EEnterprise> findAll(Map<String, Object> map) {
-        PageRespone<EEnterprise> page = eEnterpriseService.findPage(map);
+        PageRespone<EEnterprise> page = eEnterpriseService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
 
