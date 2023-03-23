@@ -101,10 +101,14 @@ public class BaseResult<T> implements Serializable {
      * 成功
      */
     public static BaseResult ok(PageRespone pageRespone, String msg) {
-        return createResult(
-                WebErrCodeEnum.WEB_SUCCESS, pageRespone.getContent(),
-                new Result(pageRespone.getPage(), pageRespone.getSize(), pageRespone.getTotal()), msg
-        );
+        if (null != pageRespone) {
+            return createResult(
+                    WebErrCodeEnum.WEB_SUCCESS, pageRespone.getContent(),
+                    new Result(pageRespone.getPage(), pageRespone.getSize(), pageRespone.getTotal()), msg
+            );
+        } else {
+            return createResult(WebErrCodeEnum.WEB_SUCCESS, null, null, msg);
+        }
     }
 
     /**

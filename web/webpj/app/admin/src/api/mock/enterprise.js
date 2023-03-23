@@ -2,7 +2,7 @@ export const enterprise = {
     commonTable: {
         requestObj: {
             queryRequest: {
-                url: '/admin/enterprise/',
+                url: '/admin/enterprise/findPage',
                 parameter: {
                     code: 'select_power'
                 }

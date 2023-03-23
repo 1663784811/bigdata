@@ -85,7 +85,6 @@ public class JpaSpecification<T> implements Specification<T> {
         for (Map.Entry<String, Object> entry : json.entrySet()) {
             String keyArr[] = entry.getKey().split("_");
             if (keyArr.length == 3) {
-                //  and_string_accound
                 Predicate p = null;
                 p = getPredicate(root, cb, keyArr[0], keyArr[1], keyArr[2], entry.getValue().toString());
                 if (null != p) {

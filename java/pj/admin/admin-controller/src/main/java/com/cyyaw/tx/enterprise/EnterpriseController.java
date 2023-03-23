@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -22,8 +23,8 @@ public class EnterpriseController {
     @Autowired
     private EEnterpriseService eEnterpriseService;
 
-    @GetMapping("/findAll")
-    public BaseResult<EEnterprise> findAll(Map<String, Object> map) {
+    @GetMapping("/findPage")
+    public BaseResult<EEnterprise> findPage(@RequestParam Map<String, Object> map) {
         PageRespone<EEnterprise> page = eEnterpriseService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
