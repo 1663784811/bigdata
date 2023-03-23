@@ -1,8 +1,10 @@
 package com.cyyaw.jpa;
+import com.google.common.collect.Lists;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.jpa.util.tools.JpaUtils;
 import com.cyyaw.util.tools.PageRespone;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -33,7 +35,14 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
         Sort sort = JpaUtils.getSort(sortStr);
         PageRequest pa = JpaUtils.getPageRequest(page, size, sort);
         Specification<T> sp = new JpaSpecification(json);
-        return (PageRespone<T>) getBaseDao().findAll(sp, pa);
+        Page all = getBaseDao().findAll(sp, pa);
+        PageRespone respone = new PageRespone();
+        respone.setContent(all.getContent());
+        respone.setTotal(all.getTotalElements());
+        respone.setPage(all.getNumber());
+        respone.setSize(all.getSize());
+        respone.setTotalPage(all.getTotalPages());
+        return respone;
     }
 
     @Override
