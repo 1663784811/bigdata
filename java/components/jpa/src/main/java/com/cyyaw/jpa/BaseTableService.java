@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface BaseTableService<T, D> {
 
-    List<T> findAll(String jsonStr, SelectModel selectModel, String... selectWhereArr);
+    List<T> findAll(String jsonStr, SelectModel selectModel);
 
-    Page<T> findPage(String jsonStr, PageRequest pageRequest, String... selectWhereArr);
+    Page<T> findPage(String jsonStr, PageRequest pageRequest);
 
     T findId(D id);
 

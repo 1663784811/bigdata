@@ -2,7 +2,6 @@ package com.cyyaw.jpa;
 
 import com.cyyaw.jpa.util.entity.SelectModel;
 import com.cyyaw.jpa.util.tools.JpaUtils;
-import com.cyyaw.util.tools.WhySpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,18 +13,18 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
     public abstract BaseDao getBaseDao();
 
     @Override
-    public List<T> findAll(String jsonStr, SelectModel selectModel, String... selectWhereArr) {
+    public List<T> findAll(String jsonStr, SelectModel selectModel) {
         Sort sort = JpaUtils.getSort(selectModel);
         if (null != sort) {
-            return getBaseDao().findAll(new WhySpecification<T>(jsonStr, selectWhereArr), sort);
+            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), sort);
         } else {
-            return getBaseDao().findAll(new WhySpecification<T>(jsonStr, selectWhereArr));
+            return getBaseDao().findAll(new JpaSpecification<T>(jsonStr));
         }
     }
 
     @Override
-    public Page<T> findPage(String jsonStr, PageRequest pageRequest, String... strings) {
-        return getBaseDao().findAll(new WhySpecification<T>(jsonStr, strings), pageRequest);
+    public Page<T> findPage(String jsonStr, PageRequest pageRequest) {
+        return getBaseDao().findAll(new JpaSpecification<T>(jsonStr), pageRequest);
     }
 
     @Override
