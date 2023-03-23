@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.util.Map;
 
@@ -83,30 +83,36 @@ public class CTableController {
 
     /**
      * 表:c_table ===> 所有:带条件
+     * @return
      */
     @RequestMapping(value = "/findAllCTable", method = RequestMethod.GET)
-    public void findAllCTable(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
+    public List<CTable> findAllCTable(String jsonStr, SelectEntity selectEntity) {
         List<CTable> list = cTableService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list,CTableConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list,CTableConst.filterselectColumnArr);
+        return list;
     }
 
     /**
      * 分页条件查询
+     * @return
      */
     @RequestMapping(value = "/findPageCTable", method = RequestMethod.GET)
-    public void findPageCTable(HttpServletResponse response,String jsonStr,  SelectEntity selectEntity) {
+    public Page<CTable> findPageCTable(String jsonStr, SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CTable> page = cTableService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CTableConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CTableConst.filterselectColumnArr);
+        return page;
     }
 
     /**
      * 根据ID查询
+     * @return
      */
     @RequestMapping(value = "/findIdCTable", method = RequestMethod.GET)
-    public void findIdCTable(HttpServletResponse response,@RequestParam Integer id) {
+    public CTable findIdCTable(@RequestParam Integer id) {
         CTable obj = cTableService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj,CTableConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj,CTableConst.filterselectColumnArr);
+        return obj;
     }
 
 
@@ -114,14 +120,14 @@ public class CTableController {
      * 添加或修改
      */
     @PostMapping(value = "/saveCTable")
-    public void saveCTable(HttpServletResponse response,@RequestBody CTable cTable) {
+    public void saveCTable(@RequestBody CTable cTable) {
         CTable obj = null;
         //添加
         Integer id = cTable.getId();
         if (null == id) {
             //添加
             log.info("添加:{}", cTable);
-            WhyBeanUtils.filterField(cTable, CTableConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cTable, CTableConst.filteraddColumnArr);
             cTable.setTid(WhyStringUtil.getUUID());
             obj = cTableService.save(cTable);
         } else {
@@ -129,10 +135,10 @@ public class CTableController {
             log.info("修改:{}", cTable);
             CTable cTable1 = cTableService.findId(id);
             Assert.notNull(cTable1, "操作失败！");
-            WhyBeanUtils.filterField(cTable, CTableConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cTable, CTableConst.filteraddColumnArr);
             obj = cTableService.save(cTable);
         }
-        ResponseUtils.responseJsonFilter(response, obj,CTableConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj,CTableConst.filterselectColumnArr);
     }
 
     /**

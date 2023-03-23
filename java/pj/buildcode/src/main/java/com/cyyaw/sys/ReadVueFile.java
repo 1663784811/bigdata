@@ -1,14 +1,12 @@
 package com.cyyaw.sys;
 
 import com.cyyaw.code.table.entity.CComponents;
-import com.cyyaw.util.tools.ResponseUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +33,7 @@ public class ReadVueFile {
     //        System.out.println(computed);
     //    }
     @PostMapping("/readVue")
-    public void readVue(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
+    public CComponents readVue(@RequestParam("file") MultipartFile file) throws IOException {
         StringBuffer sb = readFile(file.getInputStream());
         CComponents cc = new CComponents();
         cc.setTag(getTag(sb)); //获取标签
@@ -51,7 +49,7 @@ public class ReadVueFile {
         cc.setComputed(computed);
         String mounted = vuejsData(js, "mounted() {"); //获取初始化方法
         cc.setMounted(mounted);
-        ResponseUtils.responseJsonFilter(response, cc);
+        return cc;
     }
 
 

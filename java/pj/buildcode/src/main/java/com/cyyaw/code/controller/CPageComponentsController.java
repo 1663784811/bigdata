@@ -1,5 +1,6 @@
 package com.cyyaw.code.controller;
 
+import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CPageComponentsService;
 import com.cyyaw.code.table.entity.CPageComponents;
 import com.cyyaw.code.table.entityconst.CPageComponentsConst;
@@ -86,7 +87,7 @@ public class CPageComponentsController {
     @RequestMapping(value = "/findAllCPageComponents", method = RequestMethod.GET)
     public void findAllCPageComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         List<CPageComponents> list = cPageComponentsService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list, CPageComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list, CPageComponentsConst.filterselectColumnArr);
     }
 
     /**
@@ -96,7 +97,7 @@ public class CPageComponentsController {
     public void findPageCPageComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CPageComponents> page = cPageComponentsService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageComponentsConst.filterselectColumnArr);
     }
 
     /**
@@ -105,7 +106,7 @@ public class CPageComponentsController {
     @RequestMapping(value = "/findIdCPageComponents", method = RequestMethod.GET)
     public void findIdCPageComponents(HttpServletResponse response, @RequestParam Integer id) {
         CPageComponents obj = cPageComponentsService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj, CPageComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CPageComponentsConst.filterselectColumnArr);
     }
 
 
@@ -120,7 +121,7 @@ public class CPageComponentsController {
         if (null == id) {
             //添加
             log.info("添加:{}", cPageComponents);
-            WhyBeanUtils.filterField(cPageComponents, CPageComponentsConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cPageComponents, CPageComponentsConst.filteraddColumnArr);
             cPageComponents.setCreatetime(new Date());
             cPageComponents.setTid(WhyStringUtil.getUUID());
             obj = cPageComponentsService.save(cPageComponents);
@@ -129,10 +130,10 @@ public class CPageComponentsController {
             log.info("修改:{}", cPageComponents);
             CPageComponents cPageComponents1 = cPageComponentsService.findId(id);
             Assert.notNull(cPageComponents1, "操作失败！");
-            WhyBeanUtils.filterField(cPageComponents, CPageComponentsConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cPageComponents, CPageComponentsConst.filteraddColumnArr);
             obj = cPageComponentsService.save(cPageComponents);
         }
-        ResponseUtils.responseJsonFilter(response, obj, CPageComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CPageComponentsConst.filterselectColumnArr);
     }
 
     /**

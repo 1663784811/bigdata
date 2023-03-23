@@ -1,7 +1,7 @@
 package com.cyyaw.util.json;
 
 import com.cyyaw.util.entity.User;
-import com.cyyaw.util.tools.JsonUtil;
+//import com.cyyaw.util.tools.JsonUtil;
 import org.junit.Test;
 
 public class JsonTest {
@@ -13,9 +13,9 @@ public class JsonTest {
         user.setAge(1);
         user.setName("sssssss");
 
-        String s = JsonUtil.toJSONStringFilter(user,"age");
+//        String s = JsonUtil.toJSONStringFilter(user,"age");
 
-        System.out.println("数据：" + s);
+//        System.out.println("数据：" + s);
 
     }
 

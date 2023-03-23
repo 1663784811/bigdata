@@ -1,5 +1,6 @@
 package com.cyyaw.code.controller;
 
+import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CInterfaceService;
 import com.cyyaw.code.table.entity.CInterface;
 import com.cyyaw.code.table.entityconst.CInterfaceConst;
@@ -87,7 +88,7 @@ public class CInterfaceController {
     @RequestMapping(value = "/findAllCInterface", method = RequestMethod.GET)
     public void findAllCInterface(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         List<CInterface> list = cInterfaceService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list,CInterfaceConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list,CInterfaceConst.filterselectColumnArr);
     }
 
     /**
@@ -97,7 +98,7 @@ public class CInterfaceController {
     public void findPageCInterface(HttpServletResponse response,String jsonStr,  SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CInterface> page = cInterfaceService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CInterfaceConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CInterfaceConst.filterselectColumnArr);
     }
 
     /**
@@ -106,7 +107,7 @@ public class CInterfaceController {
     @RequestMapping(value = "/findIdCInterface", method = RequestMethod.GET)
     public void findIdCInterface(HttpServletResponse response,@RequestParam Integer id) {
         CInterface obj = cInterfaceService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj,CInterfaceConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj,CInterfaceConst.filterselectColumnArr);
     }
 
 
@@ -121,7 +122,7 @@ public class CInterfaceController {
         if (null == id) {
             //添加
             log.info("添加:{}", cInterface);
-            WhyBeanUtils.filterField(cInterface, CInterfaceConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cInterface, CInterfaceConst.filteraddColumnArr);
             cInterface.setTid(WhyStringUtil.getUUID());
             obj = cInterfaceService.save(cInterface);
         } else {
@@ -129,10 +130,10 @@ public class CInterfaceController {
             log.info("修改:{}", cInterface);
             CInterface cInterface1 = cInterfaceService.findId(id);
             Assert.notNull(cInterface1, "操作失败！");
-            WhyBeanUtils.filterField(cInterface, CInterfaceConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cInterface, CInterfaceConst.filteraddColumnArr);
             obj = cInterfaceService.save(cInterface);
         }
-        ResponseUtils.responseJsonFilter(response, obj,CInterfaceConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj,CInterfaceConst.filterselectColumnArr);
     }
 
     /**

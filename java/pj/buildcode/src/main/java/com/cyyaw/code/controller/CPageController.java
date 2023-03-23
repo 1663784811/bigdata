@@ -1,5 +1,6 @@
 package com.cyyaw.code.controller;
 
+import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CPageService;
 import com.cyyaw.code.table.entity.CPage;
 import com.cyyaw.code.table.entityconst.CPageConst;
@@ -86,7 +87,7 @@ public class CPageController {
     @RequestMapping(value = "/findAllCPage", method = RequestMethod.GET)
     public void findAllCPage(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         List<CPage> list = cPageService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list, CPageConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list, CPageConst.filterselectColumnArr);
     }
 
     /**
@@ -96,7 +97,7 @@ public class CPageController {
     public void findPageCPage(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CPage> page = cPageService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageConst.filterselectColumnArr);
     }
 
     /**
@@ -105,7 +106,7 @@ public class CPageController {
     @RequestMapping(value = "/findIdCPage", method = RequestMethod.GET)
     public void findIdCPage(HttpServletResponse response, @RequestParam Integer id) {
         CPage obj = cPageService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj, CPageConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CPageConst.filterselectColumnArr);
     }
 
 
@@ -120,7 +121,7 @@ public class CPageController {
         if (null == id) {
             //添加
             log.info("添加:{}", cPage);
-            WhyBeanUtils.filterField(cPage, CPageConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cPage, CPageConst.filteraddColumnArr);
             cPage.setCreatetime(new Date());
             cPage.setTid(WhyStringUtil.getUUID());
             obj = cPageService.save(cPage);
@@ -129,10 +130,10 @@ public class CPageController {
             log.info("修改:{}", cPage);
             CPage cPage1 = cPageService.findId(id);
             Assert.notNull(cPage1, "操作失败！");
-            WhyBeanUtils.filterField(cPage, CPageConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cPage, CPageConst.filteraddColumnArr);
             obj = cPageService.save(cPage);
         }
-        ResponseUtils.responseJsonFilter(response, obj, CPageConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CPageConst.filterselectColumnArr);
     }
 
     /**

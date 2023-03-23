@@ -1,5 +1,6 @@
 package com.cyyaw.code.controller;
 
+import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CFieldService;
 import com.cyyaw.code.table.entity.CField;
 import com.cyyaw.code.table.entityconst.CFieldConst;
@@ -88,7 +89,7 @@ public class CFieldController {
     @RequestMapping(value = "/findAllCField", method = RequestMethod.GET)
     public void findAllCField(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         List<CField> list = cFieldService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list, CFieldConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list, CFieldConst.filterselectColumnArr);
     }
 
     /**
@@ -98,7 +99,7 @@ public class CFieldController {
     public void findPageCField(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CField> page = cFieldService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CFieldConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CFieldConst.filterselectColumnArr);
     }
 
     /**
@@ -107,7 +108,7 @@ public class CFieldController {
     @RequestMapping(value = "/findIdCField", method = RequestMethod.GET)
     public void findIdCField(HttpServletResponse response, @RequestParam Integer id) {
         CField obj = cFieldService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj, CFieldConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CFieldConst.filterselectColumnArr);
     }
 
 
@@ -122,7 +123,7 @@ public class CFieldController {
         if (null == id) {
             //添加
             log.info("添加:{}", cField);
-            WhyBeanUtils.filterField(cField, CFieldConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cField, CFieldConst.filteraddColumnArr);
             cField.setTid(WhyStringUtil.getUUID());
             obj = cFieldService.save(cField);
         } else {
@@ -130,10 +131,10 @@ public class CFieldController {
             log.info("修改:{}", cField);
             CField cField1 = cFieldService.findId(id);
             Assert.notNull(cField1, "操作失败！");
-            WhyBeanUtils.filterField(cField, CFieldConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cField, CFieldConst.filteraddColumnArr);
             obj = cFieldService.save(cField);
         }
-        ResponseUtils.responseJsonFilter(response, obj, CFieldConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CFieldConst.filterselectColumnArr);
     }
 
     /**

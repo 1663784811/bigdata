@@ -1,5 +1,6 @@
 package com.cyyaw.code.controller;
 
+import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CComponentsService;
 import com.cyyaw.code.table.entity.CComponents;
 import com.cyyaw.code.table.entityconst.CComponentsConst;
@@ -86,7 +87,7 @@ public class CComponentsController {
     @RequestMapping(value = "/findAllCComponents", method = RequestMethod.GET)
     public void findAllCComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         List<CComponents> list = cComponentsService.findAll(jsonStr, selectEntity);
-        ResponseUtils.responseJsonFilter(response, list, CComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, list, CComponentsConst.filterselectColumnArr);
     }
 
     /**
@@ -96,7 +97,7 @@ public class CComponentsController {
     public void findPageCComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
         PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
         Page<CComponents> page = cComponentsService.findPage(jsonStr, pageRequest);
-        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CComponentsConst.filterselectColumnArr);
     }
 
     /**
@@ -105,7 +106,7 @@ public class CComponentsController {
     @RequestMapping(value = "/findIdCComponents", method = RequestMethod.GET)
     public void findIdCComponents(HttpServletResponse response, @RequestParam Integer id) {
         CComponents obj = cComponentsService.findId(id);
-        ResponseUtils.responseJsonFilter(response, obj, CComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CComponentsConst.filterselectColumnArr);
     }
 
 
@@ -120,7 +121,7 @@ public class CComponentsController {
         if (null == id) {
             //添加
             log.info("添加:{}", cComponents);
-            WhyBeanUtils.filterField(cComponents, CComponentsConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cComponents, CComponentsConst.filteraddColumnArr);
             cComponents.setCreatetime(new Date());
             cComponents.setTid(WhyStringUtil.getUUID());
             obj = cComponentsService.save(cComponents);
@@ -129,10 +130,10 @@ public class CComponentsController {
             log.info("修改:{}", cComponents);
             CComponents cComponents1 = cComponentsService.findId(id);
             Assert.notNull(cComponents1, "操作失败！");
-            WhyBeanUtils.filterField(cComponents, CComponentsConst.filteraddColumnArr);
+//            WhyBeanUtils.filterField(cComponents, CComponentsConst.filteraddColumnArr);
             obj = cComponentsService.save(cComponents);
         }
-        ResponseUtils.responseJsonFilter(response, obj, CComponentsConst.filterselectColumnArr);
+//        ResponseUtils.responseJsonFilter(response, obj, CComponentsConst.filterselectColumnArr);
     }
 
     /**
