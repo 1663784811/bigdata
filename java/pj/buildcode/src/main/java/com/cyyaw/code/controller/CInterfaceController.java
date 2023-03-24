@@ -87,7 +87,7 @@ public class CInterfaceController {
      */
     @RequestMapping(value = "/findAllCInterface", method = RequestMethod.GET)
     public void findAllCInterface(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        List<CInterface> list = cInterfaceService.findAll(jsonStr, selectEntity);
+//        List<CInterface> list = cInterfaceService.findAll(jsonStr, selectEntity);
 //        ResponseUtils.responseJsonFilter(response, list,CInterfaceConst.filterselectColumnArr);
     }
 
@@ -96,8 +96,8 @@ public class CInterfaceController {
      */
     @RequestMapping(value = "/findPageCInterface", method = RequestMethod.GET)
     public void findPageCInterface(HttpServletResponse response,String jsonStr,  SelectEntity selectEntity) {
-        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
-        Page<CInterface> page = cInterfaceService.findPage(jsonStr, pageRequest);
+//        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
+//        Page<CInterface> page = cInterfaceService.findPage(jsonStr, pageRequest);
 //        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CInterfaceConst.filterselectColumnArr);
     }
 

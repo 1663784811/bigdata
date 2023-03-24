@@ -63,7 +63,17 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-integration</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!--   =========================================================     -->
 
@@ -100,7 +110,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
     <distributionManagement>

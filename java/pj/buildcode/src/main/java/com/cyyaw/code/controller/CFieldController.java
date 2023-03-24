@@ -88,7 +88,7 @@ public class CFieldController {
      */
     @RequestMapping(value = "/findAllCField", method = RequestMethod.GET)
     public void findAllCField(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        List<CField> list = cFieldService.findAll(jsonStr, selectEntity);
+//        List<CField> list = cFieldService.findAll(jsonStr, selectEntity);
 //        ResponseUtils.responseJsonFilter(response, list, CFieldConst.filterselectColumnArr);
     }
 
@@ -97,8 +97,8 @@ public class CFieldController {
      */
     @RequestMapping(value = "/findPageCField", method = RequestMethod.GET)
     public void findPageCField(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
-        Page<CField> page = cFieldService.findPage(jsonStr, pageRequest);
+//        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
+//        Page<CField> page = cFieldService.findPage(jsonStr, pageRequest);
 //        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CFieldConst.filterselectColumnArr);
     }
 

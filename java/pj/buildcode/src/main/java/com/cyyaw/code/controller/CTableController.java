@@ -87,9 +87,10 @@ public class CTableController {
      */
     @RequestMapping(value = "/findAllCTable", method = RequestMethod.GET)
     public List<CTable> findAllCTable(String jsonStr, SelectEntity selectEntity) {
-        List<CTable> list = cTableService.findAll(jsonStr, selectEntity);
+//        List<CTable> list = cTableService.findAll(jsonStr, selectEntity);
 //        ResponseUtils.responseJsonFilter(response, list,CTableConst.filterselectColumnArr);
-        return list;
+//        return list;
+        return null;
     }
 
     /**
@@ -98,10 +99,11 @@ public class CTableController {
      */
     @RequestMapping(value = "/findPageCTable", method = RequestMethod.GET)
     public Page<CTable> findPageCTable(String jsonStr, SelectEntity selectEntity) {
-        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
-        Page<CTable> page = cTableService.findPage(jsonStr, pageRequest);
+//        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
+//        Page<CTable> page = cTableService.findPage(jsonStr, pageRequest);
 //        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page),CTableConst.filterselectColumnArr);
-        return page;
+//        return page;
+        return null;
     }
 
     /**

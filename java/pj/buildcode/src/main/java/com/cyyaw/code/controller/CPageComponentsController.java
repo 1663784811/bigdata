@@ -86,7 +86,7 @@ public class CPageComponentsController {
      */
     @RequestMapping(value = "/findAllCPageComponents", method = RequestMethod.GET)
     public void findAllCPageComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        List<CPageComponents> list = cPageComponentsService.findAll(jsonStr, selectEntity);
+//        List<CPageComponents> list = cPageComponentsService.findAll(jsonStr, selectEntity);
 //        ResponseUtils.responseJsonFilter(response, list, CPageComponentsConst.filterselectColumnArr);
     }
 
@@ -95,8 +95,8 @@ public class CPageComponentsController {
      */
     @RequestMapping(value = "/findPageCPageComponents", method = RequestMethod.GET)
     public void findPageCPageComponents(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
-        Page<CPageComponents> page = cPageComponentsService.findPage(jsonStr, pageRequest);
+//        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
+//        Page<CPageComponents> page = cPageComponentsService.findPage(jsonStr, pageRequest);
 //        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageComponentsConst.filterselectColumnArr);
     }
 

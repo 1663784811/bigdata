@@ -86,7 +86,7 @@ public class CPageController {
      */
     @RequestMapping(value = "/findAllCPage", method = RequestMethod.GET)
     public void findAllCPage(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        List<CPage> list = cPageService.findAll(jsonStr, selectEntity);
+//        List<CPage> list = cPageService.findAll(jsonStr, selectEntity);
 //        ResponseUtils.responseJsonFilter(response, list, CPageConst.filterselectColumnArr);
     }
 
@@ -95,8 +95,8 @@ public class CPageController {
      */
     @RequestMapping(value = "/findPageCPage", method = RequestMethod.GET)
     public void findPageCPage(HttpServletResponse response, String jsonStr, SelectEntity selectEntity) {
-        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
-        Page<CPage> page = cPageService.findPage(jsonStr, pageRequest);
+//        PageRequest pageRequest = JpaUtils.getPageRequest(selectEntity);
+//        Page<CPage> page = cPageService.findPage(jsonStr, pageRequest);
 //        ResponseUtils.responseJsonFilter(response, PageUtil.pageFormat(page), CPageConst.filterselectColumnArr);
     }
 
