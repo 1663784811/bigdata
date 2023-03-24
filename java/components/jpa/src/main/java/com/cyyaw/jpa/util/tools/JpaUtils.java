@@ -12,7 +12,7 @@ public class JpaUtils {
     public static PageRequest getPageRequest(Integer page, Integer size, Sort sort) {
         PageRequest pageRequest;
         page = page == null ? 1 : page;
-        size = size == null ? 1 : size;
+        size = size == null ? 20 : size;
         if (null != sort) {
             pageRequest = PageRequest.of(page - 1, size, sort);
         } else {

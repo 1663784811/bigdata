@@ -4,7 +4,7 @@ export const enterprise = {
             queryRequest: {
                 url: '/admin/enterprise/findPage',
                 parameter: {
-                    code: 'select_power'
+                    size: 2
                 }
             },
             saveRequest: {

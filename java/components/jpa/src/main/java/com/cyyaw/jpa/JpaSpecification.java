@@ -8,6 +8,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,31 +118,32 @@ public class JpaSpecification<T> implements Specification<T> {
      * @return
      */
     private Predicate getPredicate(final Root<T> root, final CriteriaBuilder cb, JpaWhereType wheres, final String columns, Object value) {
-
-
         String column = columns.toLowerCase();
-
-
-        Predicate predicate = null;
-        if (JpaWhereType.like.equals(wheres)) {
-            predicate = cb.like(root.get(column).as(String.class), "%" + value + "%");
-        } else if (JpaWhereType.likeL.equals(wheres)) {
-            predicate = cb.like(root.get(column).as(String.class), "%" + value);
-        } else if (JpaWhereType.likeR.equals(wheres)) {
-            predicate = cb.like(root.get(column), value + "%");
-        } else if (JpaWhereType.neq.equals(wheres)) {
-            predicate = cb.notEqual(root.get(column), value);
-        } else if (JpaWhereType.geq.equals(wheres)) {
-            predicate = cb.ge(root.get(column), (Number) value);
-        } else if (JpaWhereType.gt.equals(wheres)) {
-            predicate = cb.gt(root.get(column), (Number) value);
-        } else if (JpaWhereType.leq.equals(wheres)) {
-            predicate = cb.le(root.get(column), (Number) value);
-        } else if (JpaWhereType.lt.equals(wheres)) {
-            predicate = cb.lt(root.get(column), (Number) value);
-        } else {
-            predicate = cb.equal(root.get(column), value);
+        EntityType<T> model = root.getModel();
+        Attribute<? super T, ?> attribute = model.getAttribute(columns);
+        if (null != attribute) {
+            Predicate predicate = null;
+            if (JpaWhereType.like.equals(wheres)) {
+                predicate = cb.like(root.get(column).as(String.class), "%" + value + "%");
+            } else if (JpaWhereType.likeL.equals(wheres)) {
+                predicate = cb.like(root.get(column).as(String.class), "%" + value);
+            } else if (JpaWhereType.likeR.equals(wheres)) {
+                predicate = cb.like(root.get(column), value + "%");
+            } else if (JpaWhereType.neq.equals(wheres)) {
+                predicate = cb.notEqual(root.get(column), value);
+            } else if (JpaWhereType.geq.equals(wheres)) {
+                predicate = cb.ge(root.get(column), (Number) value);
+            } else if (JpaWhereType.gt.equals(wheres)) {
+                predicate = cb.gt(root.get(column), (Number) value);
+            } else if (JpaWhereType.leq.equals(wheres)) {
+                predicate = cb.le(root.get(column), (Number) value);
+            } else if (JpaWhereType.lt.equals(wheres)) {
+                predicate = cb.lt(root.get(column), (Number) value);
+            } else {
+                predicate = cb.equal(root.get(column), value);
+            }
+            return predicate;
         }
-        return predicate;
+        return null;
     }
 }
