@@ -38,10 +38,7 @@ public class WebImageType implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "path", columnDefinition = "varchar(255) COMMENT '图片路径'")
-    private String path;
-    @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '图片名'")
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")
     private String name;
 
 
