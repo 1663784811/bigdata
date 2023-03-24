@@ -10,9 +10,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_photo")
-@org.hibernate.annotations.Table(appliesTo = "t_photo", comment = "图片资源表")
-public class TPhoto implements Serializable {
+@Table(name = "web_image_type")
+@org.hibernate.annotations.Table(appliesTo = "web_image_type", comment = "影像分类")
+public class WebImageType implements Serializable {
     private static final long serialVersionUID = 1387301173682985L;
 
     @Id
@@ -43,9 +43,6 @@ public class TPhoto implements Serializable {
     @Basic
     @Column(name = "name", columnDefinition = "varchar(255) COMMENT '图片名'")
     private String name;
-    @Basic
-    @Column(name = "tphotoclassificationid", columnDefinition = "varchar(32) COMMENT '分类表ID'")
-    private String tphotoclassificationid;
 
 
 }
