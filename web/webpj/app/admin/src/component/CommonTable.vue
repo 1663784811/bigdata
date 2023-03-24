@@ -36,7 +36,9 @@
     </div>
     <!-- ========================================  分页  ======================================== -->
     <div class="pageBox">
-      <Page :total="tableConfig.pageData.total" :page-size="tableConfig.pageData.size" @on-change="changePage"
+      <Page :total="tableConfig.pageData.total"
+            :page-size="tableConfig.pageData.size"
+            @on-change="changePage"
             show-elevator/>
     </div>
   </div>
@@ -143,7 +145,10 @@ const searchObj = ref({
 const tableConfig = ref({
   columns: [],
   data: [],
-  pageData: {},
+  pageData: {
+    total: 0,
+    size: 10
+  },
   loading: false
 });
 
@@ -168,6 +173,7 @@ const loadTableData = () => {
   ).then((res) => {
     tableConfig.value.loading = false;
     tableConfig.value.data = res.data;
+    tableConfig.value.pageData.total = res.result.total;
   }).catch(err => {
     tableConfig.value.loading = false;
     tableConfig.value.data = [];
@@ -230,8 +236,9 @@ const delTableDataFn = (idArr = []) => {
 }
 
 
-const changePage = () => {
-
+const changePage = (page) => {
+  tableConfig.value.pageData.page = page
+  loadTableData();
 }
 
 // ===================================================

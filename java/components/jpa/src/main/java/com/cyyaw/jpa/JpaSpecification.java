@@ -12,6 +12,7 @@ import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * jsonStr 格式
@@ -120,8 +121,17 @@ public class JpaSpecification<T> implements Specification<T> {
     private Predicate getPredicate(final Root<T> root, final CriteriaBuilder cb, JpaWhereType wheres, final String columns, Object value) {
         String column = columns.toLowerCase();
         EntityType<T> model = root.getModel();
-        Attribute<? super T, ?> attribute = model.getAttribute(columns);
-        if (null != attribute) {
+        Set<Attribute<? super T, ?>> attributes = model.getAttributes();
+        Attribute at = null;
+        for (Attribute attribute : attributes) {
+            String name = attribute.getName();
+            if (columns.equals(name)) {
+                at = attribute;
+                break;
+            }
+        }
+
+        if (null != at) {
             Predicate predicate = null;
             if (JpaWhereType.like.equals(wheres)) {
                 predicate = cb.like(root.get(column).as(String.class), "%" + value + "%");
