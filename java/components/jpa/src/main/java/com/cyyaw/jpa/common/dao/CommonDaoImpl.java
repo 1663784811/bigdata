@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -279,20 +280,19 @@ public class CommonDaoImpl implements CommonDao {
 
 
     private JSONArray tableInfo(String table) {
-//        StringBuffer sb = new StringBuffer("SHOW FULL COLUMNS FROM ?");
-//        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sb.toString(), table);
-//        JSONArray arr = new JSONArray();
-//        for (int i = 0; i < maps.size(); i++) {
-//            Map<String, Object> oldMap = maps.get(i);
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("table_name", table);
-//            map.put("column_name", oldMap.get("Field"));
-//            map.put("data_type", oldMap.get("Type"));
-//            map.put("column_key", oldMap.get("Key"));
-//            arr.add(map);
-//        }
-//        return arr;
-        return null;
+        StringBuffer sb = new StringBuffer("SHOW FULL COLUMNS FROM ?");
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sb.toString(), table);
+        JSONArray arr = new JSONArray();
+        for (int i = 0; i < maps.size(); i++) {
+            Map<String, Object> oldMap = maps.get(i);
+            Map<String, Object> map = new HashMap<>();
+            map.put("table_name", table);
+            map.put("column_name", oldMap.get("Field"));
+            map.put("data_type", oldMap.get("Type"));
+            map.put("column_key", oldMap.get("Key"));
+            arr.add(map);
+        }
+        return arr;
     }
 
 
