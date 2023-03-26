@@ -16,7 +16,7 @@ public class AppTest {
 
         CodeController codeController = new CodeController();
 
-        codeController.buildCode("jdbc:mysql://139.198.115.132:3306/t_web?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai", "root", "because", "");
+        codeController.buildCode("jdbc:mysql://139.198.115.132:3306/t_enterprise?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai", "root", "because", "");
 
     }
 

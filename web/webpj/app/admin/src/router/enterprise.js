@@ -10,6 +10,11 @@ export const enterprise = {
             path: 'storeList',
             component: import('@/views/enterprise/StoreList.vue'),
             name: 'storeList',
+        },
+        {
+            path: 'storehouse',
+            component: import('@/views/enterprise/Storehouse.vue'),
+            name: 'storehouse',
         }
     ]
 
