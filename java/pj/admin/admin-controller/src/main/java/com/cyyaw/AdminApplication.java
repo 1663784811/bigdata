@@ -1,5 +1,6 @@
 package com.cyyaw;
 
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.jpa.util.DataBaseUtils;
 import com.cyyaw.jpa.util.entity.FieldInfo;
 import com.cyyaw.jpa.util.entity.TableInfo;
@@ -75,7 +76,7 @@ public class AdminApplication {
         log.info("===============" + insetSql);
         for (int i = 0; i < numb; i++) {
             Object[] data = DataBaseUtils.createData(fieldInfos);
-            log.error("ssssss::{}", data);
+            log.info("ssssss::{}", JSONUtil.toJsonStr(data));
             jdbcTemplate.update(insetSql, data);
         }
     }
