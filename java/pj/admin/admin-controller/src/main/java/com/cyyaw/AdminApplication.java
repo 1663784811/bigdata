@@ -1,8 +1,7 @@
 package com.cyyaw;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.common.dao.CommonDaoImpl;
+import com.cyyaw.jpa.util.entity.FieldInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Slf4j
 @SpringBootApplication
@@ -66,11 +66,11 @@ public class AdminApplication {
         System.out.println(dataSource);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        JSONArray e_store = CommonDaoImpl.tableInfo(jdbcTemplate, "e_store");
+        List<FieldInfo> store = CommonDaoImpl.tableInfo(jdbcTemplate, "e_store");
 
-        for (int i = 0; i < e_store.size(); i++) {
-            JSONObject jsonObject = e_store.getJSONObject(i);
-            System.out.println(jsonObject);
+        for (int i = 0; i < store.size(); i++) {
+            FieldInfo fieldInfo = store.get(i);
+            System.out.println(fieldInfo);
         }
 
 

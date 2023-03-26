@@ -1,5 +1,6 @@
 package com.cyyaw.jpa.common.dao;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
@@ -287,13 +288,13 @@ public class CommonDaoImpl implements CommonDao {
         for (int i = 0; i < maps.size(); i++) {
             Map<String, Object> oldMap = maps.get(i);
             FieldInfo fieldInfo = new FieldInfo();
-            fieldInfo.setField(oldMap.get("Field").toString());
-            fieldInfo.setType(oldMap.get("Type").toString());
-            fieldInfo.setCollation(oldMap.get("Collation").toString());
-            fieldInfo.setIsNull(oldMap.get("Null").toString());
-            fieldInfo.setKey(oldMap.get("Kield").toString());
-            fieldInfo.setDefaultValue(oldMap.get("Default").toString());
-            fieldInfo.setExtra(oldMap.get("Extra").toString());
+            fieldInfo.setField(StrUtil.toString(oldMap.get("Field")));
+            fieldInfo.setType(StrUtil.toString(oldMap.get("Type")));
+            fieldInfo.setCollation(StrUtil.toString(oldMap.get("Collation")));
+            fieldInfo.setIsNull(StrUtil.toString(oldMap.get("Null")));
+            fieldInfo.setKey(StrUtil.toString(oldMap.get("Kield")));
+            fieldInfo.setDefaultValue(StrUtil.toString(oldMap.get("Default")));
+            fieldInfo.setExtra(StrUtil.toString(oldMap.get("Extra")));
             arr.add(fieldInfo);
         }
         return arr;
