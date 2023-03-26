@@ -4,7 +4,6 @@ export const store = {
             queryRequest: {
                 url: '/admin/store/findPage',
                 parameter: {
-                    code: 'save_table'
                 }
             },
             saveRequest: {

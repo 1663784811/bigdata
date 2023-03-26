@@ -16,14 +16,9 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     routeName: 'enterprise'
                 },
                 {
-                    name: '门店管理',
+                    name: '产品中心',
                     icon: 'md-settings',
                     routeName: 'storeList'
-                },
-                {
-                    name: '仓库管理',
-                    icon: 'md-settings',
-                    routeName: 'storehouse'
                 }
             ]
         },
@@ -95,9 +90,24 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
             routeName: 'shopping',
             children: [
                 {
-                    name: '商城列表',
+                    name: '首页banner图',
                     icon: 'md-settings',
                     routeName: 'shoppingList'
+                },
+                {
+                    name: '商品分类',
+                    icon: 'md-settings',
+                    routeName: 'shoppingList'
+                },
+                {
+                    name: '商品分类',
+                    icon: 'md-settings',
+                    routeName: 'shoppingList'
+                },
+                {
+                    name: '门店管理',
+                    icon: 'md-settings',
+                    routeName: 'goodsList'
                 },
                 {
                     name: '商品管理',
@@ -134,7 +144,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
             ]
         },
         {
-            name: '用户管理',
+            name: '后台管理',
             icon: 'md-settings',
             routeName: 'power',
             children: [
