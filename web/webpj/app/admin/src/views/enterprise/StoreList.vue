@@ -19,7 +19,7 @@ import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const config = usePageConfig.getPageConfig("enterprise");
+const config = usePageConfig.getPageConfig("store");
 
 const commonTable = config.commonTable;
 

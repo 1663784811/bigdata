@@ -1,4 +1,4 @@
-import {AJAXGET, AJAXPOST} from "@/api/webinfo";
+import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
 
 const baseUrl = "http://127.0.0.1:8080";
 
@@ -31,3 +31,8 @@ export const saveSql = (parameter) => {
 export const apiAdminMenu = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
 }
+
+export const pageSetting = async (parameter) => {
+    return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 1)
+}
+

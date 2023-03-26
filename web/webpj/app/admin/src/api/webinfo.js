@@ -76,6 +76,44 @@ export const AJAXREQUEST = function (url, _params = {}, serializer = 0, requestT
     });
 };
 
+export const asyncREQUEST = async function (url, _params = {}, serializer = 0, requestType, header) {
+    return await new Promise((resolve, reject) => {
+        let axiosLet = null;
+        if (serializer === 0) {
+            axiosLet = axios({
+                url: url,
+                method: requestType,
+                params: _params,
+                headers: header || GETHEADER(),
+                paramsSerializer: {
+                    serialize: (params) => {
+                        return qs.stringify(params, {indices: false})
+                    }
+                }
+            });
+        } else {
+            axiosLet = axios({
+                url: url,
+                method: requestType,
+                data: _params,
+                headers: GETHEADER(),
+            });
+        }
+        axiosLet.then(res => {
+            console.log('==============');
+            if (!res.data.code || (res.data.code !== 500)) {
+                resolve(res.data);
+            } else {
+                reject(res.data.message);
+            }
+        }).catch(error => {
+            console.log('==============');
+            reject(error);
+        });
+    });
+};
+
+
 /**
  * 获取请求头
  * @returns {{Accept: string, "Content-Type": string, token: *}}
