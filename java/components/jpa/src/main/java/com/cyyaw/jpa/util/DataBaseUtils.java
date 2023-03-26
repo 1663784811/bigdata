@@ -7,9 +7,7 @@ import com.cyyaw.jpa.util.entity.FieldInfo;
 import com.cyyaw.jpa.util.entity.TableInfo;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 数据库
@@ -48,19 +46,22 @@ public class DataBaseUtils {
         String table = tableInfo.getTable();
         List<FieldInfo> fieldInfoList = tableInfo.getFieldInfoList();
         StringBuffer sb = new StringBuffer();
+        StringBuffer fl = new StringBuffer();
         for (int i = 0; i < fieldInfoList.size(); i++) {
             FieldInfo fieldInfo = fieldInfoList.get(i);
             String extra = fieldInfo.getExtra();
             if (extra.indexOf("auto_increment") == -1) {
                 String field = fieldInfo.getField();
                 if (sb.length() > 0) {
-                    sb.append("," + field + "=?");
+                    fl.append("," + field);
+                    sb.append(",?");
                 } else {
-                    sb.append(field + "=?");
+                    fl.append(field);
+                    sb.append("?");
                 }
             }
         }
-        return "insert into " + table + " " + sb.toString();
+        return "insert into " + table + "(" + fl.toString() + ") VALUES (" + sb.toString() + ")";
     }
 
 
@@ -78,11 +79,11 @@ public class DataBaseUtils {
                 String type = fieldInfo.getType();
                 if (type.indexOf("int") != -1) {
                     list.add(RandomUtil.randomInt());
-                } else if (type.indexOf("datetime") == -1) {
+                } else if (type.indexOf("datetime") != -1) {
                     list.add(DateUtil.now());
-                } else if (type.indexOf("date") == -1) {
+                } else if (type.indexOf("date") != -1) {
                     list.add(DateUtil.date().toString("yyyy-MM-dd"));
-                } else if (type.indexOf("decimal") == -1) {
+                } else if (type.indexOf("decimal") != -1) {
                     list.add(RandomUtil.randomInt());
                 } else {
                     list.add(RandomUtil.randomString(10));

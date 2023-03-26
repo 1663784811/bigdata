@@ -72,9 +72,10 @@ public class AdminApplication {
         tableInfo.setTable(table);
         tableInfo.setFieldInfoList(fieldInfos);
         String insetSql = DataBaseUtils.createInsetSql(tableInfo);
-        System.out.println("===============" + insetSql);
+        log.info("===============" + insetSql);
         for (int i = 0; i < numb; i++) {
             Object[] data = DataBaseUtils.createData(fieldInfos);
+            log.error("ssssss::{}", data);
             jdbcTemplate.update(insetSql, data);
         }
     }
