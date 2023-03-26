@@ -281,26 +281,6 @@ public class CommonDaoImpl implements CommonDao {
         return null;
     }
 
-
-    public static List<FieldInfo> tableInfo(JdbcTemplate jt, String table) {
-        List<Map<String, Object>> maps = jt.queryForList("SHOW FULL COLUMNS FROM "+table);
-        List<FieldInfo> arr = new ArrayList<>();
-        for (int i = 0; i < maps.size(); i++) {
-            Map<String, Object> oldMap = maps.get(i);
-            FieldInfo fieldInfo = new FieldInfo();
-            fieldInfo.setField(StrUtil.toString(oldMap.get("Field")));
-            fieldInfo.setType(StrUtil.toString(oldMap.get("Type")));
-            fieldInfo.setCollation(StrUtil.toString(oldMap.get("Collation")));
-            fieldInfo.setIsNull(StrUtil.toString(oldMap.get("Null")));
-            fieldInfo.setKey(StrUtil.toString(oldMap.get("Kield")));
-            fieldInfo.setDefaultValue(StrUtil.toString(oldMap.get("Default")));
-            fieldInfo.setExtra(StrUtil.toString(oldMap.get("Extra")));
-            arr.add(fieldInfo);
-        }
-        return arr;
-    }
-
-
     /**
      *
      */

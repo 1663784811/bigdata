@@ -31,8 +31,9 @@ public class TableInfo {
     /**
      * 字段列表
      */
-    private List<JavaColumn> javaColumns;
+    private List<JavaColumn> javaColumnList;
 
 
+    private List<FieldInfo> fieldInfoList;
 
 }

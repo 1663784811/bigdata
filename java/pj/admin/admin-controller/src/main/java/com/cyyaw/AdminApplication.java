@@ -1,7 +1,8 @@
 package com.cyyaw;
 
-import com.cyyaw.jpa.common.dao.CommonDaoImpl;
+import com.cyyaw.jpa.util.DataBaseUtils;
 import com.cyyaw.jpa.util.entity.FieldInfo;
+import com.cyyaw.jpa.util.entity.TableInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,9 +28,6 @@ public class AdminApplication {
         log.info("------------ 启动成功 ---------");
 
 
-
-
-
 //        LoginController bean = run.getBean(LoginController.class);
 //        EnterpriseRegisterRequest b= new EnterpriseRegisterRequest();
 //        EEnterprise e = new EEnterprise();
@@ -50,30 +48,36 @@ public class AdminApplication {
         bean.loadTable(bean.dataSource);
 
 
-
-
-
-
-
     }
 
 
     /**
-     *
      * @param dataSource
      */
-    public void loadTable(DataSource dataSource){
+    public void loadTable(DataSource dataSource) {
         System.out.println(dataSource);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
-        List<FieldInfo> store = CommonDaoImpl.tableInfo(jdbcTemplate, "e_store");
-
-        for (int i = 0; i < store.size(); i++) {
-            FieldInfo fieldInfo = store.get(i);
-            System.out.println(fieldInfo);
-        }
-
-
+        String table = "e_store";
+        List<FieldInfo> store = DataBaseUtils.tableInfo(jdbcTemplate, table);
+        crateData(10000, dataSource, table, store);
     }
+
+
+    /**
+     * 生成数据
+     */
+    public void crateData(int numb, DataSource dataSource, String table, List<FieldInfo> fieldInfos) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        TableInfo tableInfo = new TableInfo();
+        tableInfo.setTable(table);
+        tableInfo.setFieldInfoList(fieldInfos);
+        String insetSql = DataBaseUtils.createInsetSql(tableInfo);
+        System.out.println("===============" + insetSql);
+        for (int i = 0; i < numb; i++) {
+            Object[] data = DataBaseUtils.createData(fieldInfos);
+            jdbcTemplate.update(insetSql, data);
+        }
+    }
+
 
 }
