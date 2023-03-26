@@ -19,7 +19,7 @@ public class PageSettingController {
 
     @GetMapping("/pageSetting")
     public BaseResult saveGoods(@PathVariable Map<String,Object> map){
-        String data = "    commonTable: {\n" +
+        String data = "{    commonTable: {\n" +
                 "        requestObj: {\n" +
                 "            queryRequest: {\n" +
                 "                url: '/admin/store/findPage',\n" +
@@ -92,7 +92,7 @@ public class PageSettingController {
                 "            update: true,\n" +
                 "            del: true\n" +
                 "        }\n" +
-                "    }";
+                "    }}";
 
        return BaseResult.ok(JSONUtil.parseObj(data));
     }
