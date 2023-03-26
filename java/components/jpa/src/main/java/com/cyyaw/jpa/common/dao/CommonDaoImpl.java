@@ -279,9 +279,9 @@ public class CommonDaoImpl implements CommonDao {
     }
 
 
-    private JSONArray tableInfo(String table) {
+    private static JSONArray tableInfo(JdbcTemplate jt, String table) {
         StringBuffer sb = new StringBuffer("SHOW FULL COLUMNS FROM ?");
-        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sb.toString(), table);
+        List<Map<String, Object>> maps = jt.queryForList(sb.toString(), table);
         JSONArray arr = new JSONArray();
         for (int i = 0; i < maps.size(); i++) {
             Map<String, Object> oldMap = maps.get(i);
