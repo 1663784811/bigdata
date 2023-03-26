@@ -3,6 +3,7 @@ package com.cyyaw.jpa.common.dao;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
+import com.cyyaw.jpa.util.entity.FieldInfo;
 import com.cyyaw.util.tools.CommonRest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -279,18 +281,20 @@ public class CommonDaoImpl implements CommonDao {
     }
 
 
-    private static JSONArray tableInfo(JdbcTemplate jt, String table) {
-        StringBuffer sb = new StringBuffer("SHOW FULL COLUMNS FROM ?");
-        List<Map<String, Object>> maps = jt.queryForList(sb.toString(), table);
-        JSONArray arr = new JSONArray();
+    public static List<FieldInfo> tableInfo(JdbcTemplate jt, String table) {
+        List<Map<String, Object>> maps = jt.queryForList("SHOW FULL COLUMNS FROM "+table);
+        List<FieldInfo> arr = new ArrayList<>();
         for (int i = 0; i < maps.size(); i++) {
             Map<String, Object> oldMap = maps.get(i);
-            Map<String, Object> map = new HashMap<>();
-            map.put("table_name", table);
-            map.put("column_name", oldMap.get("Field"));
-            map.put("data_type", oldMap.get("Type"));
-            map.put("column_key", oldMap.get("Key"));
-            arr.add(map);
+            FieldInfo fieldInfo = new FieldInfo();
+            fieldInfo.setField(oldMap.get("Field").toString());
+            fieldInfo.setType(oldMap.get("Type").toString());
+            fieldInfo.setCollation(oldMap.get("Collation").toString());
+            fieldInfo.setIsNull(oldMap.get("Null").toString());
+            fieldInfo.setKey(oldMap.get("Kield").toString());
+            fieldInfo.setDefaultValue(oldMap.get("Default").toString());
+            fieldInfo.setExtra(oldMap.get("Extra").toString());
+            arr.add(fieldInfo);
         }
         return arr;
     }

@@ -1,5 +1,8 @@
 package com.cyyaw;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.jpa.common.dao.CommonDaoImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,8 +66,12 @@ public class AdminApplication {
         System.out.println(dataSource);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
+        JSONArray e_store = CommonDaoImpl.tableInfo(jdbcTemplate, "e_store");
 
-
+        for (int i = 0; i < e_store.size(); i++) {
+            JSONObject jsonObject = e_store.getJSONObject(i);
+            System.out.println(jsonObject);
+        }
 
 
     }
