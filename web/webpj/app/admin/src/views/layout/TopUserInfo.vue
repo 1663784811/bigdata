@@ -27,7 +27,7 @@ const logOut = function () {
   router.push({
     name: 'login',
     query:{
-      eId:'ss'
+      eCode:'aaa'
     }
   })
 }

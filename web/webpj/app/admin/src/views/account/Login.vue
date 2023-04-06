@@ -43,7 +43,12 @@ const loginParams = {
   code: "123456"
 };
 
+
 onMounted(() => {
+  enterpriseFindPageFn();
+})
+
+const enterpriseFindPageFn = function () {
   const {eCode} = route.query;
   if (eCode) {
     enterpriseFindPage({
@@ -56,7 +61,7 @@ onMounted(() => {
       console.log(err)
     })
   }
-})
+}
 
 /**
  * 点击登录
@@ -64,7 +69,7 @@ onMounted(() => {
 const clickLogin = function () {
   loginParams.enterpriseId = enterprise.value.tid;
   logInFn(loginParams).then((res) => {
-    console.log("===============",res);
+    console.log("===============", res);
     router.push({
       path: "/"
     })
