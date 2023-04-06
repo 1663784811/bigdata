@@ -45,8 +45,8 @@ public class AdminApplication {
 //        bean.enterpriseRegister(b);
 
 
-        AdminApplication bean = run.getBean(AdminApplication.class);
-        bean.loadTable(bean.dataSource);
+//        AdminApplication bean = run.getBean(AdminApplication.class);
+//        bean.loadTable(bean.dataSource);
 
 
     }
