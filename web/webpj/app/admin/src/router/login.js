@@ -2,7 +2,7 @@ export const login = {
     path: '/account',
     children: [
         {
-            path: 'login/:adfdffdfd',
+            path: 'login',
             name: 'login',
             meta: {
                 title: 'Login - 登录',

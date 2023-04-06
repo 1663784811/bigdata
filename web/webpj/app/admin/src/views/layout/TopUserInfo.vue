@@ -9,16 +9,29 @@
     <div class="userInfoItem">
       <Icon type="md-contact"/>
       <div class="infoBox">
-        iniiiiiiiiiiiiiiii
+        <div class="infoList" @click="logOut">退出登录</div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "TopUserInfo"
+<script setup>
+
+import {useRouter} from "vue-router";
+
+const router = useRouter();
+
+const logOut = function () {
+  console.log("sss");
+
+  router.push({
+    name: 'login',
+    query:{
+      eId:'ss'
+    }
+  })
 }
+
 </script>
 
 <style scoped lang="less">
@@ -30,7 +43,6 @@ export default {
 
   .userInfoItem {
     font-size: 22px;
-    color: #fff;
     padding: 0 16px;
     height: 100%;
     display: flex;
@@ -40,7 +52,8 @@ export default {
 
     &:hover {
       background: #0a1327;
-      .infoBox{
+
+      .infoBox {
         display: block;
       }
     }
@@ -49,11 +62,10 @@ export default {
       position: absolute;
       right: 0;
       top: 46px;
-      background: #fff;
       border: 1px solid #000;
-      width: 200px;
-      height: 300px;
       z-index: 999;
+      width: 200px;
+      background: #fff;
       display: none;
     }
   }

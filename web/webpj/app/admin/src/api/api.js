@@ -32,7 +32,13 @@ export const apiAdminMenu = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
 }
 
+/**
+ * 获取页面设置
+ */
 export const pageSetting = async (parameter) => {
     return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 1)
 }
 
+export const logInFn =  async (parameter) => {
+    return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
+}

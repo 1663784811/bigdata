@@ -20,6 +20,7 @@ import com.cyyaw.service.admin.UUserService;
 import com.cyyaw.util.tools.JwtTokenUtils;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.utils.BCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -233,18 +234,19 @@ public class LoginServiceImpl implements LoginService {
         }
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
+        String password = registerInfo.getPassword();
         TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
         // 添加用户
-//        String encode = BCryptUtil.encode(password);
+        String encode = BCryptUtil.encode(password);
         TAdmin t = new TAdmin();
         t.setTid(WhyStringUtil.getUUID());
         t.setAccount(userName);
-//        t.setPassword(encode);
+        t.setPassword(encode);
+        t.setEnterpriseId(eEnterprise.getTid());
         TAdmin save = tAdminService.save(t);
-
         return save;
     }
 
