@@ -5,7 +5,7 @@
         <div class="loginBox">
           <div>登录</div>
           <div class="loginRow">
-            <Input placeholder="用户名" v-model="loginParams.userName" />
+            <Input placeholder="用户名" v-model="loginParams.userName"/>
           </div>
           <div class="loginRow">
             <Input placeholder="密码" v-model="loginParams.password"/>
@@ -18,47 +18,57 @@
           </div>
         </div>
       </div>
-
-
     </div>
     <AccountFooter/>
   </div>
 </template>
 
 <script setup>
-
+import {onMounted, ref} from 'vue';
 import AccountFooter from "./AccountFooter.vue"
-import {useRouter} from "vue-router";
-import {logInFn} from "@/api/api.js"
+import {useRouter, useRoute} from "vue-router";
+import {logInFn, enterpriseFindPage} from "@/api/api.js"
 
 const router = useRouter();
+const route = useRoute();
 
-const loginParams= {
-  userName:"root",
-  password:"root",
-  enterpriseId:"ss",
-  code:"123456"
+const enterprise = ref({
+  tid: ''
+});
+
+const loginParams = {
+  userName: "root",
+  password: "root",
+  enterpriseId: "",
+  code: "123456"
 };
 
+onMounted(() => {
+  const {eCode} = route.query;
+  if (eCode) {
+    console.log("ssssss")
+    enterpriseFindPage({
+      code: eCode
+    }).then((rest) => {
+      if (rest.data && rest.data.length > 0) {
+        enterprise.value = rest.data[0];
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+})
 
+/**
+ * 点击登录
+ */
 const clickLogin = function () {
-
-  logInFn({
-    "code": 123456,
-    "codeUuid": "abcdfef",
-    "enterpriseId": 123456,
-    "password": "password",
-    "userName": "why"
-  }).then((res) => {
+  loginParams.enterpriseId = enterprise.value.tid;
+  logInFn(loginParams).then((res) => {
     console.log(res);
   }).catch((err) => {
     console.log(err)
   });
-
-  console.log("sssssss")
-  // router.push({
-  //   path: "/"
-  // });
 }
 
 </script>

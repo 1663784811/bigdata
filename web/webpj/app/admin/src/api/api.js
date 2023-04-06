@@ -39,6 +39,16 @@ export const pageSetting = async (parameter) => {
     return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 1)
 }
 
+/**
+ * 登录
+ */
 export const logInFn =  async (parameter) => {
     return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
+}
+
+/**
+ *
+ */
+export const enterpriseFindPage = (parameter) =>{
+    return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
 }
