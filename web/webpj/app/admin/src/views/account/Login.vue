@@ -46,7 +46,6 @@ const loginParams = {
 onMounted(() => {
   const {eCode} = route.query;
   if (eCode) {
-    console.log("ssssss")
     enterpriseFindPage({
       code: eCode
     }).then((rest) => {
@@ -65,7 +64,10 @@ onMounted(() => {
 const clickLogin = function () {
   loginParams.enterpriseId = enterprise.value.tid;
   logInFn(loginParams).then((res) => {
-    console.log(res);
+    console.log("===============",res);
+    router.push({
+      path: "/"
+    })
   }).catch((err) => {
     console.log(err)
   });
