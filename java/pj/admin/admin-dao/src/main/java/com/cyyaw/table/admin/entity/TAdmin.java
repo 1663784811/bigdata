@@ -49,31 +49,31 @@ public class TAdmin implements Serializable {
     @Column(name = "account", columnDefinition = "varchar(32) COMMENT '账号'")
     private String account;
     @Basic
-    @Column(name = "canlogintime", length = 19, nullable = true, columnDefinition = "datetime COMMENT '可登录时间'")
+    @Column(name = "can_login_time", nullable = true, columnDefinition = "datetime COMMENT '可登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date canlogintime;
+    private Date canLoginTime;
     @Basic
     @Column(name = "email", nullable = true, columnDefinition = "varchar(255) COMMENT '邮箱'")
     private String email;
     @Basic
-    @Column(name = "ip", length = 60, nullable = true, columnDefinition = "varchar(60) COMMENT '最后登录IP'")
+    @Column(name = "ip", nullable = true, columnDefinition = "varchar(60) COMMENT '最后登录IP'")
     private String ip;
     @Basic
-    @Column(name = "lastlogintime", length = 19, nullable = true, columnDefinition = "datetime COMMENT '最后登录时间'")
+    @Column(name = "last_login_time", nullable = true, columnDefinition = "datetime COMMENT '最后登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastlogintime;
+    private Date lastLoginTime;
     @Basic
-    @Column(name = "nickname", nullable = true, columnDefinition = "varchar(32) COMMENT '昵称'")
-    private String nickname;
+    @Column(name = "nick_name", nullable = true, columnDefinition = "varchar(32) COMMENT '昵称'")
+    private String nickName;
     @Basic
-    @Column(name = "password", length = 64, nullable = true, columnDefinition = "varchar(32) COMMENT '密码'")
+    @Column(name = "password", nullable = true, columnDefinition = "varchar(32) COMMENT '密码'")
     private String password;
     @Basic
-    @Column(name = "phone", length = 15, nullable = true, columnDefinition = "varchar(15) COMMENT '手机号'")
+    @Column(name = "phone", nullable = true, columnDefinition = "varchar(15) COMMENT '手机号'")
     private String phone;
     @Basic
     @Column(name = "salt", nullable = true, columnDefinition = "varchar(32) COMMENT '加密盐'")
@@ -82,6 +82,6 @@ public class TAdmin implements Serializable {
     @Column(name = "status",nullable = true, columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
     private Integer status;
     @Basic
-    @Column(name = "truename", nullable = true, columnDefinition = "varchar(32) COMMENT '真实姓名'")
-    private String truename;
+    @Column(name = "true_name", nullable = true, columnDefinition = "varchar(32) COMMENT '真实姓名'")
+    private String trueName;
 }

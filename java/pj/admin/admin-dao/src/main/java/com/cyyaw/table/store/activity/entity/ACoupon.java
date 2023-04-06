@@ -49,13 +49,13 @@ public class ACoupon implements Serializable {
     private String name;
 
     @Basic
-    @Column(name = "starttime", length = 19, columnDefinition = "datetime COMMENT '开始时间'")
+    @Column(name = "starttime", columnDefinition = "datetime COMMENT '开始时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date starttime;
     @Basic
-    @Column(name = "endtime", length = 19, columnDefinition = "datetime COMMENT '结束时间'")
+    @Column(name = "endtime", columnDefinition = "datetime COMMENT '结束时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

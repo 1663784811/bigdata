@@ -52,7 +52,7 @@ public class TMessage implements Serializable {
     @Column(name = "orginal",columnDefinition = "int COMMENT '是否原创{0:否,1:是}'")
     private Integer orginal;
     @Basic
-    @Column(name = "publishtime", length = 19, columnDefinition = "datetime COMMENT '发布时间'")
+    @Column(name = "publishtime", columnDefinition = "datetime COMMENT '发布时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
