@@ -8,7 +8,7 @@
     </div>
     <div class="userInfoItem">
       <Icon type="md-contact"/>
-      <div class="infoBox" style="display: none">
+      <div class="infoBox">
         iniiiiiiiiiiiiiiii
       </div>
     </div>
@@ -32,7 +32,6 @@ export default {
     font-size: 22px;
     color: #fff;
     padding: 0 16px;
-    cursor: pointer;
     height: 100%;
     display: flex;
     align-items: center;
@@ -41,6 +40,9 @@ export default {
 
     &:hover {
       background: #0a1327;
+      .infoBox{
+        display: block;
+      }
     }
 
     .infoBox {

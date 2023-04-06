@@ -19,7 +19,7 @@ public class ChromeBrowser implements Browser {
 
 
     public ChromeBrowser() {
-        // start chrome  --flag-switches-begin --flag-switches-end --remote-debugging-port=9887
+        // start chrome  --flag-switches-begin --flag-switches-end --remote-debugging-port=9222
         // https://www.cnblogs.com/testway/p/16676195.html
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -27,8 +27,12 @@ public class ChromeBrowser implements Browser {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
         //chromeOptions.addArguments("--headless"); //无头浏览器，这样不会打开浏览器窗口
-        //
+        chromeOptions.addArguments("--remote-allow-origins=*");
+        // --remote-debugging-port=9222
         driver = new ChromeDriver(chromeOptions);
+
+//        chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:\AutomationProfile”
+
     }
 
 

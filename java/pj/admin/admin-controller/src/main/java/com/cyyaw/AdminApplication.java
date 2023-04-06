@@ -59,8 +59,10 @@ public class AdminApplication {
         System.out.println(dataSource);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         String table = "e_store";
+
+
         List<FieldInfo> store = DataBaseUtils.tableInfo(jdbcTemplate, table);
-        crateData(10000, dataSource, table, store);
+        crateData(100, dataSource, table, store);
     }
 
 

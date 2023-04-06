@@ -1,7 +1,5 @@
 package com.cyyaw.browser.listen;
 
-
-import com.cyyaw.browser.listen.SpiderData;
 import lombok.Data;
 import org.springframework.context.ApplicationEvent;
 
