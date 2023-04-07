@@ -25,6 +25,7 @@ import {onMounted, ref} from 'vue';
 import {useRouter} from "vue-router";
 
 const router = useRouter();
+const loginInfoSt = loginInfo();
 
 
 userInfo({}).then((rest) => {
@@ -32,11 +33,11 @@ userInfo({}).then((rest) => {
 
 })
 onMounted(() => {
-  if (!loginInfo().token) {
+  if (!loginInfoSt.token) {
     router.replace({
       name: 'login',
-      query:{
-        eCode: 'aaa'
+      query: {
+        eCode: loginInfoSt.eCode
       }
     })
   }

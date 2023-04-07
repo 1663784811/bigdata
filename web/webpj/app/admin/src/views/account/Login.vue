@@ -32,6 +32,7 @@ import {loginInfo} from "@/store/loginInfo.js"
 
 const router = useRouter();
 const route = useRoute();
+const loginInfoSt = loginInfo();
 
 const enterprise = ref({
   tid: ''
@@ -62,6 +63,7 @@ const enterpriseFindPageFn = function () {
       console.log(err)
     })
   }
+  loginInfoSt.eCode = eCode;
 }
 
 /**
@@ -74,7 +76,7 @@ const clickLogin = function () {
     if (res.data) {
       const {jwtToken} = res.data;
       // 设置token
-      loginInfo().token = jwtToken;
+      loginInfoSt.token = jwtToken;
       router.push({
         path: "/"
       })
