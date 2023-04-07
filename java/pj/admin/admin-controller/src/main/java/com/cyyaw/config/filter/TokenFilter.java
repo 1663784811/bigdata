@@ -1,5 +1,7 @@
 package com.cyyaw.config.filter;
 
+import cn.hutool.core.util.StrUtil;
+import com.cyyaw.util.tools.JwtTokenUtils;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
@@ -16,7 +18,9 @@ public class TokenFilter implements Filter {
         if (request instanceof HttpServletRequest) {
             HttpServletRequest rq = (HttpServletRequest) request;
             String token = rq.getHeader("token");
-
+            if (StrUtil.isNotBlank(token)) {
+                loginInfo = JwtTokenUtils.getClaim(token);
+            }
         }
         ThreadLocalContext.setLoginInfo(loginInfo);
         filterChain.doFilter(request, response);
