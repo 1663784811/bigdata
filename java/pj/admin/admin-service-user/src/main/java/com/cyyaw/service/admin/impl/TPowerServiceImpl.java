@@ -46,6 +46,7 @@ public class TPowerServiceImpl implements TPowerService {
             tPower.setIsPower(0);
             tPower.setUrl("");
             tPower.setSort(0);
+            tPower.setEnterpriseId(enterpriseId);
             TPower save = tPowerDao.save(tPower);
             arr.add(save);
         }
