@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ import java.util.Date;
  * jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
  * secret : secret私钥
  */
+@Slf4j
 public class JwtTokenUtils {
     public static final String TOKEN_HEADER = "token";
     public static final String TOKEN_PREFIX = "JWT:";
@@ -31,6 +33,7 @@ public class JwtTokenUtils {
     public static final String secret = "@#vws##35SW324";
     private static final Algorithm algorithm = Algorithm.HMAC256(secret);
     private static final JWTVerifier verifier;
+
     static {
         verifier = JWT.require(algorithm).withIssuer(ISS).build();
     }
@@ -39,7 +42,7 @@ public class JwtTokenUtils {
     /**
      * 生成Token
      */
-    public static String createToken(String name, String id, String role) {
+    public static String createToken(String id, String data) {
         String token = JWT.create()
                 .withIssuer(ISS)
                 .withSubject(SUB)
@@ -47,21 +50,20 @@ public class JwtTokenUtils {
                 .withNotBefore(new Date())
                 .withIssuedAt(new Date())
                 .withJWTId(id)
-                .withClaim("name", name)
-                .withClaim("role", role)
+                .withClaim("claim", data)
                 .sign(algorithm);
         return token;
     }
 
-    /**
-     * 获取名称
-     *
-     * @param token
-     * @return
-     */
-    public static String getName(String token) {
-        DecodedJWT jwt = verifier.verify(token);
-        return jwt.getClaim("name").asString();
+    public static String getClaim(String token) {
+        try {
+            DecodedJWT jwt = verifier.verify(token);
+            String claim = jwt.getClaim("claim").asString();
+            return claim;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -76,18 +78,8 @@ public class JwtTokenUtils {
     }
 
     /**
-     * 获取角色
-     *
-     * @param token
-     * @return
-     */
-    public static String getRole(String token) {
-        DecodedJWT jwt = verifier.verify(token);
-        return jwt.getClaim("role").asString();
-    }
-
-    /**
      * 验证token
+     *
      * @param token
      * @return
      */
