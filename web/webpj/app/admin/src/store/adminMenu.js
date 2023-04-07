@@ -159,9 +159,9 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     routeName: 'adminPower'
                 },
                 {
-                    name: '权限分配',
+                    name: '部门管理',
                     icon: 'md-settings',
-                    routeName: 'adminPower'
+                    routeName: 'department'
                 },
                 {
                     name: '角色管理',

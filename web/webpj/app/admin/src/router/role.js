@@ -7,9 +7,9 @@ export const role = {
             name: 'user'
         },
         {
-            path: 'AdminPower',
+            path: 'department',
             component: import('@/views/role/AdminPower.vue'),
-            name: 'adminPower'
+            name: 'department'
         },
         {
             path: 'role',
