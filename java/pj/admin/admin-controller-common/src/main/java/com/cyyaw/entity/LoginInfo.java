@@ -26,4 +26,5 @@ public class LoginInfo {
 
     private String trueName;
 
+    private String role;
 }

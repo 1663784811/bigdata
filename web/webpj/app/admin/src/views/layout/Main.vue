@@ -19,6 +19,12 @@ import LogoBox from "@/views/layout/LogoBox.vue";
 import TopMenuBox from "@/views/layout/TopMenuBox.vue";
 import TopUserInfo from "@/views/layout/TopUserInfo.vue";
 import LeftMenu from "@/views/layout/LeftMenu.vue";
+import {userInfo} from "@/api/api.js"
+
+userInfo({}).then((rest) => {
+  console.log(rest);
+
+})
 
 
 </script>

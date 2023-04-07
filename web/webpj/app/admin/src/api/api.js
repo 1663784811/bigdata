@@ -42,13 +42,17 @@ export const pageSetting = async (parameter) => {
 /**
  * 登录
  */
-export const logInFn =  async (parameter) => {
+export const logInFn = async (parameter) => {
     return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
 }
 
+export const userInfo = async (parameter) => {
+    return asyncREQUEST(`${baseUrl}/admin/user/info`, parameter, 0, "get")
+}
+
 /**
- *
+ * 获取企业信息
  */
-export const enterpriseFindPage = (parameter) =>{
+export const enterpriseFindPage = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
 }

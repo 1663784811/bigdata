@@ -107,16 +107,16 @@ public class InitApplication {
             admin.setNote("");
             admin.setEnterpriseId(enterpriseId);
             admin.setAccount(account);
-            admin.setCanlogintime(new Date());
+            admin.setCanLoginTime(new Date());
             admin.setEmail("");
             admin.setIp("127.0.0.1");
-            admin.setLastlogintime(new Date());
-            admin.setNickname("");
+            admin.setLastLoginTime(new Date());
+            admin.setNickName("");
             admin.setPassword("");
             admin.setPhone("12345678900");
             admin.setSalt("");
             admin.setStatus(0);
-            admin.setTruename("");
+            admin.setTrueName("");
             tAdminDao.save(admin);
         }
     }

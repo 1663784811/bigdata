@@ -1,8 +1,10 @@
 package com.cyyaw.service.admin.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.config.exception.WebException;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.AuthToken;
+import com.cyyaw.entity.LoginInfo;
 import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.service.admin.TAdminService;
 import com.cyyaw.table.admin.dao.TAdminDao;
@@ -182,7 +184,7 @@ public class LoginServiceImpl implements LoginService {
             }
         }
         // 第四步: 生成jwt
-        String token = JwtTokenUtils.createToken(account, tid, sb.toString());
+        String token = JwtTokenUtils.createToken(account, "");
         AuthToken authToken = new AuthToken();
         authToken.setUUser(user);
         authToken.setJwtToken(token);
@@ -215,8 +217,19 @@ public class LoginServiceImpl implements LoginService {
                 }
             }
         }
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setId(tAdmin.getId());
+        loginInfo.setTid(tAdmin.getTid());
+        loginInfo.setEnterpriseId(tAdmin.getEnterpriseId());
+        loginInfo.setAccount(tAdmin.getAccount());
+        loginInfo.setEmail(tAdmin.getEmail());
+        loginInfo.setNickName(tAdmin.getNickName());
+        loginInfo.setPhone(tAdmin.getPhone());
+        loginInfo.setStatus(tAdmin.getStatus());
+        loginInfo.setTrueName(tAdmin.getTrueName());
+        loginInfo.setRole(sb.toString());
         // 第四步: 生成jwt
-        String token = JwtTokenUtils.createToken(account, tid, sb.toString());
+        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
         AdminAuthToken authToken = new AdminAuthToken();
         authToken.setTAdmin(tAdmin);
         authToken.setJwtToken(token);

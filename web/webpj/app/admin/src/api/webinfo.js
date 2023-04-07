@@ -119,7 +119,7 @@ export const asyncREQUEST = async function (url, _params = {}, serializer = 0, r
  * @returns {{Accept: string, "Content-Type": string, token: *}}
  */
 export const GETHEADER = function () {
-    let token = '';
+    let token = 'ss';
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
