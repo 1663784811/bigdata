@@ -188,15 +188,19 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
         }
     }
 
-    apiAdminMenu({}).then((res) => {
-        topMenu.value.push(...res.data);
-    })
+    const loadMenu= ()=>{
+        apiAdminMenu({}).then((res) => {
+            topMenu.value.push(...res.data);
+        })
+    }
+
 
 
     return {
         topMenu,
         nowMenu,
         setNowMenu,
-        leftMenu
+        leftMenu,
+        loadMenu
     }
 })
