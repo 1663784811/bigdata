@@ -20,10 +20,26 @@ import TopMenuBox from "@/views/layout/TopMenuBox.vue";
 import TopUserInfo from "@/views/layout/TopUserInfo.vue";
 import LeftMenu from "@/views/layout/LeftMenu.vue";
 import {userInfo} from "@/api/api.js"
+import {loginInfo} from "@/store/loginInfo.js"
+import {onMounted, ref} from 'vue';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
+
 
 userInfo({}).then((rest) => {
   console.log(rest);
 
+})
+onMounted(() => {
+  if (!loginInfo().token) {
+    router.replace({
+      name: 'login',
+      query:{
+        eCode: 'aaa'
+      }
+    })
+  }
 })
 
 

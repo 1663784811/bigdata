@@ -28,6 +28,7 @@ import {onMounted, ref} from 'vue';
 import AccountFooter from "./AccountFooter.vue"
 import {useRouter, useRoute} from "vue-router";
 import {logInFn, enterpriseFindPage} from "@/api/api.js"
+import {loginInfo} from "@/store/loginInfo.js"
 
 const router = useRouter();
 const route = useRoute();
@@ -70,9 +71,16 @@ const clickLogin = function () {
   loginParams.enterpriseId = enterprise.value.tid;
   logInFn(loginParams).then((res) => {
     console.log("===============", res);
-    router.push({
-      path: "/"
-    })
+    if (res.data) {
+      const {jwtToken} = res.data;
+      // 设置token
+      loginInfo().token = jwtToken;
+      router.push({
+        path: "/"
+      })
+    }
+
+
   }).catch((err) => {
     console.log(err)
   });

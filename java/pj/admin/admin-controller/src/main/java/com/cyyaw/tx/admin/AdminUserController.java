@@ -1,13 +1,14 @@
 package com.cyyaw.tx.admin;
-import com.cyyaw.service.admin.TAdminService;
-import com.cyyaw.table.admin.entity.TAdmin;
-import com.google.common.collect.Lists;
 
+import com.cyyaw.config.filter.ThreadLocalContext;
 import com.cyyaw.entity.AdminAuthToken;
+import com.cyyaw.entity.LoginInfo;
 import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.service.admin.AdminUserService;
+import com.cyyaw.service.admin.TAdminService;
 import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.util.tools.BaseResult;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,9 @@ public class AdminUserController {
     @GetMapping(value = "/info")
     public BaseResult info() {
 //        AdminAuthToken authToken = getAdminInfo();
-        String adminId = "";
+
+        LoginInfo loginInfo = ThreadLocalContext.getLoginInfo();
+        String adminId = loginInfo.getTid();
 
 //        tAdminService.findById(j);
 
@@ -60,20 +63,6 @@ public class AdminUserController {
         List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId);
         return BaseResult.ok(arr);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

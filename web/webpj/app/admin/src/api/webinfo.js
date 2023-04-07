@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "qs";
+import {loginInfo} from "@/store/loginInfo.js"
 
 
 /**
@@ -119,7 +120,7 @@ export const asyncREQUEST = async function (url, _params = {}, serializer = 0, r
  * @returns {{Accept: string, "Content-Type": string, token: *}}
  */
 export const GETHEADER = function () {
-    let token = 'ss';
+    let token = loginInfo().token;
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=UTF-8',
