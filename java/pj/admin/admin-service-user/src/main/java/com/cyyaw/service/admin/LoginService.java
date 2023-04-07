@@ -22,7 +22,7 @@ public interface LoginService {
      * @param account
      * @return
      */
-    TAdmin getLoignInfo(String account, String enterpriseId);
+    TAdmin getLoginInfo(String account, String enterpriseId);
 
     /**
      * 获取角色列表

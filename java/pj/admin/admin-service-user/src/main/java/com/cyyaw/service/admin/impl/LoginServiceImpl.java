@@ -63,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public TAdmin getLoignInfo(String account, String enterpriseId) {
+    public TAdmin getLoginInfo(String account, String enterpriseId) {
         List<TAdmin> tAdmins = tAdminDao.getLoignInfo(account, enterpriseId);
         if (tAdmins == null || tAdmins.size() == 0) {
             WebException.fail("账号不存在");
