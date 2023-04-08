@@ -4,6 +4,7 @@ export const cPage = {
             queryRequest: {
                 url: '/admin/config/page/findPage',
                 parameter: {
+
                 }
             },
             saveRequest: {
