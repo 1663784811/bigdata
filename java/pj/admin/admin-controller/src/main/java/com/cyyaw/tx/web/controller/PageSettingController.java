@@ -1,9 +1,13 @@
 package com.cyyaw.tx.web.controller;
 
 
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.cyyaw.service.sql.CPageService;
+import com.cyyaw.table.config.entity.CPage;
 import com.cyyaw.tx.web.service.GGoodsService;
 import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.PageRespone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +21,20 @@ public class PageSettingController {
     @Autowired
     private GGoodsService gGoodsService;
 
+    @Autowired
+    private CPageService cPageService;
+
+    /**
+     * 分页条件查询
+     */
+    @GetMapping("/findPage")
+    public BaseResult<CPage> findPageCPage(@RequestParam Map<String, Object> map) {
+        PageRespone<CPage> page = cPageService.findPage(new JSONObject(map));
+        return BaseResult.ok(page);
+    }
+
     @GetMapping("/pageSetting")
-    public BaseResult saveGoods(@PathVariable Map<String,Object> map){
+    public BaseResult saveGoods(@PathVariable Map<String, Object> map) {
         String data = "{    commonTable: {\n" +
                 "        requestObj: {\n" +
                 "            queryRequest: {\n" +
@@ -94,10 +110,8 @@ public class PageSettingController {
                 "        }\n" +
                 "    }}";
 
-       return BaseResult.ok(JSONUtil.parseObj(data));
+        return BaseResult.ok(JSONUtil.parseObj(data));
     }
-
-
 
 
 }
