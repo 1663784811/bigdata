@@ -7,6 +7,7 @@ import com.cyyaw.service.sql.CPageService;
 import com.cyyaw.table.config.entity.CPage;
 import com.cyyaw.table.config.entity.CPageComponents;
 import com.cyyaw.util.tools.BaseResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import java.util.Map;
 @RestController
 public class PageSettingController {
 
+    @Autowired
     private CPageService cPageService;
 
 

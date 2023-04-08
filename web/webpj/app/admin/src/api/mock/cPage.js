@@ -8,11 +8,11 @@ export const cPage = {
                 }
             },
             saveRequest: {
-                url: '/admin/common/sql/saveSql',
+                url: '/admin/config/page/saveCPage',
 
             },
             delRequest: {
-                url: '/admin/common/sql/delSql',
+                url: '/admin/config/page/delCPage',
             }
         },
         search: {
@@ -29,42 +29,197 @@ export const cPage = {
 
             columns: [
                 {
-                    key: 'name',
-                    name: '名称',
-                    type: 'input',
-                    note: '名称备注'
-                },
-                {
-                    key: 'name1',
-                    name: '名称1',
-                    type: 'input',
-                    note: '名称备注'
-                },
-                {
-                    key: 'name2',
-                    name: '名称2',
-                    type: 'input',
-                    note: '名称备注'
+                    "width":60,
+                    "key":"id",
+                    "title":"id",
+                    "type":"selection",
+                    "length":10,
+                    "controltype":"hidden",
+                    "max":"",
+                    "min":"",
+                    "isshowcolumn":true,
+                    "javawhere":"equals",
+                    "javatype":"integer"
+                }
+                ,{
+                    "key":"create_time",
+                    "title":"创建时间",
+                    "length":19,
+                    "controltype":"datetime",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"equals",
+                    "javatype":"date"
+                }
+                ,{
+                    "key":"del",
+                    "title":"是否删除",
+                    "length":10,
+                    "controltype":"integer",
+                    "max":"",
+                    "min":"",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "filters": [
+                        {
+                            "value":0,
+                            "label":"否"
+                        }
+                        ,{
+                            "value":1,
+                            "label":"是"
+                        }
+                    ],
+                    "javawhere":"equals",
+                    "javatype":"integer"
+                }
+                ,{
+                    "key":"name",
+                    "title":"名称",
+                    "length":32,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
+                    "key":"note",
+                    "title":"备注",
+                    "length":255,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
+                    "key":"page_code",
+                    "title":"pageCode",
+                    "length":32,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
+                    "key":"page_icon",
+                    "title":"图标",
+                    "length":65535,
+                    "controltype":"textarea",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
+                    "key":"tid",
+                    "title":"tid",
+                    "length":32,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
                 }
             ]
         },
         columns: [
             {
-                title: 'ID',
-                key: 'tid',
-                width: 250
-            },
-            {
-                title: '账号',
-                key: 'account'
-            },
-            {
-                title: '分类',
-                key: 'type'
-            },
-            {
-                title: '备注',
-                key: 'tags'
+                "width":60,
+                "key":"id",
+                "title":"id",
+                "type":"selection",
+                "length":10,
+                "controltype":"hidden",
+                "max":"",
+                "min":"",
+                "isshowcolumn":true,
+                "javawhere":"equals",
+                "javatype":"integer"
+            }
+            ,{
+                "key":"create_time",
+                "title":"创建时间",
+                "length":19,
+                "controltype":"datetime",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"equals",
+                "javatype":"date"
+            }
+            ,{
+                "key":"del",
+                "title":"是否删除",
+                "length":10,
+                "controltype":"integer",
+                "max":"",
+                "min":"",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "filters": [
+                    {
+                        "value":0,
+                        "label":"否"
+                    }
+                    ,{
+                        "value":1,
+                        "label":"是"
+                    }
+                ],
+                "javawhere":"equals",
+                "javatype":"integer"
+            }
+            ,{
+                "key":"name",
+                "title":"名称",
+                "length":32,
+                "controltype":"input",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"like",
+                "javatype":"string"
+            }
+            ,{
+                "key":"note",
+                "title":"备注",
+                "length":255,
+                "controltype":"input",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"like",
+                "javatype":"string"
+            }
+            ,{
+                "key":"page_code",
+                "title":"pageCode",
+                "length":32,
+                "controltype":"input",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"like",
+                "javatype":"string"
+            }
+            ,{
+                "key":"page_icon",
+                "title":"图标",
+                "length":65535,
+                "controltype":"textarea",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"like",
+                "javatype":"string"
+            }
+            ,{
+                "key":"tid",
+                "title":"tid",
+                "length":32,
+                "controltype":"input",
+                "isshowcolumn":true,
+                "iswhere":true,
+                "javawhere":"like",
+                "javatype":"string"
             }
         ],
         operation: {

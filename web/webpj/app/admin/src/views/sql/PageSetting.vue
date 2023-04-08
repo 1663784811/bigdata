@@ -10,6 +10,16 @@
     />
 
 
+    <div class="pageConfig">
+      <div class="cList">
+        <div>通用表格</div>
+      </div>
+      <div class="dataBox">
+        sessees
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -38,11 +48,18 @@ const tableData = ref({
 })
 
 
-
-
-
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.pageConfig {
+  display: flex;
 
+  .cList {
+    width: 200px;
+  }
+
+  .dataBox {
+
+  }
+}
 </style>
