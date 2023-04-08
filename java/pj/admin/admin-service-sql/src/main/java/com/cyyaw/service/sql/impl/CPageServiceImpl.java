@@ -6,6 +6,7 @@ import com.cyyaw.service.sql.CPageComponentsService;
 import com.cyyaw.service.sql.CPageService;
 import com.cyyaw.table.config.dao.CPageDao;
 import com.cyyaw.table.config.entity.CPage;
+import com.cyyaw.table.config.entity.CPageComponents;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -35,11 +36,14 @@ public class CPageServiceImpl extends BaseService<CPage, Integer> implements CPa
         cPage.setTid(tid);
         Example<CPage> example = Example.of(cPage);
         List<CPage> all = cPageDao.findAll(example);
-        if(all.size()>0){
+        if (all.size() > 0) {
             CPage cPage1 = all.get(0);
             String tid1 = cPage1.getTid();
-            cPageComponentsService.findByPageId(tid1);
-
+            CPageComponents ex = new CPageComponents();
+            ex.setPageId(tid1);
+            List<CPageComponents> cPageComponentsList = cPageComponentsService.findByExample(ex);
+            cPage1.setComponents(cPageComponentsList);
+            return cPage1;
         }
         return null;
     }
