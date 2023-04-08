@@ -6,6 +6,7 @@ import {power} from "@/api/mock/power.js";
 import {user} from "@/api/mock/user.js";
 import {enterprise} from "@/api/mock/enterprise.js";
 import {store} from "@/api/mock/store.js";
+import {cPage} from "@/api/mock/cPage.js";
 import {pageSetting} from "@/api/api.js";
 
 
@@ -16,7 +17,8 @@ export const pageConfig = defineStore('pageConfig', () => {
         power,
         user,
         enterprise,
-        store
+        store,
+        cPage
     })
     const getPageConfig = (pageCode) => {
         let codeData = pageConfigList.value[pageCode]

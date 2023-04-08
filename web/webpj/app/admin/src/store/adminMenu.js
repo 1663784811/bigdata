@@ -35,7 +35,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                 {
                     name: '页面配置',
                     icon: 'md-settings',
-                    routeName: 'CommonTablePage',
+                    routeName: 'pageSetting',
                     query: {
                         pageId: "pageConfig",
                     },

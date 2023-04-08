@@ -6,5 +6,10 @@ export const sql = {
             component: import('@/views/sql/Config.vue'),
             name: 'sqlConfig'
         },
+        {
+            path: 'pageSetting',
+            component: import('@/views/sql/PageSetting.vue'),
+            name: 'pageSetting'
+        }
     ]
 }
