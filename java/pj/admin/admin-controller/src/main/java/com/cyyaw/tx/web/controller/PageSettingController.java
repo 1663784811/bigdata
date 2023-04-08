@@ -31,21 +31,25 @@ public class PageSettingController {
         JSONObject json = new JSONObject(map);
         String pageId = json.getStr("pageId");
         CPage cPage = cPageService.findByTid(pageId);
-        JSONObject rest = new JSONObject();
-        rest.set("page", cPage);
-        JSONArray jsonList = new JSONArray();
-        List<CPageComponents> components = cPage.getComponents();
-        for (int i = 0; i < components.size(); i++) {
-            CPageComponents cPageComponents = components.get(i);
-            String data = cPageComponents.getData();
-            JSONObject componentsJson = new JSONObject();
-            JSONObject jsonData = new JSONObject(data);
-            componentsJson.set("componentsData", jsonData);
-            componentsJson.set("components", cPageComponents);
-            jsonList.add(componentsJson);
+        if (null != cPage) {
+            JSONObject rest = new JSONObject();
+            rest.set("page", cPage);
+            JSONArray jsonList = new JSONArray();
+            List<CPageComponents> components = cPage.getComponents();
+            for (int i = 0; i < components.size(); i++) {
+                CPageComponents cPageComponents = components.get(i);
+                String data = cPageComponents.getData();
+                JSONObject componentsJson = new JSONObject();
+                JSONObject jsonData = new JSONObject(data);
+                componentsJson.set("componentsData", jsonData);
+                componentsJson.set("components", cPageComponents);
+                jsonList.add(componentsJson);
+            }
+            rest.set("componentsList", jsonList);
+            return BaseResult.ok(rest);
+        } else {
+            return BaseResult.fail("找不到页面数据");
         }
-        rest.set("componentsList", jsonList);
-        return BaseResult.ok(rest);
     }
 
 
