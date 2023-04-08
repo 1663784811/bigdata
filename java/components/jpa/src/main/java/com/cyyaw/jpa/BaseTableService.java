@@ -9,6 +9,8 @@ public interface BaseTableService<T, D> {
 
     List<T> findAll(JSONObject json);
 
+    List<T> findByExample(T t);
+
     PageRespone<T> findPage(JSONObject json);
 
     T findId(D id);

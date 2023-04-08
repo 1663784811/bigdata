@@ -1,7 +1,9 @@
 package com.cyyaw.tx.web.controller;
 
 
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.cyyaw.service.sql.CPageService;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +17,18 @@ import java.util.Map;
 @RestController
 public class PageSettingController {
 
+    private CPageService cPageService;
+
 
     @GetMapping("/pageSetting")
     public BaseResult saveGoods(@PathVariable Map<String, Object> map) {
+        JSONObject json = new JSONObject(map);
+        String pageId = json.getStr("pageId");
+        cPageService.findByTid(pageId);
+
+
+
+
         String data = "{    commonTable: {\n" +
                 "        requestObj: {\n" +
                 "            queryRequest: {\n" +

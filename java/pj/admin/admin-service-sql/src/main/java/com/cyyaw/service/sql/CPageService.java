@@ -5,5 +5,6 @@ import com.cyyaw.table.config.entity.CPage;
 
 public interface CPageService extends BaseTableService<CPage, Integer> {
 
+    CPage findByTid(String tid);
 
 }

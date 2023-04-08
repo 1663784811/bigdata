@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -50,4 +51,11 @@ public class CPage implements Serializable {
     @Basic
     @Column(name = "page_code", columnDefinition = "varchar(32) not null COMMENT 'pageCode'")
     private String pageCode;
+
+
+    // ==================================================
+    // 组件列表
+    @Transient
+    private List<CPageComponents> components;
+
 }

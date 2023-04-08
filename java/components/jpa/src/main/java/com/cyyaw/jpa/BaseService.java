@@ -3,6 +3,7 @@ package com.cyyaw.jpa;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.jpa.util.tools.JpaUtils;
 import com.cyyaw.util.tools.PageRespone;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,11 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
         } else {
             return getBaseDao().findAll(sp);
         }
+    }
+
+    public List<T> findByExample(T t){
+        Example<T> example = Example.of(t);
+        return getBaseDao().findAll(example);
     }
 
     @Override
