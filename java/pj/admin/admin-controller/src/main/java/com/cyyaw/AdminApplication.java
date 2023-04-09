@@ -54,6 +54,7 @@ public class AdminApplication {
 
 //        application.loadTable(application.dataSource);
 //        application.loadTable(application.dataSourceConfig, "c_page");
+        application.loadTable(application.dataSourceConfig, "c_page_components");
 
 
     }

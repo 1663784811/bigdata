@@ -19,15 +19,17 @@
         <div>
           类型:
           <Select style="width:200px">
-            <Option>AA</Option>
-            <Option>BB</Option>
-            <Option>CC</Option>
-            <Option>DD</Option>
+            <Option value="通用表格" key="commonTable"/>
           </Select>
         </div>
         <div>
           数据:<Input size="large" placeholder="large size"/>
         </div>
+
+        <div class="componentBox">
+          <CommonTableBox />
+        </div>
+
       </div>
     </div>
 
@@ -40,6 +42,7 @@ import {ref} from "vue";
 
 
 import CommonTable from '@/component/CommonTable.vue'
+import CommonTableBox from './CommonTableBox.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {findIdCPageComponents} from '@/api/api.js'
 
@@ -89,7 +92,7 @@ const findIdCPageComponentsFn = (id) => {
   }
 
   .dataBox {
-
+      width: 100%;
   }
 }
 </style>

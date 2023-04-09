@@ -56,3 +56,7 @@ export const userInfo = async (parameter) => {
 export const enterpriseFindPage = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
 }
+
+export const findIdCPageComponents = (parameter)=>{
+    return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, parameter, 0)
+}
