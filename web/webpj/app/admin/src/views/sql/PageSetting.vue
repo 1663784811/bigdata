@@ -7,6 +7,7 @@
         :operation="tableData.operation"
         :save-columns="tableData.saveColumns"
         :request-obj="tableData.requestObj"
+        @event="eventFn"
     />
 
 
@@ -15,9 +16,19 @@
         <div>通用表格</div>
       </div>
       <div class="dataBox">
-        sessees
+        <div>
+          类型:
+          <Select style="width:200px">
+            <Option>AA</Option>
+            <Option>BB</Option>
+            <Option>CC</Option>
+            <Option>DD</Option>
+          </Select>
+        </div>
+        <div>
+          数据:<Input size="large" placeholder="large size"/>
+        </div>
       </div>
-
     </div>
 
   </div>
@@ -30,6 +41,7 @@ import {ref} from "vue";
 
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
+import {findIdCPageComponents} from '@/api/api.js'
 
 
 const usePageConfig = pageConfig();
@@ -46,6 +58,24 @@ const tableData = ref({
   requestObj: commonTable.requestObj,
   data: []
 })
+
+/**
+ * 事件
+ */
+const eventFn = (eventData) => {
+  console.log("sssssssssssssssssssssssss", eventData)
+  findIdCPageComponentsFn(eventData.tid);
+}
+
+/**
+ * 加载数据
+ */
+
+const findIdCPageComponentsFn = (id) => {
+  findIdCPageComponents({id}).then((rest) => {
+    console.log(rest)
+  })
+}
 
 
 </script>

@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.util.ObjectUtils;
+import org.springframework.beans.BeanUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class ${__Table__}Controller {
      * 根据ID查询
      */
     @GetMapping("/findId${__Table__}")
-    public BaseResult findId${__Table__}(String id) {
+    public BaseResult findId${__Table__}(${__pkJava__} id) {
         ${__Table__} obj = ${__table__}Service.findId(id);
         return BaseResult.ok(obj);
     }

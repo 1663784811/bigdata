@@ -14,12 +14,15 @@
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
-      <Table border ref="selection"
+      <Table ref="selection"
+             border
              highlight-row
+             stripe
              :columns="tableConfig.columns"
              :data="tableConfig.data"
              :loading="tableConfig.loading"
              @on-row-click="selectData"
+             @on-selection-change="selectDataChange"
       >
         <template #operation="{ row, index }">
           <Button size="small" v-if="operation.show" type="info"
@@ -71,11 +74,11 @@
 </template>
 
 <script setup>
-import {ref, watch, defineEmits} from "vue"
+import {defineEmits, ref, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 
-const emits = defineEmits(['message']);
+const emits = defineEmits(['event']);
 
 const props = defineProps({
   searchColumns: {
@@ -175,7 +178,11 @@ const selectData = (row, index) => {
       dataArr[i]._checked = true
     }
   }
-  emits('send-data', row);
+  emits('event', row);
+}
+
+const selectDataChange = (rows) => {
+  console.log(rows)
 }
 
 // ======================================================
@@ -222,6 +229,8 @@ const selectTableData = (row, index, editor) => {
 }
 
 const delSelect = () => {
+
+
   delTableDataFn([])
 }
 
