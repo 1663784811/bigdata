@@ -14,8 +14,13 @@
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
-      <Table border ref="selection" :columns="tableConfig.columns" :data="tableConfig.data"
-             :loading="tableConfig.loading">
+      <Table border ref="selection"
+             highlight-row
+             :columns="tableConfig.columns"
+             :data="tableConfig.data"
+             :loading="tableConfig.loading"
+             @on-row-click="selectData"
+      >
         <template #operation="{ row, index }">
           <Button size="small" v-if="operation.show" type="info"
                   @click="selectTableData(row,index,true)"
@@ -66,9 +71,11 @@
 </template>
 
 <script setup>
-import {ref, watch} from "vue"
+import {ref, watch, defineEmits} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
+
+const emits = defineEmits(['message']);
 
 const props = defineProps({
   searchColumns: {
@@ -157,6 +164,19 @@ const saveData = ref({
   columns: [],
   data: {}
 });
+
+// ======================================================
+const selectData = (row, index) => {
+  const dataArr = tableConfig.value.data;
+  for (let i = 0; i < dataArr.length; i++) {
+    if (i != index) {
+      dataArr[i]._checked = false
+    } else {
+      dataArr[i]._checked = true
+    }
+  }
+  emits('send-data', row);
+}
 
 // ======================================================
 /**

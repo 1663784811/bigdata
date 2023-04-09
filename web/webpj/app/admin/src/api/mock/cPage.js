@@ -42,7 +42,7 @@ export const cPage = {
                     "javatype":"integer"
                 }
                 ,{
-                    "key":"create_time",
+                    "key":"createTime",
                     "title":"创建时间",
                     "length":19,
                     "controltype":"datetime",
@@ -94,7 +94,7 @@ export const cPage = {
                     "javatype":"string"
                 }
                 ,{
-                    "key":"page_code",
+                    "key":"pageCode",
                     "title":"pageCode",
                     "length":32,
                     "controltype":"input",
@@ -104,7 +104,7 @@ export const cPage = {
                     "javatype":"string"
                 }
                 ,{
-                    "key":"page_icon",
+                    "key":"pageIcon",
                     "title":"图标",
                     "length":65535,
                     "controltype":"textarea",
@@ -140,7 +140,7 @@ export const cPage = {
                 "javatype":"integer"
             }
             ,{
-                "key":"create_time",
+                "key":"createTime",
                 "title":"创建时间",
                 "length":19,
                 "controltype":"datetime",
@@ -192,7 +192,7 @@ export const cPage = {
                 "javatype":"string"
             }
             ,{
-                "key":"page_code",
+                "key":"pageCode",
                 "title":"pageCode",
                 "length":32,
                 "controltype":"input",
@@ -202,7 +202,7 @@ export const cPage = {
                 "javatype":"string"
             }
             ,{
-                "key":"page_icon",
+                "key":"pageIcon",
                 "title":"图标",
                 "length":65535,
                 "controltype":"textarea",
