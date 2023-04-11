@@ -86,7 +86,13 @@ public class DataBaseUtils {
                 } else if (type.indexOf("decimal") != -1) {
                     list.add(RandomUtil.randomInt());
                 } else {
-                    list.add(RandomUtil.randomString(10));
+                    // varchar()
+                    Integer length = 10;
+                    if (type.indexOf("varchar(") != -1) {
+                        Integer integer = Integer.valueOf(type.substring("varchar(".length(), type.indexOf(")")));
+                        length = (int)Math.floor(integer * 0.75);
+                    }
+                    list.add(RandomUtil.randomString(length));
                 }
             }
         }

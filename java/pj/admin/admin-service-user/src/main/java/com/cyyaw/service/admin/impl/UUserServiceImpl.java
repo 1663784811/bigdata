@@ -2,6 +2,8 @@ package com.cyyaw.service.admin.impl;
 
 
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.service.admin.UUserService;
 import com.cyyaw.table.admin.dao.UUserDao;
 import com.cyyaw.table.admin.entity.UUser;
@@ -15,14 +17,14 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-public class UUserServiceImpl implements UUserService {
+public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUserService {
 
     @Autowired
     private UUserDao uUserDao;
 
     @Override
-    public UUser save(UUser uUser) {
-        return uUserDao.save(uUser);
+    public BaseDao getBaseDao() {
+        return uUserDao;
     }
 
     @Override

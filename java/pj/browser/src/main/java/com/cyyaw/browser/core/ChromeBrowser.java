@@ -28,6 +28,7 @@ public class ChromeBrowser implements Browser {
         chromeOptions.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
         //chromeOptions.addArguments("--headless"); //无头浏览器，这样不会打开浏览器窗口
         chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--disable-gpu");
         // --remote-debugging-port=9222
         driver = new ChromeDriver(chromeOptions);
 

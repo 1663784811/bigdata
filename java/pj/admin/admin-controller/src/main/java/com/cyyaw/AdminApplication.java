@@ -27,6 +27,11 @@ public class AdminApplication {
     @Qualifier("configDataSource")
     private DataSource dataSourceConfig;
 
+    @Autowired
+    @Qualifier("adminDataSource")
+    private DataSource adminDataSource;
+
+
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(AdminApplication.class, args);
@@ -54,7 +59,9 @@ public class AdminApplication {
 
 //        application.loadTable(application.dataSource);
 //        application.loadTable(application.dataSourceConfig, "c_page");
-        application.loadTable(application.dataSourceConfig, "c_page_components");
+//        application.loadTable(application.dataSourceConfig, "c_page_components");
+
+        application.loadTable(application.adminDataSource, "u_user");
 
 
     }
