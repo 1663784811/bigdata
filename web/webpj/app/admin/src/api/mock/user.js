@@ -2,20 +2,17 @@ export const user = {
     commonTable: {
         requestObj: {
             queryRequest: {
-                url: '/admin/common/query',
-                parameter: {
-                    code: 'select_power'
-                }
+                url: '/admin/uuser/findPage'
             },
             saveRequest: {
-                url: '/admin/common/save',
+                url: '/admin/uuser/findIdUUser',
                 parameter: {
                     table: 't_power',
                     data: []
                 }
             },
             delRequest: {
-                url: '/admin/common/sql/delSql',
+                url: '/admin/uuser/delUUser',
             }
         },
         search: {
