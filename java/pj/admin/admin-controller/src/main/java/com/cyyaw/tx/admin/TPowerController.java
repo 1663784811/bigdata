@@ -1,9 +1,12 @@
 package com.cyyaw.tx.admin;
 
+import cn.hutool.json.JSONObject;
+import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.service.admin.TPowerService;
 import com.cyyaw.table.admin.entity.TPower;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
+import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -28,7 +32,17 @@ public class TPowerController {
     @GetMapping("/findPage")
     public BaseResult<TPower> findPageTPower(@RequestParam Map<String, Object> map) {
         PageRespone<TPower> page = tPowerService.findPage(new JSONObject(map));
-        return BaseResult.ok(page);
+        List<TPower> powers = page.getContent();
+        TreeEntity treeEntity = new TreeEntity();
+        for (TPower tpower : powers) {
+            TreeEntity.Node<TPower> node = new TreeEntity.Node<TPower>();
+            node.setTid(tpower.getTid());
+            node.setData(tpower);
+            node.setName(tpower.getName());
+            node.setPid(tpower.getPid());
+            treeEntity.add(node);
+        }
+        return BaseResult.ok(treeEntity);
     }
 
     /**
@@ -51,7 +65,7 @@ public class TPowerController {
         if (ObjectUtils.isEmpty(id)) {
             //添加
             saveObj.setCreateTime(new Date());
-            saveObj.setId(IdWorker.nextId());
+            saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);
             obj = tPowerService.save(saveObj);
         } else {
