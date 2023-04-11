@@ -10,6 +10,8 @@
     />
 
 
+    <Tree :data="data" :render="renderContent" class="demo-tree-render"></Tree>
+
   </div>
 </template>
 

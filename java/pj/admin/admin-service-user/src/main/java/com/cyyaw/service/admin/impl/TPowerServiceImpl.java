@@ -1,6 +1,8 @@
 package com.cyyaw.service.admin.impl;
 
 import com.cyyaw.entity.tablecode.PowerCode;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.service.admin.TPowerService;
 import com.cyyaw.table.admin.dao.TPowerDao;
 import com.cyyaw.table.admin.entity.TPower;
@@ -16,10 +18,15 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-public class TPowerServiceImpl implements TPowerService {
+public class TPowerServiceImpl extends BaseService<TPower, Integer> implements TPowerService {
 
     @Autowired
     private TPowerDao tPowerDao;
+
+    @Override
+    public BaseDao getBaseDao() {
+        return tPowerDao;
+    }
 
     @Override
     public List<TPower> findAdminPower(String tid) {
