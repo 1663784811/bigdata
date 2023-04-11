@@ -1,5 +1,7 @@
 package com.cyyaw.service.admin.impl;
 
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.service.admin.TAdminService;
 import com.cyyaw.table.admin.dao.TAdminDao;
 import com.cyyaw.table.admin.entity.TAdmin;
@@ -12,15 +14,16 @@ import java.util.Date;
 
 
 @Service
-public class TAdminServiceImpl implements TAdminService {
+public class TAdminServiceImpl extends BaseService<TAdmin, Integer> implements TAdminService {
 
     @Autowired
     private TAdminDao tAdminDao;
 
     @Override
-    public TAdmin findById(Integer id) {
-        return tAdminDao.findByid(id);
+    public BaseDao getBaseDao() {
+        return tAdminDao;
     }
+
 
     @Override
     public TAdmin findByTid(String tid) {
