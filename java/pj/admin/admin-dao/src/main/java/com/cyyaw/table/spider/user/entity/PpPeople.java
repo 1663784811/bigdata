@@ -64,7 +64,7 @@ public class PpPeople implements Serializable {
     private Integer fans;
 
     @Basic
-    @Column(name = "describe", columnDefinition = "text COMMENT '描述'")
+    @Column(name = "[describe]", columnDefinition = "text COMMENT '描述'")
     private String describe;
 
     @Basic
