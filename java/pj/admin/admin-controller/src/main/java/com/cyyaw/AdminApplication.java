@@ -62,7 +62,7 @@ public class AdminApplication {
 //        application.loadTable(application.dataSourceConfig, "c_page_components");
 
 //        application.loadTable(application.adminDataSource, "u_user");
-        application.loadTable(application.adminDataSource, "t_power");
+//        application.loadTable(application.adminDataSource, "t_power");
 
 
     }

@@ -42,11 +42,34 @@ public class PpPeople implements Serializable {
     private String name;
 
     @Basic
+    @Column(name = "gender", columnDefinition = "varchar(5) COMMENT '性别'")
+    private String gender;
+
+    @Basic
     @Column(name = "birthday", columnDefinition = "datetime COMMENT '生日'")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
 
+    @Basic
+    @Column(name = "face", columnDefinition = "varchar(255) COMMENT '头像'")
+    private String face;
+
+    @Basic
+    @Column(name = "follow", columnDefinition = "int COMMENT '关注'")
+    private Integer follow;
+
+    @Basic
+    @Column(name = "fans", columnDefinition = "int COMMENT '关注'")
+    private Integer fans;
+
+    @Basic
+    @Column(name = "describe", columnDefinition = "text COMMENT '描述'")
+    private String describe;
+
+    @Basic
+    @Column(name = "email", columnDefinition = "varchar(255) COMMENT '邮箱'")
+    private String email;
 
 
 }
