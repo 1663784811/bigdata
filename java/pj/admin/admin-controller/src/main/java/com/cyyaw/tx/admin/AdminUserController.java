@@ -1,6 +1,5 @@
 package com.cyyaw.tx.admin;
 
-import com.cyyaw.config.filter.ThreadLocalContext;
 import com.cyyaw.entity.AdminAuthToken;
 import com.cyyaw.entity.LoginInfo;
 import com.cyyaw.entity.TreeEntity;
@@ -32,20 +31,13 @@ public class AdminUserController {
      * @return
      */
     @GetMapping(value = "/info")
-    public BaseResult info() {
+    public BaseResult info(LoginInfo loginInfo) {
 //        AdminAuthToken authToken = getAdminInfo();
-
-        LoginInfo loginInfo = ThreadLocalContext.getLoginInfo();
         String adminId = loginInfo.getTid();
-
 //        tAdminService.findById(j);
-
         AdminAuthToken authToken = new AdminAuthToken();
         authToken.setJwtToken("");
-
 //        authToken.setTAdmin();
-
-
         authToken.setAuthList(Lists.newArrayList());
         authToken.setRoleList(Lists.newArrayList());
         return BaseResult.ok(authToken);

@@ -87,4 +87,9 @@ public class LoginController {
     }
 
 
+    @GetMapping("/checkCode")
+    public void checkCode(){
+
+    }
+
 }

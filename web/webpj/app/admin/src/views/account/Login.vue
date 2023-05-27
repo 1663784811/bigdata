@@ -3,7 +3,7 @@
     <div class="loginContent">
       <div class="contentBox">
         <div class="loginBox">
-          <div>登录</div>
+          <div class="loginTitle">登录</div>
           <div class="loginRow">
             <Input placeholder="用户名" v-model="loginParams.userName"/>
           </div>
@@ -12,9 +12,21 @@
           </div>
           <div class="loginRow">
             <Input placeholder="验证码" v-model="loginParams.code"/>
+            <div style="width: 150px;height: 30px ; background: red; margin-left: 10px">
+              <img src="" alt="">
+            </div>
+          </div>
+          <div class="loginRow">
+            <Input placeholder="验证码" v-model="loginParams.code"/>
+            <div style="margin-left: 10px">
+              <Button>获取验证码</Button>
+            </div>
+          </div>
+          <div class="loginRow">
+            <Button type="success" long @click="clickLogin">登录</Button>
           </div>
           <div>
-            <Button type="success" long @click="clickLogin">登录</Button>
+            忘记密码 、 注册
           </div>
         </div>
       </div>
@@ -95,7 +107,7 @@ const clickLogin = function () {
 
   .loginContent {
     padding: 60px 0;
-    background: #c8c8e3;
+    background: #e93854;
 
     .contentBox {
       display: flex;
@@ -103,12 +115,24 @@ const clickLogin = function () {
       max-width: 1920px;
       margin: auto;
       background: #333;
-      padding: 0 60px;
+      background: url("https://passport.jd.com/new/misc/2015/background.png") no-repeat center center;
+      padding: 60px 60px;
 
       .loginBox {
         width: 400px;
+        padding: 20px 20px;
         border-radius: 6px;
         background: #fff;
+
+        .loginTitle {
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 20px;
+        }
+        .loginRow{
+          margin: 30px 0;
+          display: flex;
+        }
       }
     }
   }
