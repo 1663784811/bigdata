@@ -40,16 +40,16 @@ public class ODetails implements Serializable {
 
 
     @Basic
-    @Column(name = "orderid", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
-    private String orderid;
+    @Column(name = "order_id", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
+    private String orderId;
 
     @Basic
-    @Column(name = "goodsid", columnDefinition = "varchar(32) not null COMMENT 'g_goods商品表ID'")
-    private String goodsid;
+    @Column(name = "goods_id", columnDefinition = "varchar(32) not null COMMENT 'g_goods商品表ID'")
+    private String goodsId;
 
     @Basic
-    @Column(name = "skuid", columnDefinition = "varchar(32) COMMENT 'skuid表ID'")
-    private String skuid;
+    @Column(name = "sku_id", columnDefinition = "varchar(32) COMMENT 'skuid表ID'")
+    private String skuId;
 
     //==============
     @Basic
@@ -69,8 +69,8 @@ public class ODetails implements Serializable {
     private BigDecimal price;
 
     @Basic
-    @Column(name="lastprice", columnDefinition = "decimal(18,2) COMMENT '最后出售单价格'")
-    private BigDecimal lastprice;
+    @Column(name="last_price", columnDefinition = "decimal(18,2) COMMENT '最后出售单价格'")
+    private BigDecimal lastPrice;
 
     @Basic
     @Column(name = "number", columnDefinition = "int COMMENT '商品数量'")

@@ -13,7 +13,7 @@ public interface TAdminDao extends BaseDao<TAdmin, Integer> {
     TAdmin findByAccount(String enterpriseId, String account);
 
     @Query("select m from TAdmin m where (m.account=?1 or m.phone=?1 or m.email=?1) and m.enterpriseId = ?2")
-    List<TAdmin> getLoignInfo(String account, String enterpriseId);
+    List<TAdmin> getLoginInfo(String account, String enterpriseId);
 
 
 }
