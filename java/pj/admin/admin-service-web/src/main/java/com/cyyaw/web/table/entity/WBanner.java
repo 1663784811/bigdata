@@ -1,4 +1,5 @@
-package com.cyyaw.table.web.entity;
+package com.cyyaw.web.table.entity;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,10 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "web_image")
-@org.hibernate.annotations.Table(appliesTo = "web_image", comment = "影像")
-public class WebImage implements Serializable {
-    private static final long serialVersionUID = 1387301173682985L;
+@Table(name = "w_banner")
+@org.hibernate.annotations.Table(appliesTo = "w_banner", comment = "首页banner图")
+public class WBanner implements Serializable {
+    private static final long serialVersionUID = 1568784262756870L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,21 +38,42 @@ public class WebImage implements Serializable {
 
     // =================================================================================
 
-    @Basic
-    @Column(name = "web_image_type_id", columnDefinition = "varchar(32) COMMENT '影像分类ID'")
-    private String webImageTypeId;
-
-    // ================================================================================
 
     @Basic
-    @Column(name = "path", columnDefinition = "varchar(255) COMMENT '路径'")
-    private String path;
-    @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '影像名'")
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")
     private String name;
-
     @Basic
-    @Column(name = "type", columnDefinition = "int COMMENT '影像类型'")
-    private Integer type;
-
+    @Column(name = "url", columnDefinition = "varchar(255) COMMENT '跳转url'")
+    private String url;
+    @Basic
+    @Column(name = "img", columnDefinition = "varchar(255) COMMENT '图片地址'")
+    private String img;
+    @Basic
+    @Column(name = "isshow", columnDefinition = "int default '0' COMMENT '是否显示{0:否,1:是}'")
+    private Integer isshow;
+    @Basic
+    @Column(name = "position", columnDefinition = "int default '0' COMMENT '显示位置{1:首页}'")
+    private Integer position;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

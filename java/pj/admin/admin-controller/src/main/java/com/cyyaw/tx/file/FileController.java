@@ -1,8 +1,8 @@
 package com.cyyaw.tx.file;
 
 
-import com.cyyaw.service.web.WebImageService;
-import com.cyyaw.table.web.entity.WebImage;
+import com.cyyaw.web.service.WebImageService;
+import com.cyyaw.web.table.entity.WebImage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

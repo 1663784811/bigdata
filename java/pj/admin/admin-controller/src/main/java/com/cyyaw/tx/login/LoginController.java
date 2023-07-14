@@ -59,7 +59,7 @@ public class LoginController {
         return BaseResult.ok(authToken, "登录成功");
     }
 
-    @ApiOperation(value = "管理员注册", notes = "用户注册")
+    @ApiOperation(value = "管理员注册", notes = "管理员注册")
     @PostMapping(value = "/register")
     public BaseResult register(@RequestBody LoginRequest registerInfo) {
         TAdmin tAdmin = loginService.adminRegister(registerInfo);

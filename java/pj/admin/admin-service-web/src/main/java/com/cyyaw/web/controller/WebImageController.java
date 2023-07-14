@@ -1,6 +1,6 @@
-package com.cyyaw.tx.admin;
+package com.cyyaw.web.controller;
 
-import com.cyyaw.service.web.WebImageService;
+import com.cyyaw.web.service.WebImageService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

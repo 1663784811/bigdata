@@ -8,7 +8,6 @@ import com.cyyaw.table.store.goods.entity.GPhoto;
 import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;
 import com.cyyaw.util.tools.PageRespone;
 
-
 import java.util.List;
 
 public interface GGoodsService extends BaseTableService<GGoods, Integer> {

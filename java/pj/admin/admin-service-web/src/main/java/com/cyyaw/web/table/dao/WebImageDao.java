@@ -1,7 +1,7 @@
-package com.cyyaw.table.web.dao;
+package com.cyyaw.web.table.dao;
 
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.web.entity.WebImage;
+import com.cyyaw.web.table.entity.WebImage;
 import org.springframework.data.jpa.repository.Query;
 
 public interface WebImageDao extends BaseDao<WebImage, Integer> {

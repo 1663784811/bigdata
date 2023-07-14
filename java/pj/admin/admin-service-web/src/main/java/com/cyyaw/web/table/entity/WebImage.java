@@ -1,4 +1,4 @@
-package com.cyyaw.table.web.entity;
+package com.cyyaw.web.table.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -10,9 +10,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "web_image_type")
-@org.hibernate.annotations.Table(appliesTo = "web_image_type", comment = "影像分类")
-public class WebImageType implements Serializable {
+@Table(name = "web_image")
+@org.hibernate.annotations.Table(appliesTo = "web_image", comment = "影像")
+public class WebImage implements Serializable {
     private static final long serialVersionUID = 1387301173682985L;
 
     @Id
@@ -38,8 +38,20 @@ public class WebImageType implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")
+    @Column(name = "web_image_type_id", columnDefinition = "varchar(32) COMMENT '影像分类ID'")
+    private String webImageTypeId;
+
+    // ================================================================================
+
+    @Basic
+    @Column(name = "path", columnDefinition = "varchar(255) COMMENT '路径'")
+    private String path;
+    @Basic
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '影像名'")
     private String name;
 
+    @Basic
+    @Column(name = "type", columnDefinition = "int COMMENT '影像类型'")
+    private Integer type;
 
 }

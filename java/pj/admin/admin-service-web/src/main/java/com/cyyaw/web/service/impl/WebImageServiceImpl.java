@@ -1,10 +1,10 @@
-package com.cyyaw.service.web.impl;
+package com.cyyaw.web.service.impl;
 
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
-import com.cyyaw.service.web.WebImageService;
-import com.cyyaw.table.web.dao.WebImageDao;
-import com.cyyaw.table.web.entity.WebImage;
+import com.cyyaw.web.service.WebImageService;
+import com.cyyaw.web.table.dao.WebImageDao;
+import com.cyyaw.web.table.entity.WebImage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

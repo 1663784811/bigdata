@@ -20,6 +20,11 @@
         <java.version>1.8</java.version>
     </properties>
 
+
+    <modules>
+        <module>../admin-controller</module>
+    </modules>
+
     <dependencyManagement>
 
         <dependencies>
