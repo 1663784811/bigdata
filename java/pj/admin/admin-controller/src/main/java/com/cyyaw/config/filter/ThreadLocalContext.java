@@ -2,7 +2,7 @@ package com.cyyaw.config.filter;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import com.cyyaw.entity.LoginInfo;
+import com.cyyaw.user.utils.LoginInfo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

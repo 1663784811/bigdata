@@ -1,8 +1,8 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.table.admin.entity.TAdmin;
-import com.cyyaw.table.admin.entity.TPower;
-import com.cyyaw.table.admin.entity.TRole;
+import com.cyyaw.user.table.entity.TAdmin;
+import com.cyyaw.user.table.entity.TPower;
+import com.cyyaw.user.table.entity.TRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

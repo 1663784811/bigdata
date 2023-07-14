@@ -1,7 +1,7 @@
 package com.cyyaw.tx.admin;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.admin.TAdminService;
+import com.cyyaw.user.service.TAdminService;
 import com.cyyaw.table.admin.entity.TAdmin;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;

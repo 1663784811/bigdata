@@ -1,11 +1,11 @@
 package com.cyyaw.init;
 
-import com.cyyaw.table.admin.dao.*;
-import com.cyyaw.table.admin.entity.*;
 import com.cyyaw.table.config.dao.CPageComponentsDao;
 import com.cyyaw.table.config.dao.CPageDao;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.table.spider.tag.entity.Tag;
+import com.cyyaw.user.table.dao.*;
+import com.cyyaw.user.table.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

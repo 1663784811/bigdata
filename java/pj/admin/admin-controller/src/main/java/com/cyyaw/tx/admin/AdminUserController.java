@@ -1,11 +1,11 @@
 package com.cyyaw.tx.admin;
 
 import com.cyyaw.entity.AdminAuthToken;
-import com.cyyaw.entity.LoginInfo;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.entity.TreeEntity;
-import com.cyyaw.service.admin.AdminUserService;
-import com.cyyaw.service.admin.TAdminService;
-import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.service.impl.AdminUserService;
+import com.cyyaw.user.service.TAdminService;
+import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.util.tools.BaseResult;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
