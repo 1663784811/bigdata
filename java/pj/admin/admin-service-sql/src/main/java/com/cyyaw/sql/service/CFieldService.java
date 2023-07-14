@@ -1,6 +1,6 @@
-package com.cyyaw.service.sql;
+package com.cyyaw.sql.service;
 
-import com.cyyaw.table.config.entity.CField;
+import com.cyyaw.sql.table.entity.CField;
 import java.util.List;
 
 public interface CFieldService {

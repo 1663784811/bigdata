@@ -1,9 +1,9 @@
-package com.cyyaw.service.sql.impl;
+package com.cyyaw.sql.service.impl;
 
-import com.cyyaw.entity.SelectEntity;
-import com.cyyaw.service.sql.SqlService;
-import com.cyyaw.table.config.dao.CSqlDao;
-import com.cyyaw.table.config.entity.CSql;
+import com.cyyaw.jpa.util.entity.SelectEntity;
+import com.cyyaw.sql.service.SqlService;
+import com.cyyaw.sql.table.dao.CSqlDao;
+import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.BeanUtils;

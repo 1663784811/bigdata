@@ -1,7 +1,7 @@
-package com.cyyaw.service.sql;
+package com.cyyaw.sql.service;
 
-import com.cyyaw.entity.SelectEntity;
-import com.cyyaw.table.config.entity.CSql;
+import com.cyyaw.jpa.util.entity.SelectEntity;
+import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
 
 public interface SqlService {
