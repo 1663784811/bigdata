@@ -1,8 +1,8 @@
 package com.cyyaw.tx.sql;
 
-import com.cyyaw.entity.SelectEntity;
-import com.cyyaw.service.sql.SqlService;
-import com.cyyaw.table.config.entity.CSql;
+import com.cyyaw.jpa.util.entity.SelectEntity;
+import com.cyyaw.sql.service.SqlService;
+import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

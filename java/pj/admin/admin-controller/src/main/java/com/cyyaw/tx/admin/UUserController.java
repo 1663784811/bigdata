@@ -2,7 +2,7 @@ package com.cyyaw.tx.admin;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.user.service.UUserService;
-import com.cyyaw.table.admin.entity.UUser;
+import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;

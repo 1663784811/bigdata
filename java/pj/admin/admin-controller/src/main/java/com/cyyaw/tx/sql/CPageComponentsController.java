@@ -1,8 +1,8 @@
 package com.cyyaw.tx.sql;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.sql.CPageComponentsService;
-import com.cyyaw.table.config.entity.CPageComponents;
+import com.cyyaw.sql.service.CPageComponentsService;
+import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;

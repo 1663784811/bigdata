@@ -1,7 +1,7 @@
 package com.cyyaw.init;
 
-import com.cyyaw.table.config.dao.CPageComponentsDao;
-import com.cyyaw.table.config.dao.CPageDao;
+import com.cyyaw.sql.table.dao.CPageComponentsDao;
+import com.cyyaw.sql.table.dao.CPageDao;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.table.spider.tag.entity.Tag;
 import com.cyyaw.user.table.dao.*;

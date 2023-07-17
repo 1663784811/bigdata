@@ -3,7 +3,7 @@ package com.cyyaw.tx.admin;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.entity.TreeEntity;
 import com.cyyaw.user.service.TPowerService;
-import com.cyyaw.table.admin.entity.TPower;
+import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;

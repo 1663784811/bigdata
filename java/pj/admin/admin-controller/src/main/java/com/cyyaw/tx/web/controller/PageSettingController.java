@@ -3,9 +3,9 @@ package com.cyyaw.tx.web.controller;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.sql.CPageService;
-import com.cyyaw.table.config.entity.CPage;
-import com.cyyaw.table.config.entity.CPageComponents;
+import com.cyyaw.sql.service.CPageService;
+import com.cyyaw.sql.table.entity.CPage;
+import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

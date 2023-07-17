@@ -1,7 +1,7 @@
 package com.cyyaw.init;
 
 
-import com.cyyaw.table.config.entity.CPage;
+import com.cyyaw.sql.table.entity.CPage;
 import org.springframework.stereotype.Service;
 
 @Service
