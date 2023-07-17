@@ -1,8 +1,8 @@
-package com.cyyaw.service.enterprise;
+package com.cyyaw.enterprise.service;
 
 
+import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.enterprise.entity.EStore;
 
 public interface EStoreService extends BaseTableService<EStore, Integer> {
 

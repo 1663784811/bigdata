@@ -25,6 +25,13 @@
         <module>../admin-controller</module>
         <module>../admin-service-web</module>
         <module>../admin-service-user</module>
+        <module>../admin-service-sql</module>
+        <module>../admin-service-spider</module>
+        <module>../admin-service-integration</module>
+        <module>../admin-service-enterprise</module>
+        <module>../admin-dao</module>
+        <module>../admin-controller-common</module>
+        <module>../admin-all</module>
     </modules>
 
     <dependencyManagement>

@@ -1,7 +1,7 @@
-package com.cyyaw.service.enterprise;
+package com.cyyaw.enterprise.service;
 
+import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.enterprise.entity.EEnterprise;
 
 public interface EEnterpriseService extends BaseTableService<EEnterprise, Integer> {
 

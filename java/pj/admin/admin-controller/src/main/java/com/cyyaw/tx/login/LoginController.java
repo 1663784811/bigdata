@@ -6,7 +6,7 @@ import com.cyyaw.entity.LoginRequest;
 import com.cyyaw.service.impl.LoginService;
 import com.cyyaw.user.service.TPowerService;
 import com.cyyaw.user.service.TRoleService;
-import com.cyyaw.service.enterprise.EEnterpriseService;
+import com.cyyaw.enterprise.service.EEnterpriseService;
 import com.cyyaw.table.enterprise.entity.EEnterprise;
 import com.cyyaw.user.table.entity.TAdmin;
 import com.cyyaw.user.table.entity.TPower;

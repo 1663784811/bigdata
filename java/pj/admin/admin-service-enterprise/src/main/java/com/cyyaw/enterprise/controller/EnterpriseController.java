@@ -1,10 +1,10 @@
-package com.cyyaw.tx.enterprise;
+package com.cyyaw.enterprise.controller;
 
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.enterprise.EEnterpriseService;
-import com.cyyaw.table.enterprise.dao.EEnterpriseDao;
-import com.cyyaw.table.enterprise.entity.EEnterprise;
+import com.cyyaw.enterprise.service.EEnterpriseService;
+import com.cyyaw.enterprise.table.dao.EEnterpriseDao;
+import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import io.swagger.annotations.Api;

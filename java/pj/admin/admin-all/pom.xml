@@ -19,13 +19,25 @@
     </properties>
 
     <dependencies>
-	
+
+
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-enterprise</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.cyyaw</groupId>
             <artifactId>admin-service-web</artifactId>
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
     </dependencies>

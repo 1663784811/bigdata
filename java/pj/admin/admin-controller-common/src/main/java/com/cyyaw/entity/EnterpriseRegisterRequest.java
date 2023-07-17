@@ -1,6 +1,6 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.table.enterprise.entity.EEnterprise;
+import com.cyyaw.enterprise.table.entity.EEnterprise;
 import lombok.Data;
 
 

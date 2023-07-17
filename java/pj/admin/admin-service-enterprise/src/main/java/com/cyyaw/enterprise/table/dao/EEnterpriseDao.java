@@ -1,8 +1,8 @@
-package com.cyyaw.table.enterprise.dao;
+package com.cyyaw.enterprise.table.dao;
 
 
+import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.enterprise.entity.EEnterprise;
 import org.springframework.data.jpa.repository.Query;
 
 public interface EEnterpriseDao extends BaseDao<EEnterprise, Integer> {

@@ -1,8 +1,8 @@
-package com.cyyaw.tx.enterprise;
+package com.cyyaw.enterprise.controller;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.enterprise.EStoreService;
-import com.cyyaw.table.enterprise.entity.EStore;
+import com.cyyaw.enterprise.service.EStoreService;
+import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import io.swagger.annotations.Api;

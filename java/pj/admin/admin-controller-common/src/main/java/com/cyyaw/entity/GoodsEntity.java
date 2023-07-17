@@ -1,6 +1,6 @@
 package com.cyyaw.entity;
 
-import com.cyyaw.table.enterprise.entity.EStore;
+import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.table.store.goods.entity.GGoods;
 import com.cyyaw.table.store.goods.entity.GGoodsSearch;
 import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;

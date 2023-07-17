@@ -1,7 +1,7 @@
-package com.cyyaw.table.enterprise.dao;
+package com.cyyaw.enterprise.table.dao;
 
+import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.enterprise.entity.EStore;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
