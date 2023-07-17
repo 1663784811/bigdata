@@ -3,6 +3,8 @@ import {ref} from "vue";
 import {apiAdminMenu} from "@/api/api.js"
 
 export const useAdminMenuStore = defineStore('adminMenu', () => {
+
+
     const leftMenu = ref([]);
     const topMenu = ref([
         {
