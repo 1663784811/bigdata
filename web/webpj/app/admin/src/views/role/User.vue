@@ -1,13 +1,6 @@
 <template>
   <div>
-    <CommonTable
-        :search-columns="tableData.searchColumns"
-        :table-columns="tableData.columns"
-        :table-data="tableData.data"
-        :operation="tableData.operation"
-        :save-columns="tableData.saveColumns"
-        :request-obj="tableData.requestObj"
-    />
+    <CommonTable :table-setting="commonTable"/>
 
 
   </div>
@@ -24,15 +17,6 @@ const usePageConfig = pageConfig();
 const config = usePageConfig.getPageConfig("user");
 
 const commonTable = config.commonTable;
-
-const tableData = ref({
-  searchColumns: commonTable.search.columns,
-  columns: commonTable.columns,
-  operation: commonTable.operation,
-  saveColumns: commonTable.save.columns,
-  requestObj: commonTable.requestObj,
-  data: []
-})
 
 </script>
 

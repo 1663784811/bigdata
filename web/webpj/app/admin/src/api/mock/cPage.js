@@ -42,6 +42,26 @@ export const cPage = {
                     "javatype":"integer"
                 }
                 ,{
+                    "key":"pageCode",
+                    "title":"pageCode",
+                    "length":32,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
+                    "key":"name",
+                    "title":"名称",
+                    "length":32,
+                    "controltype":"input",
+                    "isshowcolumn":true,
+                    "iswhere":true,
+                    "javawhere":"like",
+                    "javatype":"string"
+                }
+                ,{
                     "key":"createTime",
                     "title":"创建时间",
                     "length":19,
@@ -73,16 +93,7 @@ export const cPage = {
                     "javawhere":"equals",
                     "javatype":"integer"
                 }
-                ,{
-                    "key":"name",
-                    "title":"名称",
-                    "length":32,
-                    "controltype":"input",
-                    "isshowcolumn":true,
-                    "iswhere":true,
-                    "javawhere":"like",
-                    "javatype":"string"
-                }
+
                 ,{
                     "key":"note",
                     "title":"备注",
@@ -93,16 +104,7 @@ export const cPage = {
                     "javawhere":"like",
                     "javatype":"string"
                 }
-                ,{
-                    "key":"pageCode",
-                    "title":"pageCode",
-                    "length":32,
-                    "controltype":"input",
-                    "isshowcolumn":true,
-                    "iswhere":true,
-                    "javawhere":"like",
-                    "javatype":"string"
-                }
+
                 ,{
                     "key":"pageIcon",
                     "title":"图标",
