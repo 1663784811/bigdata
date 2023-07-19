@@ -4,6 +4,11 @@
         :table-setting="commonTable"
         @event="eventFn"
     />
+
+    <div>
+      see
+    </div>
+
   </div>
 </template>
 
@@ -27,7 +32,9 @@ initFn();
  * 事件
  */
 const eventFn = (eventData) => {
-  console.log("sssssssssssssssssssssssss", eventData)
+  console.log("sssssssssssssssssssssssss", eventData.data)
+
+
 }
 
 

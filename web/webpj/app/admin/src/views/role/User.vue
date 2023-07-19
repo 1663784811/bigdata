@@ -16,7 +16,7 @@ import {pageConfig} from '@/store/pageConfig.js'
 const usePageConfig = pageConfig();
 const commonTable = ref(null);
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("PageComponents");
+  const role = await usePageConfig.getPageConfig("user");
   commonTable.value = role.commonTable;
 }
 initFn();

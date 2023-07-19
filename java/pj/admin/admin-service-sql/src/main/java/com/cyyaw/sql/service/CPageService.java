@@ -7,4 +7,6 @@ public interface CPageService extends BaseTableService<CPage, Integer> {
 
     CPage findByTid(String tid);
 
+    CPage findByPageCode(String pageCod);
+
 }

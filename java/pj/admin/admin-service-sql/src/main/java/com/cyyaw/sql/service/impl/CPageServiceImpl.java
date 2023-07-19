@@ -47,5 +47,23 @@ public class CPageServiceImpl extends BaseService<CPage, Integer> implements CPa
         }
         return null;
     }
+
+    @Override
+    public CPage findByPageCode(String pageCod) {
+        CPage cPage = new CPage();
+        cPage.setPageCode(pageCod);
+        Example<CPage> example = Example.of(cPage);
+        List<CPage> all = cPageDao.findAll(example);
+        if (all.size() > 0) {
+            CPage cPage1 = all.get(0);
+            String tid1 = cPage1.getTid();
+            CPageComponents ex = new CPageComponents();
+            ex.setPageId(tid1);
+            List<CPageComponents> cPageComponentsList = cPageComponentsService.findByExample(ex);
+            cPage1.setComponents(cPageComponentsList);
+            return cPage1;
+        }
+        return null;
+    }
 }
 
