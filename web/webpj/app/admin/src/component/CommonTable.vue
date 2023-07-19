@@ -393,20 +393,24 @@ watch(() => props.requestObj, () => {
 
 watch(() => props.tableSetting, () => {
   const setting = props.tableSetting;
-  if (setting.columns) {
-    saveData.value.columns = setting.columns;
-  }
-  operationObj.value = setting.operation
-  if (setting.columns) {
-    tableConfig.value.columnsList = setting.columns;
-    setTimeout(() => {
-      initTable()
-    }, 50)
+  if(setting){
+    if (setting.columns) {
+      saveData.value.columns = setting.columns;
+    }
+    operationObj.value = setting.operation
+    if (setting.columns) {
+      tableConfig.value.columnsList = setting.columns;
+      setTimeout(() => {
+        initTable()
+      }, 50)
+    }
+    searchObj.value.queryRequest = setting.requestObj.queryRequest;
+    searchObj.value.saveRequest = setting.requestObj.saveRequest;
+    searchObj.value.delRequest = setting.requestObj.delRequest;
+  }else {
+    console.log("=========== 未设置数据 =======", setting)
   }
 
-  searchObj.value.queryRequest = setting.requestObj.queryRequest;
-  searchObj.value.saveRequest = setting.requestObj.saveRequest;
-  searchObj.value.delRequest = setting.requestObj.delRequest;
 }, {deep: true, immediate: true})
 
 
@@ -433,7 +437,6 @@ const initTable = () => {
     for (const operationKey in setting.operation) {
       if (setting.operation[operationKey]) {
         temp.push(operationColumns.value)
-        console.log("=========================sssssssssssss")
         break;
       }
     }

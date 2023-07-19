@@ -101,14 +101,12 @@ export const asyncREQUEST = async function (url, _params = {}, serializer = 0, r
             });
         }
         axiosLet.then(res => {
-            console.log('==============');
             if (!res.data.code || (res.data.code !== 500)) {
                 resolve(res.data);
             } else {
                 reject(res.data.message);
             }
         }).catch(error => {
-            console.log('==============');
             reject(error);
         });
     });

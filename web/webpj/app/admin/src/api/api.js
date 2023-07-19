@@ -35,18 +35,18 @@ export const apiAdminMenu = (parameter) => {
 /**
  * 获取页面设置
  */
-export const pageSetting = async (parameter) => {
+export const pageSetting = (parameter) => {
     return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 0)
 }
 
 /**
  * 登录
  */
-export const logInFn = async (parameter) => {
+export const logInFn = (parameter) => {
     return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
 }
 
-export const userInfo = async (parameter) => {
+export const userInfo = (parameter) => {
     return asyncREQUEST(`${baseUrl}/admin/user/info`, parameter, 0, "get")
 }
 

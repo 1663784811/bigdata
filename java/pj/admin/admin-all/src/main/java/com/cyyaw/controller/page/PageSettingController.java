@@ -36,22 +36,17 @@ public class PageSettingController {
         CPage cPage = cPageService.findByTid(pageId);
         if (null != cPage) {
             JSONObject rest = new JSONObject();
-            rest.set("page", cPage);
-            JSONArray jsonList = new JSONArray();
+            // 查找页面组件
             List<CPageComponents> components = cPage.getComponents();
             for (int i = 0; i < components.size(); i++) {
                 CPageComponents cPageComponents = components.get(i);
                 String data = cPageComponents.getData();
-                if(StrUtil.isBlank(data)){
+                if (StrUtil.isBlank(data)) {
                     data = "{}";
                 }
-                JSONObject componentsJson = new JSONObject();
-                JSONObject jsonData = new JSONObject(data);
-                componentsJson.set("componentsData", jsonData);
-                componentsJson.set("components", cPageComponents);
-                jsonList.add(componentsJson);
+                // 通用表格
+                rest.set("commonTable", new JSONObject(data));
             }
-            rest.set("componentsList", jsonList);
             return BaseResult.ok(rest);
         } else {
             return BaseResult.fail("找不到页面数据");

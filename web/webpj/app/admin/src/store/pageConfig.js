@@ -24,13 +24,17 @@ export const pageConfig = defineStore('pageConfig', () => {
     })
     const getPageConfig = (pageCode) => {
         let codeData = pageConfigList.value[pageCode]
-        const loadData = pageSetting({code: pageCode});
-        console.log("sssssssssssssssssssssssssss",codeData)
         if (!codeData) {
             const loadData = pageSetting({code: pageCode});
             if (loadData.code === 2000) {
-                codeData = pageConfigList.value[pageCode] = loadData.data;
+                console.log(pageCode, "获取远程配置:", loadData.data)
+                codeData = loadData.data;
+                // codeData = pageConfigList.value[pageCode] = loadData.data;
+            } else {
+                console.log(pageCode, "获取本地配置:", loadData)
             }
+        } else {
+            console.log(pageCode, "获取本地配置:", codeData)
         }
         return codeData;
     }
