@@ -3,9 +3,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cyyaw.controller.login.LoginController;
+import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.sql.controller.CPageController;
 import com.cyyaw.user.controller.UUserController;
 import com.cyyaw.user.table.entity.UUser;
+import com.cyyaw.user.utils.entity.LoginRequest;
+import com.cyyaw.util.entity.EnterpriseRegisterRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,13 +40,12 @@ public class AllApplication {
 //        admin.setCodeUuid("");
 //        admin.setCode("aaa");
 //        admin.setEnterpriseId("");
-//        admin.setUserName("aaa");
-//        admin.setPassword("aaa");
+//        admin.setUserName("root");
+//        admin.setPassword("root");
 //        request.setAdmin(admin);
 //        bean.enterpriseRegister(request);
-
-
-//        UUserController bean = run.getBean(UUserController.class);
+//
+//        UUserController runBean = run.getBean(UUserController.class);
 //        for (int i = 0; i <100; i++) {
 //            UUser user = new UUser();
 //            user.setDel(0);
@@ -67,10 +69,8 @@ public class AllApplication {
 //            user.setIntegral(0);
 //            user.setOpenId("");
 //            user.setUnionId("");
-//            bean.saveUUser(user);
+//            runBean.saveUUser(user);
 //        }
-
-        run.getBean(CPageController.class);
 
 
 

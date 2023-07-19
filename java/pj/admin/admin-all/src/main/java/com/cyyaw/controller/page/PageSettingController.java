@@ -1,6 +1,7 @@
 package com.cyyaw.controller.page;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.service.CPageService;
@@ -41,6 +42,9 @@ public class PageSettingController {
             for (int i = 0; i < components.size(); i++) {
                 CPageComponents cPageComponents = components.get(i);
                 String data = cPageComponents.getData();
+                if(StrUtil.isBlank(data)){
+                    data = "{}";
+                }
                 JSONObject componentsJson = new JSONObject();
                 JSONObject jsonData = new JSONObject(data);
                 componentsJson.set("componentsData", jsonData);
