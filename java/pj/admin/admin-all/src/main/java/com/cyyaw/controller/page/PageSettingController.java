@@ -9,10 +9,7 @@ import com.cyyaw.sql.table.entity.CPage;
 import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -30,10 +27,10 @@ public class PageSettingController {
      * 获取页面配置
      */
     @GetMapping("/pageSetting")
-    public BaseResult saveGoods(@PathVariable Map<String, Object> map) {
+    public BaseResult saveGoods(@RequestParam Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
-        String pageId = json.getStr("pageId");
-        CPage cPage = cPageService.findByTid(pageId);
+        String pageCode = json.getStr("pageCode");
+        CPage cPage = cPageService.findByPageCode(pageCode);
         if (null != cPage) {
             JSONObject rest = new JSONObject();
             // 查找页面组件

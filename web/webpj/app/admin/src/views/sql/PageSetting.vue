@@ -43,10 +43,13 @@ import {findIdCPageComponents, findCPageComponents} from '@/api/api.js'
 
 
 const usePageConfig = pageConfig();
-const role = usePageConfig.getPageConfig("cPage");
+const commonTable = ref(null);
+const initFn = async () => {
+  const role = await usePageConfig.getPageConfig("cPage");
+  commonTable.value = role.commonTable;
+}
+initFn();
 
-
-const commonTable = role.commonTable;
 
 /**
  * 事件

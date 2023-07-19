@@ -14,9 +14,12 @@ import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const config = usePageConfig.getPageConfig("user");
-
-const commonTable = config.commonTable;
+const commonTable = ref(null);
+const initFn = async () => {
+  const role = await usePageConfig.getPageConfig("PageComponents");
+  commonTable.value = role.commonTable;
+}
+initFn();
 
 </script>
 
