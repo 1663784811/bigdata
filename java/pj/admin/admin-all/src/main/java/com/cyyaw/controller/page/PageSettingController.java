@@ -84,7 +84,7 @@ public class PageSettingController {
      *
      * @return
      */
-    @PostMapping("/findSetting")
+    @PostMapping("/saveComponents")
     public BaseResult saveComponents(@RequestBody CPageComponents components) {
         CPageComponents obj = cPageComponentsService.findId(components.getId());
         if (null != obj) {
