@@ -60,3 +60,7 @@ export const enterpriseFindPage = (parameter) => {
 export const findIdCPageComponents = (parameter)=>{
     return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, parameter, 0)
 }
+
+export const findCPageComponents = (parameter)=>{
+    return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findPage`, parameter, 0)
+}
