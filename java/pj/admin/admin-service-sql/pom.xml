@@ -37,13 +37,6 @@
             <version>${project.version}</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-dao</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.cyyaw</groupId>
             <artifactId>config</artifactId>

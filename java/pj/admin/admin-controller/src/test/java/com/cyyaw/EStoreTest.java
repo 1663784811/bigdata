@@ -1,6 +1,6 @@
 package com.cyyaw;
 
-import com.cyyaw.table.enterprise.dao.EStoreDao;
+import com.cyyaw.enterprise.table.dao.EStoreDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

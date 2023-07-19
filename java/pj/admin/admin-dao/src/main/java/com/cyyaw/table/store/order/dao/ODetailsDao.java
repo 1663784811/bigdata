@@ -10,7 +10,7 @@ import java.util.List;
 public interface ODetailsDao extends BaseDao<ODetails, Integer> {
 
 
-    @Query("select m from ODetails  m where m.orderid in (:orderIdArr)")
+    @Query("select m from ODetails  m where m.orderId in (:orderIdArr)")
     List<ODetails> findByOrderIdArr(List<String> orderIdArr);
 
 
