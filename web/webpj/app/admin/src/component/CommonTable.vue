@@ -14,10 +14,23 @@
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
+
+      <div class="tableColumnsBtn">
+        <Button type="primary" icon="md-list" @click="tableConfig.isShowColumns = !tableConfig.isShowColumns"/>
+        <Drawer title="字段" :closable="true" v-model="tableConfig.isShowColumns">
+          <div style="margin: 6px 0" v-for=" (columnsItem,inx) in tableConfig.columnsList" :key="inx">
+            <Switch v-model="columnsItem.isShowColumn"
+                    @on-change="changeColumnsList"/>
+            {{ columnsItem.title }}
+          </div>
+        </Drawer>
+      </div>
+      <!--   ============   -->
       <Table ref="selection"
              border
              highlight-row
              stripe
+             size="small"
              :columns="tableConfig.columns"
              :data="tableConfig.data"
              :loading="tableConfig.loading"
@@ -81,6 +94,7 @@ import {Message, Modal} from "view-ui-plus";
 const emits = defineEmits(['event']);
 
 const props = defineProps({
+  tableSetting: {},
   searchColumns: {
     type: Array,
     default: [],
@@ -159,7 +173,10 @@ const tableConfig = ref({
     total: 0,
     size: 10
   },
-  loading: false
+  loading: false,
+  isShowColumns: false,
+  columnsList: [],
+  selectData: []
 });
 
 const saveData = ref({
@@ -176,6 +193,7 @@ const selectData = (row, index) => {
       dataArr[i]._checked = false
     } else {
       dataArr[i]._checked = true
+      selectDataChange([dataArr[i]]);
     }
   }
   emits('event', row);
@@ -183,6 +201,7 @@ const selectData = (row, index) => {
 
 const selectDataChange = (rows) => {
   console.log(rows)
+  tableConfig.value.selectData = rows;
 }
 
 // ======================================================
@@ -228,16 +247,26 @@ const selectTableData = (row, index, editor) => {
   saveData.value.data = row;
 }
 
+/**
+ * 点击删除
+ */
 const delSelect = () => {
-
-
-  delTableDataFn([])
+  const arr = [];
+  const selectData = tableConfig.value.selectData;
+  for (let i = 0; i < selectData.length; i++) {
+    arr.push(selectData[i].id)
+  }
+  delTableDataFn(arr)
 }
-
+/**
+ * 删除单条数据
+ */
 const delTableData = (row, index) => {
   delTableDataFn([row.id])
 }
-
+/**
+ * 执行删除
+ */
 const delTableDataFn = (idArr = []) => {
   Modal.confirm({
     title: '是否删除?',
@@ -353,6 +382,45 @@ watch(() => props.requestObj, () => {
   searchObj.value.delRequest = props.requestObj.delRequest;
 }, {deep: true, immediate: true})
 
+watch(() => props.tableSetting, () => {
+  const setting = props.tableSetting;
+  if (setting.columns) {
+    saveData.value.columns = setting.columns;
+  }
+  if (setting.columns) {
+    tableConfig.value.columnsList = setting.columns;
+    setTimeout(() => {
+      initTable()
+    })
+  }
+  searchObj.value.queryRequest = setting.requestObj.queryRequest;
+  searchObj.value.saveRequest = setting.requestObj.saveRequest;
+  searchObj.value.delRequest = setting.requestObj.delRequest;
+}, {deep: true, immediate: true})
+
+
+//==============================
+const changeColumnsList = () => {
+
+  initTable();
+
+}
+
+/**
+ * 初始化表格
+ */
+const initTable = () => {
+  const arr = tableConfig.value.columnsList;
+  const temp = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].isShowColumn) {
+      temp.push(arr[i]);
+    }
+  }
+  console.log(temp)
+  tableConfig.value.columns = temp;
+}
+
 </script>
 
 <style scoped lang="less">
@@ -379,6 +447,17 @@ watch(() => props.requestObj, () => {
       .btn {
         margin: 0 6px;
       }
+    }
+  }
+
+  .tableBox {
+    position: relative;
+
+    .tableColumnsBtn {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      z-index: 99;
     }
   }
 

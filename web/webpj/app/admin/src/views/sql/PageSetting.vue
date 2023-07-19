@@ -25,7 +25,6 @@
         <div>
           数据:<Input size="large" placeholder="large size"/>
         </div>
-
         <div class="componentBox">
           <CommonTableBox />
         </div>
