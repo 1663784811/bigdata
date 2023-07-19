@@ -40,6 +40,13 @@ export const pageSetting = (parameter) => {
 }
 
 /**
+ * 获取页面设置
+ */
+export const findSetting = (parameter) => {
+    return asyncREQUEST(`${baseUrl}/tx/config/page/findSetting`, parameter, 0)
+}
+
+/**
  * 登录
  */
 export const logInFn = (parameter) => {
