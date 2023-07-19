@@ -84,12 +84,14 @@
       </div>
     </div>
   </Modal>
+  <SelectPanel/>
 </template>
 
 <script setup>
 import {defineEmits, ref, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
+import SelectPanel from './SelectPanel.vue'
 
 const emits = defineEmits(['event']);
 
@@ -135,8 +137,10 @@ const props = defineProps({
     },
     required: false
   }
-
 });
+
+
+const selectPanelData = ref({});
 
 const operationObj = ref({});
 
