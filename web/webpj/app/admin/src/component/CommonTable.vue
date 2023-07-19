@@ -38,17 +38,17 @@
              @on-selection-change="selectDataChange"
       >
         <template #operation="{ row, index }">
-          <Button size="small" v-if="operation.show" type="info"
+          <Button size="small" v-if="operationObj.show" type="info"
                   @click="selectTableData(row,index,true)"
                   style="margin-right: 5px">
             查看
           </Button>
-          <Button size="small" v-if="operation.update" type="warning"
+          <Button size="small" v-if="operationObj.update" type="warning"
                   @click="selectTableData(row,index,true)"
                   style="margin-right: 5px">
             修改
           </Button>
-          <Button size="small" v-if="operation.del" type="error"
+          <Button size="small" v-if="operationObj.del" type="error"
                   @click="delTableData(row,index)">
             删除
           </Button>
@@ -137,6 +137,8 @@ const props = defineProps({
   }
 
 });
+
+const operationObj = ref({});
 
 const operationColumns = ref({
   title: '操作',
@@ -387,12 +389,14 @@ watch(() => props.tableSetting, () => {
   if (setting.columns) {
     saveData.value.columns = setting.columns;
   }
+  operationObj.value = setting.operation
   if (setting.columns) {
     tableConfig.value.columnsList = setting.columns;
     setTimeout(() => {
       initTable()
-    })
+    }, 50)
   }
+
   searchObj.value.queryRequest = setting.requestObj.queryRequest;
   searchObj.value.saveRequest = setting.requestObj.saveRequest;
   searchObj.value.delRequest = setting.requestObj.delRequest;
@@ -415,6 +419,16 @@ const initTable = () => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].isShowColumn) {
       temp.push(arr[i]);
+    }
+  }
+  const setting = props.tableSetting;
+  if (setting.operation) {
+    for (const operationKey in setting.operation) {
+      if (setting.operation[operationKey]) {
+        temp.push(operationColumns.value)
+        console.log("=========================sssssssssssss")
+        break;
+      }
     }
   }
   console.log(temp)
