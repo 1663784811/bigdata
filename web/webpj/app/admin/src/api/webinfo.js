@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import {loginInfo} from "@/store/loginInfo.js"
+import {Message} from "view-ui-plus";
 
 
 /**
@@ -20,8 +21,8 @@ export const AJAXGET = function (_url, _params = {}, serializer = 0) {
  * @param _params
  * @returns {Promise<any>}
  */
-export const AJAXPOST = function (_url, _params = {}, serializer = 0) {
-    return AJAXREQUEST(_url, _params, serializer, 'post');
+export const AJAXPOST = function (_url, _params = {}, serializer = 0, showMsg = false) {
+    return AJAXREQUEST(_url, _params, serializer, 'post', null, showMsg);
 };
 
 
@@ -39,7 +40,7 @@ export const AJAXPOSTFILE = function (_url, _params = {}) {
  * @param requestType
  * @returns {Promise<any>}
  */
-export const AJAXREQUEST = function (url, _params = {}, serializer = 0, requestType, header) {
+export const AJAXREQUEST = function (url, _params = {}, serializer = 0, requestType, header, showMsg = false) {
     return new Promise((resolve, reject) => {
 
         let axiosLet = null;
@@ -67,7 +68,23 @@ export const AJAXREQUEST = function (url, _params = {}, serializer = 0, requestT
             console.log('==============');
             if (!res.data.code || (res.data.code !== 500)) {
                 resolve(res.data);
+                if (showMsg) {
+                    if (res.data.code == 2000) {
+                        Message.success({
+                            content: `${res.data.msg}`,
+                        })
+                    } else {
+                        Message.error({
+                            content: `${res.data.msg}`,
+                        })
+                    }
+                }
             } else {
+                if (showMsg) {
+                    Message.error({
+                        content: `${res.data.message}`,
+                    })
+                }
                 reject(res.data.message);
             }
         }).catch(error => {

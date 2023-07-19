@@ -1,12 +1,7 @@
 <template>
   <div>
     <CommonTable
-        :search-columns="tableData.searchColumns"
-        :table-columns="tableData.columns"
-        :table-data="tableData.data"
-        :operation="tableData.operation"
-        :save-columns="tableData.saveColumns"
-        :request-obj="tableData.requestObj"
+        :table-setting="commonTable"
     />
 
 
@@ -21,19 +16,12 @@ import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const config = usePageConfig.getPageConfig("power");
-
-const commonTable = config.commonTable;
-
-const tableData = ref({
-  searchColumns: commonTable.search.columns,
-  columns: commonTable.columns,
-  operation: commonTable.operation,
-  saveColumns: commonTable.save.columns,
-  requestObj: commonTable.requestObj,
-  data: []
-})
-
+const commonTable = ref(null);
+const initFn = async () => {
+  const role = await usePageConfig.getPageConfig("power");
+  commonTable.value = role.commonTable;
+}
+initFn();
 </script>
 
 <style scoped>

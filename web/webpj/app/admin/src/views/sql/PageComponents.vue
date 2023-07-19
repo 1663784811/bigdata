@@ -11,9 +11,10 @@
         <Button class="dataBtn" type="primary" icon="md-list" @click="showJsonData"/>
         <Modal
             v-model="jsonData.show"
+            :loading="jsonData.loading"
             title="数据"
             width="80vw"
-            @on-ok="saveComponents"
+            @on-ok="saveComponentsFn"
         >
           <Input v-model="jsonData.data" type="textarea" :rows="40"/>
         </Modal>
@@ -112,7 +113,7 @@
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {ref} from "vue";
-import {findSetting} from "@/api/api";
+import {findSetting, saveComponents} from "@/api/api";
 
 
 const usePageConfig = pageConfig();
@@ -123,6 +124,7 @@ const initFn = async () => {
 }
 initFn();
 
+const selectData = ref({});
 const requestObjData = ref({
   queryRequest: {},
   saveRequest: {},
@@ -152,6 +154,7 @@ const operationObj = ref({
  * 事件
  */
 const eventFn = (eventData) => {
+  selectData.value = eventData;
   findSetting({pageId: eventData.pageId}).then((res) => {
     const {columns, operation, requestObj} = res.data.commonTable
     operationObj.value = operation;
@@ -162,7 +165,8 @@ const eventFn = (eventData) => {
 
 const jsonData = ref({
   show: false,
-  data: ''
+  data: '',
+  loading: false
 })
 const showCode = ref({
   show: false,
@@ -201,7 +205,14 @@ const showCodeBtnFn = (showData) => {
 /**
  * 保存组件数据
  */
-const saveComponents = () => {
+const saveComponentsFn = () => {
+  jsonData.value.loading = true;
+  saveComponents({
+    id: selectData.value.id,
+    data: jsonData.value.data
+  }, true).finally(() => {
+    jsonData.value.loading = false;
+  })
 
 }
 

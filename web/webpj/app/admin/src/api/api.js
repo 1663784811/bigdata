@@ -45,6 +45,12 @@ export const pageSetting = (parameter) => {
 export const findSetting = (parameter) => {
     return asyncREQUEST(`${baseUrl}/tx/config/page/findSetting`, parameter, 0)
 }
+/**
+ * 获取页面设置
+ */
+export const saveComponents = (parameter, showMsg = false) => {
+    return AJAXPOST(`${baseUrl}/tx/config/page/saveComponents`, parameter, 1, showMsg)
+}
 
 /**
  * 登录
@@ -64,10 +70,10 @@ export const enterpriseFindPage = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
 }
 
-export const findIdCPageComponents = (parameter)=>{
+export const findIdCPageComponents = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, parameter, 0)
 }
 
-export const findCPageComponents = (parameter)=>{
+export const findCPageComponents = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findPage`, parameter, 0)
 }
