@@ -45,6 +45,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-sql</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
     </dependencies>
 

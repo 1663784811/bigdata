@@ -1,4 +1,4 @@
-package com.cyyaw.tx.sql;
+package com.cyyaw.sql.controller;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.service.CPageComponentsService;

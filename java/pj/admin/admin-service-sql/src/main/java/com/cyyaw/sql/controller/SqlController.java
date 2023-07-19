@@ -1,4 +1,4 @@
-package com.cyyaw.tx.sql;
+package com.cyyaw.sql.controller;
 
 import com.cyyaw.jpa.util.entity.SelectEntity;
 import com.cyyaw.sql.service.SqlService;

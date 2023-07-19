@@ -1,4 +1,4 @@
-package com.cyyaw.tx.web.controller;
+package com.cyyaw.controller.page;
 
 
 import cn.hutool.json.JSONArray;
