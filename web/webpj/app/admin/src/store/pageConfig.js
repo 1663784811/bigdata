@@ -20,18 +20,18 @@ export const pageConfig = defineStore('pageConfig', () => {
         enterprise,
         store,
         cPage,
-        PageComponents
+        // PageComponents
     })
-    const getPageConfig = (pageCode) => {
+    const getPageConfig = async (pageCode) => {
         let codeData = pageConfigList.value[pageCode]
         if (!codeData) {
-            const loadData = pageSetting({code: pageCode});
+            const loadData = await pageSetting({code: pageCode});
             if (loadData.code === 2000) {
                 console.log(pageCode, "获取远程配置:", loadData.data)
                 codeData = loadData.data;
                 // codeData = pageConfigList.value[pageCode] = loadData.data;
             } else {
-                console.log(pageCode, "获取本地配置:", loadData)
+                console.log(pageCode, "获取本地配置:", codeData)
             }
         } else {
             console.log(pageCode, "获取本地配置:", codeData)

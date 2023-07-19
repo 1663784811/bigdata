@@ -15,10 +15,10 @@ import {ref} from "vue";
 
 
 const usePageConfig = pageConfig();
-
 const commonTable = ref(null);
-const initFn = () => {
-  const role = usePageConfig.getPageConfig("PageComponents");
+const initFn = async () => {
+  const role = await usePageConfig.getPageConfig("PageComponents");
+  console.log('xxxxxxxxxxxxxxxxxxxxxxx', role)
   commonTable.value = role.commonTable;
 }
 initFn();
