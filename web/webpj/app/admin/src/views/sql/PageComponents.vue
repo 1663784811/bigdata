@@ -13,8 +13,9 @@
             v-model="jsonData.show"
             title="数据"
             width="80vw"
+            @on-ok="saveComponents"
         >
-          <Input v-model="jsonData.data" type="textarea" :rows="50"/>
+          <Input v-model="jsonData.data" type="textarea" :rows="40"/>
         </Modal>
       </div>
       <div class="cardBox">
@@ -22,6 +23,7 @@
           <template #title>
             <Icon type="ios-film-outline"></Icon>
             请求对象
+            <Button class="showCodeBtn" type="primary" icon="md-list" @click="showCodeBtnFn(requestObjData)"/>
           </template>
           <div class="dataBox">
             <div class="dataRow">
@@ -45,6 +47,7 @@
           <template #title>
             <Icon type="ios-film-outline"></Icon>
             操作对象
+            <Button class="showCodeBtn" type="primary" icon="md-list" @click="showCodeBtnFn(operationObj)"/>
           </template>
           <Checkbox
               border
@@ -62,6 +65,7 @@
           <template #title>
             <Icon type="ios-film-outline"></Icon>
             字段列表
+            <Button class="showCodeBtn" type="primary" icon="md-list" @click="showCodeBtnFn(columnsArr)"/>
           </template>
           <div class="columnBox" v-for="(item, index) in columnsArr" :key="index">
             <div class="upBox" v-if="index>0">
@@ -97,6 +101,9 @@
 
     </div>
 
+    <Modal v-model="showCode.show" title="显示数据" width="80vw">
+      <Input v-model="showCode.data" type="textarea" :rows="30"/>
+    </Modal>
   </div>
 </template>
 
@@ -157,6 +164,10 @@ const jsonData = ref({
   show: false,
   data: ''
 })
+const showCode = ref({
+  show: false,
+  data: ''
+})
 
 const showJsonData = () => {
   jsonData.value.show = !jsonData.value.show
@@ -182,6 +193,17 @@ const saveJsonData = () => {
   console.log("saveJsonData")
 }
 
+const showCodeBtnFn = (showData) => {
+  showCode.value.data = JSON.stringify(showData, null, "  ");
+  showCode.value.show = !showCode.value.show;
+}
+
+/**
+ * 保存组件数据
+ */
+const saveComponents = () => {
+
+}
 
 </script>
 
@@ -202,6 +224,12 @@ const saveJsonData = () => {
 
   .cardBox {
     margin-bottom: 20px;
+
+    .showCodeBtn {
+      position: absolute;
+      top: 4px;
+      right: 10px;
+    }
 
     .dataBox {
       .dataRow {
