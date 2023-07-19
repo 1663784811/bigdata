@@ -124,34 +124,32 @@ const requestObjData = ref({
 
 const columnsArr = ref([]);
 
-const operationObj = ref([
-  {
-    label: "查看",
-    val: false
-  },
-  {
-    label: "修改",
-    val: false
-  },
-  {
-    label: "删除",
-    val: false
-  },
-]);
+const operationObj = ref({
+      show: {
+        label: "查看",
+        val: false
+      },
+      update: {
+        label: "修改",
+        val: false
+      },
+      del: {
+        label: "删除",
+        val: false
+      }
+    }
+);
 
 
 /**
  * 事件
  */
 const eventFn = (eventData) => {
-  console.log("sssssssssssssssssssssssss", eventData.data)
-
   findSetting({pageId: eventData.pageId}).then((res) => {
     const {columns, operation, requestObj} = res.data.commonTable
-    console.log(columns, operation, requestObj)
+    operationObj.value = operation;
     requestObjData.value = requestObj;
     columnsArr.value = columns;
-
   })
 }
 
@@ -165,6 +163,7 @@ const showJsonData = () => {
 
   const json = {
     requestObj: requestObjData.value,
+    operation: operationObj.value,
     columns: columnsArr.value
   }
   jsonData.value.data = JSON.stringify(json, null, "  ");
@@ -218,7 +217,7 @@ const saveJsonData = () => {
     }
 
     .columnBox {
-      background: #ddd;
+      background: #f7f7f7;
       margin: 10px 0;
       padding: 20px;
       position: relative;
