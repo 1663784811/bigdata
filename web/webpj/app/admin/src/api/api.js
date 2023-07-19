@@ -36,7 +36,7 @@ export const apiAdminMenu = (parameter) => {
  * 获取页面设置
  */
 export const pageSetting = async (parameter) => {
-    return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 1)
+    return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 0)
 }
 
 /**

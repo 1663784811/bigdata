@@ -28,7 +28,7 @@ export const PageComponents = {
                 javaType: "integer"
             }
             , {
-                key: "components_code",
+                key: "componentsCode",
                 title: "类型",
                 length: 45,
                 controlType: "input",
@@ -38,7 +38,7 @@ export const PageComponents = {
                 javaType: "string"
             }
             , {
-                key: "create_time",
+                key: "createTime",
                 title: "创建时间",
                 length: 19,
                 controlType: "datetime",
@@ -56,7 +56,8 @@ export const PageComponents = {
                 isShowColumn: true,
                 isWhere: true,
                 javaWhere: "like",
-                javaType: "string"
+                javaType: "string",
+                tooltip:true
             }
             , {
                 key: "del",
@@ -111,7 +112,7 @@ export const PageComponents = {
                 javaType: "string"
             }
             , {
-                key: "page_id",
+                key: "pageId",
                 title: "页面ID",
                 length: 45,
                 controlType: "input",

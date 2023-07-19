@@ -25,7 +25,7 @@ export const pageConfig = defineStore('pageConfig', () => {
     const getPageConfig = (pageCode) => {
         let codeData = pageConfigList.value[pageCode]
         const loadData = pageSetting({code: pageCode});
-        console.log("sssssssssssssssssssssssssss",loadData)
+        console.log("sssssssssssssssssssssssssss",codeData)
         if (!codeData) {
             const loadData = pageSetting({code: pageCode});
             if (loadData.code === 2000) {
