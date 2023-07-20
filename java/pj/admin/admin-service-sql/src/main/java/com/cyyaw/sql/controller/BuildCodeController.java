@@ -53,12 +53,15 @@ public class BuildCodeController {
             JSONObject queryRequest = new JSONObject();
             queryRequest.set("url", "");
             requestObj.set("queryRequest", queryRequest);
+
             JSONObject saveRequest = new JSONObject();
             saveRequest.set("url", "");
-            requestObj.set("queryRequest", saveRequest);
+            requestObj.set("saveRequest", saveRequest);
+
             JSONObject delRequest = new JSONObject();
             delRequest.set("url", "");
-            requestObj.set("queryRequest", delRequest);
+            requestObj.set("delRequest", delRequest);
+
             js.set("requestObj", requestObj);
             JSONObject operation = new JSONObject();
             operation.set("show", true);

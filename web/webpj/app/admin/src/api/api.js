@@ -77,3 +77,12 @@ export const findIdCPageComponents = (parameter) => {
 export const findCPageComponents = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findPage`, parameter, 0)
 }
+
+
+export const loadTable = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/buildCode/loadTable`, parameter, 0)
+}
+
+
+
+

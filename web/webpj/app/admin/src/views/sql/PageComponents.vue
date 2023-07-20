@@ -147,7 +147,12 @@
     <Modal v-model="showCode.show" title="显示数据" width="80vw">
       <Input v-model="showCode.data" type="textarea" :rows="30"/>
     </Modal>
-    <Modal v-model="databaseLoad.show" title="加载数库" width="80vw">
+    <Modal
+        v-model="databaseLoad.show"
+        title="加载数库"
+        width="80vw"
+        @on-ok="databaseLoadOkFn"
+    >
       <div>
         <Table :columns="databaseLoad.columns"
                :data="databaseLoad.data"
@@ -325,9 +330,19 @@ const databaseLoadFn = () => {
   })
 }
 
+/**
+ * 选择数据
+ */
 const selectTable = (item) => {
   databaseLoad.value.commonTable = item.pageConfig.commonTable;
   databaseLoad.value.jsData = JSON.stringify(databaseLoad.value.commonTable, null, "  ");
+}
+
+const databaseLoadOkFn = () => {
+  const {columns, operation, requestObj} = databaseLoad.value.commonTable
+  operationObj.value = operation;
+  requestObjData.value = requestObj;
+  columnsArr.value = columns;
 }
 
 </script>
