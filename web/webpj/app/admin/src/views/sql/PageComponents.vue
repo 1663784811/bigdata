@@ -7,17 +7,10 @@
 
     <div class="tableConfig">
       <div class="tableColumnsBtn">
-        <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveJsonData"/>
-        <Button class="dataBtn" type="primary" icon="md-list" @click="showJsonData"/>
-        <Modal
-            v-model="jsonData.show"
-            :loading="jsonData.loading"
-            title="数据"
-            width="80vw"
-            @on-ok="saveComponentsFn"
-        >
-          <Input v-model="jsonData.data" type="textarea" :rows="40"/>
-        </Modal>
+        <Button class="dataBtn" type="primary" icon="md-archive" @click="databaseLoadFn">数据库加载</Button>
+        <Button class="dataBtn" type="primary" icon="md-archive" @click="saveJsonData">历史</Button>
+        <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveJsonData">保存</Button>
+        <Button class="dataBtn" type="primary" icon="md-list" @click="showJsonData">查看代码</Button>
       </div>
       <div class="cardBox">
         <Card :bordered="true">
@@ -133,8 +126,7 @@
           </div>
 
           <div class="columnBottomBox">
-            <Button class="dataBtn" type="primary" icon="ios-add-circle-outline" @click="addJsonData"/>
-
+            <Button class="dataBtn" type="primary" icon="ios-add-circle-outline" @click="addJsonData">添加</Button>
           </div>
 
         </Card>
@@ -142,8 +134,28 @@
 
     </div>
 
+    <!-- =============    弹出层   =============   -->
+    <Modal
+        v-model="jsonData.show"
+        :loading="jsonData.loading"
+        title="数据"
+        width="80vw"
+        @on-ok="saveComponentsFn"
+    >
+      <Input v-model="jsonData.data" type="textarea" :rows="40"/>
+    </Modal>
     <Modal v-model="showCode.show" title="显示数据" width="80vw">
       <Input v-model="showCode.data" type="textarea" :rows="30"/>
+    </Modal>
+    <Modal v-model="databaseLoad.show" title="加载数库" width="80vw">
+      <div>
+        <Table :columns="databaseLoad.columns" :data="databaseLoad.data"></Table>
+      </div>
+      <div>
+        <Page :total="40" size="small" show-total />
+      </div>
+
+      <Input v-model="databaseLoad.data" type="textarea" :rows="30"/>
     </Modal>
   </div>
 </template>
@@ -213,6 +225,34 @@ const showCode = ref({
   data: ''
 })
 
+const databaseLoad = ref({
+  show: true,
+  columns: [
+    {
+      title: 'id',
+      key: 'id'
+    },
+    {
+      title: '数据表',
+      key: 'databaseTable'
+    },
+    {
+      title: '操作',
+      key: 'operation'
+    }
+  ],
+  data: [
+    {
+      id: 1
+    },
+    {
+      id: 2
+    }
+  ],
+
+})
+
+
 const showJsonData = () => {
   jsonData.value.show = !jsonData.value.show
 
@@ -263,8 +303,8 @@ const saveComponentsFn = () => {
 /**
  * 添加字段数据
  */
-const addJsonData = () =>{
-  const js =     {
+const addJsonData = () => {
+  const js = {
     key: "",
     title: "标题",
     controlType: "text",
@@ -274,6 +314,11 @@ const addJsonData = () =>{
     javaType: "string",
   };
   columnsArr.value.push(js);
+}
+
+const databaseLoadFn = () => {
+  databaseLoad.value.show = !databaseLoad.value.show;
+
 }
 
 </script>
