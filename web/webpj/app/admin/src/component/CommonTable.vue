@@ -3,8 +3,8 @@
     <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
       <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index">
-        <div class="inputLabel">{{ item.name }}:</div>
-        <Input :placeholder="item.note" style="width: auto"/>
+        <div class="inputLabel">{{ item.title }}:</div>
+        <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
       </div>
       <div class="btnBox">
         <Button class="btn" type="success" icon="ios-search" @click="search">搜索</Button>
@@ -231,6 +231,7 @@ const loadTableData = () => {
   commonRequest(
       searchObj.value.queryRequest.url,
       {
+        ...searchObj.value.queryRequest.pm,
         ...searchObj.value.queryRequest.parameter,
         ...tableConfig.value.pageData
       }
@@ -251,7 +252,15 @@ setTimeout(() => {
 // ======================================================
 const search = () => {
   tableConfig.value.pageData.page = 1;
-  console.log("search")
+  let columns = searchObj.value.columns;
+  let searchData = {}
+  for (let i = 0; i < columns.length; i++) {
+    const it = columns[i]
+    if (it.searchVal) {
+      searchData[it.javaWhere + "_" + it.key] = it.searchVal
+    }
+  }
+  searchObj.value.queryRequest.pm = searchData;
   loadTableData();
 }
 
@@ -420,7 +429,7 @@ watch(() => props.tableSetting, () => {
     console.log("=========== 未设置数据 =======", setting)
   }
 
-}, {deep: true, immediate: true})
+}, {deep: false, immediate: false})
 
 
 //==============================
@@ -436,9 +445,13 @@ const changeColumnsList = () => {
 const initTable = () => {
   const arr = tableConfig.value.columnsList;
   const temp = [];
+  const searchTemp = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].isShowColumn) {
       temp.push(arr[i]);
+    }
+    if (arr[i].isShowSearch) {
+      searchTemp.push(arr[i])
     }
   }
   const setting = props.tableSetting;
@@ -450,8 +463,9 @@ const initTable = () => {
       }
     }
   }
-  console.log(temp)
   tableConfig.value.columns = temp;
+  searchObj.value.columns = searchTemp;
+  console.log(searchTemp)
 }
 
 </script>

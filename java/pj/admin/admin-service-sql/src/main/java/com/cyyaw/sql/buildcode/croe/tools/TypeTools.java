@@ -85,22 +85,22 @@ public class TypeTools {
         String objType = "";
         switch (type) {
             case "string":
-                objType = "like";
+                objType = "lk";
                 break;
             case "integer":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "biginteger":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "float":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "double":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "date":
-                objType = "equals";
+                objType = "eq";
                 break;
         }
         return objType;
