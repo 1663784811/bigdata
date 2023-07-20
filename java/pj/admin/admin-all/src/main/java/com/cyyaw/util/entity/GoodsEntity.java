@@ -1,9 +1,9 @@
 package com.cyyaw.util.entity;
 
 import com.cyyaw.enterprise.table.entity.EStore;
-import com.cyyaw.table.store.goods.entity.GGoods;
-import com.cyyaw.table.store.goods.entity.GGoodsSearch;
-import com.cyyaw.table.store.goods.entity.GStoreGoodsSku;
+import com.cyyaw.store.table.goods.entity.GGoods;
+import com.cyyaw.store.table.goods.entity.GGoodsSearch;
+import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
