@@ -75,15 +75,24 @@
   >
     <div class="modalBox">
       <div>
-        <div class="row" v-for="(item,index) in saveData.columns" :key="index">
-          <div class="label">{{ item.title }}:</div>
-          <div class="content" v-if="item.controlType == 'textarea'">
-            <Input v-model="saveData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
+        <template v-for="(item,index) in saveData.columns" :key="index">
+          <div v-if="item.isShowSave !== false" class="row">
+            <div class="label">{{ item.title }}:</div>
+            <div class="content" v-if="item.controlType == 'textarea'">
+              <Input v-model="saveData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
+            </div>
+            <div class="content" v-else-if="item.controlType == 'datetime'">
+              <DatePicker v-model="saveData.data[item.key]"
+                          type="datetime"
+                          format="yyyy-MM-dd HH:mm"
+                          :placeholder="item.node"/>
+            </div>
+            <div class="content" v-else>
+              <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
+            </div>
           </div>
-          <div class="content" v-else>
-            <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
-          </div>
-        </div>
+        </template>
+
       </div>
     </div>
   </Modal>
@@ -393,7 +402,7 @@ watch(() => props.requestObj, () => {
 
 watch(() => props.tableSetting, () => {
   const setting = props.tableSetting;
-  if(setting){
+  if (setting) {
     if (setting.columns) {
       saveData.value.columns = setting.columns;
     }
@@ -407,7 +416,7 @@ watch(() => props.tableSetting, () => {
     searchObj.value.queryRequest = setting.requestObj.queryRequest;
     searchObj.value.saveRequest = setting.requestObj.saveRequest;
     searchObj.value.delRequest = setting.requestObj.delRequest;
-  }else {
+  } else {
     console.log("=========== 未设置数据 =======", setting)
   }
 
