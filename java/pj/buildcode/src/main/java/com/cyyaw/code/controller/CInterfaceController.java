@@ -1,9 +1,7 @@
 package com.cyyaw.code.controller;
 
-import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CInterfaceService;
 import com.cyyaw.code.table.entity.CInterface;
-import com.cyyaw.code.table.entityconst.CInterfaceConst;
 
 import com.cyyaw.jpa.BaseConstants;
 import com.cyyaw.jpa.util.entity.SelectEntity;

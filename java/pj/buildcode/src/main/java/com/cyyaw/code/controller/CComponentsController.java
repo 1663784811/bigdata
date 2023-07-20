@@ -1,23 +1,17 @@
 package com.cyyaw.code.controller;
 
-import cn.hutool.core.util.PageUtil;
 import com.cyyaw.code.service.CComponentsService;
 import com.cyyaw.code.table.entity.CComponents;
-import com.cyyaw.code.table.entityconst.CComponentsConst;
 import com.cyyaw.jpa.BaseConstants;
 import com.cyyaw.jpa.util.entity.SelectEntity;
-import com.cyyaw.jpa.util.tools.JpaUtils;
-import com.cyyaw.util.tools.*;
+import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
