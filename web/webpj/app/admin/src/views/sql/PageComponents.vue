@@ -149,13 +149,15 @@
     </Modal>
     <Modal v-model="databaseLoad.show" title="加载数库" width="80vw">
       <div>
-        <Table :columns="databaseLoad.columns" :data="databaseLoad.data"></Table>
+        <Table :columns="databaseLoad.columns"
+               :data="databaseLoad.data"
+               :loading="databaseLoad.loading"
+               :height="300"
+               @on-row-click="selectTable"
+               highlight-row
+        ></Table>
       </div>
-      <div>
-        <Page :total="40" size="small" show-total />
-      </div>
-
-      <Input v-model="databaseLoad.data" type="textarea" :rows="30"/>
+      <Input v-model="databaseLoad.jsData" type="textarea" :rows="30"/>
     </Modal>
   </div>
 </template>
@@ -165,7 +167,7 @@
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {ref} from "vue";
-import {findSetting, saveComponents} from "@/api/api";
+import {findSetting, saveComponents, loadTable} from "@/api/api";
 
 
 const usePageConfig = pageConfig();
@@ -226,30 +228,26 @@ const showCode = ref({
 })
 
 const databaseLoad = ref({
-  show: true,
+  show: false,
+  loading: false,
   columns: [
     {
-      title: 'id',
-      key: 'id'
+      title: '数据表',
+      key: 'table',
+      width: 160
     },
     {
-      title: '数据表',
-      key: 'databaseTable'
+      title: '名称',
+      key: 'note'
     },
     {
       title: '操作',
       key: 'operation'
     }
   ],
-  data: [
-    {
-      id: 1
-    },
-    {
-      id: 2
-    }
-  ],
-
+  data: [],
+  commonTable: {},
+  jsData: ''
 })
 
 
@@ -318,7 +316,18 @@ const addJsonData = () => {
 
 const databaseLoadFn = () => {
   databaseLoad.value.show = !databaseLoad.value.show;
+  databaseLoad.value.loading = true;
+  loadTable({}).then((res) => {
+    const {data} = res;
+    databaseLoad.value.data = data;
+  }).finally(() => {
+    databaseLoad.value.loading = false
+  })
+}
 
+const selectTable = (item) => {
+  databaseLoad.value.commonTable = item.pageConfig.commonTable;
+  databaseLoad.value.jsData = JSON.stringify(databaseLoad.value.commonTable, null, "  ");
 }
 
 </script>

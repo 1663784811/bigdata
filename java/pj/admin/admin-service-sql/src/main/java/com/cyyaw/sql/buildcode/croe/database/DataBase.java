@@ -14,6 +14,10 @@ public class DataBase {
 
     private Connection connection;
 
+    public DataBase(Connection connection) {
+        this.connection = connection;
+    }
+
     public DataBase(String driver, String url, String user, String pwd) throws ClassNotFoundException, SQLException {
         Class.forName(driver);
         connection = DriverManager.getConnection(url, user, pwd);
