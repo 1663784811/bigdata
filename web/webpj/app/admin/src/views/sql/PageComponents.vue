@@ -22,14 +22,17 @@
           <div class="dataBox">
             <div class="dataRow">
               <div class="rowLabel">查询URl:</div>
+              <Checkbox border v-model="requestObjData.queryRequest.show"></Checkbox>
               <Input v-model="requestObjData.queryRequest.url" placeholder="查询URl"/>
             </div>
             <div class="dataRow">
               <div class="rowLabel">保存URl:</div>
+              <Checkbox border v-model="requestObjData.saveRequest.show"></Checkbox>
               <Input v-model="requestObjData.saveRequest.url" placeholder="large size"/>
             </div>
             <div class="dataRow">
               <div class="rowLabel">删除URl:</div>
+              <Checkbox border v-model="requestObjData.delRequest.show"></Checkbox>
               <Input v-model="requestObjData.delRequest.url" placeholder="large size"/>
             </div>
           </div>
@@ -186,9 +189,18 @@ initFn();
 
 const selectData = ref({});
 const requestObjData = ref({
-  queryRequest: {},
-  saveRequest: {},
-  delRequest: {}
+  queryRequest: {
+    url: '',
+    show: true
+  },
+  saveRequest: {
+    url: '',
+    show: true
+  },
+  delRequest: {
+    url: '',
+    show: true
+  }
 });
 
 const columnsArr = ref([]);

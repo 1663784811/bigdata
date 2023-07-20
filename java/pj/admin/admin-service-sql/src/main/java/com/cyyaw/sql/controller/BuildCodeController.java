@@ -56,14 +56,17 @@ public class BuildCodeController {
             JSONObject requestObj = new JSONObject();
             JSONObject queryRequest = new JSONObject();
             queryRequest.set("url", "/admin/" + strurl + "/findPage");
+            queryRequest.set("show", true);
             requestObj.set("queryRequest", queryRequest);
 
             JSONObject saveRequest = new JSONObject();
             saveRequest.set("url", "/admin/" + strurl + "/saveCPage");
+            saveRequest.set("show", true);
             requestObj.set("saveRequest", saveRequest);
 
             JSONObject delRequest = new JSONObject();
             delRequest.set("url", "/admin/" + strurl + "/delCPage");
+            delRequest.set("show", true);
             requestObj.set("delRequest", delRequest);
 
             js.set("requestObj", requestObj);
@@ -83,6 +86,7 @@ public class BuildCodeController {
                     }
                 }
                 String key = vueJson.getKey();
+                String message = vueJson.getMessage();
                 if ("id".equals(key)) {
                     vueJson.setWidth(60);
                     vueJson.setControlType("hidden");
@@ -97,8 +101,12 @@ public class BuildCodeController {
                     vueJson.setIsShowColumn(false);
                     vueJson.setControlType("hidden");
                 }
-                if("createTime".equals(key)){
+                if ("createTime".equals(key)) {
                     vueJson.setWidth(160);
+                    vueJson.setControlType("hidden");
+                }
+                if (null != message && message.indexOf("名") != -1) {
+                    vueJson.setIsShowSearch(true);
                 }
             }
             js.set("columns", vueJsons);

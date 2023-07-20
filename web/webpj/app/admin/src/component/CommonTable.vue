@@ -6,7 +6,7 @@
         <div class="inputLabel">{{ item.title }}:</div>
         <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
       </div>
-      <div class="btnBox">
+      <div class="btnBox" >
         <Button class="btn" type="success" icon="ios-search" @click="search">搜索</Button>
         <Button class="btn" type="warning" icon="ios-search" @click="addData">添加</Button>
         <Button class="btn" type="error" icon="ios-search" @click="delSelect">删除</Button>

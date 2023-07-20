@@ -28,4 +28,5 @@ public class VueJson {
     private List<Filters> filters;      //过滤
     private Boolean tooltip;            //超长不换行显示省略号
     private Boolean isShowSave = true;  //是否显示保存列表
+    private Boolean isShowSearch;       //是否显示挺搜索列表
 }
