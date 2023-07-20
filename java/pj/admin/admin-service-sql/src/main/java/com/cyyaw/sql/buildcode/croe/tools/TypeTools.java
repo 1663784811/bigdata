@@ -195,7 +195,7 @@ public class TypeTools {
     public static VueJson javaColumn2VueJson(JavaColumn javaColumn) {
         VueJson vueJson = new VueJson();
         if (null != javaColumn) {
-            vueJson.setKey(javaColumn.getColumnName()); //key
+            vueJson.setKey(OperationTools.delSpecial(javaColumn.getColumnName())); //key
 
             String note = javaColumn.getNote();
             List filters = new ArrayList<Filters>();

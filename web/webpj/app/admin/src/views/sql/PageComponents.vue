@@ -105,6 +105,7 @@
               <div>
                 输入类型:
                 <Select v-model="item.controlType" clearable size="small" style="width:100px">
+                  <Option value="hidden">隐藏框</Option>
                   <Option value="text">文本</Option>
                   <Option value="textarea">长文本</Option>
                   <Option value="date">日期</Option>

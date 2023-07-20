@@ -26,4 +26,5 @@ public class VueJson {
     private String javaWhere;           //java条件
     private String javaType;            //java类型
     private List<Filters> filters;      //过滤
+    private Boolean tooltip;            //超长不换行显示省略号
 }

@@ -8,6 +8,7 @@ import com.cyyaw.sql.buildcode.croe.entity.java.JavaColumn;
 import com.cyyaw.sql.buildcode.croe.entity.java.JavaData;
 import com.cyyaw.sql.buildcode.croe.entity.vue.Filters;
 import com.cyyaw.sql.buildcode.croe.entity.vue.VueJson;
+import com.cyyaw.sql.buildcode.croe.tools.OperationTools;
 import com.cyyaw.sql.buildcode.croe.tools.TypeTools;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -48,19 +49,21 @@ public class BuildCodeController {
         for (int i = 0; i < tableList.size(); i++) {
             JavaData javaData = tableList.get(i);
             List<JavaColumn> javaColumns = javaData.getJavaColumns();
+            String table = javaData.getTable();
+            String strurl = OperationTools.indexToLowerCase(table);
 
             JSONObject js = new JSONObject();
             JSONObject requestObj = new JSONObject();
             JSONObject queryRequest = new JSONObject();
-            queryRequest.set("url", "/admin/page/findPage");
+            queryRequest.set("url", "/admin/" + strurl + "/findPage");
             requestObj.set("queryRequest", queryRequest);
 
             JSONObject saveRequest = new JSONObject();
-            saveRequest.set("url", "/admin/page/saveCPage");
+            saveRequest.set("url", "/admin/" + strurl + "/saveCPage");
             requestObj.set("saveRequest", saveRequest);
 
             JSONObject delRequest = new JSONObject();
-            delRequest.set("url", "/admin/page/delCPage");
+            delRequest.set("url", "/admin/" + strurl + "/delCPage");
             requestObj.set("delRequest", delRequest);
 
             js.set("requestObj", requestObj);
@@ -80,8 +83,21 @@ public class BuildCodeController {
                     }
                 }
                 String key = vueJson.getKey();
-                if("id".equals(key)){
+                if ("id".equals(key)) {
                     vueJson.setWidth(60);
+                    vueJson.setControlType("hidden");
+                }
+                if ("del".equals(key)) {
+                    vueJsons.remove(j);
+                    j--;
+                    continue;
+                }
+                if ("tid".equals(key)) {
+                    vueJson.setTooltip(true);
+                    vueJson.setIsShowColumn(false);
+                }
+                if("createTime".equals(key)){
+                    vueJson.setWidth(160);
                 }
             }
             js.set("columns", vueJsons);
