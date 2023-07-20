@@ -69,32 +69,66 @@
             <Button class="showCodeBtn" type="primary" icon="md-list" @click="showCodeBtnFn(columnsArr)"/>
           </template>
           <div class="columnBox" v-for="(item, index) in columnsArr" :key="index">
-            <div class="upBox" v-if="index>0">
-              <Button size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
+            <div class="upBox">
+              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
+              <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
             </div>
-            <div>
-              <Input v-model="item.title" placeholder="标题" clearable style="width: 100px"/>
+
+            <Divider orientation="left">表格</Divider>
+            <div class="inputGroup">
+              <div>
+                标题:
+                <Input v-model="item.title" placeholder="标题" clearable style="width: 100px"/>
+              </div>
+              <div>
+                key:
+                <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
+              </div>
+              <div>
+                宽:
+                <Input v-model="item.width" placeholder="宽" clearable type="number" style="width: 80px"/>
+              </div>
+              <div>
+                表格类型:
+                <Select v-model="item.type" size="small" clearable style="width:110px">
+                  <Option value="text">文本</Option>
+                  <Option value="selection">选择框</Option>
+                </Select>
+              </div>
+              <div>
+                <Checkbox v-model="item.isShowColumn">显示字段</Checkbox>
+              </div>
+              <div>
+                <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
+              </div>
             </div>
-            <div>
-              <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
+
+            <Divider orientation="left">添加</Divider>
+            <div class="inputGroup">
+              <div>
+                长度:
+                <Input v-model="item.length" placeholder="长度" clearable type="number" style="width: 80px"/>
+              </div>
+              <div>
+                输入类型:
+                <Select v-model="item.controlType" clearable size="small" style="width:100px">
+                  <Option value="text">文本</Option>
+                  <Option value="textarea">长文本</Option>
+                  <Option value="date">日期</Option>
+                  <Option value="time">时间</Option>
+                  <Option value="datetime">日期时间</Option>
+                </Select>
+              </div>
+              <div>
+                <Checkbox v-model="item.isShowSave">显示字段</Checkbox>
+              </div>
             </div>
-            <div>
-              <Input v-model="item.length" placeholder="长度" clearable type="number" style="width: 100px"/>
-            </div>
-            <div>
-              <Input v-model="item.controlType" placeholder="组件类型" clearable style="width: 100px"/>
-            </div>
-            <div>
-              <Input v-model="item.type" placeholder="表格类型" clearable style="width: 100px"/>
-            </div>
-            <div>
-              <Input v-model="item.controlType" placeholder="输入类型" clearable style="width: 100px"/>
-            </div>
-            <div>
-              <Checkbox v-model="item.isShowColumn">显示字段</Checkbox>
-            </div>
-            <div>
-              <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
+
+            <Divider orientation="left">搜索</Divider>
+            <div class="inputGroup">
+              <div>
+                <Checkbox v-model="item.isShowSearch">显示字段</Checkbox>
+              </div>
             </div>
           </div>
         </Card>
@@ -193,6 +227,10 @@ const upIndexDataFn = (index) => {
   }
 }
 
+const delIndexDataFn = (index) => {
+  columnsArr.value.splice(index, 1)
+}
+
 const saveJsonData = () => {
   console.log("saveJsonData")
 }
@@ -260,12 +298,17 @@ const saveComponentsFn = () => {
       margin: 10px 0;
       padding: 20px;
       position: relative;
-      display: flex;
 
       .upBox {
         position: absolute;
         top: 0;
         left: -10px;
+      }
+
+      .inputGroup {
+        display: flex;
+        margin: 10px 0;
+        align-items: center;
       }
     }
   }

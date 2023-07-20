@@ -37,6 +37,9 @@ public class WBanner implements Serializable {
     private String note;
 
     // =================================================================================
+    @Basic
+    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
+    private String enterpriseId;
 
 
     @Basic
@@ -49,8 +52,8 @@ public class WBanner implements Serializable {
     @Column(name = "img", columnDefinition = "varchar(255) COMMENT '图片地址'")
     private String img;
     @Basic
-    @Column(name = "isshow", columnDefinition = "int default '0' COMMENT '是否显示{0:否,1:是}'")
-    private Integer isshow;
+    @Column(name = "is_show", columnDefinition = "int default '0' COMMENT '是否显示{0:否,1:是}'")
+    private Integer isShow;
     @Basic
     @Column(name = "position", columnDefinition = "int default '0' COMMENT '显示位置{1:首页}'")
     private Integer position;
