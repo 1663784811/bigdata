@@ -95,6 +95,7 @@ public class BuildCodeController {
                 if ("tid".equals(key)) {
                     vueJson.setTooltip(true);
                     vueJson.setIsShowColumn(false);
+                    vueJson.setControlType("hidden");
                 }
                 if("createTime".equals(key)){
                     vueJson.setWidth(160);

@@ -77,7 +77,7 @@
       <div>
         <template v-for="(item,index) in saveData.columns" :key="index">
 
-          <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType == 'hidden'?'':''}">
+          <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType == 'hidden'?'none':''}">
             <div class="label">{{ item.title }}:</div>
             <div class="content" v-if="item.controlType == 'textarea'">
               <Input v-model="saveData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>

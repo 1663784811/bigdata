@@ -27,4 +27,5 @@ public class VueJson {
     private String javaType;            //java类型
     private List<Filters> filters;      //过滤
     private Boolean tooltip;            //超长不换行显示省略号
+    private Boolean isShowSave = true;  //是否显示保存列表
 }
