@@ -6,6 +6,7 @@ import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.buildcode.croe.database.DataBase;
 import com.cyyaw.sql.buildcode.croe.entity.java.JavaColumn;
 import com.cyyaw.sql.buildcode.croe.entity.java.JavaData;
+import com.cyyaw.sql.buildcode.croe.entity.vue.Filters;
 import com.cyyaw.sql.buildcode.croe.entity.vue.VueJson;
 import com.cyyaw.sql.buildcode.croe.tools.TypeTools;
 import com.cyyaw.util.tools.BaseResult;
@@ -70,6 +71,13 @@ public class BuildCodeController {
             js.set("operation", operation);
             // ===================
             List<VueJson> vueJsons = TypeTools.javaColumnList2VueJsonList(javaColumns);
+            for (int j = 0; j < vueJsons.size(); j++) {
+                VueJson vueJson = vueJsons.get(i);
+                List<Filters> filters = vueJson.getFilters();
+                if (filters.size() == 0) {
+                    vueJson.setFilters(null);
+                }
+            }
             js.set("columns", vueJsons);
             JSONObject rest = new JSONObject();
             rest.set("commonTable", js);
