@@ -14,39 +14,6 @@ export const store = {
                 url: '/admin/common/sql/delSql',
             }
         },
-        search: {
-            columns: [
-                {
-                    key: 'name',
-                    name: '名称',
-                    type: 'input',
-                    note: '名称备注'
-                }
-            ]
-        },
-        save: {
-
-            columns: [
-                {
-                    key: 'name',
-                    name: '名称',
-                    type: 'input',
-                    note: '名称备注'
-                },
-                {
-                    key: 'name1',
-                    name: '名称1',
-                    type: 'input',
-                    note: '名称备注'
-                },
-                {
-                    key: 'name2',
-                    name: '名称2',
-                    type: 'input',
-                    note: '名称备注'
-                }
-            ]
-        },
         columns: [
             {
                 title: 'ID',

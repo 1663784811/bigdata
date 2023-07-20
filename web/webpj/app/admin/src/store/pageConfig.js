@@ -17,7 +17,7 @@ export const pageConfig = defineStore('pageConfig', () => {
         role,
         power,
         // user,
-        enterprise,
+        // enterprise,
         store,
         // cPage,
         // PageComponents
