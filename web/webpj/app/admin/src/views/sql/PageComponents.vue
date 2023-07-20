@@ -131,6 +131,12 @@
               </div>
             </div>
           </div>
+
+          <div class="columnBottomBox">
+            <Button class="dataBtn" type="primary" icon="ios-add-circle-outline" @click="addJsonData"/>
+
+          </div>
+
         </Card>
       </div>
 
@@ -252,6 +258,22 @@ const saveComponentsFn = () => {
     jsonData.value.loading = false;
   })
 
+}
+
+/**
+ * 添加字段数据
+ */
+const addJsonData = () =>{
+  const js =     {
+    key: "",
+    title: "标题",
+    controlType: "text",
+    isShowColumn: true,
+    isWhere: true,
+    javaWhere: "like",
+    javaType: "string",
+  };
+  columnsArr.value.push(js);
 }
 
 </script>
