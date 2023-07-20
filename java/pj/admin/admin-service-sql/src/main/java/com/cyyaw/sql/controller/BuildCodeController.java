@@ -72,10 +72,16 @@ public class BuildCodeController {
             // ===================
             List<VueJson> vueJsons = TypeTools.javaColumnList2VueJsonList(javaColumns);
             for (int j = 0; j < vueJsons.size(); j++) {
-                VueJson vueJson = vueJsons.get(i);
+                VueJson vueJson = vueJsons.get(j);
                 List<Filters> filters = vueJson.getFilters();
-                if (filters.size() == 0) {
-                    vueJson.setFilters(null);
+                if (null != filters) {
+                    if (filters.size() == 0) {
+                        vueJson.setFilters(null);
+                    }
+                }
+                String key = vueJson.getKey();
+                if("id".equals(key)){
+                    vueJson.setWidth(60);
                 }
             }
             js.set("columns", vueJsons);

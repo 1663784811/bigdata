@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Data
 public class VueJson {
+    private Integer width;              // 宽度
     private String key;                 //键值
     private String title;               //名称
     private String type;                //列表类型
