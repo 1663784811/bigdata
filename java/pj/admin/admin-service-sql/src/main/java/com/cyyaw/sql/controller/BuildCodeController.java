@@ -51,6 +51,7 @@ public class BuildCodeController {
             List<JavaColumn> javaColumns = javaData.getJavaColumns();
             String table = javaData.getTable();
             String strurl = OperationTools.indexToLowerCase(table);
+            String strTable = OperationTools.indexToUpperCase(table);
 
             JSONObject js = new JSONObject();
             JSONObject requestObj = new JSONObject();
@@ -60,12 +61,12 @@ public class BuildCodeController {
             requestObj.set("queryRequest", queryRequest);
 
             JSONObject saveRequest = new JSONObject();
-            saveRequest.set("url", "/admin/" + strurl + "/saveCPage");
+            saveRequest.set("url", "/admin/" + strurl + "/save" + strTable);
             saveRequest.set("show", true);
             requestObj.set("saveRequest", saveRequest);
 
             JSONObject delRequest = new JSONObject();
-            delRequest.set("url", "/admin/" + strurl + "/delCPage");
+            delRequest.set("url", "/admin/" + strurl + "/del" + strTable);
             delRequest.set("show", true);
             requestObj.set("delRequest", delRequest);
 

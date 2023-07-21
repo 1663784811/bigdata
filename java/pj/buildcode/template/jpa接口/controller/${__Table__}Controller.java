@@ -2,7 +2,6 @@ package ${basePackage}.controller;
 
 import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +15,7 @@ import java.util.Map;
 import java.util.Date;
 
 @Slf4j
-@RequestMapping("/admin/${__table__all__}")
+@RequestMapping("/admin/${__table__}")
 @RestController
 public class ${__Table__}Controller {
 
@@ -52,7 +51,14 @@ public class ${__Table__}Controller {
         if (ObjectUtils.isEmpty(id)) {
             //添加
             saveObj.setCreateTime(new Date());
-            saveObj.set${__Pk__}(IdWorker.nextId());
+<#list javaColumns as column>
+        <#if column.columnName == 'tid' >
+             saveObj.setTid(WhyStringUtil.getUUID());
+        </#if>
+        <#if column.columnName == 'createtime' >
+             saveObj.setCreatetime(new Date());
+        </#if>
+</#list>
             log.info("添加:{}", saveObj);
             obj = ${__table__}Service.save(saveObj);
         } else {
