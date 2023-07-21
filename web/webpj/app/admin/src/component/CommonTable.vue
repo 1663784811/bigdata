@@ -6,7 +6,7 @@
         <div class="inputLabel">{{ item.title }}:</div>
         <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
       </div>
-      <div class="btnBox" >
+      <div class="btnBox">
         <Button class="btn" type="success" icon="ios-search" @click="search">搜索</Button>
         <Button class="btn" type="warning" icon="ios-search" @click="addData">添加</Button>
         <Button class="btn" type="error" icon="ios-search" @click="delSelect">删除</Button>
@@ -64,40 +64,11 @@
     </div>
   </div>
   <!--==================    ====================-->
-  <Modal
-      v-model="modalData.showModal"
-      title="数据"
-      @on-ok="modalData.Save()"
-      @on-cancel="modalData.Cancel()"
-      :mask-closable="false"
-      :loading="modalData.loading"
-      width="80wh"
-  >
-    <div class="modalBox">
-      <div>
-        <template v-for="(item,index) in saveData.columns" :key="index">
-
-          <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType == 'hidden'?'none':''}">
-            <div class="label">{{ item.title }}:</div>
-            <div class="content" v-if="item.controlType == 'textarea'">
-              <Input v-model="saveData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
-            </div>
-            <div class="content" v-else-if="item.controlType == 'datetime'">
-              <DatePicker v-model="saveData.data[item.key]"
-                          type="datetime"
-                          format="yyyy-MM-dd HH:mm"
-                          :placeholder="item.node"/>
-            </div>
-            <div class="content" v-else>
-              <Input v-model="saveData.data[item.key]" :placeholder="item.node"/>
-            </div>
-          </div>
-
-        </template>
-
-      </div>
-    </div>
-  </Modal>
+  <ModalDataList
+      v-model="saveData.show"
+      :modalSetting="saveData"
+      @event="saveEventFn"
+  />
   <SelectPanel/>
 </template>
 
@@ -106,69 +77,24 @@ import {defineEmits, ref, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import SelectPanel from './SelectPanel.vue'
+import ModalDataList from './ModalDataList.vue'
 
 const emits = defineEmits(['event']);
 
 const props = defineProps({
-  tableSetting: {},
-  searchColumns: {
-    type: Array,
-    default: [],
-    required: false
-  },
-  tableColumns: {
-    type: Array,
-    default: [],
-    required: false
-  },
-  tableData: {
-    type: Array,
-    default: [],
-    required: false
-  },
-  operation: {
+  tableSetting: {
     type: Object,
-    default: undefined,
-    required: false
-  },
-  saveColumns: {
-    type: Array,
-    default: [],
-    required: false
-  },
-  requestObj: {
-    type: Object,
-    default: {
-      queryRequest: {
-        url: ''
-      },
-      saveRequest: {
-        url: '',
-      },
-      delRequest: {
-        url: ''
-      }
-    },
+    default: {},
     required: false
   }
 });
 
-
-const selectPanelData = ref({});
-
 const operationObj = ref({});
-
 const operationColumns = ref({
   title: '操作',
   slot: 'operation',
   width: 200,
 });
-
-const selectionColumns = ref({
-  type: 'selection',
-  rowKey: 'id',
-  width: 60
-})
 
 const searchObj = ref({
   columns: [],
@@ -202,7 +128,8 @@ const tableConfig = ref({
 const saveData = ref({
   url: '',
   columns: [],
-  data: {}
+  data: {},
+  show: false
 });
 
 // ======================================================
@@ -268,11 +195,11 @@ const search = () => {
 
 const addData = () => {
   saveData.value.data = {};
-  modalData.value.showModal = true;
+  saveData.value.show = true;
 }
 
 const selectTableData = (row, index, editor) => {
-  modalData.value.showModal = true;
+  saveData.value.show = true;
   saveData.value.data = row;
 }
 
@@ -329,14 +256,21 @@ const changePage = (page) => {
 }
 
 // ===================================================
-const Save = () => {
+const saveEventFn = (ev, itemData) => {
+  if ('ok' === ev) {
+    Save(itemData)
+  } else if ('ss' === ev) {
+
+  }
+}
+const Save = (itemData) => {
   let url = searchObj.value.saveRequest.url;
-  let parameter = saveData.value.data;
+  let parameter = itemData;
   if (!url || url === '/admin/common/save') {
     url = "/admin/common/save";
     parameter = {
       ...searchObj.value.saveRequest.parameter,
-      data: [saveData.value.data]
+      data: [itemData]
     }
   }
   commonRequest(url, parameter, 'post').then((rest) => {
@@ -344,13 +278,12 @@ const Save = () => {
     Message.success({
       content: `${rest.msg}`,
       onClose: () => {
-        modalData.value.showModal = false;
+        saveData.value.show = false;
         loadTableData();
       }
     })
 
   }).catch(err => {
-    modalData.value.loading = false;
     console.log('错误:', err);
     Message.error({
       content: `${err}`
@@ -362,55 +295,8 @@ const Cancel = () => {
   console.log('dddd')
 }
 
-const modalData = ref({
-  loading: false,
-  showModal: false,
-  editor: false,
-  data: {},
-  Save,
-  Cancel
-})
 
-// ===================================================
-watch(() => props.tableColumns, () => {
-  tableConfig.value.columns = props.tableColumns
-}, {deep: true, immediate: true})
-
-watch(() => props.tableData, () => {
-  tableConfig.value.data = props.tableData
-}, {deep: true, immediate: true})
-
-watch(() => props.operation, () => {
-  if (props.operation) {
-    const columns = tableConfig.value.columns;
-    let h = false;
-    for (let i = 0; i < columns.length; i++) {
-      const obj = columns[i];
-      if (obj && obj.slot === 'operation') {
-        h = true;
-        break;
-      }
-    }
-    if (!h) {
-      tableConfig.value.columns.push(operationColumns.value);
-    }
-  }
-}, {deep: true, immediate: true})
-
-watch(() => props.saveColumns, () => {
-  saveData.value.columns = props.saveColumns
-}, {deep: true, immediate: true})
-
-watch(() => props.searchColumns, () => {
-  searchObj.value.columns = props.searchColumns
-}, {deep: true, immediate: true})
-
-watch(() => props.requestObj, () => {
-  searchObj.value.queryRequest = props.requestObj.queryRequest;
-  searchObj.value.saveRequest = props.requestObj.saveRequest;
-  searchObj.value.delRequest = props.requestObj.delRequest;
-}, {deep: true, immediate: true})
-
+// ==============================================
 watch(() => props.tableSetting, () => {
   const setting = props.tableSetting;
   if (setting) {
@@ -436,9 +322,7 @@ watch(() => props.tableSetting, () => {
 
 //==============================
 const changeColumnsList = () => {
-
   initTable();
-
 }
 
 /**
@@ -523,24 +407,6 @@ const initTable = () => {
   }
 }
 
-.modalBox {
-  .row {
-    display: flex;
-    padding: 10px 0;
-
-    .label {
-      width: 150px;
-      padding-right: 10px;
-      align-items: center;
-      display: flex;
-      justify-content: right;
-    }
-
-    .content {
-      flex: 1;
-    }
-  }
-}
 
 </style>
 
