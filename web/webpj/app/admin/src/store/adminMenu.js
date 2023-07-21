@@ -182,6 +182,11 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     name: '权限菜单',
                     icon: 'md-settings',
                     routeName: 'power'
+                },
+                {
+                    name: '代码生成',
+                    icon: 'md-settings',
+                    routeName: 'createCode'
                 }
             ]
         }

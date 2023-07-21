@@ -15,6 +15,11 @@ export const sql = {
             path: 'pageComponents',
             component: import('@/views/sql/PageComponents.vue'),
             name: 'pageComponents'
+        },
+        {
+            path: 'createCode',
+            component: import('@/views/sql/CreateCode.vue'),
+            name: 'createCode'
         }
     ]
 }

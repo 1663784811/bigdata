@@ -14,7 +14,7 @@ import {pageSetting} from "@/api/api.js";
 export const pageConfig = defineStore('pageConfig', () => {
     const pageConfigList = ref({
         sql,
-        role,
+        // role,
         power,
         // user,
         // enterprise,
