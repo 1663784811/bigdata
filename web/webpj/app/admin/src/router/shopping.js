@@ -20,6 +20,11 @@ export const shopping = {
             path: 'shoppingStore',
             component: import('@/views/shopping/ShoppingStore.vue'),
             name: 'shoppingStore'
+        },
+        {
+            path: 'goodsList',
+            component: import('@/views/shopping/GoodsList.vue'),
+            name: 'goodsList'
         }
     ]
 }
