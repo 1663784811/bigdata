@@ -259,8 +259,8 @@ const changePage = (page) => {
 const saveEventFn = (ev, itemData) => {
   if ('ok' === ev) {
     Save(itemData)
-  } else if ('ss' === ev) {
-
+  } else if ('cancel' === ev) {
+    Cancel(itemData);
   }
 }
 const Save = (itemData) => {
@@ -291,8 +291,8 @@ const Save = (itemData) => {
   })
   return false;
 }
-const Cancel = () => {
-  console.log('dddd')
+const Cancel = (itemData) => {
+  console.log('dddd', itemData)
 }
 
 
