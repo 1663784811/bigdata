@@ -25,6 +25,11 @@ export const shopping = {
             path: 'goodsList',
             component: import('@/views/shopping/GoodsList.vue'),
             name: 'goodsList'
+        },
+        {
+            path: 'gDepository',
+            component: import('@/views/shopping/GDepository.vue'),
+            name: 'gDepository'
         }
     ]
 }

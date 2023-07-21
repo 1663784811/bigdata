@@ -124,6 +124,16 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     icon: 'md-settings',
                     routeName: 'goodsList'
                 },
+                {
+                    name: '仓库管理',
+                    icon: 'md-settings',
+                    routeName: 'gDepository'
+                },
+                {
+                    name: '货品出入仓库',
+                    icon: 'md-settings',
+                    routeName: 'gDepository'
+                },
             ]
         },
         {
