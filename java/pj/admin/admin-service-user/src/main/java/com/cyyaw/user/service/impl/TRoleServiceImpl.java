@@ -1,5 +1,7 @@
 package com.cyyaw.user.service.impl;
 
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.user.service.TPowerService;
 import com.cyyaw.user.service.TRoleService;
 import com.cyyaw.user.table.dao.TAdminRoleDao;
@@ -21,7 +23,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class TRoleServiceImpl implements TRoleService {
+public class TRoleServiceImpl extends BaseService<TRole, Integer> implements TRoleService {
 
     @Autowired
     private TPowerService tPowerService;
@@ -35,6 +37,11 @@ public class TRoleServiceImpl implements TRoleService {
 
     @Autowired
     private TRolePowerDao tRolePowerDao;
+
+    @Override
+    public BaseDao getBaseDao() {
+        return tRoleDao;
+    }
 
 
     @Override
