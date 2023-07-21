@@ -176,7 +176,7 @@ const loadTableData = () => {
 }
 setTimeout(() => {
   loadTableData();
-}, 1000)
+}, 100)
 
 // ======================================================
 const search = () => {
@@ -311,7 +311,7 @@ watch(() => props.tableSetting, () => {
       tableConfig.value.columnsList = setting.columns;
       setTimeout(() => {
         initTable()
-      }, 50)
+      })
     }
     searchObj.value.queryRequest = setting.requestObj.queryRequest;
     searchObj.value.saveRequest = setting.requestObj.saveRequest;
