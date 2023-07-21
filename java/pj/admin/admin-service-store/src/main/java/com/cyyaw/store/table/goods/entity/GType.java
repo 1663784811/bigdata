@@ -41,8 +41,8 @@ public class GType implements Serializable {
     @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
     private String pid;
     @Basic
-    @Column(name = "treecode",columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
-    private String treecode;
+    @Column(name = "tree_code",columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    private String treeCode;
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) COMMENT '品类名称'")
