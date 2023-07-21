@@ -15,7 +15,12 @@
 
     <div>
       <van-grid>
-        <van-grid-item v-for="value in 8" :key="value" icon="photo-o" text="文字"/>
+        <van-grid-item v-for="(item, index) in 8" :key="index">
+          <div>
+            <van-image src="https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg"/>
+            <div>文字</div>
+          </div>
+        </van-grid-item>
       </van-grid>
 
     </div>
@@ -33,9 +38,15 @@
 </template>
 
 <script setup>
-
-
 import {ref} from "vue";
+import {getGType} from "@/api/api";
+
+
+getGType({}).then((res)=>{
+  console.log("ddddddddddddddd",res)
+})
+
+
 
 const images = ref([
   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
@@ -61,7 +72,8 @@ const clickStore = () => {
 .webBannerBox {
   height: 250px;
   overflow: hidden;
-  img{
+
+  img {
     max-height: 100%;
     max-width: 100%;
   }
