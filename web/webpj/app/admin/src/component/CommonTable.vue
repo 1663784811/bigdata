@@ -283,11 +283,15 @@ const Save = (itemData) => {
       }
     })
   }).catch(err => {
-    console.log('错误:', err);
     Message.error({
       content: `${err}`
     })
+    saveData.value.loading = false;
+    setTimeout(() => {
+      saveData.value.loading = true;
+    })
   }).finally(() => {
+
   })
 }
 const Cancel = (itemData) => {
