@@ -123,6 +123,7 @@ public class JpaSpecification<T> implements Specification<T> {
         EntityType<T> model = root.getModel();
         Set<Attribute<? super T, ?>> attributes = model.getAttributes();
         Attribute at = null;
+
         for (Attribute attribute : attributes) {
             String name = attribute.getName();
             if (columns.equals(name)) {
@@ -134,23 +135,23 @@ public class JpaSpecification<T> implements Specification<T> {
         if (null != at) {
             Predicate predicate = null;
             if (JpaWhereType.like.equals(wheres)) {
-                predicate = cb.like(root.get(column).as(String.class), "%" + value + "%");
+                predicate = cb.like(root.get(columns).as(String.class), "%" + value + "%");
             } else if (JpaWhereType.likeL.equals(wheres)) {
-                predicate = cb.like(root.get(column).as(String.class), "%" + value);
+                predicate = cb.like(root.get(columns).as(String.class), "%" + value);
             } else if (JpaWhereType.likeR.equals(wheres)) {
-                predicate = cb.like(root.get(column), value + "%");
+                predicate = cb.like(root.get(columns), value + "%");
             } else if (JpaWhereType.neq.equals(wheres)) {
-                predicate = cb.notEqual(root.get(column), value);
+                predicate = cb.notEqual(root.get(columns), value);
             } else if (JpaWhereType.geq.equals(wheres)) {
-                predicate = cb.ge(root.get(column), (Number) value);
+                predicate = cb.ge(root.get(columns), (Number) value);
             } else if (JpaWhereType.gt.equals(wheres)) {
-                predicate = cb.gt(root.get(column), (Number) value);
+                predicate = cb.gt(root.get(columns), (Number) value);
             } else if (JpaWhereType.leq.equals(wheres)) {
-                predicate = cb.le(root.get(column), (Number) value);
+                predicate = cb.le(root.get(columns), (Number) value);
             } else if (JpaWhereType.lt.equals(wheres)) {
-                predicate = cb.lt(root.get(column), (Number) value);
+                predicate = cb.lt(root.get(columns), (Number) value);
             } else {
-                predicate = cb.equal(root.get(column), value);
+                predicate = cb.equal(root.get(columns), value);
             }
             return predicate;
         }
