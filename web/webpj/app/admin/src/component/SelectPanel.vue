@@ -48,6 +48,7 @@
         <Tag color="success" closable>success</Tag>
         <Tag color="success" closable>success</Tag>
       </div>
+      <Divider orientation="left">搜索</Divider>
       <div class="tableBox">
         <Table ref="selection"
                border
@@ -60,6 +61,9 @@
         >
         </Table>
       </div>
+      <div style="text-align: right">
+        <Page :total="100" show-elevator />
+      </div>
     </div>
   </Modal>
 </template>
@@ -70,9 +74,16 @@ import {ref} from "vue";
 import {commonRequest} from "@/api/api";
 
 const selectPanel = ref({
-  show: false,
+  show: true,
   loading: false,
-  columns: [],
+  columns: [
+    {
+      title:'标题'
+    },
+    {
+      title:'标题2'
+    }
+  ],
   data: [],
   pageData: {
     total: 0

@@ -97,6 +97,9 @@
               <div>
                 <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
               </div>
+              <div>
+                <Checkbox v-model="item.sortable">排序</Checkbox>
+              </div>
             </div>
 
             <Divider orientation="left">添加</Divider>
