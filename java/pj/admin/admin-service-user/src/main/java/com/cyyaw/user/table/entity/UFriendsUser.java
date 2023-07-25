@@ -39,17 +39,17 @@ public class UFriendsUser implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(当前用户)id'")
-    private String userid;
+    @Column(name = "user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(当前用户)id'")
+    private String userId;
 
     @Basic
-    @Column(name = "touserid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(好友)id'")
-    private String touserid;
+    @Column(name = "to_user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(好友)id'")
+    private String toUserId;
 
 
     @Basic
-    @Column(name = "friendsgroupid", columnDefinition = "varchar(32) COMMENT 'u_friends_group好友分组表id'")
-    private String friendsgroupid;
+    @Column(name = "friends_group_id", columnDefinition = "varchar(32) COMMENT 'u_friends_group好友分组表id'")
+    private String friendsGroupId;
 
 
 }

@@ -8,14 +8,15 @@ import java.util.List;
 
 public interface UUserDao extends BaseDao<UUser, Integer> {
 
-    @Query("select m from UUser m where m.tid in ( select t.touserid from UFriendsUser t where t.userid = ?1 )")
+    @Query("select m from UUser m where m.tid in ( select t.toUserId from UFriendsUser t where t.userId = ?1 )")
     List<UUser> findByUserid(String userid);
 
     @Query("select m from UUser m where m.type =?1")
     List<UUser> findByType(Integer type);
 
-    @Query("select m from UUser m where m.tid in ( select t.userid from UGroupUser t where t.groupid = ?1)")
+    @Query("select m from UUser m where m.tid in ( select t.userId from UGroupUser t where t.groupId = ?1)")
     List<UUser> findByGroup(String userid);
+
 
     List<UUser> findByAccount(String account);
 
@@ -24,5 +25,8 @@ public interface UUserDao extends BaseDao<UUser, Integer> {
 
     @Query("select m from UUser m where m.openId =?1")
     List<UUser> findByOpenId(String openid);
+
+    @Query("select m from UUser m where m.enterpriseId=?1 and m.account=?2")
+    List<UUser> findByEnterpriseIdAndAccount(String enterpriseId, String account);
 
 }

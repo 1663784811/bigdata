@@ -40,12 +40,12 @@ public class UGroupUser implements Serializable {
 
 
     @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
+    @Column(name = "user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userId;
 
     @Basic
-    @Column(name = "groupid", columnDefinition = "varchar(32) not null COMMENT 'u_groupid表id'")
-    private String groupid;
+    @Column(name = "group_id", columnDefinition = "varchar(32) not null COMMENT 'u_groupid表id'")
+    private String groupId;
 
     @Basic
     @Column(name = "grade",columnDefinition = "int not null default '0' COMMENT '等级'")

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface UGroupUserDao extends BaseDao<UGroupUser, Integer> {
 
-    @Query("select m from UGroupUser m where m.groupid = ?1")
-    List<UGroupUser> findByGroupid(String groupid);
+    @Query("select m from UGroupUser m where m.groupId = ?1")
+    List<UGroupUser> findByGroupId(String groupid);
 }

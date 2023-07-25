@@ -9,6 +9,6 @@ import java.util.List;
 public interface UAddressDao extends BaseDao<UAddress, Integer> {
 
 
-    @Query("select m from  UAddress  m where  m.userid = ?1")
+    @Query("select m from  UAddress  m where  m.userId = ?1")
     List<UAddress> findAll(String uid);
 }

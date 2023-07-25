@@ -44,8 +44,8 @@ public class UFriendsMessage implements Serializable {
     private String userid;
 
     @Basic
-    @Column(name = "touserid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(好友)id'")
-    private String touserid;
+    @Column(name = "to_user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表(好友)id'")
+    private String toUserId;
 
 
     @Basic

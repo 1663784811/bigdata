@@ -7,7 +7,7 @@ import com.cyyaw.user.table.entity.UUser;
 
 public interface UUserService extends BaseTableService<UUser, Integer> {
 
-    UUser findByAccountAndPassword(String account, String password);
+    UUser findByAccountAndPassword(String enterpriseId, String account);
 
     /**
      * 根据用户名查找用户

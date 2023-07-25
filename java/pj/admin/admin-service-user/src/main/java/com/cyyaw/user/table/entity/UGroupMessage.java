@@ -47,8 +47,8 @@ public class UGroupMessage implements Serializable {
     private String userId;
 
     @Basic
-    @Column(name = "username", columnDefinition = "varchar(32) not null COMMENT '用户名'")
-    private String username;
+    @Column(name = "user_name", columnDefinition = "varchar(32) not null COMMENT '用户名'")
+    private String userName;
 
     @Basic
     @Column(name = "face", columnDefinition = "varchar(255) COMMENT '用户头像'")

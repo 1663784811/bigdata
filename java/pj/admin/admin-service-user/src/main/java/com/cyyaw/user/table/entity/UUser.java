@@ -38,6 +38,10 @@ public class UUser implements Serializable {
     private String note;
 
     // =================================================================================
+    @Basic
+    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
+    private String enterpriseId;
+    // =================================================================================
 
     @Basic
     @Column(name = "account", columnDefinition = "varchar(32) COMMENT '账号'")

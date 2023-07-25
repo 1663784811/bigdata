@@ -39,8 +39,8 @@ public class UFriendsGroup implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "userid", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
-    private String userid;
+    @Column(name = "user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
+    private String userId;
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '分组名称'")

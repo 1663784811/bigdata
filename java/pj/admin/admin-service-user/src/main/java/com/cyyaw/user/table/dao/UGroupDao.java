@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UGroupDao extends BaseDao<UGroup, Integer> {
 
-    @Query("select m from UGroup m where m.tid in (select t.groupid from UGroupUser t where t.userid = ?1 ) ")
+    @Query("select m from UGroup m where m.tid in (select t.groupId from UGroupUser t where t.userId = ?1 ) ")
     List<UGroup> findByUserid(String userid);
 
 
