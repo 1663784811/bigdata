@@ -26,12 +26,13 @@ public class LoginUserServiceImpl implements LoginUserService {
         if (null != user) {
             String pwd = user.getPassword();
             String account = user.getAccount();
-
-
+            UserAuthToken userAuthToken = new UserAuthToken();
+            userAuthToken.setJwtToken("ssssssssss");
+            userAuthToken.setUUser(user);
+            return userAuthToken;
         } else {
-
+            throw new WhyException("找不到用户" + userName);
         }
-        return null;
     }
 
     @Override

@@ -2,11 +2,13 @@ package com.cyyaw.user.service.impl;
 
 
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.dao.UUserDao;
 import com.cyyaw.user.table.entity.UUser;
+import com.cyyaw.util.tools.WhyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,12 +31,16 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
 
     @Override
     public UUser findByAccountAndPassword(String enterpriseId, String account) {
-        List<UUser> uUsers = uUserDao.findByEnterpriseIdAndAccount(enterpriseId, account);
-        if (uUsers.size() == 1) {
-            UUser uUser = uUsers.get(0);
-            return uUser;
-        } else {
+        if (StrUtil.isNotBlank(enterpriseId) && StrUtil.isNotBlank(account)) {
+            List<UUser> uUsers = uUserDao.findByEnterpriseIdAndAccount(enterpriseId, account);
+            if (uUsers.size() == 1) {
+                UUser uUser = uUsers.get(0);
+                return uUser;
+            } else {
 
+            }
+        } else {
+            throw new WhyException("您输入的信息有误");
         }
         return null;
     }
