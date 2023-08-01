@@ -2,20 +2,49 @@
   <RouterView/>
 
   <van-tabbar v-model="active" @change="onChange">
-    <van-tabbar-item icon="wap-home">首页</van-tabbar-item>
-    <van-tabbar-item icon="bag">分类</van-tabbar-item>
-    <van-tabbar-item icon="shopping-cart">购物车</van-tabbar-item>
-    <van-tabbar-item icon="manager">我的</van-tabbar-item>
+    <van-tabbar-item v-for="(item, index) in tabbarArr"
+                     :key="index"
+                     :icon="item.icon"
+    >
+      {{ item.name }}
+    </van-tabbar-item>
   </van-tabbar>
 
 </template>
 <script setup>
 import {ref} from 'vue';
+import {useRouter} from 'vue-router'
 
-
+const router = useRouter()
 const active = ref(0);
+const tabbarArr = ref([
+  {
+    icon: 'wap-home',
+    name: '首页',
+    routerName: 'home'
+  },
+  {
+    icon: 'bag',
+    name: '分类',
+    routerName: 'classze'
+  },
+  {
+    icon: 'shopping-cart',
+    name: '购物车',
+    routerName: 'car'
+  },
+  {
+    icon: 'manager',
+    name: '我的',
+    routerName: 'my'
+  },
+])
 const onChange = (index) => {
-  console.log(index)
+  console.log()
+  let routerName = tabbarArr.value[index].routerName;
+  router.push({
+    name: routerName
+  })
 };
 
 </script>
