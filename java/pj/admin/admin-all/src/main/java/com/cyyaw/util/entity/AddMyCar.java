@@ -8,6 +8,6 @@ public class AddMyCar {
 
     private Integer number;
 
-    private String skuid;
+    private String skuId;
 
 }

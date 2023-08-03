@@ -8,7 +8,7 @@ public class ComputGoods {
     /**
      * sku ID
      */
-    private String skuid;
+    private String skuId;
 
     /**
      * 数量
