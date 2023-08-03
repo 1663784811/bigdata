@@ -16,7 +16,7 @@
   <!--  ============================  -->
   <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#1baeae">
     <van-swipe-item v-for="(item, index) in list" :key="index">
-      <img :src="item.carouselUrl" alt="" @click="goTo(item.redirectUrl)">
+      <img :src="item.img" alt="" @click="goTo(item.url)">
     </van-swipe-item>
   </van-swipe>
   <!--  ============================  -->
@@ -77,23 +77,10 @@
 
 
 <script setup>
-import {ref, nextTick} from "vue";
+import {ref, nextTick, onMounted} from "vue";
+import {getBanner, getEnterpriseType} from '../api/api.js'
 
-const list = ref([
-  {
-    carouselUrl: 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-mate-x3.png',
-  },
-  {
-    carouselUrl: 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-mate-x3.png',
-  },
-  {
-    carouselUrl: 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-mate-x3.png',
-  },
-  {
-    carouselUrl: 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner-mate-x3.png',
-  }
-]);
-
+const list = ref([]);
 const categoryList = ref([
 
   {
@@ -139,8 +126,28 @@ const categoryList = ref([
   }
 ]);
 
+onMounted(async () => {
+  // 获取banner
+  getBanner({
+    enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
+  }).then((res) => {
+    list.value = res.data;
+  })
+  // 获取分类
+  getEnterpriseType({
+    enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
+  }).then((res) => {
+    console.log(res)
+  })
+
+
+})
+
+
 const goTo = (url) => {
-  window.open(url)
+  if (url) {
+    window.open(url)
+  }
 }
 
 const isLogin = ref(false);
@@ -157,6 +164,7 @@ nextTick(() => {
     headerScroll.value = scrollTop > 100
   })
 })
+
 
 </script>
 
@@ -264,6 +272,7 @@ nextTick(() => {
     }
   }
 }
+
 .good {
   .good-header {
     background: #f9f9f9;
@@ -274,31 +283,38 @@ nextTick(() => {
     font-size: 16px;
     font-weight: 500;
   }
+
   .good-box {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+
     .good-item {
       box-sizing: border-box;
       width: 50%;
       border-bottom: 1PX solid #e9e9e9;
       padding: 10px 10px;
+
       img {
         display: block;
         width: 120px;
         margin: 0 auto;
       }
+
       .good-desc {
         text-align: center;
         font-size: 14px;
         padding: 10px 0;
+
         .title {
           color: #222333;
         }
+
         .price {
           color: @primary;
         }
       }
+
       &:nth-child(2n + 1) {
         border-right: 1PX solid #e9e9e9;
       }

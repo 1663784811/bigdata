@@ -26,12 +26,12 @@ const tabbarArr = ref([
   {
     icon: 'bag',
     name: '分类',
-    routerName: 'classze'
+    routerName: 'category'
   },
   {
     icon: 'shopping-cart',
     name: '购物车',
-    routerName: 'car'
+    routerName: 'cart'
   },
   {
     icon: 'manager',

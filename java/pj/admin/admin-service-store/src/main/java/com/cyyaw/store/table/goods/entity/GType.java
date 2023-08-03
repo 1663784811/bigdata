@@ -35,6 +35,13 @@ public class GType implements Serializable {
     @Column(name = "note", columnDefinition = "varchar(255) default '' COMMENT '备注'")
     private String note;
     // =================================================================================
+    @Basic
+    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
+    private String enterpriseId;
+
+
+    // =================================================================================
+
 
 
     @Basic
