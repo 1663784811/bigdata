@@ -35,20 +35,15 @@ public class ShoppingGoodsController {
 
     @ApiOperation(value = "搜索商品", notes = "搜索商品")
     @GetMapping("/searchGoods")
-    public BaseResult searchGoods() {
-        List<GoodsEntity> list = shoppingGoodsService.searchGoods();
-        return BaseResult.ok(list);
+    public BaseResult searchGoods(GGoodsSearch goodsSearch) {
+        return shoppingGoodsService.searchGoods(goodsSearch);
     }
 
 
     @ApiOperation(value = "商品详情", notes = "商品详情")
     @GetMapping("/goodsDetails")
     public BaseResult goodsDetails(String goodsId) {
-
-
-
-
-        return null;
+        return shoppingGoodsService.goodsDetails(goodsId);
     }
 
 
