@@ -37,22 +37,6 @@
              @on-row-click="selectData"
              @on-selection-change="selectDataChange"
       >
-        <template #operation="{ row, index }">
-          <Button size="small" v-if="operationObj.show" type="info"
-                  @click="selectTableData(row,index,true)"
-                  style="margin-right: 5px">
-            查看
-          </Button>
-          <Button size="small" v-if="operationObj.update" type="warning"
-                  @click="selectTableData(row,index,true)"
-                  style="margin-right: 5px">
-            修改
-          </Button>
-          <Button size="small" v-if="operationObj.del" type="error"
-                  @click="delTableData(row,index)">
-            删除
-          </Button>
-        </template>
       </Table>
     </div>
     <!-- ========================================  分页  ======================================== -->
@@ -90,11 +74,7 @@ const props = defineProps({
 });
 
 const operationObj = ref({});
-const operationColumns = ref({
-  title: '操作',
-  slot: 'operation',
-  width: 200,
-});
+
 
 const searchObj = ref({
   columns: [],
@@ -344,21 +324,63 @@ const initTable = () => {
   const setting = props.tableSetting;
   // 是否显示操作列
   if (setting.operation) {
-
-
-    for (const operationKey in setting.operation) {
-      if (setting.operation[operationKey]) {
-        temp.push(operationColumns.value)
-        break;
-      }
+    const operation = setting.operation;
+    operation.render = (h, params) => {
+      return createH(operation, h, params);
     }
 
-
+    console.log('ssssssssssssss', setting.operation)
+    temp.push(operation)
   }
   tableConfig.value.columns = temp;
   searchObj.value.columns = searchTemp;
   console.log(searchTemp)
 }
+
+
+const createH = (columnsItem, h, params) => {
+  const hArr = [];
+  if (columnsItem.key === 'operation') {
+    for (const operationKey in columnsItem.operationArr) {
+      const opObj = columnsItem.operationArr[operationKey];
+      let btnType = 'info';
+      if (opObj.btnType) {
+        btnType = opObj.btnType;
+      } else if (opObj.label === '查看') {
+        btnType = 'info';
+      } else if (opObj.label === '修改') {
+        btnType = 'warning';
+      } else if (opObj.label === '删除') {
+        btnType = 'error';
+      }
+      hArr.push(h(resolveComponent('Button'), {
+        type: btnType,
+        size: 'small',
+        style: {
+          marginRight: '5px'
+        },
+        onClick: () => {
+          const {row, index} = params;
+          if (opObj.label === '查看') {
+            selectTableData(row, index, false)
+          } else if (opObj.label === '修改') {
+            selectTableData(row, index, true)
+          } else if (opObj.label === '删除') {
+            delTableData(row, index);
+          } else {
+            emits('event', row);
+          }
+        }
+      }, {
+        default() {
+          return opObj.label
+        }
+      }))
+    }
+  }
+  return h('div', hArr);
+}
+
 
 </script>
 
