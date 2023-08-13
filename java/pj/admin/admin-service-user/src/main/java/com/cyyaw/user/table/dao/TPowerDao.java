@@ -25,5 +25,8 @@ public interface TPowerDao extends BaseDao<TPower, Integer> {
     List<TPower> getTPowerByTAdminTid(String tid);
 
 
+    @Query("select m from TPower m where m.tid = ?1")
+    TPower findByTid(String pid);
+
 
 }

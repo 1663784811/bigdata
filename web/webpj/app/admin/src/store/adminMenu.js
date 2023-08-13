@@ -188,16 +188,16 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     icon: 'md-settings',
                     routeName: 'createCode'
                 },
-                {
-                    name: '部门管理(删除)',
-                    icon: 'md-settings',
-                    routeName: 'department'
-                },
-                {
-                    name: '角色管理(删除)',
-                    icon: 'md-settings',
-                    routeName: 'role'
-                },
+                // {
+                //     name: '部门管理(删除)',
+                //     icon: 'md-settings',
+                //     routeName: 'department'
+                // },
+                // {
+                //     name: '角色管理(删除)',
+                //     icon: 'md-settings',
+                //     routeName: 'role'
+                // },
             ]
         }
     ])

@@ -59,6 +59,9 @@ export const logInFn = (parameter) => {
     return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
 }
 
+/**
+ * 获取用户信息
+ */
 export const userInfo = (parameter) => {
     return asyncREQUEST(`${baseUrl}/admin/user/info`, parameter, 0, "get")
 }
@@ -84,5 +87,11 @@ export const loadTable = (parameter) => {
 }
 
 
+/**
+ * 查询企业部门
+ */
+export const dss = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/buildCode/loadTable`, parameter, 0)
+}
 
 

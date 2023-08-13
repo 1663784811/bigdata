@@ -74,7 +74,7 @@ import {ref} from "vue";
 import {commonRequest} from "@/api/api";
 
 const selectPanel = ref({
-  show: true,
+  show: false,
   loading: false,
   columns: [
     {

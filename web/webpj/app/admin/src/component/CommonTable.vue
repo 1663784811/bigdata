@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import {defineEmits, ref, watch} from "vue"
+import {defineEmits, ref, watch, resolveComponent} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import SelectPanel from './SelectPanel.vue'
@@ -342,13 +342,18 @@ const initTable = () => {
     }
   }
   const setting = props.tableSetting;
+  // 是否显示操作列
   if (setting.operation) {
+
+
     for (const operationKey in setting.operation) {
       if (setting.operation[operationKey]) {
         temp.push(operationColumns.value)
         break;
       }
     }
+
+
   }
   tableConfig.value.columns = temp;
   searchObj.value.columns = searchTemp;

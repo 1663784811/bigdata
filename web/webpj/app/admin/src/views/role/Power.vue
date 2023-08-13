@@ -1,11 +1,35 @@
 <template>
-  <div>
-    <Tree :data="treeData" class="demo-tree-render"></Tree>
+  <div class="powerManageBox">
+    <div class="departmentBox">
+      <div class="headerBtn">
+        <div>部门</div>
+        <div>部门</div>
+      </div>
+      <Tree :data="treeData" class="demo-tree-render"></Tree>
+    </div>
+    <div class="roleBox">
+      <div class="headerBtn">
+        <div>角色</div>
+        <div>部门</div>
+      </div>
+      <Tree :data="treeData" class="demo-tree-render"></Tree>
+    </div>
+    <div class="userBox">
+      人员
+      sssss
+    </div>
+    <div class="powerBox">
+      权限
+      ssss
+    </div>
+
   </div>
+
 </template>
 
 <script setup>
 import {ref, resolveComponent} from "vue";
+import {logInFn, enterpriseFindPage} from "@/api/api.js"
 
 const treeData = ref([
   {
@@ -82,10 +106,47 @@ const treeData = ref([
 ]);
 
 
+
+
+
+
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.powerManageBox {
+  display: flex;
+  flex-wrap: wrap;
+  .headerBtn{
+    display: flex;
+  }
+  .departmentBox{
+    width: 400px;
+    margin: 10px;
+    padding: 10px;
+    background: #f3f3f3;
+  }
+  .roleBox{
+    width: 400px;
+    margin: 10px;
+    padding: 10px;
+    background: #f3f3f3;
+  }
+  .userBox{
+    flex: 1;
+    min-width: 400px;
+    width: 400px;
+    margin: 10px;
+    padding: 10px;
+    background: #f3f3f3;
+  }
+  .powerBox{
+    flex: 1;
+    min-width: 400px;
+    margin: 10px;
+    padding: 10px;
+    background: #f3f3f3;
+  }
+}
 </style>
 <style>
 .demo-tree-render .ivu-tree-title {

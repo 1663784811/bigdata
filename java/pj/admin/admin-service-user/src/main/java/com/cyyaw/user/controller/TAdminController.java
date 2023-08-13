@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/tadmin")
+@RequestMapping("/admin/tAdmin")
 @RestController
 public class TAdminController {
 

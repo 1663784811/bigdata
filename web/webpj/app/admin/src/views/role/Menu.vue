@@ -2,12 +2,14 @@
   <div class="menuBox">
     <tree-node v-model="menuArr"/>
   </div>
+  <div>sesse</div>
 </template>
 
 <script setup>
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import treeNode from '../../component/tree/TreeNode.vue'
+import {logInFn, enterpriseFindPage} from "@/api/api.js"
 
 
 const menuArr = ref([
@@ -72,6 +74,11 @@ const menuArr = ref([
     ]
   }
 ]);
+
+
+onMounted(() => {
+
+})
 
 
 </script>

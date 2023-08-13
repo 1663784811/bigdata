@@ -44,16 +44,31 @@
           <template #title>
             <Icon type="ios-film-outline"></Icon>
             操作对象
+            <Button class="dataBtn" type="primary" icon="ios-add-circle-outline">添加</Button>
             <Button class="showCodeBtn" type="primary" icon="md-list" @click="showCodeBtnFn(operationObj)"/>
           </template>
-          <Checkbox
-              border
-              v-for="(item, index) in operationObj"
-              :key="index"
-              v-model="item.val"
-          >
-            {{ item.label }}
-          </Checkbox>
+          <div class="operationObjBox">
+            <div>
+              操作标题:
+              <Input v-model="operationObj.title" placeholder="标题" clearable style="width: 100px"/>
+            </div>
+            <div>
+              宽:
+              <Input v-model="operationObj.width" placeholder="宽" clearable type="number" style="width: 80px"/>
+            </div>
+          </div>
+          <div class="operationBox">
+            <div class="operationRow" v-for="(item, index) in operationObj.operationArr" :key="index">
+              <div>
+                名称:
+                <Input v-model="item.label" placeholder="名称" clearable style="width: 100px"/>
+              </div>
+              <div>
+                事件:
+                <Input v-model="item.even" placeholder="事件" clearable style="width: 100px"/>
+              </div>
+            </div>
+          </div>
         </Card>
       </div>
 
@@ -223,18 +238,22 @@ const requestObjData = ref({
 const columnsArr = ref([]);
 
 const operationObj = ref({
-      show: {
-        label: "查看",
-        val: false
-      },
-      update: {
-        label: "修改",
-        val: false
-      },
-      del: {
-        label: "删除",
-        val: false
-      }
+      title: '操作',
+      key: 'operation',
+      operationArr: [
+        {
+          label: "查看",
+          even: ''
+        },
+        {
+          label: "修改",
+          even: ''
+        },
+        {
+          label: "删除",
+          even: ''
+        }
+      ]
     }
 );
 
@@ -394,6 +413,21 @@ const databaseLoadOkFn = () => {
 
   .cardBox {
     margin-bottom: 20px;
+
+    .operationObjBox {
+      display: flex;
+    }
+
+    .operationBox {
+      margin: 10px 0;
+
+      .operationRow {
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        background: #ccc;
+      }
+    }
 
     .showCodeBtn {
       position: absolute;
