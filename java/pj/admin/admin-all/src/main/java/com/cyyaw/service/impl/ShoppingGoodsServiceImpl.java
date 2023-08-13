@@ -28,7 +28,7 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
     public BaseResult<List<GoodsEntity>> searchGoods(GGoodsSearch goodsSearch) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
-        PageRequest page = PageRequest.of(1, 10, sort);
+        PageRequest page = PageRequest.of(0, 10, sort);
 
         ExampleMatcher matcher = ExampleMatcher.matching();
 

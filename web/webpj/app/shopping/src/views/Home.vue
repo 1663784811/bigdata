@@ -41,44 +41,12 @@
       </div>
     </van-skeleton>
   </div>
-  <!--  ============================  -->
-  <div class="good">
-    <header class="good-header">热门商品</header>
-    <van-skeleton title :row="3" :loading="loading">
-      <div class="good-box">
-        <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-          <div class="good-desc">
-            <div class="title">{{ item.goodsName }}</div>
-            <div class="price">¥ {{ item.sellingPrice }}</div>
-          </div>
-        </div>
-      </div>
-    </van-skeleton>
-  </div>
-  <!--  ============================  -->
-  <div class="good" :style="{ paddingBottom: '100px'}">
-    <header class="good-header">最新推荐</header>
-    <van-skeleton title :row="3" :loading="loading">
-      <div class="good-box">
-        <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-          <div class="good-desc">
-            <div class="title">{{ item.goodsName }}</div>
-            <div class="price">¥ {{ item.sellingPrice }}</div>
-          </div>
-        </div>
-      </div>
-    </van-skeleton>
-  </div>
-
-
 </template>
 
 
 <script setup>
 import {ref, nextTick, onMounted} from "vue";
-import {getBanner, getEnterpriseType} from '../api/api.js'
+import {getBanner, getEnterpriseType, searchGoods} from '../api/api.js'
 
 const list = ref([]);
 const categoryList = ref([
@@ -135,6 +103,12 @@ onMounted(async () => {
   })
   // 获取分类
   getEnterpriseType({
+    enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
+  }).then((res) => {
+    console.log(res)
+  })
+
+  searchGoods({
     enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
   }).then((res) => {
     console.log(res)

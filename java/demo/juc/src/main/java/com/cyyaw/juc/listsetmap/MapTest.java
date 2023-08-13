@@ -1,5 +1,7 @@
 package com.cyyaw.juc.listsetmap;
 
+import java.util.HashMap;
+
 public class MapTest {
 
     public static void main(String[] args) {
@@ -14,6 +16,16 @@ public class MapTest {
     }
 
     private static void test01() {
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("sss", "ssss");
+        map.put("ssss", "ssss");
+        map.put("sssss", "ssss");
+        map.put("ssddss", "ssss");
+
+
+
 
     }
 

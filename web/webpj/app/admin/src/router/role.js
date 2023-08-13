@@ -25,6 +25,11 @@ export const role = {
             path: 'power',
             component: import('@/views/role/Power.vue'),
             name: 'power'
+        },
+        {
+            path: 'menu',
+            component: import('@/views/role/Menu.vue'),
+            name: 'menu'
         }
     ]
 }

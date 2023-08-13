@@ -14,3 +14,10 @@ export default defineComponent({
 <style scoped>
 
 </style>
+<style>
+
+ul{
+  list-style: none;
+}
+
+</style>

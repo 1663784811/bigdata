@@ -174,6 +174,21 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     routeName: 'adminPower'
                 },
                 {
+                    name: '权限分配',
+                    icon: 'md-settings',
+                    routeName: 'power'
+                },
+                {
+                    name: '菜单',
+                    icon: 'md-settings',
+                    routeName: 'menu'
+                },
+                {
+                    name: '代码生成',
+                    icon: 'md-settings',
+                    routeName: 'createCode'
+                },
+                {
                     name: '部门管理(删除)',
                     icon: 'md-settings',
                     routeName: 'department'
@@ -183,21 +198,6 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     icon: 'md-settings',
                     routeName: 'role'
                 },
-                {
-                    name: '权限分配',
-                    icon: 'md-settings',
-                    routeName: 'power'
-                },
-                {
-                    name: '菜单',
-                    icon: 'md-settings',
-                    routeName: 'power'
-                },
-                {
-                    name: '代码生成',
-                    icon: 'md-settings',
-                    routeName: 'createCode'
-                }
             ]
         }
     ])
