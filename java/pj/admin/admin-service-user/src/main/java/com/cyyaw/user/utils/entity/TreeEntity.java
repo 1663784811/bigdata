@@ -93,7 +93,7 @@ public class TreeEntity<T> {
         /**
          * 名称
          */
-        private String name;
+        private String title;
 
         /**
          * 子节点

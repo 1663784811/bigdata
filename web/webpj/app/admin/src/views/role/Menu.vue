@@ -2,8 +2,8 @@
   <div class="menuBox">
     <Tree :data="menuArr" @on-contextmenu="handleContextMenu" show-checkbox>
       <template #contextMenu>
-        <DropdownItem @click="handleContextMenuEdit">添加</DropdownItem>
-        <DropdownItem @click="handleContextMenuEdit">编辑</DropdownItem>
+        <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
+        <DropdownItem @click="handleContextMenuSave(true)">编辑</DropdownItem>
         <DropdownItem @click="handleContextMenuDelete" style="color: #ed4014">删除</DropdownItem>
       </template>
     </Tree>
@@ -13,8 +13,7 @@
 <script setup>
 
 import {onMounted, ref} from "vue";
-import treeNode from '../../component/tree/TreeNode.vue'
-import {queryMenu} from "@/api/api.js"
+import {queryMenu, delMenu} from "@/api/api.js"
 
 
 const menuArr = ref([
@@ -25,10 +24,16 @@ const menuArr = ref([
     children: []
   }
 ]);
+const selectData = ref({});
 
 
 onMounted(() => {
 
+  initFn();
+
+})
+
+const initFn = () => {
   queryMenu({}).then((res) => {
     const arr = [];
     if (res.data && res.data.root) {
@@ -37,8 +42,7 @@ onMounted(() => {
     }
     menuArr.value[0].children = arr;
   })
-
-})
+}
 
 /**
  * 处理树结构
@@ -56,15 +60,29 @@ const reTree = (list) => {
 }
 
 
-const handleContextMenu = (data) => {
-
-
+const handleContextMenu = (data, event, position) => {
+  selectData.value = data;
 }
-const handleContextMenuEdit = () => {
-  this.$Message.info('Click edit of');
+/**
+ * 编辑
+ */
+const handleContextMenuSave = (isEditor) => {
+  if (isEditor) {
+
+  } else {
+
+  }
 }
+
+/**
+ * 删除
+ */
 const handleContextMenuDelete = () => {
-  this.$Message.info('Click delete of');
+  delMenu(selectData.value.data).then((res) => {
+    console.log(res)
+  }).finally(() => {
+    initFn()
+  })
 }
 
 

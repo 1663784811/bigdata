@@ -35,7 +35,8 @@ public class PowerController {
 
     @ApiOperation(value = "删除菜单", notes = "删除菜单")
     @PostMapping("/delMenu")
-    public BaseResult delMenu(@RequestBody Integer id){
+    public BaseResult delMenu(@RequestBody TPower tPower){
+        Integer id = tPower.getId();
         tPowerService.delMenu(id);
         return BaseResult.ok();
     }

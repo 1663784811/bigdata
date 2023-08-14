@@ -35,7 +35,7 @@ public class ShoppingGoodsTypeController {
                 TreeEntity.Node<GType> node = new TreeEntity.Node<GType>();
                 node.setTid(tpower.getTid());
                 node.setData(tpower);
-                node.setName(tpower.getName());
+                node.setTitle(tpower.getName());
                 node.setPid(tpower.getPid());
                 treeEntity.add(node);
             }

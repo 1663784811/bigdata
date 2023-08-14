@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/tpower")
+@RequestMapping("/admin/tPower")
 @RestController
 public class TPowerController {
 
@@ -38,7 +38,7 @@ public class TPowerController {
             TreeEntity.Node<TPower> node = new TreeEntity.Node<TPower>();
             node.setTid(tpower.getTid());
             node.setData(tpower);
-            node.setName(tpower.getName());
+            node.setTitle(tpower.getName());
             node.setPid(tpower.getPid());
             treeEntity.add(node);
         }
