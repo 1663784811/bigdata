@@ -133,6 +133,12 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
             tPower.setCreateTime(new Date());
             tPower.setDel(0);
             tPower.setNote("");
+            if (tPower.getIsPower() == null) {
+                tPower.setIsPower(0);
+            }
+            if (tPower.getTreeCode() == null) {
+                tPower.setTreeCode("");
+            }
             return tPowerDao.save(tPower);
         }
     }

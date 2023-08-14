@@ -12,6 +12,7 @@
   <ModalDataList
       v-model="saveData.show"
       :modalSetting="saveData"
+      @event="saveEventFn"
   />
 
 </template>
@@ -19,10 +20,11 @@
 <script setup>
 
 import {onMounted, ref} from "vue";
-import {queryMenu, delMenu} from "@/api/api.js"
+import {queryMenu, delMenu, saveMenu} from "@/api/api.js"
 import ModalDataList from '@/component/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
+import {Message} from "view-ui-plus";
 
 const usePageConfig = pageConfig();
 
@@ -105,10 +107,35 @@ const handleContextMenuDelete = () => {
   delMenu(selectData.value.data).then((res) => {
     console.log(res)
   }).finally(() => {
-    initFn()
+    mountedInitFn()
   })
 }
 
+const saveEventFn = (ev, itemData) => {
+  if ('ok' === ev) {
+    saveMenu(itemData).then((rest) => {
+      saveData.value.data = rest.data;
+      Message.success({
+        content: `${rest.msg}`,
+        onClose: () => {
+          saveData.value.show = false;
+          mountedInitFn();
+        }
+      })
+    }).catch((err) => {
+      Message.error({
+        content: `${err}`
+      })
+      saveData.value.loading = false;
+      setTimeout(() => {
+        saveData.value.loading = true;
+      })
+    })
+
+  } else if ('cancel' === ev) {
+
+  }
+}
 
 </script>
 

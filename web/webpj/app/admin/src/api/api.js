@@ -37,8 +37,16 @@ export const apiAdminMenu = (parameter) => {
 export const queryMenu = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/power/queryMenu`, parameter, 1)
 }
+
 /**
- * 查询系统菜单
+ * 保存系统菜单
+ */
+export const saveMenu = (parameter) => {
+    return AJAXPOST(`${baseUrl}/admin/power/saveMenu`, parameter, 1)
+}
+
+/**
+ * 删除系统菜单
  */
 export const delMenu = (parameter) => {
     return AJAXPOST(`${baseUrl}/admin/power/delMenu`, parameter, 1)
