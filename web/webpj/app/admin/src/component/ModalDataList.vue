@@ -22,6 +22,23 @@
                           format="yyyy-MM-dd HH:mm"
                           :placeholder="item.node"/>
             </div>
+            <div class="content" v-else-if="item.controlType == 'img'">
+              <div class="imageBox">
+                <div class="closeImg">
+                  <Icon type="md-close-circle"/>
+                </div>
+                <img :src="modalData.data[item.key]" alt="">
+              </div>
+              <div class="imageBox">
+                <div class="closeImg">
+                  <Icon type="md-close-circle"/>
+                </div>
+                <img :src="modalData.data[item.key]" alt="">
+              </div>
+              <div class="imageBox addImage" @click="addImageFn(modalData.data, item.key)">
+                <Icon type="md-add-circle"/>
+              </div>
+            </div>
             <div class="content" v-else>
               <Input v-model="modalData.data[item.key]" :placeholder="item.node"/>
             </div>
@@ -34,7 +51,9 @@
 
 <script setup>
 import {defineEmits, ref, watch} from "vue";
+import EventBus from "@/component/EventBus";
 
+const emitter = EventBus();
 const emits = defineEmits(['event', 'update:modelValue']);
 
 const props = defineProps({
@@ -81,6 +100,10 @@ const eventFn = (ev) => {
   emits('event', ev, data);
 }
 
+const addImageFn = (dataObj, keyObj) => {
+  emitter.emit('showModalFiles', true);
+}
+
 
 </script>
 
@@ -100,6 +123,44 @@ const eventFn = (ev) => {
 
     .content {
       flex: 1;
+      display: flex;
+      align-items: center;
+
+      .imageBox {
+        height: 50px;
+        border: 1px solid #ccc;
+        padding: 4px;
+        border-radius: 2px;
+        margin: 0 4px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-width: 50px;
+        justify-content: center;
+
+        .closeImg {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          border-radius: 50%;
+          justify-content: center;
+          align-content: center;
+          cursor: pointer;
+        }
+
+        img {
+          height: 100%;
+        }
+      }
+
+      .addImage {
+        cursor: pointer;
+        font-size: 20px;
+
+        &:hover {
+          background: #ddd;
+        }
+      }
     }
   }
 }

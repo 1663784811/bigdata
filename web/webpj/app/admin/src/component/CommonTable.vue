@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import {defineEmits, ref, watch, resolveComponent} from "vue"
+import {defineEmits, ref, watch, resolveComponent, provide} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import SelectPanel from './SelectPanel.vue'
@@ -314,11 +314,18 @@ const initTable = () => {
   const temp = [];
   const searchTemp = [];
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i].isShowColumn) {
-      temp.push(arr[i]);
+    const itemObj = arr[i];
+    if (itemObj.isShowColumn) {
+
+      if (itemObj.controlType == 'img') {
+        itemObj.render = (h, params) => {
+          return createH(itemObj, h, params);
+        }
+      }
+      temp.push(itemObj);
     }
-    if (arr[i].isShowSearch) {
-      searchTemp.push(arr[i])
+    if (itemObj.isShowSearch) {
+      searchTemp.push(itemObj)
     }
   }
   const setting = props.tableSetting;
@@ -328,8 +335,6 @@ const initTable = () => {
     operation.render = (h, params) => {
       return createH(operation, h, params);
     }
-
-    console.log('ssssssssssssss', setting.operation)
     temp.push(operation)
   }
   tableConfig.value.columns = temp;
@@ -377,7 +382,24 @@ const createH = (columnsItem, h, params) => {
         }
       }))
     }
+  } else if (columnsItem.controlType == 'img') {
+    const {row, index} = params;
+    const face = row.face;
+    if (face) {
+      hArr.push(h(resolveComponent('Avatar'), {
+        src: face,
+        shape: 'square',
+        size: 'small',
+        style: {
+          marginRight: '5px'
+        },
+        onClick: () => {
+
+        }
+      }))
+    }
   }
+
   return h('div', hArr);
 }
 

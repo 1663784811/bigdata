@@ -104,6 +104,7 @@
                 <Select v-model="item.type" size="small" clearable style="width:110px">
                   <Option value="text">文本</Option>
                   <Option value="selection">选择框</Option>
+                  <Option value="img">图片</Option>
                 </Select>
               </div>
               <div>
@@ -132,6 +133,7 @@
                   <Option value="date">日期</Option>
                   <Option value="time">时间</Option>
                   <Option value="datetime">日期时间</Option>
+                  <Option value="img">图片</Option>
                 </Select>
               </div>
               <div>
@@ -240,6 +242,7 @@ const columnsArr = ref([]);
 const operationObj = ref({
       title: '操作',
       key: 'operation',
+      width: 200,
       operationArr: [
         {
           label: "查看",
