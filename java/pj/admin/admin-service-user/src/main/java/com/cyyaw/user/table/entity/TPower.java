@@ -47,7 +47,7 @@ public class TPower implements Serializable {
     @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
     private String pid;
     @Basic
-    @Column(name = "tree_code", columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    @Column(name = "tree_code", columnDefinition = "varchar(32) default '' COMMENT '树码(一级三位)'")
     private String treeCode;
 
     @Basic
@@ -66,7 +66,7 @@ public class TPower implements Serializable {
     @Column(name = "status", columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
     private Integer status;
     @Basic
-    @Column(name = "is_power", columnDefinition = "int not null default '0' COMMENT '是否受权限控制{1:是,0:否}'")
+    @Column(name = "is_power", columnDefinition = "int default '0' COMMENT '是否受权限控制{1:是,0:否}'")
     private Integer isPower;
     @Basic
     @Column(name = "url", columnDefinition = "varchar(255) COMMENT 'url'")

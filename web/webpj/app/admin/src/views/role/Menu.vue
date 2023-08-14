@@ -32,7 +32,8 @@ const saveData = ref({
   url: '',
   columns: [],
   data: {},
-  show: false
+  show: false,
+  saveType: ''
 });
 
 
@@ -94,9 +95,13 @@ const handleContextMenu = (data, event, position) => {
 const handleContextMenuSave = (isEditor) => {
   saveData.value.show = true;
   if (isEditor) {
-
+    saveData.value.saveType = 'editor'
+    saveData.value.data = selectData.value.data
   } else {
-
+    saveData.value.saveType = 'add'
+    saveData.value.data = {
+      pid: saveData.value.data.tid
+    }
   }
 }
 
