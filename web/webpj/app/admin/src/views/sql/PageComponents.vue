@@ -105,6 +105,7 @@
                   <Option value="text">文本</Option>
                   <Option value="selection">选择框</Option>
                   <Option value="img">图片</Option>
+                  <Option value="filters">过滤</Option>
                 </Select>
               </div>
               <div>

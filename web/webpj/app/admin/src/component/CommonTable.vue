@@ -316,8 +316,7 @@ const initTable = () => {
   for (let i = 0; i < arr.length; i++) {
     const itemObj = arr[i];
     if (itemObj.isShowColumn) {
-
-      if (itemObj.controlType == 'img') {
+      if (itemObj.type == 'img' || itemObj.type == 'filters') {
         itemObj.render = (h, params) => {
           return createH(itemObj, h, params);
         }
@@ -345,6 +344,7 @@ const initTable = () => {
 
 const createH = (columnsItem, h, params) => {
   const hArr = [];
+  const {row, index} = params;
   if (columnsItem.key === 'operation') {
     for (const operationKey in columnsItem.operationArr) {
       const opObj = columnsItem.operationArr[operationKey];
@@ -365,7 +365,6 @@ const createH = (columnsItem, h, params) => {
           marginRight: '5px'
         },
         onClick: () => {
-          const {row, index} = params;
           if (opObj.label === '查看') {
             selectTableData(row, index, false)
           } else if (opObj.label === '修改') {
@@ -382,24 +381,41 @@ const createH = (columnsItem, h, params) => {
         }
       }))
     }
-  } else if (columnsItem.controlType == 'img') {
-    const {row, index} = params;
-    const face = row.face;
+  } else if (columnsItem.type == 'img') {
+    const face = row[columnsItem.key];
     if (face) {
-      hArr.push(h(resolveComponent('Avatar'), {
+      hArr.push(h('img', {
         src: face,
-        shape: 'square',
-        size: 'small',
         style: {
-          marginRight: '5px'
-        },
-        onClick: () => {
-
+          maxHeight: '100%',
+          maxWidth: '100%'
         }
       }))
     }
+    return h('div', {
+      style: {
+        height: '40px'
+      }
+    }, hArr);
+  } else if (columnsItem.type == 'filters') {
+    let strData = ''
+    const objData = row[columnsItem.key];
+    if (columnsItem.filters && columnsItem.filters.length > 0) {
+      for (let i = 0; i < columnsItem.filters.length; i++) {
+        if (columnsItem.filters[i].value == objData) {
+          strData = columnsItem.filters[i].label;
+          break;
+        }
+      }
+    }
+    hArr.push(h('span', {
+      style: {},
+    }, {
+      default() {
+        return strData
+      }
+    }))
   }
-
   return h('div', hArr);
 }
 

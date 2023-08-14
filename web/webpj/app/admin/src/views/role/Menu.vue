@@ -87,6 +87,7 @@ const reTree = (list) => {
 
 
 const handleContextMenu = (data, event, position) => {
+  console.log(data)
   selectData.value = data;
 }
 /**
@@ -96,7 +97,7 @@ const handleContextMenuSave = (isEditor) => {
   saveData.value.show = true;
   if (isEditor) {
     saveData.value.saveType = 'editor'
-    saveData.value.data = selectData.value.data
+    saveData.value.data = selectData.value.data || {}
   } else {
     saveData.value.saveType = 'add'
     saveData.value.data = {
