@@ -42,12 +42,12 @@ public class GStoreGoodsSku implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "goodsid", columnDefinition = "varchar(32) not null COMMENT '商品g_goods表ID'")
-    private String goodsid;
+    @Column(name = "goods_id", columnDefinition = "varchar(32) not null COMMENT '商品g_goods表ID'")
+    private String goodsId;
 
     @Basic
-    @Column(name = "storeid", columnDefinition = "varchar(32) not null default '' COMMENT '门店e_store表ID'")
-    private String storeid;
+    @Column(name = "store_id", columnDefinition = "varchar(32) not null default '' COMMENT '门店e_store表ID'")
+    private String storeId;
 
     // =================================================================================
 

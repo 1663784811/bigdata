@@ -6,9 +6,7 @@ import com.cyyaw.service.RoleService;
 import com.cyyaw.user.service.TDepartmentService;
 import com.cyyaw.user.service.TRoleService;
 import com.cyyaw.user.table.entity.TDepartment;
-import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.user.table.entity.TRole;
-import com.cyyaw.user.utils.entity.TreeEntity;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import io.swagger.annotations.Api;
@@ -16,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 

@@ -10,11 +10,8 @@ import java.util.List;
 public interface GStoreGoodsSkuDao extends BaseDao<GStoreGoodsSku, Integer> {
 
 
-    @Query("select m from GStoreGoodsSku m where m.goodsid in( :goodsids )")
-    List<GStoreGoodsSku> findAllByStoreAndGoodsid(List<String> goodsids);
-
-    @Query("select m from GStoreGoodsSku m where m.goodsid in (:goodsids)")
-    List<GStoreGoodsSku> findAllByGoodsid(List<String> goodsids);
+    @Query("select m from GStoreGoodsSku m where m.goodsId in (:goodsids)")
+    List<GStoreGoodsSku> findAllByGoodsId(List<String> goodsids);
 
     @Query("select m from GStoreGoodsSku m where m.tid =?1")
     GStoreGoodsSku findByTid(String skuid);
