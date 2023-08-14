@@ -8,12 +8,30 @@
       </template>
     </Tree>
   </div>
+
+  <ModalDataList
+      v-model="saveData.show"
+      :modalSetting="saveData"
+  />
+
 </template>
 
 <script setup>
 
 import {onMounted, ref} from "vue";
 import {queryMenu, delMenu} from "@/api/api.js"
+import ModalDataList from '@/component/ModalDataList.vue'
+import {pageConfig} from '@/store/pageConfig.js'
+import {getAddColumns} from '@/api/webUtil.js'
+
+const usePageConfig = pageConfig();
+
+const saveData = ref({
+  url: '',
+  columns: [],
+  data: {},
+  show: false
+});
 
 
 const menuArr = ref([
@@ -24,16 +42,21 @@ const menuArr = ref([
     children: []
   }
 ]);
+
+
 const selectData = ref({});
 
+const initFn = async () => {
+  const role = await usePageConfig.getPageConfig("adminMenu");
+  saveData.value.columns = getAddColumns(role.commonTable.columns);
+}
+initFn();
 
 onMounted(() => {
-
-  initFn();
-
+  mountedInitFn();
 })
 
-const initFn = () => {
+const mountedInitFn = () => {
   queryMenu({}).then((res) => {
     const arr = [];
     if (res.data && res.data.root) {
@@ -67,6 +90,7 @@ const handleContextMenu = (data, event, position) => {
  * 编辑
  */
 const handleContextMenuSave = (isEditor) => {
+  saveData.value.show = true;
   if (isEditor) {
 
   } else {
