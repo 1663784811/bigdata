@@ -118,9 +118,22 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
     }
 
     @Override
-    public BaseResult goodsDetails(String goodsId) {
-
-
-        return BaseResult.ok();
+    public BaseResult goodsDetails(String skuId) {
+        // 查sku
+        GStoreGoodsSku goodsSku = gStoreGoodsSkuDao.findByTid(skuId);
+        String goodsId = goodsSku.getGoodsId();
+        List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findAllByGoodsId(goodsId);
+        // 查商品
+        GGoods goods = gGoodsDao.findByTid(goodsId);
+        String storeId = goods.getStoreId();
+        // 查门店
+        EStore store = eStoreDao.findByTid(storeId);
+        // =================================================
+        GoodsEntity goodsEntity = new GoodsEntity();
+        goodsEntity.setGStoreGoodsSku(goodsSku);
+        goodsEntity.setGStoreGoodsSkuList(goodsSkuList);
+        goodsEntity.setGGoods(goods);
+        goodsEntity.setEStore(store);
+        return BaseResult.ok(goodsEntity);
     }
 }

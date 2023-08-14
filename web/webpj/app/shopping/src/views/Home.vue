@@ -31,11 +31,13 @@
     <header class="good-header">新品上线</header>
     <van-skeleton title :row="3" :loading="loading">
       <div class="good-box">
-        <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
+        <div class="good-item" v-for="(item, index) in newGoodses" :key="index" @click="goToDetail(item)">
+          <img
+              src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t20260806/187918/18/35913/20437/64d08d28F2e373a53/1f44dba7dc774185.jpg.avif"
+              alt="">
           <div class="good-desc">
-            <div class="title">{{ item.goodsName }}</div>
-            <div class="price">¥ {{ item.sellingPrice }}</div>
+            <div class="title">{{ item.ggoods.name }}</div>
+            <div class="price">¥ {{ item.goodsSearch.lowPrice }}</div>
           </div>
         </div>
       </div>
@@ -93,6 +95,14 @@ const categoryList = ref([
     categoryId: 100010
   }
 ]);
+const isLogin = ref(false);
+const loading = ref(false);
+const newGoodses = ref([]);
+const hots = ref([]);
+const recommends = ref([]);
+
+const headerScroll = ref(false);
+
 
 onMounted(async () => {
   // 获取banner
@@ -110,8 +120,10 @@ onMounted(async () => {
 
   searchGoods({
     enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
-  }).then((res) => {
-    console.log(res)
+  }).then((rest) => {
+    console.log('ssssssssssssssssss', rest)
+    const {data} = rest;
+    newGoodses.value = data
   })
 
 
@@ -124,13 +136,6 @@ const goTo = (url) => {
   }
 }
 
-const isLogin = ref(false);
-const loading = ref(false);
-const newGoodses = ref([]);
-const hots = ref([]);
-const recommends = ref([]);
-
-const headerScroll = ref(false);
 
 nextTick(() => {
   document.body.addEventListener('scroll', () => {

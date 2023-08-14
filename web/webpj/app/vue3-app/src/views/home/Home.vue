@@ -25,45 +25,15 @@
       </div>
     </div>
     <!--  ============================  -->
-    <div class="good">
-      <header class="good-header">新品上线</header>
-      <van-skeleton title :row="3" :loading="state.loading">
-        <div class="good-box">
-          <div class="good-item" v-for="item in state.newGoodses" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-            <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
-            </div>
-          </div>
-        </div>
-      </van-skeleton>
-    </div>
-    <!--  ============================  -->
-    <div class="good">
-      <header class="good-header">热门商品</header>
-      <van-skeleton title :row="3" :loading="state.loading">
-        <div class="good-box">
-          <div class="good-item" v-for="item in state.hots" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-            <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
-            </div>
-          </div>
-        </div>
-      </van-skeleton>
-    </div>
-    <!--  ============================  -->
     <div class="good" :style="{ paddingBottom: '100px'}">
       <header class="good-header">最新推荐</header>
       <van-skeleton title :row="3" :loading="state.loading">
         <div class="good-box">
-          <div class="good-item" v-for="item in state.recommends" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
+          <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
+            <img :src="item.ggoods.photo" alt="">
             <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
+              <div class="title">{{ item.ggoods.name }}</div>
+              <div class="price">¥ {{ item.goodsSearch.lowPrice }}</div>
             </div>
           </div>
         </div>
@@ -77,7 +47,7 @@ import {reactive, onMounted, nextTick} from 'vue'
 import {useRouter} from 'vue-router'
 import swiper from '@/components/Swiper.vue'
 import navBar from '@/components/NavBar.vue'
-import {getBanner, getHome} from '@/service/home'
+import {getBanner, getHome, searchGoods} from '@/service/home'
 import {getLocal} from '@/common/js/utils'
 import {showLoadingToast, closeToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
@@ -168,21 +138,22 @@ onMounted(async () => {
   state.swiperList = data.carousels
   state.newGoodses = data.newGoodses
   state.hots = data.hotGoodses
-  state.recommends = data.recommendGoodses
+  // state.recommends = data.recommendGoodses
   state.loading = false
   closeToast()
   // ==========================================================================================
-  setTimeout(()=>{
-    getBanner({
-      enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
-    })
-    //     .then(res => {
-    //   console.log('sssssssssssssssssssssssss', res)
-    // })
+  getBanner({
+    enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
+  }).then(res => {
+    state.swiperList = res.data;
+  }).catch((err) => {
+    console.log(err)
+  })
 
-
-  }, 1000)
-
+  searchGoods({}).then((rest) => {
+    const {data} = rest;
+    state.recommends = data;
+  })
 
 })
 
@@ -194,7 +165,7 @@ nextTick(() => {
 })
 
 const goToDetail = (item) => {
-  router.push({path: `/product/${item.goodsId}`})
+  router.push({path: `/product/${item.gstoreGoodsSku.tid}`})
 }
 
 const tips = () => {
@@ -203,7 +174,7 @@ const tips = () => {
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .home-header {
   position: fixed;

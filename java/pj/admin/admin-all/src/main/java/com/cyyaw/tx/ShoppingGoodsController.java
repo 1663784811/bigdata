@@ -42,8 +42,8 @@ public class ShoppingGoodsController {
 
     @ApiOperation(value = "商品详情", notes = "商品详情")
     @GetMapping("/goodsDetails")
-    public BaseResult goodsDetails(String goodsId) {
-        return shoppingGoodsService.goodsDetails(goodsId);
+    public BaseResult goodsDetails(String skuId) {
+        return shoppingGoodsService.goodsDetails(skuId);
     }
 
 

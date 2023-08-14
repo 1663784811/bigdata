@@ -1,10 +1,14 @@
 import axios from '../utils/axios'
-import {AJAXGET} from './webinfo.js'
 
 export function getHome() {
     return axios.get('/index-infos');
 }
 
 export const getBanner = (params = {}) => {
-    return AJAXGET('http://127.0.0.1:8080/web/banner/findBanner', params);
+    return axios.get('http://127.0.0.1:8080/shopping/web/banner/findBanner',{ params });
 }
+
+export const searchGoods = (params = {}) => {
+    return axios.get('http://127.0.0.1:8080/shopping/goods/search/searchGoods',{ params });
+}
+

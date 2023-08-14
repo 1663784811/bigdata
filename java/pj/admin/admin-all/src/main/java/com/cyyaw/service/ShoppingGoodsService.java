@@ -11,7 +11,7 @@ public interface ShoppingGoodsService {
     BaseResult<List<GoodsEntity>> searchGoods(GGoodsSearch goodsSearch);
 
 
-    BaseResult goodsDetails(String goodsId);
+    BaseResult goodsDetails(String skuId);
 
 
 }
