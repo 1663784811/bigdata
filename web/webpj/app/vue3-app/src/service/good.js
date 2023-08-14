@@ -18,6 +18,10 @@ export const goodsDetails = (params = {}) => {
   return axios.get('http://127.0.0.1:8080/shopping/goods/search/goodsDetails',{ params });
 }
 
+export const goodsDetailsText = (params = {}) => {
+  return axios.get('http://127.0.0.1:8080/shopping/goods/search/goodsDetailsText',{ params });
+}
+
 export const goodsPhoto = (params = {}) => {
-  return axios.get('http://127.0.0.1:8080/shopping/goods/search/goodsDetails',{ params });
+  return axios.get('http://127.0.0.1:8080/shopping/goods/search/goodsPhoto',{ params });
 }

@@ -4,8 +4,8 @@
     <div class="detail-content">
       <div class="detail-swipe-wrap">
         <van-swipe class="my-swipe" indicator-color="#1baeae">
-          <van-swipe-item v-for="(item, index) in state.detail.goodsCarouselList" :key="index">
-            <img :src="item" alt="">
+          <van-swipe-item v-for="(item, index) in state.photoList" :key="index">
+            <img :src="item.photo" alt="">
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -26,7 +26,7 @@
           <li>安装服务</li>
           <li>常见问题</li>
         </ul>
-        <div class="product-content" v-html="state.detail.goodsDetailContent || ''"></div>
+        <div class="product-content" v-html="state.detailText || ''"></div>
       </div>
     </div>
     <van-action-bar>
@@ -42,7 +42,7 @@
 import {reactive, onMounted, nextTick} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useCartStore} from '@/stores/cart'
-import {getDetail, goodsDetails, goodsPhoto} from '@/service/good'
+import {getDetail, goodsDetails, goodsPhoto, goodsDetailsText} from '@/service/good'
 import {addCart} from '@/service/cart'
 import sHeader from '@/components/SimpleHeader.vue'
 import {showSuccessToast} from 'vant'
@@ -55,7 +55,9 @@ const cart = useCartStore()
 const state = reactive({
   detail: {
     goodsCarouselList: []
-  }
+  },
+  photoList: [],
+  detailText: ''
 })
 
 onMounted(async () => {
@@ -68,13 +70,15 @@ onMounted(async () => {
   const {data} = await goodsDetails({skuId: id})
   console.log(data)
   // 查商品图片
-  goodsPhoto({}).then(rest => {
-    console.log(rest)
+  goodsPhoto({goodsId: data.ggoods.tid}).then(rest => {
+    const {data} = rest;
+    state.photoList = data;
   });
-
-
   // 查商品详情
-
+  goodsDetailsText({goodsId: data.ggoods.tid}).then(rest => {
+    const {data} = rest;
+    state.detailText = data.details
+  });
 
 })
 
