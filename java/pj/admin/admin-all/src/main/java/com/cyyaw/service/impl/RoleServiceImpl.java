@@ -26,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
             TreeEntity.Node<TDepartment> node = new TreeEntity.Node<TDepartment>();
             node.setTid(department.getTid());
             node.setData(department);
-            node.setName(department.getName());
+            node.setTitle(department.getName());
             node.setPid(department.getPid());
             treeEntity.add(node);
         }

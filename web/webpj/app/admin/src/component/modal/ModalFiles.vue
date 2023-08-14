@@ -1,5 +1,4 @@
 <template>
-  <div @click="clickBtnFn">clickBtnFn</div>
   <Modal
       v-model="modalData.show"
       title="图片"

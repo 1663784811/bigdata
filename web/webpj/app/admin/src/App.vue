@@ -13,4 +13,7 @@ import ModalFiles from '@/component/modal/ModalFiles.vue'
 ul{
   list-style: none;
 }
+.commonTable{
+  background: #fff;
+}
 </style>

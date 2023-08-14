@@ -31,6 +31,12 @@ export const saveSql = (parameter) => {
 export const apiAdminMenu = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
 }
+/**
+ * 查询系统菜单
+ */
+export const queryMenu = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/power/queryMenu`, parameter, 1)
+}
 
 /**
  * 获取页面设置

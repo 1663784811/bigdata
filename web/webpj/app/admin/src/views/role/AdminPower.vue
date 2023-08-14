@@ -1,11 +1,15 @@
 <template>
-  <div>
-    sss
-    <CommonTable
-        :table-setting="commonTable"
-    />
+  <div class="adminMain">
 
-
+    <div class="leftBox">
+      <div>部门</div>
+      <div>
+        asd
+      </div>
+    </div>
+    <div class="adminTable">
+      <CommonTable :table-setting="commonTable"/>
+    </div>
   </div>
 </template>
 
@@ -24,6 +28,27 @@ const initFn = async () => {
 initFn();
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.adminMain {
+  position: relative;
+  display: flex;
+  height: 100%;
+  padding-left:  210px;
+  .leftBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 200px;
+    border-radius: 4px;
+    padding: 6px;
+    display: block;
+    margin-right: 10px;
+    min-height: 100%;
+  }
 
+  .adminTable {
+
+  }
+}
 </style>

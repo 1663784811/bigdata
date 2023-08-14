@@ -75,7 +75,7 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
             TreeEntity.Node<TPower> node = new TreeEntity.Node<TPower>();
             node.setTid(tpower.getTid());
             node.setData(tpower);
-            node.setName(tpower.getName());
+            node.setTitle(tpower.getName());
             node.setPid(tpower.getPid());
             treeEntity.add(node);
         }

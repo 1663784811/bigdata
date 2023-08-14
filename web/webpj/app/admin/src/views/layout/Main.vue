@@ -7,7 +7,7 @@
   <div class="mainBox">
     <LeftMenu/>
     <div class="mainContent">
-      <div style="background: #fff">
+      <div style="height: 100%">
         <router-view/>
       </div>
     </div>
