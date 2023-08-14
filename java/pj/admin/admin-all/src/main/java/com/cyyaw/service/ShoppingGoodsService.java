@@ -14,4 +14,8 @@ public interface ShoppingGoodsService {
     BaseResult goodsDetails(String skuId);
 
 
+    BaseResult goodsPhoto(String goodsId);
+
+    BaseResult goodsDetailsText(String goodsId);
+
 }

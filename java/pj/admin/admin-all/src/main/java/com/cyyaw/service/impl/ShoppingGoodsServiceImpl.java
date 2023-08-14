@@ -1,17 +1,14 @@
 package com.cyyaw.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.enterprise.table.dao.EStoreDao;
 import com.cyyaw.store.service.GStoreGoodsSkuService;
-import com.cyyaw.store.table.goods.dao.GGoodsDao;
-import com.cyyaw.store.table.goods.dao.GStoreGoodsSkuDao;
-import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
+import com.cyyaw.store.table.goods.dao.*;
+import com.cyyaw.store.table.goods.entity.*;
 import com.google.common.collect.Lists;
 import com.cyyaw.enterprise.table.entity.EStore;
-import com.cyyaw.store.table.goods.entity.GGoods;
 
 import com.cyyaw.service.ShoppingGoodsService;
-import com.cyyaw.store.table.goods.dao.GGoodsSearchDao;
-import com.cyyaw.store.table.goods.entity.GGoodsSearch;
 import com.cyyaw.util.entity.GoodsEntity;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,12 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
 
     @Autowired
     private GStoreGoodsSkuDao gStoreGoodsSkuDao;
+
+    @Autowired
+    private GPhotoDao gPhotoDao;
+
+    @Autowired
+    private GDetailsDao gDetailsDao;
 
     @Override
     public BaseResult<List<GoodsEntity>> searchGoods(GGoodsSearch goodsSearch) {
@@ -122,10 +125,10 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
         // 查sku
         GStoreGoodsSku goodsSku = gStoreGoodsSkuDao.findByTid(skuId);
         String goodsId = goodsSku.getGoodsId();
+        String storeId = goodsSku.getStoreId();
         List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findAllByGoodsId(goodsId);
         // 查商品
         GGoods goods = gGoodsDao.findByTid(goodsId);
-        String storeId = goods.getStoreId();
         // 查门店
         EStore store = eStoreDao.findByTid(storeId);
         // =================================================
@@ -135,5 +138,23 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
         goodsEntity.setGGoods(goods);
         goodsEntity.setEStore(store);
         return BaseResult.ok(goodsEntity);
+    }
+
+    @Override
+    public BaseResult goodsPhoto(String goodsId) {
+        if (StrUtil.isNotBlank(goodsId)) {
+            GPhoto gPhoto = new GPhoto();
+            gPhoto.setGoodsId(goodsId);
+            Example<GPhoto> gPhotoExample = Example.of(gPhoto);
+            List<GPhoto> gPhotoList = gPhotoDao.findAll(gPhotoExample);
+            return BaseResult.ok(gPhotoList);
+        }
+        return BaseResult.fail();
+    }
+
+    @Override
+    public BaseResult goodsDetailsText(String goodsId) {
+        List<GDetails> gDetailsList = gDetailsDao.findByGoodsid(goodsId);
+        return BaseResult.ok(gDetailsList);
     }
 }

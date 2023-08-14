@@ -1,4 +1,5 @@
 package com.cyyaw.tx;
+
 import com.cyyaw.service.ShoppingGoodsService;
 import com.cyyaw.store.service.GGoodsSearchService;
 import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
@@ -46,9 +47,16 @@ public class ShoppingGoodsController {
         return shoppingGoodsService.goodsDetails(skuId);
     }
 
+    @ApiOperation(value = "商品文字详情", notes = "商品文字详情")
+    @GetMapping("/goodsDetailsText")
+    public BaseResult goodsDetailsText(String goodsId) {
+        return shoppingGoodsService.goodsDetailsText(goodsId);
+    }
 
-
-
-
+    @ApiOperation(value = "商品图片", notes = "商品图片")
+    @GetMapping("/goodsPhoto")
+    public BaseResult goodsPhoto(String goodsId) {
+        return shoppingGoodsService.goodsPhoto(goodsId);
+    }
 
 }
