@@ -3,6 +3,7 @@ package com.cyyaw.tx;
 
 import com.cyyaw.user.service.UAddressService;
 import com.cyyaw.user.service.UUserService;
+import com.cyyaw.user.table.entity.UAddress;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.util.tools.BaseResult;
@@ -27,8 +28,6 @@ public class ShoppingUserController {
     private UAddressService uAddressService;
 
 
-
-
     @ApiOperation(value = "商城用户信息", notes = "商城用户信息")
     @GetMapping("/userInfo")
     public BaseResult userInfo(LoginRequest loginRequest) {
@@ -40,9 +39,15 @@ public class ShoppingUserController {
     @ApiOperation(value = "用户地址列表", notes = "用户地址列表")
     @GetMapping("/address")
     public BaseResult address(LoginRequest loginRequest) {
-        return  uAddressService.findUserAddress();
+        return uAddressService.findUserAddress();
     }
 
+    @ApiOperation(value = "用户地址详情", notes = "用户地址详情")
+    @GetMapping("/addressDetail")
+    public BaseResult addressDetail(Integer id) {
+        UAddress address = uAddressService.findId(id);
+        return BaseResult.ok(address);
+    }
 
 
 }

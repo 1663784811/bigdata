@@ -24,6 +24,6 @@ export function getAddressDetail(id) {
 // ====================================================
 
 
-export function getAddressList() {
-    return axios.get('/address', {pageNumber: 1, pageSize: 1000})
+export function getAddressList(params = {}) {
+    return axios.get('http://127.0.0.1:8080/shopping/user/address', {params})
 }
