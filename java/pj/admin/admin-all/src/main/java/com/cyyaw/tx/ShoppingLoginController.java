@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "商城登录")
 @RequestMapping("/login/shopping")
 @RestController
-public class ShoppingLogin {
+public class ShoppingLoginController {
 
 
     @Autowired

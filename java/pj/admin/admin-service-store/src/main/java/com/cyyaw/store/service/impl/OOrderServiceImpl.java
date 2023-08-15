@@ -42,6 +42,10 @@ public class OOrderServiceImpl extends BaseService<OOrder, Integer> implements O
         Page<OOrder> oOrderPage = oOrderDao.findAll(pageRequest);
         List<OOrder> orderList = oOrderPage.getContent();
 
+        BaseResult.Result result = new BaseResult.Result();
+        result.setPage(oOrderPage.getTotalPages());
+        result.setSize(oOrderPage.getSize());
+        result.setTotal(oOrderPage.getTotalElements());
         //=====
         List<String> orderIdList = new ArrayList<>();
         for (OOrder order : orderList) {
@@ -68,7 +72,7 @@ public class OOrderServiceImpl extends BaseService<OOrder, Integer> implements O
             userOrderResponse.setDetailsList(oDetails);
             data.add(userOrderResponse);
         }
-        return BaseResult.ok(data);
+        return BaseResult.ok(data, result);
     }
 
     @Override

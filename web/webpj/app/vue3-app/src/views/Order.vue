@@ -18,19 +18,19 @@
           @load="onLoad"
           @offset="10"
         >
-          <div v-for="(item, index) in state.list" :key="index" class="order-item-box" @click="goTo(item.orderNo)">
+          <div v-for="(item, index) in state.list" :key="index" class="order-item-box" @click="goTo(item.order.tid)">
             <div class="order-item-header">
-              <span>订单时间：{{ item.createTime }}</span>
-              <span>{{ item.orderStatusString }}</span>
+              <span>订单时间：{{ item.order.createTime }}</span>
+              <span>订单状态：{{ item.order.status }}</span>
             </div>
             <van-card
-              v-for="one in item.newBeeMallOrderItemVOS"
+              v-for="one in item.detailsList"
               :key="one.orderId"
               :num="one.goodsCount"
               :price="one.sellingPrice"
               desc="全场包邮"
-              :title="one.goodsName"
-              :thumb="$filters.prefix(one.goodsCoverImg)"
+              :title="one.name"
+              :thumb="one.photo"
             />
           </div>
         </van-list>
@@ -58,7 +58,8 @@ const state = reactive({
 
 const loadData = async () => {
   const { data, data: { list } } = await getOrderList({ pageNumber: state.page, status: state.status })
-  state.list = state.list.concat(list)
+  console.log(list)
+  state.list = state.list.concat(data)
   state.totalPage = data.totalPage
   state.loading = false;
   if (state.page >= data.totalPage) state.finished = true

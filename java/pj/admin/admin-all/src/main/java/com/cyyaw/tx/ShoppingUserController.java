@@ -1,11 +1,10 @@
 package com.cyyaw.tx;
 
 
-import com.cyyaw.service.LoginUserService;
+import com.cyyaw.user.service.UAddressService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.entity.LoginRequest;
-import com.cyyaw.user.utils.entity.UserAuthToken;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,11 +16,18 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "商城用户")
 @RequestMapping("/shopping/user")
 @RestController
-public class ShoppingUser {
+public class ShoppingUserController {
 
 
     @Autowired
     private UUserService uUserService;
+
+
+    @Autowired
+    private UAddressService uAddressService;
+
+
+
 
     @ApiOperation(value = "商城用户信息", notes = "商城用户信息")
     @GetMapping("/userInfo")
@@ -29,6 +35,14 @@ public class ShoppingUser {
         UUser user = uUserService.findByAccount("root");
         return BaseResult.ok(user);
     }
+
+
+    @ApiOperation(value = "用户地址列表", notes = "用户地址列表")
+    @GetMapping("/address")
+    public BaseResult address(LoginRequest loginRequest) {
+        return  uAddressService.findUserAddress();
+    }
+
 
 
 }
