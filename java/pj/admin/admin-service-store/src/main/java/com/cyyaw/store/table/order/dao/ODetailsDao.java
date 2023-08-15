@@ -13,6 +13,8 @@ public interface ODetailsDao extends BaseDao<ODetails, Integer> {
     @Query("select m from ODetails  m where m.orderId in (:orderIdArr)")
     List<ODetails> findByOrderIdArr(List<String> orderIdArr);
 
+    @Query("select m from ODetails  m where m.orderId = ?1")
+    List<ODetails> findByOrderId(String orderId);
 
 
 }

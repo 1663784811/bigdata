@@ -12,33 +12,20 @@ import java.util.List;
 @Data
 public class GoodsEntity {
 
-    /**
-     * 商品
-     */
-    @ApiModelProperty(value = "gGoods")
+
+    @ApiModelProperty(value = "商品")
     private GGoods gGoods;
-    /**
-     * 商品
-     */
-    @ApiModelProperty(value = "goodsSearch")
+
+    @ApiModelProperty(value = "商品")
     private GGoodsSearch goodsSearch;
 
-    /**
-     * 已经选择的sku
-     */
-    @ApiModelProperty(value = "gStoreGoodsSku")
+    @ApiModelProperty(value = "已经选择的sku")
     private GStoreGoodsSku gStoreGoodsSku;
 
-    /**
-     * sku 列表
-     */
-    @ApiModelProperty(value = "gStoreGoodsSkuList")
+    @ApiModelProperty(value = "sku 列表")
     private List<GStoreGoodsSku> gStoreGoodsSkuList;
 
-    /**
-     * 门店
-     */
-    @ApiModelProperty(value = "eStore")
+    @ApiModelProperty(value = "门店")
     private EStore eStore;
 
 }

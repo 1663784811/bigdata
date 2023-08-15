@@ -2,6 +2,7 @@ package com.cyyaw.tx;
 
 
 import com.cyyaw.store.service.GTypeService;
+import com.cyyaw.store.service.OOrderService;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,18 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShoppingGoodsOrderController {
 
     @Autowired
-    private GTypeService gTypeService;
+    private OOrderService gTypeService;
 
     @ApiOperation(value = "订单", notes = "订单")
     @GetMapping("/query")
     public BaseResult query() {
-        return BaseResult.ok();
+
+        return gTypeService.shoppingMyOrder();
     }
 
     @ApiOperation(value = "订单详情", notes = "订单详情")
     @GetMapping("/orderById")
-    public BaseResult orderById() {
-        return BaseResult.ok();
+    public BaseResult orderById(String orderId) {
+        return  gTypeService.orderById(orderId);
     }
 
     @ApiOperation(value = "删除订单", notes = "删除订单")
