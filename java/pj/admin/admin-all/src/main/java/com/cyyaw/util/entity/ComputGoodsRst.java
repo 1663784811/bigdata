@@ -1,5 +1,6 @@
 package com.cyyaw.util.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -11,30 +12,20 @@ import java.util.List;
 @Data
 public class ComputGoodsRst {
 
-    /**
-     * 总价
-     */
+
+    @ApiModelProperty(value = "总价", example = "总价")
     BigDecimal allTotalPrice;
 
-    /**
-     * 商品总价
-     */
+    @ApiModelProperty(value = "商品总价", example = "商品总价")
     BigDecimal goodsTotalPrice;
 
-    /**
-     * 商品数量
-     */
+    @ApiModelProperty(value = "商品数量", example = "商品数量")
     BigDecimal goodsNum;
 
-    /**
-     * 快递
-     */
-    BigDecimal expressprice;
+    @ApiModelProperty(value = "快递", example = "快递")
+    BigDecimal expressPrice;
 
-
-    /**
-     * 商品信息
-     */
+    @ApiModelProperty(value = "商品信息", example = "商品信息")
     List<GoodsRst> goodsRstList;
 
 }

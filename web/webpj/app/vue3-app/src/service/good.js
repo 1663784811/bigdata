@@ -25,3 +25,7 @@ export const goodsDetailsText = (params = {}) => {
 export const goodsPhoto = (params = {}) => {
   return axios.get('http://127.0.0.1:8080/shopping/goods/search/goodsPhoto',{ params });
 }
+
+export const enterpriseType = (params = {}) => {
+  return axios.get('http://127.0.0.1:8080/shopping/goods/type/enterpriseType',{ params });
+}

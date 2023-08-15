@@ -2,6 +2,7 @@ package com.cyyaw.user.table.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -115,5 +116,9 @@ public class UUser implements Serializable {
     @Basic
     @Column(name = "union_id", columnDefinition = "varchar(64) COMMENT '微信unionid'")
     private String unionId;
+
+    @Basic
+    @Column(name = "introduce_sign", columnDefinition = "varchar(255) COMMENT '个性签名'")
+    private String introduceSign;
 
 }

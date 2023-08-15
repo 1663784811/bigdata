@@ -17,7 +17,7 @@ public interface UUserDao extends BaseDao<UUser, Integer> {
     @Query("select m from UUser m where m.tid in ( select t.userId from UGroupUser t where t.groupId = ?1)")
     List<UUser> findByGroup(String userid);
 
-
+    @Query("select m from UUser m where m.account = ?1")
     List<UUser> findByAccount(String account);
 
     @Query("select m from UUser m where m.openId =?1 and m.unionId = ?2")

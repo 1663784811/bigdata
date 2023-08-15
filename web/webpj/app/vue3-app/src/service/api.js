@@ -1,16 +1,19 @@
-import {AJAXGET, AJAXPOST} from "./webinfo";
+import axios from "@/utils/axios";
 
 const baseUrl = "http://127.0.0.1:8080";
 
 /**
  * 登录
  */
-export const login = (parameter) => {
-    return AJAXPOST(`${baseUrl}/login/shopping/login`, parameter, 1)
+export const login = (params) => {
+    return axios.post(`${baseUrl}/login/shopping/login`, params);
 }
 
-export const register = (parameter) => {
-    return AJAXPOST(`${baseUrl}/login/shopping/register`, parameter, 1)
+/**
+ * 注册
+ */
+export const register = (params) => {
+    return axios.post(`${baseUrl}/login/shopping/register`, params);
 }
 
 
