@@ -1,6 +1,6 @@
 package com.cyyaw.util.entity;
 
-import com.cyyaw.store.table.goods.entity.GCar;
+import com.cyyaw.store.table.goods.entity.GCart;
 import com.cyyaw.store.table.goods.entity.GGoods;
 import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +19,7 @@ public class MyCarEntity {
     /**
      * 购物车数据
      */
-    private GCar gCar;
+    private GCart gCart;
 
     /**
      * 商品数据

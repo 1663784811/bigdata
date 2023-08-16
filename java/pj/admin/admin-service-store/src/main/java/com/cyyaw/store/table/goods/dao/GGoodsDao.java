@@ -12,8 +12,8 @@ import java.util.List;
 public interface GGoodsDao extends BaseDao<GGoods, Integer> {
 
 
-    @Query("select m from GGoods m where m.tid in ( :goodsid ) ")
-    List<GGoods> findByTidIn(@Param("goodsid") List<String> goodsids);
+    @Query("select m from GGoods m where m.tid in ( :goodsId ) ")
+    List<GGoods> findByTidIn(@Param("goodsId") List<String> goodsIdList);
 
     @Query("select m from GGoods m where m.tid = ?1")
     GGoods findByTid(String tid);

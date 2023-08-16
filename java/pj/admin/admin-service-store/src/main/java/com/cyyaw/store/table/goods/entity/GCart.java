@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "g_cart")
-@org.hibernate.annotations.Table(appliesTo = "g_car", comment = "我的购物车")
+@org.hibernate.annotations.Table(appliesTo = "g_cart", comment = "我的购物车")
 public class GCart implements Serializable {
     private static final long serialVersionUID = 156878272233758L;
 
@@ -40,15 +40,26 @@ public class GCart implements Serializable {
     @Basic
     @Column(name = "user_id", columnDefinition = "varchar(32) COMMENT 'u_user用户表(当前用户)id'")
     private String userId;
+
+    @Basic
+    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
+    private String storeId;
+
     @Basic
     @Column(name = "goods_id", columnDefinition = "varchar(32) not null COMMENT '商品表ID/skuID'")
     private String goodsId;
     @Basic
     @Column(name = "sku_id", columnDefinition = "varchar(32) not null COMMENT '所属门店e_storeid表ID'")
     private String skuId;
+
+
+    // =================================
     @Basic
     @Column(name = "number", columnDefinition = "int  default '0' COMMENT '总数量'")
     private Integer number;
 
+    // =========================
+    @Transient
+    private GStoreGoodsSku goodsSku;
 
 }

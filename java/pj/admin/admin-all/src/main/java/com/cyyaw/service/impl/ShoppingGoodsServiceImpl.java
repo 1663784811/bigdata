@@ -154,7 +154,7 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
 
     @Override
     public BaseResult goodsDetailsText(String goodsId) {
-        List<GDetails> gDetailsList = gDetailsDao.findByGoodsid(goodsId);
+        List<GDetails> gDetailsList = gDetailsDao.findByGoodsId(goodsId);
         if (gDetailsList.size() > 0) {
             return BaseResult.ok(gDetailsList.get(0));
         }

@@ -1,6 +1,7 @@
 package com.cyyaw.tx;
 
 
+import com.cyyaw.service.CartService;
 import com.cyyaw.store.service.GCartService;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShoppingGoodsCarController {
 
     @Autowired
-    private GCartService gCartService;
+    private CartService cartService;
 
     @ApiOperation(value = "购物车", notes = "购物车")
     @GetMapping("/query")
     public BaseResult query() {
-        return gCartService.myCartList();
+        return cartService.myCartList();
     }
 
     @ApiOperation(value = "删除商品", notes = "删除商品")

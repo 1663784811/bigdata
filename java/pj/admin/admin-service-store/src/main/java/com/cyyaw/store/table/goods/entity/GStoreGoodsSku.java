@@ -52,10 +52,10 @@ public class GStoreGoodsSku implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name="price", columnDefinition = "decimal(18,2 ) COMMENT '价格'")
+    @Column(name = "price", columnDefinition = "decimal(18,2 ) COMMENT '价格'")
     private BigDecimal price;
     @Basic
-    @Column(name="number", columnDefinition = "int not null default '0' COMMENT '虚拟库存数量'")
+    @Column(name = "number", columnDefinition = "int not null default '0' COMMENT '虚拟库存数量'")
     private Integer number;
 
     @Basic
@@ -63,5 +63,12 @@ public class GStoreGoodsSku implements Serializable {
     private String attr;
 
 
+    @Basic
+    @Column(name = "photo", columnDefinition = "text COMMENT '图片'")
+    private String photo;
+
+    // ================================
+    @Transient
+    private GGoods goods;
 
 }
