@@ -10,9 +10,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_car")
+@Table(name = "g_cart")
 @org.hibernate.annotations.Table(appliesTo = "g_car", comment = "我的购物车")
-public class GCar implements Serializable {
+public class GCart implements Serializable {
     private static final long serialVersionUID = 156878272233758L;
 
     @Id

@@ -1,10 +1,7 @@
 package com.cyyaw.tx;
 
 
-import cn.hutool.core.util.StrUtil;
-import com.cyyaw.store.service.GTypeService;
-import com.cyyaw.store.table.goods.entity.GType;
-import com.cyyaw.user.utils.entity.TreeEntity;
+import com.cyyaw.store.service.GCartService;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Slf4j
 @Api(tags = "购物车")
 @RestController
@@ -23,12 +18,12 @@ import java.util.List;
 public class ShoppingGoodsCarController {
 
     @Autowired
-    private GTypeService gTypeService;
+    private GCartService gCartService;
 
     @ApiOperation(value = "购物车", notes = "购物车")
     @GetMapping("/query")
     public BaseResult query() {
-        return BaseResult.ok();
+        return gCartService.myCartList();
     }
 
     @ApiOperation(value = "删除商品", notes = "删除商品")
