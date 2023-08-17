@@ -12,6 +12,16 @@ export const shopping = {
             name: 'shoppingBanner'
         },
         {
+            path: 'shoppingBrand',
+            component: import('@/views/shopping/ShoppingBrand.vue'),
+            name: 'shoppingBrand'
+        },
+        {
+            path: 'shoppingGoodsSku',
+            component: import('@/views/shopping/ShoppingGoodsSku.vue'),
+            name: 'shoppingGoodsSku'
+        },
+        {
             path: 'shoppingGType',
             component: import('@/views/shopping/ShoppingGType.vue'),
             name: 'shoppingGType'

@@ -101,7 +101,7 @@ const handleContextMenuSave = (isEditor) => {
   } else {
     saveData.value.saveType = 'add'
     saveData.value.data = {
-      pid: saveData.value.data.tid
+      pid: selectData.value.data.tid
     }
   }
 }

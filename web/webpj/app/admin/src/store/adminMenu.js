@@ -107,7 +107,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                 {
                     name: '品牌',
                     icon: 'md-settings',
-                    routeName: 'shoppingGType'
+                    routeName: 'shoppingBrand'
                 },
                 {
                     name: '品类',
@@ -125,9 +125,9 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                     routeName: 'goodsList'
                 },
                 {
-                    name: '货品管理',
+                    name: '货品SKU',
                     icon: 'md-settings',
-                    routeName: 'goodsList'
+                    routeName: 'shoppingGoodsSku'
                 },
                 {
                     name: '仓库管理',

@@ -71,11 +71,31 @@ public class BuildCodeController {
             requestObj.set("delRequest", delRequest);
 
             js.set("requestObj", requestObj);
+
+
             JSONObject operation = new JSONObject();
-            operation.set("show", true);
-            operation.set("update", true);
-            operation.set("del", true);
+            operation.set("title", "操作");
+            operation.set("key", "operation");
+            operation.set("width", 200);
+
+            JSONArray operationArr = new JSONArray();
+            JSONObject arr1 = new JSONObject();
+            arr1.set("label", "查看");
+            arr1.set("even", "");
+            operationArr.add(arr1);
+            JSONObject arr2 = new JSONObject();
+            arr2.set("label", "修改");
+            arr2.set("even", "");
+            operationArr.add(arr2);
+            JSONObject arr3 = new JSONObject();
+            arr3.set("label", "删除");
+            arr3.set("even", "");
+            operationArr.add(arr3);
+            operation.set("operationArr", operationArr);
+
             js.set("operation", operation);
+
+
             // ===================
             List<VueJson> vueJsons = TypeTools.javaColumnList2VueJsonList(javaColumns);
             for (int j = 0; j < vueJsons.size(); j++) {

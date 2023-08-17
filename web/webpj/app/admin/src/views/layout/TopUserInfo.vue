@@ -1,13 +1,51 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <Icon type="md-notifications"/>
-      <div class="infoBox">
-        dddddssssss
-      </div>
+      <Poptip trigger="hover">
+        <div class="textNote">
+          商城模式
+        </div>
+        <template #content>
+          <div>商城模式</div>
+          <Divider orientation="left" size="small">门店</Divider>
+          <div>听心一号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+        </template>
+      </Poptip>
     </div>
+
     <div class="userInfoItem">
-      <Icon type="md-contact"/>
+      <Poptip trigger="hover">
+        <div class="textNote">
+          <Badge :count="3">
+            <a href="#" class="demo-badge"></a>
+          </Badge>
+        </div>
+        <template #content>
+          <div>商城模式</div>
+          <Divider orientation="left" size="small">门店</Divider>
+          <div>听心一号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+          <div>听心二号店</div>
+        </template>
+      </Poptip>
+    </div>
+
+    <div class="userInfoItem">
+      <div class="textNote">
+        <Icon type="md-contact"/>
+      </div>
       <div class="infoBox">
         <div class="infoList" @click="logOut">退出登录</div>
       </div>
@@ -26,8 +64,8 @@ const logOut = function () {
 
   router.push({
     name: 'login',
-    query:{
-      eCode:'aaa'
+    query: {
+      eCode: 'aaa'
     }
   })
 }
@@ -42,13 +80,19 @@ const logOut = function () {
   padding: 0 20px;
 
   .userInfoItem {
-    font-size: 22px;
-    padding: 0 16px;
-    height: 100%;
     display: flex;
     align-items: center;
-    margin: 0 2px;
     position: relative;
+
+    .textNote {
+      color: #ddd;
+      margin: 0 6px;
+      padding: 0 10px;
+      height: 47px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     &:hover {
       background: #0a1327;

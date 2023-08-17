@@ -1,5 +1,6 @@
 package com.cyyaw.store.table.goods.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "g_brand")
 @org.hibernate.annotations.Table(appliesTo = "g_brand", comment = "品牌表")
-public class GBrand implements Serializable {
+public class GBrand implements BaseEntity<Integer>, Serializable {
     private static final long serialVersionUID = 15687826272233758L;
 
     @Id
@@ -36,13 +37,6 @@ public class GBrand implements Serializable {
     private String note;
 
     // =================================================================================
-
-    @Basic
-    @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
-    private String pid;
-    @Basic
-    @Column(name = "tree_code", columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
-    private String treeCode;
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) COMMENT '品牌名称'")
