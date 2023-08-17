@@ -130,6 +130,7 @@ public abstract class BaseService<T, D> implements BaseTableService<T, D> {
                 }
                 baseObj.setCreateTime(new Date());
                 baseObj.setTid(WhyStringUtil.getUUID());
+                baseObj.setTreeCode("");
                 log.info("添加:{}", baseObj);
                 return (T) getBaseDao().save(baseObj);
             } else {

@@ -1,6 +1,6 @@
 <template>
   <div class="menuBox">
-    <Tree :data="menuArr" @on-contextmenu="handleContextMenu" show-checkbox>
+    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
         <DropdownItem @click="handleContextMenuSave(true)">编辑</DropdownItem>
@@ -19,8 +19,8 @@
 
 <script setup>
 
-import {defineEmits, onMounted, ref, watch} from "vue";
-import {queryMenu, delMenu, saveMenu, commonRequest} from "@/api/api.js"
+import {defineEmits, ref, watch} from "vue";
+import {commonRequest} from "@/api/api.js"
 import ModalDataList from '@/component/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
@@ -71,16 +71,12 @@ const objConfig = ref(
           children: []
         }
       ]
-
     });
-
-
 // ======================================================
 
 const initFn = async () => {
   if (props.treeSetting) {
     saveData.value.columns = getAddColumns(props.treeSetting.columns);
-
   }
 }
 initFn();
@@ -98,8 +94,13 @@ const loadData = () => {
         ...searchObj.value.queryRequest.pm,
         ...searchObj.value.queryRequest.parameter,
       }
-  ).then((res) => {
-    objConfig.value.data = res.data.root;
+  ).then((rest) => {
+    const {data} = rest;
+    const arr = [];
+    if (data) {
+      arr.push(...reTree(data));
+    }
+    objConfig.value.data[0].children = arr;
   }).catch(err => {
     objConfig.value.data = [];
   }).finally(() => {
@@ -110,30 +111,8 @@ const loadData = () => {
 
 const usePageConfig = pageConfig();
 
-
-const menuArr = ref([
-  {
-    title: '全部',
-    expand: true,
-    contextmenu: true,
-    children: []
-  }
-]);
-
-
 const selectData = ref({});
 
-
-const mountedInitFn = () => {
-  queryMenu({}).then((res) => {
-    const arr = [];
-    if (res.data && res.data.root) {
-      const rootArr = res.data.root;
-      arr.push(...reTree(rootArr));
-    }
-    menuArr.value[0].children = arr;
-  })
-}
 
 /**
  * 处理树结构
@@ -165,9 +144,15 @@ const handleContextMenuSave = (isEditor) => {
     saveData.value.data = selectData.value.data || {}
   } else {
     saveData.value.saveType = 'add'
-    saveData.value.data = {
-      pid: saveData.value.data.tid
+    const {data} = selectData.value
+    if (data) {
+      saveData.value.data = {
+        pid: data.tid
+      }
+    } else {
+      saveData.value.data = {}
     }
+
   }
 }
 
@@ -175,22 +160,34 @@ const handleContextMenuSave = (isEditor) => {
  * 删除
  */
 const handleContextMenuDelete = () => {
-  delMenu(selectData.value.data).then((res) => {
+  const {url} = searchObj.value.delRequest;
+  const id = selectData.value.data.id;
+  commonRequest(
+      url,
+      {
+        id
+      },
+      'post'
+  ).then((res) => {
     console.log(res)
   }).finally(() => {
-    mountedInitFn()
+    loadData();
   })
 }
 
 const saveEventFn = (ev, itemData) => {
   if ('ok' === ev) {
-    saveMenu(itemData).then((rest) => {
+    const {url, parameter} = searchObj.value.saveRequest;
+    commonRequest(url, {
+      ...parameter,
+      ...itemData
+    }, 'post').then((rest) => {
       saveData.value.data = rest.data;
       Message.success({
         content: `${rest.msg}`,
         onClose: () => {
           saveData.value.show = false;
-          mountedInitFn();
+          loadData();
         }
       })
     }).catch((err) => {

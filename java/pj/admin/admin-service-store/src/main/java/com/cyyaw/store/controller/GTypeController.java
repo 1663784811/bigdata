@@ -49,39 +49,19 @@ public class GTypeController {
     /**
      * 添加或修改
      */
-    @PostMapping("/saveTree")
-    public BaseResult saveTree(@RequestBody GType saveObj) {
-
-
-
-        GType obj = null;
-        Integer id = saveObj.getId();
-        if (ObjectUtils.isEmpty(id)) {
-            //添加
-            saveObj.setCreateTime(new Date());
-            saveObj.setTid(WhyStringUtil.getUUID());
-            log.info("添加:{}", saveObj);
-            obj = gTypeService.save(saveObj);
-        } else {
-            //修改
-            log.info("修改:{}", saveObj);
-            GType cpObj = gTypeService.findId(id);
-            Assert.notNull(cpObj, "操作失败！");
-            BeanUtils.copyProperties(saveObj, cpObj);
-            obj = gTypeService.save(cpObj);
-        }
-        return BaseResult.ok(obj);
+    @PostMapping("/saveGType")
+    public BaseResult saveGType(@RequestBody GType saveObj) {
+        return BaseResult.ok(gTypeService.saveTree(saveObj));
     }
 
     /**
      * 删除
      */
     @PostMapping("/delGType")
-    public BaseResult delGType(@RequestBody Integer idArr[]) {
-        if (null != idArr) {
-            for (int i = 0; i < idArr.length; i++) {
-                gTypeService.delTree(idArr[i]);
-            }
+    public BaseResult delGType(@RequestBody GType obj) {
+        Integer id = obj.getId();
+        if (null != id) {
+            gTypeService.delTree(id);
         }
         return BaseResult.ok("删除成功");
     }
