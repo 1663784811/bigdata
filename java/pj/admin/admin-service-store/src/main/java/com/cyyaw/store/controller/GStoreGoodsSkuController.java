@@ -6,6 +6,7 @@ import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,9 @@ import java.util.Map;
 import java.util.Date;
 
 @Slf4j
-@RequestMapping("/admin/gStoreGoodsSku")
 @RestController
+@Api(tags = "商品SKU")
+@RequestMapping("/admin/gStoreGoodsSku")
 public class GStoreGoodsSkuController {
 
     @Autowired

@@ -15,8 +15,17 @@ public interface BaseTableService<T, D> {
 
     T findId(D id);
 
+    List<T> findTree(JSONObject json);
+
+    T saveTree(T t);
+
+    void delTree(D id);
+
     T save(T t);
 
     void del(D... idArr);
+
+
+
 
 }

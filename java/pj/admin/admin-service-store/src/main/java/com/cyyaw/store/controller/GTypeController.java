@@ -6,6 +6,8 @@ import com.cyyaw.store.table.goods.entity.GType;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +16,24 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/gType")
 @RestController
+@Api(tags = "商品品类")
+@RequestMapping("/admin/gType")
 public class GTypeController {
 
     @Autowired
     private GTypeService gTypeService;
 
-    /**
-     * 分页条件查询
-     */
-    @GetMapping("/findPage")
-    public BaseResult<GType> findPageGType(@RequestParam Map<String, Object> map) {
-        PageRespone<GType> page = gTypeService.findPage(new JSONObject(map));
-        return BaseResult.ok(page);
+
+    @ApiOperation(value = "品类列表树", notes = "品类列表树")
+    @GetMapping("/findTree")
+    public BaseResult<GType> findTree(@RequestParam Map<String, Object> map) {
+        List<GType> gTypeList = gTypeService.findTree(new JSONObject(map));
+        return BaseResult.ok(gTypeList);
     }
 
     /**
@@ -46,14 +49,17 @@ public class GTypeController {
     /**
      * 添加或修改
      */
-    @PostMapping("/saveGType")
-    public BaseResult saveGType(@RequestBody GType saveObj) {
+    @PostMapping("/saveTree")
+    public BaseResult saveTree(@RequestBody GType saveObj) {
+
+
+
         GType obj = null;
         Integer id = saveObj.getId();
         if (ObjectUtils.isEmpty(id)) {
             //添加
             saveObj.setCreateTime(new Date());
-             saveObj.setTid(WhyStringUtil.getUUID());
+            saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);
             obj = gTypeService.save(saveObj);
         } else {
@@ -61,7 +67,7 @@ public class GTypeController {
             log.info("修改:{}", saveObj);
             GType cpObj = gTypeService.findId(id);
             Assert.notNull(cpObj, "操作失败！");
-            BeanUtils.copyProperties(saveObj,cpObj);
+            BeanUtils.copyProperties(saveObj, cpObj);
             obj = gTypeService.save(cpObj);
         }
         return BaseResult.ok(obj);
@@ -72,7 +78,11 @@ public class GTypeController {
      */
     @PostMapping("/delGType")
     public BaseResult delGType(@RequestBody Integer idArr[]) {
-        gTypeService.del(idArr);
+        if (null != idArr) {
+            for (int i = 0; i < idArr.length; i++) {
+                gTypeService.delTree(idArr[i]);
+            }
+        }
         return BaseResult.ok("删除成功");
     }
 

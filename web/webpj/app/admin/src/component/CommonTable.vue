@@ -16,9 +16,9 @@
     <div class="tableBox">
 
       <div class="tableColumnsBtn">
-        <Button type="primary" icon="md-list" @click="tableConfig.isShowColumns = !tableConfig.isShowColumns"/>
-        <Drawer title="字段" :closable="true" v-model="tableConfig.isShowColumns">
-          <div style="margin: 6px 0" v-for=" (columnsItem,inx) in tableConfig.columnsList" :key="inx">
+        <Button type="primary" icon="md-list" @click="objConfig.isShowColumns = !objConfig.isShowColumns"/>
+        <Drawer title="字段" :closable="true" v-model="objConfig.isShowColumns">
+          <div style="margin: 6px 0" v-for=" (columnsItem,inx) in objConfig.columnsList" :key="inx">
             <Switch v-model="columnsItem.isShowColumn"
                     @on-change="changeColumnsList"/>
             {{ columnsItem.title }}
@@ -31,9 +31,9 @@
              highlight-row
              stripe
              size="small"
-             :columns="tableConfig.columns"
-             :data="tableConfig.data"
-             :loading="tableConfig.loading"
+             :columns="objConfig.columns"
+             :data="objConfig.data"
+             :loading="objConfig.loading"
              @on-row-click="selectData"
              @on-selection-change="selectDataChange"
       >
@@ -41,8 +41,8 @@
     </div>
     <!-- ========================================  分页  ======================================== -->
     <div class="pageBox">
-      <Page :total="tableConfig.pageData.total"
-            :page-size="tableConfig.pageData.size"
+      <Page :total="objConfig.pageData.total"
+            :page-size="objConfig.pageData.size"
             @on-change="changePage"
             show-elevator/>
     </div>
@@ -92,7 +92,7 @@ const searchObj = ref({
   }
 });
 
-const tableConfig = ref({
+const objConfig = ref({
   columns: [],
   data: [],
   pageData: {
@@ -114,7 +114,7 @@ const saveData = ref({
 
 // ======================================================
 const selectData = (row, index) => {
-  const dataArr = tableConfig.value.data;
+  const dataArr = objConfig.value.data;
   for (let i = 0; i < dataArr.length; i++) {
     if (i != index) {
       dataArr[i]._checked = false
@@ -128,36 +128,36 @@ const selectData = (row, index) => {
 
 const selectDataChange = (rows) => {
   console.log(rows)
-  tableConfig.value.selectData = rows;
+  objConfig.value.selectData = rows;
 }
 
 // ======================================================
 /**
  * 加载数据
  */
-const loadTableData = () => {
-  tableConfig.value.loading = true;
+const loadData = () => {
+  objConfig.value.loading = true;
   commonRequest(
       searchObj.value.queryRequest.url,
       {
         ...searchObj.value.queryRequest.pm,
         ...searchObj.value.queryRequest.parameter,
-        ...tableConfig.value.pageData
+        ...objConfig.value.pageData
       }
   ).then((res) => {
-    tableConfig.value.loading = false;
-    tableConfig.value.data = res.data;
-    tableConfig.value.pageData.total = res.result.total;
+    objConfig.value.loading = false;
+    objConfig.value.data = res.data;
+    objConfig.value.pageData.total = res.result.total;
   }).catch(err => {
-    tableConfig.value.loading = false;
-    tableConfig.value.data = [];
+    objConfig.value.loading = false;
+    objConfig.value.data = [];
     console.log(err);
   })
 }
 
 // ======================================================
 const search = () => {
-  tableConfig.value.pageData.page = 1;
+  objConfig.value.pageData.page = 1;
   let columns = searchObj.value.columns;
   let searchData = {}
   for (let i = 0; i < columns.length; i++) {
@@ -167,7 +167,7 @@ const search = () => {
     }
   }
   searchObj.value.queryRequest.pm = searchData;
-  loadTableData();
+  loadData();
 }
 
 const addData = () => {
@@ -185,7 +185,7 @@ const selectTableData = (row, index, editor) => {
  */
 const delSelect = () => {
   const arr = [];
-  const selectData = tableConfig.value.selectData;
+  const selectData = objConfig.value.selectData;
   for (let i = 0; i < selectData.length; i++) {
     arr.push(selectData[i].id)
   }
@@ -213,7 +213,7 @@ const delTableDataFn = (idArr = []) => {
           content: `${rest.data ? rest.data : rest.msg}`,
           onClose: () => {
             Modal.remove();
-            loadTableData();
+            loadData();
           }
         })
       }).catch((err) => {
@@ -228,8 +228,8 @@ const delTableDataFn = (idArr = []) => {
 
 
 const changePage = (page) => {
-  tableConfig.value.pageData.page = page
-  loadTableData();
+  objConfig.value.pageData.page = page
+  loadData();
 }
 
 // ===================================================
@@ -256,7 +256,7 @@ const Save = (itemData) => {
       content: `${rest.msg}`,
       onClose: () => {
         saveData.value.show = false;
-        loadTableData();
+        loadData();
       }
     })
   }).catch(err => {
@@ -285,10 +285,10 @@ watch(() => props.tableSetting, () => {
     }
     operationObj.value = setting.operation
     if (setting.columns) {
-      tableConfig.value.columnsList = setting.columns;
+      objConfig.value.columnsList = setting.columns;
       setTimeout(() => {
-        initTable()
-        loadTableData()
+        initFn()
+        loadData()
       })
     }
     searchObj.value.queryRequest = setting.requestObj.queryRequest;
@@ -303,14 +303,14 @@ watch(() => props.tableSetting, () => {
 
 //==============================
 const changeColumnsList = () => {
-  initTable();
+  initFn();
 }
 
 /**
  * 初始化表格
  */
-const initTable = () => {
-  const arr = tableConfig.value.columnsList;
+const initFn = () => {
+  const arr = objConfig.value.columnsList;
   const temp = [];
   const searchTemp = [];
   for (let i = 0; i < arr.length; i++) {
@@ -336,7 +336,7 @@ const initTable = () => {
     }
     temp.push(operation)
   }
-  tableConfig.value.columns = temp;
+  objConfig.value.columns = temp;
   searchObj.value.columns = searchTemp;
   console.log(searchTemp)
 }

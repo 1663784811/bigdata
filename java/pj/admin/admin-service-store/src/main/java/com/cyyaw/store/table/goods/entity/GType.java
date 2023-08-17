@@ -1,5 +1,6 @@
 package com.cyyaw.store.table.goods.entity;
 
+import com.cyyaw.jpa.util.entity.TreeEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "g_type")
 @org.hibernate.annotations.Table(appliesTo = "g_type", comment = "品类表")
-public class GType implements Serializable {
+public class GType implements TreeEntity<Integer>, Serializable {
     private static final long serialVersionUID = 15687556273933758L;
 
     @Id
@@ -42,14 +43,17 @@ public class GType implements Serializable {
 
     // =================================================================================
 
-
-
     @Basic
     @Column(name = "pid", columnDefinition = "varchar(32) COMMENT '父级ID'")
     private String pid;
     @Basic
-    @Column(name = "tree_code",columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
+    @Column(name = "tree_code", columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
     private String treeCode;
+
+    // =================================================================================
+    @Basic
+    @Column(name = "sort", columnDefinition = "int default '1' COMMENT '排序'")
+    private Integer sort;
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) COMMENT '品类名称'")
@@ -59,10 +63,7 @@ public class GType implements Serializable {
     private String img;
 
     @Basic
-    @Column(name = "status",columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{1:显示,0:隐藏}'")
     private Integer status;
 
-    @Basic
-    @Column(name = "sort",columnDefinition = "int default '1' COMMENT '排序'")
-    private Integer sort;
 }

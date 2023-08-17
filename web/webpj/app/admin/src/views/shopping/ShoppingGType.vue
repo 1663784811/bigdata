@@ -1,25 +1,30 @@
 <template>
-  <div>
-    <CommonTable :table-setting="commonTable"/>
-  </div>
+
+  <tree-type :treeSetting="treeSetting"/>
+
 </template>
 
 <script setup>
-import CommonTable from '@/component/CommonTable.vue'
+import TreeType from '@/component/tree/TreeType.vue'
+
+import {getAddColumns} from "@/api/webUtil.js";
 import {pageConfig} from "@/store/pageConfig";
 import {ref} from "vue";
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
+
+const treeSetting = ref({});
+
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("shoppingGType");
-  commonTable.value = role.commonTable;
+  treeSetting.value = role.commonTable;
 }
+
 initFn();
 
 
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 
 </style>
