@@ -1,14 +1,20 @@
 package com.cyyaw.service.impl;
 
+import java.util.Date;
+
 import com.cyyaw.enterprise.table.dao.EStoreDao;
 import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.service.CartService;
+import com.cyyaw.store.service.GCartService;
 import com.cyyaw.store.table.goods.dao.GCartDao;
 import com.cyyaw.store.table.goods.dao.GStoreGoodsSkuDao;
 import com.cyyaw.store.table.goods.entity.GCart;
 import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
+import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.entity.CartListResponse;
 import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.WhyException;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -24,6 +30,10 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private GCartDao gCartDao;
+
+    @Autowired
+    private GCartService gCartService;
+
     @Autowired
     private EStoreDao eStoreDao;
 
@@ -97,6 +107,41 @@ public class CartServiceImpl implements CartService {
 
 
         return BaseResult.ok(data, result);
+    }
+
+    @Override
+    public BaseResult updateMyCar(String userId, AddMyCar addMyCar) {
+        Integer number = addMyCar.getNumber();
+        if (number == null || number.equals(0)) {
+            throw new WhyException("参数错误");
+        }
+        // 第一步: 查询用户是否已经把该商品加入购物车了
+        String skuId = addMyCar.getSkuId();
+        GCart gCart = gCartService.findBySkuIdAndUid(skuId, userId);
+        if (null == gCart) {
+            // 添加购物车
+            GStoreGoodsSku goodsSku = gStoreGoodsSkuDao.findByTid(skuId);
+            gCart = new GCart();
+            gCart.setTid(WhyStringUtil.getUUID());
+            gCart.setCreateTime(new Date());
+            gCart.setDel(0);
+            gCart.setNote("");
+            gCart.setUserId(userId);
+            gCart.setStoreId(goodsSku.getStoreId());
+            gCart.setGoodsId(goodsSku.getGoodsId());
+            gCart.setSkuId(goodsSku.getTid());
+            gCart.setNumber(number);
+            gCart = gCartDao.save(gCart);
+        } else {
+            // 修改sku数量
+            Integer nb = gCart.getNumber();
+            gCart.setNumber(nb + number);
+            if (gCart.getNumber() == 0) {
+                throw new WhyException("数量有误");
+            }
+            gCart = gCartDao.save(gCart);
+        }
+        return BaseResult.ok(gCart);
     }
 
 

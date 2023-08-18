@@ -2,14 +2,13 @@ package com.cyyaw.tx;
 
 
 import com.cyyaw.service.CartService;
+import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api(tags = "购物车")
@@ -33,8 +32,10 @@ public class ShoppingGoodsCarController {
     }
 
     @ApiOperation(value = "更新购物车", notes = "更新购物车")
-    @GetMapping("/updateCar")
-    public BaseResult updateCar() {
+    @PostMapping("/updateCar")
+    public BaseResult updateCar(@RequestBody AddMyCar addMyCar) {
+        cartService.updateMyCar("sss", addMyCar);
+
         return BaseResult.ok();
     }
 

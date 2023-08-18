@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -23,5 +25,16 @@ public class GCartServiceImpl extends BaseService<GCart, Integer> implements GCa
     }
 
 
+    @Override
+    public GCart findBySkuIdAndUid(String skuId, String userId) {
+        List<GCart> gCartList = gCarDao.findBySkuIdAndUid(skuId, userId);
+        if (gCartList.size() > 0) {
+            if (gCartList.size() > 1) {
+                //TODO 记录购物车数据错误
+            }
+            return gCartList.get(0);
+        }
+        return null;
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.cyyaw.service;
 
+import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.tools.BaseResult;
 
 public interface CartService {
@@ -9,6 +10,12 @@ public interface CartService {
      * 获取我的购物车列表
      */
     BaseResult myCartList();
+
+
+    /**
+     * 更新我的购物车
+     */
+    BaseResult updateMyCar(String userId, AddMyCar addMyCar);
 
 
 }
