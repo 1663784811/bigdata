@@ -1,6 +1,7 @@
 <template>
   <div class="categray">
     <div>
+      <!--==============================-->
       <header class="category-header wrap van-hairline--bottom">
         <i class="nbicon nbfanhui" @click="goHome"></i>
         <div class="header-search">
@@ -10,15 +11,16 @@
         <i class="iconfont icon-More"></i>
       </header>
       <nav-bar></nav-bar>
+      <!--==============================-->
       <div class="search-wrap" ref="searchWrap">
         <list-scroll :scroll-data="state.categoryData" class="nav-side-wrapper">
           <ul class="nav-side">
             <li
-                v-for="item in state.categoryData"
-                :key="item.categoryId"
-                v-text="item.categoryName"
-                :class="{'active' : state.currentIndex == item.categoryId}"
-                @click="selectMenu(item.categoryId)"
+                v-for="(item, index) in state.categoryData"
+                :key="index"
+                v-text="item.data.name"
+                :class="{'active' : state.currentIndex === index}"
+                @click="selectMenu(index)"
             ></li>
           </ul>
         </list-scroll>
@@ -27,15 +29,16 @@
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 <template v-for="(category, index) in state.categoryData">
-                  <div class="swiper-slide" v-if="state.currentIndex == category.categoryId" :key="index">
-                    <!-- <img class="category-main-img" :src="category.mainImgUrl" v-if="category.mainImgUrl"/> -->
-                    <div class="category-list" v-for="(products, index) in category.secondLevelCategoryVOS"
-                         :key="index">
-                      <p class="catogory-title">{{ products.categoryName }}</p>
-                      <div class="product-item" v-for="(product, index) in products.thirdLevelCategoryVOS" :key="index"
-                           @click="selectProduct(product)">
-                        <img src="//s.weituibao.com/1583591077131/%E5%88%86%E7%B1%BB.png" class="product-img"/>
-                        <p v-text="product.categoryName" class="product-title"></p>
+                  <div class="swiper-slide" v-if="state.currentIndex === index" :key="index">
+                    <div class="category-list">
+                      <p class="catogory-title">{{ category.data.name }}</p>
+                      <div class="product-item"  @click="selectProduct(category.data)">
+                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png" class="product-img"/>
+                        <p v-text="category.data.name" class="product-title"></p>
+                      </div>
+                      <div class="product-item" v-for="(product, index) in category.children" :key="index" @click="selectProduct(product.data)">
+                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png" class="product-img"/>
+                        <p v-text="product.data.name" class="product-title"></p>
                       </div>
                     </div>
                   </div>
@@ -54,15 +57,14 @@ import {reactive, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import navBar from '@/components/NavBar.vue'
 import listScroll from '@/components/ListScroll.vue'
-import {getCategory, enterpriseType} from "@/service/good"
+import {enterpriseType} from "@/service/good"
 import {showLoadingToast, closeToast} from 'vant'
 
 const router = useRouter()
-// composition API 获取 refs 的形式
 const searchWrap = ref(null)
 const state = reactive({
   categoryData: [],
-  currentIndex: 15
+  currentIndex: 0
 })
 
 onMounted(async () => {
@@ -70,15 +72,13 @@ onMounted(async () => {
   console.log('searchWrap.value', searchWrap.value)
   searchWrap.value.style.height = $screenHeight - 100 + 'px'
   showLoadingToast('加载中...')
-  const {data} = await getCategory()
-  console.log('ssssssssssssss', data)
   closeToast()
-  state.categoryData = data
-
   enterpriseType({
     enterpriseId: 'aaaa'
   }).then(rest => {
-    console.log(rest)
+    const {data} = rest;
+    state.categoryData = data;
+    console.log(data)
   })
 
 

@@ -1,10 +1,9 @@
 package com.cyyaw.tx;
 
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.store.service.GTypeService;
 import com.cyyaw.store.table.goods.entity.GType;
-import com.cyyaw.user.utils.entity.TreeEntity;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,20 +27,9 @@ public class ShoppingGoodsTypeController {
     @ApiOperation(value = "商品品类", notes = "商品品类")
     @GetMapping("/enterpriseType")
     public BaseResult enterpriseType(GType gType) {
-        if (StrUtil.isNotBlank(gType.getEnterpriseId())) {
-            List<GType> wBannerList = gTypeService.findByExample(gType);
-            TreeEntity treeEntity = new TreeEntity();
-            for (GType tpower : wBannerList) {
-                TreeEntity.Node<GType> node = new TreeEntity.Node<GType>();
-                node.setTid(tpower.getTid());
-                node.setData(tpower);
-                node.setTitle(tpower.getName());
-                node.setPid(tpower.getPid());
-                treeEntity.add(node);
-            }
-            return BaseResult.ok(treeEntity);
-        }
-        return null;
+        JSONObject object = new JSONObject();
+        List<GType> data = gTypeService.findTree(object);
+        return BaseResult.ok(data);
     }
 
 

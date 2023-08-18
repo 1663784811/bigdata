@@ -56,7 +56,12 @@ export const shopping = {
                     name: 'shoppingDepositoryLog'
                 }
             ]
-        }
+        },
+        {
+            path: 'orderList',
+            component: import('@/views/shopping/order/ShoppingOrderList.vue'),
+            name: 'orderList'
+        },
 
     ]
 }

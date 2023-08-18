@@ -279,7 +279,7 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
                         {
                             name: '订单列表',
                             icon: 'md-settings',
-                            routeName: 'goodsList'
+                            routeName: 'orderList'
                         }
                     ]
                 },
