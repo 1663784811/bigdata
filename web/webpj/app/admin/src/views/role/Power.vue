@@ -123,13 +123,13 @@ const treeData = ref([
     width: 400px;
     margin: 10px;
     padding: 10px;
-    background: #f3f3f3;
+    background: #fff;
   }
   .roleBox{
     width: 400px;
     margin: 10px;
     padding: 10px;
-    background: #f3f3f3;
+    background: #fff;
   }
   .userBox{
     flex: 1;
@@ -137,14 +137,14 @@ const treeData = ref([
     width: 400px;
     margin: 10px;
     padding: 10px;
-    background: #f3f3f3;
+    background: #fff;
   }
   .powerBox{
     flex: 1;
     min-width: 400px;
     margin: 10px;
     padding: 10px;
-    background: #f3f3f3;
+    background: #fff;
   }
 }
 </style>

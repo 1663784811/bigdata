@@ -37,9 +37,26 @@ export const shopping = {
             name: 'goodsList'
         },
         {
-            path: 'gDepository',
-            component: import('@/views/shopping/GDepository.vue'),
-            name: 'gDepository'
+            path: 'shoppingDepository',
+            component: import('@/views/shopping/depository/ShoppingDepository.vue'),
+            name: 'shoppingDepository'
+        },
+        {
+            path: 'depository',
+            component: import('@/views/shopping/depository/ShoppingDepositoryLayout.vue'),
+            children: [
+                {
+                    path: 'shoppingDepositoryGoods',
+                    component: import('@/views/shopping/depository/ShoppingDepositoryGoods.vue'),
+                    name: 'shoppingDepositoryGoods'
+                },
+                {
+                    path: 'shoppingDepositoryLog',
+                    component: import('@/views/shopping/depository/ShoppingDepositoryLog.vue'),
+                    name: 'shoppingDepositoryLog'
+                }
+            ]
         }
+
     ]
 }

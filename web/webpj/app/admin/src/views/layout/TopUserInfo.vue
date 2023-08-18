@@ -3,19 +3,14 @@
     <div class="userInfoItem">
       <Poptip trigger="hover">
         <div class="textNote">
-          商城模式
+          {{ store.selectList.name || '请选择' }}
         </div>
         <template #content>
-          <div>商城模式</div>
-          <Divider orientation="left" size="small">门店</Divider>
-          <div>听心一号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
+          <div class="modelBox">
+            <div v-for="(item,index) in store.modeList" :key="index">
+              <div class="modelRow" @click="clickModelFn(item)">{{ item.name }}</div>
+            </div>
+          </div>
         </template>
       </Poptip>
     </div>
@@ -56,6 +51,12 @@
 <script setup>
 
 import {useRouter} from "vue-router";
+import {useAdminMenuStore} from "@/store/adminMenu";
+
+
+const store = useAdminMenuStore();
+
+console.log(store)
 
 const router = useRouter();
 
@@ -68,6 +69,11 @@ const logOut = function () {
       eCode: 'aaa'
     }
   })
+}
+
+const clickModelFn = (row) => {
+  store.selectList = row;
+  store.topMenu = row.menuList;
 }
 
 </script>
@@ -112,6 +118,21 @@ const logOut = function () {
       background: #fff;
       display: none;
     }
+
+    .modelBox {
+      width: 200px;
+
+      .modelRow {
+        padding: 0 10px;
+        margin: 10px 0;
+        cursor: pointer;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+
   }
 }
 </style>
