@@ -4,14 +4,14 @@
     <div class="detail-content">
       <div class="detail-swipe-wrap">
         <van-swipe class="my-swipe" indicator-color="#1baeae">
-          <van-swipe-item v-for="(item, index) in state.photoList" :key="index">
+          <van-swipe-item v-for="(item, index) in state.photoList" :key="index" style="background: #fff">
             <img :src="item.photo" alt="">
           </van-swipe-item>
         </van-swipe>
       </div>
       <div class="product-info">
         <div class="product-title">
-          {{ state.detail.goodsName || '' }}
+          {{ state.detail.ggoods.name || '' }}
         </div>
         <div class="product-desc">免邮费 顺丰快递</div>
         <div class="product-price">
@@ -54,7 +54,8 @@ const cart = useCartStore()
 
 const state = reactive({
   detail: {
-    goodsCarouselList: []
+    goodsCarouselList: [],
+    ggoods: {}
   },
   photoList: [],
   detailText: ''
@@ -62,13 +63,12 @@ const state = reactive({
 
 onMounted(async () => {
   const {id} = route.params
-  // console.log(id)
-  // const { data } = await getDetail(id)
-  // data.goodsCarouselList = data.goodsCarouselList.map(i => prefix(i))
-  // state.detail = data
+
   // cart.updateCart()
   const {data} = await goodsDetails({skuId: id})
   console.log(data)
+  state.detail = data;
+
   // 查商品图片
   goodsPhoto({goodsId: data.ggoods.tid}).then(rest => {
     const {data} = rest;
@@ -97,7 +97,7 @@ const goTo = () => {
 }
 
 const handleAddCart = async () => {
-  const {resultCode} = await addCart({goodsCount: 1, goodsId: state.detail.goodsId})
+  const {resultCode} = await addCart({number: 1, skuId: state.detail.gstoreGoodsSku.tid})
   if (resultCode == 200) showSuccessToast('添加成功')
   cart.updateCart()
 }
@@ -141,8 +141,10 @@ const goToCart = async () => {
     .detail-swipe-wrap {
       .my-swipe .van-swipe-item {
         img {
-          width: 100%;
-          // height: 300px;
+          display: block;
+          //width: 100%;
+          margin: auto;
+          height: 300px;
         }
       }
     }

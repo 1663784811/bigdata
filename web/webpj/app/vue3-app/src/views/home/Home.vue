@@ -6,14 +6,13 @@
       <div class="header-search">
         <span class="app-name">听心商城</span>
         <i class="iconfont icon-search"></i>
-        <router-link tag="span" class="search-title" to="./product-list?from=home">山河无恙，人间皆安</router-link>
+        <router-link tag="span" class="search-title" to="./product-list?from=home">搜索</router-link>
       </div>
       <router-link class="login" tag="span" to="./login" v-if="!state.isLogin">登录</router-link>
       <router-link class="login" tag="span" to="./user" v-else>
         <van-icon name="manager-o"/>
       </router-link>
     </header>
-
     <nav-bar/>
     <!--  ============================  -->
     <swiper :list="state.swiperList"></swiper>
@@ -24,13 +23,15 @@
         <span>{{ item.name }}</span>
       </div>
     </div>
-    <!--  ============================  -->
+    <!--  ==============     最新推荐    ==============  -->
     <div class="good" :style="{ paddingBottom: '100px'}">
       <header class="good-header">最新推荐</header>
       <van-skeleton title :row="3" :loading="state.loading">
         <div class="good-box">
           <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
-            <img :src="item.ggoods.photo" alt="">
+            <div class="imgBox">
+              <img :src="item.ggoods.photo" alt="">
+            </div>
             <div class="good-desc">
               <div class="title">{{ item.ggoods.name }}</div>
               <div class="price">¥ {{ item.goodsSearch.lowPrice }}</div>
@@ -47,7 +48,7 @@ import {reactive, onMounted, nextTick} from 'vue'
 import {useRouter} from 'vue-router'
 import swiper from '@/components/Swiper.vue'
 import navBar from '@/components/NavBar.vue'
-import {getBanner, getHome, searchGoods} from '@/service/home'
+import {getBanner, searchGoods} from '@/service/home'
 import {getLocal} from '@/common/js/utils'
 import {showLoadingToast, closeToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
@@ -125,20 +126,10 @@ onMounted(async () => {
     // 获取购物车数据.
     cart.updateCart()
   }
-
-
   showLoadingToast({
     message: '加载中...',
     forbidClick: true
   });
-
-
-  const {data} = await getHome()
-  console.log("==========================", data)
-  state.swiperList = data.carousels
-  state.newGoodses = data.newGoodses
-  state.hots = data.hotGoodses
-  // state.recommends = data.recommendGoodses
   state.loading = false
   closeToast()
   // ==========================================================================================
@@ -293,10 +284,14 @@ const tips = () => {
       border-bottom: 1PX solid #e9e9e9;
       padding: 10px 10px;
 
-      img {
-        display: block;
-        width: 120px;
-        margin: 0 auto;
+      .imgBox {
+        height: 120px;
+        img {
+          display: block;
+          height: 100%;
+          margin: 0 auto;
+          background: #f7f7f7;
+        }
       }
 
       .good-desc {
