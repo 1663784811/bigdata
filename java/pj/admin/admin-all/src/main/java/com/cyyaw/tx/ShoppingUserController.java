@@ -30,8 +30,8 @@ public class ShoppingUserController {
 
     @ApiOperation(value = "商城用户信息", notes = "商城用户信息")
     @GetMapping("/userInfo")
-    public BaseResult userInfo(LoginRequest loginRequest) {
-        UUser user = uUserService.findByAccount("root");
+    public BaseResult userInfo(String userId) {
+        UUser user = uUserService.findByAccount(userId);
         return BaseResult.ok(user);
     }
 

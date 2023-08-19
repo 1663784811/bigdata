@@ -1,5 +1,6 @@
 package com.cyyaw.user.utils;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,23 +9,20 @@ import lombok.Data;
 @Data
 public class LoginInfo {
 
-    private Integer id;
+    @ApiModelProperty(value = "id", example = "id")
+    private String id;
 
-    private String tid;
-
-    private String enterpriseId;
-
+    @ApiModelProperty(value = "登录账号", example = "userName")
     private String account;
 
-    private String email;
+    @ApiModelProperty(value = "用户名", example = "userName")
+    private String userName;
 
-    private String nickName;
-
-    private String phone;
-
-    private Integer status;
-
-    private String trueName;
-
+    @ApiModelProperty(value = "角色", example = "roleList")
     private String role;
+
+
+    @ApiModelProperty(value = "权限", example = "powerList")
+    private String power;
+
 }

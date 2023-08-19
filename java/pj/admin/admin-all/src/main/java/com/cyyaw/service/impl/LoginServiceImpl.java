@@ -218,15 +218,8 @@ public class LoginServiceImpl implements LoginService {
             }
         }
         LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setId(tAdmin.getId());
-        loginInfo.setTid(tAdmin.getTid());
-        loginInfo.setEnterpriseId(tAdmin.getEnterpriseId());
+        loginInfo.setId(tAdmin.getTid());
         loginInfo.setAccount(tAdmin.getAccount());
-        loginInfo.setEmail(tAdmin.getEmail());
-        loginInfo.setNickName(tAdmin.getNickName());
-        loginInfo.setPhone(tAdmin.getPhone());
-        loginInfo.setStatus(tAdmin.getStatus());
-        loginInfo.setTrueName(tAdmin.getTrueName());
         loginInfo.setRole(sb.toString());
         // 第四步: 生成jwt
         String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));

@@ -1,17 +1,20 @@
 package com.cyyaw.service.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.service.LoginUserService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UUser;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.user.utils.entity.UserAuthToken;
+import com.cyyaw.util.tools.JwtTokenUtils;
 import com.cyyaw.util.tools.WhyException;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
@@ -26,10 +29,23 @@ public class LoginUserServiceImpl implements LoginUserService {
         if (null != user) {
             String pwd = user.getPassword();
             String account = user.getAccount();
-            UserAuthToken userAuthToken = new UserAuthToken();
-            userAuthToken.setJwtToken("ssssssssss");
-            userAuthToken.setUUser(user);
-            return userAuthToken;
+            if (password.equals(pwd)) {
+                // 生成Token
+                String tid = user.getTid();
+                String userAccount = user.getAccount();
+                LoginInfo loginInfo = new LoginInfo();
+                loginInfo.setId(tid);
+                loginInfo.setAccount(userAccount);
+                loginInfo.setUserName(user.getNickName());
+                String token = JwtTokenUtils.createToken(tid, JSONUtil.toJsonStr(new JSONObject(loginInfo)));
+                UserAuthToken userAuthToken = new UserAuthToken();
+                userAuthToken.setJwtToken(token);
+                userAuthToken.setUUser(user);
+                return userAuthToken;
+            } else {
+                throw new WhyException("用户名或密码错误");
+            }
+
         } else {
             throw new WhyException("找不到用户" + userName);
         }

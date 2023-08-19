@@ -52,7 +52,7 @@ public class JwtTokenUtils {
                 .withJWTId(id)
                 .withClaim("claim", data)
                 .sign(algorithm);
-        return token;
+        return TOKEN_PREFIX + token;
     }
 
     public static String getClaim(String token) {

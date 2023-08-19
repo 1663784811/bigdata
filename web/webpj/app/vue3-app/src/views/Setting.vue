@@ -19,8 +19,10 @@ import {getUserInfo, EditUserInfo, logout} from '@/service/user'
 import {setLocal} from '@/common/js/utils'
 import {showSuccessToast} from 'vant'
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/stores/user.js";
 
 const router = useRouter();
+const userStore = useUserStore();
 
 
 const state = reactive({
@@ -49,11 +51,11 @@ const save = async () => {
 
 const handleLogout = () => {
   logout()
-  setLocal('token', '');
+  userStore.token = '';
   showSuccessToast('退出成功')
   setTimeout(() => {
-    router.replace({name: 'home'})
-  },1000);
+    router.replace({name: 'login'})
+  }, 1000);
 
 }
 </script>

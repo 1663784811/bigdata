@@ -33,7 +33,7 @@ public class AdminUserController {
     @GetMapping(value = "/info")
     public BaseResult info(LoginInfo loginInfo) {
 //        AdminAuthToken authToken = getAdminInfo();
-        String adminId = loginInfo.getTid();
+        String adminId = loginInfo.getId();
 //        tAdminService.findById(j);
         AdminAuthToken authToken = new AdminAuthToken();
         authToken.setJwtToken("");

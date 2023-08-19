@@ -87,8 +87,10 @@ import {setLocal} from '@/common/js/utils'
 import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
 import {useRouter} from 'vue-router'
+import {useUserStore} from '@/stores/user.js'
 
 const router = useRouter();
+let userStore = useUserStore();
 
 
 const verifyRef = ref(null)
@@ -103,6 +105,14 @@ const state = reactive({
 })
 
 onMounted(() => {
+  console.log(userStore.token)
+  if (userStore.token) {
+    // 已经登录过的了
+    showFailToast('您已经登录')
+    setTimeout(() => {
+      router.back();
+    }, 1000);
+  }
 
 });
 
@@ -121,16 +131,16 @@ const onSubmit = async (values) => {
     return
   }
   if (state.type == 'login') {
-    const {data, msg} = await login({
+    const {data, msg, code} = await login({
       "userName": values.username,
       "password": values.password
-    }).catch((err) => {
-      console.log(err)
     })
-    console.log(data)
-    if (data && data.code) {
-      setLocal('token', data)
-      await router.replace({name: 'home'})
+    if (data && code && data.jwtToken) {
+      userStore.token = data.jwtToken;
+      showSuccessToast(msg);
+      setTimeout(() => {
+        router.back()
+      }, 1000);
     } else {
       showFailToast(msg)
     }
