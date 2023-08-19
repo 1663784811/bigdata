@@ -1,10 +1,12 @@
 package com.cyyaw.tx;
 
 
+import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.UAddressService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UAddress;
 import com.cyyaw.user.table.entity.UUser;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -30,8 +32,9 @@ public class ShoppingUserController {
 
     @ApiOperation(value = "商城用户信息", notes = "商城用户信息")
     @GetMapping("/userInfo")
-    public BaseResult userInfo(String userId) {
-        UUser user = uUserService.findByAccount(userId);
+    public BaseResult userInfo(@TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        UUser user = uUserService.findByTid(userId);
         return BaseResult.ok(user);
     }
 

@@ -16,6 +16,14 @@ public interface UUserService extends BaseTableService<UUser, Integer> {
      */
     UUser findByAccount(String account);
 
-    UUser upateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo);
+    /**
+     *
+     */
+    UUser findByTid(String tid);
+
+
+    UUser updateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo);
+
+
 
 }

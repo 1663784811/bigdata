@@ -29,4 +29,7 @@ public interface UUserDao extends BaseDao<UUser, Integer> {
     @Query("select m from UUser m where m.enterpriseId=?1 and m.account=?2")
     List<UUser> findByEnterpriseIdAndAccount(String enterpriseId, String account);
 
+    @Query("select m from UUser m where m.tid=?1")
+    UUser findByTid(String tid);
+
 }

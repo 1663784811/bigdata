@@ -56,7 +56,12 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
     }
 
     @Override
-    public UUser upateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo) {
+    public UUser findByTid(String tid) {
+        return uUserDao.findByTid(tid);
+    }
+
+    @Override
+    public UUser updateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo) {
         String openId = wxMaUserInfo.getOpenId();
         List<UUser> uUserList = uUserDao.findByOpenId(openId);
         UUser user = null;
