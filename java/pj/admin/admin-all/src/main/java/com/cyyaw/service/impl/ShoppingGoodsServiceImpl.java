@@ -1,22 +1,20 @@
 package com.cyyaw.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.enterprise.table.dao.EStoreDao;
-import com.cyyaw.store.service.GStoreGoodsSkuService;
+import com.cyyaw.enterprise.table.entity.EStore;
+import com.cyyaw.service.ShoppingGoodsService;
 import com.cyyaw.store.table.goods.dao.*;
 import com.cyyaw.store.table.goods.entity.*;
-import com.google.common.collect.Lists;
-import com.cyyaw.enterprise.table.entity.EStore;
-
-import com.cyyaw.service.ShoppingGoodsService;
 import com.cyyaw.util.entity.GoodsEntity;
 import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
@@ -131,13 +129,40 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
         GGoods goods = gGoodsDao.findByTid(goodsId);
         // 查门店
         EStore store = eStoreDao.findByTid(storeId);
+
+        // =================================================  处理数据
+        //处理sku
+        Map<String, Set> skuAttr = getSkuAttr(goodsSkuList);
         // =================================================
         GoodsEntity goodsEntity = new GoodsEntity();
         goodsEntity.setGStoreGoodsSku(goodsSku);
         goodsEntity.setGStoreGoodsSkuList(goodsSkuList);
         goodsEntity.setGGoods(goods);
         goodsEntity.setEStore(store);
+        goodsEntity.setSkuAttr(skuAttr);
         return BaseResult.ok(goodsEntity);
+    }
+
+    private Map<String, Set> getSkuAttr(List<GStoreGoodsSku> goodsSkuList) {
+        Map<String, Set> map = new HashMap<>();
+        for (int i = 0; i < goodsSkuList.size(); i++) {
+            GStoreGoodsSku gStoreGoodsSku = goodsSkuList.get(i);
+            String attr = gStoreGoodsSku.getAttr();
+            // 获取key
+            JSONObject json = JSONUtil.parseObj(attr);
+            for (String key : json.keySet()) {
+                Object o = json.get(key);
+                Set entity = map.get(key);
+                if (null != entity) {
+                    entity.add(o);
+                } else {
+                    entity = new HashSet<>();
+                    entity.add(o);
+                    map.put(key, entity);
+                }
+            }
+        }
+        return map;
     }
 
     @Override

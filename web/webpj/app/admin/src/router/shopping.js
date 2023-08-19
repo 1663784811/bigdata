@@ -18,7 +18,7 @@ export const shopping = {
         },
         {
             path: 'shoppingGoodsSku',
-            component: import('@/views/shopping/ShoppingGoodsSku.vue'),
+            component: import('@/views/shopping/goods/ShoppingGoodsSku.vue'),
             name: 'shoppingGoodsSku'
         },
         {
@@ -33,7 +33,7 @@ export const shopping = {
         },
         {
             path: 'goodsList',
-            component: import('@/views/shopping/GoodsList.vue'),
+            component: import('@/views/shopping/goods/ShoppingGoodsList.vue'),
             name: 'goodsList'
         },
         {
@@ -62,6 +62,10 @@ export const shopping = {
             component: import('@/views/shopping/order/ShoppingOrderList.vue'),
             name: 'orderList'
         },
-
+        {
+            path: 'shoppingGoodsEditor',
+            component: import('@/views/shopping/goods/ShoppingGoodsEditor.vue'),
+            name: 'shoppingGoodsEditor'
+        },
     ]
 }

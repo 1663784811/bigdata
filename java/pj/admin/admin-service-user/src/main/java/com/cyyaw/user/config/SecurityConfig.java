@@ -81,7 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/admin/login/**",
                         "/home/**",
                         "/wx/user/**/login",
-                        "/login/**"
+                        "/login/**",
+                        "/admin/enterprise/findPage"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

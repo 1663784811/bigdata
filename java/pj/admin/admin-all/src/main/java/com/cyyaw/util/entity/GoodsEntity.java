@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 public class GoodsEntity {
@@ -27,5 +29,9 @@ public class GoodsEntity {
 
     @ApiModelProperty(value = "门店")
     private EStore eStore;
+
+
+    @ApiModelProperty(value = "")
+    private Map<String, Set> skuAttr;
 
 }
