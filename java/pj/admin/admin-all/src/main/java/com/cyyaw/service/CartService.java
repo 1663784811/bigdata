@@ -9,7 +9,7 @@ public interface CartService {
     /**
      * 获取我的购物车列表
      */
-    BaseResult myCartList();
+    BaseResult myCartList(String userId);
 
 
     /**

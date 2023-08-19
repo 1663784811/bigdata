@@ -121,21 +121,23 @@ const onSubmit = async (values) => {
     return
   }
   if (state.type == 'login') {
-    const {data} = await login({
+    const {data, msg} = await login({
       "userName": values.username,
-      "password": values.password,
-      "enterpriseId": router.currentRoute.value.params.enterpriseId
+      "password": values.password
     }).catch((err) => {
       console.log(err)
     })
-    setLocal('token', data)
-    // 需要刷新页面，否则 axios.js 文件里的 token 不会被重置
-    window.location.href = '/'
+    console.log(data)
+    if (data && data.code) {
+      setLocal('token', data)
+      await router.replace({name: 'home'})
+    } else {
+      showFailToast(msg)
+    }
   } else {
     await register({
       "userName": values.username1,
-      "password": values.password1,
-      "enterpriseId": router.currentRoute.value.params.enterpriseId
+      "password": values.password1
     })
     showSuccessToast('注册成功')
     state.type = 'login'

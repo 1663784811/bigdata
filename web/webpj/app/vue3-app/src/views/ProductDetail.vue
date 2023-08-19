@@ -5,7 +5,9 @@
       <div class="detail-swipe-wrap">
         <van-swipe class="my-swipe" indicator-color="#1baeae">
           <van-swipe-item v-for="(item, index) in state.photoList" :key="index" style="background: #fff">
-            <img :src="item.photo" alt="">
+            <van-image :src="item.photo">
+              <template v-slot:error>加载失败</template>
+            </van-image>
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -32,9 +34,25 @@
     <van-action-bar>
       <van-action-bar-icon icon="chat-o" text="客服"/>
       <van-action-bar-icon icon="cart-o" :badge="!cart.count ? '' : cart.count" @click="goTo()" text="购物车"/>
+      <van-action-bar-icon icon="shop-o" text="店铺"/>
       <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车"/>
       <van-action-bar-button type="danger" @click="goToCart" text="立即购买"/>
     </van-action-bar>
+
+    <van-popup
+        v-model:show="state.popup.show"
+        round
+        closeable
+        position="bottom"
+        :style="{ height: '80%' }"
+    >
+
+      <van-action-bar>
+        <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车"/>
+        <van-action-bar-button type="danger" @click="goToCart" text="立即购买"/>
+      </van-action-bar>
+    </van-popup>
+
   </div>
 </template>
 
@@ -58,7 +76,10 @@ const state = reactive({
     ggoods: {}
   },
   photoList: [],
-  detailText: ''
+  detailText: '',
+  popup: {
+    show: true
+  }
 })
 
 onMounted(async () => {

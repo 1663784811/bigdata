@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Api(tags = "购物车")
 @RestController
-@RequestMapping("/shopping/goods/car")
+@RequestMapping("/shopping/goods/cart")
 public class ShoppingGoodsCarController {
 
     @Autowired
@@ -22,7 +22,9 @@ public class ShoppingGoodsCarController {
     @ApiOperation(value = "购物车", notes = "购物车")
     @GetMapping("/query")
     public BaseResult query() {
-        return cartService.myCartList();
+        String userId = "4f3c48b31e4d477689cca9db53c173fa";
+
+        return cartService.myCartList(userId);
     }
 
     @ApiOperation(value = "删除商品", notes = "删除商品")
@@ -32,11 +34,9 @@ public class ShoppingGoodsCarController {
     }
 
     @ApiOperation(value = "更新购物车", notes = "更新购物车")
-    @PostMapping("/updateCar")
+    @PostMapping("/updateCart")
     public BaseResult updateCar(@RequestBody AddMyCar addMyCar) {
-        cartService.updateMyCar("sss", addMyCar);
-
-        return BaseResult.ok();
+        return cartService.updateMyCar("4f3c48b31e4d477689cca9db53c173fa", addMyCar);
     }
 
 

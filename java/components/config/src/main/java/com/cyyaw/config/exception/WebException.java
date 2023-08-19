@@ -5,19 +5,19 @@ import lombok.Data;
 
 @Data
 public class WebException extends RuntimeException {
-    String message;
+    String msg;
     Integer code;
 
     private WebException() {
     }
 
     private WebException(WebErrCodeEnum webErrCodeEnum) {
-        this.message = webErrCodeEnum.getMsg();
+        this.msg = webErrCodeEnum.getMsg();
         this.code = webErrCodeEnum.getCode();
     }
 
     private WebException(String msg, Integer code) {
-        this.message = msg;
+        this.msg = msg;
         this.code = code;
     }
 

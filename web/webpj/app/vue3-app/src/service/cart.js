@@ -18,12 +18,12 @@ export function getByCartItemIds(params) {
  * 查询购物车列表
  */
 export function getCart(params) {
-    return axios.get('http://127.0.0.1:8080/shopping/goods/car/query', {params});
+    return axios.get('http://127.0.0.1:8080/shopping/goods/cart/query', {params});
 }
 
 /**
  * 添加购物车
  */
 export function addCart(params = {}) {
-    return axios.post('http://127.0.0.1:8080/shopping/goods/car/updateCar', params);
+    return axios.post('http://127.0.0.1:8080/shopping/goods/cart/updateCart', params);
 }

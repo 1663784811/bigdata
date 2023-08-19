@@ -154,6 +154,50 @@ export const useAdminMenuStore = defineStore('adminMenu', () => {
             ]
         },
         {
+            name: '企业模式',
+            menuList: [
+                {
+                    name: '企业管理',
+                    icon: 'md-settings',
+                    routeName: 'enterprise',
+                    children: [
+                        {
+                            name: '产品中心',
+                            icon: 'md-settings',
+                            routeName: 'storeList'
+                        }
+                    ]
+                },
+                {
+                    name: '后台管理',
+                    icon: 'md-settings',
+                    routeName: 'power',
+                    children: [
+                        {
+                            name: '用户管理',
+                            icon: 'md-settings',
+                            routeName: 'user'
+                        },
+                        {
+                            name: '管理员管理',
+                            icon: 'md-settings',
+                            routeName: 'adminPower'
+                        },
+                        {
+                            name: '权限分配',
+                            icon: 'md-settings',
+                            routeName: 'power'
+                        },
+                        {
+                            name: '菜单',
+                            icon: 'md-settings',
+                            routeName: 'menu'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
             name: '商城模式',
             menuList: [
                 {

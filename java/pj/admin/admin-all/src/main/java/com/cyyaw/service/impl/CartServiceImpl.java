@@ -41,18 +41,18 @@ public class CartServiceImpl implements CartService {
     private GStoreGoodsSkuDao gStoreGoodsSkuDao;
 
     @Override
-    public BaseResult myCartList() {
-
-        String userId = "";
+    public BaseResult myCartList(String userId) {
 
         //  第一步: 根据门店分组，查出有多少门店
-        gCartDao.findAll();
-
         GCart gCart = new GCart();
+        gCart.setUserId(userId);
+
+
         ExampleMatcher matcher = ExampleMatcher.matching();
+
+
+
         PageRequest of = PageRequest.of(0, 10);
-
-
         Example<GCart> ex = Example.of(gCart, matcher);
         Page<GCart> gCartPage = gCartDao.findAll(ex, of);
 

@@ -2,18 +2,18 @@ package com.cyyaw.util.tools;
 
 public class WhyException extends RuntimeException {
 
-    String message;
+    String msg;
     Integer code;
 
     public WhyException() {
     }
 
     public WhyException(String message) {
-        this.message = message;
+        this.msg = message;
     }
 
     public WhyException(String message, Integer code) {
-        this.message = message;
+        this.msg = message;
         this.code = code;
     }
 
@@ -26,9 +26,9 @@ public class WhyException extends RuntimeException {
     @Override
     public String getMessage() {
         String m = super.getMessage();
-        if (null != message) {
-            m = message;
+        if (null != msg) {
+            m = msg;
         }
-        return message;
+        return msg;
     }
 }
