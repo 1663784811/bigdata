@@ -23,6 +23,7 @@ import java.util.Collections;
 @Slf4j
 public class JsonWebTokenFilter implements Filter {
 
+
     @SneakyThrows
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -31,7 +32,11 @@ public class JsonWebTokenFilter implements Filter {
         String tokenHeader = httpRequest.getHeader(JwtTokenUtils.TOKEN_HEADER);
         // 如果请求头中没有Authorization信息则直接放行了
         if (!ObjectUtils.isEmpty(tokenHeader) && tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)) {
-            SecurityContextHolder.getContext().setAuthentication(getAuthentication(tokenHeader));
+            try {
+                SecurityContextHolder.getContext().setAuthentication(getAuthentication(tokenHeader));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         filterChain.doFilter(request, response);
     }
@@ -42,19 +47,15 @@ public class JsonWebTokenFilter implements Filter {
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
         String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
         boolean verifier = JwtTokenUtils.verifierToken(token);
-        if (!verifier) {
-            WebException.fail("token过期");
-        } else {
+        if (verifier) {
             String json = JwtTokenUtils.getClaim(token);
             LoginInfo loginInfo = new JSONObject(json).toBean(LoginInfo.class);
             String role = loginInfo.getRole();
             String account = loginInfo.getAccount();
-            if (account != null) {
-                if (ObjectUtils.isEmpty(role)) {
-                    return new UsernamePasswordAuthenticationToken(account, null, Collections.singleton(new SimpleGrantedAuthority("user")));
-                } else {
-                    return new UsernamePasswordAuthenticationToken(account, null, Collections.singleton(new SimpleGrantedAuthority(role)));
-                }
+            if (ObjectUtils.isEmpty(role)) {
+                return new UsernamePasswordAuthenticationToken(account, null, Collections.singleton(new SimpleGrantedAuthority("user")));
+            } else {
+                return new UsernamePasswordAuthenticationToken(account, null, Collections.singleton(new SimpleGrantedAuthority(role)));
             }
         }
         return null;

@@ -21,6 +21,7 @@ import java.util.Date;
  */
 @Slf4j
 public class JwtTokenUtils {
+    public static final String LOGIN_INFO_KEY = "loginInfo";
     public static final String TOKEN_HEADER = "token";
     public static final String TOKEN_PREFIX = "JWT:";
     // iss: jwt签发者
