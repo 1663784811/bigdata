@@ -303,7 +303,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     routeName: 'shoppingGoodsSku'
                                 },
                                 {
-                                    name: '编辑商品',
+                                    name: '编辑商品(删除)',
                                     icon: 'md-settings',
                                     routeName: 'shoppingGoodsEditor'
                                 }
