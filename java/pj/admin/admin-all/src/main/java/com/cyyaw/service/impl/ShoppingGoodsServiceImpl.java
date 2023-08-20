@@ -120,16 +120,15 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
 
     @Override
     public BaseResult goodsDetails(String skuId) {
-        // 查sku
         GStoreGoodsSku goodsSku = gStoreGoodsSkuDao.findByTid(skuId);
         String goodsId = goodsSku.getGoodsId();
         String storeId = goodsSku.getStoreId();
+        // 查sku
         List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findAllByGoodsId(goodsId);
         // 查商品
         GGoods goods = gGoodsDao.findByTid(goodsId);
         // 查门店
         EStore store = eStoreDao.findByTid(storeId);
-
         // =================================================  处理数据
         //处理sku
         Map<String, Set> skuAttr = getSkuAttr(goodsSkuList);
@@ -185,4 +184,15 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
         }
         return BaseResult.ok();
     }
+
+    @Override
+    public BaseResult findGoodsSku(String goodsId) {
+        List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findAllByGoodsId(goodsId);
+        Map<String, Set> skuAttr = getSkuAttr(goodsSkuList);
+        GoodsEntity goodsEntity = new GoodsEntity();
+        goodsEntity.setSkuAttr(skuAttr);
+        goodsEntity.setGStoreGoodsSkuList(goodsSkuList);
+        return BaseResult.ok(goodsEntity);
+    }
+
 }

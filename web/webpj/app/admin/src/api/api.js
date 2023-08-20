@@ -115,3 +115,23 @@ export const dss = (parameter) => {
 }
 
 
+
+export const findIdGGoods = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/gGoods/findIdGGoods`, parameter, 0)
+}
+
+
+export const goodsPhoto = (parameter) => {
+    return AJAXGET(`${baseUrl}/shopping/goods/search/goodsPhoto`, parameter, 0)
+}
+
+
+export const findGoodsSku = (parameter) => {
+    return AJAXGET(`${baseUrl}/shopping/admin/findGoodsSku`, parameter, 0)
+}
+
+
+
+
+
+

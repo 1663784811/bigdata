@@ -1,107 +1,134 @@
 <template>
-  <!--  商品基本信息  -->
+  <!-- =============================== 商品基本信息 =============================== -->
   <div class="goodsBaseInfo">
     <div>商品基本信息</div>
     <div class="row">
       <div class="label">商品名称:</div>
       <div class="content">
-        <Input/>
+        <Input v-model="goodsObj.name"/>
       </div>
     </div>
     <div class="row">
       <div class="label">品牌Code:</div>
       <div class="content">
-        <Input/>
+        <Input v-model="goodsObj.brandCode"/>
       </div>
     </div>
     <div class="row">
       <div class="label">品类Code:</div>
       <div class="content">
-        <Input/>
+        <Input v-model="goodsObj.typeCode"/>
       </div>
     </div>
     <div class="row">
       <div class="label">备注:</div>
       <div class="content">
-        <Input type="textarea"/>
+        <Input type="textarea" v-model="goodsObj.note"/>
       </div>
     </div>
-
     <div class="row">
-      <div class="label">图片:</div>
+      <div class="label">主图:</div>
       <div class="content">
         <div class="imageBox">
           <div class="closeImg">
             <Icon type="md-close-circle"/>
           </div>
-          <img src="" alt="">
+          <img :src="goodsObj.photo" alt="">
         </div>
         <div class="imageBox">
           <div class="closeImg">
             <Icon type="md-close-circle"/>
           </div>
-          <img src="" alt="">
+          <img :src="goodsObj.photo" alt="">
         </div>
         <div class="imageBox addImage" @click="addImageFn()">
           <Icon type="md-add-circle"/>
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="label"></div>
+      <div class="content">
+        <Button type="success">保存</Button>
+      </div>
+    </div>
   </div>
-  <!--  商品sku信息  -->
+  <div class="goodsBaseInfo">
+    <div>商品图片</div>
+    <div class="row">
+      <div class="label">图片:</div>
+      <div class="content">
+        <div class="imageBox" v-for="(item,index) in goodsPhotoList" :key="index">
+          <div class="closeImg">
+            <Icon type="md-close-circle"/>
+          </div>
+          <img :src="item.photo" alt="">
+        </div>
+        <div class="imageBox addImage" @click="addImageFn()">
+          <Icon type="md-add-circle"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- =============================== 商品sku信息 =============================== -->
   <div class="skuBox">
     <div class="skuTypBox">
       <div class="skuTypOperation">
-        <Button type="warning" size="small" icon="md-add"/>
+        <Button type="warning" size="small" icon="md-add" @click="addAttr"/>
       </div>
-      <div class="row" v-for="i in 4">
+      <div class="row" v-for="(item, index) in skuAttr" :key="index">
         <div class="itemOperation">
-          <Button type="error" size="small" icon="ios-trash"/>
+          <Button type="error" size="small" icon="ios-trash" @click="delAttr(item, index)"/>
         </div>
         <div class="attrBox">
-          <Input v-model="value" placeholder="属性"/>
+          <Input v-model="item.label" placeholder="属性"/>
         </div>
         <div class="labelBox">
-          <div class="labelItem">
-            <Input v-model="value" placeholder="值"/>
-            <Button type="error" size="small" icon="ios-trash"/>
+          <div class="labelItem" v-for="(v,ix) in item.value" :key="ix">
+            <Input v-model="v.value" placeholder="值"/>
+            <Button type="error" size="small" icon="ios-trash" @click="delValue(item.value, ix)"/>
           </div>
-          <div class="labelItem">绿色</div>
+          <div class="labelItem">
+            <Button type="success" long size="small" icon="md-add-circle" @click="addValue(item.value)"/>
+          </div>
         </div>
       </div>
-
-
     </div>
     <div class="skuEditor">
       <div class="skuEditorOperation">
-        <Button type="warning" size="small" icon="md-add"/>
+        <Button type="warning" size="small" icon="md-add" @click="addSku"/>
+        <Button type="success">保存</Button>
       </div>
-
-      <div class="row" v-for="i in 4">
-        <div class="contentRow">
-          <div class="labelBox">sku:</div>
-          <div class="content">
-            颜色：白色 大小：大 类型：男
-          </div>
+      <div class="row" v-for="(item,index) in skuList" :key="index">
+        <div class="operationSku">
+          <Button type="error" size="small" icon="ios-trash" @click="delSku(skuList,index)"/>
         </div>
         <div class="contentRow">
           <div class="labelBox">图片:</div>
           <div class="content">
-            <div class="imageBox">
+            <div class="imageBox" v-for="(item,index) in goodsPhotoList" :key="index">
               <div class="closeImg">
                 <Icon type="md-close-circle"/>
               </div>
-              <img src="" alt="">
-            </div>
-            <div class="imageBox">
-              <div class="closeImg">
-                <Icon type="md-close-circle"/>
-              </div>
-              <img src="" alt="">
+              <img :src="item.photo" alt="">
             </div>
             <div class="imageBox addImage" @click="addImageFn()">
               <Icon type="md-add-circle"/>
+            </div>
+          </div>
+        </div>
+        <div class="contentRow">
+          <div class="labelBox">属性:</div>
+          <div class="content">
+            <div v-for="(items, ix) in skuAttr" :key="ix">
+              <div>{{ items.label }}:</div>
+              <div>
+                <Select size="small">
+                  <Option v-for="selectOption in items.value" :value="selectOption.value" :key="selectOption">
+                    {{ selectOption.value }}
+                  </Option>
+                </Select>
+              </div>
             </div>
           </div>
         </div>
@@ -112,8 +139,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
   <!--  商品详情信息  -->
@@ -123,17 +148,95 @@
 
 <script setup>
 import EventBus from "@/component/EventBus.js";
+import {useRoute, useRouter} from "vue-router";
+import {findIdGGoods, goodsPhoto, findGoodsSku} from '@/api/api.js'
+import {onMounted, ref} from "vue";
 
 const emitter = EventBus();
+const router = useRouter();
+const route = useRoute();
 
-const initFn = async () => {
+const goodsObj = ref({});
+const goodsPhotoList = ref([]);
+const skuList = ref([]);
+const skuAttr = ref([])
+
+
+onMounted(() => {
+  console.log(router)
+  console.log(route.query.goodsId)
+
+  const tid = route.query.goodsId;
+
+  initFn(tid);
+
+
+})
+
+const initFn = async (tid) => {
+  if (tid) {
+    const {data} = await findIdGGoods({
+      tid
+    })
+    goodsObj.value = data;
+
+    goodsPhoto({
+      goodsId: goodsObj.value.tid
+    }).then(rest => {
+      const {data} = rest;
+      goodsPhotoList.value = data;
+      console.log(goodsPhotoList.value)
+    })
+    findGoodsSku({
+      goodsId: goodsObj.value.tid
+    }).then(rest => {
+      console.log(rest);
+      const {data} = rest;
+      skuList.value = data.gstoreGoodsSkuList;
+      const skuAttr = data.skuAttr;
+    })
+  }
+
 
 }
-initFn();
+
+const addAttr = () => {
+  skuAttr.value.push({
+    label: '属性',
+    value: [{
+      label: '',
+      value: ''
+    }]
+  });
+}
+const delAttr = (item, index) => {
+  console.log(item, index)
+  skuAttr.value.splice(index, 1);
+}
+
+const addSku = () => {
+  skuList.value.push({})
+}
 
 const addImageFn = (dataObj, keyObj) => {
   emitter.emit('showModalFiles', true);
 }
+
+const addValue = (node) => {
+  node.push({
+    label: '',
+    value: ''
+  })
+}
+
+const delValue = (node, index) => {
+  node.splice(index, 1);
+}
+
+const delSku = (node, index) => {
+  node.splice(index, 1);
+}
+
 </script>
 
 <style scoped lang="less">
@@ -229,7 +332,7 @@ const addImageFn = (dataObj, keyObj) => {
 
         .labelItem {
           margin: 10px 0;
-          background: #ccc;
+          background: #f9f9f9;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -253,6 +356,13 @@ const addImageFn = (dataObj, keyObj) => {
       margin: 10px 0;
       padding: 10px;
       background: #f7f7f7;
+      position: relative;
+
+      .operationSku {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
 
       .contentRow {
         flex: 1;

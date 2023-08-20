@@ -1,14 +1,17 @@
 package com.cyyaw.tx;
 
 
+import com.cyyaw.service.OrderService;
 import com.cyyaw.store.service.GTypeService;
 import com.cyyaw.store.service.OOrderService;
+import com.cyyaw.util.entity.SubmitOrder;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +23,8 @@ public class ShoppingGoodsOrderController {
 
     @Autowired
     private OOrderService gTypeService;
+
+    private OrderService orderService;
 
     @ApiOperation(value = "订单", notes = "订单")
     @GetMapping("/query")
@@ -39,5 +44,21 @@ public class ShoppingGoodsOrderController {
     public BaseResult del() {
         return BaseResult.ok();
     }
+
+
+    @ApiOperation(value = "计算商品价格", notes = "计算商品价格")
+    @PostMapping("/countGoodsPrice")
+    public void countGoodsPrice(SubmitOrder submitOrder){
+        orderService.countGoodsPrice(submitOrder);
+    }
+
+    @ApiOperation(value = "创建订单", notes = "创建订单")
+    @PostMapping("/createOrder")
+    public void createOrder(SubmitOrder submitOrder){
+        orderService.createOrder(submitOrder);
+    }
+
+
+
 
 }

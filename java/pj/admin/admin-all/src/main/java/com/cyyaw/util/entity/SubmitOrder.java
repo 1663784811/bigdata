@@ -41,7 +41,7 @@ public class SubmitOrder {
     /**
      * 商品列表
      */
-    private List<ComputGoods> goodsList;
+    private List<CountGoods> goodsList;
 
 
 }
