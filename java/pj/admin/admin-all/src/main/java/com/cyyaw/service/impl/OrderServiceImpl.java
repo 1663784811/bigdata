@@ -154,14 +154,6 @@ public class OrderServiceImpl implements OrderService {
             }
 
         }
-
-        //  判断数量
-
-
-        // 单价 * 数量  = 总价
-
-        // 运费
-
         // =================================   整理数据
         BigDecimal allTotalPrice = new BigDecimal("0");
         BigDecimal goodsTotalPrice = new BigDecimal("0");
