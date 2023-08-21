@@ -82,7 +82,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/home/**",
                         "/wx/user/**/login",
                         "/login/**",
-                        "/admin/enterprise/findPage"
+                        "/admin/enterprise/findPage",
+                        "/shopping/web/banner/findBanner",
+                        "/shopping/goods/search/searchGoods",
+                        "/shopping/goods/search/goodsDetails",
+                        "/shopping/goods/search/goodsPhoto",
+                        "/shopping/goods/search/goodsDetailsText",
+                        "/shopping/goods/type/enterpriseType"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

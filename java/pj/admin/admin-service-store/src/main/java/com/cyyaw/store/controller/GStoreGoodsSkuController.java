@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.util.ObjectUtils;
 import org.springframework.beans.BeanUtils;
+
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,8 @@ public class GStoreGoodsSkuController {
         if (ObjectUtils.isEmpty(id)) {
             //添加
             saveObj.setCreateTime(new Date());
-             saveObj.setTid(WhyStringUtil.getUUID());
+            saveObj.setTid(WhyStringUtil.getUUID());
+            saveObj.setNumber(saveObj.getNumber() == null ? 0 : saveObj.getNumber());
             log.info("添加:{}", saveObj);
             obj = gStoreGoodsSkuService.save(saveObj);
         } else {
@@ -66,7 +68,7 @@ public class GStoreGoodsSkuController {
             log.info("修改:{}", saveObj);
             GStoreGoodsSku cpObj = gStoreGoodsSkuService.findId(id);
             Assert.notNull(cpObj, "操作失败！");
-            BeanUtils.copyProperties(saveObj,cpObj);
+            BeanUtils.copyProperties(saveObj, cpObj);
             obj = gStoreGoodsSkuService.save(cpObj);
         }
         return BaseResult.ok(obj);

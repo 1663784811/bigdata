@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name = "g_goods_search")
 @org.hibernate.annotations.Table(appliesTo = "g_goods_search", comment = "商品搜索表")
-public class GGoodsSearch  implements Serializable {
+public class GGoodsSearch implements Serializable {
 
     private static final long serialVersionUID = 156878262734233758L;
 
@@ -41,7 +41,7 @@ public class GGoodsSearch  implements Serializable {
 
     // =================================================================================
     @Basic
-    @Column(name = "goods_id", unique = true, columnDefinition = "varchar(32) not null COMMENT '商品ID'")
+    @Column(name = "goods_id", unique = true, columnDefinition = "varchar(32) unique not null COMMENT '商品ID'")
     private String goodsId;
 
     @Basic
@@ -50,7 +50,7 @@ public class GGoodsSearch  implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '商品名称'")
+    @Column(name = "name", columnDefinition = "varchar(255) not null COMMENT '商品名称'")
     private String name;
     @Basic
     @Column(name = "type_code", columnDefinition = "varchar(32) COMMENT '品类Code'")
@@ -60,10 +60,10 @@ public class GGoodsSearch  implements Serializable {
     private String brandCode;
 
     @Basic
-    @Column(name="low_price", columnDefinition = "decimal(18,2 ) COMMENT '最低价格'")
+    @Column(name = "low_price", columnDefinition = "decimal(18,2 ) COMMENT '最低价格'")
     private BigDecimal lowPrice;
     @Basic
-    @Column(name="high_price", columnDefinition = "decimal(18,2 ) COMMENT '最高价格'")
+    @Column(name = "high_price", columnDefinition = "decimal(18,2 ) COMMENT '最高价格'")
     private BigDecimal highPrice;
 
 
@@ -73,8 +73,5 @@ public class GGoodsSearch  implements Serializable {
     @Basic
     @Column(name = "evaluate", columnDefinition = "int not null default '0' COMMENT '评价{0:0星,1:1星,2:2星,3:3星,4:4星,5:5星}'")
     private Integer evaluate;
-
-
-
 
 }

@@ -1,9 +1,15 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import {createApp} from 'vue'
+import {createPinia} from 'pinia'
 import piniaPluginPersist from 'pinia-plugin-persist'
 
 
-import { ActionBar, ActionBarIcon, ActionBarButton, Divider, Popup, Overlay, Loading, Dialog, ContactCard, Form, AddressEdit, AddressList, Field, CellGroup, Cell, SwipeCell, Icon, Stepper, Card, Checkbox, CheckboxGroup, Button, Swipe, SwipeItem, PullRefresh, List, Tab, Tabs, SubmitBar, Toast, Skeleton } from 'vant'
+import {
+    ActionBar, ActionBarIcon, ActionBarButton, Divider, Popup,
+    Overlay, Loading, Dialog, ContactCard, Form, AddressEdit, AddressList,
+    Field, CellGroup, Cell, SwipeCell, Icon, Stepper, Card, Checkbox, CheckboxGroup,
+    Button, Swipe, SwipeItem, PullRefresh, List, Tab, Tabs, SubmitBar, Toast, Skeleton
+
+} from 'vant'
 
 import App from './App.vue'
 import router from './router'
@@ -12,6 +18,7 @@ import 'lib-flexible/flexible'
 import './assets/main.css'
 import './common/style/theme.css'
 import 'vant/es/toast/style'
+
 const app = createApp(App)
 
 const pinia = createPinia();
@@ -53,14 +60,14 @@ app.use(Skeleton)
 
 // 全局过滤器
 app.config.globalProperties.$filters = {
-  prefix(url) {
-    if (url && url.startsWith('http')) {
-      return url
-    } else {
-      url = `http://backend-api-01.newbee.ltd${url}`
-      return url
+    prefix(url) {
+        if (url && url.startsWith('http')) {
+            return url
+        } else {
+            url = `http://backend-api-01.newbee.ltd${url}`
+            return url
+        }
     }
-  }
 }
 
 app.mount('#app')

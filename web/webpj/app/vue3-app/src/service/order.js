@@ -1,8 +1,9 @@
-
 import axios from '../utils/axios'
+import {baseUrl, enterpriseId} from '@/service/webConfig.js'
+
 
 export function createOrder(params) {
-  return axios.post('/saveOrder', params);
+  return axios.post(`/saveOrder`, params);
 }
 
 
@@ -15,7 +16,7 @@ export function confirmOrder(id) {
 }
 
 export function payOrder(params) {
-  return axios.get('/paySuccess', { params })
+  return axios.get(`/paySuccess`, { params })
 }
 
 
@@ -26,12 +27,12 @@ export function payOrder(params) {
  * 订单列表
  */
 export function getOrderList(params) {
-  return axios.get('http://127.0.0.1:8080/shopping/goods/order/query', { params });
+  return axios.get(`${baseUrl}/shopping/goods/order/query`, { params });
 }
 
 /**
  * 订单详情
  */
 export function getOrderDetail(params) {
-  return axios.get('http://127.0.0.1:8080/shopping/goods/order/orderById', { params });
+  return axios.get(`${baseUrl}/shopping/goods/order/orderById`, { params });
 }

@@ -1,4 +1,5 @@
 import axios from '../utils/axios'
+import {baseUrl, enterpriseId} from '@/service/webConfig.js'
 
 
 export function EditUserInfo(params) {
@@ -20,5 +21,5 @@ export function register(params) {
 // =============================================================================
 
 export function getUserInfo(params = {}) {
-    return axios.get('http://127.0.0.1:8080/shopping/user/userInfo', {params});
+    return axios.get( `${baseUrl}/shopping/user/userInfo`, {params});
 }

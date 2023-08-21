@@ -51,23 +51,7 @@ public class GGoodsController {
      */
     @PostMapping("/saveGGoods")
     public BaseResult saveGGoods(@RequestBody GGoods saveObj) {
-        GGoods obj = null;
-        Integer id = saveObj.getId();
-        if (ObjectUtils.isEmpty(id)) {
-            //添加
-            saveObj.setCreateTime(new Date());
-             saveObj.setTid(WhyStringUtil.getUUID());
-            log.info("添加:{}", saveObj);
-            obj = gGoodsService.save(saveObj);
-        } else {
-            //修改
-            log.info("修改:{}", saveObj);
-            GGoods cpObj = gGoodsService.findId(id);
-            Assert.notNull(cpObj, "操作失败！");
-            BeanUtils.copyProperties(saveObj,cpObj);
-            obj = gGoodsService.save(cpObj);
-        }
-        return BaseResult.ok(obj);
+       return gGoodsService.saveGGoods(saveObj);
     }
 
     /**

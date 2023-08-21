@@ -1,7 +1,8 @@
 <template>
   <div class="product-detail">
-    <s-header :name="'商品详情'"></s-header>
+    <s-header :name="'商品详情'" ></s-header>
     <div class="detail-content">
+      <!--   ===================   -->
       <div class="detail-swipe-wrap">
         <van-swipe class="my-swipe" indicator-color="#1baeae">
           <van-swipe-item v-for="(item, index) in state.photoList" :key="index" style="background: #fff">
@@ -11,6 +12,7 @@
           </van-swipe-item>
         </van-swipe>
       </div>
+      <!--   ===================   -->
       <div class="product-info">
         <div class="product-title">
           {{ state.detail.ggoods.name || '' }}
@@ -44,9 +46,52 @@
         round
         closeable
         position="bottom"
-        :style="{ height: '80%' }"
+        :style="{ maxHeight: '70%' }"
     >
+      <div class="skuPopup">
 
+        <div class="skuHeadBox">
+          <div class="imgBox">
+            <img
+                src="https://img11.360buyimg.com/seckillcms/s280x280_jfs/t1/168939/13/21426/134540/61769c47Eba288759/99ffd8f2a2e35261.jpg.avif"
+                alt="">
+          </div>
+          <div class="goodsInfoBox">
+            <div class="priceInfo">
+              <div class="priceText">$10.00</div>
+            </div>
+            <div class="skuInfo">
+              颜色：红色 大小: 中
+            </div>
+          </div>
+
+        </div>
+
+        <div class="skuAttrBox">
+          <div class="skuRow" v-for="(item,index) in  state.detail.skuAttr" :key="index">
+            <div class="skuLabel">
+              {{ index }}:
+            </div>
+            <div class="skuContent">
+              <div class="skuContentItem" v-for="(it) in item">
+                {{ it }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selectNumber">
+          <div>数量</div>
+          <div>
+            <van-stepper/>
+          </div>
+        </div>
+
+        <div class="noteBox">
+          <div class="label"> 说明：</div>
+          <div>京东商城向您保证所售商品均为正品行货，京东自营商品开具机打发票或电子发票。</div>
+        </div>
+      </div>
       <van-action-bar>
         <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车"/>
         <van-action-bar-button type="danger" @click="goToCart" text="立即购买"/>
@@ -57,14 +102,13 @@
 </template>
 
 <script setup>
-import {reactive, onMounted, nextTick} from 'vue'
+import sHeader from '@/components/SimpleHeader.vue'
+import {nextTick, onMounted, reactive} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useCartStore} from '@/stores/cart'
-import {getDetail, goodsDetails, goodsPhoto, goodsDetailsText} from '@/service/good'
+import {goodsDetails, goodsDetailsText, goodsPhoto} from '@/service/good'
 import {addCart} from '@/service/cart'
-import sHeader from '@/components/SimpleHeader.vue'
 import {showSuccessToast} from 'vant'
-import {prefix} from '@/common/js/utils'
 
 const route = useRoute()
 const router = useRouter()
@@ -73,7 +117,8 @@ const cart = useCartStore()
 const state = reactive({
   detail: {
     goodsCarouselList: [],
-    ggoods: {}
+    ggoods: {},
+    skuAttr: []
   },
   photoList: [],
   detailText: '',
@@ -98,7 +143,11 @@ onMounted(async () => {
   // 查商品详情
   goodsDetailsText({goodsId: data.ggoods.tid}).then(rest => {
     const {data} = rest;
-    state.detailText = data.details
+    if (data) {
+      state.detailText = data.details
+    } else {
+      state.detailText = '该商品没有详情'
+    }
   });
 
 })
@@ -160,6 +209,8 @@ const goToCart = async () => {
     overflow-y: auto;
 
     .detail-swipe-wrap {
+      height: 300px;
+      background: #f3f3f3;
       .my-swipe .van-swipe-item {
         img {
           display: block;
@@ -241,5 +292,96 @@ const goToCart = async () => {
   .van-action-bar-button--danger {
     background: linear-gradient(to right, #0dc3c3, #098888)
   }
+}
+
+.skuPopup {
+  padding-bottom: 50px;
+
+  .skuHeadBox {
+    display: flex;
+    padding: 20px 10px;
+    align-items: center;
+
+    .imgBox {
+      height: 100px;
+      width: 100px;
+      border: 1px solid #ccc;
+      padding: 4px;
+      border-radius: 4px;
+      margin-right: 20px;
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .goodsInfoBox {
+      .priceInfo {
+        .priceText {
+          font-size: 18px;
+          font-weight: bold;
+          color: #099292;
+        }
+      }
+
+      .skuInfo {
+        font-size: 13px;
+        margin-top: 6px;
+      }
+    }
+  }
+
+  .skuAttrBox {
+    border-top: 1px solid #f6f6f6;
+
+    .skuRow {
+      display: flex;
+      margin: 20px 0;
+      align-items: center;
+
+      .skuLabel {
+        width: 50px;
+        text-align: right;
+        margin-right: 6px;
+        font-size: 14px;
+      }
+
+      .skuContent {
+        display: flex;
+        align-items: center;
+
+        .skuContentItem {
+          border: 1px solid #f2f2f2;
+          padding: 4px 10px;
+          margin: 0 6px;
+          border-radius: 4px;
+          background: #f2f2f2;
+        }
+      }
+    }
+  }
+
+  .selectNumber {
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #f6f6f6;
+  }
+
+  .noteBox {
+    margin: 10px 0;
+    padding: 0 10px;
+    display: flex;
+
+    .label {
+      width: 50px;
+      text-align: right;
+      margin-right: 6px;
+    }
+  }
+
 }
 </style>
