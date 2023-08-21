@@ -7,8 +7,9 @@ import com.cyyaw.util.tools.BaseResult;
 public interface UAddressService extends BaseTableService<UAddress, Integer> {
 
 
-    BaseResult findUserAddress();
+    BaseResult findUserAddress(String userId);
 
 
+    UAddress defaultAddress(String userId, String addressId);
 
 }

@@ -41,14 +41,23 @@ public class ShoppingUserController {
 
     @ApiOperation(value = "用户地址列表", notes = "用户地址列表")
     @GetMapping("/address")
-    public BaseResult address(LoginRequest loginRequest) {
-        return uAddressService.findUserAddress();
+    public BaseResult address(@TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        return uAddressService.findUserAddress(userId);
     }
 
     @ApiOperation(value = "用户地址详情", notes = "用户地址详情")
     @GetMapping("/addressDetail")
     public BaseResult addressDetail(Integer id) {
         UAddress address = uAddressService.findId(id);
+        return BaseResult.ok(address);
+    }
+
+    @ApiOperation(value = "获取默认地址", notes = "获取默认地址")
+    @GetMapping("/defaultAddress")
+    public BaseResult defaultAddress(String addressId, @TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        UAddress address = uAddressService.defaultAddress(userId, addressId);
         return BaseResult.ok(address);
     }
 
