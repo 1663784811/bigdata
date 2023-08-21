@@ -2,9 +2,6 @@ import axios from '../utils/axios'
 import {baseUrl, enterpriseId} from '@/service/webConfig.js'
 
 
-export function createOrder(params) {
-  return axios.post(`/saveOrder`, params);
-}
 
 
 export function cancelOrder(id) {
@@ -36,3 +33,13 @@ export function getOrderList(params) {
 export function getOrderDetail(params) {
   return axios.get(`${baseUrl}/shopping/goods/order/orderById`, { params });
 }
+
+/**
+ * 创建订单
+ */
+export function createOrder(params) {
+  return axios.post(`${baseUrl}/shopping/goods/order/createOrder`, params);
+}
+
+
+

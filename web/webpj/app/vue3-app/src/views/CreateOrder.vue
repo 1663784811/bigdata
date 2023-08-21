@@ -16,7 +16,7 @@
     <!--  =================  -->
     <div class="goodBox">
       <div v-for="(item, index) in state.cartList" :key="index">
-        <div class="good-item" v-for="(goods, gInx) in item.goodsRstList" :key="gInx">
+        <div class="good-item" v-for="(goods, gInx) in item.goodsRestList" :key="gInx">
           <div class="good-img">
             <img :src="goods.ggoods.photo" alt="">
           </div>
@@ -90,7 +90,8 @@ const state = reactive({
   showPay: false,
   orderNo: '',
   cartItemIds: [],
-  priceObj: {}
+  priceObj: {},
+  goodsList: []
 })
 
 onMounted(() => {
@@ -101,11 +102,11 @@ const init = async () => {
   showLoadingToast({message: '加载中...', forbidClick: true});
   const {addressId, cartItemIds} = route.query
   const goodsList = JSON.parse(cartItemIds);
+  state.goodsList = goodsList;
   await countGoodsPrice({
     goodsList
   }).then(rest => {
     const {data} = rest;
-    console.log(data)
     state.cartList = data.storeRestList
     state.priceObj = data;
   })
@@ -124,10 +125,13 @@ const deleteLocal = () => {
   setLocal('cartItemIds', '')
 }
 
+/**
+ * 提交订单
+ */
 const handleCreateOrder = async () => {
   const params = {
     addressId: state.address.addressId,
-    cartItemIds: state.cartList.map(item => item.cartItemId)
+    goodsList: state.goodsList
   }
   const {data} = await createOrder(params)
   setLocal('cartItemIds', '')

@@ -78,7 +78,6 @@ onMounted(async () => {
   }).then(rest => {
     const {data} = rest;
     state.categoryData = data;
-    console.log(data)
   })
 
 

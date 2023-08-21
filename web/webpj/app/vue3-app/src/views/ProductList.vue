@@ -81,7 +81,6 @@ onMounted(()=>{
 const init = async () => {
   searchGoods({}).then((rest) => {
     const {data} = rest;
-    console.log(data)
     state.productList = state.productList.concat(data)
   })
 

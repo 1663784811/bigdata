@@ -132,7 +132,6 @@ onMounted(async () => {
 
   // cart.updateCart()
   const {data} = await goodsDetails({skuId: id})
-  console.log(data)
   state.detail = data;
 
   // 查商品图片
