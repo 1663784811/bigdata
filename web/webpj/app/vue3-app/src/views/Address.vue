@@ -49,11 +49,11 @@ const init = async () => {
   }
   state.list = data.map(item => {
     return {
-      id: item.addressId,
-      name: item.userName,
-      tel: item.userPhone,
-      address: `${item.provinceName} ${item.cityName} ${item.regionName} ${item.detailAddress}`,
-      isDefault: !!item.defaultFlag
+      id: item.tid,
+      name: item.name,
+      tel: item.phone,
+      address: `${item.province} ${item.city} ${item.district} ${item.address}`,
+      isDefault: item.defaultIs === 1
     }
   })
 }

@@ -8,9 +8,9 @@
           <div class="storeBox" @click="goToStore(item.estore)">
             <van-cell :title="item.estore.name" is-link icon="shop-o"/>
           </div>
-          <van-swipe-cell :right-width="50" v-for="(goods, gIndex) in item.cartList" :key="gIndex">
+          <van-swipe-cell v-for="(goods, gIndex) in item.cartList" :key="gIndex">
             <div class="good-item">
-              <van-checkbox :name="goods.skuId"/>
+              <van-checkbox :name="goods"/>
               <div class="good-img">
                 <img
                     :src="goods.goodsSku.photo || 'https://img13.360buyimg.com/seckillcms/s280x280_jfs/t1/170929/22/39881/69113/64d066e8Fdf9a291a/abdc1f554cd06780.jpg.avif'"
@@ -48,17 +48,17 @@
       </van-checkbox-group>
     </div>
     <!--  =========================  -->
-
     <van-submit-bar
         v-if="state.list.length > 0"
         class="submit-all van-hairline--top"
-        :price="total * 100"
+        :price="state.countData.allTotalPrice * 100"
         button-text="结算"
         button-type="primary"
         @submit="onSubmit"
     >
-      <van-checkbox @click="allCheck" v-model:checked="state.checkAll">全选</van-checkbox>
+      <van-checkbox @click="allCheck" v-model="state.checkAll">全选</van-checkbox>
     </van-submit-bar>
+    <!--  =========================  -->
     <div class="empty" v-if="!state.list.length">
       <img class="empty-cart" src="https://s.yezgea02.com/1604028375097/empty-car.png" alt="空购物车">
       <div class="title">购物车空空如也</div>
@@ -84,7 +84,10 @@ const state = reactive({
   list: [],
   all: false,
   result: [],
-  checkAll: true
+  checkAll: false,
+  countData: {
+    allTotalPrice: 0
+  }
 })
 
 onMounted(() => {
@@ -94,25 +97,12 @@ onMounted(() => {
 const init = async () => {
   showLoadingToast({message: '加载中...', forbidClick: true});
   const {data} = await getCart({pageNumber: 1})
-  console.log('ssssssssssssssssssssssssss', data)
-  state.list = data
-
-  // state.result = data.map(item => item.cartItemId)
+  if (data) {
+    state.list = data
+  }
   closeToast()
 }
 
-const total = computed(() => {
-  let sum = 0
-  let _list = state.list.filter(item => state.result.includes(item.cartItemId))
-  _list.forEach(item => {
-    sum += item.goodsCount * item.sellingPrice
-  })
-  return sum
-})
-
-const goBack = () => {
-  router.go(-1)
-}
 
 const goTo = () => {
   router.push({path: '/home'})
@@ -156,7 +146,15 @@ const onSubmit = async () => {
     showFailToast('请选择商品进行结算')
     return
   }
-  const params = JSON.stringify(state.result)
+  const cartArr = state.result;
+  const skuIdList = [];
+  for (let i = 0; i < cartArr.length; i++) {
+    skuIdList.push({
+      skuId: cartArr[i].skuId,
+      number: cartArr[i].number
+    })
+  }
+  const params = JSON.stringify(skuIdList)
   router.push({path: '/create-order', query: {cartItemIds: params}})
 }
 
@@ -166,20 +164,14 @@ const deleteGood = async (id) => {
   init()
 }
 
-const groupChange = (result) => {
-  if (result.length == state.list.length) {
-    state.checkAll = true
-  } else {
-    state.checkAll = false
-  }
-  state.result = result
-}
-
+/**
+ * 选择所有
+ */
 const allCheck = () => {
   if (!state.checkAll) {
-    state.result = state.list.map(item => item.cartItemId)
+    // state.result = state.list.map(item => item.cartItemId)
   } else {
-    state.result = []
+    state.result = [];
   }
 }
 
@@ -189,49 +181,30 @@ const goToStore = (store) => {
   }
 }
 
-const changeSelect = () => {
-  const skuIdList = getSelectSku();
-  countPrice(skuIdList)
+const changeSelect = (cartArr) => {
+  const skuIdList = [];
+  for (let i = 0; i < cartArr.length; i++) {
+    skuIdList.push({
+      skuId: cartArr[i].skuId,
+      number: cartArr[i].number
+    })
+  }
+  countPrice(skuIdList);
+  //
+
+
 }
 
 /**
  * 计算商品价格
  */
 const countPrice = (skuIdList) => {
-
   countGoodsPrice({
     goodsList: skuIdList
   }).then(rest => {
-    console.log(rest)
+    const {data} = rest;
+    state.countData = data;
   })
-
-}
-
-const getSelectSku = () => {
-  const {result, list} = state;
-  const restSkuIdList = [];
-  for (let r = 0; r < result.length; r++) {
-    const restSkuId = result[r];
-    let h = false;
-    for (let i = 0; i < list.length; i++) {
-      const {cartList} = list[i];
-      for (let j = 0; j < cartList.length; j++) {
-        const {skuId, number} = cartList[j];
-        if (restSkuId === skuId) {
-          restSkuIdList.push({
-            skuId,
-            number
-          })
-          h = true;
-          break
-        }
-      }
-      if (h) {
-        break;
-      }
-    }
-  }
-  return restSkuIdList;
 }
 
 
