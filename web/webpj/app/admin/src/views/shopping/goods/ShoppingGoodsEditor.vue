@@ -49,7 +49,7 @@
     <div class="row">
       <div class="label"></div>
       <div class="content">
-        <Button type="success">保存</Button>
+        <Button type="success" @click="saveGoods">保存</Button>
       </div>
     </div>
   </div>
@@ -97,11 +97,12 @@
     <div class="skuEditor">
       <div class="skuEditorOperation">
         <Button type="warning" size="small" icon="md-add" @click="addSku"/>
-        <Button type="success">保存</Button>
+        <Button type="success" @click="saveSku">保存</Button>
       </div>
       <div class="row" v-for="(item,index) in skuList" :key="index">
         <div class="operationSku">
           <Button type="error" size="small" icon="ios-trash" @click="delSku(skuList,index)"/>
+          <Button type="success" @click="saveSku(item)">保存</Button>
         </div>
         <div class="contentRow">
           <div class="labelBox">图片:</div>
@@ -123,7 +124,7 @@
             <div v-for="(items, ix) in skuAttr" :key="ix">
               <div>{{ items.label }}:</div>
               <div>
-                <Select size="small">
+                <Select v-model="item.skuAttr[items.label]" size="small">
                   <Option v-for="selectOption in items.value" :value="selectOption.value" :key="selectOption">
                     {{ selectOption.value }}
                   </Option>
@@ -135,7 +136,7 @@
         <div class="contentRow">
           <div class="labelBox">文字描述:</div>
           <div class="content">
-            <Input type="textarea"/>
+            <Input v-model="item.note" type="textarea"/>
           </div>
         </div>
       </div>
@@ -149,9 +150,11 @@
 <script setup>
 import EventBus from "@/component/EventBus.js";
 import {useRoute, useRouter} from "vue-router";
-import {findIdGGoods, goodsPhoto, findGoodsSku} from '@/api/api.js'
+import {findIdGGoods, goodsPhoto, findGoodsSku, saveGGoods, saveGStoreGoodsSku} from '@/api/api.js'
 import {onMounted, ref} from "vue";
+import {loginInfo} from '@/store/loginInfo.js'
 
+const loginInfoStore = loginInfo();
 const emitter = EventBus();
 const router = useRouter();
 const route = useRoute();
@@ -190,19 +193,46 @@ const initFn = async (tid) => {
     findGoodsSku({
       goodsId: goodsObj.value.tid
     }).then(rest => {
-      console.log(rest);
       const {data} = rest;
+      for (let i = 0; i < data.gstoreGoodsSkuList.length; i++) {
+        const {attr} = data.gstoreGoodsSkuList[i]
+        if (attr) {
+          data.gstoreGoodsSkuList[i].skuAttr = JSON.parse(attr)
+        } else {
+          data.gstoreGoodsSkuList[i].skuAttr = {}
+        }
+      }
       skuList.value = data.gstoreGoodsSkuList;
-      const skuAttr = data.skuAttr;
+      skuAttrHandler(data.skuAttr);
     })
   }
+}
 
-
+/**
+ * 属性处理
+ */
+const skuAttrHandler = (skuAttrData) => {
+  const skuArr = [];
+  for (const it in skuAttrData) {
+    const arr = skuAttrData[it];
+    const value = [];
+    for (let i = 0; i < arr.length; i++) {
+      value.push({
+        label: arr[i],
+        value: arr[i]
+      })
+    }
+    skuArr.push({
+      label: it,
+      value
+    })
+  }
+  skuAttr.value = skuArr;
 }
 
 const addAttr = () => {
   skuAttr.value.push({
-    label: '属性',
+    label: '规格',
     value: [{
       label: '',
       value: ''
@@ -215,7 +245,9 @@ const delAttr = (item, index) => {
 }
 
 const addSku = () => {
-  skuList.value.push({})
+  skuList.value.push({
+    skuAttr: {}
+  })
 }
 
 const addImageFn = (dataObj, keyObj) => {
@@ -235,6 +267,51 @@ const delValue = (node, index) => {
 
 const delSku = (node, index) => {
   node.splice(index, 1);
+}
+
+const saveGoods = () => {
+  saveGGoods({
+    ...goodsObj.value,
+    storeId: loginInfoStore.storeInfo.tid
+  }).then(rest => {
+    const {data} = rest;
+    goodsObj.value = data;
+    router.replace({
+      name: 'shoppingGoodsEditor',
+      query: {
+        goodsId: data.tid
+      }
+    })
+  });
+}
+
+const saveSku = (rowData) => {
+  const goodsId = goodsObj.value.tid;
+  console.log()
+  saveGStoreGoodsSku({
+    ...rowData,
+    attr: skuAttrToAttr(rowData.skuAttr),
+    goodsId,
+    storeId: goodsObj.value.storeId
+  }).then(() => {
+    router.replace({
+      name: 'shoppingGoodsEditor',
+      query: {
+        goodsId
+      }
+    })
+    initFn(goodsId)
+  })
+
+}
+
+const skuAttrToAttr = (data) => {
+  const attr = skuAttr.value;
+  const json = {};
+  for (let i = 0; i < attr.length; i++) {
+    json[attr[i].label] = data[attr[i].label]
+  }
+  return JSON.stringify(json);
 }
 
 </script>

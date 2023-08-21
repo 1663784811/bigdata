@@ -130,7 +130,13 @@ export const findGoodsSku = (parameter) => {
     return AJAXGET(`${baseUrl}/shopping/admin/findGoodsSku`, parameter, 0)
 }
 
+export const saveGGoods = (parameter, showMsg = false) => {
+    return AJAXPOST(`${baseUrl}/admin/gGoods/saveGGoods`, parameter, 1, showMsg)
+}
 
+export const saveGStoreGoodsSku = (parameter, showMsg = false) => {
+    return AJAXPOST(`${baseUrl}/admin/gStoreGoodsSku/saveGStoreGoodsSku`, parameter, 1, showMsg)
+}
 
 
 

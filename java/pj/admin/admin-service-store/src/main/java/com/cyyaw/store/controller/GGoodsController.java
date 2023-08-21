@@ -40,8 +40,8 @@ public class GGoodsController {
      * 根据ID查询
      */
     @GetMapping("/findIdGGoods")
-    public BaseResult findIdGGoods(Integer id) {
-        GGoods obj = gGoodsService.findId(id);
+    public BaseResult findIdGGoods(String tid) {
+        GGoods obj = gGoodsService.findByTid(tid);
         return BaseResult.ok(obj);
     }
 

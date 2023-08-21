@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 @Slf4j
 @Service
 public class GGoodsServiceImpl extends BaseService<GGoods, Integer> implements GGoodsService {
@@ -24,5 +23,9 @@ public class GGoodsServiceImpl extends BaseService<GGoods, Integer> implements G
         return gGoodsDao;
     }
 
+    @Override
+    public GGoods findByTid(String tid) {
+        return gGoodsDao.findByTid(tid);
+    }
 }
 

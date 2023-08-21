@@ -6,4 +6,6 @@ import com.cyyaw.store.table.goods.entity.GGoods;
 public interface GGoodsService extends BaseTableService<GGoods, Integer> {
 
 
+    GGoods findByTid(String tid);
+
 }

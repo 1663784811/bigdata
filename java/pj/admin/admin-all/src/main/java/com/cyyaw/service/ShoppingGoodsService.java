@@ -18,4 +18,6 @@ public interface ShoppingGoodsService {
 
     BaseResult goodsDetailsText(String goodsId);
 
+    BaseResult findGoodsSku(String goodsId);
+
 }

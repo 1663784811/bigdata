@@ -14,11 +14,18 @@ export const loginInfo = defineStore('loginInfo', {
     state: () => {
         const userInfo = ref({});
         const token = ref("");
+        // 企业编号
         const eCode = ref("aaa")
+        // 门店信息
+        const storeInfo = ref({
+            tid: 'dd',
+            name: '听心一号店'
+        })
         return {
             userInfo,
             token,
-            eCode
+            eCode,
+            storeInfo
         }
     }
 })
