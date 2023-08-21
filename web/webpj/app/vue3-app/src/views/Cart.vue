@@ -1,50 +1,61 @@
 <template>
   <div class="cart-box">
     <s-header :name="'购物车'" :noback="true"></s-header>
+    <!--  =========================  -->
     <div class="cart-body">
-      <van-checkbox-group @change="groupChange" v-model="state.result" ref="checkboxGroup">
-        <van-swipe-cell :right-width="50" v-for="(item, index) in state.list" :key="index">
-          <div class="good-item">
-            <van-checkbox :name="item.cartItemId" />
-            <div class="good-img"><img :src="$filters.prefix(item.goodsCoverImg)" alt=""></div>
-            <div class="good-desc">
-              <div class="good-title">
-                <span>{{ item.goodsName }}</span>
-                <span>x{{ item.goodsCount }}</span>
+      <van-checkbox-group v-model="state.result" @change="changeSelect" shape="square">
+        <div class="storeItem" v-for="(item, index) in state.list" :key="index">
+          <div class="storeBox" @click="goToStore(item.estore)">
+            <van-cell :title="item.estore.name" is-link icon="shop-o"/>
+          </div>
+          <van-swipe-cell :right-width="50" v-for="(goods, gIndex) in item.cartList" :key="gIndex">
+            <div class="good-item">
+              <van-checkbox :name="goods.skuId"/>
+              <div class="good-img">
+                <img
+                    :src="goods.goodsSku.photo || 'https://img13.360buyimg.com/seckillcms/s280x280_jfs/t1/170929/22/39881/69113/64d066e8Fdf9a291a/abdc1f554cd06780.jpg.avif'"
+                    alt="">
               </div>
-              <div class="good-btn">
-                <div class="price">¥{{ item.sellingPrice }}</div>
-                <van-stepper
-                  integer
-                  :min="1"
-                  :max="5"
-                  :model-value="item.goodsCount"
-                  :name="item.cartItemId"
-                  async-change
-                  @change="onChange"
-                />
+              <div class="good-desc">
+                <div class="good-title">
+                  <span>{{ goods.goods.name || '--.--' }}</span>
+                </div>
+                <div>颜色: 红色</div>
+                <div class="good-btn">
+                  <div class="price">¥{{ goods.goodsSku.price || '--:--' }}</div>
+                  <van-stepper
+                      integer
+                      :min="1"
+                      :model-value="goods.number"
+                      :name="item.cartItemId"
+                      async-change
+                      @change="onChange"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <template #right>
-            <van-button
-              square
-              icon="delete"
-              type="danger"
-              class="delete-button"
-              @click="deleteGood(item.cartItemId)"
-            />
-          </template>
-        </van-swipe-cell>
+            <template #right>
+              <van-button
+                  square
+                  icon="delete"
+                  type="danger"
+                  class="delete-button"
+                  @click="deleteGood(item.cartItemId)"
+              />
+            </template>
+          </van-swipe-cell>
+        </div>
       </van-checkbox-group>
     </div>
+    <!--  =========================  -->
+
     <van-submit-bar
-      v-if="state.list.length > 0"
-      class="submit-all van-hairline--top"
-      :price="total * 100"
-      button-text="结算"
-      button-type="primary"
-      @submit="onSubmit"
+        v-if="state.list.length > 0"
+        class="submit-all van-hairline--top"
+        :price="total * 100"
+        button-text="结算"
+        button-type="primary"
+        @submit="onSubmit"
     >
       <van-checkbox @click="allCheck" v-model:checked="state.checkAll">全选</van-checkbox>
     </van-submit-bar>
@@ -58,13 +69,13 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useCartStore } from '@/stores/cart'
-import { showToast, showLoadingToast, closeToast, showFailToast } from 'vant'
+import {reactive, onMounted, computed} from 'vue'
+import {useRouter} from 'vue-router'
+import {useCartStore} from '@/stores/cart'
+import {showToast, showLoadingToast, closeToast, showFailToast} from 'vant'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import { getCart, deleteCartItem, modifyCart } from '@/service/cart'
+import {getCart, deleteCartItem, modifyCart, countGoodsPrice} from '@/service/cart'
 
 const router = useRouter()
 const cart = useCartStore()
@@ -81,11 +92,12 @@ onMounted(() => {
 })
 
 const init = async () => {
-  showLoadingToast({ message: '加载中...', forbidClick: true });
-  const { data } = await getCart({ pageNumber: 1 })
-  console.log('ssssssssssssssssssssssssss',data)
+  showLoadingToast({message: '加载中...', forbidClick: true});
+  const {data} = await getCart({pageNumber: 1})
+  console.log('ssssssssssssssssssssssssss', data)
   state.list = data
-  state.result = data.map(item => item.cartItemId)
+
+  // state.result = data.map(item => item.cartItemId)
   closeToast()
 }
 
@@ -103,7 +115,7 @@ const goBack = () => {
 }
 
 const goTo = () => {
-  router.push({ path: '/home' })
+  router.push({path: '/home'})
 }
 
 const onChange = async (value, detail) => {
@@ -119,9 +131,9 @@ const onChange = async (value, detail) => {
    * 这里的操作是因为，后面修改购物车后，手动添加的计步器的数据，为了防止数据不对
    * 这边做一个拦截处理，如果点击的时候，购物车单项的 goodsCount 等于点击的计步器数字，
    * 那么就不再进行修改操作
-  */
+   */
   if (state.list.find(item => item.cartItemId == detail.name)?.goodsCount == value) return
-  showLoadingToast({ message: '修改中...', forbidClick: true });
+  showLoadingToast({message: '修改中...', forbidClick: true});
   const params = {
     cartItemId: detail.name,
     goodsCount: value
@@ -130,7 +142,7 @@ const onChange = async (value, detail) => {
   /**
    * 修改完成后，没有请求购物车列表，是因为闪烁的问题，
    * 这边手动给操作的购物车商品修改数据
-  */
+   */
   state.list.forEach(item => {
     if (item.cartItemId == detail.name) {
       item.goodsCount = value
@@ -145,7 +157,7 @@ const onSubmit = async () => {
     return
   }
   const params = JSON.stringify(state.result)
-  router.push({ path: '/create-order', query: { cartItemIds: params } })
+  router.push({path: '/create-order', query: {cartItemIds: params}})
 }
 
 const deleteGood = async (id) => {
@@ -170,56 +182,135 @@ const allCheck = () => {
     state.result = []
   }
 }
+
+const goToStore = (store) => {
+  if (store && store.tid) {
+    router.push({name: 'store', query: {id: store.tid}})
+  }
+}
+
+const changeSelect = () => {
+  const skuIdList = getSelectSku();
+  countPrice(skuIdList)
+}
+
+/**
+ * 计算商品价格
+ */
+const countPrice = (skuIdList) => {
+
+  countGoodsPrice({
+    goodsList: skuIdList
+  }).then(rest => {
+    console.log(rest)
+  })
+
+}
+
+const getSelectSku = () => {
+  const {result, list} = state;
+  const restSkuIdList = [];
+  for (let r = 0; r < result.length; r++) {
+    const restSkuId = result[r];
+    let h = false;
+    for (let i = 0; i < list.length; i++) {
+      const {cartList} = list[i];
+      for (let j = 0; j < cartList.length; j++) {
+        const {skuId, number} = cartList[j];
+        if (restSkuId === skuId) {
+          restSkuIdList.push({
+            skuId,
+            number
+          })
+          h = true;
+          break
+        }
+      }
+      if (h) {
+        break;
+      }
+    }
+  }
+  return restSkuIdList;
+}
+
+
 </script>
 
 <style lang="less">
-  @import '../common/style/mixin';
-  .cart-box {
-    .cart-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      .fj();
-      .wh(100%, 44px);
-      line-height: 44px;
-      padding: 0 10px;
-      .boxSizing();
-      color: #252525;
-      background: #fff;
-      border-bottom: 1px solid #dcdcdc;
-      .cart-name {
-        font-size: 14px;
-      }
+@import '../common/style/mixin';
+
+.cart-box {
+  .cart-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    .fj();
+    .wh(100%, 44px);
+    line-height: 44px;
+    padding: 0 10px;
+    .boxSizing();
+    color: #252525;
+    background: #fff;
+    border-bottom: 1px solid #dcdcdc;
+
+    .cart-name {
+      font-size: 14px;
     }
-    .cart-body {
-      margin: 16px 0 100px 0;
-      padding-left: 10px;
+  }
+
+  .cart-body {
+    padding-top: 1px;
+    background: #f3f3f3;
+    min-height: 90vh;
+    margin-bottom: 100px;
+
+    .storeItem {
+      background: #fff;
+      margin: 10px 4px;
+      border-radius: 6px;
+
+      .storeBox {
+        border-bottom: 1px solid #ebebeb;
+      }
+
       .good-item {
         display: flex;
+        padding: 16px 10px;
+        border-bottom: 1px solid #ebebeb;
+
         .good-img {
+          display: flex;
+          align-items: center;
+
           img {
-            .wh(100px, 100px)
+            .wh(70px, 70px)
           }
         }
+
         .good-desc {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           flex: 1;
-          padding: 20px;
+          padding: 0 0 0 10px;
+
           .good-title {
             display: flex;
             justify-content: space-between;
           }
+
           .good-btn {
             display: flex;
             justify-content: space-between;
+
             .price {
               font-size: 16px;
               color: red;
               line-height: 28px;
             }
+
             .van-icon-delete {
               font-size: 20px;
               margin-top: 4px;
@@ -227,43 +318,55 @@ const allCheck = () => {
           }
         }
       }
-      .delete-button {
-        width: 50px;
-        height: 100%;
-      }
     }
-    .empty {
-      width: 50%;
-      margin: 0 auto;
-      text-align: center;
-      margin-top: 200px;
-      .empty-cart {
-        width: 150px;
-        margin-bottom: 20px;
-      }
-      .van-icon-smile-o {
-        font-size: 50px;
-      }
-      .title {
-        font-size: 16px;
-        margin-bottom: 20px;
-      }
-    }
-    .submit-all {
-      margin-bottom: 64px;
-      .van-checkbox {
-        margin-left: 10px
-      }
-      .van-submit-bar__text {
-        margin-right: 10px
-      }
-      .van-submit-bar__button {
-        background: @primary;
-      }
-    }
-    .van-checkbox__icon--checked .van-icon {
-      background-color: @primary;
-      border-color: @primary;
+
+
+    .delete-button {
+      width: 50px;
+      height: 100%;
     }
   }
+
+  .empty {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 200px;
+
+    .empty-cart {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+
+    .van-icon-smile-o {
+      font-size: 50px;
+    }
+
+    .title {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .submit-all {
+    margin-bottom: 64px;
+
+    .van-checkbox {
+      margin-left: 10px
+    }
+
+    .van-submit-bar__text {
+      margin-right: 10px
+    }
+
+    .van-submit-bar__button {
+      background: @primary;
+    }
+  }
+
+  .van-checkbox__icon--checked .van-icon {
+    background-color: @primary;
+    border-color: @primary;
+  }
+}
 </style>

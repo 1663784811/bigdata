@@ -7,8 +7,10 @@ import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.service.CartService;
 import com.cyyaw.store.service.GCartService;
 import com.cyyaw.store.table.goods.dao.GCartDao;
+import com.cyyaw.store.table.goods.dao.GGoodsDao;
 import com.cyyaw.store.table.goods.dao.GStoreGoodsSkuDao;
 import com.cyyaw.store.table.goods.entity.GCart;
+import com.cyyaw.store.table.goods.entity.GGoods;
 import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
 import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.entity.CartListResponse;
@@ -39,6 +41,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private GStoreGoodsSkuDao gStoreGoodsSkuDao;
+
+    @Autowired
+    private GGoodsDao gGoodsDao;
 
     @Override
     public BaseResult myCartList(String userId) {
@@ -74,10 +79,14 @@ public class CartServiceImpl implements CartService {
         List<GCart> gCartListObj = gCartDao.findByUidAndStoreIdIn(userId, storeIdList);
         // 第四步: 查商品SKU
         List<String> skuIdList = new ArrayList<>();
+        List<String> goodsIdList = new ArrayList<>();
         for (int i = 0; i < gCartListObj.size(); i++) {
             skuIdList.add(gCartListObj.get(i).getSkuId());
+            goodsIdList.add(gCartListObj.get(i).getGoodsId());
         }
         List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findByTidIn(skuIdList);
+        // 第五步: 查询商品
+        List<GGoods> goodsList = gGoodsDao.findByTidIn(goodsIdList);
 
         // ================ 整理数据
         List<CartListResponse> data = new ArrayList<>();
@@ -90,12 +99,21 @@ public class CartServiceImpl implements CartService {
             List<GCart> cartList = new ArrayList();
             for (int j = 0; j < gCartListObj.size(); j++) {
                 GCart cart = gCartListObj.get(j);
-                if (storeId.equals(cart.getStoreId())) {
+                String stId = cart.getStoreId();
+                if (storeId.equals(stId)) {
                     // ====== 整理sku
                     for (int k = 0; k < goodsSkuList.size(); k++) {
                         GStoreGoodsSku gStoreGoodsSku = goodsSkuList.get(k);
                         if (gStoreGoodsSku.getTid().equals(cart.getSkuId())) {
                             cart.setGoodsSku(gStoreGoodsSku);
+                        }
+                    }
+                    String goodsId = cart.getGoodsId();
+                    for (int k = 0; k < goodsList.size(); k++) {
+                        GGoods gGoods = goodsList.get(k);
+                        if(gGoods.getTid().equals(goodsId)){
+                            cart.setGoods(gGoods);
+                            break;
                         }
                     }
                     cartList.add(cart);

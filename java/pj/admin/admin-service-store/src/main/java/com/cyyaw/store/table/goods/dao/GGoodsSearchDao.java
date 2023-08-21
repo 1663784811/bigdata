@@ -12,4 +12,9 @@ public interface GGoodsSearchDao extends BaseDao<GGoodsSearch, Integer> {
 
     @Query("select m from GGoodsSearch m where m.del = 0 and m.name like concat('%',?1,'%')")
     List<GGoodsSearch> searchGoods(String searchName);
+
+    @Query("select m from GGoodsSearch m where m.goodsId = ?1")
+    GGoodsSearch findByGoodsId(String goodsId);
+
+
 }

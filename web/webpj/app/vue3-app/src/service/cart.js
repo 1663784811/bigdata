@@ -28,3 +28,10 @@ export function getCart(params) {
 export function addCart(params = {}) {
     return axios.post(`${baseUrl}/shopping/goods/cart/updateCart`, params);
 }
+
+/**
+ * 计算商品价格
+ */
+export function countGoodsPrice(params = {}) {
+    return axios.post(`${baseUrl}/shopping/goods/order/countGoodsPrice`, params);
+}

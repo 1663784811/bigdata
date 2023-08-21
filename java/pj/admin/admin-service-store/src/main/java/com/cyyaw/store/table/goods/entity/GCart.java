@@ -62,4 +62,7 @@ public class GCart implements Serializable {
     @Transient
     private GStoreGoodsSku goodsSku;
 
+    @Transient
+    private GGoods goods;
+
 }

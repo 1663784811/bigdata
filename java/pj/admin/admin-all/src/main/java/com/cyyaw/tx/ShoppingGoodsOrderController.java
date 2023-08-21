@@ -4,16 +4,14 @@ package com.cyyaw.tx;
 import com.cyyaw.service.OrderService;
 import com.cyyaw.store.service.GTypeService;
 import com.cyyaw.store.service.OOrderService;
+import com.cyyaw.util.entity.CountGoodsRst;
 import com.cyyaw.util.entity.SubmitOrder;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api(tags = "订单")
@@ -24,6 +22,7 @@ public class ShoppingGoodsOrderController {
     @Autowired
     private OOrderService gTypeService;
 
+    @Autowired
     private OrderService orderService;
 
     @ApiOperation(value = "订单", notes = "订单")
@@ -36,7 +35,7 @@ public class ShoppingGoodsOrderController {
     @ApiOperation(value = "订单详情", notes = "订单详情")
     @GetMapping("/orderById")
     public BaseResult orderById(String orderId) {
-        return  gTypeService.orderById(orderId);
+        return gTypeService.orderById(orderId);
     }
 
     @ApiOperation(value = "删除订单", notes = "删除订单")
@@ -48,17 +47,16 @@ public class ShoppingGoodsOrderController {
 
     @ApiOperation(value = "计算商品价格", notes = "计算商品价格")
     @PostMapping("/countGoodsPrice")
-    public void countGoodsPrice(SubmitOrder submitOrder){
-        orderService.countGoodsPrice(submitOrder);
+    public BaseResult countGoodsPrice(@RequestBody SubmitOrder submitOrder) {
+        CountGoodsRst countGoodsRst = orderService.countGoodsPrice(submitOrder);
+        return BaseResult.ok(countGoodsRst);
     }
 
     @ApiOperation(value = "创建订单", notes = "创建订单")
     @PostMapping("/createOrder")
-    public void createOrder(SubmitOrder submitOrder){
+    public void createOrder(SubmitOrder submitOrder) {
         orderService.createOrder(submitOrder);
     }
-
-
 
 
 }

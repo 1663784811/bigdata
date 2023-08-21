@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * 计算商品信息
  */
 @Data
-public class GoodsRst {
+public class GoodsRest {
 
     /**
      * 商品信息
