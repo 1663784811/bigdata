@@ -34,11 +34,14 @@
           <template v-if="state.productList.length">
             <div class="product-item" v-for="(item, index) in state.productList" :key="index"
                  @click="productDetail(item)">
-              <img :src="$filters.prefix(item.ggoods.photo)"/>
+              <div class="imgBox">
+                <img
+                    :src="item.ggoods.photo || 'https://img30.360buyimg.com/seckillcms/s280x280_jfs/t1/66291/2/24087/48093/638097ebE4e300953/a0093faa42b695f1.jpg.avif'"/>
+              </div>
               <div class="product-info">
                 <p class="name">{{ item.ggoods.name }}</p>
-                <p class="subtitle">{{ item.goodsIntro }}</p>
-                <span class="price">￥ {{ item.gstoreGoodsSku.price}}</span>
+                <p class="subtitle">标签</p>
+                <span class="price">￥ {{ item.gstoreGoodsSku.price }}</span>
               </div>
             </div>
           </template>
@@ -71,7 +74,7 @@ const state = reactive({
   orderBy: ''
 })
 
-onMounted(()=>{
+onMounted(() => {
   init();
 })
 
@@ -85,14 +88,12 @@ const init = async () => {
   })
 
 
-
   const {categoryId} = route.query
   if (!categoryId && !state.keyword) {
     state.finished = true
     state.loading = false;
     return
   }
-
 
 
   const {data, data: {list}} = await search({
@@ -148,6 +149,11 @@ const changeTab = ({name}) => {
 
 <style lang="less" scoped>
 @import '../common/style/mixin';
+
+.product-list-wrap {
+  max-height: 100vh;
+  padding: 1px 0;
+}
 
 .product-list-content {
   position: fixed;
@@ -225,45 +231,40 @@ const changeTab = ({name}) => {
 
 .product-list-refresh {
   .product-item {
-    .fj();
-    width: 100%;
-    height: 120px;
-    padding: 10px 0;
-    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #e6e5e5;
 
-    img {
-      width: 140px;
-      height: 120px;
-      padding: 0 10px;
-      .boxSizing();
+    .imgBox {
+      .wh(100px, 100px);
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #dcdcdc;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
 
-    .product-info {
-      width: 56%;
-      height: 120px;
-      padding: 5px;
-      text-align: left;
-      .boxSizing();
 
-      p {
-        margin: 0
-      }
+    .product-info {
+      padding: 5px;
+      flex: 1;
 
       .name {
-        width: 100%;
-        max-height: 40px;
-        line-height: 20px;
         font-size: 15px;
-        color: #333;
         overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       .subtitle {
         width: 100%;
-        max-height: 20px;
-        padding: 10px 0;
         line-height: 25px;
         font-size: 13px;
         color: #999;

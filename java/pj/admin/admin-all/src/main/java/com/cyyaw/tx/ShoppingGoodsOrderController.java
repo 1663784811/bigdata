@@ -4,6 +4,8 @@ package com.cyyaw.tx;
 import com.cyyaw.service.OrderService;
 import com.cyyaw.store.service.GTypeService;
 import com.cyyaw.store.service.OOrderService;
+import com.cyyaw.user.config.TokenData;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.entity.CountGoodsRst;
 import com.cyyaw.util.entity.SubmitOrder;
 import com.cyyaw.util.tools.BaseResult;
@@ -28,7 +30,6 @@ public class ShoppingGoodsOrderController {
     @ApiOperation(value = "订单", notes = "订单")
     @GetMapping("/query")
     public BaseResult query() {
-
         return gTypeService.shoppingMyOrder();
     }
 
@@ -54,7 +55,13 @@ public class ShoppingGoodsOrderController {
 
     @ApiOperation(value = "创建订单", notes = "创建订单")
     @PostMapping("/createOrder")
-    public void createOrder(SubmitOrder submitOrder) {
+    public void createOrder(@RequestBody SubmitOrder submitOrder, @TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        submitOrder.setUid(userId);
+
+
+
+
         orderService.createOrder(submitOrder);
     }
 

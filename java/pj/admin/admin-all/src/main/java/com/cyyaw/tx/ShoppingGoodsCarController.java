@@ -2,6 +2,8 @@ package com.cyyaw.tx;
 
 
 import com.cyyaw.service.CartService;
+import com.cyyaw.user.config.TokenData;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -35,8 +37,9 @@ public class ShoppingGoodsCarController {
 
     @ApiOperation(value = "更新购物车", notes = "更新购物车")
     @PostMapping("/updateCart")
-    public BaseResult updateCar(@RequestBody AddMyCar addMyCar) {
-        return cartService.updateMyCar("4f3c48b31e4d477689cca9db53c173fa", addMyCar);
+    public BaseResult updateCar(@RequestBody AddMyCar addMyCar, @TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        return cartService.updateMyCar(userId, addMyCar);
     }
 
 

@@ -30,7 +30,7 @@ public class StoreRest {
     private EStore eStore;
 
     @ApiModelProperty(value = "商品信息", example = "商品信息")
-    private List<GoodsRest> goodsRstList;
+    private List<GoodsRest> goodsRestList;
 
 
 }

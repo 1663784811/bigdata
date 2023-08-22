@@ -1,22 +1,25 @@
 package com.cyyaw.service.impl;
 
-import com.cyyaw.store.table.goods.dao.GGoodsDao;
-import com.cyyaw.store.table.goods.entity.GGoods;
-
-import java.math.BigDecimal;
-
+import com.cyyaw.config.exception.WebException;
 import com.cyyaw.enterprise.table.dao.EStoreDao;
 import com.cyyaw.enterprise.table.entity.EStore;
-import com.cyyaw.util.entity.*;
-import com.google.common.collect.Lists;
-
 import com.cyyaw.service.OrderService;
+import com.cyyaw.store.table.goods.dao.GGoodsDao;
 import com.cyyaw.store.table.goods.dao.GStoreGoodsSkuDao;
+import com.cyyaw.store.table.goods.entity.GGoods;
 import com.cyyaw.store.table.goods.entity.GStoreGoodsSku;
+import com.cyyaw.store.table.order.dao.ODetailsDao;
+import com.cyyaw.store.table.order.dao.OOrderDao;
+import com.cyyaw.store.table.order.entity.ODetails;
+import com.cyyaw.store.table.order.entity.OOrder;
+import com.cyyaw.util.entity.*;
+import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +33,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private GGoodsDao gGoodsDao;
+
+    @Autowired
+    private OOrderDao oOrderDao;
+
+    @Autowired
+    private ODetailsDao oDetailsDao;
 
     @Override
     public CountGoodsRst countGoodsPrice(SubmitOrder submitOrder) {
@@ -88,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
                             String sId = storeRest.getStoreId();
                             if (sId.equals(storeTid)) {
                                 // 找到了
-                                List<GoodsRest> goodsRestList = storeRest.getGoodsRstList();
+                                List<GoodsRest> goodsRestList = storeRest.getGoodsRestList();
                                 // set商品
                                 GoodsRest goodsRest = new GoodsRest();
                                 for (int m = 0; m < gGoodsList.size(); m++) {
@@ -140,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
                             goodsRestList.add(goodsRest);
                             // ===
                             StoreRest storeRest = new StoreRest();
-                            storeRest.setGoodsRstList(goodsRestList);
+                            storeRest.setGoodsRestList(goodsRestList);
                             storeRest.setAllTotalPrice(goodsRest.getTotalPrice());
                             storeRest.setGoodsTotalPrice(goodsRest.getTotalPrice());
                             storeRest.setGoodsNum(new BigDecimal(goodsRest.getNumber()));
@@ -176,16 +185,158 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(SubmitOrder submitOrder) {
-        // 判断基本信息是否正确
+    public OOrder createOrder(SubmitOrder submitOrder) {
+        List<CountGoods> goodsList = submitOrder.getGoodsList();
+        String userId = submitOrder.getUid();
+        String userName = submitOrder.getUserName();
+        String addressId = submitOrder.getAddressId();
+        String address = submitOrder.getAddress();
+        String phone = submitOrder.getPhone();
+        String description = submitOrder.getDescription();
 
-        // 计算价格
+        // 第一步:  判断基本信息是否正确
+        List<String> skuIdList = new ArrayList<>();
+        for (int i = 0; i < goodsList.size(); i++) {
+            CountGoods countGoods = goodsList.get(i);
+            skuIdList.add(countGoods.getSkuId());
+        }
+        // 查询sku
+        List<GStoreGoodsSku> goodsSkuList = gStoreGoodsSkuDao.findByTidIn(skuIdList);
+        for (int i = 0; i < goodsList.size(); i++) {
+            CountGoods countGoods = goodsList.get(i);
+            String skuId = countGoods.getSkuId();
+            Integer number = countGoods.getNumber();
+            boolean h = false;
+            for (int j = 0; j < goodsSkuList.size(); j++) {
+                GStoreGoodsSku gStoreGoodsSku = goodsSkuList.get(j);
+                String skuTid = gStoreGoodsSku.getTid();
+                if (skuId.equals(skuTid)) {
+                    // 判断库存是否足够
+                    Integer skuNumber = gStoreGoodsSku.getNumber();
+                    if (number > skuNumber) {
+                        GGoods goods = gGoodsDao.findByTid(gStoreGoodsSku.getGoodsId());
+                        WebException.fail("购物的商品:【" + goods.getName() + "】库存不足");
+                    }
+                    h = true;
+                    break;
+                }
+            }
+            if (!h) {
+                WebException.fail("购物的商品不存在");
+            }
+        }
+        // 第二步:  计算价格
+        CountGoodsRst countGoodsRst = countGoodsPrice(submitOrder);
+        BigDecimal goodsNum = countGoodsRst.getGoodsNum();
+        BigDecimal allTotalPrice = countGoodsRst.getAllTotalPrice();
+        BigDecimal expressPrice = countGoodsRst.getExpressPrice();
+        // 第三步: 生成订单
+        List<StoreRest> storeRestList = countGoodsRst.getStoreRestList();
+        // 判断是否要生成组合订单
+        OOrder restOrder = null;
+        if (storeRestList.size() > 1) {
+            // 生成组合订单
+            OOrder order = new OOrder();
+            order.setTid(WhyStringUtil.getUUID());
+            order.setCreateTime(new Date());
+            order.setDel(0);
+            order.setNote("组合订单");
+            order.setUserId(userId);
+            order.setUserName(userName);
 
+            order.setEnterpriseId("");
+            order.setEnterpriseName("");
+            order.setStoreId("");
+            order.setStoreName("");
 
-        // 生成订单
-
-
+            order.setOrderNo(WhyStringUtil.createOrderNum());
+            order.setType(1);
+            order.setStatus(0);
+            order.setAddressId(addressId);
+            order.setAddressDetail(address);
+            order.setPhone(phone);
+            order.setDescription(description);
+            order.setNumber(goodsNum.intValue());
+            order.setAmount(allTotalPrice);
+            order.setExpressPrice(expressPrice);
+            order.setPayableAmount(allTotalPrice);
+            order.setPayType(null);
+            oOrderDao.save(order);
+            for (int i = 0; i < storeRestList.size(); i++) {
+                StoreRest storeRest = storeRestList.get(i);
+                createOrder(storeRest, submitOrder);
+            }
+            restOrder = order;
+        } else if (storeRestList.size() == 1) {
+            // 生成正常订单
+            StoreRest storeRest = storeRestList.get(0);
+            OOrder order = createOrder(storeRest, submitOrder);
+            restOrder = order;
+        }
+        return restOrder;
     }
 
+    private OOrder createOrder(StoreRest storeRest, SubmitOrder submitOrder) {
+        String userId = submitOrder.getUid();
+        String userName = submitOrder.getUserName();
+        String addressId = submitOrder.getAddressId();
+        String address = submitOrder.getAddress();
+        String phone = submitOrder.getPhone();
+        String description = submitOrder.getDescription();
+        // ===
+        BigDecimal allTotalPrice = storeRest.getAllTotalPrice();
+        BigDecimal goodsNum = storeRest.getGoodsNum();
+        BigDecimal expressPrice = storeRest.getExpressPrice();
+
+        // ====
+        OOrder order = new OOrder();
+        order.setTid(WhyStringUtil.getUUID());
+        order.setCreateTime(new Date());
+        order.setDel(0);
+        order.setNote("");
+        order.setUserId(userId);
+        order.setUserName(userName);
+
+        order.setEnterpriseId("");
+        order.setEnterpriseName("");
+        order.setStoreId("");
+        order.setStoreName("");
+
+        order.setOrderNo(WhyStringUtil.createOrderNum());
+        order.setType(1);
+        order.setStatus(0);
+        order.setAddressId(addressId);
+        order.setAddressDetail(address);
+        order.setPhone(phone);
+        order.setDescription(description);
+        order.setNumber(goodsNum.intValue());
+        order.setAmount(allTotalPrice);
+        order.setExpressPrice(expressPrice);
+        order.setPayableAmount(allTotalPrice);
+        order.setPayType(null);
+        oOrderDao.save(order);
+        // 生成订单详情
+        List<GoodsRest> goodsRestList = storeRest.getGoodsRestList();
+
+        for (int i = 0; i < goodsRestList.size(); i++) {
+            GoodsRest goodsRest = goodsRestList.get(i);
+            ODetails oDetails = new ODetails();
+            oDetails.setTid(WhyStringUtil.getUUID());
+            oDetails.setCreateTime(new Date());
+            oDetails.setDel(0);
+            oDetails.setNote("");
+            oDetails.setOrderId(order.getTid());
+            oDetails.setGoodsId(goodsRest.getGGoods().getTid());
+            oDetails.setSkuId(goodsRest.getGStoreGoodsSku().getTid());
+            oDetails.setType(0);
+            oDetails.setName(goodsRest.getGGoods().getName());
+            oDetails.setPhoto(goodsRest.getGStoreGoodsSku().getPhoto());
+            oDetails.setPrice(goodsRest.getGStoreGoodsSku().getPrice());
+            oDetails.setLastPrice(goodsRest.getGStoreGoodsSku().getPrice());
+            oDetails.setNumber(goodsRest.getNumber());
+            oDetailsDao.save(oDetails);
+        }
+        return order;
+    }
 
 }

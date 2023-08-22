@@ -63,12 +63,12 @@ public class OOrder implements Serializable {
     private String orderNo;
 
     @Basic
-    @Column(name = "type", columnDefinition = "int not null default '0' COMMENT '订单类型{0:普通订单}'")
+    @Column(name = "type", columnDefinition = "int not null default '0' COMMENT '订单类型{0:普通订单,1:组合订单}'")
     private Integer type;
 
     @Basic
-    @Column(name = "status", columnDefinition = "varchar(32) COMMENT '订单状态'")
-    private String status;
+    @Column(name = "status", columnDefinition = "varchar(32) COMMENT '订单状态{0:待付款,1:待发货,2:已发货,3:待确认,4:完成}'")
+    private Integer status;
 
     @Basic
     @Column(name = "address_id", columnDefinition = "varchar(32) COMMENT '地址ID'")

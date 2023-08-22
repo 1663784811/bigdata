@@ -286,6 +286,7 @@ const tips = () => {
 
       .imgBox {
         height: 120px;
+
         img {
           display: block;
           height: 100%;
@@ -301,6 +302,11 @@ const tips = () => {
 
         .title {
           color: #222333;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
         }
 
         .price {
