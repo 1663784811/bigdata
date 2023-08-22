@@ -24,4 +24,8 @@ public interface GCartDao extends BaseDao<GCart, Integer> {
     List<GCart> findByUidAndStoreIdIn(String uid, List<String> storeIdList);
 
 
+    @Query("select m from GCart m where m.tid = ?1 and m.userId = ?2")
+    List<GCart> findByTidAndUserId(String cartTid, String userId);
+
+
 }

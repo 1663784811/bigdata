@@ -2,6 +2,7 @@ package com.cyyaw.tx;
 
 
 import com.cyyaw.service.CartService;
+import com.cyyaw.store.table.goods.entity.GCart;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.entity.AddMyCar;
@@ -23,15 +24,18 @@ public class ShoppingGoodsCarController {
 
     @ApiOperation(value = "购物车", notes = "购物车")
     @GetMapping("/query")
-    public BaseResult query() {
-        String userId = "4f3c48b31e4d477689cca9db53c173fa";
-
+    public BaseResult query(@TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
         return cartService.myCartList(userId);
     }
 
     @ApiOperation(value = "删除商品", notes = "删除商品")
-    @GetMapping("/del")
-    public BaseResult del() {
+    @PostMapping("/delCartGoods")
+    public BaseResult delCartGoods(@RequestBody GCart gcart , @TokenData LoginInfo loginInfo) {
+        String cartTid = gcart.getTid();
+        String userId = loginInfo.getId();
+        cartService.delCartGoods(cartTid, userId);
+
         return BaseResult.ok();
     }
 

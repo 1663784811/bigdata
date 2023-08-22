@@ -18,4 +18,7 @@ public interface CartService {
     BaseResult updateMyCar(String userId, AddMyCar addMyCar);
 
 
+    void delCartGoods(String cartTid, String userId);
+
+
 }

@@ -27,7 +27,7 @@
                       integer
                       :min="1"
                       :model-value="goods.number"
-                      :name="item.cartItemId"
+                      :name="goods.skuId"
                       async-change
                       @change="onChange"
                   />
@@ -40,7 +40,7 @@
                   icon="delete"
                   type="danger"
                   class="delete-button"
-                  @click="deleteGood(item.cartItemId)"
+                  @click="deleteGood(goods)"
               />
             </template>
           </van-swipe-cell>
@@ -75,7 +75,7 @@ import {useCartStore} from '@/stores/cart'
 import {showToast, showLoadingToast, closeToast, showFailToast} from 'vant'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getCart, deleteCartItem, modifyCart, countGoodsPrice} from '@/service/cart'
+import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/cart'
 
 const router = useRouter()
 const cart = useCartStore()
@@ -109,36 +109,21 @@ const goTo = () => {
 }
 
 const onChange = async (value, detail) => {
-  if (value > 5) {
-    showFailToast('超出单个商品的最大购买数量')
-    return
-  }
-  if (value < 1) {
-    showFailToast('商品不得小于0')
-    return
-  }
-  /**
-   * 这里的操作是因为，后面修改购物车后，手动添加的计步器的数据，为了防止数据不对
-   * 这边做一个拦截处理，如果点击的时候，购物车单项的 goodsCount 等于点击的计步器数字，
-   * 那么就不再进行修改操作
-   */
-  if (state.list.find(item => item.cartItemId == detail.name)?.goodsCount == value) return
+  const {list} = state;
   showLoadingToast({message: '修改中...', forbidClick: true});
-  const params = {
-    cartItemId: detail.name,
-    goodsCount: value
-  }
-  await modifyCart(params)
-  /**
-   * 修改完成后，没有请求购物车列表，是因为闪烁的问题，
-   * 这边手动给操作的购物车商品修改数据
-   */
-  state.list.forEach(item => {
-    if (item.cartItemId == detail.name) {
-      item.goodsCount = value
+  const {skuId, number} = getSku(detail.name);
+  const num = value - number;
+  const {data} = await addCart({number: num, skuId});
+  for (let i = 0; i < list.length; i++) {
+    const listItem = list[i].cartList;
+    for (let j = 0; j < listItem.length; j++) {
+      if (listItem[j].skuId === skuId) {
+        listItem[j].number = data.number;
+      }
     }
-  })
-  closeToast()
+  }
+  updateCartFn();
+  closeToast();
 }
 
 const onSubmit = async () => {
@@ -155,11 +140,11 @@ const onSubmit = async () => {
     })
   }
   const params = JSON.stringify(skuIdList)
-  router.push({path: '/create-order', query: {cartItemIds: params}})
+  await router.push({path: '/create-order', query: {cartItemIds: params}})
 }
 
-const deleteGood = async (id) => {
-  await deleteCartItem(id)
+const deleteGood = async (goods) => {
+  await deleteCartItem(goods)
   cart.updateCart()
   init()
 }
@@ -168,17 +153,32 @@ const deleteGood = async (id) => {
  * 选择所有
  */
 const allCheck = () => {
-  if (!state.checkAll) {
-    // state.result = state.list.map(item => item.cartItemId)
-  } else {
+  const {list} = state;
+  const selectAll = isSelectAll();
+  if (selectAll) {
     state.result = [];
+  } else {
+    for (let i = 0; i < list.length; i++) {
+      const listItem = list[i].cartList;
+      for (let j = 0; j < listItem.length; j++) {
+        state.result.push(listItem[j])
+      }
+    }
   }
+  updateCartFn();
 }
 
 const goToStore = (store) => {
   if (store && store.tid) {
     router.push({name: 'store', query: {id: store.tid}})
   }
+}
+
+const updateCartFn = () => {
+  const {result, checkAll} = state;
+  changeSelect(result);
+  // 判断是否选
+  state.checkAll = isSelectAll();
 }
 
 const changeSelect = (cartArr) => {
@@ -190,9 +190,6 @@ const changeSelect = (cartArr) => {
     })
   }
   countPrice(skuIdList);
-  //
-
-
 }
 
 /**
@@ -207,6 +204,47 @@ const countPrice = (skuIdList) => {
   })
 }
 
+/**
+ * 获取sku
+ */
+const getSku = (skuId) => {
+  if (skuId) {
+    const {list} = state;
+    for (let i = 0; i < list.length; i++) {
+      const listItem = list[i].cartList;
+      for (let j = 0; j < listItem.length; j++) {
+        if (listItem[j].skuId === skuId) {
+          return listItem[j];
+        }
+      }
+    }
+  }
+}
+
+const isSelectAll = () => {
+  const {list, result} = state;
+  for (let i = 0; i < list.length; i++) {
+    const listItem = list[i].cartList;
+    for (let j = 0; j < listItem.length; j++) {
+      const skuId = listItem[j].skuId;
+      let h = false;
+      for (let k = 0; k < result.length; k++) {
+        const resultObj = result[k];
+        if (resultObj.skuId === skuId) {
+          h = true;
+        }
+      }
+      if (!h) {
+        return false;
+      }
+    }
+  }
+  if (result.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 </script>
 

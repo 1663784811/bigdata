@@ -2,14 +2,6 @@ import axios from '../utils/axios'
 import {baseUrl, enterpriseId} from '@/service/webConfig.js'
 
 
-export function modifyCart(params) {
-    return axios.put(`/shop-cart`, params);
-}
-
-export function deleteCartItem(id) {
-    return axios.delete(`/shop-cart/${id}`);
-}
-
 export function getByCartItemIds(params) {
     return axios.get(`/shop-cart/settle`, {params});
 }
@@ -34,4 +26,11 @@ export function addCart(params = {}) {
  */
 export function countGoodsPrice(params = {}) {
     return axios.post(`${baseUrl}/shopping/goods/order/countGoodsPrice`, params);
+}
+
+/**
+ * 删除购物车商品
+ */
+export function deleteCartItem(params) {
+    return axios.post(`${baseUrl}/shopping/goods/cart/delCartGoods`, params);
 }

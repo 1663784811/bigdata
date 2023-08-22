@@ -56,7 +56,6 @@ public class CartServiceImpl implements CartService {
         ExampleMatcher matcher = ExampleMatcher.matching();
 
 
-
         PageRequest of = PageRequest.of(0, 10);
         Example<GCart> ex = Example.of(gCart, matcher);
         Page<GCart> gCartPage = gCartDao.findAll(ex, of);
@@ -106,12 +105,13 @@ public class CartServiceImpl implements CartService {
                         GStoreGoodsSku gStoreGoodsSku = goodsSkuList.get(k);
                         if (gStoreGoodsSku.getTid().equals(cart.getSkuId())) {
                             cart.setGoodsSku(gStoreGoodsSku);
+                            break;
                         }
                     }
                     String goodsId = cart.getGoodsId();
                     for (int k = 0; k < goodsList.size(); k++) {
                         GGoods gGoods = goodsList.get(k);
-                        if(gGoods.getTid().equals(goodsId)){
+                        if (gGoods.getTid().equals(goodsId)) {
                             cart.setGoods(gGoods);
                             break;
                         }
@@ -122,8 +122,6 @@ public class CartServiceImpl implements CartService {
             rest.setCartList(cartList);
             data.add(rest);
         }
-
-
         return BaseResult.ok(data, result);
     }
 
@@ -160,6 +158,14 @@ public class CartServiceImpl implements CartService {
             gCart = gCartDao.save(gCart);
         }
         return BaseResult.ok(gCart);
+    }
+
+    @Override
+    public void delCartGoods(String cartTid, String userId) {
+        List<GCart> cartList = gCartDao.findByTidAndUserId(cartTid, userId);
+        for (int i = 0; i < cartList.size(); i++) {
+            gCartDao.delete(cartList.get(i));
+        }
     }
 
 
