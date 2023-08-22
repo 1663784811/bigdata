@@ -12,9 +12,14 @@ import com.cyyaw.store.table.order.dao.ODetailsDao;
 import com.cyyaw.store.table.order.dao.OOrderDao;
 import com.cyyaw.store.table.order.entity.ODetails;
 import com.cyyaw.store.table.order.entity.OOrder;
+import com.cyyaw.util.entity.UserOrderResponse;
 import com.cyyaw.util.entity.*;
+import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -276,6 +281,72 @@ public class OrderServiceImpl implements OrderService {
         return restOrder;
     }
 
+    @Override
+    public BaseResult findMyOrder(String userId) {
+        // 查询我的订单
+        PageRequest pageRequest = PageRequest.of(0, 20);
+        OOrder od = new OOrder();
+        od.setUserId(userId);
+        Example<OOrder> example = Example.of(od);
+        Page<OOrder> oOrderPage = oOrderDao.findAll(example, pageRequest);
+        List<OOrder> orderList = oOrderPage.getContent();
+
+        BaseResult.Result result = new BaseResult.Result();
+        result.setPage(oOrderPage.getTotalPages());
+        result.setSize(oOrderPage.getSize());
+        result.setTotal(oOrderPage.getTotalElements());
+        //=====
+        List<String> orderIdList = new ArrayList<>();
+        List<String> storeIdList = new ArrayList<>();
+        for (OOrder order : orderList) {
+            orderIdList.add(order.getTid());
+            storeIdList.add(order.getStoreId());
+        }
+        //=====  查询订单详情
+        List<ODetails> oDetailsList = oDetailsDao.findByOrderIdArr(orderIdList);
+        //=====  查询门店
+        List<EStore> storeList = eStoreDao.findByTidIn(storeIdList);
+        //=====  整理数据
+        List<UserOrderResponse> data = new ArrayList<>();
+        for (OOrder order : orderList) {
+            String tid = order.getTid();
+            String storeId = order.getStoreId();
+            UserOrderResponse userOrderResponse = new UserOrderResponse();
+            userOrderResponse.setOrder(order);
+            // 详情
+            List<ODetails> oDetails = new ArrayList<>();
+            for (int i = 0; i < oDetailsList.size(); i++) {
+                ODetails details = oDetailsList.get(i);
+                if (tid.equals(details.getOrderId())) {
+                    oDetails.add(details);
+                }
+            }
+            userOrderResponse.setDetailsList(oDetails);
+            // 门店
+            for (int i = 0; i < storeList.size(); i++) {
+                EStore store = storeList.get(i);
+                if (store.getTid().equals(storeId)) {
+                    userOrderResponse.setStore(store);
+                    break;
+                }
+            }
+            data.add(userOrderResponse);
+        }
+        return BaseResult.ok(data, result);
+    }
+
+    @Override
+    public BaseResult orderById(String orderId) {
+        OOrder order = oOrderDao.findByTid(orderId);
+        List<ODetails> oDetailsList = oDetailsDao.findByOrderId(orderId);
+        EStore store = eStoreDao.findByTid(order.getStoreId());
+        UserOrderResponse data = new UserOrderResponse();
+        data.setOrder(order);
+        data.setDetailsList(oDetailsList);
+        data.setStore(store);
+        return BaseResult.ok(data);
+    }
+
     private OOrder createOrder(StoreRest storeRest, SubmitOrder submitOrder) {
         String userId = submitOrder.getUid();
         String userName = submitOrder.getUserName();
@@ -287,7 +358,8 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal allTotalPrice = storeRest.getAllTotalPrice();
         BigDecimal goodsNum = storeRest.getGoodsNum();
         BigDecimal expressPrice = storeRest.getExpressPrice();
-
+        String storeId = storeRest.getStoreId();
+        EStore eStore = storeRest.getEStore();
         // ====
         OOrder order = new OOrder();
         order.setTid(WhyStringUtil.getUUID());
@@ -299,8 +371,8 @@ public class OrderServiceImpl implements OrderService {
 
         order.setEnterpriseId("");
         order.setEnterpriseName("");
-        order.setStoreId("");
-        order.setStoreName("");
+        order.setStoreId(storeId);
+        order.setStoreName(eStore.getName());
 
         order.setOrderNo(WhyStringUtil.createOrderNum());
         order.setType(1);

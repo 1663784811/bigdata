@@ -29,14 +29,15 @@ public class ShoppingGoodsOrderController {
 
     @ApiOperation(value = "订单", notes = "订单")
     @GetMapping("/query")
-    public BaseResult query() {
-        return gTypeService.shoppingMyOrder();
+    public BaseResult query(@TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        return orderService.findMyOrder(userId);
     }
 
     @ApiOperation(value = "订单详情", notes = "订单详情")
     @GetMapping("/orderById")
     public BaseResult orderById(String orderId) {
-        return gTypeService.orderById(orderId);
+        return orderService.orderById(orderId);
     }
 
     @ApiOperation(value = "删除订单", notes = "删除订单")

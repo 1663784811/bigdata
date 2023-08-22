@@ -1,33 +1,45 @@
 <template>
   <div class="order-detail-box">
     <s-header :name="'订单详情'" @callback="close"></s-header>
-    <div v-if="state.loading">
-      ss
-    </div>
-    <div v-else>
-      <van-card
-          v-for="item in state.detail.detailsList"
-          :key="item.goodsId"
-          style="background: #fff"
-          :num="item.goodsCount"
-          :price="item.sellingPrice"
-          desc="全场包邮"
-          :title="item.name"
-          :thumb="item.photo"
-      />
+    <div v-if="!state.loading">
+      <!--   =======================   -->
+      <div class="storeBox" v-if="state.detail.store">
+        <van-cell :title="state.detail.store.name||'门店'" is-link icon="shop-o"/>
+      </div>
+      <!--   =======================   -->
+      <div class="goodsBox">
+        <div class="good-item" v-for="(goods, gx) in state.detail.detailsList" :key="gx">
+          <div class="good-img">
+            <img
+                :src="goods.photo || 'https://img13.360buyimg.com/seckillcms/s280x280_jfs/t1/170929/22/39881/69113/64d066e8Fdf9a291a/abdc1f554cd06780.jpg.avif'"
+                alt="">
+          </div>
+          <div class="good-desc">
+            <div class="good-title">
+              {{ goods.name || '--.--' }}
+            </div>
+            <div>颜色: 红色</div>
+            <div class="good-btn">
+              <div class="price">¥{{ goods.price || '--:--' }}</div>
+              <div>x {{ goods.number || '-' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--   =======================   -->
+      <div class="otherInfo">
+        <van-cell title="订单编号" :value="state.detail.order.orderNo"/>
+        <van-cell title="订单状态" :value="state.detail.order.status"/>
+        <van-cell title="下单时间" :value="state.detail.order.createTime"/>
+        <van-cell title="快递" value="0.00"/>
+        <van-cell title="商品数量" :value="state.detail.order.number"/>
+        <van-cell title="商品总价" :value="state.detail.order.payableAmount"/>
+        <van-cell title="优惠" value="0.00"/>
+        <van-cell title="结算" :value="state.detail.order.payableAmount"/>
+
+      </div>
+      <!--   =======================   -->
       <div class="order-status">
-        <div class="status-item">
-          <label>订单状态：</label>
-          <span>{{ state.detail.order.status }}</span>
-        </div>
-        <div class="status-item">
-          <label>订单编号：</label>
-          <span>{{ state.detail.order.orderNo }}</span>
-        </div>
-        <div class="status-item">
-          <label>下单时间：</label>
-          <span>{{ state.detail.order.createTime }}</span>
-        </div>
         <van-button v-if="state.detail.orderStatus == 3" style="margin-bottom: 10px" color="#1baeae" block
                     @click="handleConfirmOrder(state.detail.orderNo)">确认收货
         </van-button>
@@ -38,39 +50,16 @@
                     @click="handleCancelOrder(state.detail.orderNo)">取消订单
         </van-button>
       </div>
-      <div class="order-price">
-        <div class="price-item">
-          <label>商品金额：</label>
-          <span>¥ {{ state.detail.order.payableAmount }}</span>
-        </div>
-        <div class="price-item">
-          <label>配送方式：</label>
-          <span>普通快递</span>
-        </div>
-      </div>
-
-      <van-popup
-          v-model:show="state.showPay"
-          position="bottom"
-          :style="{ height: '24%' }"
-      >
-        <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
-          <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block
-                      @click="handlePayOrder(state.detail.orderNo, 1)">支付宝支付
-          </van-button>
-          <van-button color="#4fc08d" block @click="handlePayOrder(state.detail.orderNo, 2)">微信支付</van-button>
-        </div>
-      </van-popup>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import {reactive, toRefs, onMounted} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getOrderDetail, cancelOrder, confirmOrder, payOrder} from '@/service/order'
-import {showConfirmDialog, showLoadingToast, closeToast, showSuccessToast, closeDialog} from 'vant'
+import {onMounted, reactive} from 'vue'
+import {cancelOrder, confirmOrder, getOrderDetail, payOrder} from '@/service/order'
+import {closeDialog, closeToast, showConfirmDialog, showLoadingToast, showSuccessToast} from 'vant'
 import {useRoute} from 'vue-router'
 
 const route = useRoute()
@@ -144,11 +133,72 @@ const close = () => {
 </script>
 
 <style lang="less" scoped>
+@import '../common/style/mixin';
+
 .order-detail-box {
   background: #f7f7f7;
+  padding-bottom: 1px;
+  min-height: 100vh;
+
+  .goodsBox {
+    background: #fff;
+    margin: 10px 6px;
+    border-radius: 6px;
+
+    .good-item {
+      display: flex;
+      padding: 16px 10px;
+      border-bottom: 1px solid #ebebeb;
+
+      .good-img {
+        display: flex;
+        align-items: center;
+
+        img {
+          .wh(70px, 70px)
+        }
+      }
+
+      .good-desc {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        padding: 0 0 0 10px;
+
+        .good-title {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .good-btn {
+          display: flex;
+          justify-content: space-between;
+
+          .price {
+            font-size: 16px;
+            color: red;
+            line-height: 28px;
+          }
+
+          .van-icon-delete {
+            font-size: 20px;
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+  }
+
+
+  .otherInfo {
+    margin: 10px 6px;
+    border-radius: 6px;
+  }
 
   .order-status {
     background: #fff;
+    margin-bottom: 50px;
     padding: 20px;
     font-size: 15px;
 
@@ -163,35 +213,6 @@ const close = () => {
 
       }
     }
-  }
-
-  .order-price {
-    background: #fff;
-    margin: 20px 0;
-    padding: 20px;
-    font-size: 15px;
-
-    .price-item {
-      margin-bottom: 10px;
-
-      label {
-        color: #999;
-      }
-
-      span {
-
-      }
-    }
-  }
-
-  .van-card {
-    margin-top: 0;
-  }
-
-  .van-card__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 }
 </style>

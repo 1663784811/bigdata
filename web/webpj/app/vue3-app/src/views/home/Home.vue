@@ -248,6 +248,8 @@ const tips = () => {
   flex-wrap: wrap;
   width: 100%;
   padding-bottom: 13px;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
 
   div {
     display: flex;

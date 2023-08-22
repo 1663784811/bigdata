@@ -6,16 +6,4 @@ import com.cyyaw.util.tools.BaseResult;
 
 public interface OOrderService extends BaseTableService<OOrder, Integer> {
 
-
-    /**
-     * 查询订单列表
-     */
-    BaseResult shoppingMyOrder();
-
-    /**
-     * 查询订单详情
-     */
-    BaseResult orderById(String orderId);
-
-
 }
