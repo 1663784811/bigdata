@@ -53,20 +53,6 @@
         提交订单
       </van-button>
     </div>
-    <van-popup
-        closeable
-        :close-on-click-overlay="false"
-        v-model:show="state.showPay"
-        position="bottom"
-        :style="{ height: '30%' }"
-        @close="close"
-    >
-      <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(1)">支付宝支付
-        </van-button>
-        <van-button color="#4fc08d" block @click="handlePayOrder(2)">微信支付</van-button>
-      </div>
-    </van-popup>
   </div>
 </template>
 
@@ -79,7 +65,7 @@ import {createOrder, payOrder} from '@/service/order'
 import {countGoodsPrice} from '@/service/cart'
 
 import {setLocal, getLocal} from '@/common/js/utils'
-import {showLoadingToast, closeToast, showSuccessToast} from 'vant'
+import {showLoadingToast, closeToast, showSuccessToast, showFailToast} from 'vant'
 import {useRoute, useRouter} from 'vue-router'
 
 const router = useRouter()
@@ -87,7 +73,6 @@ const route = useRoute()
 const state = reactive({
   cartList: [],
   address: {},
-  showPay: false,
   orderNo: '',
   cartItemIds: [],
   priceObj: {},
@@ -107,6 +92,7 @@ const init = async () => {
     goodsList
   }).then(rest => {
     const {data} = rest;
+    console.log(data)
     state.cartList = data.storeRestList
     state.priceObj = data;
   })
@@ -129,35 +115,26 @@ const deleteLocal = () => {
  * 提交订单
  */
 const handleCreateOrder = async () => {
+  showLoadingToast({message: '正在生成订单...', forbidClick: true});
   const params = {
     addressId: state.address.addressId,
     goodsList: state.goodsList
   }
-  const {data} = await createOrder(params)
-  setLocal('cartItemIds', '')
-  state.orderNo = data
-  state.showPay = true
-}
+  const {data, msg, code} = await createOrder(params)
+  closeToast();
+  if (code !== 2000) {
+    showFailToast(`${msg}`);
+  } else {
+    //跳转支付页面
+    router.replace({
+      name: 'payOrder',
+      query: {
+        orderId: data.tid
+      }
+    })
+  }
 
-const close = () => {
-  router.push({path: '/order'})
 }
-
-const handlePayOrder = async (type) => {
-  await payOrder({orderNo: state.orderNo, payType: type})
-  showSuccessToast('支付成功')
-  setTimeout(() => {
-    router.push({path: '/order'})
-  }, 2000)
-}
-
-const total = computed(() => {
-  let sum = 0
-  state.cartList.forEach(item => {
-    sum += item.goodsCount * item.sellingPrice
-  })
-  return sum
-})
 </script>
 
 <style lang="less" scoped>

@@ -120,6 +120,14 @@ const router = createRouter({
         index: 2
       }
     },
+    {
+      path: '/payOrder',
+      name: 'payOrder',
+      component: () => import('@/views/PayOrder.vue'),
+      meta: {
+        index: 2
+      }
+    },
   ]
 })
 

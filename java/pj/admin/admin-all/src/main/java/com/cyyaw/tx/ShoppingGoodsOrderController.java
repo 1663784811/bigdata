@@ -2,8 +2,8 @@ package com.cyyaw.tx;
 
 
 import com.cyyaw.service.OrderService;
-import com.cyyaw.store.service.GTypeService;
 import com.cyyaw.store.service.OOrderService;
+import com.cyyaw.store.table.order.entity.OOrder;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.entity.CountGoodsRst;
@@ -55,14 +55,11 @@ public class ShoppingGoodsOrderController {
 
     @ApiOperation(value = "创建订单", notes = "创建订单")
     @PostMapping("/createOrder")
-    public void createOrder(@RequestBody SubmitOrder submitOrder, @TokenData LoginInfo loginInfo) {
+    public BaseResult createOrder(@RequestBody SubmitOrder submitOrder, @TokenData LoginInfo loginInfo) {
         String userId = loginInfo.getId();
         submitOrder.setUid(userId);
-
-
-
-
-        orderService.createOrder(submitOrder);
+        OOrder order = orderService.createOrder(submitOrder);
+        return BaseResult.ok(order);
     }
 
 

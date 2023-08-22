@@ -1,6 +1,6 @@
 <template>
   <div class="product-detail">
-    <s-header :name="'商品详情'" ></s-header>
+    <s-header :name="'商品详情'"></s-header>
     <div class="detail-content">
       <!--   ===================   -->
       <div class="detail-swipe-wrap">
@@ -37,8 +37,8 @@
       <van-action-bar-icon icon="chat-o" text="客服"/>
       <van-action-bar-icon icon="cart-o" :badge="!cart.count ? '' : cart.count" @click="goTo()" text="购物车"/>
       <van-action-bar-icon icon="shop-o" text="店铺"/>
-      <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车"/>
-      <van-action-bar-button type="danger" @click="goToCart" text="立即购买"/>
+      <van-action-bar-button type="warning" @click="state.popup.show = true" text="加入购物车"/>
+      <van-action-bar-button type="danger" @click="state.popup.show = true" text="立即购买"/>
     </van-action-bar>
 
     <van-popup
@@ -64,9 +64,7 @@
               颜色：红色 大小: 中
             </div>
           </div>
-
         </div>
-
         <div class="skuAttrBox">
           <div class="skuRow" v-for="(item,index) in  state.detail.skuAttr" :key="index">
             <div class="skuLabel">
@@ -79,14 +77,12 @@
             </div>
           </div>
         </div>
-
         <div class="selectNumber">
           <div>数量</div>
           <div>
             <van-stepper/>
           </div>
         </div>
-
         <div class="noteBox">
           <div class="label"> 说明：</div>
           <div>京东商城向您保证所售商品均为正品行货，京东自营商品开具机打发票或电子发票。</div>
@@ -210,6 +206,7 @@ const goToCart = async () => {
     .detail-swipe-wrap {
       height: 300px;
       background: #f3f3f3;
+
       .my-swipe .van-swipe-item {
         img {
           display: block;

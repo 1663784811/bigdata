@@ -2,7 +2,7 @@
   <div class="cart-box">
     <s-header :name="'购物车'" :noback="true"></s-header>
     <!--  =========================  -->
-    <div class="cart-body">
+    <div class="cart-body" v-if="state.list.length>0">
       <van-checkbox-group v-model="state.result" @change="changeSelect" shape="square">
         <div class="storeItem" v-for="(item, index) in state.list" :key="index">
           <div class="storeBox" @click="goToStore(item.estore)">
@@ -190,6 +190,7 @@ const changeSelect = (cartArr) => {
     })
   }
   countPrice(skuIdList);
+  state.checkAll = isSelectAll();
 }
 
 /**

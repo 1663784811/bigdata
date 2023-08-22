@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import {reactive, onMounted} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
+import {reactive, onMounted} from 'vue'
 import {getAddressList} from '@/service/address'
 import {useRoute, useRouter} from 'vue-router'
 
