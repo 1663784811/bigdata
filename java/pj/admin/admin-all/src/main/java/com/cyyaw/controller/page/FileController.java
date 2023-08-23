@@ -28,8 +28,9 @@ public class FileController {
     @Autowired
     private WebImageService webImageService;
 
-//    @Autowired
+    //    @Autowired
 //    private FtpService ftpService;
+    private String rootPath = "F:/webTemp/file";
 
 
     @ApiOperation(value = "上传文件", notes = "上传文件")
@@ -43,13 +44,13 @@ public class FileController {
             int month = date.monthBaseOne();
             int day = date.dayOfMonth();
             String basePath = "/" + year + "-" + month + "/" + year + "-" + month + "-" + day;
-            File dir = new File(basePath);
+            File dir = new File(rootPath + basePath);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
             //
-            String fileName = uploadFile.getName();
-            uploadFile.transferTo(new File(basePath, fileName));
+            String fileName = WhyStringUtil.getRandomString(5) + "_" + uploadFile.getOriginalFilename();
+            uploadFile.transferTo(new File(rootPath + basePath, fileName));
             // 上传到影像平台
 
             // 收集信息保存到影像表
@@ -74,17 +75,24 @@ public class FileController {
     public void download(String code, HttpServletResponse response) {
         WebImage webImage = webImageService.findByTid(code);
         String path = webImage.getPath();
+        Integer type = webImage.getType();
+        String name = webImage.getName();
         // ftp 下载文件
-//        String file = ftpService.download(path);
-        String filePath = "";
-        File file = new File(filePath);
+        File file = new File(rootPath + path);
         byte[] buffer = new byte[1024];
         BufferedInputStream bis = null;
         OutputStream os = null;
         try {
             if (file.exists()) {
-                response.setContentType("application/octet-stream;charset=UTF-8");
                 response.setCharacterEncoding("UTF-8");
+                response.setHeader("content-disposition", "attachment; filename=" + name);
+                if (type == 0) {
+                    response.setContentType("image/png;charset=UTF-8");
+                } else if (type == 1) {
+                    response.setContentType("text/html;charset=UTF-8");
+                } else {
+                    response.setContentType("image/**;charset=UTF-8");
+                }
                 os = response.getOutputStream();
                 bis = new BufferedInputStream(new FileInputStream(file));
                 while (bis.read(buffer) != -1) {

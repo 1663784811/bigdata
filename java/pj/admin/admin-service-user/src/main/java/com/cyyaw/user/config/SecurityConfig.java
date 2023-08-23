@@ -73,10 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/v2/api-docs",
+                        "/doc.html",
+                        "/webjars/**",
                         "/swagger-resources/configuration/ui",
                         "/swagger-resources",
                         "/swagger-resources/configuration/security",
-                        "/webjars/springfox-swagger-ui/**",
                         "/swagger-ui.html",
                         "/admin/login/**",
                         "/home/**",
@@ -88,7 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/shopping/goods/search/goodsDetails",
                         "/shopping/goods/search/goodsPhoto",
                         "/shopping/goods/search/goodsDetailsText",
-                        "/shopping/goods/type/enterpriseType"
+                        "/shopping/goods/type/enterpriseType",
+                        "/admin/file/**"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();
