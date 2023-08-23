@@ -59,6 +59,7 @@ import navBar from '@/components/NavBar.vue'
 import listScroll from '@/components/ListScroll.vue'
 import {enterpriseType} from "@/service/good"
 import {showLoadingToast, closeToast} from 'vant'
+import {enterpriseId} from '@/service/webConfig.js'
 
 const router = useRouter()
 const searchWrap = ref(null)
@@ -69,12 +70,11 @@ const state = reactive({
 
 onMounted(async () => {
   let $screenHeight = document.documentElement.clientHeight
-  console.log('searchWrap.value', searchWrap.value)
   searchWrap.value.style.height = $screenHeight - 100 + 'px'
   showLoadingToast('加载中...')
   closeToast()
   enterpriseType({
-    enterpriseId: 'aaaa'
+    enterpriseId
   }).then(rest => {
     const {data} = rest;
     state.categoryData = data;

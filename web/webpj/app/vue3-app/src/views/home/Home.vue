@@ -2,7 +2,9 @@
   <div>
     <!--  ============================  -->
     <header class="home-header wrap" :class="{'active' : state.headerScroll}">
-      <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
+      <router-link tag="i" to="./category">
+        <i class="nbicon nbmenu2"></i>
+      </router-link>
       <div class="header-search">
         <span class="app-name">听心商城</span>
         <i class="iconfont icon-search"></i>
@@ -13,15 +15,18 @@
         <van-icon name="manager-o"/>
       </router-link>
     </header>
+    <!--  ============================  -->
     <nav-bar/>
     <!--  ============================  -->
     <swiper :list="state.swiperList"></swiper>
     <!--  ============================  -->
     <div class="category-list">
-      <div v-for="item in state.categoryList" v-bind:key="item.categoryId" @click="tips">
-        <img :src="item.imgUrl">
-        <span>{{ item.name }}</span>
-      </div>
+      <template v-for="(item,index) in state.categoryList" :key="index">
+        <div v-if="index<10" v-bind:key="item.categoryId" @click="tips">
+          <img :src="item.data.img || 'https://s.yezgea02.com/1604041127880/9.9%402x.png'">
+          <span>{{ item.title }}</span>
+        </div>
+      </template>
     </div>
     <!--  ==============     最新推荐    ==============  -->
     <div class="good" :style="{ paddingBottom: '100px'}">
@@ -44,108 +49,135 @@
 </template>
 
 <script setup>
-import {reactive, onMounted, nextTick} from 'vue'
+import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import swiper from '@/components/Swiper.vue'
-import navBar from '@/components/NavBar.vue'
 import {getBanner, searchGoods} from '@/service/home'
-import {getLocal} from '@/common/js/utils'
-import {showLoadingToast, closeToast, showToast} from 'vant'
+import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
+import {enterpriseType} from "@/service/good"
+import {enterpriseId} from '@/service/webConfig.js'
+import {useUserStore} from "@/stores/user";
 
+
+let userStore = useUserStore();
 const cart = useCartStore()
 const router = useRouter()
 const state = reactive({
-  swiperList: [], // 轮播图列表
-  isLogin: false, // 是否已登录
-  headerScroll: false, // 滚动透明判断
+  swiperList: [],
+  isLogin: false,
+  headerScroll: false,
   hots: [],
   newGoodses: [],
   recommends: [],
   categoryList: [
     {
-      name: '新蜂超市',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
-      categoryId: 100001
+      title: '新蜂超市',
+      categoryId: 100001,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
+      }
     },
     {
-      name: '新蜂服饰',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
-      categoryId: 100003
+      title: '新蜂服饰',
+
+      categoryId: 100003,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
+      }
     },
     {
-      name: '全球购',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
-      categoryId: 100002
+      title: '全球购',
+
+      categoryId: 100002,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
+      }
     },
     {
-      name: '新蜂生鲜',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
-      categoryId: 100004
+      title: '新蜂生鲜',
+
+      categoryId: 100004,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
+      }
     },
     {
-      name: '新蜂到家',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
-      categoryId: 100005
+      title: '新蜂到家',
+
+      categoryId: 100005,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
+      }
     },
     {
-      name: '充值缴费',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
-      categoryId: 100006
+      title: '充值缴费',
+
+      categoryId: 100006,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
+      }
     },
     {
-      name: '9.9元拼',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
-      categoryId: 100007
+      title: '9.9元拼',
+      categoryId: 100007,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
+      }
     },
     {
-      name: '领劵',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
-      categoryId: 100008
+      title: '领劵',
+      categoryId: 100008,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
+      }
     },
     {
-      name: '省钱',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
-      categoryId: 100009
+      title: '省钱',
+      categoryId: 100009,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
+      }
     },
     {
-      name: '全部',
-      imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
-      categoryId: 100010
+      title: '全部',
+      categoryId: 100010,
+      data: {
+        img: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
+      }
     }
   ],
-  loading: true
+  loading: true,
+  scrollTop: 0
 })
 
 
 onMounted(async () => {
-
-  const token = getLocal('token')
-  if (token) {
-    state.isLogin = true
-    // 获取购物车数据.
-    cart.updateCart()
+  if (userStore.token) {
+    state.isLogin = true;
   }
   showLoadingToast({
     message: '加载中...',
     forbidClick: true
   });
-  state.loading = false
-  closeToast()
-  // ==========================================================================================
-  getBanner({
-    enterpriseId: '2df777640d934a7ca63de6bd0bccb664'
+  await getBanner({
+    enterpriseId
   }).then(res => {
     state.swiperList = res.data;
   }).catch((err) => {
     console.log(err)
   })
-
-  searchGoods({}).then((rest) => {
+  await searchGoods({}).then((rest) => {
     const {data} = rest;
     state.recommends = data;
   })
-
+  enterpriseType({
+    enterpriseId
+  }).then(rest => {
+    const {data} = rest;
+    state.categoryList = data;
+  })
+  state.loading = false
+  closeToast()
 })
 
 nextTick(() => {
@@ -179,6 +211,7 @@ const tips = () => {
   font-size: 15px;
   color: #fff;
   z-index: 10000;
+  background: rgba(231, 231, 231, 0.7);
 
   .nbmenu2 {
     color: @primary;

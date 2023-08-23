@@ -1,16 +1,19 @@
-package com.cyyaw.tx.file;
+package com.cyyaw.controller.page;
+
+import java.util.Date;
 
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.web.service.WebImageService;
 import com.cyyaw.web.table.entity.WebImage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,23 +33,39 @@ public class FileController {
 
 
     @ApiOperation(value = "上传文件", notes = "上传文件")
-    @GetMapping("/upload")
-    public void upload(@RequestParam("file") MultipartFile file) throws IOException {
-        if (!file.isEmpty()) {
+    @PostMapping("/upload")
+    public BaseResult upload(@RequestParam("file") MultipartFile uploadFile) throws IOException {
+        if (!uploadFile.isEmpty()) {
             // 上传到本地
-            InputStream inputStream = file.getInputStream();
-
+            // 生成目录    //  /xxxx/年月/年月日/文件
+            DateTime date = DateUtil.date();
+            int year = date.year();
+            int month = date.monthBaseOne();
+            int day = date.dayOfMonth();
+            String basePath = "/" + year + "-" + month + "/" + year + "-" + month + "-" + day;
+            File dir = new File(basePath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            //
+            String fileName = uploadFile.getName();
+            uploadFile.transferTo(new File(basePath, fileName));
             // 上传到影像平台
 
-
             // 收集信息保存到影像表
-
+            WebImage webImage = new WebImage();
+            webImage.setTid(WhyStringUtil.getUUID());
+            webImage.setCreateTime(new Date());
+            webImage.setDel(0);
+            webImage.setWebImageTypeId("");
+            webImage.setPath(basePath + "/" + fileName);
+            webImage.setName(fileName);
+            webImage.setType(0);
+            WebImage save = webImageService.save(webImage);
             // 返回影像ID
-
-        } else {
-
+            return BaseResult.ok(save);
         }
-
+        return BaseResult.fail();
     }
 
 

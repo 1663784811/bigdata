@@ -2,8 +2,8 @@
   <div class="create-order">
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
     <!--  =================  -->
-    <div class="address-wrap">
-      <div class="name" @click="goTo">
+    <div v-if="state.address" class="address-wrap" @click="goTo">
+      <div class="name">
         <span>{{ state.address.name }} </span>
         <span>{{ state.address.phone }}</span>
       </div>
@@ -12,6 +12,9 @@
         {{ state.address.address }}
       </div>
       <van-icon class="arrow" name="arrow"/>
+    </div>
+    <div  v-else class="addressAdd">
+      <van-contact-card style="margin-top: 10px" type="add" @click="goTo"/>
     </div>
     <!--  =================  -->
     <div class="goodBox">
@@ -175,6 +178,9 @@ const handleCreateOrder = async () => {
       background-size: 80px;
       content: '';
     }
+  }
+  .addressAdd{
+    margin: 10px 0;
   }
 
   .good-item {
