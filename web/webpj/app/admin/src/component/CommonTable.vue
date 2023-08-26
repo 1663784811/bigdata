@@ -7,9 +7,15 @@
         <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
       </div>
       <div class="btnBox">
-        <Button class="btn" type="success" icon="ios-search" @click="search">搜索</Button>
-        <Button class="btn" type="warning" icon="ios-search" @click="addData">添加</Button>
-        <Button class="btn" type="error" icon="ios-search" @click="delSelect">删除</Button>
+        <Button class="btn" type="success" icon="ios-search" @click="search" v-if="searchObj.queryRequest.show">
+          搜索
+        </Button>
+        <Button class="btn" type="warning" icon="ios-search" @click="addData" v-if="searchObj.saveRequest.show">
+          添加
+        </Button>
+        <Button class="btn" type="error" icon="ios-search" @click="delSelect" v-if="searchObj.delRequest.show">
+          删除
+        </Button>
       </div>
     </div>
     <!--  ===========================  表格 ========================================  -->
@@ -80,14 +86,17 @@ const searchObj = ref({
   columns: [],
   queryRequest: {
     url: '',
+    show: false,
     parameter: {}
   },
   saveRequest: {
     url: '',
+    show: false,
     parameter: {}
   },
   delRequest: {
     url: '',
+    show: false,
     parameter: {}
   }
 });
@@ -364,15 +373,26 @@ const createH = (columnsItem, h, params) => {
         style: {
           marginRight: '5px'
         },
-        onClick: () => {
-          if (opObj.label === '查看') {
-            selectTableData(row, index, false)
-          } else if (opObj.label === '修改') {
-            selectTableData(row, index, true)
-          } else if (opObj.label === '删除') {
-            delTableData(row, index);
+        onClick: (e) => {
+          e.stopPropagation()
+          if (!opObj.even) {
+            if (opObj.label === '查看') {
+              selectTableData(row, index, false)
+            } else if (opObj.label === '修改') {
+              selectTableData(row, index, true)
+            } else if (opObj.label === '删除') {
+              delTableData(row, index);
+            } else {
+              emits('event', {
+                even: opObj.even,
+                data: row
+              });
+            }
           } else {
-            emits('event', row);
+            emits('event', {
+              even: opObj.even,
+              data: row
+            });
           }
         }
       }, {

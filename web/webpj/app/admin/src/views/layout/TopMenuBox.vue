@@ -24,8 +24,7 @@ onMounted(() => {
  * @param item
  */
 const gotoPage = function (item) {
-  console.log(item)
-  store.setNowMenu(item);
+  store.leftMenu = store.setNowMenu(item);
   router.push({name: item.routeName})
 }
 

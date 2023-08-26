@@ -115,7 +115,6 @@ export const dss = (parameter) => {
 }
 
 
-
 export const findIdGGoods = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/gGoods/findIdGGoods`, parameter, 0)
 }
@@ -136,6 +135,11 @@ export const saveGGoods = (parameter, showMsg = false) => {
 
 export const saveGStoreGoodsSku = (parameter, showMsg = false) => {
     return AJAXPOST(`${baseUrl}/admin/gStoreGoodsSku/saveGStoreGoodsSku`, parameter, 1, showMsg)
+}
+
+
+export const findPageWebImage = (parameter, showMsg = false) => {
+    return AJAXGET(`${baseUrl}/admin/image/findPageWebImage`, parameter, 0);
 }
 
 

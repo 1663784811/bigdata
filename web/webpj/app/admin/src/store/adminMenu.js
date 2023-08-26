@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {apiAdminMenu} from "@/api/api.js"
 
 export const useAdminMenuStore = defineStore('adminMenu',
@@ -301,11 +301,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     name: '货品SKU',
                                     icon: 'md-settings',
                                     routeName: 'shoppingGoodsSku'
-                                },
-                                {
-                                    name: '编辑商品(删除)',
-                                    icon: 'md-settings',
-                                    routeName: 'shoppingGoodsEditor'
                                 }
                             ]
                         },
@@ -353,12 +348,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
             const nowMenu = ref({});
 
             const setNowMenu = (menu) => {
-                nowMenu.value = menu;
+                const rest = []
                 if (menu && menu.children && menu.children.length > 0) {
-                    leftMenu.value = menu.children;
-                } else {
-                    leftMenu.value = [];
+                    rest.push(...menu.children);
                 }
+                return rest;
             }
 
             const loadMenu = () => {
