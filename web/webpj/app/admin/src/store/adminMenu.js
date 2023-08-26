@@ -30,11 +30,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     name: '企业管理',
                                     icon: 'md-settings',
                                     routeName: 'enterprise'
-                                },
-                                {
-                                    name: '产品中心',
-                                    icon: 'md-settings',
-                                    routeName: 'storeList'
                                 }
                             ]
                         },
@@ -206,6 +201,70 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 }
                             ]
                         },
+                        {
+                            name: '任务管理',
+                            icon: 'md-settings',
+                            routeName: '',
+                            children: [
+                                {
+                                    name: '待办任务',
+                                    icon: 'md-settings',
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '我的待办',
+                                            icon: 'md-settings',
+                                            routeName: 'user'
+                                        },
+                                        {
+                                            name: '全部待办',
+                                            icon: 'md-settings',
+                                            routeName: 'adminPower'
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '任务申请',
+                                    icon: 'md-settings',
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '请假申请',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        },
+                                        {
+                                            name: '采购申请',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        },
+                                        {
+                                            name: '发起会议',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '流程管理',
+                                    icon: 'md-settings',
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '模型管理',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        },
+                                        {
+                                            name: '流程列表',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        }
+                                    ]
+                                },
+
+                            ]
+                        },
                     ]
                 },
                 {
@@ -270,11 +329,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             icon: 'md-settings',
                             routeName: 'power',
                             children: [
-                                {
-                                    name: '用户管理',
-                                    icon: 'md-settings',
-                                    routeName: 'user'
-                                },
                                 {
                                     name: '管理员管理',
                                     icon: 'md-settings',

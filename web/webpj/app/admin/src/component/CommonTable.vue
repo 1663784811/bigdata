@@ -2,7 +2,7 @@
   <div class="commonTable">
     <!-- ========================================   搜索   ======================================== -->
     <div class="searchBox">
-      <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index">
+      <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index" v-if="searchObj.queryRequest.show">
         <div class="inputLabel">{{ item.title }}:</div>
         <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
       </div>
