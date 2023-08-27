@@ -143,5 +143,8 @@ export const findPageWebImage = (parameter, showMsg = false) => {
 }
 
 
+export const enterpriseRegister = (parameter, showMsg = false) => {
+    return AJAXPOST(`${baseUrl}/login/admin/enterpriseRegister`, parameter, 1, showMsg)
+}
 
 

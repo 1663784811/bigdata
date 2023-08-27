@@ -1,5 +1,6 @@
 package com.cyyaw.user.table.entity;
 
+import com.cyyaw.jpa.util.entity.TreeEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_department")
 @org.hibernate.annotations.Table(appliesTo = "t_department", comment = "部门表")
-public class TDepartment implements Serializable {
+public class TDepartment implements TreeEntity<Integer>, Serializable {
 
     private static final long serialVersionUID = 156878267170401L;
 
@@ -53,7 +54,6 @@ public class TDepartment implements Serializable {
     @Basic
     @Column(name = "tree_code", columnDefinition = "varchar(32) not null default '' COMMENT '树码(一级三位)'")
     private String treeCode;
-
 
 
 }

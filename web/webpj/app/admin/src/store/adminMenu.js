@@ -180,9 +180,9 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: 'power',
                             children: [
                                 {
-                                    name: '用户管理',
+                                    name: '部门管理',
                                     icon: 'md-settings',
-                                    routeName: 'user'
+                                    routeName: 'adminDepartment'
                                 },
                                 {
                                     name: '管理员管理',
@@ -190,15 +190,30 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     routeName: 'adminPower'
                                 },
                                 {
+                                    name: '岗位管理',
+                                    icon: 'md-settings',
+                                    routeName: 'adminPost'
+                                },
+                                {
+                                    name: '角色列表',
+                                    icon: 'md-settings',
+                                    routeName: 'role'
+                                },
+                                {
                                     name: '权限分配',
                                     icon: 'md-settings',
                                     routeName: 'power'
                                 },
                                 {
-                                    name: '菜单',
+                                    name: '菜单管理',
                                     icon: 'md-settings',
                                     routeName: 'menu'
-                                }
+                                },
+                                {
+                                    name: '用户管理',
+                                    icon: 'md-settings',
+                                    routeName: 'user'
+                                },
                             ]
                         },
                         {

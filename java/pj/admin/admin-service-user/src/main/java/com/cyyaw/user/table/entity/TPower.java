@@ -1,5 +1,6 @@
 package com.cyyaw.user.table.entity;
 
+import com.cyyaw.jpa.util.entity.TreeEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_power")
 @org.hibernate.annotations.Table(appliesTo = "t_power", comment = "权限表")
-public class TPower implements Serializable {
+public class TPower implements TreeEntity<Integer>, Serializable {
     private static final long serialVersionUID = 1568782627393758L;
 
     @Id
@@ -72,6 +73,6 @@ public class TPower implements Serializable {
     @Column(name = "url", columnDefinition = "varchar(255) COMMENT 'url'")
     private String url;
     @Basic
-    @Column(name = "sort",columnDefinition = "int default '1' COMMENT '排序'")
+    @Column(name = "sort", columnDefinition = "int default '1' COMMENT '排序'")
     private Integer sort;
 }

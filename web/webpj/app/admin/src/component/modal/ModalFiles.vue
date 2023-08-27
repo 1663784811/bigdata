@@ -98,7 +98,7 @@ const changePage = () => {
 
 const modalData = ref({
   loading: true,
-  show: true,
+  show: false,
   editor: false,
   data: {},
   columns: []

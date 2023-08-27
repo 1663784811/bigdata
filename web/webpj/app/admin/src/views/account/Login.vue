@@ -41,6 +41,7 @@ import AccountFooter from "./AccountFooter.vue"
 import {useRouter, useRoute} from "vue-router";
 import {logInFn, enterpriseFindPage} from "@/api/api.js"
 import {loginInfo} from "@/store/loginInfo.js"
+import {Message, Modal} from "view-ui-plus";
 
 const router = useRouter();
 const route = useRoute();
@@ -62,20 +63,31 @@ onMounted(() => {
   enterpriseFindPageFn();
 })
 
-const enterpriseFindPageFn = function () {
+const enterpriseFindPageFn = async function () {
   const {eCode} = route.query;
+  let h = false;
   if (eCode) {
-    enterpriseFindPage({
+    const {data} = await enterpriseFindPage({
       code: eCode
-    }).then((rest) => {
-      if (rest.data && rest.data.length > 0) {
-        enterprise.value = rest.data[0];
-      }
-    }).catch((err) => {
-      console.log(err)
+    });
+    if (data && data.length > 0) {
+      h = true;
+      enterprise.value = data[0];
+      loginInfoSt.eCode = eCode;
+    }
+  }
+  if (!h) {
+    setTimeout(() => {
+      Message.error({
+        content: '登录地址错误'
+      });
+      setTimeout(() => {
+        router.replace({
+          name: 'register'
+        });
+      }, 3000)
     })
   }
-  loginInfoSt.eCode = eCode;
 }
 
 /**
@@ -129,7 +141,8 @@ const clickLogin = function () {
           margin-bottom: 20px;
           font-size: 20px;
         }
-        .loginRow{
+
+        .loginRow {
           margin: 30px 0;
           display: flex;
         }

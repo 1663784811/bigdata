@@ -3,13 +3,12 @@
     <Menu v-if="store.leftMenu && store.leftMenu.length>0" width="200px">
 
       <template v-for="(item,index) in store.leftMenu" :key="index">
-        <Submenu name="1" v-if="item.children && item.children.length>0">
+        <Submenu :name="item.name" v-if="item.children && item.children.length>0">
           <template #title>
             <Icon type="ios-paper"/>
             {{ item.name }}
-            <MenuItem name="1-1">文章管理</MenuItem>
-            <MenuItem name="1-2">评论管理</MenuItem>
-            <MenuItem name="1-3">举报管理</MenuItem>
+            <MenuItem :name="children.name" v-for="(children, ch) in item.children" :key="ch">{{ children.name }}
+            </MenuItem>
           </template>
         </Submenu>
         <MenuItem v-else :name="item.tid+'-'+ index">
@@ -35,7 +34,7 @@ const router = useRouter();
 
 
 const clickMenu = (item) => {
-  console.log('=================',item)
+  console.log('=================', item)
   let query = {};
   if (item.query) {
     query = item.query;
@@ -48,8 +47,6 @@ const clickMenu = (item) => {
   })
 
 }
-
-
 
 
 </script>

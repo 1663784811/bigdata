@@ -3,22 +3,34 @@ export const role = {
     children: [
         {
             path: 'user',
-            component: import('@/views/role/User.vue'),
+            component: import('@/views/role/AdminUser.vue'),
             name: 'user'
         },
         {
-            path: 'adminPower',
-            component: import('@/views/role/AdminPower.vue'),
-            name: 'adminPower'
+          path: '',
+          component: import('@/views/role/AdminDepartmentLayout.vue'),
+          children:[
+              {
+                  path: 'adminPower',
+                  component: import('@/views/role/AdminPower.vue'),
+                  name: 'adminPower'
+              },
+              {
+                  path: 'adminPost',
+                  component: import('@/views/role/AdminPost.vue'),
+                  name: 'adminPost'
+              },
+          ]
         },
+
         {
-            path: 'department',
-            component: import('@/views/role/Department.vue'),
-            name: 'department'
+            path: 'adminDepartment',
+            component: import('@/views/role/AdminDepartment.vue'),
+            name: 'adminDepartment'
         },
         {
             path: 'role',
-            component: import('@/views/role/Role.vue'),
+            component: import('@/views/role/AdminRole.vue'),
             name: 'role'
         },
         {
@@ -28,7 +40,7 @@ export const role = {
         },
         {
             path: 'menu',
-            component: import('@/views/role/Menu.vue'),
+            component: import('@/views/role/AdminMenu.vue'),
             name: 'menu'
         }
     ]

@@ -1,5 +1,6 @@
 package com.cyyaw.user.table.entity;
 
+import com.cyyaw.jpa.util.entity.TreeEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_role")
 @org.hibernate.annotations.Table(appliesTo = "t_role", comment = "角色表")
-public class TRole implements Serializable {
+public class TRole implements TreeEntity<Integer>, Serializable {
     private static final long serialVersionUID = 1568782627448808L;
 
     @Id
