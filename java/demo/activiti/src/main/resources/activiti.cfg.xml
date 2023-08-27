@@ -19,9 +19,9 @@
           class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
         <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl"
-                  value="jdbc:mysql://139.198.115.132:3306/activiti?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"/>
+                  value="jdbc:mysql:///activiti?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"/>
         <property name="jdbcUsername" value="root"/>
-        <property name="jdbcPassword" value="because"/>
+        <property name="jdbcPassword" value=""/>
         <!-- activiti数据库表处理策略 -->
         <property name="databaseSchemaUpdate" value="true"/>
     </bean>
