@@ -369,6 +369,7 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
         var svgDOM = DataManager.serialize(svgClone);
 
         var params = {
+            modelId: modelMetaData.modelId,
             json_xml: json,
             svg_xml: svgDOM,
             name: $scope.saveDialog.name,
@@ -376,30 +377,26 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
         };
 
         // Update
-        $http({    method: 'PUT',
+        $http({    method: 'POST',
             data: params,
             ignoreErrors: true,
-            headers: {'Accept': 'application/json',
-                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-            transformRequest: function (obj) {
-                var str = [];
-                for (var p in obj) {
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-                return str.join("&");
-            },
-            url: KISBPM.URL.putModel(modelMetaData.modelId)})
-
-            .success(function (data, status, headers, config) {
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json; charset=UTF-8'},
+//            transformRequest: function (obj) {
+//                var str = [];
+//                for (var p in obj) {
+//                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//                }
+//                return str.join("&");
+//                return obj;
+//            },
+            url: KISBPM.URL.putModel(modelMetaData.modelId)}).success(function (data, status, headers, config) {
                 $scope.editor.handleEvents({
                     type: ORYX.CONFIG.EVENT_SAVED
                 });
                 $scope.modelData.name = $scope.saveDialog.name;
                 $scope.modelData.lastUpdated = data.lastUpdated;
-                
                 $scope.status.loading = false;
                 $scope.$hide();
-
                 // Fire event to all who is listening
                 var saveEvent = {
                     type: KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED,
@@ -408,18 +405,14 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
 		            eventType: 'update-model'
                 };
                 KISBPM.eventBus.dispatch(KISBPM.eventBus.EVENT_TYPE_MODEL_SAVED, saveEvent);
-
                 // Reset state
                 $scope.error = undefined;
                 $scope.status.loading = false;
-
                 // Execute any callback
                 if (successCallback) {
                     successCallback();
                 }
-
-            })
-            .error(function (data, status, headers, config) {
+            }).error(function (data, status, headers, config) {
                 $scope.error = {};
                 console.log('Something went wrong when updating the process model:' + JSON.stringify(data));
                 $scope.status.loading = false;

@@ -50,8 +50,16 @@
             <artifactId>activiti-json-converter</artifactId>
             <version>7.1.0.M6</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>1.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-codec</artifactId>
+            <version>1.17</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

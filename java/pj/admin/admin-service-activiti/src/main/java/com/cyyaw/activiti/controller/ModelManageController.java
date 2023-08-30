@@ -1,6 +1,7 @@
 package com.cyyaw.activiti.controller;
 
 import com.cyyaw.activiti.entity.ModelParam;
+import com.cyyaw.activiti.entity.ModelRequest;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,6 +19,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ModelQuery;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +137,7 @@ public class ModelManageController {
 
     @ApiOperation("导出模型")
     @GetMapping("/exportModel")
-    public void modelExport(@PathVariable String modelId, HttpServletResponse response) throws IOException {
+    public void modelExport(String modelId, HttpServletResponse response) throws IOException {
         byte[] modelData = repositoryService.getModelEditorSource(modelId);
         JsonNode jsonNode = objectMapper.readTree(modelData);
         BpmnModel bpmnModel = (new BpmnJsonConverter()).convertToBpmnModel(jsonNode);
@@ -145,7 +149,6 @@ public class ModelManageController {
         response.setHeader("content-Type", "application/xml");
         response.flushBuffer();
     }
-
 
 
     @ApiOperation("打开在线编辑器时加载指定模型到页面")
@@ -169,8 +172,15 @@ public class ModelManageController {
 
 
     @ApiOperation("保存流程图编辑器的信息")
-    @PostMapping(value = "/model/save")
-    public void saveModel(String modelId, String name, String description, String json_xml, String svg_xml) throws Exception {
+    @PostMapping(value = "/saveModel")
+    public BaseResult saveModel(@RequestBody ModelRequest modelRequest) throws Exception {
+        // ==========================
+        String modelId = modelRequest.getModelId();
+        String name = modelRequest.getName();
+        String description = modelRequest.getDescription();
+        String json_xml = modelRequest.getJson_xml();
+        String svg_xml = modelRequest.getSvg_xml();
+        // ==========================
         Model model = repositoryService.getModel(modelId);
         ObjectNode modelJson = (ObjectNode) objectMapper.readTree(model.getMetaInfo());
         modelJson.put(ModelDataJsonConstants.MODEL_NAME, name);
@@ -184,16 +194,17 @@ public class ModelManageController {
         repositoryService.saveModel(model);
         repositoryService.addModelEditorSource(model.getId(), json_xml.getBytes("utf-8"));
         InputStream svgStream = new ByteArrayInputStream(svg_xml.getBytes("utf-8"));
-//        TranscoderInput input = new TranscoderInput(svgStream);
-//        PNGTranscoder transcoder = new PNGTranscoder();
-//        // Setup output
-//        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-//        TranscoderOutput output = new TranscoderOutput(outStream);
-//        // Do the transformation
-//        transcoder.transcode(input, output);
-//        final byte[] result = outStream.toByteArray();
-//        repositoryService.addModelEditorSourceExtra(model.getId(), result);
-//        outStream.close();
+        TranscoderInput input = new TranscoderInput(svgStream);
+        PNGTranscoder transcoder = new PNGTranscoder();
+        // Setup output
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        TranscoderOutput output = new TranscoderOutput(outStream);
+        // Do the transformation
+        transcoder.transcode(input, output);
+        final byte[] result = outStream.toByteArray();
+        repositoryService.addModelEditorSourceExtra(model.getId(), result);
+        outStream.close();
+        return BaseResult.ok();
     }
 
     /**
@@ -201,7 +212,7 @@ public class ModelManageController {
      */
     @GetMapping("/editor/stencilset")
     public String getStencilset() throws IOException {
-        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("stencilset.json");
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("static/stencilset.json");
         return org.apache.commons.io.IOUtils.toString(stream, "utf-8");
     }
 
