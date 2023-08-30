@@ -1,0 +1,15 @@
+#数据库配置
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://139.198.115.132:3306/activiti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: root
+    password: because
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+      max-lifetime: 180000
+      connection-test-query: select 1
+      minimum-idle: 10
+      maximum-pool-size: 15
