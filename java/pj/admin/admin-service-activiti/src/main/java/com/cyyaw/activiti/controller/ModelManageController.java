@@ -207,9 +207,8 @@ public class ModelManageController {
         return BaseResult.ok();
     }
 
-    /**
-     * 获取流程图编辑器的汉化文件
-     */
+
+    @ApiOperation("获取流程图编辑器的汉化文件")
     @GetMapping("/editor/stencilset")
     public String getStencilset() throws IOException {
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream("static/stencilset.json");
