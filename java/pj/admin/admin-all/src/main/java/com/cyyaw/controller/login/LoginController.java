@@ -17,7 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Api(tags = "登录模块")
@@ -83,7 +85,10 @@ public class LoginController {
         admin.setPassword(null);
         // 第三步:分配权限
         tRoleService.initRole(tid, admin.getTid());
-        return BaseResult.ok(admin, "注册成功");
+        Map<String, Object> msg = new HashMap<>();
+        msg.put("admin", admin);
+        msg.put("enterprise", e);
+        return BaseResult.ok(msg, "注册成功");
     }
 
 

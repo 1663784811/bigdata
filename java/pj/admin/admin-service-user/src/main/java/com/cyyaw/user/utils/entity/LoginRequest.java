@@ -20,8 +20,11 @@ public class LoginRequest implements Serializable {
     @ApiModelProperty(value = "企业ID", example = "123456")
     private String enterpriseId;
 
-    @ApiModelProperty(value = "账号", example = "why", notes = "测试")
+    @ApiModelProperty(value = "账号", example = "why", notes = "账号")
     private String userName;
+
+    @ApiModelProperty(value = "手机号", example = "12345678901", notes = "手机号")
+    private String phone;
 
     @ApiModelProperty(value = "密码", example = "password")
     private String password;

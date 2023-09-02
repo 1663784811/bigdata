@@ -1,5 +1,7 @@
 #数据库配置
 spring:
+  freemarker:
+    checkTemplateLocation: false
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -11,5 +13,5 @@ spring:
       connection-timeout: 10000
       max-lifetime: 180000
       connection-test-query: select 1
-      minimum-idle: 10
+      minimum-idle: 180000
       maximum-pool-size: 15

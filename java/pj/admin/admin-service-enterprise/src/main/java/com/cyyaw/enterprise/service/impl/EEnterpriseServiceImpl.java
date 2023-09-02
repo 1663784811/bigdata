@@ -38,6 +38,8 @@ public class EEnterpriseServiceImpl extends BaseService<EEnterprise, Integer> im
             BeanUtils.copyProperties(enterprise, eEnterprise);
             return eEnterpriseDao.save(eEnterprise);
         } else {
+            enterprise.setCode(WhyStringUtil.getRandomString(3));
+            enterprise.setUrl("http://localhost:5173/#/account/login?eCode=" + enterprise.getCode());
             enterprise.setTid(WhyStringUtil.getUUID());
             enterprise.setCreateTime(new Date());
             return eEnterpriseDao.save(enterprise);

@@ -1,5 +1,5 @@
 <template>
-  <div class="winHeight">
+  <div class="winHeight" v-if="enterprise.tid">
     <div class="loginContent">
       <div class="contentBox">
         <div class="loginBox">
@@ -26,7 +26,8 @@
             <Button type="success" long @click="clickLogin">登录</Button>
           </div>
           <div>
-            忘记密码 、 注册
+            忘记密码 、
+            <span @click="router.push({name:'register'})">注册</span>
           </div>
         </div>
       </div>
@@ -105,8 +106,6 @@ const clickLogin = function () {
         path: "/"
       })
     }
-
-
   }).catch((err) => {
     console.log(err)
   });
