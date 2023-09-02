@@ -1,8 +1,10 @@
-package com.cyyaw.user.controller;
+package com.cyyaw.controller.admin;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.user.service.TAdminService;
-import com.cyyaw.user.table.entity.TAdmin;
+import com.cyyaw.user.config.TokenData;
+import com.cyyaw.user.service.UUserService;
+import com.cyyaw.user.table.entity.UUser;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
@@ -17,28 +19,30 @@ import java.util.Date;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/tAdmin")
+@RequestMapping("/admin/user")
 @RestController
-public class TAdminController {
+public class UserController {
 
     @Autowired
-    private TAdminService tAdminService;
+    private UUserService uUserService;
 
     /**
      * 分页条件查询
      */
     @GetMapping("/findPage")
-    public BaseResult<TAdmin> findPageTAdmin(@RequestParam Map<String, Object> map) {
-        PageRespone<TAdmin> page = tAdminService.findPage(new JSONObject(map));
+    public BaseResult<UUser> findPageUUser(@RequestParam Map<String, Object> map,@TokenData LoginInfo loginInfo) {
+        String eId = loginInfo.getEnterpriseId();
+        map.put("eq_enterpriseId", eId);
+        PageRespone<UUser> page = uUserService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
 
     /**
      * 根据ID查询
      */
-    @GetMapping("/findIdTAdmin")
-    public BaseResult findIdTAdmin(Integer id) {
-        TAdmin obj = tAdminService.findId(id);
+    @GetMapping("/findIdUUser")
+    public BaseResult findIdUUser(Integer id) {
+        UUser obj = uUserService.findId(id);
         return BaseResult.ok(obj);
     }
 
@@ -46,23 +50,23 @@ public class TAdminController {
     /**
      * 添加或修改
      */
-    @PostMapping("/saveTAdmin")
-    public BaseResult saveTAdmin(@RequestBody TAdmin saveObj) {
-        TAdmin obj = null;
+    @PostMapping("/saveUUser")
+    public BaseResult saveUUser(@RequestBody UUser saveObj) {
+        UUser obj = null;
         Integer id = saveObj.getId();
         if (ObjectUtils.isEmpty(id)) {
             //添加
             saveObj.setCreateTime(new Date());
             saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);
-            obj = tAdminService.save(saveObj);
+            obj = uUserService.save(saveObj);
         } else {
             //修改
             log.info("修改:{}", saveObj);
-            TAdmin cpObj = tAdminService.findId(id);
+            UUser cpObj = uUserService.findId(id);
             Assert.notNull(cpObj, "操作失败！");
             BeanUtils.copyProperties(saveObj,cpObj);
-            obj = tAdminService.save(cpObj);
+            obj = uUserService.save(cpObj);
         }
         return BaseResult.ok(obj);
     }
@@ -70,9 +74,9 @@ public class TAdminController {
     /**
      * 删除
      */
-    @PostMapping("/delTAdmin")
-    public BaseResult delTAdmin(@RequestBody Integer idArr[]) {
-        tAdminService.del(idArr);
+    @PostMapping("/delUUser")
+    public BaseResult delUUser(@RequestBody Integer idArr[]) {
+        uUserService.del(idArr);
         return BaseResult.ok("删除成功");
     }
 

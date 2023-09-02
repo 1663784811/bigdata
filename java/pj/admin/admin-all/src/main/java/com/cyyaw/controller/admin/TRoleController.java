@@ -1,8 +1,10 @@
-package com.cyyaw.user.controller;
+package com.cyyaw.controller.admin;
 
 import cn.hutool.json.JSONObject;
+import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.TRoleService;
 import com.cyyaw.user.table.entity.TRole;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
@@ -17,7 +19,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/tRole")
+@RequestMapping("/admin/role")
 @RestController
 public class TRoleController {
 
@@ -28,7 +30,9 @@ public class TRoleController {
      * 分页条件查询
      */
     @GetMapping("/findPage")
-    public BaseResult<TRole> findPageTRole(@RequestParam Map<String, Object> map) {
+    public BaseResult<TRole> findPageTRole(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
+        String eId = loginInfo.getEnterpriseId();
+        map.put("eq_enterpriseId", eId);
         PageRespone<TRole> page = tRoleService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
@@ -47,11 +51,12 @@ public class TRoleController {
      * 添加或修改
      */
     @PostMapping("/saveTRole")
-    public BaseResult saveTRole(@RequestBody TRole saveObj) {
+    public BaseResult saveTRole(@RequestBody TRole saveObj, @TokenData LoginInfo loginInfo) {
         TRole obj = null;
         Integer id = saveObj.getId();
         if (ObjectUtils.isEmpty(id)) {
             //添加
+            saveObj.setEnterpriseId(loginInfo.getEnterpriseId());
             saveObj.setCreateTime(new Date());
             saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);

@@ -1,6 +1,7 @@
 package com.cyyaw.controller.admin;
 
 import com.cyyaw.service.AdminUserService;
+import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.service.TAdminService;
 import com.cyyaw.user.table.entity.TPower;
@@ -31,7 +32,7 @@ public class AdminUserController {
      * @return
      */
     @GetMapping(value = "/info")
-    public BaseResult info(LoginInfo loginInfo) {
+    public BaseResult info(@TokenData LoginInfo loginInfo) {
 //        AdminAuthToken authToken = getAdminInfo();
         String adminId = loginInfo.getId();
 //        tAdminService.findById(j);

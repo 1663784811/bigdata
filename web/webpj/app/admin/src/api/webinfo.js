@@ -121,7 +121,7 @@ export const asyncREQUEST = async function (url, _params = {}, serializer = 0, r
             if (!res.data.code || (res.data.code !== 500)) {
                 resolve(res.data);
             } else {
-                reject(res.data.message);
+                reject(res.data);
             }
         }).catch(error => {
             reject(error);

@@ -97,17 +97,20 @@ const enterpriseFindPageFn = async function () {
 const clickLogin = function () {
   loginParams.enterpriseId = enterprise.value.tid;
   logInFn(loginParams).then((res) => {
-    console.log("===============", res);
     if (res.data) {
-      const {jwtToken} = res.data;
+      const {jwtToken, tadmin} = res.data;
       // 设置token
       loginInfoSt.token = jwtToken;
+      loginInfoSt.userInfo = tadmin;
       router.push({
         path: "/"
       })
     }
   }).catch((err) => {
     console.log(err)
+    Message.error({
+      content: `${err.msg}`
+    });
   });
 }
 

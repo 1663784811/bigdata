@@ -1,33 +1,34 @@
-package com.cyyaw.user.controller;
+package com.cyyaw.controller.admin;
 
 import cn.hutool.json.JSONObject;
+import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.TDepartmentService;
 import com.cyyaw.user.table.entity.TDepartment;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
-import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/tDepartment")
+@RequestMapping("/admin/department")
 @RestController
-public class TDepartmentController {
+public class DepartmentController {
 
     @Autowired
     private TDepartmentService tDepartmentService;
+
+
 
     /**
      * 分页条件查询
      */
     @GetMapping("/findDepartmentTree")
-    public BaseResult findDepartmentTree(@RequestParam Map<String, Object> map) {
+    public BaseResult findDepartmentTree(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
+        String eId = loginInfo.getEnterpriseId();
+        map.put("eq_enterpriseId", eId);
         return BaseResult.ok(tDepartmentService.findTree(new JSONObject(map)));
     }
 
@@ -45,7 +46,9 @@ public class TDepartmentController {
      * 添加或修改
      */
     @PostMapping("/saveTDepartment")
-    public BaseResult saveTDepartment(@RequestBody TDepartment saveObj) {
+    public BaseResult saveTDepartment(@RequestBody TDepartment saveObj,  @TokenData LoginInfo loginInfo) {
+        String eId = loginInfo.getEnterpriseId();
+        saveObj.setEnterpriseId(eId);
         TDepartment obj = tDepartmentService.saveTree(saveObj);
         return BaseResult.ok(obj);
     }
@@ -54,7 +57,7 @@ public class TDepartmentController {
      * 删除
      */
     @PostMapping("/delTDepartment")
-    public BaseResult delTDepartment(@RequestBody Integer idArr[]) {
+    public BaseResult delTDepartment(@RequestBody Integer idArr[], @TokenData LoginInfo loginInfo) {
         tDepartmentService.del(idArr);
         return BaseResult.ok("删除成功");
     }

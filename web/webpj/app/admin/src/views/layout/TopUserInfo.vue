@@ -52,21 +52,24 @@
 
 import {useRouter} from "vue-router";
 import {useAdminMenuStore} from "@/store/adminMenu";
+import {loginInfo} from "@/store/loginInfo";
 
 
 const store = useAdminMenuStore();
+const loginInfoSt = loginInfo();
 
 console.log(store)
 
 const router = useRouter();
 
 const logOut = function () {
-  console.log("sss");
-
+  loginInfoSt.token = ''
+  loginInfoSt.userInfo = {}
+  const eCode = loginInfoSt.eCode;
   router.push({
     name: 'login',
     query: {
-      eCode: 'aaa'
+      eCode
     }
   })
 }

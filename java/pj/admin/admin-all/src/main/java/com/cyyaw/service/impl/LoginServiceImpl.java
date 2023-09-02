@@ -221,6 +221,7 @@ public class LoginServiceImpl implements LoginService {
         loginInfo.setId(tAdmin.getTid());
         loginInfo.setAccount(tAdmin.getAccount());
         loginInfo.setRole(sb.toString());
+        loginInfo.setEnterpriseId(enterpriseId);
         // 第四步: 生成jwt
         String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
         AdminAuthToken authToken = new AdminAuthToken();
