@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HlApplication</string>
+    <string name="getApplicationList">获取应用列表</string>
+</resources>
