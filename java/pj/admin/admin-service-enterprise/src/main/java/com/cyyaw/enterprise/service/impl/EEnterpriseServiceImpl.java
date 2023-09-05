@@ -49,7 +49,9 @@ public class EEnterpriseServiceImpl extends BaseService<EEnterprise, Integer> im
 
     @Override
     public EEnterprise registerEnterprise(EEnterprise enterprise) {
-        return save(enterprise);
+        // 保存企业
+        EEnterprise eEnterprise = save(enterprise);
+        return eEnterprise;
     }
 }
 

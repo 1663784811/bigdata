@@ -13,7 +13,13 @@ public class Config {
 
     public static final String KEY_NEW_DAY = "key_new_day";
 
+    /**
+     * 小时
+     */
     public static final String KEY_HOUR = "key_hour";
 
+    /**
+     * 分钟
+     */
     public static final String KEY_MINUTE = "key_minute";
 }

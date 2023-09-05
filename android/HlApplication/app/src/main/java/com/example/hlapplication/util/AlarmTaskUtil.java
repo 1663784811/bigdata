@@ -31,13 +31,9 @@ public class AlarmTaskUtil {
 
     /**
      * RepeatAlarmTask
-     *
-     * @param context
-     * @param intent
      */
     public static void starRepeatAlarmTaskByService(Context context, int hour, int minute, long intervalMillis, Intent intent) {
         AlarmManager mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
@@ -46,17 +42,13 @@ public class AlarmTaskUtil {
         if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
         }
-
         long triggerAtMillis = calendar.getTimeInMillis();
-
         PendingIntent operation;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             operation = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
             mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation);
         } else {
             operation = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
             mAlarmManager.setRepeating(AlarmManager.RTC, triggerAtMillis, intervalMillis, operation);
         }
     }

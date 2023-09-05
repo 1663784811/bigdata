@@ -88,6 +88,11 @@ public class LoginController {
         Map<String, Object> msg = new HashMap<>();
         msg.put("admin", admin);
         msg.put("enterprise", e);
+
+        // 初始化企业角色,初始化企业菜单, 给消息队列发消息
+
+
+
         return BaseResult.ok(msg, "注册成功");
     }
 

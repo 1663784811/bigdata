@@ -13,7 +13,7 @@ public class WeChatMotionMonitor {
         if (nodeInfo == null) {
             return;
         }
-
+        Log.d(Config.TAG, "点赞点赞点赞点赞点赞点赞点赞点赞点赞 = " +packageName);
         if (false == "com.tencent.mm".equals(packageName)) {
             return;
         }

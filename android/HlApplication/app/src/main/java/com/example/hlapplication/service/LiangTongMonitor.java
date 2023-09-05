@@ -15,7 +15,7 @@ public class LiangTongMonitor {
         Intent intent = new Intent();
         intent.setPackage("com.sinovatech.unicom.ui");
         intent.setClassName("com.sinovatech.unicom.ui", "com.sinovatech.unicom.basic.ui.MainActivity");
-        mContext.startActivity(intent);
+//        mContext.startActivity(intent);
     }
 
     /**

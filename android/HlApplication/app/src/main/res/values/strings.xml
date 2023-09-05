@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android辅助功能助手</string>
+    <string name="app_name">安卓工具</string>
     <string name="getApplicationList">获取应用列表</string>
     <string name="settings">打开辅助功能设置界面</string>
     <string name="keep_title">Keep App 的自动点赞器</string>

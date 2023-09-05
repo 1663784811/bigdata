@@ -20,7 +20,7 @@ public class AlipayForestMonitor {
         Intent intent = new Intent();
         intent.setPackage("com.eg.android.AlipayGphone");
         intent.setClassName("com.eg.android.AlipayGphone", "com.eg.android.AlipayGphone.AlipayLogin");
-        mContext.startActivity(intent);
+//        mContext.startActivity(intent);
     }
 
     /**

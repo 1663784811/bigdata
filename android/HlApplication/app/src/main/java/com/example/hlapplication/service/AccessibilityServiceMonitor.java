@@ -18,12 +18,15 @@ import com.example.hlapplication.util.DateTimeUtil;
 import com.example.hlapplication.util.ShareUtil;
 
 
+/**
+ * 服务
+ */
 public class AccessibilityServiceMonitor extends AccessibilityService {
 
     private static final String TAG = AccessibilityServiceMonitor.class.getSimpleName();
 
     public static final String ACTION_UPDATE_SWITCH = "action_update_switch";
-    public static final String ACTION_ALAM_TIMER= "action_alarm_timer";
+    public static final String ACTION_ALAM_TIMER = "action_alarm_timer";
 
     private boolean isNewday;
 
@@ -77,10 +80,8 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
             MyApplication.startAlarmTask(this);
             startUI();
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
-
 
 
     @Override
@@ -100,30 +101,30 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
         int eventType = event.getEventType();
         String packageName = event.getPackageName().toString();
         String className = event.getClassName().toString();
-        //Log.d(Config.TAG,"packageName = " + packageName + ", className = " + className);
+        Log.d(Config.TAG,"packageName = " + packageName + ", className = " + className);
 
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
-                if (isKeepEnable) {
-                    KeepAppMonitor.policy(getRootInActiveWindow(), packageName, className);
-                }
-
-                if (isAlipayForest) {
-                    if (isNewday) {
-                        AlipayForestMonitor.enterForestUI(getRootInActiveWindow());
-                    }
-
-                    AlipayForestMonitor.policy(getRootInActiveWindow(), packageName, className);
-                }
-
-                if (isLiangTongEnable) {
-                    if (isNewday) {
-                        LiangTongMonitor.startLiangTongQianDaoUI(getRootInActiveWindow(), packageName, className);
-                    }
-
-                    LiangTongMonitor.policy(getRootInActiveWindow(), packageName, className);
-                }
+//                if (isKeepEnable) {
+//                    KeepAppMonitor.policy(getRootInActiveWindow(), packageName, className);
+//                }
+//
+//                if (isAlipayForest) {
+//                    if (isNewday) {
+//                        AlipayForestMonitor.enterForestUI(getRootInActiveWindow());
+//                    }
+//
+//                    AlipayForestMonitor.policy(getRootInActiveWindow(), packageName, className);
+//                }
+//
+//                if (isLiangTongEnable) {
+//                    if (isNewday) {
+//                        LiangTongMonitor.startLiangTongQianDaoUI(getRootInActiveWindow(), packageName, className);
+//                    }
+//
+//                    LiangTongMonitor.policy(getRootInActiveWindow(), packageName, className);
+//                }
 
                 if (isWeChatMotionEnable) {
                     WeChatMotionMonitor.policy(getRootInActiveWindow(), packageName, className);
@@ -172,7 +173,7 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
             }
 
             String action = intent.getAction();
-            Log.d(Config.TAG,"action = " + action);
+            Log.d(Config.TAG, "action = " + action);
 
             if (Intent.ACTION_USER_PRESENT.equals(action)) {
                 isNewday = isNewDay();
@@ -182,7 +183,6 @@ public class AccessibilityServiceMonitor extends AccessibilityService {
             }
         }
     }
-
 
 
     /**

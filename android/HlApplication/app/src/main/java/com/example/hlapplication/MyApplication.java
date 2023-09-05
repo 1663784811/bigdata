@@ -18,6 +18,9 @@ public class MyApplication extends Application {
         initValue();
     }
 
+    /**
+     * 初始化值
+     */
     private void initValue() {
         startAlarmTask(this);
     }
