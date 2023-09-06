@@ -30,6 +30,7 @@ public class FloatWindowService extends Service {
         Context context = getApplicationContext();
         wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
+//        floatWindow.setBackground(getDrawable(R.drawable.float_bg));
         layoutParams = floatWindow.getFloatWindowParams();
         wManager.addView(floatWindow, layoutParams);
     }

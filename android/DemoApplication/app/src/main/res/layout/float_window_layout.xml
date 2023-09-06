@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlLayoutBig"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#99111111"
+    android:orientation="vertical"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp">
+
+    <TextView
+        android:id="@+id/textFloatWinTile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textFloatWinTile"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textTime"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textDistance"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textPeopleNumber"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textMileage"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textPrice"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textScore"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="22:20~10:10"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="300.5"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="600.00"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="50.55"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:gravity="center"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -2,4 +2,11 @@
     <string name="app_name">DemoApplication</string>
     <string name="openFloatWin">开启浮窗</string>
     <string name="btnStartText">开始</string>
+    <string name="textTime">时间</string>
+    <string name="textDistance">距离</string>
+    <string name="textPeopleNumber">人数</string>
+    <string name="textMileage">里程</string>
+    <string name="textPrice">价格</string>
+    <string name="textScore">可接分</string>
+    <string name="textFloatWinTile">浮窗标题</string>
 </resources>

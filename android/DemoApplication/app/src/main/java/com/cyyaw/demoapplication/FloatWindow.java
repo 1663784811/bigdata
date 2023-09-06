@@ -5,7 +5,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
@@ -44,7 +43,7 @@ public class FloatWindow extends RelativeLayout {
         FloatWindow floatWindow = new FloatWindow(context);
         floatWindow.setWindowManager(windowManager);
         floatWindow.setFloatWindowParams(context, params);
-        LayoutInflater.from(context).inflate(R.layout.float_button_layout, floatWindow);
+        LayoutInflater.from(context).inflate(R.layout.float_window_layout, floatWindow);
         return floatWindow;
     }
 
@@ -70,6 +69,7 @@ public class FloatWindow extends RelativeLayout {
             }
             windowParams.x = x;
             windowParams.y = y;
+
             this.layoutParams = windowParams;
         } else {
             this.layoutParams = params;
