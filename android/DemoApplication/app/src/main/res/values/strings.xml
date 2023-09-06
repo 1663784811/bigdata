@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DemoApplication</string>
+    <string name="openFloatWin">开启浮窗</string>
+    <string name="btnStartText">开始</string>
+</resources>

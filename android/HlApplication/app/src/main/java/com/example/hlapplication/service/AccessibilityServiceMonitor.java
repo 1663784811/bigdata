@@ -12,7 +12,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.example.hlapplication.MyApplication;
+import com.example.hlapplication.activity.MyApplication;
 import com.example.hlapplication.util.Config;
 import com.example.hlapplication.util.DateTimeUtil;
 import com.example.hlapplication.util.ShareUtil;

@@ -1,21 +1,30 @@
-package com.example.hlapplication;
+package com.example.hlapplication.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hlapplication.R;
 import com.example.hlapplication.service.AccessibilityServiceMonitor;
+import com.example.hlapplication.service.FloatWindowService;
 import com.example.hlapplication.util.AccessibilitUtil;
 import com.example.hlapplication.util.Config;
 import com.example.hlapplication.util.ShareUtil;
@@ -25,6 +34,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TimePicker.OnTimeChangedListener {
 
+    private ActivityResultLauncher<Intent> launcher;
     private ShareUtil mShareUtil;
 
     private TimePicker timepick;
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
         initVaule();
         initListener();
@@ -140,8 +151,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = view.getId();
         if (id == R.id.btn_settings) {
             AccessibilitUtil.showSettingsUI(this);
+        } else if (id == R.id.btn_floatWindow) {
+            // 1.判断权限
+            // 2.启动浮窗
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+//                // 如果没有权限，执行相应的操作，如请求权限
+//                launcher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<ActivityResult>() {
+//                    @Override
+//                    public void onActivityResult(ActivityResult result) {
+//
+//                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+//                        startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+//
+//                        if (result.getResultCode() == RESULT_OK) {
+//                            // 处理从启动的 Activity 返回的结果
+//                            Intent data = result.getData();
+//                            if (data != null) {
+//                                // 在这里处理结果
+//                                String resultString = data.getStringExtra("result_key");
+//                                if (resultString != null) {
+//                                    // 处理结果字符串
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
+//            } else {
+//                // 如果有权限，可以创建悬浮窗
+//                Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+//                startService(intent);
+//            }
+
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+//            if (Build.VERSION.SDK_INT >= 23) {
+//                if (!Settings.canDrawOverlays(this)) {
+//                    Toast.makeText(this, "权限授予失败，无法开启悬浮窗", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(this, "权限授予成功！", Toast.LENGTH_SHORT).show();
+//                    //有悬浮窗权限开启服务绑定 绑定权限
+//                    Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+//                    startService(intent);
+//                }
+//            }
+//        }
+    }
+
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
