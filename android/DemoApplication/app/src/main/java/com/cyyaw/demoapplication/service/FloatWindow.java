@@ -142,7 +142,6 @@ public class FloatWindow extends RelativeLayout {
                         }
                         windowParams.x = setX;
                         windowParams.y = setY;
-                        Log.i("ssss", windowParams.x + "---" + windowParams.y);
                         // 更新悬浮窗位置
                         windowManager.updateViewLayout(windowView, windowParams);
                         return true;
