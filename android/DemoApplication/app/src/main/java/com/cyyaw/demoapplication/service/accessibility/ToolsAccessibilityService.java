@@ -35,7 +35,11 @@ public class ToolsAccessibilityService extends AccessibilityService {
     protected void onServiceConnected() {
 
         AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
+        CharSequence packageName = rootInActiveWindow.getPackageName();
+        Log.i("========== 当前窗口包名", packageName.toString());
 
+        CharSequence paneTitle = rootInActiveWindow.getPaneTitle();
+        Log.i("========== 标题", paneTitle.toString());
 
         super.onServiceConnected();
         Log.d("==========================", "O(∩_∩)O~~\r\n红包锁定中...");
