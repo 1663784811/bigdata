@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+
+import com.cyyaw.demoapplication.util.PreferenceUtil;
 
 public class FloatWindowService extends Service {
 
@@ -18,17 +22,11 @@ public class FloatWindowService extends Service {
     private WindowManager.LayoutParams layoutParams;
 
 
-
-
     @Override
     public void onCreate() {
         Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         Context context = getApplicationContext();
-        wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
-//        floatWindow.setBackground(getDrawable(R.drawable.float_bg));
-        layoutParams = floatWindow.getFloatWindowParams();
-        wManager.addView(floatWindow, layoutParams);
+        createWindow(context);
     }
 
     @Override
@@ -47,10 +45,12 @@ public class FloatWindowService extends Service {
     }
 
 
-
-
-
-
+    private void createWindow(Context context) {
+        wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
+        layoutParams = floatWindow.getFloatWindowParams();
+        wManager.addView(floatWindow, layoutParams);
+    }
 
 
 }

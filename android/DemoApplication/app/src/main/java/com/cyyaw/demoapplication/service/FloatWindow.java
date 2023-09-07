@@ -1,10 +1,14 @@
 package com.cyyaw.demoapplication.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
@@ -45,6 +49,7 @@ public class FloatWindow extends RelativeLayout {
         floatWindow.setWindowManager(windowManager);
         floatWindow.setFloatWindowParams(context, params);
         LayoutInflater.from(context).inflate(R.layout.float_window_layout, floatWindow);
+        setOnTouchListener(windowManager, floatWindow, floatWindow.getFloatWindowParams());
         return floatWindow;
     }
 
@@ -84,5 +89,70 @@ public class FloatWindow extends RelativeLayout {
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    private static void setOnTouchListener(final WindowManager windowManager, final FloatWindow windowView, WindowManager.LayoutParams windowParams) {
+        Point sizePoint = new Point();
+        windowManager.getDefaultDisplay().getSize(sizePoint);
+        int winX = sizePoint.x;
+        int winY = sizePoint.y;
+        windowView.setOnTouchListener(new View.OnTouchListener() {
+            int lastX, lastY, paramX, paramY;
+
+            // 获取窗口的宽度高度
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        if (windowParams.x <= 0) {
+                            paramX = 0;
+                        } else if (windowParams.x > winX - windowView.getWidth()) {
+                            paramX = winX - windowView.getWidth();
+                        } else {
+                            paramX = windowParams.x;
+                        }
+                        if (windowParams.y <= 0) {
+                            paramY = 0;
+                        } else if (windowParams.y > winY - windowView.getHeight()) {
+                            paramY = winY - windowView.getHeight();
+                        } else {
+                            paramY = windowParams.y;
+                        }
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_UP:
+                        int dx = (int) event.getRawX() - lastX;
+                        int dy = (int) event.getRawY() - lastY;
+                        int setX = paramX + dx;
+                        int setY = paramY + dy;
+                        if (setX <= 0) {
+                            setX = 0;
+                        }
+                        if (setX > winX - windowView.getWidth()) {
+                            setX = winX - windowView.getWidth();
+                        }
+                        if (setY <= 0) {
+                            setY = 0;
+                        }
+                        if (setY > winY - windowView.getHeight()) {
+                            setY = winY - windowView.getHeight();
+                        }
+                        windowParams.x = setX;
+                        windowParams.y = setY;
+                        Log.i("ssss", windowParams.x + "---" + windowParams.y);
+                        // 更新悬浮窗位置
+                        windowManager.updateViewLayout(windowView, windowParams);
+                        return true;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
 
 }
