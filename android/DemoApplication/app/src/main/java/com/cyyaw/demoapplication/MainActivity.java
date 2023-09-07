@@ -15,6 +15,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cyyaw.demoapplication.service.FloatWindowService;
+import com.cyyaw.demoapplication.service.accessibility.ToolsAccessibilityService;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -55,8 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 activityResult.launch(intent);
             } else {
                 Log.i("ssssssssssssssssssssssssss,", "ddddddddddddddddddddddddddd");
+                Intent intentx = new Intent(MainActivity.this, ToolsAccessibilityService.class);
+                startService(intentx);
+
                 Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
                 startService(intent);
+
+
+
+
             }
         }
 

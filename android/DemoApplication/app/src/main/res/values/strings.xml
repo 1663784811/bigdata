@@ -9,4 +9,5 @@
     <string name="textPrice">价格</string>
     <string name="textScore">可接分</string>
     <string name="textFloatWinTile">浮窗标题</string>
+    <string name="readme">使用说明书</string>
 </resources>

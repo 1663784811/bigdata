@@ -1,4 +1,4 @@
-package com.cyyaw.demoapplication;
+package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.util.PreferenceUtil;
 
 /**
