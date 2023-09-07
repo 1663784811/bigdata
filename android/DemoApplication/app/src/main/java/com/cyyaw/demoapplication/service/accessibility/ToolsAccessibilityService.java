@@ -7,18 +7,20 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 
 /**
  * 辅助工具
  */
-
 public class ToolsAccessibilityService extends AccessibilityService {
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+
     }
 
 
@@ -31,6 +33,10 @@ public class ToolsAccessibilityService extends AccessibilityService {
 
     @Override
     protected void onServiceConnected() {
+
+        AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
+
+
         super.onServiceConnected();
         Log.d("==========================", "O(∩_∩)O~~\r\n红包锁定中...");
     }
@@ -54,4 +60,15 @@ public class ToolsAccessibilityService extends AccessibilityService {
     public void onInterrupt() {
 
     }
+
+
+    /**
+     * 获取窗口信息
+     */
+    public void aaa() {
+
+
+    }
+
+
 }
