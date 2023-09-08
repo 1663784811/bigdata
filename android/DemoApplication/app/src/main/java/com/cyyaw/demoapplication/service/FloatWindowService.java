@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,8 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+//        CharSequence packageName = event.getPackageName();
+//        showWindowInfo("onAccessibilityEvent:" + packageName);
 
     }
 
@@ -62,7 +65,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         try {
             AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
             CharSequence packageName = rootInActiveWindow.getPackageName();
-            Log.i("========== 当前窗口包名", packageName.toString());
+            showWindowInfo("当前窗口包名:" + packageName.toString());
             traverseLayout(rootInActiveWindow);
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,10 +100,22 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
         // 在这里处理节点信息，例如打印到日志
         Log.d("AccessibilityService", "Class: " + className + ", Text: " + text + ", ID: " + viewId);
-
+        showWindowInfo("AccessibilityService:" + className +"===="+ text);
         // 递归遍历子节点
         for (int i = 0; i < nodeInfo.getChildCount(); i++) {
             traverseLayout(nodeInfo.getChild(i));
         }
+
+
+        // ========================================================
+
+
     }
+
+    private void showWindowInfo(String msg) {
+        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
+        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
+        startService(serviceIntent);
+    }
+
 }

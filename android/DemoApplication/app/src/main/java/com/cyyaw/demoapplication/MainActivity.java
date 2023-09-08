@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onActivityResult(Boolean isGranted) {
             if (Settings.canDrawOverlays(MainActivity.this)) {
                 Toast.makeText(MainActivity.this, "权限申请-成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-                startService(intent);
+                showFloatWin();
             } else {
                 Toast.makeText(MainActivity.this, "权限申请-失败", Toast.LENGTH_SHORT).show();
             }
@@ -57,20 +56,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                 activityResult.launch(intent);
             } else {
-                Log.i("ssssssssssssssssssssssssss,", "ddddddddddddddddddddddddddd");
-                Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-                startService(intent);
-
-
-                Intent in = new Intent(MainActivity.this, FloatWindowInfoService.class);
-                startService(in);
-
-
+                showFloatWin();
             }
         }
-
-
     }
 
+    private void showFloatWin(){
+        Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+        startService(intent);
+        Intent in = new Intent(MainActivity.this, FloatWindowInfoService.class);
+        startService(in);
+    }
 
 }
