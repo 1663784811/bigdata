@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cyyaw.demoapplication.service.FloatWindowInfoService;
 import com.cyyaw.demoapplication.service.FloatWindowService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i("ssssssssssssssssssssssssss,", "ddddddddddddddddddddddddddd");
                 Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
                 startService(intent);
+
+
+                Intent in = new Intent(MainActivity.this, FloatWindowInfoService.class);
+                startService(in);
+
+
             }
         }
 

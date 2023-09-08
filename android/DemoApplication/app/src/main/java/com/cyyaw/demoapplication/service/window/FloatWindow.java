@@ -1,10 +1,9 @@
-package com.cyyaw.demoapplication.service;
+package com.cyyaw.demoapplication.service.window;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,10 +18,6 @@ import com.cyyaw.demoapplication.util.PreferenceUtil;
  * 创建一个浮窗
  */
 public class FloatWindow extends RelativeLayout {
-
-    public int viewWidth;
-    public int viewHeight;
-
     private WindowManager.LayoutParams layoutParams;
 
     private WindowManager windowManager;
@@ -37,18 +32,25 @@ public class FloatWindow extends RelativeLayout {
      * 创建一个默认浮窗
      */
     public static FloatWindow crateDefaultWindow(Context context, WindowManager windowManager) {
-        return createWindow(context, windowManager, null);
+        return createWindow(context, windowManager, -1, null);
+    }
+
+    public static FloatWindow crateDefaultWindow(Context context, WindowManager windowManager, int layout) {
+        return createWindow(context, windowManager, layout, null);
     }
 
     /**
      * 创建一个浮窗
      */
-    public static FloatWindow createWindow(Context context, WindowManager windowManager, WindowManager.LayoutParams params) {
-
+    public static FloatWindow createWindow(Context context, WindowManager windowManager, int layout, WindowManager.LayoutParams params) {
         FloatWindow floatWindow = new FloatWindow(context);
         floatWindow.setWindowManager(windowManager);
         floatWindow.setFloatWindowParams(context, params);
-        LayoutInflater.from(context).inflate(R.layout.float_window_layout, floatWindow);
+        if (layout != -1) {
+            LayoutInflater.from(context).inflate(layout, floatWindow);
+        } else {
+            LayoutInflater.from(context).inflate(R.layout.float_window_layout, floatWindow);
+        }
         setOnTouchListener(windowManager, floatWindow, floatWindow.getFloatWindowParams());
         return floatWindow;
     }

@@ -10,6 +10,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.service.window.FloatWindow;
 
 public class FloatWindowService extends AccessibilityService implements View.OnClickListener {
 
