@@ -1,19 +1,24 @@
 package com.cyyaw.demoapplication.service;
 
-import android.accessibilityservice.AccessibilityService;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import androidx.annotation.Nullable;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 
-public class FloatWindowService extends AccessibilityService implements View.OnClickListener {
+
+/**
+ * 标记
+ */
+public class FloatMarkWindowService extends Service {
 
     private WindowManager wManager;
 
@@ -24,7 +29,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     @Override
     public void onCreate() {
-        Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         Context context = getApplicationContext();
         createWindow(context);
     }
@@ -34,17 +38,10 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         super.onDestroy();
     }
 
-
+    @Nullable
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
-//        CharSequence packageName = event.getPackageName();
-//        showWindowInfo("onAccessibilityEvent:" + packageName);
-
-    }
-
-    @Override
-    public void onInterrupt() {
-
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
 
@@ -52,28 +49,11 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
      * 创建窗口
      */
     private void createWindow(Context context) {
-        if (wManager == null) {
-            wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
-            layoutParams = floatWindow.getFloatWindowParams();
-            floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
-            wManager.addView(floatWindow, layoutParams);
-        }
+        WindowManager wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        FloatWindow floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.mark_circle);
+        WindowManager.LayoutParams layoutParams = floatWindow.getFloatWindowParams();
+        wManager.addView(floatWindow, layoutParams);
     }
-
-
-    @Override
-    public void onClick(View v) {
-        try {
-            AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
-            CharSequence packageName = rootInActiveWindow.getPackageName();
-            showWindowInfo("当前窗口包名:" + packageName.toString());
-            traverseLayout(rootInActiveWindow);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private void traverseLayout(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo == null) {
@@ -114,8 +94,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     }
 
-
-    // TODO  通信方式有问题
     private void showWindowInfo(String msg) {
         Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
         serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);

@@ -1,7 +1,6 @@
 package com.cyyaw.demoapplication.service;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
@@ -12,7 +11,6 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.data.LogInfoAdapter;
@@ -49,15 +47,17 @@ public class FloatWindowInfoService extends Service {
     @Override
     public void onCreate() {
         Context context = getApplicationContext();
-        wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.float_window_info);
-        layoutParams = floatWindow.getFloatWindowParams();
+        if (null == wManager) {
+            wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.float_window_info);
+            layoutParams = floatWindow.getFloatWindowParams();
 
-        recyclerView = floatWindow.findViewById(R.id.recyclerInfoList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new LogInfoAdapter(itemList);
-        recyclerView.setAdapter(adapter);
-        wManager.addView(floatWindow, layoutParams);
+            recyclerView = floatWindow.findViewById(R.id.recyclerInfoList);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new LogInfoAdapter(itemList);
+            recyclerView.setAdapter(adapter);
+            wManager.addView(floatWindow, layoutParams);
+        }
     }
 
     @Override
