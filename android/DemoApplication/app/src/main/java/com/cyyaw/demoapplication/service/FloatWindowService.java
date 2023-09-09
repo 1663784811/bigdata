@@ -11,7 +11,10 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.data.NodeInfoCenterXY;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
+import com.cyyaw.demoapplication.util.AppUtil;
+import com.cyyaw.demoapplication.util.OperationEvent;
 
 public class FloatWindowService extends AccessibilityService implements View.OnClickListener {
 
@@ -21,12 +24,14 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     private WindowManager.LayoutParams layoutParams;
 
+    private Context context;
+
 
     @Override
     public void onCreate() {
         Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-        Context context = getApplicationContext();
-        createWindow(context);
+        context = getApplicationContext();
+        createWindow();
     }
 
     @Override
@@ -40,6 +45,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 //        CharSequence packageName = event.getPackageName();
 //        showWindowInfo("onAccessibilityEvent:" + packageName);
 
+
     }
 
     @Override
@@ -51,7 +57,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     /**
      * 创建窗口
      */
-    private void createWindow(Context context) {
+    private void createWindow() {
         if (wManager == null) {
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
@@ -79,30 +85,42 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         if (nodeInfo == null) {
             return;
         }
-
         // 获取节点的类名
         CharSequence className = nodeInfo.getClassName();
-
         // 获取节点的文本内容
         CharSequence text = nodeInfo.getText();
 
-        // 获取节点的ID
-        CharSequence viewId = nodeInfo.getViewIdResourceName();
+        if ("微信".equals(text)) {
 
-        // 获取元素的矩形坐标
-        Rect boundsInScreen = new Rect();
-        nodeInfo.getBoundsInScreen(boundsInScreen);
+            // 获取节点的ID
+            CharSequence viewId = nodeInfo.getViewIdResourceName();
+            // 获取元素的矩形坐标
+            Rect boundsInScreen = new Rect();
+            nodeInfo.getBoundsInScreen(boundsInScreen);
+            // 现在，boundsInScreen 包含元素在屏幕上的坐标信息
+            int left = boundsInScreen.left;
+            int top = boundsInScreen.top;
+            int right = boundsInScreen.right;
+            int bottom = boundsInScreen.bottom;
 
-        // 现在，boundsInScreen 包含元素在屏幕上的坐标信息
-        int left = boundsInScreen.left;
-        int top = boundsInScreen.top;
-        int right = boundsInScreen.right;
-        int bottom = boundsInScreen.bottom;
-        Log.d("AccessibilityService", "Left: " + left + ", Top: " + top + ", Right: " + right + ", Bottom: " + bottom);
 
-        // 在这里处理节点信息，例如打印到日志
-        Log.d("AccessibilityService", "Class: " + className + ", Text: " + text + ", ID: " + viewId);
-        showWindowInfo("AccessibilityService:" + className + "====" + text);
+            Log.d("AccessibilityService", "Left: " + left + ", Top: " + top + ", Right: " + right + ", Bottom: " + bottom);
+            // 在这里处理节点信息，例如打印到日志
+            Log.d("AccessibilityService", "Class: " + className + ", Text: " + text + ", ID: " + viewId);
+            showWindowInfo("AccessibilityService:" + className + "====" + text);
+
+            NodeInfoCenterXY centerXY = AppUtil.getCenterXY(left, top, right, bottom);
+            // 点击打开微信
+            OperationEvent.onClick(this, centerXY.getX(), centerXY.getY());
+
+
+            // 画正方形
+            AppUtil.createSquare(wManager, context, left, top, right, bottom);
+
+
+        }
+
+
         // 递归遍历子节点
         for (int i = 0; i < nodeInfo.getChildCount(); i++) {
             traverseLayout(nodeInfo.getChild(i));
