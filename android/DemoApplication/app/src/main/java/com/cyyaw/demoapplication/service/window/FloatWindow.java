@@ -32,20 +32,24 @@ public class FloatWindow extends RelativeLayout {
      * 创建一个默认浮窗
      */
     public static FloatWindow crateDefaultWindow(Context context, WindowManager windowManager) {
-        return createWindow(context, windowManager, -1, null);
+        return createWindow(context, windowManager, -1, null, null, null);
     }
 
     public static FloatWindow crateDefaultWindow(Context context, WindowManager windowManager, int layout) {
-        return createWindow(context, windowManager, layout, null);
+        return createWindow(context, windowManager, layout, null, null, null);
+    }
+
+    public static FloatWindow crateDefaultWindow(Context context, WindowManager windowManager, int layout, Integer left, Integer top) {
+        return createWindow(context, windowManager, layout, null, left, top);
     }
 
     /**
      * 创建一个浮窗
      */
-    public static FloatWindow createWindow(Context context, WindowManager windowManager, int layout, WindowManager.LayoutParams params) {
+    public static FloatWindow createWindow(Context context, WindowManager windowManager, int layout, WindowManager.LayoutParams params, Integer left, Integer top) {
         FloatWindow floatWindow = new FloatWindow(context);
         floatWindow.setWindowManager(windowManager);
-        floatWindow.setFloatWindowParams(context, params);
+        floatWindow.setFloatWindowParams(context, params, left, top);
         if (layout != -1) {
             LayoutInflater.from(context).inflate(layout, floatWindow);
         } else {
@@ -56,7 +60,7 @@ public class FloatWindow extends RelativeLayout {
     }
 
 
-    private void setFloatWindowParams(Context context, WindowManager.LayoutParams params) {
+    private void setFloatWindowParams(Context context, WindowManager.LayoutParams params, Integer left, Integer top) {
         if (null == params) {
             Point sizePoint = new Point();
             windowManager.getDefaultDisplay().getSize(sizePoint);
@@ -69,15 +73,19 @@ public class FloatWindow extends RelativeLayout {
             windowParams.gravity = Gravity.START | Gravity.TOP;
             windowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            int x = PreferenceUtil.getSingleton(context).getInt("SP_X", -1);
-            int y = PreferenceUtil.getSingleton(context).getInt("SP_Y", -1);
-            if (x == -1 || y == -1) {
-                x = screenWidth;
-                y = screenHeight / 2;
+            if (null != left && null != top) {
+                windowParams.x = left;
+                windowParams.y = top;
+            } else {
+                int x = PreferenceUtil.getSingleton(context).getInt("SP_X", -1);
+                int y = PreferenceUtil.getSingleton(context).getInt("SP_Y", -1);
+                if (x == -1 || y == -1) {
+                    x = screenWidth;
+                    y = screenHeight / 2;
+                }
+                windowParams.x = x;
+                windowParams.y = y;
             }
-            windowParams.x = x;
-            windowParams.y = y;
-
             this.layoutParams = windowParams;
         } else {
             this.layoutParams = params;

@@ -18,12 +18,19 @@ import com.cyyaw.demoapplication.service.window.FloatWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 打印信息
  */
 public class FloatWindowInfoService extends Service {
 
+    // ==============================
+    // 临时日志
+    private CopyOnWriteArrayList tempLog = new CopyOnWriteArrayList();
+
+
+    // ==============================
     public static String logKey = "msg";
 
     private WindowManager wManager;

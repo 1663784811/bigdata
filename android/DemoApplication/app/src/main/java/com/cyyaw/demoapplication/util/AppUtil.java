@@ -40,8 +40,8 @@ public class AppUtil {
      * 计算中点
      */
     public static NodeInfoCenterXY getCenterXY(int left, int top, int right, int bottom) {
-        int x = right - left;
-        int y = bottom - top;
+        int x = left + (right - left) / 2;
+        int y = top + (bottom - top) / 2;
         NodeInfoCenterXY nodeInfoCenterXY = new NodeInfoCenterXY();
         nodeInfoCenterXY.setX(x);
         nodeInfoCenterXY.setY(y);
@@ -51,30 +51,32 @@ public class AppUtil {
     /**
      * 移动窗口
      */
-    public static void moveWindow(){
+    public static void moveWindow() {
 
     }
 
     /**
      * 创建正方形
      */
-    public static SquareView createSquare(WindowManager wManager, Context context, int left, int top, int right, int bottom){
+    public static SquareView createSquare(WindowManager wManager, Context context,AccessibilityNodeInfo nodeInfo) {
+        Rect rect = new Rect();
+        nodeInfo.getBoundsInScreen(rect);
+        int left = rect.left;
+        int top = rect.top;
+        int right = rect.right;
+        int bottom = rect.bottom;
         SquareView squareView = new SquareView(context);
-
         // 设置 LayoutParams 来指定视图的位置和大小
         WindowManager.LayoutParams windowParams = new WindowManager.LayoutParams();
         windowParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         windowParams.format = PixelFormat.RGBA_8888;
         windowParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
         windowParams.gravity = Gravity.START | Gravity.TOP;
-        windowParams.width = right-left;
-        windowParams.height = bottom-top;
+        windowParams.width = right - left;
+        windowParams.height = bottom - top;
         windowParams.x = left;
         windowParams.y = top;
         //
-
-
-
         wManager.addView(squareView, windowParams);
         return squareView;
     }
