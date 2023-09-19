@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.cyyaw</groupId>
-    <artifactId>admin-all</artifactId>
+    <artifactId>admin-service-signin</artifactId>
     <version>2.0.0</version>
 
     <properties>
@@ -19,51 +19,35 @@
     </properties>
 
     <dependencies>
-
+	
         <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-dao</artifactId>
-            <version>2.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-enterprise</artifactId>
+            <artifactId>jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-web</artifactId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-user</artifactId>
+            <artifactId>config</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-sql</artifactId>
+            <artifactId>admin-controller-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-store</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-signin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
 
     </dependencies>
 

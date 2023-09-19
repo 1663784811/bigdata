@@ -138,6 +138,11 @@ const router = createRouter({
       name: 'contacts',
       component: () => import('@/views/contacts/Contacts.vue'),
     },
+    {
+      path: '/SignInPage',
+      name: 'SignInPage',
+      component: () => import('@/views/signin/SignInPage.vue'),
+    },
   ]
 })
 
