@@ -62,10 +62,9 @@
 <script setup>
 import {reactive, onMounted, computed} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getByCartItemIds} from '@/service/cart'
-import {getDefaultAddress} from '@/service/address'
-import {createOrder, payOrder} from '@/service/order'
-import {countGoodsPrice} from '@/service/cart'
+import {getDefaultAddress} from '@/service/api'
+import {createOrder, payOrder} from '@/service/api'
+import {countGoodsPrice} from '@/service/api'
 
 import {setLocal, getLocal} from '@/common/js/utils'
 import {showLoadingToast, closeToast, showSuccessToast, showFailToast} from 'vant'

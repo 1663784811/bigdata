@@ -26,4 +26,8 @@ public class LoginInfo {
 
     @ApiModelProperty(value = "企业ID", example = "enterpriseId")
     private String enterpriseId;
+
+    @ApiModelProperty(value = "APP_ID", example = "appId")
+    private String appId;
+
 }

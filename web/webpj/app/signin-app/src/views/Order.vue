@@ -58,7 +58,7 @@
 <script setup>
 import {reactive} from 'vue';
 import sHeader from '@/components/SimpleHeader.vue'
-import {getOrderList} from '@/service/order'
+import {getOrderList} from '@/service/api'
 import {useRouter} from 'vue-router'
 
 const router = useRouter()

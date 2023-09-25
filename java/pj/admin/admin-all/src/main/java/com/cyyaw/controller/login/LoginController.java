@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Api(tags = "登录模块")
+@Api(tags = "后台登录模块")
 @RequestMapping("/login/admin")
 @RestController
 public class LoginController {

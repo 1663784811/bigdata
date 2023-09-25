@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "si_sign_in")
 @org.hibernate.annotations.Table(appliesTo = "si_sign_in", comment = "签到表")
-public class SiSignIn implements Serializable{
+public class SiSignIn implements Serializable {
 
     private static final long serialVersionUID = 166727146408891L;
 
@@ -39,17 +39,29 @@ public class SiSignIn implements Serializable{
     // ==================================================
 
     @Basic
-    @Column(name="appId", columnDefinition = "varchar(255) COMMENT '应用ID'")
+    @Column(name = "appId", columnDefinition = "varchar(255) COMMENT '应用ID'")
     private String appId;
 
     // ==================================================
 
     @Basic
-    @Column(name="title", columnDefinition = "varchar(255) COMMENT '标题'")
+    @Column(name = "title", columnDefinition = "varchar(255) COMMENT '标题'")
     private String title;
 
     @Basic
-    @Column(name="status", columnDefinition = "int COMMENT '状态{0:创建,1:完成}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:创建,1:完成}'")
     private Integer status;
+
+    @Basic
+    @Column(name = "start_time", columnDefinition = "datetime COMMENT '开始时间'")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
+
+    @Basic
+    @Column(name = "end_time", columnDefinition = "datetime COMMENT '结束时间'")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
 
 }

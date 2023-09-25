@@ -58,7 +58,7 @@
 <script setup>
 import sHeader from '@/components/SimpleHeader.vue'
 import {onMounted, reactive} from 'vue'
-import {cancelOrder, confirmOrder, getOrderDetail, payOrder} from '@/service/order'
+import {cancelOrder, confirmOrder, getOrderDetail, payOrder} from '@/service/api'
 import {closeDialog, closeToast, showConfirmDialog, showLoadingToast, showSuccessToast} from 'vant'
 import {useRoute} from 'vue-router'
 

@@ -34,8 +34,8 @@
           </template>
         </van-field>
         <div style="margin: 16px;">
-          <div class="link-register" @click="toggle('register')">立即注册</div>
-          <van-button round block color="#1baeae" native-type="submit">登录</van-button>
+          <!--          <div class="link-register" @click="toggle('register')">立即注册</div>-->
+          <van-button round block color="#1baeae" native-type="submit" :loading="state.loading">登录</van-button>
         </div>
       </van-form>
     </div>
@@ -86,11 +86,12 @@ import {login, register} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import {useUserStore} from '@/stores/user.js'
 
 const router = useRouter();
 let userStore = useUserStore();
+const route = useRoute();
 
 
 const verifyRef = ref(null)
@@ -101,7 +102,8 @@ const state = reactive({
   password1: '',
   type: 'login',
   imgCode: '',
-  verify: ''
+  verify: '',
+  loading: false
 })
 
 onMounted(() => {
@@ -110,7 +112,15 @@ onMounted(() => {
     // 已经登录过的了
     showFailToast('您已经登录')
     setTimeout(() => {
-      router.back();
+      if (route.query.replace) {
+        router.replace({
+          name: route.query.replace
+        });
+      } else {
+        router.replace({
+          name: 'home'
+        });
+      }
     }, 1000);
   }
 
@@ -131,15 +141,25 @@ const onSubmit = async (values) => {
     return
   }
   if (state.type == 'login') {
+    state.loading = true;
     const {data, msg, code} = await login({
       "userName": values.username,
       "password": values.password
     })
+    state.loading = false;
     if (data && code && data.jwtToken) {
       userStore.token = data.jwtToken;
       showSuccessToast(msg);
       setTimeout(() => {
-        router.back()
+        if (route.query.replace) {
+          router.replace({
+            name: route.query.replace
+          });
+        } else {
+          router.replace({
+            name: 'home'
+          });
+        }
       }, 1000);
     } else {
       showFailToast(msg)

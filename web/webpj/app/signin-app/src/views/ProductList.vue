@@ -55,8 +55,8 @@
 <script setup>
 import {onMounted, reactive} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
-import {search} from '@/service/good'
-import {searchGoods} from '@/service/home'
+import {search} from '@/service/api'
+import {searchGoods} from '@/service/api'
 
 const route = useRoute()
 const router = useRouter()

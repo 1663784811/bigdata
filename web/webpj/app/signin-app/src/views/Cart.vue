@@ -75,7 +75,7 @@ import {useCartStore} from '@/stores/cart'
 import {showToast, showLoadingToast, closeToast, showFailToast} from 'vant'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/cart'
+import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/api'
 
 const router = useRouter()
 const cart = useCartStore()

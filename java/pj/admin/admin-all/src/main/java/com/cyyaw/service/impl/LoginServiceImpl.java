@@ -2,7 +2,9 @@ package com.cyyaw.service.impl;
 
 import cn.hutool.json.JSONUtil;
 import com.cyyaw.config.exception.WebException;
+import com.cyyaw.enterprise.service.EApplicationService;
 import com.cyyaw.enterprise.table.dao.EEnterpriseDao;
+import com.cyyaw.enterprise.table.entity.EApplication;
 import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.service.LoginService;
 import com.cyyaw.user.utils.LoginInfo;
@@ -61,6 +63,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private EEnterpriseDao eEnterpriseDao;
 
+
+    @Autowired
+    private EApplicationService eApplicationService;
 
     @Override
     public TAdmin getLoginInfo(String account, String enterpriseId) {
@@ -255,6 +260,16 @@ public class LoginServiceImpl implements LoginService {
         t.setEnterpriseId(eEnterprise.getTid());
         TAdmin save = tAdminService.save(t);
         return save;
+    }
+
+    @Override
+    public AdminAuthToken adminLogin(String appId, String userName, String password) {
+        // 查应用
+        EApplication eApplication = eApplicationService.findByCode(appId);
+        // 查管理员
+        String enterpriseId = eApplication.getEnterpriseId();
+        // 登录
+        return loginUserNameAndPassword(enterpriseId, userName, password);
     }
 
 }

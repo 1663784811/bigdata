@@ -57,7 +57,7 @@ import {reactive, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import navBar from '@/components/NavBar.vue'
 import listScroll from '@/components/ListScroll.vue'
-import {enterpriseType} from "@/service/good"
+import {enterpriseType} from "@/service/api"
 import {showLoadingToast, closeToast} from 'vant'
 import {enterpriseId} from '@/service/webConfig.js'
 

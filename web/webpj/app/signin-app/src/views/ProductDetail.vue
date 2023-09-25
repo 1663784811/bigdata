@@ -102,8 +102,8 @@ import sHeader from '@/components/SimpleHeader.vue'
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useCartStore} from '@/stores/cart'
-import {goodsDetails, goodsDetailsText, goodsPhoto} from '@/service/good'
-import {addCart} from '@/service/cart'
+import {goodsDetails, goodsDetailsText, goodsPhoto} from '@/service/api'
+import {addCart} from '@/service/api'
 import {showSuccessToast} from 'vant'
 
 const route = useRoute()

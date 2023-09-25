@@ -38,10 +38,10 @@
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import {getBanner, searchGoods} from '@/service/home'
+import {getBanner, searchGoods} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
-import {enterpriseType} from "@/service/good"
+import {enterpriseType} from "@/service/api"
 import {enterpriseId} from '@/service/webConfig.js'
 import {useUserStore} from "@/stores/user";
 
@@ -56,83 +56,7 @@ const state = reactive({
   hots: [],
   newGoodses: [],
   recommends: [],
-  categoryList: [
-    {
-      title: '新蜂超市',
-      categoryId: 100001,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
-      }
-    },
-    {
-      title: '新蜂服饰',
-
-      categoryId: 100003,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
-      }
-    },
-    {
-      title: '全球购',
-
-      categoryId: 100002,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
-      }
-    },
-    {
-      title: '新蜂生鲜',
-
-      categoryId: 100004,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
-      }
-    },
-    {
-      title: '新蜂到家',
-
-      categoryId: 100005,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
-      }
-    },
-    {
-      title: '充值缴费',
-
-      categoryId: 100006,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
-      }
-    },
-    {
-      title: '9.9元拼',
-      categoryId: 100007,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
-      }
-    },
-    {
-      title: '领劵',
-      categoryId: 100008,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
-      }
-    },
-    {
-      title: '省钱',
-      categoryId: 100009,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
-      }
-    },
-    {
-      title: '全部',
-      categoryId: 100010,
-      data: {
-        img: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
-      }
-    }
-  ],
+  categoryList: [],
   loading: true,
   scrollTop: 0
 })

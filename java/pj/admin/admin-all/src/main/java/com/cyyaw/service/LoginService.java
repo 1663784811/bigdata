@@ -88,4 +88,12 @@ public interface LoginService {
      */
     TAdmin adminRegister(LoginRequest registerInfo);
 
+
+    /**
+     * 应用后台登录
+     */
+    AdminAuthToken adminLogin(String appId, String userName, String password);
+
+
+
 }

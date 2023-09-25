@@ -1,149 +1,107 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
+import {useUserStore} from "@/stores/user.js";
+
 import Home from '@/views/home/Home.vue'
 
+
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      redirect: '/home'
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      meta: {
-        index: 1
-      }
-    },
-    {
-      path: '/login/:enterpriseId?',
-      name: 'login',
-      component: () => import('@/views/Login.vue'),
-      meta: {
-        index: 1
-      }
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: () => import('@/views/User.vue'),
-      meta: {
-        index: 1
-      }
-    },
-    {
-      path: '/product-list',
-      name: 'product-list',
-      component: () => import('@/views/ProductList.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/category',
-      name: 'category',
-      component: () => import('@/views/Category.vue'),
-      meta: {
-        index: 1
-      }
-    },
-    {
-      path: '/product/:id',
-      name: 'product',
-      component: () => import('@/views/ProductDetail.vue'),
-      meta: {
-        index: 3
-      }
-    },
-    {
-      path: '/cart',
-      name: 'cart',
-      component: () => import('@/views/Cart.vue'),
-      meta: {
-        index: 1
-      }
-    },
-    {
-      path: '/create-order',
-      name: 'create-order',
-      component: () => import('@/views/CreateOrder.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/address',
-      name: 'address',
-      component: () => import('@/views/Address.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/address-edit',
-      name: 'address-edit',
-      component: () => import('@/views/AddressEdit.vue'),
-      meta: {
-        index: 3
-      }
-    },
-    {
-      path: '/order',
-      name: 'order',
-      component: () => import('@/views/Order.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/order-detail',
-      name: 'order-detail',
-      component: () => import('@/views/OrderDetail.vue'),
-      meta: {
-        index: 3
-      }
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: () => import('@/views/Setting.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/views/About.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/payOrder',
-      name: 'payOrder',
-      component: () => import('@/views/PayOrder.vue'),
-      meta: {
-        index: 2
-      }
-    },
-    {
-      path: '/SignInDetails',
-      name: 'SignInDetails',
-      component: () => import('@/views/signin/SignInDetails.vue'),
-    },
-    {
-      path: '/contacts',
-      name: 'contacts',
-      component: () => import('@/views/contacts/Contacts.vue'),
-    },
-    {
-      path: '/SignInPage',
-      name: 'SignInPage',
-      component: () => import('@/views/signin/SignInPage.vue'),
-    },
-  ]
+    history: createWebHashHistory(),
+    routes: [
+        {
+            path: '/',
+            redirect: '/home'
+        },
+        {
+            path: '/:appid',
+            children: [
+                {
+                    path: 'login',
+                    name: 'login',
+                    component: () => import('@/views/Login.vue'),
+                    meta: {
+                        notLogin: true
+                    }
+                },
+                {
+                    path: 'home',
+                    name: 'home',
+                    component: Home,
+                    meta: {
+                        index: 1
+                    }
+                },
+                {
+                    path: 'user',
+                    name: 'user',
+                    component: () => import('@/views/User.vue'),
+                    meta: {
+                        index: 1
+                    }
+                },
+                {
+                    path: 'category',
+                    name: 'category',
+                    component: () => import('@/views/Category.vue'),
+                    meta: {
+                        index: 1
+                    }
+                },
+                {
+                    path: 'about',
+                    name: 'about',
+                    component: () => import('@/views/About.vue'),
+                    meta: {
+                        index: 2
+                    }
+                },
+                {
+                    path: 'payOrder',
+                    name: 'payOrder',
+                    component: () => import('@/views/PayOrder.vue'),
+                    meta: {
+                        index: 2
+                    }
+                },
+                {
+                    path: 'SignInDetails',
+                    name: 'SignInDetails',
+                    component: () => import('@/views/signin/SignInDetails.vue'),
+                },
+                {
+                    path: 'contacts',
+                    name: 'contacts',
+                    component: () => import('@/views/contacts/Contacts.vue'),
+                },
+                {
+                    path: 'SignInPage',
+                    name: 'SignInPage',
+                    component: () => import('@/views/signin/SignInPage.vue'),
+                },
+            ]
+        }
+    ]
 })
+
+router.beforeEach(({meta={}, name}, from, next) => {
+    const {title, notLogin} = meta;
+    if (title) document.title = title;
+    const useUser = useUserStore();
+    let token = useUser.token;
+
+    console.log("=================", (!token && !notLogin), router)
+    if (!token && !notLogin) {
+        // 未登录
+        next({
+            name: 'login',
+            params:{
+                appid: 'sss'
+            }
+        })
+    } else {
+        // 已登录
+        next()
+    }
+});
+
 
 export default router
