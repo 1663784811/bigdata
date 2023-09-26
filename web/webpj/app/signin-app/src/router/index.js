@@ -77,6 +77,11 @@ const router = createRouter({
                     name: 'SignInPage',
                     component: () => import('@/views/signin/SignInPage.vue'),
                 },
+                {
+                    path: 'saveSignIn',
+                    name: 'saveSignIn',
+                    component: () => import('@/views/signin/SaveSignIn.vue'),
+                },
             ]
         }
     ]

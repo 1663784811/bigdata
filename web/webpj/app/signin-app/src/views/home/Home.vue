@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="homeContainer">
     <!--  ============================  -->
     <header class="home-header wrap" :class="{'active' : state.headerScroll}">
       <div class="header-search">
       </div>
-      <router-link class="login" tag="span" to="./user">
-        <van-icon name="plus" />
-      </router-link>
+      <div class="login" @click="goToFn('saveSignIn')">
+        <van-icon name="plus"/>
+      </div>
     </header>
     <!--  ============================  -->
     <nav-bar/>
@@ -18,15 +18,14 @@
         <div class="good-box">
           <!------------------->
           <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
-            <div class="itemTitle">
-              标题:珠海第一旅游公司，优特汇4楼宴会大厅
+            <div class="itemTitle">{{item.title}}</div>
+            <div class="itemTime">{{item.startTime}}</div>
+            <div class="itemCount">
+              共: <sapn>100</sapn>人
+              已签到: <span>50</span> 人
+              未签到: <span>50</span> 人
             </div>
-            <div>
-              时间: 2023年10月01日 20时20分
-            </div>
-            <div>
-              状态:已完成
-            </div>
+            <div class="itemStatus">状态:已完成</div>
           </div>
           <!------------------->
         </div>
@@ -38,7 +37,7 @@
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import {getBanner, searchGoods} from '@/service/api'
+import {getBanner, searchGoods, findSignInPage} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
 import {enterpriseType} from "@/service/api"
@@ -70,22 +69,27 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
-  await getBanner({
-    enterpriseId
-  }).then(res => {
-    state.swiperList = res.data;
-  }).catch((err) => {
-    console.log(err)
-  })
-  await searchGoods({}).then((rest) => {
+  // await getBanner({
+  //   enterpriseId
+  // }).then(res => {
+  //   state.swiperList = res.data;
+  // }).catch((err) => {
+  //   console.log(err)
+  // })
+  // await searchGoods({}).then((rest) => {
+  //   const {data} = rest;
+  //   state.recommends = data;
+  // })
+  // enterpriseType({
+  //   enterpriseId
+  // }).then(rest => {
+  //   const {data} = rest;
+  //   state.categoryList = data;
+  // })
+  await findSignInPage({}).then((rest) => {
     const {data} = rest;
     state.recommends = data;
-  })
-  enterpriseType({
-    enterpriseId
-  }).then(rest => {
-    const {data} = rest;
-    state.categoryList = data;
+    console.log('ssssssssss', rest)
   })
   state.loading = false
   closeToast()
@@ -99,7 +103,11 @@ nextTick(() => {
 })
 
 const goToDetail = (item) => {
-  router.push({name:'SignInDetails'})
+  router.push({name: 'SignInDetails'})
+}
+
+const goToFn = (name) => {
+  router.push({name});
 }
 
 const tips = () => {
@@ -109,7 +117,10 @@ const tips = () => {
 
 <style lang="less" scoped>
 @import '../../common/style/mixin';
-
+.homeContainer{
+  background: #f6f6f6;
+  min-height: 100vh;
+}
 .home-header {
   position: fixed;
   left: 0;
@@ -185,7 +196,7 @@ const tips = () => {
   }
 }
 
-.headerBox{
+.headerBox {
   height: 50px;
 }
 
@@ -227,39 +238,23 @@ const tips = () => {
     .good-item {
       box-sizing: border-box;
       margin: 10px 10px;
-      background: #ccc;
-
-      .imgBox {
-        height: 120px;
-
-        img {
-          display: block;
-          height: 100%;
-          margin: 0 auto;
-          background: #f7f7f7;
-        }
-      }
-
-      .good-desc {
+      padding: 10px;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 0 1px #888;
+      .itemTitle{
         font-size: 14px;
-        padding: 10px 0;
-
-        .title {
-          color: #222333;
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          text-overflow: ellipsis;
-        }
-
-        .price {
-          color: @primary;
-        }
+        font-weight: bold;
       }
-
-      &:nth-child(2n + 1) {
-        border-right: 1PX solid #e9e9e9;
+      .itemTime{
+        color: #666;
+        font-size: 12px;
+      }
+      .itemCount{
+        color: #999;
+      }
+      .itemStatus{
+        color: #999;
       }
     }
   }

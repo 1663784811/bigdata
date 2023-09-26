@@ -53,7 +53,7 @@ public class LoginController {
         String enterpriseId = loginRequest.getEnterpriseId();
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseId, userName, password);
+        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseId, null, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
@@ -92,13 +92,12 @@ public class LoginController {
         // 初始化企业角色,初始化企业菜单, 给消息队列发消息
 
 
-
         return BaseResult.ok(msg, "注册成功");
     }
 
 
     @GetMapping("/checkCode")
-    public void checkCode(){
+    public void checkCode() {
 
     }
 

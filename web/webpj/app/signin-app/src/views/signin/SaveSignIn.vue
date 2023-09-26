@@ -1,4 +1,5 @@
 <template>
+  <s-header :name="'保存签到列表'"></s-header>
   <div>保存签到列表</div>
 
 
@@ -27,21 +28,19 @@
         <input/>
       </div>
     </div>
-
-
-    
-
-
-
+    <div class="row">
+      <van-button round block color="#1baeae" native-type="submit">保存</van-button>
+    </div>
   </div>
 
 
 </template>
 
-<script>
+<script setup>
+import sHeader from '@/components/SimpleHeader.vue'
 
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

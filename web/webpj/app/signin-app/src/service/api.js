@@ -14,9 +14,6 @@ export function DeleteAddress(id) {
     return axios.delete(`/address/${id}`);
 }
 
-// ====================================================
-
-
 export function getAddressList(params = {}) {
     return axios.get(`${baseUrl}/shopping/user/address`, {params})
 }
@@ -48,13 +45,6 @@ export const register = (params = {}) => {
     });
 }
 
-
-
-export function getByCartItemIds(params) {
-    return axios.get(`/shop-cart/settle`, {params});
-}
-
-// ====================================
 /**
  * 查询购物车列表
  */
@@ -81,12 +71,6 @@ export function countGoodsPrice(params = {}) {
  */
 export function deleteCartItem(params) {
     return axios.post(`${baseUrl}/shopping/goods/cart/delCartGoods`, params);
-}
-
-
-
-export function getDetail(id) {
-    return axios.get(`/goods/detail/${id}`);
 }
 
 export function getCategory() {
@@ -137,10 +121,6 @@ export function payOrder(params) {
     return axios.get(`/paySuccess`, { params })
 }
 
-
-
-// =============================================
-
 /**
  * 订单列表
  */
@@ -167,15 +147,28 @@ export function EditUserInfo(params) {
     return axios.put('/user/info', params);
 }
 
+/**
+ * 退出登录
+ */
 export function logout() {
-    return axios.post('/user/logout')
+    return axios.post(   `${baseUrl}/login/app/logout`)
 }
 
-
-// =============================================================================
-
+/**
+ * 获取登录用户信息
+ */
 export function getUserInfo(params = {}) {
     return axios.get( `${baseUrl}/shopping/user/userInfo`, {params});
 }
 
 
+export function findSignInPage(params = {}) {
+    return axios.get( `${baseUrl}/app/si/signIn/findPage`, {params});
+}
+
+/**
+ * 后台app管理员信息
+ */
+export function getAppAdminInfo(params = {}) {
+    return axios.get( `${baseUrl}/app/si/admin/signIn/userInfo`, {params});
+}

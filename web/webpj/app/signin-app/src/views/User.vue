@@ -1,6 +1,7 @@
 <template>
   <div class="user-box">
     <s-header :name="'我的'"></s-header>
+    <nav-bar></nav-bar>
     <!--  =====================  -->
     <div class="userInfoBox">
       <van-skeleton title :avatar="true" :row="3" :loading="state.loading">
@@ -19,20 +20,24 @@
 
     <!--  =====================  -->
     <ul class="user-list">
-      <li @click="goTo('/about')">
+      <li @click="goTo('about')">
         <span>通信录</span>
         <van-icon name="arrow"/>
       </li>
-      <li @click="goTo('/about')">
+      <li @click="goTo('about')">
         <span>群组</span>
         <van-icon name="arrow"/>
       </li>
-      <li @click="goTo('/about')">
+      <li @click="goTo('about')">
         <span>关于我们</span>
         <van-icon name="arrow"/>
       </li>
     </ul>
-    <nav-bar></nav-bar>
+
+    <div class="loutBtn" @click="logOutFn">
+      <span>退出登录</span>
+    </div>
+
   </div>
 </template>
 
@@ -40,30 +45,43 @@
 import {reactive, onMounted, toRefs} from 'vue'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getUserInfo} from '@/service/api'
+import {getAppAdminInfo} from '@/service/api'
 import {useRouter} from 'vue-router'
+import {useUserStore} from "@/stores/user";
+import {showSuccessToast} from "vant";
 
+const userStore = useUserStore();
 const router = useRouter()
+
+
 const state = reactive({
   user: {},
-  loading: true
+  loading: false
 })
 
 onMounted(async () => {
-  const {data} = await getUserInfo()
+  state.loading = true;
+  const {data} = await getAppAdminInfo()
   if (data) {
     state.user = data
+  } else {
+    state.user = {}
   }
-  state.loading = false
+  state.loading = false;
 })
-
-const goBack = () => {
-  router.go(-1)
-}
-
 const goTo = (r, query) => {
-  router.push({path: r, query: query || {}})
+  router.push({name: r, query: query || {}})
 }
+const logOutFn = () => {
+  userStore.token = '';
+  showSuccessToast('退出成功');
+  setTimeout(() => {
+    router.replace({
+      name: 'login'
+    });
+  }, 1000);
+}
+
 </script>
 
 <style lang="less" scoped>
@@ -169,6 +187,16 @@ const goTo = (r, query) => {
         margin-top: 13px;
       }
     }
+  }
+
+  .loutBtn {
+    text-align: center;
+    justify-content: center;
+    color: red;
+    margin-top: 20px;
+    background: #fff;
+    padding: 12px 0;
+    font-size: 14px;
   }
 }
 </style>

@@ -197,7 +197,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public AdminAuthToken loginUserNameAndPassword(String enterpriseId, String userName, String password) {
+    public AdminAuthToken loginUserNameAndPassword(String enterpriseId, String appId, String userName, String password) {
         // 第一步: 查用户
         TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
         if (ObjectUtils.isEmpty(tAdmin)) {
@@ -227,6 +227,7 @@ public class LoginServiceImpl implements LoginService {
         loginInfo.setAccount(tAdmin.getAccount());
         loginInfo.setRole(sb.toString());
         loginInfo.setEnterpriseId(enterpriseId);
+        loginInfo.setAppId(appId);
         // 第四步: 生成jwt
         String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
         AdminAuthToken authToken = new AdminAuthToken();
@@ -269,7 +270,7 @@ public class LoginServiceImpl implements LoginService {
         // 查管理员
         String enterpriseId = eApplication.getEnterpriseId();
         // 登录
-        return loginUserNameAndPassword(enterpriseId, userName, password);
+        return loginUserNameAndPassword(enterpriseId, appId, userName, password);
     }
 
 }
