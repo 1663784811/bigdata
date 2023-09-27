@@ -23,10 +23,10 @@
       </div>
     </div>
     <div v-else-if="state.showPage == 'success'">
-      成功
+      签到成功
     </div>
     <div v-else>
-      加载
+      加载中...
     </div>
     <div class="headImage">
       sss
