@@ -3,12 +3,15 @@ package com.cyyaw.app.si;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.signin.service.SiSignInService;
+import com.cyyaw.signin.service.SiSignLogService;
 import com.cyyaw.signin.table.entity.SiSignIn;
+import com.cyyaw.signin.table.entity.SiSignLog;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +20,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
 @Slf4j
+@Api(tags = "签到")
 @RequestMapping("/app/si/signIn")
 @RestController
 public class SignInController {
@@ -29,6 +34,8 @@ public class SignInController {
     @Autowired
     private SiSignInService siSignInService;
 
+    @Autowired
+    private SiSignLogService siSignLogService;
 
     /**
      * 分页条件查询
@@ -42,17 +49,16 @@ public class SignInController {
     }
 
 
-
     /**
      * 根据ID查询
      */
     @GetMapping("/findIdSiSignIn")
-    public BaseResult findSiSignIn(Integer id) {
-        SiSignIn obj = siSignInService.findId(id);
+    public BaseResult findSiSignIn(String tid) {
+        SiSignIn obj = siSignInService.findByTid(tid);
+        List<SiSignLog> signLogList = siSignLogService.findBySignInId(tid);
+        obj.setSignLogList(signLogList);
         return BaseResult.ok(obj);
     }
-
-
 
 
     /**
@@ -82,7 +88,6 @@ public class SignInController {
     }
 
 
-
     /**
      * 删除
      */
@@ -91,7 +96,6 @@ public class SignInController {
         siSignInService.del(idArr);
         return BaseResult.ok("删除成功");
     }
-
 
 
 }

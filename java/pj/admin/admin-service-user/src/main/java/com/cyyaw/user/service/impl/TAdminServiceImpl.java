@@ -26,9 +26,8 @@ public class TAdminServiceImpl extends BaseService<TAdmin, Integer> implements T
 
 
     @Override
-    public TAdmin findByTid(String tid) {
-//        return tAdminDao;
-        return null;
+    public TAdmin findByAccount(String enterpriseId, String account) {
+        return tAdminDao.findByAccount(enterpriseId, account);
     }
 
     @Override

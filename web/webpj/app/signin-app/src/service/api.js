@@ -161,9 +161,18 @@ export function getUserInfo(params = {}) {
     return axios.get( `${baseUrl}/shopping/user/userInfo`, {params});
 }
 
-
+/**
+ *  查询签到列表
+ */
 export function findSignInPage(params = {}) {
     return axios.get( `${baseUrl}/app/si/signIn/findPage`, {params});
+}
+
+/**
+ * 查详情
+ */
+export function findIdSiSignIn(params = {}) {
+    return axios.get( `${baseUrl}/app/si/signIn/findIdSiSignIn`, {params});
 }
 
 /**

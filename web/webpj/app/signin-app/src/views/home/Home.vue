@@ -18,14 +18,21 @@
         <div class="good-box">
           <!------------------->
           <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
-            <div class="itemTitle">{{item.title}}</div>
-            <div class="itemTime">{{item.startTime}}</div>
-            <div class="itemCount">
-              共: <sapn>100</sapn>人
-              已签到: <span>50</span> 人
-              未签到: <span>50</span> 人
+            <div>
+              <div class="itemTitle">{{ item.title }}</div>
+              <div class="itemTime">{{ item.startTime }}</div>
+              <div class="itemCount">
+                共:
+                <sapn>100</sapn>
+                人
+                已签到: <span>50</span> 人
+                未签到: <span>50</span> 人
+              </div>
+              <div class="itemStatus">状态:已完成</div>
             </div>
-            <div class="itemStatus">状态:已完成</div>
+            <div>
+              二维码
+            </div>
           </div>
           <!------------------->
         </div>
@@ -103,7 +110,13 @@ nextTick(() => {
 })
 
 const goToDetail = (item) => {
-  router.push({name: 'SignInDetails'})
+  console.log(item)
+  router.push({
+    name: 'SignInDetails',
+    query: {
+      id: item.tid
+    }
+  })
 }
 
 const goToFn = (name) => {
@@ -117,10 +130,12 @@ const tips = () => {
 
 <style lang="less" scoped>
 @import '../../common/style/mixin';
-.homeContainer{
+
+.homeContainer {
   background: #f6f6f6;
   min-height: 100vh;
 }
+
 .home-header {
   position: fixed;
   left: 0;
@@ -242,18 +257,25 @@ const tips = () => {
       background: #fff;
       border-radius: 6px;
       box-shadow: 0 0 1px #888;
-      .itemTitle{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .itemTitle {
         font-size: 14px;
         font-weight: bold;
       }
-      .itemTime{
+
+      .itemTime {
         color: #666;
         font-size: 12px;
       }
-      .itemCount{
+
+      .itemCount {
         color: #999;
       }
-      .itemStatus{
+
+      .itemStatus {
         color: #999;
       }
     }

@@ -21,18 +21,8 @@ public class SiSignInServiceImpl extends BaseService<SiSignIn, Integer> implemen
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public SiSignIn findByTid(String tid) {
+        return siSignInDao.findByTid(tid);
+    }
 }

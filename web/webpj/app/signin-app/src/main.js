@@ -18,6 +18,13 @@ import 'lib-flexible/flexible'
 import './assets/main.css'
 import './common/style/theme.css'
 import 'vant/es/toast/style'
+import {use} from "echarts/core";
+import {CanvasRenderer} from "echarts/renderers";
+import {PieChart} from "echarts/charts";
+import {LegendComponent, TitleComponent, TooltipComponent} from "echarts/components";
+
+
+
 
 const app = createApp(App)
 
@@ -57,6 +64,16 @@ app.use(SubmitBar)
 app.use(Checkbox)
 app.use(CheckboxGroup)
 app.use(Skeleton)
+
+// ============================ echarts
+use([
+    CanvasRenderer,
+    PieChart,
+    TitleComponent,
+    TooltipComponent,
+    LegendComponent
+]);
+
 
 // 全局过滤器
 app.config.globalProperties.$filters = {
