@@ -17,27 +17,29 @@
       <van-skeleton title :row="3" :loading="state.loading">
         <div class="good-box">
           <!------------------->
-          <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
+          <div class="good-item" v-for="(item,index) in state.recommends" :key="index">
             <div>
-              <div class="itemTitle">{{ item.title }}</div>
-              <div class="itemTime">{{ item.startTime }}</div>
-              <div class="itemCount">
-                共:
-                <sapn>100</sapn>
-                人
-                已签到: <span>50</span> 人
-                未签到: <span>50</span> 人
+              <div class="itemTitle" @click="goToDetail(item)">{{ item.title }}</div>
+              <div class="itemTime" @click="goToDetail(item)">{{ item.startTime }}</div>
+              <div class="itemCount" @click="goToDetail(item)">
+                <div>共:</div>
+                <div>100人</div>
+                <div>已签到:</div>
+                <div>50 人</div>
+                <div>未签到:</div>
+                <div>50 人</div>
               </div>
               <div class="itemStatus">状态:已完成</div>
             </div>
-            <div>
-              二维码
+            <div class="qrCode" @click="showQrCode(item)">
+              <van-icon name="qr"/>
             </div>
           </div>
           <!------------------->
         </div>
       </van-skeleton>
     </div>
+    <van-popup v-model:show="state.qrObj.show">内容</van-popup>
   </div>
 </template>
 
@@ -64,7 +66,10 @@ const state = reactive({
   recommends: [],
   categoryList: [],
   loading: true,
-  scrollTop: 0
+  scrollTop: 0,
+  qrObj: {
+    show: false
+  }
 })
 
 
@@ -125,6 +130,13 @@ const goToFn = (name) => {
 
 const tips = () => {
   showToast('敬请期待');
+}
+
+/**
+ * 显示二维码
+ */
+const showQrCode = (row) => {
+  state.qrObj.show = true;
 }
 </script>
 
@@ -273,10 +285,16 @@ const tips = () => {
 
       .itemCount {
         color: #999;
+        display: flex;
       }
 
       .itemStatus {
         color: #999;
+      }
+
+      .qrCode {
+        font-size: 20px;
+        font-weight: bold;
       }
     }
   }
