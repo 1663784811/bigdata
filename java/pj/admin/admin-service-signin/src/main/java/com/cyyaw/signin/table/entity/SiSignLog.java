@@ -43,8 +43,8 @@ public class SiSignLog implements Serializable{
     private String appId;
 
     @Basic
-    @Column(name="si_sign_in_id", columnDefinition = "varchar(255) COMMENT '签到ID'")
-    private String SiSignInId;
+    @Column(name="sign_in_id", columnDefinition = "varchar(255) COMMENT '签到ID'")
+    private String signInId;
 
 
     // ==================================================
@@ -52,6 +52,10 @@ public class SiSignLog implements Serializable{
     @Basic
     @Column(name="name", columnDefinition = "varchar(255) COMMENT '签到人'")
     private String name;
+
+    @Basic
+    @Column(name="phone", columnDefinition = "varchar(20) COMMENT '手机号'")
+    private String phone;
 
     @Basic
     @Column(name="status", columnDefinition = "int COMMENT '状态{0:创建,1:确定,2:完成}'")

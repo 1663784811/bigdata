@@ -1,20 +1,20 @@
 <template>
   <div class="qdPageBox">
-    <s-header :name="'签到详情'"></s-header>
+    <s-header :name="state.signInObj.title || '签到'"></s-header>
     <div class="qdContainer">
       <div class="qdHeader">
-        <div class="itemTitle">珠海第一旅游公司，优特汇4楼宴会大厅</div>
-        <div class="qdTime">2023年10月01日 20时20分</div>
+        <div class="itemTitle">{{ state.signInObj.title || '' }}</div>
+        <div class="qdTime">{{ state.signInObj.startTime }}</div>
       </div>
       <div class="inputBox">
         <div class="inputRow">
-          <input placeholder="姓名"/>
+          <input v-model="state.signLog.name" placeholder="姓名"/>
         </div>
         <div class="inputRow">
-          <input placeholder="手机号"/>
+          <input v-model="state.signLog.phone" placeholder="手机号"/>
         </div>
         <div class="inputRow">
-          <van-button round block color="#1baeae" native-type="submit">签到</van-button>
+          <van-button round block color="#1baeae" @click="qdSaveFn">签到</van-button>
         </div>
       </div>
       <div class="noteBox">
@@ -33,6 +33,33 @@
 
 <script setup>
 import sHeader from '@/components/SimpleHeader.vue'
+import {onMounted, reactive} from "vue";
+import {findIdSiSignIn, signInLogSave} from "@/service/api";
+import {useRoute} from "vue-router";
+
+const route = useRoute();
+
+const state = reactive({
+  signInObj: {},
+  signLog: {
+    name: '',
+    phone: ''
+  }
+})
+
+onMounted(async () => {
+  const {id} = route.query;
+  state.signLog.signInId = id;
+  const {data} = await findIdSiSignIn({tid: id});
+  state.signInObj = data;
+})
+
+const qdSaveFn = async () => {
+
+  const {data} = await signInLogSave(state.signLog);
+
+  console.log("sssssssssssssssssssssss", data)
+}
 
 
 </script>
@@ -92,7 +119,8 @@ import sHeader from '@/components/SimpleHeader.vue'
       }
     }
   }
-  .headImage{
+
+  .headImage {
     position: absolute;
     top: 0;
     left: 0;
@@ -101,6 +129,7 @@ import sHeader from '@/components/SimpleHeader.vue'
     z-index: -99;
     background: #ccc;
   }
+
   .bottomImage {
     position: absolute;
     bottom: 0;

@@ -46,13 +46,10 @@
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter} from 'vue-router'
-import {getBanner, searchGoods, findSignInPage} from '@/service/api'
+import {findSignInPage} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
-import {enterpriseType} from "@/service/api"
-import {enterpriseId} from '@/service/webConfig.js'
 import {useUserStore} from "@/stores/user";
-
 
 let userStore = useUserStore();
 const cart = useCartStore()
@@ -81,23 +78,6 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
-  // await getBanner({
-  //   enterpriseId
-  // }).then(res => {
-  //   state.swiperList = res.data;
-  // }).catch((err) => {
-  //   console.log(err)
-  // })
-  // await searchGoods({}).then((rest) => {
-  //   const {data} = rest;
-  //   state.recommends = data;
-  // })
-  // enterpriseType({
-  //   enterpriseId
-  // }).then(rest => {
-  //   const {data} = rest;
-  //   state.categoryList = data;
-  // })
   await findSignInPage({}).then((rest) => {
     const {data} = rest;
     state.recommends = data;

@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface SiSignLogService extends BaseTableService<SiSignLog, Integer> {
 
-
     List<SiSignLog> findBySignInId(String signInId);
-
-
 
 }

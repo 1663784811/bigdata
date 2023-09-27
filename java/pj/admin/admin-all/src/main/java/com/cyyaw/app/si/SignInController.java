@@ -98,4 +98,10 @@ public class SignInController {
     }
 
 
+    @PostMapping("/signInLogSave")
+    public BaseResult signInLogSave(@RequestBody SiSignLog signLog) {
+        SiSignLog save = siSignLogService.save(signLog);
+        return BaseResult.ok(save);
+    }
+
 }
