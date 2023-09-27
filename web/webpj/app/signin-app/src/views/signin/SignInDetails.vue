@@ -22,12 +22,12 @@
           <div class="qdPhone">{{ item.phone }}</div>
         </div>
         <div class="rowRight">
-          <div class="qdBtn">帮签</div>
-          <div class="qdBtn qdEd">已签</div>
+          <div class="qdBtn" v-if="item.status != 2">帮签</div>
+          <div class="qdBtn qdEd" v-if="item.status == 2">已签</div>
         </div>
       </div>
       <div v-else>
-        <van-empty description="空空如也" />
+        <van-empty description="空空如也"/>
       </div>
     </div>
   </div>
@@ -94,17 +94,71 @@ const selectTypFn = (type) => {
 }
 
 const signList = computed(() => {
+  const data = state.restData
+  if (data && data.signLogList && data.signLogList.length > 0) {
+    if (state.selectType == 'qdAll') {
+      return data.signLogList
+    } else if (state.selectType == 'qdEd') {
+      const arr = [];
+      for (let i = 0; i < data.signLogList.length; i++) {
+        const obj = data.signLogList[i];
+        if (obj.status == 2) {
+          console.log(obj)
+          arr.push(obj)
+        }
+      }
+      return arr;
+    } else if (state.selectType == 'qdIng') {
+      const arr = [];
+      for (let i = 0; i < data.signLogList.length; i++) {
+        const obj = data.signLogList[i];
+        if (obj.status != 2) {
+          console.log(obj)
+          arr.push(obj)
+        }
+      }
+      return arr;
+    }
+  }
   return []
 });
 const qdAll = computed(() => {
+  const data = state.restData
+  if (data && data.signLogList && data.signLogList.length > 0) {
+    return data.signLogList.length;
+  }
   return 0;
 })
 
 const qdEd = computed(() => {
+  const data = state.restData
+  if (data && data.signLogList && data.signLogList.length > 0) {
+    const arr = [];
+    for (let i = 0; i < data.signLogList.length; i++) {
+      const obj = data.signLogList[i];
+      if (obj.status == 2) {
+        console.log(obj)
+        arr.push(obj)
+      }
+    }
+    return arr.length;
+  }
   return 0;
 })
 
 const qdIng = computed(() => {
+  const data = state.restData
+  if (data && data.signLogList && data.signLogList.length > 0) {
+    const arr = [];
+    for (let i = 0; i < data.signLogList.length; i++) {
+      const obj = data.signLogList[i];
+      if (obj.status != 2) {
+        console.log(obj)
+        arr.push(obj)
+      }
+    }
+    return arr.length;
+  }
   return 0;
 })
 

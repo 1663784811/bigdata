@@ -5,10 +5,10 @@
         <i class="nbicon nblvsefenkaicankaoxianban-1"></i>
         <span>首页</span>
       </router-link>
-      <router-link  class="nav-list-item" to="contacts">
-        <i class="nbicon nbfenlei"></i>
-        <span>通信录</span>
-      </router-link>
+<!--      <router-link  class="nav-list-item" to="contacts">-->
+<!--        <i class="nbicon nbfenlei"></i>-->
+<!--        <span>通信录</span>-->
+<!--      </router-link>-->
       <router-link  class="nav-list-item" to="user">
         <i class="nbicon nblvsefenkaicankaoxianban-"></i>
         <span>我的</span>
