@@ -1,7 +1,7 @@
 <template>
   <div class="qdPageBox">
     <s-header :name="state.signInObj.title || '签到'"></s-header>
-    <div class="qdContainer">
+    <div class="qdContainer" v-if="state.showPage == 'qd'">
       <div class="qdHeader">
         <div class="itemTitle">{{ state.signInObj.title || '' }}</div>
         <div class="qdTime">{{ state.signInObj.startTime }}</div>
@@ -14,13 +14,19 @@
           <input v-model="state.signLog.phone" placeholder="手机号"/>
         </div>
         <div class="inputRow">
-          <van-button round block color="#1baeae" @click="qdSaveFn">签到</van-button>
+          <van-button round block color="#1baeae" @click="qdSaveFn" :loading="state.loading">签到</van-button>
         </div>
       </div>
       <div class="noteBox">
         <div>温馨提示：</div>
         <div class="noteContent">1.谈起阿胶无人不晓，它是以马科动物驴的皮经煎煮、浓缩制成的固体胶</div>
       </div>
+    </div>
+    <div v-else-if="state.showPage == 'success'">
+      成功
+    </div>
+    <div v-else>
+      加载
     </div>
     <div class="headImage">
       sss
@@ -36,6 +42,7 @@ import sHeader from '@/components/SimpleHeader.vue'
 import {onMounted, reactive} from "vue";
 import {findIdSiSignIn, signInLogSave} from "@/service/api";
 import {useRoute} from "vue-router";
+import {showFailToast} from "vant";
 
 const route = useRoute();
 
@@ -44,7 +51,9 @@ const state = reactive({
   signLog: {
     name: '',
     phone: ''
-  }
+  },
+  loading: false,
+  showPage: ''
 })
 
 onMounted(async () => {
@@ -52,13 +61,21 @@ onMounted(async () => {
   state.signLog.signInId = id;
   const {data} = await findIdSiSignIn({tid: id});
   state.signInObj = data;
+  state.showPage = 'qd';
 })
 
 const qdSaveFn = async () => {
-
-  const {data} = await signInLogSave(state.signLog);
-
-  console.log("sssssssssssssssssssssss", data)
+  state.loading = true;
+  const {data, msg} = await signInLogSave(state.signLog);
+  state.loading = false;
+  if (data) {
+    showFailToast('签到成功')
+    setTimeout(() => {
+      state.showPage = 'success';
+    }, 1000)
+  } else {
+    showFailToast(`${msg || '错误'}`)
+  }
 }
 
 

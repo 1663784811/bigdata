@@ -78,35 +78,34 @@ export function getCategory() {
 }
 
 export function search(params) {
-    return axios.get('/search', { params });
+    return axios.get('/search', {params});
 }
 
 // ================================================
 
 export const goodsDetails = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/goods/search/goodsDetails`,{ params });
+    return axios.get(`${baseUrl}/shopping/goods/search/goodsDetails`, {params});
 }
 
 export const goodsDetailsText = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/goods/search/goodsDetailsText`,{ params });
+    return axios.get(`${baseUrl}/shopping/goods/search/goodsDetailsText`, {params});
 }
 
 export const goodsPhoto = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/goods/search/goodsPhoto`,{ params });
+    return axios.get(`${baseUrl}/shopping/goods/search/goodsPhoto`, {params});
 }
 
 export const enterpriseType = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/goods/type/enterpriseType`,{ params });
+    return axios.get(`${baseUrl}/shopping/goods/type/enterpriseType`, {params});
 }
 
 export const getBanner = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/web/banner/findBanner`,{ params });
+    return axios.get(`${baseUrl}/shopping/web/banner/findBanner`, {params});
 }
 
 export const searchGoods = (params = {}) => {
-    return axios.get(`${baseUrl}/shopping/goods/search/searchGoods`,{ params });
+    return axios.get(`${baseUrl}/shopping/goods/search/searchGoods`, {params});
 }
-
 
 
 export function cancelOrder(id) {
@@ -118,21 +117,21 @@ export function confirmOrder(id) {
 }
 
 export function payOrder(params) {
-    return axios.get(`/paySuccess`, { params })
+    return axios.get(`/paySuccess`, {params})
 }
 
 /**
  * 订单列表
  */
 export function getOrderList(params) {
-    return axios.get(`${baseUrl}/shopping/goods/order/query`, { params });
+    return axios.get(`${baseUrl}/shopping/goods/order/query`, {params});
 }
 
 /**
  * 订单详情
  */
 export function getOrderDetail(params) {
-    return axios.get(`${baseUrl}/shopping/goods/order/orderById`, { params });
+    return axios.get(`${baseUrl}/shopping/goods/order/orderById`, {params});
 }
 
 /**
@@ -151,33 +150,40 @@ export function EditUserInfo(params) {
  * 退出登录
  */
 export function logout() {
-    return axios.post(   `${baseUrl}/login/app/logout`)
+    return axios.post(`${baseUrl}/login/app/logout`)
 }
 
 /**
  * 获取登录用户信息
  */
 export function getUserInfo(params = {}) {
-    return axios.get( `${baseUrl}/shopping/user/userInfo`, {params});
+    return axios.get(`${baseUrl}/shopping/user/userInfo`, {params});
 }
 
 /**
  *  查询签到列表
  */
 export function findSignInPage(params = {}) {
-    return axios.get( `${baseUrl}/app/si/signIn/findPage`, {params});
+    return axios.get(`${baseUrl}/app/si/signIn/findPage`, {params});
 }
 
 /**
  * 查详情
  */
 export function findIdSiSignIn(params = {}) {
-    return axios.get( `${baseUrl}/app/si/signIn/findIdSiSignIn`, {params});
+    return axios.get(`${baseUrl}/app/si/signIn/findIdSiSignIn`, {params});
+}
+
+/**
+ * 签到
+ */
+export function signInLogSave(params) {
+    return axios.post(`${baseUrl}/app/si/signIn/signInLogSave`, params)
 }
 
 /**
  * 后台app管理员信息
  */
 export function getAppAdminInfo(params = {}) {
-    return axios.get( `${baseUrl}/app/si/admin/signIn/userInfo`, {params});
+    return axios.get(`${baseUrl}/app/si/admin/signIn/userInfo`, {params});
 }
