@@ -1,6 +1,9 @@
 <template>
   <div class="detailsBox">
-    <s-header :name="state.restData.title || '详情'"></s-header>
+    <s-header
+        :name="state.restData.title || '详情'"
+        @clickMenu="clickMenu"
+    />
     <v-chart class="chart" :option="state.option"/>
     <div class="statusBox">
       <div class="statusItem" :class="{active: state.selectType==='qdAll'}" @click="selectTypFn('qdAll')">全部
@@ -22,7 +25,7 @@
           <div class="qdPhone">{{ item.phone }}</div>
         </div>
         <div class="rowRight">
-          <div class="qdBtn" v-if="item.status != 2">帮签</div>
+          <div class="qdBtn" v-if="item.status != 2" @click="otherSign(item)">帮签</div>
           <div class="qdBtn qdEd" v-if="item.status == 2">已签</div>
         </div>
       </div>
@@ -31,6 +34,9 @@
       </div>
     </div>
   </div>
+
+  <van-share-sheet v-model:show="state.shareObj.show" title="立即分享给好友" :options="state.shareObj.options"/>
+
 </template>
 
 <script setup>
@@ -39,6 +45,7 @@ import VChart, {THEME_KEY} from "vue-echarts";
 import {onMounted, reactive, computed} from "vue";
 import {useRouter, useRoute} from 'vue-router'
 import {findIdSiSignIn} from '@/service/api'
+import {showConfirmDialog} from 'vant';
 
 const route = useRoute();
 
@@ -80,6 +87,17 @@ const state = reactive({
   },
   restData: {},
   selectType: 'qdAll',
+  shareObj:{
+    show: true,
+    options: [
+      [
+        { name: '微信', icon: 'wechat' },
+        { name: '朋友圈', icon: 'wechat-moments' },
+        { name: '微博', icon: 'weibo' },
+        { name: 'QQ', icon: 'qq' },
+      ]
+    ]
+  }
 })
 
 
@@ -161,6 +179,30 @@ const qdIng = computed(() => {
   }
   return 0;
 })
+
+/**
+ * 帮签
+ */
+const otherSign = (item) => {
+  console.log(item)
+  showConfirmDialog({
+    title: '标题',
+    message: '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
+    beforeClose: () => {
+
+    }
+  }).then(() => {
+    // on confirm
+    console.log("on confirm")
+  }).catch(() => {
+    // on cancel
+    console.log("on cancel")
+  });
+}
+
+const clickMenu = () => {
+  console.log('======================')
+}
 
 </script>
 

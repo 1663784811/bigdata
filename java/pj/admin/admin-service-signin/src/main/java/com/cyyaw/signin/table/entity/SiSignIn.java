@@ -50,7 +50,7 @@ public class SiSignIn implements Serializable {
     private String title;
 
     @Basic
-    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:创建,1:完成}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:创建,1:进行中,2:完成}'")
     private Integer status;
 
     @Basic
@@ -65,6 +65,13 @@ public class SiSignIn implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
+    @Basic
+    @Column(name = "sign_ed", columnDefinition = "int default '0' COMMENT '已签到人数'")
+    private Integer signEd;
+
+    @Basic
+    @Column(name = "sign_ing", columnDefinition = "int default '0' COMMENT '未签到人数'")
+    private Integer signIng;
 
     @Transient
     private List<SiSignLog> signLogList;

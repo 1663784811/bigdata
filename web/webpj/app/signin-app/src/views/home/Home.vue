@@ -23,11 +23,11 @@
               <div class="itemTime" @click="goToDetail(item)">{{ item.startTime }}</div>
               <div class="itemCount" @click="goToDetail(item)">
                 <div>共:</div>
-                <div>100人</div>
-                <div>已签到:</div>
-                <div>50 人</div>
+                <div>{{(item.signEd||0)+(item.signEd||0)}}人</div>
+                <div> 已签到:</div>
+                <div>{{item.signEd||0}} 人</div>
                 <div>未签到:</div>
-                <div>50 人</div>
+                <div>{{item.signEd||0}} 人</div>
               </div>
               <div class="itemStatus">状态:已完成</div>
             </div>
@@ -39,21 +39,25 @@
         </div>
       </van-skeleton>
     </div>
-    <van-popup v-model:show="state.qrObj.show">内容</van-popup>
+    <van-popup v-model:show="state.qrObj.show">
+      <vue-qr :text="state.qrObj.data"></vue-qr>
+    </van-popup>
   </div>
 </template>
 
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import {findSignInPage} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
 import {useUserStore} from "@/stores/user";
+import vueQr from 'vue-qr/src/packages/vue-qr.vue'
 
 let userStore = useUserStore();
 const cart = useCartStore()
 const router = useRouter()
+const route = useRoute()
 const state = reactive({
   swiperList: [],
   isLogin: false,
@@ -65,7 +69,8 @@ const state = reactive({
   loading: true,
   scrollTop: 0,
   qrObj: {
-    show: false
+    show: false,
+    data: ''
   }
 })
 
@@ -117,6 +122,9 @@ const tips = () => {
  */
 const showQrCode = (row) => {
   state.qrObj.show = true;
+  const {appid} = route.params;
+  state.qrObj.data = window.location.origin + '/#/' + appid + "/SignInPage?id=" + row.tid;
+
 }
 </script>
 
