@@ -49,6 +49,15 @@ public class SiSignIn implements Serializable {
     @Column(name = "title", columnDefinition = "varchar(255) COMMENT '标题'")
     private String title;
 
+
+    @Basic
+    @Column(name = "introduction", columnDefinition = "text COMMENT '简介'")
+    private String introduction;
+
+    @Basic
+    @Column(name = "tips", columnDefinition = "varchar(255) COMMENT '温馨提示'")
+    private String tips;
+
     @Basic
     @Column(name = "status", columnDefinition = "int COMMENT '状态{0:创建,1:进行中,2:完成}'")
     private Integer status;
