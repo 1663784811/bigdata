@@ -35,7 +35,24 @@
     </div>
   </div>
 
-  <van-share-sheet v-model:show="state.shareObj.show" title="立即分享给好友" :options="state.shareObj.options"/>
+  <van-share-sheet v-model:show="state.shareObj.show" title="" :options="state.shareObj.options"/>
+
+  <van-overlay :show="state.addPeople.show">
+    <div class="wrapper" @click="state.addPeople.show = false">
+      <div class="block" @click.stop>
+        <van-cell-group>
+          <van-field v-model="state.addPeople.data.name" label-align="right" label="姓名" placeholder="姓名"/>
+        </van-cell-group>
+        <van-cell-group>
+          <van-field v-model="state.addPeople.data.phone" label-align="right" label="手机号" placeholder="手机号"/>
+        </van-cell-group>
+        <div class="savePeople">
+          <van-button round block color="#1baeae" native-type="submit" @click="Fn">帮签</van-button>
+        </div>
+      </div>
+    </div>
+  </van-overlay>
+
 
 </template>
 
@@ -91,12 +108,16 @@ const state = reactive({
     show: true,
     options: [
       [
-        { name: '微信', icon: 'wechat' },
-        { name: '朋友圈', icon: 'wechat-moments' },
-        { name: '微博', icon: 'weibo' },
-        { name: 'QQ', icon: 'qq' },
+        { name: '帮签', icon: 'wechat' },
       ]
     ]
+  },
+  addPeople: {
+    show: true,
+    data: {
+      name: '',
+      phone: ''
+    }
   }
 })
 
@@ -185,19 +206,7 @@ const qdIng = computed(() => {
  */
 const otherSign = (item) => {
   console.log(item)
-  showConfirmDialog({
-    title: '标题',
-    message: '如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。',
-    beforeClose: () => {
-
-    }
-  }).then(() => {
-    // on confirm
-    console.log("on confirm")
-  }).catch(() => {
-    // on cancel
-    console.log("on cancel")
-  });
+  state.addPeople.show=true;
 }
 
 const clickMenu = () => {
@@ -307,5 +316,20 @@ const clickMenu = () => {
   }
 
 }
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 
+  .block {
+    border-radius: 8px;
+    padding: 20px 0;
+    background-color: #fff;
+
+    .savePeople {
+      margin: 30px 20px 10px 20px;
+    }
+  }
+}
 </style>

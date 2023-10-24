@@ -182,6 +182,12 @@ export function signInLogSave(params) {
 }
 
 /**
+ */
+export function saveSiSignIn(params) {
+    return axios.post(`${baseUrl}/app/si/signIn/saveSiSignIn`, params)
+}
+
+/**
  * 后台app管理员信息
  */
 export function getAppAdminInfo(params = {}) {

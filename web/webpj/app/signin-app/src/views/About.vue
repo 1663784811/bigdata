@@ -2,7 +2,7 @@
   <div class="about">
     <s-header :name="'关于我们'"></s-header>
     <div class="about-body">
-      听心科技有限公司
+      xxx科技有限公司
     </div>
   </div>
 </template>
