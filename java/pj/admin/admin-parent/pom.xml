@@ -31,6 +31,8 @@
         <module>../admin-service-enterprise</module>
         <module>../admin-service-signin</module>
         <module>../admin-service-story</module>
+        <module>../admin-service-store</module>
+        <module>../admin-service-activiti</module>
         <module>../admin-dao</module>
         <module>../admin-all</module>
     </modules>

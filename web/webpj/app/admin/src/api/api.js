@@ -1,6 +1,8 @@
 import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
 
-const baseUrl = "http://127.0.0.1:8080";
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
+
 
 export const commonRequest = (url, parameter, type = 'get') => {
     if (type === 'post') {
