@@ -27,7 +27,7 @@ export default defineConfig({
   },
   build: {
     // 打包输出的文件夹名称
-    outDir: 'dist',
+    outDir: 'adminPage',
     // 静态资源文件保存的文件夹名称
     assetsDir: 'static',
     // 是否启用css代码拆分
