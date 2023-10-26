@@ -14,7 +14,7 @@ export const router = createRouter({
         login,
         {
             path: '/',
-            component: import('@/views/layout/Main.vue'),
+            component: () => import('@/views/layout/Main.vue'),
             children: [
                 enterprise,
                 common,
