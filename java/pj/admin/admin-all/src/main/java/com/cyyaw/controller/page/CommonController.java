@@ -46,8 +46,7 @@ public class CommonController {
     @GetMapping("/query")
     public BaseResult query(@RequestBody @RequestParam Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
-        CommonRest query = commonDao.query(json);
-        return BaseResult.ok(query);
+        return commonDao.query(json);
     }
 
 
@@ -71,8 +70,7 @@ public class CommonController {
         String sqlCount = "select count(*) as count from c_sql";
         String sqlContent = "select * from c_sql ";
         boolean touName = true;
-        CommonRest query = commonDao.query(sqlCount, sqlContent, new JSONObject(json), touName);
-        return BaseResult.ok(query);
+        return commonDao.query(sqlCount, sqlContent, new JSONObject(json), touName);
     }
 
     @RequestMapping("/saveSql")

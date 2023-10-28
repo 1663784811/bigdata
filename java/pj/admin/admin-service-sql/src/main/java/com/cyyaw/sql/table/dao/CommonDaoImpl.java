@@ -7,10 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.util.DataBaseUtils;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
 import com.cyyaw.jpa.util.entity.FieldInfo;
-import com.cyyaw.util.tools.CommonRest;
-import com.cyyaw.util.tools.SqlUtils;
-import com.cyyaw.util.tools.WebErrCodeEnum;
-import com.cyyaw.util.tools.WhyStringUtil;
+import com.cyyaw.util.tools.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,8 +38,8 @@ public class CommonDaoImpl implements CommonDao {
      * @return
      */
     @Override
-    public CommonRest query(JSONObject json) {
-        CommonRest rest = new CommonRest();
+    public BaseResult query(JSONObject json) {
+        BaseResult rest = new BaseResult();
         //第一步：查询  sql 字符串
         String code = json.getString("code");
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
@@ -63,7 +60,7 @@ public class CommonDaoImpl implements CommonDao {
      * @param json
      * @return
      */
-    public CommonRest query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
+    public BaseResult query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
         Integer page = json.getInteger("page");
         Integer size = json.getInteger("size");
         page = (page == null || page <= 0) ? 1 : page;
@@ -76,13 +73,15 @@ public class CommonDaoImpl implements CommonDao {
         log.info("============================================");
         Integer total = jdbcTemplate.queryForObject(countSql, Integer.class);
         List<JSONObject> resData = query(querySql, json, touName);
-        CommonRest rest = new CommonRest();
+        BaseResult rest = new BaseResult();
         rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
         rest.setData(resData);
         rest.setMsg("ok");
-        rest.setTotal(total);
-        rest.setPage(page);
-        rest.setSize(size);
+        BaseResult.Result result = new BaseResult.Result();
+        result.setTotal(Long.valueOf(total));
+        result.setPage(page);
+        result.setSize(size);
+        rest.setResult(result);
         return rest;
     }
 
