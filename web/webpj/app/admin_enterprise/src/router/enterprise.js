@@ -15,6 +15,11 @@ export const enterprise = {
             path: 'storehouse',
             component: () => import('@/views/enterprise/Storehouse.vue'),
             name: 'storehouse',
+        },
+        {
+            path: 'productCenter',
+            component: () => import('@/views/enterprise/productCenter.vue'),
+            name: 'productCenter',
         }
     ]
 

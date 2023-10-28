@@ -32,7 +32,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             name: '产品中心',
                             icon: 'md-settings',
-                            routeName: 'storeList'
+                            routeName: 'productCenter'
                         }
                     ]
                 },

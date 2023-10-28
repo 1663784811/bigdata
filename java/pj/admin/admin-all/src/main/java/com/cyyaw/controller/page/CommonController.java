@@ -2,18 +2,10 @@ package com.cyyaw.controller.page;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.cyyaw.jpa.common.dao.CommonDao;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
-import com.cyyaw.sql.table.dao.CFieldDao;
-import com.cyyaw.sql.table.dao.CPageComponentsDao;
-import com.cyyaw.sql.table.dao.CPageDao;
-import com.cyyaw.sql.table.dao.CSqlDao;
-import com.cyyaw.sql.table.entity.CField;
-import com.cyyaw.sql.table.entity.CPage;
-import com.cyyaw.sql.table.entity.CPageComponents;
+import com.cyyaw.sql.table.dao.*;
 import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.table.spider.tag.dao.TagDao;
-import com.cyyaw.table.spider.tag.entity.Tag;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.CommonRest;
 import io.swagger.annotations.Api;
@@ -22,7 +14,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 

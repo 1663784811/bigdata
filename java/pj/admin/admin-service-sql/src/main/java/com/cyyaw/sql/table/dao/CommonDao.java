@@ -1,4 +1,4 @@
-package com.cyyaw.jpa.common.dao;
+package com.cyyaw.sql.table.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
