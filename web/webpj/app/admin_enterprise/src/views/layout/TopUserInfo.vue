@@ -1,9 +1,8 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">管理员模式</div>
+      <div class="textNote">企业模式</div>
     </div>
-
     <div class="userInfoItem">
       <Poptip trigger="hover">
         <div class="textNote">
@@ -44,7 +43,10 @@ import {useAdminMenuStore} from "@/store/adminMenu";
 import {loginInfo} from "@/store/loginInfo";
 
 
+const store = useAdminMenuStore();
 const loginInfoSt = loginInfo();
+
+console.log(store)
 
 const router = useRouter();
 

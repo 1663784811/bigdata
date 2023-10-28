@@ -1,7 +1,18 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">管理员模式</div>
+      <Poptip trigger="hover">
+        <div class="textNote">
+          {{ store.selectList.name || '请选择' }}
+        </div>
+        <template #content>
+          <div class="modelBox">
+            <div v-for="(item,index) in store.modeList" :key="index">
+              <div class="modelRow" @click="clickModelFn(item)">{{ item.name }}</div>
+            </div>
+          </div>
+        </template>
+      </Poptip>
     </div>
 
     <div class="userInfoItem">
@@ -44,7 +55,10 @@ import {useAdminMenuStore} from "@/store/adminMenu";
 import {loginInfo} from "@/store/loginInfo";
 
 
+const store = useAdminMenuStore();
 const loginInfoSt = loginInfo();
+
+console.log(store)
 
 const router = useRouter();
 
@@ -58,6 +72,11 @@ const logOut = function () {
       eCode
     }
   })
+}
+
+const clickModelFn = (row) => {
+  store.selectList = row;
+  store.topMenu = row.menuList;
 }
 
 </script>
