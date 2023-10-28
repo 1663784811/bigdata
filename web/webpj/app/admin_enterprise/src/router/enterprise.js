@@ -20,6 +20,11 @@ export const enterprise = {
             path: 'productCenter',
             component: () => import('@/views/enterprise/productCenter.vue'),
             name: 'productCenter',
+        },
+        {
+            path: 'MyProductCenter',
+            component: () => import('@/views/enterprise/MyProductCenter.vue'),
+            name: 'MyProductCenter',
         }
     ]
 

@@ -1,5 +1,6 @@
 package com.cyyaw.sql.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.jpa.util.entity.SelectEntity;
 import com.cyyaw.sql.service.SqlService;
 import com.cyyaw.sql.table.dao.CSqlDao;
@@ -51,7 +52,9 @@ public class SqlServiceImpl implements SqlService {
         } else {
             cSql.setCreateTime(new Date());
             cSql.setDel(0);
-            cSql.setTid(WhyStringUtil.getUUID());
+            if(StrUtil.isBlank(cSql.getTid())){
+                cSql.setTid(WhyStringUtil.getUUID());
+            }
             return cSqlDao.save(cSql);
         }
     }
