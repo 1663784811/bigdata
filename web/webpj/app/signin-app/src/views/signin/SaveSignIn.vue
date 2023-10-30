@@ -31,9 +31,9 @@
       <div class="label">填写手机号</div>
       <div class="inputDiv">
         <van-radio-group shape="square" v-model="state.saveObj.writePhone">
-          <van-radio class="vanRadio" name="1">无需填写手机号</van-radio>
-          <van-radio class="vanRadio" name="2">建议填写手机号</van-radio>
-          <van-radio class="vanRadio" name="3">需填写并验证手机号</van-radio>
+          <van-radio class="vanRadio" :name="1">无需填写手机号</van-radio>
+          <van-radio class="vanRadio" :name="2">建议填写手机号</van-radio>
+          <van-radio class="vanRadio" :name="3">需填写并验证手机号</van-radio>
         </van-radio-group>
       </div>
     </div>
@@ -41,8 +41,8 @@
       <div class="label">指定</div>
       <div class="inputDiv">
         <van-radio-group shape="square" v-model="state.saveObj.thePeople">
-          <van-radio class="vanRadio" name="1">无指定</van-radio>
-          <van-radio class="vanRadio" name="2">只可指定人签到</van-radio>
+          <van-radio class="vanRadio" :name="1">无指定</van-radio>
+          <van-radio class="vanRadio" :name="2">只可指定人签到</van-radio>
         </van-radio-group>
       </div>
     </div>
@@ -95,6 +95,12 @@
 import sHeader from '@/components/SimpleHeader.vue'
 import {reactive} from "vue";
 import {saveSiSignIn} from '@/service/api'
+import {useRouter} from "vue-router";
+import {showFailToast, showSuccessToast} from "vant";
+
+
+const router = useRouter();
+
 
 const state = reactive({
   saveObj: {
@@ -103,12 +109,12 @@ const state = reactive({
     tips: '',
     startTime: '',
     endTime: '',
-    writePhone: '',
-    thePeople: ''
+    writePhone: 1,
+    thePeople: 1
   },
   thePeopleObj: [],
   addPeople: {
-    show: true,
+    show: false,
     data: {
       name: '',
       phone: ''
@@ -137,8 +143,25 @@ const addPeopleFn = () => {
 
 const saveSignInLogFn = () => {
   const params = state.saveObj;
-  saveSiSignIn(params).then();
-
+  params.signLogList = state.thePeopleObj;
+  if (!params.title || params.title.trim() === '') {
+    showFailToast('请填写标题')
+  } else if (!params.introduction || params.introduction.trim() === '') {
+    showFailToast('请填写简介')
+  } else if (!params.tips || params.tips.trim() === '') {
+    showFailToast('请填写温馨提示')
+  } else {
+    saveSiSignIn(params).then((rest) => {
+      if (rest.code === 2000) {
+        showSuccessToast(`${rest.msg}`);
+        setTimeout(() => {
+          router.replace({name: 'home'})
+        }, 1000)
+      } else {
+        showFailToast(`${rest.msg}`)
+      }
+    });
+  }
 }
 
 </script>

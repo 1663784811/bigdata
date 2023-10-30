@@ -32,20 +32,20 @@ public class JpaUtils {
             String[] sortArr = sortStr.split(",");
             // 判断是否有这个字段
             for (int i = 0; i < sortArr.length; i++) {
-                String[] s = sortArr[i].split("_");
-                if (s.length == 2) {
-                    if (s[1].equals("desc")) {
-                        if (null == sort) {
-                            sort = Sort.by(Sort.Direction.DESC, s[0]);
-                        } else {
-                            sort.and(Sort.by(Sort.Direction.DESC, s[0]));
-                        }
+                String itemStr = sortArr[i];
+                int lasted = itemStr.lastIndexOf("_desc");
+                if (lasted == -1) {
+                    if (null == sort) {
+                        sort = Sort.by(Sort.Direction.ASC, itemStr);
                     } else {
-                        if (null == sort) {
-                            sort = Sort.by(Sort.Direction.ASC, s[0]);
-                        } else {
-                            sort.and(Sort.by(Sort.Direction.ASC, s[0]));
-                        }
+                        sort.and(Sort.by(Sort.Direction.ASC, itemStr));
+                    }
+                } else {
+                    String subStr = itemStr.substring(lasted);
+                    if (null == sort) {
+                        sort = Sort.by(Sort.Direction.DESC, subStr);
+                    } else {
+                        sort.and(Sort.by(Sort.Direction.DESC, subStr));
                     }
                 }
             }

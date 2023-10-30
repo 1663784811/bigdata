@@ -14,6 +14,14 @@
     <!--  ==============     最新推荐    ==============  -->
     <div class="good" :style="{ paddingBottom: '100px'}">
       <header class="good-header">签到列表</header>
+      <div class="statusBox">
+        <van-tabs>
+          <van-tab title="全部"></van-tab>
+          <van-tab title="已经完成"></van-tab>
+          <van-tab title="进行中"></van-tab>
+          <van-tab title="编辑中"></van-tab>
+        </van-tabs>
+      </div>
       <van-skeleton title :row="3" :loading="state.loading">
         <div class="good-box">
           <!------------------->
@@ -23,11 +31,11 @@
               <div class="itemTime" @click="goToDetail(item)">{{ item.startTime }}</div>
               <div class="itemCount" @click="goToDetail(item)">
                 <div>共:</div>
-                <div>{{(item.signEd||0)+(item.signEd||0)}}人</div>
+                <div>{{ (item.signEd || 0) + (item.signEd || 0) }}人</div>
                 <div> 已签到:</div>
-                <div>{{item.signEd||0}} 人</div>
+                <div>{{ item.signEd || 0 }} 人</div>
                 <div>未签到:</div>
-                <div>{{item.signEd||0}} 人</div>
+                <div>{{ item.signEd || 0 }} 人</div>
               </div>
               <div class="itemStatus">状态:已完成</div>
             </div>
@@ -83,7 +91,9 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
-  await findSignInPage({}).then((rest) => {
+  await findSignInPage({
+    sort: 'createTime_desc'
+  }).then((rest) => {
     const {data} = rest;
     state.recommends = data;
     console.log('ssssssssss', rest)
@@ -246,6 +256,10 @@ const showQrCode = (row) => {
     color: @primary;
     font-size: 16px;
     font-weight: 500;
+  }
+
+  .statusBox {
+    margin: 10px 10px;
   }
 
   .good-box {

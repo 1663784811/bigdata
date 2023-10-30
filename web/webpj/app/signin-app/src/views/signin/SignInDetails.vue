@@ -105,7 +105,7 @@ const state = reactive({
   restData: {},
   selectType: 'qdAll',
   shareObj:{
-    show: true,
+    show: false,
     options: [
       [
         { name: '帮签', icon: 'wechat' },
@@ -113,7 +113,7 @@ const state = reactive({
     ]
   },
   addPeople: {
-    show: true,
+    show: false,
     data: {
       name: '',
       phone: ''
@@ -126,6 +126,7 @@ onMounted(async () => {
   const {id} = route.query;
   const {data} = await findIdSiSignIn({tid: id});
   state.restData = data;
+
 })
 
 const selectTypFn = (type) => {
@@ -210,7 +211,7 @@ const otherSign = (item) => {
 }
 
 const clickMenu = () => {
-  console.log('======================')
+  state.shareObj.show = true
 }
 
 </script>
