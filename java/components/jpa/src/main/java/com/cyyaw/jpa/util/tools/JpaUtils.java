@@ -28,7 +28,6 @@ public class JpaUtils {
     public static Sort getSort(String sortStr) {
         Sort sort = null;
         if (null != sortStr) {
-            sortStr = sortStr.toLowerCase();
             String[] sortArr = sortStr.split(",");
             // 判断是否有这个字段
             for (int i = 0; i < sortArr.length; i++) {
@@ -41,7 +40,7 @@ public class JpaUtils {
                         sort.and(Sort.by(Sort.Direction.ASC, itemStr));
                     }
                 } else {
-                    String subStr = itemStr.substring(lasted);
+                    String subStr = itemStr.substring(0, lasted);
                     if (null == sort) {
                         sort = Sort.by(Sort.Direction.DESC, subStr);
                     } else {

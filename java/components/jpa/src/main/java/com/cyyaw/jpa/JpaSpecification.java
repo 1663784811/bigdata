@@ -66,7 +66,7 @@ public class JpaSpecification<T> implements Specification<T> {
             List<Predicate> predicateList = new ArrayList<>();
             for (String key : json.keySet()) {
                 String keylc = key.toLowerCase().split("_")[0];
-                if (keylc.equals("page") || keylc.equals("size")) {
+                if (keylc.equals("page") || keylc.equals("size") || keylc.equals("sort")) {
                     continue;
                 } else if (keylc.equals("or") || keylc.equals("and")) {
                     Predicate predicate1 = jsonPredicate(root, cb, json.getJSONObject(key), keylc);
