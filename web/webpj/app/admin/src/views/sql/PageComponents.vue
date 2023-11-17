@@ -24,16 +24,19 @@
               <div class="rowLabel">查询URl:</div>
               <Checkbox border v-model="requestObjData.queryRequest.show"></Checkbox>
               <Input v-model="requestObjData.queryRequest.url" placeholder="查询URl"/>
+              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
             </div>
             <div class="dataRow">
               <div class="rowLabel">保存URl:</div>
               <Checkbox border v-model="requestObjData.saveRequest.show"></Checkbox>
               <Input v-model="requestObjData.saveRequest.url" placeholder="large size"/>
+              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
             </div>
             <div class="dataRow">
               <div class="rowLabel">删除URl:</div>
               <Checkbox border v-model="requestObjData.delRequest.show"></Checkbox>
               <Input v-model="requestObjData.delRequest.url" placeholder="large size"/>
+              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
             </div>
           </div>
         </Card>
@@ -50,6 +53,7 @@
           <div class="operationObjBox">
             <div>
               操作标题:
+              <Checkbox border v-model="operationObj.show"></Checkbox>
               <Input v-model="operationObj.title" placeholder="标题" clearable style="width: 100px"/>
             </div>
             <div>
@@ -61,6 +65,7 @@
             <div class="operationRow" v-for="(item, index) in operationObj.operationArr" :key="index">
               <div>
                 名称:
+                <Checkbox border v-model="item.show"></Checkbox>
                 <Input v-model="item.label" placeholder="名称" clearable style="width: 100px"/>
               </div>
               <div>
@@ -404,7 +409,7 @@ const databaseLoadOkFn = () => {
 .tableConfig {
   position: relative;
   padding: 10px 20px 50px 20px;
-
+  background: #d6dfe7;
   .tableColumnsBtn {
     position: absolute;
     top: -30px;
@@ -429,7 +434,7 @@ const databaseLoadOkFn = () => {
         margin: 10px 0;
         padding: 10px;
         display: flex;
-        background: #ccc;
+        border-bottom: 1px solid #ededed;
       }
     }
 
