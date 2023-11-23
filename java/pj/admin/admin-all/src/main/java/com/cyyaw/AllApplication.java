@@ -17,24 +17,3 @@ public class AllApplication {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
