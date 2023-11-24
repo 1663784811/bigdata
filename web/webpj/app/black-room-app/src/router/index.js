@@ -18,49 +18,31 @@ const router = createRouter({
                     path: 'login',
                     name: 'login',
                     component: () => import('@/views/Login.vue'),
-                    meta: {
-                        notLogin: true
-                    }
+                    meta: {notLogin: true, title: '登录'}
                 },
                 {
                     path: 'home',
                     name: 'home',
                     component: Home,
-                    meta: {
-                        index: 1
-                    }
+                    meta: {index: 1, notLogin: true, title: '首页'}
                 },
                 {
                     path: 'user',
                     name: 'user',
-                    component: () => import('@/views/User.vue'),
-                    meta: {
-                        index: 1
-                    }
-                },
-                {
-                    path: 'category',
-                    name: 'category',
-                    component: () => import('@/views/Category.vue'),
-                    meta: {
-                        index: 1
-                    }
+                    component: () => import('@/views/my/User.vue'),
+                    meta: {index: 1, notLogin: true, title: '我的'}
                 },
                 {
                     path: 'about',
                     name: 'about',
-                    component: () => import('@/views/About.vue'),
-                    meta: {
-                        index: 2
-                    }
+                    component: () => import('@/views/my/About.vue'),
+                    meta: {index: 2, notLogin: true, title: '关于我们'}
                 },
                 {
-                    path: 'payOrder',
-                    name: 'payOrder',
-                    component: () => import('@/views/PayOrder.vue'),
-                    meta: {
-                        index: 2
-                    }
+                    path: 'saveSignIn',
+                    name: 'saveSignIn',
+                    component: () => import('@/views/black/SaveBlack.vue'),
+                    meta: {notLogin: true, title: '添加小黑人'}
                 },
                 {
                     path: 'SignInDetails',
@@ -79,12 +61,7 @@ const router = createRouter({
                     meta: {
                         notLogin: true
                     }
-                },
-                {
-                    path: 'saveSignIn',
-                    name: 'saveSignIn',
-                    component: () => import('@/views/signin/SaveSignIn.vue'),
-                },
+                }
             ]
         }
     ]
@@ -99,7 +76,7 @@ router.beforeEach(({meta = {}, name, params}, from, next) => {
         // 未登录
         next({
             name: 'login',
-            params:{
+            params: {
                 appid: params.appid
             }
         })

@@ -39,7 +39,7 @@ public class StStory implements Serializable {
     // ==================================================
 
     @Basic
-    @Column(name = "appId", columnDefinition = "varchar(255) COMMENT '应用ID'")
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
     private String appId;
 
     // ==================================================
@@ -52,7 +52,6 @@ public class StStory implements Serializable {
     @Basic
     @Column(name = "introduction", columnDefinition = "text COMMENT '简介'")
     private String introduction;
-
 
 
 }

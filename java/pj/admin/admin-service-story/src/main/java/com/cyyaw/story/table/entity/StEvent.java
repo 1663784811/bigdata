@@ -39,7 +39,7 @@ public class StEvent implements Serializable{
     // ==================================================
 
     @Basic
-    @Column(name="appId", columnDefinition = "varchar(255) COMMENT '应用ID'")
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
     private String appId;
 
     @Basic

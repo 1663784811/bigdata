@@ -33,6 +33,7 @@
         <module>../admin-service-story</module>
         <module>../admin-service-store</module>
         <module>../admin-service-activiti</module>
+        <module>../admin-service-black-room</module>
         <module>../admin-dao</module>
         <module>../admin-all</module>
     </modules>

@@ -5,10 +5,6 @@
         <i class="nbicon nblvsefenkaicankaoxianban-1"></i>
         <span>首页</span>
       </router-link>
-<!--      <router-link  class="nav-list-item" to="contacts">-->
-<!--        <i class="nbicon nbfenlei"></i>-->
-<!--        <span>通信录</span>-->
-<!--      </router-link>-->
       <router-link  class="nav-list-item" to="user">
         <i class="nbicon nblvsefenkaicankaoxianban-"></i>
         <span>我的</span>
@@ -20,16 +16,10 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { useCartStore } from '@/stores/cart'
 import { getLocal } from '@/common/js/utils'
 const route = useRoute()
-const cart = useCartStore()
 onMounted(() => {
-  const token = getLocal('token')
-  const path = route.path
-  if (token && !['/home', '/category'].includes(path)) {
-    cart.updateCart()
-  }
+
 })
 </script>
 

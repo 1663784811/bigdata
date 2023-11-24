@@ -46,7 +46,7 @@ public class CommonDaoImpl implements CommonDao {
         if (sqlRowSet.next()) {
             String countsql = sqlRowSet.getString("count_sql");
             String sqlcontent = sqlRowSet.getString("content_sql");
-            return query(countsql, sqlcontent, json, false);
+            return query(countsql, sqlcontent, json, true);
         } else {
             rest.setCode(-1);
             rest.setMsg("找不到可用条件");

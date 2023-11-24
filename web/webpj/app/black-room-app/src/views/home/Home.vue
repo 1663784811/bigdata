@@ -8,11 +8,9 @@
         placeholder="搜索关键词"
     >
       <template #action>
-        <div>搜索</div>
+        <div @click="clickSearch">搜索</div>
       </template>
     </van-search>
-    <!--  ============================  -->
-    <nav-bar/>
     <!--  ==============     最新推荐    ==============  -->
     <div class="good" :style="{ paddingBottom: '100px'}">
       <header class="good-header">小房间共: 100人</header>
@@ -40,39 +38,37 @@
           <!------------------->
         </div>
       </van-skeleton>
+      <div>
+        加载中...
+      </div>
     </div>
-    <van-popup v-model:show="state.qrObj.show">
-      <vue-qr :text="state.qrObj.data"></vue-qr>
-    </van-popup>
   </div>
+  <navBar/>
 </template>
 
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {findSignInPage} from '@/service/api'
+import {commonQuery} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
 import {useUserStore} from "@/stores/user";
-import vueQr from 'vue-qr/src/packages/vue-qr.vue'
+import NavBar from "@/components/NavBar.vue";
 
 let userStore = useUserStore();
 const cart = useCartStore()
 const router = useRouter()
 const route = useRoute()
 const state = reactive({
-  swiperList: [],
   isLogin: false,
-  headerScroll: false,
-  hots: [],
-  newGoodses: [],
   recommends: [],
-  categoryList: [],
   loading: true,
   scrollTop: 0,
-  qrObj: {
-    show: false,
-    data: ''
+  reqParameter: {
+    sort: 'createTime_desc',
+    code: 'select_t_admin',
+    page: 1,
+    size: 30
   }
 })
 
@@ -81,26 +77,38 @@ onMounted(async () => {
   if (userStore.token) {
     state.isLogin = true;
   }
-  showLoadingToast({
-    message: '加载中...',
-    forbidClick: true
-  });
-  await findSignInPage({
-    sort: 'createTime_desc'
-  }).then((rest) => {
-    const {data} = rest;
-    state.recommends = data;
-  })
-  state.loading = false
-  closeToast()
+  loadData();
 })
 
 nextTick(() => {
   document.body.addEventListener('scroll', () => {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-    scrollTop > 100 ? state.headerScroll = true : state.headerScroll = false
+    if (scrollTop < 100 && !state.loading) {
+      // state.loading = true
+      // state.reqParameter.page += 1
+      // loadData()
+    }
   })
 })
+
+const loadData = () => {
+  showLoadingToast({
+    message: '加载中...',
+    forbidClick: true
+  });
+  commonQuery(state.reqParameter).then((rest) => {
+    const {data} = rest
+    state.recommends.push(...data)
+  }).finally(() => {
+    state.loading = false
+    closeToast()
+  })
+}
+const clickSearch = () => {
+  state.reqParameter.page = 1
+  state.recommends = []
+  loadData()
+}
 
 const goToDetail = (item) => {
   console.log(item)
@@ -111,7 +119,6 @@ const goToDetail = (item) => {
     }
   })
 }
-
 const goToFn = (name) => {
   router.push({name});
 }
@@ -120,15 +127,6 @@ const tips = () => {
   showToast('敬请期待');
 }
 
-/**
- * 显示二维码
- */
-const showQrCode = (row) => {
-  state.qrObj.show = true;
-  const {appid} = route.params;
-  state.qrObj.data = window.location.origin + '/#/' + appid + "/SignInPage?id=" + row.tid;
-
-}
 </script>
 
 <style lang="less" scoped>

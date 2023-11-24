@@ -43,11 +43,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-controller-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
     </dependencies>
 

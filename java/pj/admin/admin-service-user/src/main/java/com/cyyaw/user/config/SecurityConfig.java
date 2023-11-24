@@ -92,7 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/shopping/goods/type/enterpriseType",
                         "/admin/file/**",
                         "/app/si/signIn/findIdSiSignIn",
-                        "/app/si/signIn/signInLogSave"
+                        "/app/si/signIn/signInLogSave",
+                        "/app/common/**"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

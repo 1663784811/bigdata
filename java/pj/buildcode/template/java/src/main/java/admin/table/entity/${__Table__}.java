@@ -1,6 +1,5 @@
 package ${basePackage}.table.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "${javaData.table}")
 @org.hibernate.annotations.Table(appliesTo = "${javaData.table}", comment = "${javaData.tableNote}")
-public class ${__Table__} implements Serializable{
+public class ${__Table__} implements BaseEntity<Integer>, Serializable{
     private static final long serialVersionUID = ${operationTools.getserialVersionUID()}L;
 <#-- ============================     字段列表     ======================== -->
 <#list javaColumns as column>
@@ -32,7 +31,6 @@ public class ${__Table__} implements Serializable{
     ${interfaceToos.column(column)}
     <#--=======  是否是时间类型  ======-->
     <#if column.javaType == 'Date' >
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     </#if>

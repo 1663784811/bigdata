@@ -70,6 +70,11 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-black-room</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
 
