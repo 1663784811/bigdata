@@ -6,9 +6,10 @@
         background="#1baeae"
         show-action
         placeholder="搜索关键词"
+        v-model="state.reqParameter.account"
     >
       <template #action>
-        <div @click="clickSearch">搜索</div>
+        <div @click.prevent="clickSearch" style="color:#fff">搜索</div>
       </template>
     </van-search>
     <!--  ==============     最新推荐    ==============  -->
@@ -17,29 +18,24 @@
       <van-skeleton title :row="3" :loading="state.loading">
         <div class="good-box">
           <!------------------->
-          <div class="good-item" v-for="(item,index) in state.recommends" :key="index">
+          <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
             <div>
-              <div class="itemTitle" @click="goToDetail(item)">{{ item.title }}</div>
+              <div class="itemTitle" @click="goToDetail(item)">{{ item.name }}  {{ item.account }}</div>
               <div class="itemTime" @click="goToDetail(item)">{{ item.startTime }}</div>
               <div class="itemCount" @click="goToDetail(item)">
-                <div>共:</div>
-                <div>{{ (item.signEd || 0) + (item.signEd || 0) }}人</div>
-                <div> 已签到:</div>
-                <div>{{ item.signEd || 0 }} 人</div>
-                <div>未签到:</div>
-                <div>{{ item.signEd || 0 }} 人</div>
+                <div>类型:</div>
+                <div>{{ item.type == 1 ? '微信' : item.type == 2 ? '支付宝': '其它'  }}</div>
               </div>
-              <div class="itemStatus">状态:已完成</div>
-            </div>
-            <div class="qrCode" @click="showQrCode(item)">
-              <van-icon name="qr"/>
+              <div class="itemStatus">时间:{{ item.createTime}}</div>
             </div>
           </div>
           <!------------------->
         </div>
       </van-skeleton>
-      <div>
-        加载中...
+      <div class="buttonBox">
+        <div v-if="state.pageStatus === 0 ">加载中...</div>
+        <div v-if="state.pageStatus === 1 " @click="nextPage">下一页</div>
+        <div v-if="state.pageStatus === 2 ">没有数据了...</div>
       </div>
     </div>
   </div>
@@ -64,9 +60,12 @@ const state = reactive({
   recommends: [],
   loading: true,
   scrollTop: 0,
+  pageStatus: 0,
   reqParameter: {
     sort: 'createTime_desc',
-    code: 'select_t_admin',
+    code: 'select_black_room',
+    name: '',
+    account: '',
     page: 1,
     size: 30
   }
@@ -99,21 +98,32 @@ const loadData = () => {
   commonQuery(state.reqParameter).then((rest) => {
     const {data} = rest
     state.recommends.push(...data)
+    if (data.length == 0) {
+      state.pageStatus = 2
+    } else {
+      state.pageStatus = 1
+    }
   }).finally(() => {
     state.loading = false
     closeToast()
   })
 }
 const clickSearch = () => {
+  state.reqParameter.name = state.reqParameter.account
   state.reqParameter.page = 1
   state.recommends = []
   loadData()
 }
 
+const nextPage = () => {
+  state.reqParameter.page += 1
+  state.pageStatus = 0
+  loadData()
+}
+
 const goToDetail = (item) => {
-  console.log(item)
   router.push({
-    name: 'SignInDetails',
+    name: 'BlackPeopleDetails',
     query: {
       id: item.tid
     }
@@ -188,6 +198,12 @@ const tips = () => {
           font-weight: bold;
         }
       }
+    }
+
+    .buttonBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

@@ -19,7 +19,7 @@
     </div>
     <!--  =====================  -->
     <ul class="user-list">
-      <li @click="goTo('saveSignIn')">
+      <li @click="goTo('saveBlack')">
         <span>记录小黑人</span>
         <van-icon name="arrow"/>
       </li>

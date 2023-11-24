@@ -17,7 +17,7 @@ const router = createRouter({
                 {
                     path: 'login',
                     name: 'login',
-                    component: () => import('@/views/Login.vue'),
+                    component: () => import('@/views/my/Login.vue'),
                     meta: {notLogin: true, title: '登录'}
                 },
                 {
@@ -30,7 +30,7 @@ const router = createRouter({
                     path: 'user',
                     name: 'user',
                     component: () => import('@/views/my/User.vue'),
-                    meta: {index: 1, notLogin: true, title: '我的'}
+                    meta: {index: 1, notLogin: false, title: '我的'}
                 },
                 {
                     path: 'about',
@@ -39,28 +39,20 @@ const router = createRouter({
                     meta: {index: 2, notLogin: true, title: '关于我们'}
                 },
                 {
-                    path: 'saveSignIn',
-                    name: 'saveSignIn',
+                    path: 'saveBlack',
+                    name: 'saveBlack',
                     component: () => import('@/views/black/SaveBlack.vue'),
                     meta: {notLogin: true, title: '添加小黑人'}
                 },
                 {
-                    path: 'SignInDetails',
-                    name: 'SignInDetails',
-                    component: () => import('@/views/signin/SignInDetails.vue'),
+                    path: 'BlackPeopleDetails',
+                    name: 'BlackPeopleDetails',
+                    component: () => import('@/views/black/BlackPeopleDetails.vue'),
                 },
                 {
                     path: 'contacts',
                     name: 'contacts',
                     component: () => import('@/views/contacts/Contacts.vue'),
-                },
-                {
-                    path: 'SignInPage',
-                    name: 'SignInPage',
-                    component: () => import('@/views/signin/SignInPage.vue'),
-                    meta: {
-                        notLogin: true
-                    }
                 }
             ]
         }

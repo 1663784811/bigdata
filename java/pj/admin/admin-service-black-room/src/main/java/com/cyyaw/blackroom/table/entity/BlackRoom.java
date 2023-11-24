@@ -54,7 +54,7 @@ public class BlackRoom implements BaseEntity<Integer>, Serializable {
     @Column(name = "account", columnDefinition = "varchar(255) COMMENT '账号'")
     private String account;
     @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '类型{0:其它,1:微信}'")
+    @Column(name = "type", columnDefinition = "int default '0' COMMENT '类型{0:其它,1:微信,2:支付宝}'")
     private Integer type;
     @Basic
     @Column(name = "other_type", columnDefinition = "varchar(255) COMMENT '其它类型名称'")

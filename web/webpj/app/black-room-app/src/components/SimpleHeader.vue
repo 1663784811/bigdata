@@ -36,6 +36,7 @@ export default {
       if (!props.back) {
         router.go(-1)
       } else {
+        console.log("ssssssssssssssss", props)
         router.push({ path: props.back })
       }
       ctx.emit('callback')

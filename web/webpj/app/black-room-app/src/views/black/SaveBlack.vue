@@ -3,51 +3,41 @@
   <div class="fromBox">
     <div class="row">
       <van-cell-group>
-        <van-field v-model="state.saveObj.title" label-align="right" label="标题" placeholder="标题"/>
+        <van-field v-model="state.saveObj.name" label-align="right" label="名称" placeholder="名称"/>
       </van-cell-group>
     </div>
     <div class="row">
       <van-cell-group>
-        <van-field v-model="state.saveObj.introduction" label-align="right" label="简介" placeholder="活动简介"/>
+        <van-field v-model="state.saveObj.account" label-align="right" label="账号" placeholder="账号"/>
       </van-cell-group>
     </div>
-    <div class="row">
-      <van-cell-group>
-        <van-field v-model="state.saveObj.tips" label-align="right" label="温馨提示" placeholder="温馨提示"/>
-      </van-cell-group>
-    </div>
-    <div class="row">
-      <van-cell-group>
-        <van-field v-model="state.saveObj.startTime" label-align="right" label="开始时间" placeholder="开始时间"/>
-      </van-cell-group>
-    </div>
-    <div class="row">
-      <van-cell-group>
-        <van-field v-model="state.saveObj.endTime" label-align="right" label="结束时间" placeholder="开始时间"/>
-      </van-cell-group>
-    </div>
-
     <div class="row cell">
-      <div class="label">填写手机号</div>
+      <div class="label">类型</div>
       <div class="inputDiv">
-        <van-radio-group shape="square" v-model="state.saveObj.writePhone">
-          <van-radio class="vanRadio" :name="1">无需填写手机号</van-radio>
-          <van-radio class="vanRadio" :name="2">建议填写手机号</van-radio>
-          <van-radio class="vanRadio" :name="3">需填写并验证手机号</van-radio>
+        <van-radio-group shape="square" v-model="state.saveObj.type">
+          <van-radio class="vanRadio" :name="1">微信</van-radio>
+          <van-radio class="vanRadio" :name="2">支付宝</van-radio>
+          <van-radio class="vanRadio" :name="0">其它</van-radio>
         </van-radio-group>
       </div>
     </div>
-    <div class="row cell">
-      <div class="label">指定</div>
-      <div class="inputDiv">
-        <van-radio-group shape="square" v-model="state.saveObj.thePeople">
-          <van-radio class="vanRadio" :name="1">无指定</van-radio>
-          <van-radio class="vanRadio" :name="2">只可指定人签到</van-radio>
-        </van-radio-group>
-      </div>
+    <div class="row">
+      <van-cell-group>
+        <van-field v-model="state.saveObj.otherType" label-align="right" label="其它类型名称" placeholder="其它类型名称"/>
+      </van-cell-group>
+    </div>
+    <div class="row">
+      <van-cell-group>
+        <van-field v-model="state.saveObj.price" type="number" label-align="right" label="RMB" placeholder="RMB"/>
+      </van-cell-group>
+    </div>
+    <div class="row">
+      <van-cell-group>
+        <van-field v-model="state.saveObj.userNote"  label-align="right" label="描述" placeholder="描述"/>
+      </van-cell-group>
     </div>
     <div class="row cell">
-      <div class="label">指定签到人</div>
+      <div class="label">图片</div>
       <div class="inputDiv">
         <div>
           <div class="qdBox" v-for="(item, i) in state.thePeopleObj" :key="i">
@@ -69,7 +59,7 @@
       </div>
     </div>
     <div class="rowBtn">
-      <van-button round block color="#1baeae" native-type="submit" @click="saveSignInLogFn">保存</van-button>
+      <van-button round block color="#1baeae" native-type="submit" @click="saveSignInLogFn">保存小黑人</van-button>
     </div>
   </div>
 
