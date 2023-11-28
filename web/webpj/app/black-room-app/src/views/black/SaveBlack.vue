@@ -17,13 +17,15 @@
         <van-radio-group shape="square" v-model="state.saveObj.type">
           <van-radio class="vanRadio" :name="1">微信</van-radio>
           <van-radio class="vanRadio" :name="2">支付宝</van-radio>
+          <van-radio class="vanRadio" :name="3">QQ</van-radio>
           <van-radio class="vanRadio" :name="0">其它</van-radio>
         </van-radio-group>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="state.saveObj.type == 0">
       <van-cell-group>
-        <van-field v-model="state.saveObj.otherType" label-align="right" label="其它类型名称" placeholder="其它类型名称"/>
+        <van-field v-model="state.saveObj.otherType" label-align="right" label="其它类型名称"
+                   placeholder="其它类型名称"/>
       </van-cell-group>
     </div>
     <div class="row">
@@ -33,7 +35,7 @@
     </div>
     <div class="row">
       <van-cell-group>
-        <van-field v-model="state.saveObj.userNote"  label-align="right" label="描述" placeholder="描述"/>
+        <van-field v-model="state.saveObj.userNote" label-align="right" label="描述" placeholder="描述"/>
       </van-cell-group>
     </div>
     <div class="row cell">
@@ -47,14 +49,14 @@
               <div class="qdPhone">{{ item.phone }}</div>
             </div>
             <div class="rowRight">
-              <div class="qdBtn qdEd" @click="delThePeople(item)">
+              <div class="qdBtn qdEd">
                 <van-icon name="minus"/>
               </div>
             </div>
           </div>
         </div>
         <div>
-          <van-button icon="plus" type="primary" size="small" @click='addPeople'>添加</van-button>
+          <van-button icon="plus" type="primary" size="small" >添加</van-button>
         </div>
       </div>
     </div>
@@ -62,45 +64,25 @@
       <van-button round block color="#1baeae" native-type="submit" @click="saveSignInLogFn">保存小黑人</van-button>
     </div>
   </div>
-
-  <van-overlay :show="state.addPeople.show">
-    <div class="wrapper" @click="state.addPeople.show = false">
-      <div class="block" @click.stop>
-        <van-cell-group>
-          <van-field v-model="state.addPeople.data.name" label-align="right" label="姓名" placeholder="姓名"/>
-        </van-cell-group>
-        <van-cell-group>
-          <van-field v-model="state.addPeople.data.phone" label-align="right" label="手机号" placeholder="手机号"/>
-        </van-cell-group>
-        <div class="savePeople">
-          <van-button round block color="#1baeae" native-type="submit" @click="addPeopleFn">添加</van-button>
-        </div>
-      </div>
-    </div>
-  </van-overlay>
-
 </template>
 
 <script setup>
 import sHeader from '@/components/SimpleHeader.vue'
 import {reactive} from "vue";
-import {saveSiSignIn} from '@/service/api'
+import {commonSave} from '@/service/api'
 import {useRouter} from "vue-router";
 import {showFailToast, showSuccessToast} from "vant";
 
-
 const router = useRouter();
-
 
 const state = reactive({
   saveObj: {
-    title: '',
-    introduction: '',
-    tips: '',
-    startTime: '',
-    endTime: '',
-    writePhone: 1,
-    thePeople: 1
+    name: '',
+    account: '',
+    type: 1,
+    otherType: '',
+    price: null,
+    userNote: '',
   },
   thePeopleObj: [],
   addPeople: {
@@ -110,38 +92,19 @@ const state = reactive({
       phone: ''
     }
   }
-
 })
-
-const delThePeople = (row, index) => {
-  state.thePeopleObj.splice(index, 1);
-}
-
-const addPeople = () => {
-  state.addPeople.data = {
-    name: '',
-    phone: ''
-  }
-  state.addPeople.show = true;
-}
-
-const addPeopleFn = () => {
-  const {data} = state.addPeople;
-  state.thePeopleObj.push(data);
-  state.addPeople.show = false;
-}
 
 const saveSignInLogFn = () => {
   const params = state.saveObj;
-  params.signLogList = state.thePeopleObj;
-  if (!params.title || params.title.trim() === '') {
-    showFailToast('请填写标题')
-  } else if (!params.introduction || params.introduction.trim() === '') {
-    showFailToast('请填写简介')
-  } else if (!params.tips || params.tips.trim() === '') {
-    showFailToast('请填写温馨提示')
+  if (!params.name || params.name.trim() === '') {
+    showFailToast('请填名称')
+  } else if (!params.account || params.account.trim() === '') {
+    showFailToast('请填写对方账号')
   } else {
-    saveSiSignIn(params).then((rest) => {
+    commonSave({
+      code: 'save_black_room',
+      data: params
+    }).then((rest) => {
       if (rest.code === 2000) {
         showSuccessToast(`${rest.msg}`);
         setTimeout(() => {
@@ -153,6 +116,11 @@ const saveSignInLogFn = () => {
     });
   }
 }
+
+const delThePeople = (row, index) => {
+  state.thePeopleObj.splice(index, 1);
+}
+
 
 </script>
 

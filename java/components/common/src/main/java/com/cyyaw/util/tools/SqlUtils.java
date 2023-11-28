@@ -1,9 +1,12 @@
 package com.cyyaw.util.tools;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -123,7 +126,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not in (" + addstr(value, ",", "'") + ")";
@@ -135,7 +138,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " in (" + addstr(value, ",", "'") + ")";
@@ -147,7 +150,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not like '" + value + "'";
@@ -159,7 +162,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "'";
@@ -171,7 +174,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '" + value + "%'";
@@ -183,7 +186,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "%'";
@@ -195,7 +198,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " >= '" + value + "'";
@@ -207,7 +210,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " <= '" + value + "'";
@@ -219,7 +222,7 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " > '" + value + "'";
@@ -231,19 +234,19 @@ public class SqlUtils {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " < '" + value + "'";
             }
-        }else{
+        } else {
             String keyN = str;
             String value = null;
             if (null != key) {
                 value = json.getString(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length-1]);
+                value = json.getString(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " = '" + value + "'";
@@ -276,5 +279,152 @@ public class SqlUtils {
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * 通用保存， 解释数据
+     *
+     * @param sql
+     * @param json
+     * @return
+     */
+    public static String[] saveExplainData(String sql, JSONObject json) {
+        List<String> rest = new ArrayList<>();
+        int startIndex = 0;
+        for (int i = 0; i < sql.length(); i++) {
+            if (sql.charAt(i) == '[') {
+                startIndex = i;
+            } else if (sql.charAt(i) == ']') {
+                StringBuffer jsonKey = new StringBuffer();
+                String key = sql.substring(startIndex + 1, i);
+                int lastInx = key.lastIndexOf(":");
+                if (lastInx != -1) {
+                    jsonKey.append(key.substring(lastInx + 1, key.length()));
+                } else {
+                    jsonKey.append(key);
+                }
+                String str = json.getString(jsonKey.toString());
+                if (StrUtil.isNotBlank(str)) {
+                    rest.add(str);
+                } else {
+                    String dfStr = "df:";
+                    int defIndex = key.indexOf(dfStr);
+                    if (defIndex == 0) {
+                        // 设置默认
+                        String[] split = key.split(":");
+                        if (split.length > 2) {
+                            String defType = split[1];
+                            if (defType.indexOf("str_") == 0) {
+                                rest.add(defType.substring("str_".length(), defType.length()));
+                            } else if (defType.indexOf("fn_") == 0) {
+                                String fnName = defType.substring("fn_".length(), defType.length());
+                                if (StrUtil.isNotBlank(fnName)) {
+                                    if ("uuid".equals(fnName)) {
+                                        rest.add(WhyStringUtil.getUUID());
+                                    } else {
+                                        rest.add(fnName);
+                                    }
+                                } else {
+                                    // 默认
+                                    rest.add(defType);
+                                }
+                            } else {
+                                // 默认
+                                rest.add(defType);
+                            }
+                        } else {
+                            // 默认
+                            rest.add("");
+                        }
+                    } else {
+                        // 默认
+                        rest.add("");
+                    }
+                }
+            }
+        }
+        return rest.toArray(new String[rest.size()]);
+    }
+
+    /**
+     * 通用保存, 解释sql
+     * 把 [] 号里的东西替换成 ? 号
+     */
+    public static String saveExplainSql(String sql) {
+        StringBuffer sb = new StringBuffer();
+        boolean start = false;
+        for (int i = 0; i < sql.length(); i++) {
+            if (sql.charAt(i) == '[') {
+                start = true;
+            } else if (sql.charAt(i) == ']') {
+                start = false;
+                sb.append("?");
+            } else if (!start) {
+                sb.append(sql.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 通用更新， 解释数据
+     */
+    public static String[] updateExplainData(String sql, JSONObject newData, JSONObject oldData) {
+        List<String> rest = new ArrayList<>();
+        int startIndex = 0;
+        for (int i = 0; i < sql.length(); i++) {
+            if (sql.charAt(i) == '[') {
+                startIndex = i;
+            } else if (sql.charAt(i) == ']') {
+                StringBuffer jsonKey = new StringBuffer();
+                String key = sql.substring(startIndex + 1, i);
+                int lastInx = key.lastIndexOf(":");
+                if (lastInx != -1) {
+                    jsonKey.append(key.substring(lastInx + 1, key.length()));
+                } else {
+                    jsonKey.append(key);
+                }
+                String str = newData.getString(jsonKey.toString());
+                if (StrUtil.isNotBlank(str)) {
+                    rest.add(str);
+                } else {
+                    String dfStr = "df:";
+                    int defIndex = key.indexOf(dfStr);
+                    if (defIndex == 0) {
+                        // 设置默认
+                        String[] split = key.split(":");
+                        if (split.length > 2) {
+                            String defType = split[1];
+                            if (defType.indexOf("str_") == 0) {
+                                rest.add(defType.substring("str_".length(), defType.length()));
+                            } else if (defType.indexOf("fn_") == 0) {
+                                String fnName = defType.substring("fn_".length(), defType.length());
+                                if (StrUtil.isNotBlank(fnName)) {
+                                    if ("uuid".equals(fnName)) {
+                                        rest.add(WhyStringUtil.getUUID());
+                                    } else {
+                                        rest.add(fnName);
+                                    }
+                                } else {
+                                    // 默认
+                                    rest.add(defType);
+                                }
+                            } else {
+                                // 默认
+                                rest.add(defType);
+                            }
+                        } else {
+                            // 默认
+                            rest.add("");
+                        }
+                    } else {
+                        // 默认
+                        rest.add("");
+                    }
+                }
+            }
+        }
+        return rest.toArray(new String[rest.size()]);
     }
 }

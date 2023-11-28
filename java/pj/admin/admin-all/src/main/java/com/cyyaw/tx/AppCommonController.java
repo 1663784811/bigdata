@@ -38,13 +38,12 @@ public class AppCommonController {
 
 
     /**
-     *   {
-     *       code: '',
-     *       page: 1,
-     *       size: 30,
-     *       sort: ''
-     *   }
-     *
+     * {
+     * code: '',
+     * page: 1,
+     * size: 30,
+     * sort: ''
+     * }
      */
     @ApiOperation(value = "通用查询")
     @GetMapping("/query")
@@ -53,5 +52,34 @@ public class AppCommonController {
         return commonDao.query(json);
     }
 
+
+    /**
+     * {
+     * code: 'key',
+     * data:{数据}
+     * }
+     */
+    @ApiOperation(value = "通用保存")
+    @PostMapping("/save")
+    public BaseResult save(@RequestBody Map<String, Object> map) {
+        JSONObject json = new JSONObject(map);
+        String code = json.getString("code");
+        JSONObject data = json.getJSONObject("data");
+        return commonDao.save(code, data);
+    }
+
+
+    /**
+     * {
+     * code: 'key'
+     * }
+     */
+    @ApiOperation(value = "通用删除")
+    @PostMapping("/del")
+    public BaseResult del(@RequestBody Map<String, Object> map) {
+        JSONObject json = new JSONObject(map);
+//        return commonDao.delete(json);
+        return null;
+    }
 
 }

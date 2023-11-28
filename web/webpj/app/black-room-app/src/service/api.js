@@ -14,6 +14,9 @@ export function getAppAdminInfo(params = {}) {return axios.get(`${baseUrl}/app/s
 //通用查询
 export function commonQuery(params = {}) {return axios.get(`${baseUrl}/app/common/query`, {params});}
 
+//通用保存
+export function commonSave(params = {}) {return axios.post(`${baseUrl}/app/common/save`, params);}
+
 
 
 // ================================================

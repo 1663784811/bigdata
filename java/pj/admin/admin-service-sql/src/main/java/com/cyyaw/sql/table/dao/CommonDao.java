@@ -33,6 +33,11 @@ public interface CommonDao {
     Map<String, Object> save(CommonSaveData commonSaveData);
 
     /**
+     * 通用保存
+     */
+    BaseResult save(String code, JSONObject json);
+
+    /**
      * 通用删除
      *
      * @param json

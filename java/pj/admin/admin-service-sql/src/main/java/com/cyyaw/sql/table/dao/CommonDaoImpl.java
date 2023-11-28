@@ -4,10 +4,14 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.cyyaw.config.exception.WebException;
 import com.cyyaw.jpa.util.DataBaseUtils;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
 import com.cyyaw.jpa.util.entity.FieldInfo;
-import com.cyyaw.util.tools.*;
+import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.SqlUtils;
+import com.cyyaw.util.tools.WebErrCodeEnum;
+import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,11 +33,12 @@ public class CommonDaoImpl implements CommonDao {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     *     {
-     *         code: '',
-     *         page: '',
-     *         size: '',
-     *     }
+     * {
+     * code: '',
+     * page: '',
+     * size: '',
+     * }
+     *
      * @param json
      * @return
      */
@@ -63,9 +68,19 @@ public class CommonDaoImpl implements CommonDao {
     public BaseResult query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
         Integer page = json.getInteger("page");
         Integer size = json.getInteger("size");
+        String sort = json.getString("sort");
         page = (page == null || page <= 0) ? 1 : page;
         size = (size == null || size <= 0) ? 30 : size;
         // ================
+        if (StrUtil.isNotBlank(sort)) {
+            if (sort.lastIndexOf("_desc") != -1) {
+                String sortLine = StrUtil.toUnderlineCase(sort.substring(0, sort.lastIndexOf("_desc")));
+                sqlcontent += " order by " + sortLine +" desc";
+            } else {
+                String sortLine = StrUtil.toUnderlineCase(sort);
+                sqlcontent += " order by " + sortLine;
+            }
+        }
         String querySql = sqlcontent + " limit " + ((page - 1) * size + "," + size);
         String countSql = SqlUtils.explainSql(sqlCount, json);
         // 第二步：替换字符串
@@ -92,6 +107,13 @@ public class CommonDaoImpl implements CommonDao {
         String querySql = SqlUtils.explainSql(sqlContent, json);
         log.info("执行sql语句: {} ", querySql);
         log.info("============================================");
+        return execSql(querySql, touName);
+    }
+
+    /**
+     * 执行sql语句
+     */
+    private List<JSONObject> execSql(String querySql, boolean touName) {
         List<Map<String, Object>> data = jdbcTemplate.queryForList(querySql);
         List<JSONObject> resData = new ArrayList<>();
         if (null != data && data.size() > 0) {
@@ -117,7 +139,6 @@ public class CommonDaoImpl implements CommonDao {
         }
         return resData;
     }
-
 
     @Override
     public Map<String, Object> save(CommonSaveData commonSaveData) {
@@ -361,6 +382,89 @@ public class CommonDaoImpl implements CommonDao {
         }
         String sqlInsert = "insert into " + table + "(" + datakey.toString() + ") values (" + set.toString() + ")";
         jdbcTemplate.update(sqlInsert, list.toArray());
+    }
+
+
+    /**
+     * 通用保存
+     * 第一步: 查询主表是否有数据
+     * 第二步: 没有数据, 执行插入语句
+     * <p>
+     * 第二步: 有数据, 执行更新语句
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @Override
+    public BaseResult save(String code, JSONObject json) {
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
+        BaseResult rest = new BaseResult();
+        if (sqlRowSet.next()) {
+            String mainTable = sqlRowSet.getString("main_table");
+            String mainId = sqlRowSet.getString("main_id");
+            String insetSql = sqlRowSet.getString("inset_sql").replaceAll("\n", "");
+            String updateSql = sqlRowSet.getString("update_sql").replaceAll("\n", "");
+            // 第一步: 查询主表是否有数据
+            String mainIdData = json.getString(mainId);
+            if (StrUtil.isBlank(mainIdData)) {
+                return insertData(insetSql, json);
+            } else {
+                List<JSONObject> tableData = execSql("select * from " + mainTable + " c where c." + mainId + " = ?", true);
+                if (tableData.size() > 1) {
+                    WebException.fail("查询到有多条件数据,表:" + mainTable + ", ID:" + mainId);
+                } else if (tableData.size() == 1) {
+                    JSONObject oldData = tableData.get(0);
+                    return updateData(updateSql, json, oldData);
+                } else {
+                    return insertData(insetSql, json);
+                }
+            }
+        } else {
+            rest.setCode(WebErrCodeEnum.WEB_ERR.getCode());
+            rest.setMsg("找不到可用条件");
+        }
+        return rest;
+    }
+
+    /**
+     * inset into aaa (a,b,c) values ([?],[?],[?])
+     * 插入数据
+     */
+    private BaseResult insertData(String insertSql, JSONObject json) {
+        BaseResult rest = new BaseResult();
+        String sql = SqlUtils.saveExplainSql(insertSql);
+        String[] strArr = SqlUtils.saveExplainData(insertSql, json);
+        int update = jdbcTemplate.update(sql, strArr);
+        if (update > 0) {
+            rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
+            rest.setMsg("保存成功");
+        } else {
+            rest.setCode(WebErrCodeEnum.WEB_ERR.getCode());
+            rest.setMsg("保存失败");
+        }
+        return rest;
+    }
+
+    /**
+     * update tabele set aaa=bbb, ccc=ddd
+     * 更新数据
+     */
+    private BaseResult updateData(String updateSql, JSONObject newData, JSONObject oldData) {
+        BaseResult rest = new BaseResult();
+        //=====
+        String sql = SqlUtils.saveExplainSql(updateSql);
+        String[] strArr = SqlUtils.updateExplainData(updateSql, newData, oldData);
+        //=====
+        int update = jdbcTemplate.update(sql, strArr);
+        if (update > 0) {
+            rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
+            rest.setMsg("保存成功");
+        } else {
+            rest.setCode(WebErrCodeEnum.WEB_ERR.getCode());
+            rest.setMsg("保存失败");
+        }
+        return rest;
     }
 
 }

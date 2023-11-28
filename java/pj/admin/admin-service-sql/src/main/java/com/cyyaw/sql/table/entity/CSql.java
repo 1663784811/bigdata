@@ -36,15 +36,31 @@ public class CSql implements Serializable {
     private String note;
 
     // ==================================================
-
-    @Basic
-    @Column(name = "count_sql", columnDefinition = "text COMMENT 'count数量'")
-    private String countSql;
     @Basic
     @Column(name = "name", columnDefinition = "varchar(32) not null COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "content_sql", columnDefinition = "text COMMENT 'sql内容'")
+    @Column(name = "type", columnDefinition = "int default '0' COMMENT '类型{0:查询,1:保存}'")
+    private Integer type;
+    //===
+    @Basic
+    @Column(name = "count_sql", columnDefinition = "text COMMENT '查询count数量'")
+    private String countSql;
+    @Basic
+    @Column(name = "content_sql", columnDefinition = "text COMMENT '查询sql内容'")
     private String contentSql;
+    //===
+    @Basic
+    @Column(name = "main_table", columnDefinition = "varchar(32) COMMENT '主表'")
+    private String mainTable;
+    @Basic
+    @Column(name = "main_id", columnDefinition = "varchar(32) COMMENT '主表ID字段'")
+    private String mainId;
+    @Basic
+    @Column(name = "inset_sql", columnDefinition = "text COMMENT '插入sql内容'")
+    private String insetSql;
+    @Basic
+    @Column(name = "update_sql", columnDefinition = "text COMMENT '更新sql内容'")
+    private String updateSql;
 
 }

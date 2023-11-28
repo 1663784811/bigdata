@@ -50,18 +50,54 @@
             </div>
           </div>
           <div class="row">
-            <div class="label">sql</div>
+            <div class="label">类型</div>
             <div class="content">
-              <Input v-model="sqlData.contentSql" placeholder="sql" type="textarea" :rows="8"/>
+              <Select v-model="sqlData.type">
+                <Option :value="0">查询</Option>
+                <Option :value="1">保存</Option>
+              </Select>
             </div>
           </div>
-          <div class="row">
-            <div class="label">count</div>
-            <div class="content">
-              <Input v-model="sqlData.countSql" placeholder="sql" type="textarea" :rows="8"/>
+          <div v-if="sqlData.type == 0">
+            <div class="row">
+              <div class="label">查询语句</div>
+              <div class="content">
+                <Input v-model="sqlData.contentSql" placeholder="sql" type="textarea" :rows="8"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">统计数量</div>
+              <div class="content">
+                <Input v-model="sqlData.countSql" placeholder="sql" type="textarea" :rows="8"/>
+              </div>
             </div>
           </div>
-
+          <div v-if="sqlData.type == 1">
+            <div class="row">
+              <div class="label">主表</div>
+              <div class="content">
+                <Input v-model="sqlData.mainTable" placeholder="主表"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">主表ID</div>
+              <div class="content">
+                <Input v-model="sqlData.mainId" placeholder="主表ID"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">插入语句</div>
+              <div class="content">
+                <Input v-model="sqlData.insetSql" placeholder="sql" type="textarea" :rows="8"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">更新语句</div>
+              <div class="content">
+                <Input v-model="sqlData.updateSql" placeholder="sql" type="textarea" :rows="8"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Modal>
@@ -92,6 +128,7 @@ let sqlData = ref({
   name: '',
   contentSql: '',
   countSql: '',
+  type: 0
 });
 
 // =====================================  搜索
@@ -122,10 +159,6 @@ const tableData = ref({
     {
       title: '名称',
       key: 'name'
-    },
-    {
-      title: '分类',
-      key: 'type'
     },
     {
       title: '备注',
@@ -181,6 +214,10 @@ loadTableData();
 const selectTableData = (row, index, editor = false) => {
   modalData.value.showModal = true;
   modalData.value.editor = editor;
+  console.log("sssssss")
+  if (!row.type) {
+    row.type = 0;
+  }
   sqlData.value = row;
 }
 /**
