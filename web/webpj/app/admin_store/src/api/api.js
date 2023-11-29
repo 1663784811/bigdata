@@ -2,8 +2,6 @@ import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-
-
 export const commonRequest = (url, parameter, type = 'get') => {
     if (type === 'post') {
         return AJAXPOST(`${baseUrl}${url}`, parameter, 1)
@@ -12,6 +10,23 @@ export const commonRequest = (url, parameter, type = 'get') => {
     }
 }
 
+// =======================================================  通用
+// 通用查询
+export const commonQuery = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/common/query`, parameter)
+}
+
+
+
+
+
+
+
+
+
+
+
+// =======================================================
 
 /**
  * 获取表格数据

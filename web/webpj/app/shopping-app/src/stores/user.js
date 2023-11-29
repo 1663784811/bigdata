@@ -1,7 +1,8 @@
+import {ref} from 'vue'
 import {defineStore} from 'pinia'
-import {ref} from "vue";
+import {getCart} from '@/service/cart'
 
-export const loginInfo = defineStore('loginInfo', {
+export const useUserStore = defineStore('user', {
     persist: {
         enabled: true,//开启数据持久化
         strategies: [
@@ -14,14 +15,9 @@ export const loginInfo = defineStore('loginInfo', {
     state: () => {
         const userInfo = ref({});
         const token = ref("");
-        const storeInfo = ref({
-            tid: 'dd',
-            name: '听心一号店'
-        })
         return {
             userInfo,
-            token,
-            storeInfo
+            token
         }
     }
 })

@@ -4,7 +4,7 @@ import ViewUIPlus from 'view-ui-plus'
 import {createPinia} from 'pinia'
 import piniaPluginPersist from 'pinia-plugin-persist'
 
-import {router} from '@/router/index.js';
+import router from '@/router/index.js';
 import 'view-ui-plus/dist/styles/viewuiplus.css'
 import mitt from 'mitt'
 

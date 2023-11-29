@@ -43,7 +43,7 @@ public class EStore implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "code", columnDefinition = "varchar(32) not null COMMENT '门店编号(企业编号+门店号)'")
+    @Column(name = "code", columnDefinition = "varchar(32) unique not null COMMENT '门店编号(企业编号+门店号)'")
     private String code;
 
 
