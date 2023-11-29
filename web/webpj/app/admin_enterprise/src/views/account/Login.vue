@@ -1,5 +1,5 @@
 <template>
-  <div class="winHeight" v-if="enterprise.tid">
+  <div class="winHeight">
     <div class="loginContent">
       <div class="contentBox">
         <div class="loginBox">
@@ -61,50 +61,21 @@ const loginParams = {
 
 
 onMounted(() => {
-  enterpriseFindPageFn();
+
 })
 
-const enterpriseFindPageFn = async function () {
-  const {eCode} = route.query;
-  let h = false;
-  if (eCode) {
-    const {data} = await enterpriseFindPage({
-      code: eCode
-    });
-    if (data && data.length > 0) {
-      h = true;
-      enterprise.value = data[0];
-      loginInfoSt.eCode = eCode;
-    }
-  }
-  if (!h) {
-    setTimeout(() => {
-      Message.error({
-        content: '登录地址错误'
-      });
-      setTimeout(() => {
-        router.replace({
-          name: 'register'
-        });
-      }, 3000)
-    })
-  }
-}
 
 /**
  * 点击登录
  */
 const clickLogin = function () {
-  loginParams.enterpriseId = enterprise.value.tid;
+  loginParams.enterpriseId = loginInfoSt.enterpriseInfo.tid;
   logInFn(loginParams).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
-      // 设置token
       loginInfoSt.token = jwtToken;
       loginInfoSt.userInfo = tadmin;
-      router.push({
-        path: "/"
-      })
+      router.push({name: 'home'})
     }
   }).catch((err) => {
     console.log(err)
@@ -153,6 +124,4 @@ const clickLogin = function () {
   }
 
 }
-
-
 </style>

@@ -1,6 +1,16 @@
 export const enterprise = {
-    path: '/enterprise',
+    path: 'enterprise',
     children: [
+        {
+            path: 'dashboard',
+            component: () => import('@/views/enterprise/Dashboard.vue'),
+            name: 'dashboard',
+        },
+        {
+            path: 'appCenter',
+            component: () => import('@/views/enterprise/AppCenter.vue'),
+            name: 'appCenter',
+        },
         {
             path: 'List',
             component: () => import('@/views/enterprise/List.vue'),

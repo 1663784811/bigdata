@@ -14,8 +14,8 @@ export const loginInfo = defineStore('loginInfo', {
     state: () => {
         const userInfo = ref({});
         const token = ref("");
-        // 企业编号
-        const eCode = ref("aaa")
+        // 企业信息
+        const enterpriseInfo = ref({})
         // 门店信息
         const storeInfo = ref({
             tid: 'dd',
@@ -24,7 +24,7 @@ export const loginInfo = defineStore('loginInfo', {
         return {
             userInfo,
             token,
-            eCode,
+            enterpriseInfo,
             storeInfo
         }
     }

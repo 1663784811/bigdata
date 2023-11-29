@@ -20,19 +20,53 @@ export const useAdminMenuStore = defineStore('adminMenu',
             const leftMenu = ref([]);
             const topMenu = ref([
                 {
-                    name: '企业管理',
+                    name: 'Dashboard',
                     icon: 'md-settings',
                     routeName: '',
                     children: [
                         {
-                            name: '我的产品',
+                            name: '主控台',
                             icon: 'md-settings',
-                            routeName: 'MyProductCenter'
+                            routeName: 'dashboard'
                         },
                         {
-                            name: '产品中心',
+                            name: '应用中心',
                             icon: 'md-settings',
-                            routeName: 'productCenter'
+                            routeName: 'appCenter'
+                        },
+                        {
+                            name: '小黑屋',
+                            icon: 'md-settings',
+                            routeName: 'appCenter',
+                            children: [
+                                {
+                                    name: '设置',
+                                    icon: 'md-settings',
+                                    routeName: 'dashboard'
+                                },
+                                {
+                                    name: '小黑人列表',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                }
+                            ]
+                        },
+                        {
+                            name: '记账',
+                            icon: 'md-settings',
+                            routeName: 'enterprise',
+                            children: [
+                                {
+                                    name: '设置',
+                                    icon: 'md-settings',
+                                    routeName: 'dashboard'
+                                },
+                                {
+                                    name: '小黑人列表',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                }
+                            ]
                         }
                     ]
                 },

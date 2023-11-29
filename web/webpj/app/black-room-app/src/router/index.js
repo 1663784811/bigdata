@@ -1,9 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import {useUserStore} from "@/stores/user.js";
 
-import Home from '@/views/home/Home.vue'
-
-
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -30,7 +27,7 @@ const router = createRouter({
                 {
                     path: 'home',
                     name: 'home',
-                    component: Home,
+                    component: import('@/views/home/Home.vue'),
                     meta: {index: 1, notLogin: true, title: '首页'}
                 },
                 {

@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="btnBox" v-if="stepIndex != 2">
-      <Button type="success" @click="clickNext" long>下一步</Button>
+      <Button type="success" @click="clickNext" long  >下一步</Button>
     </div>
     <div class="btnBox" v-if="stepIndex ==1">
       <Button @click="clickPrevious" long>上一步</Button>
@@ -128,7 +128,7 @@ const clickNext = () => {
           if (data.enterprise.url) {
             window.location.href = data.enterprise.url;
           }
-        }, 3000)
+        }, 30000)
       })
     }
   } else {

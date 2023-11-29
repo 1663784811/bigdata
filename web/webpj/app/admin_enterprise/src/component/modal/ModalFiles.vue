@@ -78,7 +78,7 @@ const state = reactive({
 
 onMounted(() => {
   console.log("sssssssssssssssss")
-  loaData();
+  // loaData();
 })
 
 /**
