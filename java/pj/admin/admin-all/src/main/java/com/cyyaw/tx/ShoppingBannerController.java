@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "Banner图")
 @RestController
-@RequestMapping("/shopping/${appId}/web/banner")
+@RequestMapping("/shopping/{appId}/web/banner")
 public class ShoppingBannerController {
 
     @Autowired

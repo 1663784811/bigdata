@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "商品")
 @RestController
-@RequestMapping("/shopping/${appId}/goods/search")
+@RequestMapping("/shopping/{appId}/goods/search")
 public class ShoppingGoodsController {
 
     @Autowired

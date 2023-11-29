@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "小黑屋")
 @RestController
-@RequestMapping("/app/${appId}/black/room")
+@RequestMapping("/app/{appId}/black/room")
 public class BlackRoomController {
 
     @Autowired

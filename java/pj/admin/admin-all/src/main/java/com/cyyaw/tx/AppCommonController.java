@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Api(tags = "公共模块")
 @RestController
-@RequestMapping("/app/${appId}/common")
+@RequestMapping("/app/{appId}/common")
 public class AppCommonController {
 
     @Autowired

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(tags = "商城登录")
-@RequestMapping("/login/shopping/${appId}")
+@RequestMapping("/shopping/{appId}/login")
 @RestController
 public class ShoppingLoginController {
 

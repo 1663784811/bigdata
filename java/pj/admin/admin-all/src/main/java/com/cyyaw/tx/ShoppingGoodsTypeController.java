@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "商品品类")
 @RestController
-@RequestMapping("/shopping/${appId}/goods/type")
+@RequestMapping("/shopping/{appId}/goods/type")
 public class ShoppingGoodsTypeController {
 
     @Autowired

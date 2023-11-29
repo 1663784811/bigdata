@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "支付")
 @RestController
-@RequestMapping("/shopping/${appId}/pay")
+@RequestMapping("/shopping/{appId}/pay")
 public class ShoppingGoodsPayController {
 
 
