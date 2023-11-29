@@ -24,6 +24,7 @@ const router = createRouter({
                     component: () => import('@/views/Login.vue'),
                     meta: {
                         notLogin: true,
+                        title:'登录'
                     }
                 },
                 {
@@ -33,6 +34,7 @@ const router = createRouter({
                     meta: {
                         index: 1,
                         notLogin: true,
+                        title: '首页'
                     }
                 },
                 {
@@ -40,7 +42,8 @@ const router = createRouter({
                     name: 'user',
                     component: () => import('@/views/User.vue'),
                     meta: {
-                        index: 1
+                        index: 1,
+                        title: '用户'
                     }
                 },
                 {
@@ -48,7 +51,9 @@ const router = createRouter({
                     name: 'product-list',
                     component: () => import('@/views/ProductList.vue'),
                     meta: {
-                        index: 2
+                        index: 2,
+                        notLogin: true,
+                        title: '商品列表'
                     }
                 },
                 {
@@ -56,7 +61,9 @@ const router = createRouter({
                     name: 'category',
                     component: () => import('@/views/Category.vue'),
                     meta: {
-                        index: 1
+                        index: 1,
+                        notLogin: true,
+                        title: '分类'
                     }
                 },
                 {
@@ -64,7 +71,8 @@ const router = createRouter({
                     name: 'product',
                     component: () => import('@/views/ProductDetail.vue'),
                     meta: {
-                        index: 3
+                        index: 3,
+                        notLogin: true,
                     }
                 },
                 {
@@ -72,7 +80,9 @@ const router = createRouter({
                     name: 'cart',
                     component: () => import('@/views/Cart.vue'),
                     meta: {
-                        index: 1
+                        index: 1,
+                        notLogin: true,
+                        title: '购物车'
                     }
                 },
                 {

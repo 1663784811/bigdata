@@ -14,9 +14,8 @@ import java.util.Map;
 
 @Api(tags = "公共模块")
 @RestController
-@RequestMapping("/app/common")
+@RequestMapping("/app/${appId}/common")
 public class AppCommonController {
-
 
     @Autowired
     private CommonDao commonDao;

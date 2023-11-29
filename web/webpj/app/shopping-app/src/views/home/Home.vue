@@ -50,7 +50,7 @@
 
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import {getBanner, searchGoods} from '@/service/home'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
@@ -62,6 +62,8 @@ import {useUserStore} from "@/stores/user";
 let userStore = useUserStore();
 const cart = useCartStore()
 const router = useRouter()
+const route = useRoute();
+
 const state = reactive({
   swiperList: [],
   isLogin: false,
@@ -188,7 +190,15 @@ nextTick(() => {
 })
 
 const goToDetail = (item) => {
-  router.push({path: `/product/${item.gstoreGoodsSku.tid}`})
+  // router.push({path: `/product/${item.gstoreGoodsSku.tid}`})
+  const {params} = route
+  router.push({
+    name: 'product',
+    params: {
+      ...params,
+      id: `${item.gstoreGoodsSku.tid}`
+    }
+  })
 }
 
 const tips = () => {

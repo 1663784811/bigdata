@@ -1,4 +1,4 @@
-package com.cyyaw.tx;
+package com.cyyaw.controller.login;
 
 
 import com.cyyaw.service.LoginUserService;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(tags = "商城登录")
-@RequestMapping("/login/shopping")
+@RequestMapping("/login/shopping/${appId}")
 @RestController
 public class ShoppingLoginController {
 

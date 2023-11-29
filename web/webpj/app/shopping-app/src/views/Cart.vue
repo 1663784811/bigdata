@@ -105,7 +105,7 @@ const init = async () => {
 
 
 const goTo = () => {
-  router.push({path: '/home'})
+  router.push({name: 'home'})
 }
 
 const onChange = async (value, detail) => {

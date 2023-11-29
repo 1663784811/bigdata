@@ -7,17 +7,18 @@ import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UAddress;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.LoginInfo;
-import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(tags = "商城用户")
-@RequestMapping("/shopping/user")
+@RequestMapping("/shopping/${appId}/user")
 @RestController
 public class ShoppingUserController {
 
