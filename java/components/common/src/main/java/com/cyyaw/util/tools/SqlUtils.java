@@ -117,9 +117,10 @@ public class SqlUtils {
         String key = null;
         if ((keyIndex = str.indexOf(":=")) > 0) {
             key = str.substring(0, keyIndex);
+            str = str.substring(keyIndex + 2, str.length());
         }
 
-        if ((index = str.indexOf("!@")) != -1) {
+        if ((index = str.indexOf("!@")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -131,7 +132,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not in (" + addstr(value, ",", "'") + ")";
             }
-        } else if ((index = str.indexOf("@")) != -1) {
+        } else if ((index = str.indexOf("@")) == 0) {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
@@ -143,7 +144,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " in (" + addstr(value, ",", "'") + ")";
             }
-        } else if ((index = str.indexOf("!%")) != -1) {
+        } else if ((index = str.indexOf("!%")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -155,7 +156,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not like '" + value + "'";
             }
-        } else if ((index = str.indexOf("L%")) != -1) {
+        } else if ((index = str.indexOf("L%")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -167,7 +168,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "'";
             }
-        } else if ((index = str.indexOf("R%")) != -1) {
+        } else if ((index = str.indexOf("R%")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -179,7 +180,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '" + value + "%'";
             }
-        } else if ((index = str.indexOf("%")) != -1) {
+        } else if ((index = str.indexOf("%")) == 0) {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
@@ -191,7 +192,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "%'";
             }
-        } else if ((index = str.indexOf(">=")) != -1) {
+        } else if ((index = str.indexOf(">=")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -203,7 +204,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " >= '" + value + "'";
             }
-        } else if ((index = str.indexOf("<=")) != -1) {
+        } else if ((index = str.indexOf("<=")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
@@ -215,7 +216,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " <= '" + value + "'";
             }
-        } else if ((index = str.indexOf(">")) != -1) {
+        } else if ((index = str.indexOf(">")) == 0) {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
@@ -227,7 +228,7 @@ public class SqlUtils {
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " > '" + value + "'";
             }
-        } else if ((index = str.indexOf("<")) != -1) {
+        } else if ((index = str.indexOf("<")) == 0) {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {

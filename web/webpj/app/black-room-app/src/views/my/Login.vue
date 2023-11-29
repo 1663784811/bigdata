@@ -1,8 +1,9 @@
 <template>
   <div class="login">
-    <s-header :name="state.type == 'login' ? '登录' : '注册'" ></s-header>
-    <img class="logo" src="https://s.yezgea02.com/1604045825972/newbee-mall-vue3-app-logo.png" alt="">
-
+    <s-header :name="state.type == 'login' ? '管理员登录' : '注册'"></s-header>
+    <div class="logoBox">
+      <van-icon class="logo" name="friends"/>
+    </div>
     <!--  ===============   登录  ===============  -->
     <div v-if="state.type == 'login'" class="login-body login">
       <van-form @submit="onSubmit">
@@ -176,11 +177,23 @@ const onSubmit = async (values) => {
 
 <style lang="less">
 .login {
-  .logo {
+  .logoBox {
     width: 120px;
     height: 120px;
-    display: block;
     margin: 80px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .logo {
+      font-size: 80px;
+      color: #1baeae;
+    }
   }
 
   .login-body {

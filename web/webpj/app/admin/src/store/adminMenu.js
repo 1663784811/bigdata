@@ -17,14 +17,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
             // 已经选择的模式
             const selectList = {};
             // 模式列表
-
             const leftMenu = ref([]);
             const topMenu = ref([
                 {
-                    name: '企业管理',
+                    name: 'Dashboard',
                     icon: 'md-settings',
                     routeName: 'enterprise',
                     children: [
+                        {
+                            name: '主控台',
+                            icon: 'md-settings',
+                            routeName: 'enterprise'
+                        },
                         {
                             name: '企业管理',
                             icon: 'md-settings',

@@ -36,7 +36,7 @@
         width="80wh"
     >
       <div class="modalBox">
-        <div>
+        <div class="sqlContent">
           <div class="row">
             <div class="label">ID</div>
             <div class="content">
@@ -99,7 +99,20 @@
             </div>
           </div>
         </div>
+        <div class="sqlNote">
+          <p>[] ---&gt; =</p>
+          <p>[@] ---&gt; in</p>
+          <p>[!@] ----&gt; not in</p>
+          <p>[%] ----&gt; like</p>
+          <p>[L%] ----&gt; like</p>
+          <p>[R%] ----&gt; like</p>
+          <p>[!%] ----&gt; not like</p>
+          <p>[:=] ----&gt; 别名 [cc:=sss]</p>
+          <p>[!!&lt;=] ----&gt; 大于等于</p>
+          <p>[!!&lt;=] ----&gt; 小于等于</p>
+        </div>
       </div>
+
     </Modal>
   </div>
 </template>
@@ -313,24 +326,36 @@ const modalData = ref({
 }
 
 .modalBox {
-  .row {
-    display: flex;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #f0f0f0;
+  display: flex;
 
-    .label {
-      width: 100px;
-      padding: 0 10px;
+  .sqlContent {
+    flex: 1;
+
+    .row {
       display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-      justify-items: right;
-    }
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f0f0f0;
 
-    .content {
-      flex: 1;
+      .label {
+        width: 100px;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-items: right;
+      }
+
+      .content {
+        flex: 1;
+      }
     }
+  }
+
+  .sqlNote {
+    width: 220px;
+    margin: 0 10px;
+    padding: 10px;
   }
 }
 </style>

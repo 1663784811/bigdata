@@ -9,10 +9,17 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/hello/home'
+            redirect: '/cyyaw/welcomePage'
+        },
+        {
+            path: '/cyyaw/welcomePage',
+            name: 'welcomePage',
+            component: () => import('@/views/welcomePage.vue'),
+            meta: {notLogin: true, title: '欢迎页面'}
         },
         {
             path: '/:appid',
+            component: () => import('@/views/AppMain.vue'),
             children: [
                 {
                     path: 'login',

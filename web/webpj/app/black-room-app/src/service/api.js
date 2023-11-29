@@ -16,27 +16,3 @@ export function commonQuery(params = {}) {return axios.get(`${baseUrl}/app/commo
 
 //通用保存
 export function commonSave(params = {}) {return axios.post(`${baseUrl}/app/common/save`, params);}
-
-
-
-// ================================================
-
-/**
- * 查详情
- */
-export function findIdSiSignIn(params = {}) {
-    return axios.get(`${baseUrl}/app/si/signIn/findIdSiSignIn`, {params});
-}
-
-/**
- * 签到
- */
-export function signInLogSave(params) {
-    return axios.post(`${baseUrl}/app/si/signIn/signInLogSave`, params)
-}
-
-/**
- */
-export function saveSiSignIn(params) {
-    return axios.post(`${baseUrl}/app/si/signIn/saveSiSignIn`, params)
-}
