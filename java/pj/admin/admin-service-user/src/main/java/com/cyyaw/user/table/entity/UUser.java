@@ -2,7 +2,6 @@ package com.cyyaw.user.table.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,6 +41,10 @@ public class UUser implements Serializable {
     @Basic
     @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
     private String enterpriseId;
+
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
     // =================================================================================
 
     @Basic
