@@ -1,7 +1,10 @@
 <template>
   <div class="adminMain">
     <div class="leftBox">
-      <div>仓库</div>
+      <div class="leftTitle">
+        <Icon type="ios-film-outline"></Icon>
+        仓库
+      </div>
       <div>
         asd
       </div>
@@ -42,6 +45,11 @@ initFn();
     display: block;
     margin-right: 10px;
     min-height: 100%;
+    .leftTitle{
+      border-bottom: 1px solid #f1f1f1;
+      padding: 6px 0;
+      margin-bottom: 6px;
+    }
   }
 }
 </style>

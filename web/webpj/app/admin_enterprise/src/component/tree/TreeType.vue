@@ -1,5 +1,5 @@
 <template>
-  <div class="menuBox">
+  <div class="menuBox" :style="style">
     <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
@@ -8,13 +8,11 @@
       </template>
     </Tree>
   </div>
-
   <ModalDataList
       v-model="saveData.show"
       :modalSetting="saveData"
       @event="saveEventFn"
   />
-
 </template>
 
 <script setup>
@@ -32,6 +30,16 @@ const props = defineProps({
   treeSetting: {
     type: Object,
     default: {},
+    required: false
+  },
+  style: {
+    type: Object,
+    default: {},
+    required: false
+  },
+  asTitle: {
+    type: String,
+    default: null,
     required: false
   }
 });
@@ -122,6 +130,9 @@ const reTree = (list) => {
     let itemObj = list[i];
     itemObj.expand = true;
     itemObj.contextmenu = true;
+    if (props.asTitle) {
+      itemObj.title = itemObj[props.asTitle]
+    }
     if (itemObj.children && itemObj.children.length > 0) {
       itemObj.children = reTree(itemObj.children);
     }

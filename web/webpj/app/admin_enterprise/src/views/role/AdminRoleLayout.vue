@@ -3,10 +3,13 @@
     <div class="leftBox">
       <div class="leftTitle">
         <Icon type="ios-film-outline"></Icon>
-        部门
+        角色
       </div>
       <div>
-        <tree-type :treeSetting="treeSetting" style="width: 0; background: none; padding: 0"/>
+        <tree-type
+            :treeSetting="treeSetting"
+            style="width: 0;background: none; padding: 0"
+            as-title="name"/>
       </div>
     </div>
     <router-view/>
@@ -16,7 +19,6 @@
 <script setup>
 
 import {ref} from "vue";
-import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import TreeType from "@/component/tree/TreeType.vue";
 
@@ -25,10 +27,8 @@ const commonTable = ref(null);
 const treeSetting = ref({});
 
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("admin");
-  commonTable.value = role.commonTable;
-  const department = await usePageConfig.getPageConfig("department");
-  treeSetting.value = department.commonTable;
+  const role = await usePageConfig.getPageConfig("role");
+  treeSetting.value = role.commonTable;
 }
 initFn();
 

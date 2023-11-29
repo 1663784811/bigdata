@@ -4,10 +4,11 @@
       <template v-for="(item,index) in store.leftMenu" :key="index">
         <Submenu :name="index" v-if="item.children && item.children.length>0">
           <template #title>
-            <Icon type="ios-paper"/>
+            <Icon type="md-settings"/>
             {{ item.name }}
           </template>
           <MenuItem :name="index+'-'+ ch" v-for="(children, ch) in item.children" :key="ch">
+            <Icon type="ios-paper"/>
             {{ children.name }}
           </MenuItem>
         </Submenu>
