@@ -1,6 +1,6 @@
 <template>
   <div class="order-box">
-    <s-header :name="'我的订单'" :back="'/user'"></s-header>
+    <s-header :name="'我的订单'"></s-header>
     <van-tabs @click-tab="onChangeTab" :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab"
               v-model="state.status">
       <van-tab title="全部" name=''></van-tab>
@@ -58,7 +58,7 @@
 <script setup>
 import {reactive} from 'vue';
 import sHeader from '@/components/SimpleHeader.vue'
-import {getOrderList} from '@/service/order'
+import {getOrderList} from '@/service/api'
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
@@ -118,7 +118,7 @@ const onRefresh = () => {
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .order-box {
 

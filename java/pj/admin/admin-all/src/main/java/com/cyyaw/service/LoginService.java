@@ -86,13 +86,13 @@ public interface LoginService {
      * @param registerInfo
      * @return
      */
-    TAdmin adminRegister(LoginRequest registerInfo);
+    TAdmin adminRegister(LoginRequest registerInfo,  String eCode);
 
 
     /**
      * 应用后台登录
      */
-    AdminAuthToken adminLogin(String appId, String userName, String password);
+    AdminAuthToken appAdminLogin(String appId, String userName, String password);
 
 
 

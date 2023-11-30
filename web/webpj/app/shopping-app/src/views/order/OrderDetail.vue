@@ -133,7 +133,7 @@ const close = () => {
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .order-detail-box {
   background: #f7f7f7;

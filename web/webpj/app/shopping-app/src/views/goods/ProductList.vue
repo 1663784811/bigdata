@@ -147,7 +147,7 @@ const changeTab = ({name}) => {
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .product-list-wrap {
   max-height: 100vh;

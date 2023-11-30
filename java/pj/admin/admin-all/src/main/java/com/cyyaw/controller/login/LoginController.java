@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Slf4j
 @Api(tags = "后台登录模块")
-@RequestMapping("/login/admin")
+@RequestMapping("/admin/{eCode}/login")
 @RestController
 public class LoginController {
 
@@ -49,11 +49,10 @@ public class LoginController {
 
     @ApiOperation(value = "后台登录", notes = "后台登录")
     @PostMapping(value = "/login")
-    public BaseResult login(@RequestBody LoginRequest loginRequest) {
-        String enterpriseCode = loginRequest.getEnterpriseCode();
+    public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String eCode) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseCode, null, userName, password);
+        AdminAuthToken authToken = loginService.loginUserNameAndPassword(eCode, null, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
@@ -63,8 +62,8 @@ public class LoginController {
 
     @ApiOperation(value = "管理员注册", notes = "管理员注册")
     @PostMapping(value = "/register")
-    public BaseResult register(@RequestBody LoginRequest registerInfo) {
-        TAdmin tAdmin = loginService.adminRegister(registerInfo);
+    public BaseResult register(@RequestBody LoginRequest registerInfo, @PathVariable String eCode) {
+        TAdmin tAdmin = loginService.adminRegister(registerInfo, eCode);
         tAdmin.setPassword(null);
         return BaseResult.ok(tAdmin, "注册成功");
     }
@@ -72,7 +71,7 @@ public class LoginController {
 
     @ApiOperation(value = "企业注册", notes = "企业注册")
     @PostMapping(value = "/enterpriseRegister")
-    public BaseResult enterpriseRegister(@RequestBody EnterpriseRegisterRequest enterpriseRegisterRequest) {
+    public BaseResult enterpriseRegister(@RequestBody EnterpriseRegisterRequest enterpriseRegisterRequest, @PathVariable String eCode) {
         log.info("------------企业注册----------{}", enterpriseRegisterRequest);
         EEnterprise eEnterprise = enterpriseRegisterRequest.getEEnterprise();
         LoginRequest loginRequest = enterpriseRegisterRequest.getAdmin();
@@ -80,8 +79,7 @@ public class LoginController {
         EEnterprise e = eEnterpriseService.registerEnterprise(eEnterprise);
         // 第二步：保存负责人信息
         String tid = e.getCode();
-        loginRequest.setEnterpriseCode(tid);
-        TAdmin admin = loginService.adminRegister(loginRequest);
+        TAdmin admin = loginService.adminRegister(loginRequest, eCode);
         admin.setPassword(null);
         // 第三步:分配权限
         tRoleService.initRole(tid, admin.getTid());

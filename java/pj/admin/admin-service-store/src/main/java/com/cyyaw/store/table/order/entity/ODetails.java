@@ -37,21 +37,20 @@ public class ODetails implements Serializable {
     private String note;
 
     // =================================================================================
-
-
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
     @Basic
     @Column(name = "order_id", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
     private String orderId;
-
     @Basic
     @Column(name = "goods_id", columnDefinition = "varchar(32) not null COMMENT 'g_goods商品表ID'")
     private String goodsId;
-
     @Basic
     @Column(name = "sku_id", columnDefinition = "varchar(32) COMMENT 'skuid表ID'")
     private String skuId;
+    // =================================================================================
 
-    //==============
     @Basic
     @Column(name = "type", columnDefinition = "int not null default '0' COMMENT '商品类型{0:普通商品,1:赠品}'")
     private Integer type;

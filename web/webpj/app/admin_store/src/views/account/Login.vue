@@ -55,7 +55,6 @@ const enterprise = ref({
 const loginParams = {
   userName: "root",
   password: "root",
-  enterpriseId: "",
   code: "123456"
 };
 
@@ -69,7 +68,6 @@ onMounted(() => {
  * 点击登录
  */
 const clickLogin = function () {
-  loginParams.enterpriseId = loginInfoSt.storeInfo.enterpriseId;
   logInFn(loginParams).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;

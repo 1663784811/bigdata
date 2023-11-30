@@ -37,10 +37,15 @@ public class OOrder implements Serializable {
     private String note;
 
     // =================================================================================
-
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
     @Basic
     @Column(name = "user_id", columnDefinition = "varchar(32) COMMENT 'u_user用户表(当前用户)id'")
     private String userId;
+
+    // =================================================================================
+
     @Basic
     @Column(name = "user_name", columnDefinition = "varchar(32) COMMENT '用户名'")
     private String userName;

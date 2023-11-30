@@ -41,11 +41,11 @@ public class EApplication implements BaseEntity<Integer>, Serializable {
     @Basic
     @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
     private String enterpriseCode;
-    // =================================================================================
 
     @Basic
-    @Column(name = "code", columnDefinition = "varchar(32) not null COMMENT '应用编号'")
+    @Column(name = "code", columnDefinition = "varchar(32) unique not null COMMENT '应用编号'")
     private String code;
+    // =================================================================================
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(255) COMMENT '应用名称'")

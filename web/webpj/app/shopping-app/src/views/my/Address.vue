@@ -1,6 +1,6 @@
 <template>
   <div class="address-box">
-    <s-header :name="'地址管理'" :back="state.from == 'create-order' ? '' : '/user'"/>
+    <s-header :name="'地址管理'" :back="state.from == 'create-order' ? '' : ''"/>
     <div class="address-item">
       <van-address-list
           v-if="state.from != 'mine'"

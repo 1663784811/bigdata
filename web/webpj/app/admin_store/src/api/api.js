@@ -1,6 +1,7 @@
 import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
+const appId = "sss";
 
 export const commonRequest = (url, parameter, type = 'get') => {
     if (type === 'post') {
@@ -13,14 +14,8 @@ export const commonRequest = (url, parameter, type = 'get') => {
 // =======================================================  通用
 // 通用查询
 export const commonQuery = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/common/query`, parameter)
+    return AJAXGET(`${baseUrl}/admin/${appId}/common/query`, parameter)
 }
-
-
-
-
-
-
 
 
 
@@ -93,7 +88,7 @@ export const saveComponents = (parameter, showMsg = false) => {
  * 登录
  */
 export const logInFn = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
+    return asyncREQUEST(`${baseUrl}/app/${appId}/admin/login/adminLogin`, parameter, 1, "post")
 }
 
 /**

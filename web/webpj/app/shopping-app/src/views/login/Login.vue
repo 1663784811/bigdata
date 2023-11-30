@@ -126,7 +126,7 @@ const toggle = (v) => {
 const onSubmit = async (values) => {
   state.imgCode = verifyRef.value.state.imgCode || ''
   console.log("验证码", state.imgCode)
-  if (state.verify.toLowerCase() != state.imgCode.toLowerCase()) {
+  if (state.verify.toLowerCase() !== state.imgCode.toLowerCase()) {
     showFailToast('验证码有误')
     return
   }

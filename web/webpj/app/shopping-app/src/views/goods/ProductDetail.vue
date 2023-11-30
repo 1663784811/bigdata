@@ -175,7 +175,7 @@ const goToCart = async () => {
 </script>
 
 <style lang="less">
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .product-detail {
   .detail-header {

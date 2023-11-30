@@ -29,23 +29,10 @@ public class AppAdminLoginController {
 
     @ApiOperation(value = "app管理员登录", notes = "app管理员登录")
     @PostMapping(value = "/adminLogin")
-    public BaseResult adminLogin(@RequestBody LoginRequest loginRequest) {
-        String appId = loginRequest.getAppId();
+    public BaseResult adminLogin(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.adminLogin(appId, userName, password);
-        TAdmin tAdmin = authToken.getTAdmin();
-        tAdmin.setPassword(null);
-        return BaseResult.ok(authToken, "登录成功");
-    }
-
-    @ApiOperation(value = "app管理员验证码登录", notes = "app管理员验证码登录")
-    @PostMapping(value = "/userLogin")
-    public BaseResult phoneLogin(@RequestBody LoginRequest loginRequest) {
-        String appId = loginRequest.getAppId();
-        String userName = loginRequest.getUserName();
-        String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.adminLogin(appId, userName, password);
+        AdminAuthToken authToken = loginService.appAdminLogin(appId, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         return BaseResult.ok(authToken, "登录成功");

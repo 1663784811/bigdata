@@ -90,11 +90,11 @@ const selectMenu = (index) => {
 
 const selectProduct = (item) => {
   console.log('item', item.categoryId)
-  router.push({path: '/product-list', query: {categoryId: item.categoryId}})
+  router.push({name: 'product-list', query: {categoryId: item.categoryId}})
 }
 </script>
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .categray {
   .category-header {

@@ -4,10 +4,8 @@ import cn.hutool.json.JSONUtil;
 import com.cyyaw.config.exception.WebException;
 import com.cyyaw.enterprise.service.EApplicationService;
 import com.cyyaw.enterprise.table.dao.EEnterpriseDao;
-import com.cyyaw.enterprise.table.entity.EApplication;
 import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.service.LoginService;
-import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.service.TAdminService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.dao.TAdminDao;
@@ -19,6 +17,7 @@ import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.user.table.entity.TRole;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.BCryptUtil;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.utils.entity.AdminAuthToken;
 import com.cyyaw.user.utils.entity.AuthToken;
 import com.cyyaw.user.utils.entity.LoginRequest;
@@ -238,17 +237,16 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public TAdmin adminRegister(LoginRequest registerInfo) {
-        String enterpriseCode = registerInfo.getEnterpriseCode();
+    public TAdmin adminRegister(LoginRequest registerInfo, String eCode) {
         // 判断企业
-        EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseTid(enterpriseCode);
+        EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseByCode(eCode);
         if (eEnterprise == null) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "企业不存在");
         }
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
         String password = registerInfo.getPassword();
-        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseCode, userName);
+        TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
@@ -264,13 +262,32 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public AdminAuthToken adminLogin(String appId, String userName, String password) {
+    public AdminAuthToken appAdminLogin(String appId, String userName, String password) {
+        TAdmin tAdmin = tAdminDao.findByAccountAndAppId(userName, appId);
+        if (ObjectUtils.isEmpty(tAdmin)) {
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+        }
+        // 第二步: 对比密码
+//        if (!BCryptUtil.matches(password, passworded)) {
+//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+//        }
         // 查应用
-        EApplication eApplication = eApplicationService.findByCode(appId);
-        // 查管理员
-        String enterpriseCode = eApplication.getEnterpriseCode();
         // 登录
-        return loginUserNameAndPassword(enterpriseCode, appId, userName, password);
+        String account = tAdmin.getAccount();
+        String enterpriseCode = tAdmin.getEnterpriseCode();
+        // ==
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setId(tAdmin.getTid());
+        loginInfo.setAccount(tAdmin.getAccount());
+        loginInfo.setRole("");
+        loginInfo.setEnterpriseCode(enterpriseCode);
+        loginInfo.setAppId(appId);
+        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
+        AdminAuthToken authToken = new AdminAuthToken();
+        authToken.setTAdmin(tAdmin);
+        authToken.setJwtToken(token);
+        // 第五步: jwt存放到 redis里
+        return authToken;
     }
 
 }

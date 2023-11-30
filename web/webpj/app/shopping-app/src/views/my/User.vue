@@ -19,19 +19,19 @@
 
     <!--  =====================  -->
     <ul class="user-list">
-      <li class="van-hairline--bottom" @click="goTo('/order')">
+      <li class="van-hairline--bottom" @click="goTo('order')">
         <span>我的订单</span>
         <van-icon name="arrow"/>
       </li>
-      <li class="van-hairline--bottom" @click="goTo('/setting')">
+      <li class="van-hairline--bottom" @click="goTo('setting')">
         <span>账号管理</span>
         <van-icon name="arrow"/>
       </li>
-      <li class="van-hairline--bottom" @click="goTo('/address', { from: 'mine' })">
+      <li class="van-hairline--bottom" @click="goTo('address', { from: 'mine' })">
         <span>地址管理</span>
         <van-icon name="arrow"/>
       </li>
-      <li @click="goTo('/about')">
+      <li @click="goTo('about')">
         <span>关于我们</span>
         <van-icon name="arrow"/>
       </li>
@@ -66,12 +66,12 @@ const goBack = () => {
 }
 
 const goTo = (r, query) => {
-  router.push({path: r, query: query || {}})
+  router.push({name: r, query: query || {}})
 }
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .user-box {
   background: #f6f6f6;

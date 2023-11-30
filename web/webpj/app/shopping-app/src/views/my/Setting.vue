@@ -15,7 +15,7 @@
 import {reactive, onMounted} from 'vue'
 import md5 from 'js-md5'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getUserInfo, EditUserInfo, logout} from '@/service/user'
+import {getUserInfo, EditUserInfo, logout} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import {showSuccessToast} from 'vant'
 import {useRouter} from "vue-router";

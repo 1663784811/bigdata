@@ -37,14 +37,17 @@ public class ODiscount implements Serializable {
     private String note;
 
     // =================================================================================
-
-
     @Basic
-    @Column(name = "orderid", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
-    private String orderid;
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
     @Basic
-    @Column(name = "otherid", columnDefinition = "varchar(32) COMMENT '附ID'")
-    private String otherid;
+    @Column(name = "order_id", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
+    private String orderId;
+    @Basic
+    @Column(name = "other_id", columnDefinition = "varchar(32) COMMENT '附ID'")
+    private String otherId;
+    // =================================================================================
+
 
     @Basic
     @Column(name = "type", columnDefinition = "int not null default '0' COMMENT '优惠类型{0:优惠金额,1:赠送积分,2:优惠券}'")

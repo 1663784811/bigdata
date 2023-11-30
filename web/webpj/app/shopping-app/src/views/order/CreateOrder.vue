@@ -137,7 +137,7 @@ const handleCreateOrder = async () => {
 </script>
 
 <style lang="less" scoped>
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .create-order {
   background: #f9f9f9;

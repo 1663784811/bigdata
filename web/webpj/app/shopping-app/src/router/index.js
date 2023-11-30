@@ -40,7 +40,7 @@ const router = createRouter({
                 {
                     path: 'user',
                     name: 'user',
-                    component: () => import('@/views/User.vue'),
+                    component: () => import('@/views/my/User.vue'),
                     meta: {
                         index: 1,
                         title: '用户'
@@ -49,7 +49,7 @@ const router = createRouter({
                 {
                     path: 'product-list',
                     name: 'product-list',
-                    component: () => import('@/views/ProductList.vue'),
+                    component: () => import('@/views/goods/ProductList.vue'),
                     meta: {
                         index: 2,
                         notLogin: true,
@@ -59,7 +59,7 @@ const router = createRouter({
                 {
                     path: 'category',
                     name: 'category',
-                    component: () => import('@/views/Category.vue'),
+                    component: () => import('@/views/goods/Category.vue'),
                     meta: {
                         index: 1,
                         notLogin: true,
@@ -69,7 +69,7 @@ const router = createRouter({
                 {
                     path: 'product/:id',
                     name: 'product',
-                    component: () => import('@/views/ProductDetail.vue'),
+                    component: () => import('@/views/goods/ProductDetail.vue'),
                     meta: {
                         index: 3,
                         notLogin: true,
@@ -78,7 +78,7 @@ const router = createRouter({
                 {
                     path: 'cart',
                     name: 'cart',
-                    component: () => import('@/views/Cart.vue'),
+                    component: () => import('@/views/goods/Cart.vue'),
                     meta: {
                         index: 1,
                         notLogin: true,
@@ -88,7 +88,7 @@ const router = createRouter({
                 {
                     path: 'create-order',
                     name: 'create-order',
-                    component: () => import('@/views/CreateOrder.vue'),
+                    component: () => import('@/views/order/CreateOrder.vue'),
                     meta: {
                         index: 2
                     }
@@ -112,7 +112,7 @@ const router = createRouter({
                 {
                     path: 'order',
                     name: 'order',
-                    component: () => import('@/views/Order.vue'),
+                    component: () => import('@/views/order/Order.vue'),
                     meta: {
                         index: 2
                     }
@@ -120,7 +120,7 @@ const router = createRouter({
                 {
                     path: 'order-detail',
                     name: 'order-detail',
-                    component: () => import('@/views/OrderDetail.vue'),
+                    component: () => import('@/views/order/OrderDetail.vue'),
                     meta: {
                         index: 3
                     }
@@ -128,7 +128,7 @@ const router = createRouter({
                 {
                     path: 'setting',
                     name: 'setting',
-                    component: () => import('@/views/Setting.vue'),
+                    component: () => import('@/views/my/Setting.vue'),
                     meta: {
                         index: 2
                     }
@@ -144,7 +144,7 @@ const router = createRouter({
                 {
                     path: 'payOrder',
                     name: 'payOrder',
-                    component: () => import('@/views/PayOrder.vue'),
+                    component: () => import('@/views/order/PayOrder.vue'),
                     meta: {
                         index: 2
                     }

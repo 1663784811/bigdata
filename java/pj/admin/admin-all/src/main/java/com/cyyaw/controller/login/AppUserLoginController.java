@@ -36,11 +36,10 @@ public class AppUserLoginController {
 
     @ApiOperation(value = "APP用户手机验证码登录", notes = "APP用户手机验证码登录")
     @PostMapping("phoneLogin")
-    public BaseResult phoneLogin(@RequestBody LoginRequest loginRequest) {
-        String enterpriseCode = loginRequest.getEnterpriseCode();
+    public BaseResult phoneLogin(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        UserAuthToken authToken = loginUserService.loginUserNameAndPassword(enterpriseCode, userName, password);
+        UserAuthToken authToken = loginUserService.loginUserNameAndPassword(appId, userName, password);
         UUser uUser = authToken.getUUser();
         uUser.setPassword(null);
         return BaseResult.ok(authToken, "登录成功");

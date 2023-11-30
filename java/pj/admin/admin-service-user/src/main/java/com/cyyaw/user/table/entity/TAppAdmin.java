@@ -1,5 +1,4 @@
-package com.cyyaw.store.table.goods.entity;
-
+package com.cyyaw.user.table.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -7,17 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-
 
 @Data
 @Entity
-@Table(name = "g_store_goods_sku")
-@org.hibernate.annotations.Table(appliesTo = "g_store_goods_sku", comment = "门店商品sku信息")
-public class GStoreGoodsSku implements Serializable {
-
-    private static final long serialVersionUID = 156878266734233758L;
+@Table(name = "t_app_admin")
+@org.hibernate.annotations.Table(appliesTo = "t_app_admin", comment = "app管理员表")
+public class TAppAdmin implements Serializable {
+    private static final long serialVersionUID = 158730117368285L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,36 +36,17 @@ public class GStoreGoodsSku implements Serializable {
     private String note;
 
     // =================================================================================
-
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
 
     @Basic
-    @Column(name = "goods_id", columnDefinition = "varchar(32) not null COMMENT '商品g_goods表ID'")
-    private String goodsId;
-
-    @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) not null default '' COMMENT '门店e_store表ID'")
-    private String storeId;
-
+    @Column(name = "admin_id", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
+    private String adminId;
     // =================================================================================
 
     @Basic
-    @Column(name = "price", columnDefinition = "decimal(18,2 ) COMMENT '价格'")
-    private BigDecimal price;
-    @Basic
-    @Column(name = "number", columnDefinition = "int not null default '0' COMMENT '虚拟库存数量'")
-    private Integer number;
-
-    @Basic
-    @Column(name = "attr", columnDefinition = "varchar(255) COMMENT 'json属性'")
-    private String attr;
-
-
-    @Basic
-    @Column(name = "photo", columnDefinition = "text COMMENT '图片'")
-    private String photo;
-
-    // ================================
-    @Transient
-    private GGoods goods;
+    @Column(name = "role", columnDefinition = "varchar(32) COMMENT '角色'")
+    private String role;
 
 }

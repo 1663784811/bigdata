@@ -25,7 +25,7 @@ export const searchGoods = (params = {}) => {return axios.get(`${baseUrl}/shoppi
 
 
 
-export function getCategory() {
+export function logout() {
     return axios.get('/categories');
 }
 

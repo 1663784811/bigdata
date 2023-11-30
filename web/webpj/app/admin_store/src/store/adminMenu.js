@@ -223,7 +223,19 @@ export const useAdminMenuStore = defineStore('adminMenu',
                 {
                     name: '支付设置',
                     icon: 'md-settings',
-                    routeName: 'dashboard'
+                    routeName: 'dashboard',
+                    children: [
+                        {
+                            name: '微信支付',
+                            icon: 'md-settings',
+                            routeName: 'appCenter'
+                        },
+                        {
+                            name: '支付宝支付',
+                            icon: 'md-settings',
+                            routeName: 'appCenter'
+                        }
+                    ]
                 }
             ])
 

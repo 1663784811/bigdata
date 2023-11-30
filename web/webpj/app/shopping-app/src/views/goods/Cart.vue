@@ -250,7 +250,7 @@ const isSelectAll = () => {
 </script>
 
 <style lang="less">
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .cart-box {
   .cart-header {

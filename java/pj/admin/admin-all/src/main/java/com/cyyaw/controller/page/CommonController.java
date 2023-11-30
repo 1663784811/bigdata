@@ -7,7 +7,6 @@ import com.cyyaw.sql.table.dao.*;
 import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.util.tools.BaseResult;
-import com.cyyaw.util.tools.CommonRest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +18,7 @@ import java.util.Map;
 
 @Api(tags = "公共模块")
 @RestController
-@RequestMapping("/admin/common")
+@RequestMapping("/admin/{appId}/common")
 public class CommonController {
 
 
