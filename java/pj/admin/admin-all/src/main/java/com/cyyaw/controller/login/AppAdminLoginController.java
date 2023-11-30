@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Api(tags = "APP登录模块")
-@RequestMapping("/login/app")
+@Api(tags = "APP管理员登录模块")
+@RequestMapping("/app/{appId}/admin/login")
 @RestController
 public class AppAdminLoginController {
 
@@ -27,7 +27,7 @@ public class AppAdminLoginController {
         return BaseResult.ok("退出登录成功");
     }
 
-    @ApiOperation(value = "app登录", notes = "app登录")
+    @ApiOperation(value = "app管理员登录", notes = "app管理员登录")
     @PostMapping(value = "/adminLogin")
     public BaseResult adminLogin(@RequestBody LoginRequest loginRequest) {
         String appId = loginRequest.getAppId();
@@ -39,9 +39,9 @@ public class AppAdminLoginController {
         return BaseResult.ok(authToken, "登录成功");
     }
 
-    @ApiOperation(value = "app用户登录", notes = "app用户登录")
+    @ApiOperation(value = "app管理员验证码登录", notes = "app管理员验证码登录")
     @PostMapping(value = "/userLogin")
-    public BaseResult userLogin(@RequestBody LoginRequest loginRequest) {
+    public BaseResult phoneLogin(@RequestBody LoginRequest loginRequest) {
         String appId = loginRequest.getAppId();
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();

@@ -40,7 +40,7 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
     }
 
     @Override
-    public List<TPower> initPower(String enterpriseId) {
+    public List<TPower> initPower(String enterpriseCode) {
         PowerCode[] powerCodes = PowerCode.values();
         List<TPower> arr = new ArrayList<>();
         for (int i = 0; i < powerCodes.length; i++) {
@@ -59,7 +59,7 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
             tPower.setIsPower(0);
             tPower.setUrl("");
             tPower.setSort(0);
-            tPower.setEnterpriseId(enterpriseId);
+            tPower.setEnterpriseCode(enterpriseCode);
             TPower save = tPowerDao.save(tPower);
             arr.add(save);
         }

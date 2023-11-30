@@ -1,6 +1,6 @@
 import {ref} from 'vue'
 import {defineStore} from 'pinia'
-import {getCart} from '@/service/cart'
+import {getCart} from '@/service/api'
 
 export const useUserStore = defineStore('user', {
     persist: {

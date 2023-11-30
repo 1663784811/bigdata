@@ -35,8 +35,8 @@ public class SiSignInController {
      */
     @GetMapping("/findPage")
     public BaseResult<SiSignIn> findPageTAdmin(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        map.put("eq_enterpriseId", eId);
+        String eCode = loginInfo.getEnterpriseCode();
+        map.put("eCode", eCode);
         PageRespone<SiSignIn> page = siSignInService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }

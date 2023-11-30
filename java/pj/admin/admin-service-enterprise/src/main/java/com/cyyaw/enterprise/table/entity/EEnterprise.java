@@ -39,7 +39,7 @@ public class EEnterprise implements Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "code", columnDefinition = "varchar(32) not null COMMENT '企业编号'")
+    @Column(name = "code", columnDefinition = "varchar(32) unique not null COMMENT '企业编号'")
     private String code;
     @Basic
     @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")

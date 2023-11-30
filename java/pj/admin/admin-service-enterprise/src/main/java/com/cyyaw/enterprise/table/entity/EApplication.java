@@ -3,7 +3,6 @@ package com.cyyaw.enterprise.table.entity;
 
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -40,8 +39,8 @@ public class EApplication implements BaseEntity<Integer>, Serializable {
 
     // =================================================================================
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
+    @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
+    private String enterpriseCode;
     // =================================================================================
 
     @Basic

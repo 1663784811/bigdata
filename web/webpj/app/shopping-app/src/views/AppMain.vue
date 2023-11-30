@@ -15,18 +15,20 @@ const appStore = useAppStore();
 
 onMounted(async () => {
   const {appid} = route.params;
-  const {data} = await commonQuery({
-    code: 'select_e_application_by_appid',
-    appid
-  })
-  console.log(data);
-  if (data && data.length == 1) {
-    // 保存app信息
-    appStore.appInfo = data[0];
+  if (appid) {
+    appStore.appInfo.code = appid
+    const {data} = await commonQuery({
+      code: 'select_e_application_by_appid',
+      appid
+    })
+    if (data && data.length === 1) {
+      appStore.appInfo = data[0];
+    } else {
+      await router.replace({name: 'welcomePage'});
+    }
   } else {
-    router.replace({name: 'welcomePage'});
+    await router.replace({name: 'welcomePage'});
   }
-
 })
 
 </script>

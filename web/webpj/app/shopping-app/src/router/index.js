@@ -21,7 +21,7 @@ const router = createRouter({
                 {
                     path: 'login',
                     name: 'login',
-                    component: () => import('@/views/Login.vue'),
+                    component: () => import('@/views/login/Login.vue'),
                     meta: {
                         notLogin: true,
                         title:'登录'
@@ -96,7 +96,7 @@ const router = createRouter({
                 {
                     path: 'address',
                     name: 'address',
-                    component: () => import('@/views/Address.vue'),
+                    component: () => import('@/views/my/Address.vue'),
                     meta: {
                         index: 2
                     }
@@ -104,7 +104,7 @@ const router = createRouter({
                 {
                     path: 'address-edit',
                     name: 'address-edit',
-                    component: () => import('@/views/AddressEdit.vue'),
+                    component: () => import('@/views/my/AddressEdit.vue'),
                     meta: {
                         index: 3
                     }
@@ -136,7 +136,7 @@ const router = createRouter({
                 {
                     path: 'about',
                     name: 'about',
-                    component: () => import('@/views/About.vue'),
+                    component: () => import('@/views/my/About.vue'),
                     meta: {
                         index: 2
                     }

@@ -39,8 +39,8 @@ public class GDepository implements Serializable {
 
 
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
+    @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
+    private String enterpriseCode;
 
     @Basic
     @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")

@@ -27,8 +27,8 @@ public class DepartmentController {
      */
     @GetMapping("/findDepartmentTree")
     public BaseResult findDepartmentTree(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        map.put("eq_enterpriseId", eId);
+        String eId = loginInfo.getEnterpriseCode();
+        map.put("eq_enterpriseCode", eId);
         return BaseResult.ok(tDepartmentService.findTree(new JSONObject(map)));
     }
 
@@ -47,8 +47,8 @@ public class DepartmentController {
      */
     @PostMapping("/saveTDepartment")
     public BaseResult saveTDepartment(@RequestBody TDepartment saveObj,  @TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        saveObj.setEnterpriseId(eId);
+        String eId = loginInfo.getEnterpriseCode();
+        saveObj.setEnterpriseCode(eId);
         TDepartment obj = tDepartmentService.saveTree(saveObj);
         return BaseResult.ok(obj);
     }

@@ -75,7 +75,7 @@ import {useCartStore} from '@/stores/cart'
 import {showToast, showLoadingToast, closeToast, showFailToast} from 'vant'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/cart'
+import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/api'
 
 const router = useRouter()
 const cart = useCartStore()
@@ -140,7 +140,7 @@ const onSubmit = async () => {
     })
   }
   const params = JSON.stringify(skuIdList)
-  await router.push({path: '/create-order', query: {cartItemIds: params}})
+  await router.push({name: 'create-order', query: {cartItemIds: params}})
 }
 
 const deleteGood = async (goods) => {

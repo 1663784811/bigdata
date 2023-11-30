@@ -50,10 +50,10 @@ public class LoginController {
     @ApiOperation(value = "后台登录", notes = "后台登录")
     @PostMapping(value = "/login")
     public BaseResult login(@RequestBody LoginRequest loginRequest) {
-        String enterpriseId = loginRequest.getEnterpriseId();
+        String enterpriseCode = loginRequest.getEnterpriseCode();
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseId, null, userName, password);
+        AdminAuthToken authToken = loginService.loginUserNameAndPassword(enterpriseCode, null, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
@@ -79,8 +79,8 @@ public class LoginController {
         // 第一步：保存企业信息
         EEnterprise e = eEnterpriseService.registerEnterprise(eEnterprise);
         // 第二步：保存负责人信息
-        String tid = e.getTid();
-        loginRequest.setEnterpriseId(tid);
+        String tid = e.getCode();
+        loginRequest.setEnterpriseCode(tid);
         TAdmin admin = loginService.adminRegister(loginRequest);
         admin.setPassword(null);
         // 第三步:分配权限

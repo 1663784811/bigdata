@@ -22,7 +22,7 @@ public interface LoginService {
      * @param account
      * @return
      */
-    TAdmin getLoginInfo(String account, String enterpriseId);
+    TAdmin getLoginInfo(String account, String enterpriseCode);
 
     /**
      * 获取角色列表
@@ -78,7 +78,7 @@ public interface LoginService {
      * @param password
      * @return
      */
-    AdminAuthToken loginUserNameAndPassword(String enterpriseId,String appId, String userName, String password);
+    AdminAuthToken loginUserNameAndPassword(String enterpriseCode,String appId, String userName, String password);
 
     /**
      * 注册

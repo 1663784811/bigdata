@@ -20,7 +20,7 @@
 import { reactive, onMounted } from 'vue'
 import { showToast } from 'vant'
 import sHeader from '@/components/SimpleHeader.vue'
-import { addAddress, EditAddress, DeleteAddress, getDefaultAddress } from '@/service/address'
+import { addAddress, EditAddress, DeleteAddress, getDefaultAddress } from '@/service/api'
 import { tdist } from '@/common/js/utils'
 import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
@@ -120,7 +120,7 @@ const onDelete = async () => {
 </script>
 
 <style lang="less">
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .edit {
     .van-field__body {
       textarea {

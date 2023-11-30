@@ -45,8 +45,8 @@ public class OOrder implements Serializable {
     @Column(name = "user_name", columnDefinition = "varchar(32) COMMENT '用户名'")
     private String userName;
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
+    @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
+    private String enterpriseCode;
     @Basic
     @Column(name = "enterprise_name", columnDefinition = "varchar(32) COMMENT '企业名'")
     private String enterpriseName;

@@ -51,11 +51,9 @@
 <script setup>
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {getBanner, searchGoods} from '@/service/home'
+import {getBanner, searchGoods, enterpriseType} from '@/service/api'
 import {closeToast, showLoadingToast, showToast} from 'vant'
 import {useCartStore} from '@/stores/cart'
-import {enterpriseType} from "@/service/good"
-import {enterpriseId} from '@/service/webConfig.js'
 import {useUserStore} from "@/stores/user";
 
 
@@ -161,9 +159,7 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
-  await getBanner({
-    enterpriseId
-  }).then(res => {
+  await getBanner().then(res => {
     state.swiperList = res.data;
   }).catch((err) => {
     console.log(err)
@@ -172,9 +168,7 @@ onMounted(async () => {
     const {data} = rest;
     state.recommends = data;
   })
-  enterpriseType({
-    enterpriseId
-  }).then(rest => {
+  enterpriseType().then(rest => {
     const {data} = rest;
     state.categoryList = data;
   })

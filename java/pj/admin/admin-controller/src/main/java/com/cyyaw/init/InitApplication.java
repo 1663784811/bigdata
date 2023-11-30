@@ -95,9 +95,9 @@ public class InitApplication {
 
 
     public void addAdmin() {
-        String enterpriseId = "enterpriseId";
+        String enterpriseCode = "enterpriseCode";
         String account = "admin";
-        TAdmin admin = tAdminDao.findByAccount(enterpriseId, account);
+        TAdmin admin = tAdminDao.findByAccount(enterpriseCode, account);
         if (null == admin) {
             admin = new TAdmin();
             admin.setId(0);
@@ -105,7 +105,7 @@ public class InitApplication {
             admin.setCreateTime(new Date());
             admin.setDel(0);
             admin.setNote("");
-            admin.setEnterpriseId(enterpriseId);
+            admin.setEnterpriseCode(enterpriseCode);
             admin.setAccount(account);
             admin.setCanLoginTime(new Date());
             admin.setEmail("");

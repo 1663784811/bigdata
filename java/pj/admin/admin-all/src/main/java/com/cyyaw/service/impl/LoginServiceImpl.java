@@ -68,8 +68,8 @@ public class LoginServiceImpl implements LoginService {
     private EApplicationService eApplicationService;
 
     @Override
-    public TAdmin getLoginInfo(String account, String enterpriseId) {
-        List<TAdmin> tAdmins = tAdminDao.getLoginInfo(account, enterpriseId);
+    public TAdmin getLoginInfo(String account, String enterpriseCode) {
+        List<TAdmin> tAdmins = tAdminDao.getLoginInfo(account, enterpriseCode);
         if (tAdmins == null || tAdmins.size() == 0) {
             WebException.fail("账号不存在");
         } else if (tAdmins.size() > 1) {
@@ -197,9 +197,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public AdminAuthToken loginUserNameAndPassword(String enterpriseId, String appId, String userName, String password) {
+    public AdminAuthToken loginUserNameAndPassword(String enterpriseCode, String appId, String userName, String password) {
         // 第一步: 查用户
-        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
+        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseCode, userName);
         if (ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
         }
@@ -226,7 +226,7 @@ public class LoginServiceImpl implements LoginService {
         loginInfo.setId(tAdmin.getTid());
         loginInfo.setAccount(tAdmin.getAccount());
         loginInfo.setRole(sb.toString());
-        loginInfo.setEnterpriseId(enterpriseId);
+        loginInfo.setEnterpriseCode(enterpriseCode);
         loginInfo.setAppId(appId);
         // 第四步: 生成jwt
         String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
@@ -239,16 +239,16 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public TAdmin adminRegister(LoginRequest registerInfo) {
-        String enterpriseId = registerInfo.getEnterpriseId();
+        String enterpriseCode = registerInfo.getEnterpriseCode();
         // 判断企业
-        EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseTid(enterpriseId);
+        EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseTid(enterpriseCode);
         if (eEnterprise == null) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "企业不存在");
         }
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
         String password = registerInfo.getPassword();
-        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseId, userName);
+        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseCode, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
         }
@@ -258,7 +258,7 @@ public class LoginServiceImpl implements LoginService {
         t.setTid(WhyStringUtil.getUUID());
         t.setAccount(userName);
         t.setPassword(encode);
-        t.setEnterpriseId(eEnterprise.getTid());
+        t.setEnterpriseCode(eEnterprise.getTid());
         TAdmin save = tAdminService.save(t);
         return save;
     }
@@ -268,9 +268,9 @@ public class LoginServiceImpl implements LoginService {
         // 查应用
         EApplication eApplication = eApplicationService.findByCode(appId);
         // 查管理员
-        String enterpriseId = eApplication.getEnterpriseId();
+        String enterpriseCode = eApplication.getEnterpriseCode();
         // 登录
-        return loginUserNameAndPassword(enterpriseId, appId, userName, password);
+        return loginUserNameAndPassword(enterpriseCode, appId, userName, password);
     }
 
 }

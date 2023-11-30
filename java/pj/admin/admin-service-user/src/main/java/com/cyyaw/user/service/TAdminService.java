@@ -6,6 +6,6 @@ import com.cyyaw.user.table.entity.TAdmin;
 public interface TAdminService extends BaseTableService<TAdmin, Integer> {
 
 
-    TAdmin findByAccount(String enterpriseId, String account);
+    TAdmin findByAccount(String enterpriseCode, String account);
 
 }

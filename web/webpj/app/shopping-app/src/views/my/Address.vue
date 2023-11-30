@@ -26,7 +26,7 @@
 <script setup>
 import sHeader from '@/components/SimpleHeader.vue'
 import {reactive, onMounted} from 'vue'
-import {getAddressList} from '@/service/address'
+import {getAddressList} from '@/service/api'
 import {useRoute, useRouter} from 'vue-router'
 
 const route = useRoute()
@@ -73,7 +73,7 @@ const select = (item, index) => {
 </script>
 
 <style lang="less">
-@import '../common/style/mixin';
+@import '../../common/style/mixin';
 
 .address-box {
   .van-radio__icon {

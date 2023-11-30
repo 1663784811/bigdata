@@ -31,8 +31,8 @@ public class TRoleController {
      */
     @GetMapping("/findPage")
     public BaseResult<TRole> findPageTRole(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        map.put("eq_enterpriseId", eId);
+        String eCode = loginInfo.getEnterpriseCode();
+        map.put("eq_enterpriseCode", eCode);
         PageRespone<TRole> page = tRoleService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
@@ -56,7 +56,7 @@ public class TRoleController {
         Integer id = saveObj.getId();
         if (ObjectUtils.isEmpty(id)) {
             //添加
-            saveObj.setEnterpriseId(loginInfo.getEnterpriseId());
+            saveObj.setEnterpriseCode(loginInfo.getEnterpriseCode());
             saveObj.setCreateTime(new Date());
             saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);

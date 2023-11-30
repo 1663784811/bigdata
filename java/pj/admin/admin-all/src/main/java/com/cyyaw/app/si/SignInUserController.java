@@ -26,9 +26,9 @@ public class SignInUserController {
     @ApiOperation(value = "app后台用户信息", notes = "app后台用户信息")
     @GetMapping("/userInfo")
     public BaseResult userInfo(@TokenData LoginInfo loginInfo) {
-        String enterpriseId = loginInfo.getEnterpriseId();
+        String enterpriseCode = loginInfo.getEnterpriseCode();
         String account = loginInfo.getAccount();
-        TAdmin admin = tAdminService.findByAccount(enterpriseId, account);
+        TAdmin admin = tAdminService.findByAccount(enterpriseCode, account);
         return BaseResult.ok(admin);
     }
 

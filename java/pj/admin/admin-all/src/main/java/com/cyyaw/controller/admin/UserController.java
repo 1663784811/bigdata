@@ -31,8 +31,8 @@ public class UserController {
      */
     @GetMapping("/findPage")
     public BaseResult<UUser> findPageUUser(@RequestParam Map<String, Object> map,@TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        map.put("eq_enterpriseId", eId);
+        String eId = loginInfo.getEnterpriseCode();
+        map.put("eq_enterpriseCode", eId);
         PageRespone<UUser> page = uUserService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }

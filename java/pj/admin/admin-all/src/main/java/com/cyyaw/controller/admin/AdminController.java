@@ -31,8 +31,8 @@ public class AdminController {
      */
     @GetMapping("/findPage")
     public BaseResult<TAdmin> findPageTAdmin(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
-        String eId = loginInfo.getEnterpriseId();
-        map.put("eq_enterpriseId", eId);
+        String eId = loginInfo.getEnterpriseCode();
+        map.put("eq_enterpriseCode", eId);
         PageRespone<TAdmin> page = tAdminService.findPage(new JSONObject(map));
         return BaseResult.ok(page);
     }
@@ -58,7 +58,7 @@ public class AdminController {
             //添加
             saveObj.setCreateTime(new Date());
             saveObj.setTid(WhyStringUtil.getUUID());
-            saveObj.setEnterpriseId(loginInfo.getEnterpriseId());
+            saveObj.setEnterpriseCode(loginInfo.getEnterpriseCode());
             log.info("添加:{}", saveObj);
             obj = tAdminService.save(saveObj);
         } else {

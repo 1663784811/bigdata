@@ -57,9 +57,8 @@ import {reactive, onMounted, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import navBar from '@/components/NavBar.vue'
 import listScroll from '@/components/ListScroll.vue'
-import {enterpriseType} from "@/service/good"
+import {enterpriseType} from "@/service/api"
 import {showLoadingToast, closeToast} from 'vant'
-import {enterpriseId} from '@/service/webConfig.js'
 
 const router = useRouter()
 const searchWrap = ref(null)
@@ -73,9 +72,7 @@ onMounted(async () => {
   searchWrap.value.style.height = $screenHeight - 100 + 'px'
   showLoadingToast('加载中...')
   closeToast()
-  enterpriseType({
-    enterpriseId
-  }).then(rest => {
+  enterpriseType().then(rest => {
     const {data} = rest;
     state.categoryData = data;
   })

@@ -18,7 +18,7 @@ public class LoginRequest implements Serializable {
     private String code;
 
     @ApiModelProperty(value = "企业ID", example = "123456")
-    private String enterpriseId;
+    private String enterpriseCode;
 
     @ApiModelProperty(value = "appID", example = "123456")
     private String appId;

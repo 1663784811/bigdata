@@ -17,7 +17,7 @@ public interface TPowerService extends BaseTableService<TPower, Integer> {
     /**
      * 初始化菜单
      */
-    List<TPower> initPower(String enterpriseId);
+    List<TPower> initPower(String enterpriseCode);
 
 
     /**

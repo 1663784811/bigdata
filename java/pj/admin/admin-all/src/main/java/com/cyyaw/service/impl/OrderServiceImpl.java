@@ -249,7 +249,7 @@ public class OrderServiceImpl implements OrderService {
             order.setUserId(userId);
             order.setUserName(userName);
 
-            order.setEnterpriseId("");
+            order.setEnterpriseCode("");
             order.setEnterpriseName("");
             order.setStoreId("");
             order.setStoreName("");
@@ -369,7 +369,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUserId(userId);
         order.setUserName(userName);
 
-        order.setEnterpriseId("");
+        order.setEnterpriseCode("");
         order.setEnterpriseName("");
         order.setStoreId(storeId);
         order.setStoreName(eStore.getName());

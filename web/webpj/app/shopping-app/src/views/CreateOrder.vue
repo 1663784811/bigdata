@@ -62,11 +62,7 @@
 <script setup>
 import {reactive, onMounted, computed} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getByCartItemIds} from '@/service/cart'
-import {getDefaultAddress} from '@/service/address'
-import {createOrder, payOrder} from '@/service/order'
-import {countGoodsPrice} from '@/service/cart'
-
+import {createOrder, payOrder, countGoodsPrice,getDefaultAddress} from '@/service/api'
 import {setLocal, getLocal} from '@/common/js/utils'
 import {showLoadingToast, closeToast, showSuccessToast, showFailToast} from 'vant'
 import {useRoute, useRouter} from 'vue-router'
@@ -107,7 +103,7 @@ const init = async () => {
 }
 
 const goTo = () => {
-  router.push({path: '/address', query: {cartItemIds: JSON.stringify(state.cartItemIds), from: 'create-order'}})
+  router.push({name: 'address', query: {cartItemIds: JSON.stringify(state.cartItemIds), from: 'create-order'}})
 }
 
 const deleteLocal = () => {

@@ -1,11 +1,11 @@
 <template>
   <div class="login">
 
-    <s-header :name="state.type == 'login' ? '登录' : '注册'" ></s-header>
+    <s-header :name="state.type === 'login' ? '登录' : '注册'" ></s-header>
     <img class="logo" src="https://s.yezgea02.com/1604045825972/newbee-mall-vue3-app-logo.png" alt="">
 
     <!--  ===============   登录  ===============  -->
-    <div v-if="state.type == 'login'" class="login-body login">
+    <div v-if="state.type === 'login'" class="login-body login">
       <van-form @submit="onSubmit">
         <van-field
             v-model="state.username"
@@ -130,7 +130,7 @@ const onSubmit = async (values) => {
     showFailToast('验证码有误')
     return
   }
-  if (state.type == 'login') {
+  if (state.type === 'login') {
     const {data, msg, code} = await login({
       "userName": values.username,
       "password": values.password
@@ -139,6 +139,7 @@ const onSubmit = async (values) => {
       userStore.token = data.jwtToken;
       showSuccessToast(msg);
       setTimeout(() => {
+        // TODO 回跳错误
         router.back()
       }, 1000);
     } else {

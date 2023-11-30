@@ -2,6 +2,8 @@ package com.cyyaw.service.impl;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.cyyaw.enterprise.service.EApplicationService;
+import com.cyyaw.enterprise.table.entity.EApplication;
 import com.cyyaw.service.LoginUserService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UUser;
@@ -19,13 +21,19 @@ import java.util.Date;
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
 
+    @Autowired
+    private EApplicationService eApplicationService;
 
     @Autowired
     private UUserService uUserService;
 
     @Override
-    public UserAuthToken loginUserNameAndPassword(String enterpriseId, String userName, String password) {
-        UUser user = uUserService.findByAccountAndPassword(enterpriseId, userName);
+    public UserAuthToken loginUserNameAndPassword(String appId, String userName, String password) {
+        EApplication app = eApplicationService.findByCode(appId);
+        if (app == null) {
+            throw new WhyException("APP不存在");
+        }
+        UUser user = uUserService.findByAppIdAndPassword(appId, userName);
         if (null != user) {
             String pwd = user.getPassword();
             String account = user.getAccount();
@@ -52,11 +60,14 @@ public class LoginUserServiceImpl implements LoginUserService {
     }
 
     @Override
-    public UUser userRegister(LoginRequest registerInfo) {
-        String enterpriseId = registerInfo.getEnterpriseId();
+    public UUser userRegister(String appId, LoginRequest registerInfo) {
         String userName = registerInfo.getUserName();
         String password = registerInfo.getPassword();
-        UUser uUser = uUserService.findByAccountAndPassword(enterpriseId, userName);
+        EApplication app = eApplicationService.findByCode(appId);
+        if (app == null) {
+            throw new WhyException("APP不存在");
+        }
+        UUser uUser = uUserService.findByAppIdAndPassword(appId, userName);
         if (null != uUser) {
             throw new WhyException("用户名已被注册");
         } else {
@@ -65,7 +76,7 @@ public class LoginUserServiceImpl implements LoginUserService {
             user.setCreateTime(new Date());
             user.setDel(0);
             user.setNote("商城用户注册");
-            user.setEnterpriseId(enterpriseId);
+            user.setAppId(appId);
             user.setAccount(userName);
             user.setPassword(password);
             user.setTrueName("");

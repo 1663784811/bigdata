@@ -61,15 +61,15 @@ public class TRoleServiceImpl extends BaseService<TRole, Integer> implements TRo
     }
 
     @Override
-    public void initRole(String enterpriseId, String adminId) {
+    public void initRole(String enterpriseCode, String adminId) {
         // 初始化菜单
-        List<TPower> tPowers = tPowerService.initPower(enterpriseId);
+        List<TPower> tPowers = tPowerService.initPower(enterpriseCode);
         // 初始化角色
         TRole tRole = new TRole();
         tRole.setCode(RoleCode.admin.getCode());
         tRole.setName("负责人");
         tRole.setTreeCode("");
-        tRole.setEnterpriseId(enterpriseId);
+        tRole.setEnterpriseCode(enterpriseCode);
         TRole save = this.save(tRole);
         String roleId = save.getTid();
         // 绑定菜单

@@ -38,9 +38,12 @@ public class WBanner implements Serializable {
 
     // =================================================================================
     @Basic
-    @Column(name = "enterprise_id", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表ID'")
-    private String enterpriseId;
-
+    @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
+    private String enterpriseCode;
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
+    // =================================================================================
 
     @Basic
     @Column(name = "name", columnDefinition = "varchar(255) COMMENT '名称'")

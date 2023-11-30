@@ -12,7 +12,7 @@ public interface TRoleService extends BaseTableService<TRole, Integer> {
     /**
      * 初始化权限
      */
-    void initRole(String enterpriseId, String adminId);
+    void initRole(String enterpriseCode, String adminId);
 
 
 }
