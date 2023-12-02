@@ -20,7 +20,6 @@
     </div>
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
-
       <div class="tableColumnsBtn">
         <Button type="primary" icon="md-list" @click="objConfig.isShowColumns = !objConfig.isShowColumns"/>
         <Drawer title="字段" :closable="true" v-model="objConfig.isShowColumns">
@@ -59,14 +58,12 @@
       :modalSetting="saveData"
       @event="saveEventFn"
   />
-  <SelectPanel/>
 </template>
 
 <script setup>
 import {defineEmits, ref, watch, resolveComponent, provide, inject} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
-import SelectPanel from './SelectPanel.vue'
 import ModalDataList from './ModalDataList.vue'
 
 const emits = defineEmits(['event']);
@@ -157,7 +154,11 @@ const loadData = () => {
       }
   ).then((res) => {
     objConfig.value.loading = false;
-    objConfig.value.data = res.data;
+    if (res.data && res.data.length !== undefined) {
+      objConfig.value.data = res.data;
+    } else {
+      console.error("返回的数据格式有误, data: ", res.data);
+    }
     objConfig.value.pageData.total = res.result.total;
   }).catch(err => {
     objConfig.value.loading = false;

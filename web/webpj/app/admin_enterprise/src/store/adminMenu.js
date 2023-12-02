@@ -83,61 +83,40 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: '',
                             children: [
                                 {
-                                    name: '待办任务',
+                                    name: '我的待办',
                                     icon: 'md-settings',
-                                    routeName: '',
-                                    children: [
-                                        {
-                                            name: '我的待办',
-                                            icon: 'md-settings',
-                                            routeName: 'user'
-                                        },
-                                        {
-                                            name: '全部待办',
-                                            icon: 'md-settings',
-                                            routeName: 'adminPower'
-                                        }
-                                    ]
+                                    routeName: 'myTask'
                                 },
                                 {
-                                    name: '任务申请',
+                                    name: '全部待办',
                                     icon: 'md-settings',
-                                    routeName: '',
-                                    children: [
-                                        {
-                                            name: '请假申请',
-                                            icon: 'md-settings',
-                                            routeName: ''
-                                        },
-                                        {
-                                            name: '采购申请',
-                                            icon: 'md-settings',
-                                            routeName: ''
-                                        },
-                                        {
-                                            name: '发起会议',
-                                            icon: 'md-settings',
-                                            routeName: ''
-                                        }
-                                    ]
+                                    routeName: 'adminPower'
                                 },
                                 {
-                                    name: '流程管理',
+                                    name: '请假申请',
                                     icon: 'md-settings',
-                                    routeName: '',
-                                    children: [
-                                        {
-                                            name: '模型管理',
-                                            icon: 'md-settings',
-                                            routeName: ''
-                                        },
-                                        {
-                                            name: '流程列表',
-                                            icon: 'md-settings',
-                                            routeName: ''
-                                        }
-                                    ]
+                                    routeName: ''
                                 },
+                                {
+                                    name: '采购申请',
+                                    icon: 'md-settings',
+                                    routeName: ''
+                                },
+                                {
+                                    name: '发起会议',
+                                    icon: 'md-settings',
+                                    routeName: ''
+                                },
+                                {
+                                    name: '模型管理',
+                                    icon: 'md-settings',
+                                    routeName: ''
+                                },
+                                {
+                                    name: '流程列表',
+                                    icon: 'md-settings',
+                                    routeName: ''
+                                }
 
                             ]
                         },
@@ -165,6 +144,22 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             ]
                         },
                         {
+                            name: '用户管理',
+                            icon: 'md-settings',
+                            routeName: 'appCenter'
+                        },
+                        {
+                            name: '商城设置',
+                            icon: 'md-settings',
+                            children: [
+                                {
+                                    name: '首页banner图',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                }
+                            ]
+                        },
+                        {
                             name: '订单管理',
                             icon: 'md-settings',
                             routeName: 'dashboard',
@@ -179,66 +174,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     icon: 'md-settings',
                                     routeName: 'dashboard',
                                 },
-                            ]
-                        },
-                        {
-                            name: '商品管理',
-                            icon: 'md-settings',
-                            routeName: 'dashboard',
-                            children: [
-                                {
-                                    name: '商品上下架',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                },
-                                {
-                                    name: '商品管理',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                },
-                                {
-                                    name: '商品分类',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                },
-                                {
-                                    name: '商品品牌',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                },
-                            ]
-                        },
-                        {
-                            name: '仓库管理',
-                            icon: 'md-settings',
-                            routeName: 'dashboard',
-                            children: [
-                                {
-                                    name: '仓库概览',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                },
-                                {
-                                    name: '仓库列表',
-                                    icon: 'md-settings',
-                                    routeName: 'dashboard',
-                                }
-                            ]
-                        },
-                        {
-                            name: '用户管理',
-                            icon: 'md-settings',
-                            routeName: 'appCenter'
-                        },
-                        {
-                            name: '商城设置',
-                            icon: 'md-settings',
-                            children: [
-                                {
-                                    name: '首页banner图',
-                                    icon: 'md-settings',
-                                    routeName: 'appCenter'
-                                }
                             ]
                         },
                         {

@@ -112,7 +112,9 @@ const loadData = () => {
   ).then((rest) => {
     const {data} = rest;
     const arr = [];
-    if (data) {
+    if (data && data.root && data.root.length > 0) {
+      arr.push(...reTree(data.root));
+    } else if (data) {
       arr.push(...reTree(data));
     }
     objConfig.value.data[0].children = arr;

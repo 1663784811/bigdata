@@ -24,24 +24,29 @@
               <div class="rowLabel">查询URl:</div>
               <Checkbox border v-model="requestObjData.queryRequest.show"></Checkbox>
               <Input v-model="requestObjData.queryRequest.url" placeholder="查询URl"/>
-              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
+              <Button class="dataBtn" type="primary" icon="md-list"
+                      @click="urlSettingParameter(requestObjData.queryRequest, 'query')">设置参数
+              </Button>
             </div>
             <div class="dataRow">
               <div class="rowLabel">保存URl:</div>
               <Checkbox border v-model="requestObjData.saveRequest.show"></Checkbox>
               <Input v-model="requestObjData.saveRequest.url" placeholder="large size"/>
-              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
+              <Button class="dataBtn" type="primary" icon="md-list"
+                      @click="urlSettingParameter(requestObjData.saveRequest, 'save')">设置参数
+              </Button>
             </div>
             <div class="dataRow">
               <div class="rowLabel">删除URl:</div>
               <Checkbox border v-model="requestObjData.delRequest.show"></Checkbox>
               <Input v-model="requestObjData.delRequest.url" placeholder="large size"/>
-              <Button class="dataBtn" type="primary" icon="md-list">设置参数</Button>
+              <Button class="dataBtn" type="primary" icon="md-list"
+                      @click="urlSettingParameter(requestObjData.delRequest, 'del')">设置参数
+              </Button>
             </div>
           </div>
         </Card>
       </div>
-
       <div class="cardBox">
         <Card :bordered="true">
           <template #title>
@@ -208,6 +213,16 @@
       </div>
       <Input v-model="databaseLoad.jsData" type="textarea" :rows="30"/>
     </Modal>
+    <Modal
+        v-model="settingParameter.show"
+        :loading="settingParameter.loading"
+        title="设置参数"
+        width="80vw"
+        @on-ok="settingParameterOk"
+    >
+      <Input v-model="settingParameter.data" type="textarea" :rows="40"/>
+    </Modal>
+    <!-- =============    弹出层   =============   -->
   </div>
 </template>
 
@@ -226,6 +241,12 @@ const initFn = async () => {
   commonTable.value = role.commonTable;
 }
 initFn();
+
+const settingParameter = ref({
+  show: false,
+  data: '',
+  model: ''
+})
 
 const selectData = ref({});
 const requestObjData = ref({
@@ -403,6 +424,29 @@ const databaseLoadOkFn = () => {
   columnsArr.value = columns;
 }
 
+const urlSettingParameter = (data, model) => {
+  settingParameter.value.show = true
+  settingParameter.value.model = model
+  if (data.parameter) {
+    settingParameter.value.data = JSON.stringify(data.parameter, null, "  ");
+  } else {
+    settingParameter.value.data = ""
+  }
+}
+const settingParameterOk = () => {
+  let setData = {};
+  if (settingParameter.value.data && settingParameter.value.data.length > 3) {
+    setData = JSON.parse(settingParameter.value.data)
+  }
+  if (settingParameter.value.model === 'query') {
+    requestObjData.value.queryRequest.parameter = setData
+  } else if (settingParameter.value.model === 'save') {
+    requestObjData.value.saveRequest.parameter = setData
+  } else if (settingParameter.value.model === 'del') {
+    requestObjData.value.delRequest.parameter = setData
+  }
+}
+
 </script>
 
 <style scoped lang="less">
@@ -410,6 +454,7 @@ const databaseLoadOkFn = () => {
   position: relative;
   padding: 10px 20px 50px 20px;
   background: #d6dfe7;
+
   .tableColumnsBtn {
     position: absolute;
     top: -30px;

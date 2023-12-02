@@ -23,6 +23,7 @@ export const pageConfig = defineStore('pageConfig', () => {
         // PageComponents
     })
     const getPageConfig = async (pageCode) => {
+        console.log("=========== 获取配置 =============  ", pageCode)
         let codeData = pageConfigList.value[pageCode]
         if (!codeData) {
             const loadData = await pageSetting({pageCode: pageCode});

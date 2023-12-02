@@ -1,5 +1,5 @@
 <template>
-  <CommonTable :table-setting="commonTable"/>
+  <CommonTable :table-setting="tableInfo"/>
 </template>
 
 <script setup>
@@ -9,10 +9,10 @@ import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
+const tableInfo = ref(null);
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("adminMenu");
-  commonTable.value = role.commonTable;
+  tableInfo.value = role.commonTable;
 }
 initFn();
 </script>
