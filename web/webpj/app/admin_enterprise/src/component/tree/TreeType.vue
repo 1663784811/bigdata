@@ -1,10 +1,11 @@
 <template>
   <div class="menuBox" :style="style">
-    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" show-checkbox>
+    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" @on-select-change="selectTreeFn" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
-        <DropdownItem @click="handleContextMenuSave(true)">编辑</DropdownItem>
-        <DropdownItem @click="handleContextMenuDelete" style="color: #ed4014">删除</DropdownItem>
+        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>
+        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuDelete" style="color: #ed4014">删除
+        </DropdownItem>
       </template>
     </Tree>
   </div>
@@ -24,7 +25,7 @@ import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";
 
-const emits = defineEmits(['event']);
+const emits = defineEmits(['event', 'selectChange']);
 
 const props = defineProps({
   treeSetting: {
@@ -40,6 +41,11 @@ const props = defineProps({
   asTitle: {
     type: String,
     default: null,
+    required: false
+  },
+  editer: {
+    type: Boolean,
+    default: false,
     required: false
   }
 });
@@ -71,11 +77,12 @@ const saveData = ref({
 
 const objConfig = ref(
     {
+      showMainMenu: false,
       data: [
         {
           title: '全部',
           expand: true,
-          contextmenu: true,
+          contextmenu: props.editer,
           children: []
         }
       ]
@@ -129,7 +136,7 @@ const reTree = (list) => {
   for (let i = 0; i < list.length; i++) {
     let itemObj = list[i];
     itemObj.expand = true;
-    itemObj.contextmenu = true;
+    itemObj.contextmenu = props.editer;
     if (props.asTitle) {
       itemObj.title = itemObj[props.asTitle]
     }
@@ -142,7 +149,12 @@ const reTree = (list) => {
 
 
 const handleContextMenu = (data, event, position) => {
-  console.log(data)
+  console.log(data, position)
+  if (data.nodeKey === 0) {
+    objConfig.value.showMainMenu = false;
+  } else {
+    objConfig.value.showMainMenu = true;
+  }
   selectData.value = data;
 }
 /**
@@ -175,9 +187,7 @@ const handleContextMenuDelete = () => {
   const id = selectData.value.data.id;
   commonRequest(
       url,
-      {
-        id
-      },
+      [id],
       'post'
   ).then((res) => {
     console.log(res)
@@ -216,6 +226,10 @@ const saveEventFn = (ev, itemData) => {
   }
 }
 
+const selectTreeFn = (arr, obj) => {
+  emits('selectChange', arr, obj);
+}
+
 // =======================================
 watch(() => props.treeSetting, () => {
   const setting = props.treeSetting;
@@ -239,6 +253,7 @@ watch(() => props.treeSetting, () => {
   }
 }, {deep: false, immediate: false})
 // =======================================
+
 
 </script>
 

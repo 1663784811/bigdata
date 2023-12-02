@@ -2,6 +2,10 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 import {common} from './common.js'
 import {role} from './role.js'
 import {login} from './login.js'
+import {pay} from './pay.js'
+import {web} from './web.js'
+import {order} from './order.js'
+import {goods} from './goods.js'
 import {loginInfo} from '../store/loginInfo.js'
 
 const router = createRouter({
@@ -28,7 +32,11 @@ const router = createRouter({
                     component: () => import('@/views/layout/Main.vue'),
                     children: [
                         common,
+                        web,
                         role,
+                        pay,
+                        order,
+                        goods
                     ]
                 }
             ]

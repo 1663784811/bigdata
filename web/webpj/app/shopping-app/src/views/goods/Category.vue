@@ -32,12 +32,15 @@
                   <div class="swiper-slide" v-if="state.currentIndex === index" :key="index">
                     <div class="category-list">
                       <p class="catogory-title">{{ category.data.name }}</p>
-                      <div class="product-item"  @click="selectProduct(category.data)">
-                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png" class="product-img"/>
+                      <div class="product-item" @click="selectProduct(category.data)">
+                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png"
+                             class="product-img"/>
                         <p v-text="category.data.name" class="product-title"></p>
                       </div>
-                      <div class="product-item" v-for="(product, index) in category.children" :key="index" @click="selectProduct(product.data)">
-                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png" class="product-img"/>
+                      <div class="product-item" v-for="(product, index) in category.children" :key="index"
+                           @click="selectProduct(product.data)">
+                        <img src="https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png"
+                             class="product-img"/>
                         <p v-text="product.data.name" class="product-title"></p>
                       </div>
                     </div>
@@ -54,13 +57,14 @@
 
 <script setup>
 import {reactive, onMounted, ref} from 'vue'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import navBar from '@/components/NavBar.vue'
 import listScroll from '@/components/ListScroll.vue'
 import {enterpriseType} from "@/service/api"
 import {showLoadingToast, closeToast} from 'vant'
 
 const router = useRouter()
+const route = useRoute()
 const searchWrap = ref(null)
 const state = reactive({
   categoryData: [],
@@ -72,7 +76,7 @@ onMounted(async () => {
   searchWrap.value.style.height = $screenHeight - 100 + 'px'
   showLoadingToast('加载中...')
   closeToast()
-  enterpriseType().then(rest => {
+  enterpriseType({}, route.params.appid).then(rest => {
     const {data} = rest;
     state.categoryData = data;
   })

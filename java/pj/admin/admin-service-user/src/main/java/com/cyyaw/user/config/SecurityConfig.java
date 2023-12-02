@@ -79,10 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources",
                         "/swagger-resources/configuration/security",
                         "/swagger-ui.html",
-                        "/admin/login/**",
                         "/home/**",
                         "/wx/user/**/login",
-                        "/login/**",
                         "/admin/enterprise/findPage",
                         "/shopping/*/web/banner/findBanner",
                         "/shopping/*/goods/search/searchGoods",
@@ -94,6 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/si/*/signIn/findIdSiSignIn",
                         "/si/*/signIn/signInLogSave",
                         "/admin/*/common/query",
+                        "/admin/*/login/**",
                         "/app/*/common/**",
                         "/app/*/user/login/**",
                         "/app/*/admin/login/**"

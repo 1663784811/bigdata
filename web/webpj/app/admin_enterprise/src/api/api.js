@@ -77,8 +77,8 @@ export const saveComponents = (parameter, showMsg = false) => {
 /**
  * 登录
  */
-export const logInFn = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/login/admin/login`, parameter, 1, "post")
+export const logInFn = (parameter, eCode) => {
+    return asyncREQUEST(`${baseUrl}/admin/${eCode}/login/login`, parameter, 1, "post")
 }
 
 /**

@@ -28,11 +28,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '主控台',
                             icon: 'md-settings',
                             routeName: 'dashboard'
-                        },
-                        {
-                            name: '应用中心',
-                            icon: 'md-settings',
-                            routeName: 'appCenter'
                         }
                     ]
                 },
@@ -45,11 +40,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             icon: 'md-settings',
                             routeName: '',
                             children: [
-                                {
-                                    name: '部门管理',
-                                    icon: 'md-settings',
-                                    routeName: 'adminDepartment'
-                                },
                                 {
                                     name: '角色列表',
                                     icon: 'md-settings',
@@ -146,51 +136,43 @@ export const useAdminMenuStore = defineStore('adminMenu',
                 {
                     name: '订单管理',
                     icon: 'md-settings',
-                    routeName: 'dashboard',
                     children: [
                         {
                             name: '订单列表',
                             icon: 'md-settings',
-                            routeName: 'dashboard',
+                            routeName: 'orderList',
                         },
                         {
                             name: '异常订单',
                             icon: 'md-settings',
-                            routeName: 'dashboard',
+                            routeName: 'abnormalOrder',
+                        },
+                        {
+                            name: '发货',
+                            icon: 'md-settings',
+                            routeName: 'sendOutGoods',
                         },
                     ]
                 },
                 {
                     name: '商品管理',
                     icon: 'md-settings',
-                    routeName: 'dashboard',
                     children: [
                         {
                             name: '商品上下架',
                             icon: 'md-settings',
-                            routeName: 'dashboard',
+                            routeName: 'saleGoods',
                         },
                         {
                             name: '商品管理',
                             icon: 'md-settings',
-                            routeName: 'dashboard',
-                        },
-                        {
-                            name: '商品分类',
-                            icon: 'md-settings',
-                            routeName: 'dashboard',
-                        },
-                        {
-                            name: '商品品牌',
-                            icon: 'md-settings',
-                            routeName: 'dashboard',
+                            routeName: 'goodsList',
                         },
                     ]
                 },
                 {
                     name: '仓库管理',
                     icon: 'md-settings',
-                    routeName: 'dashboard',
                     children: [
                         {
                             name: '仓库概览',
@@ -207,7 +189,13 @@ export const useAdminMenuStore = defineStore('adminMenu',
                 {
                     name: '用户管理',
                     icon: 'md-settings',
-                    routeName: 'appCenter'
+                    children: [
+                        {
+                            name: '用户列表',
+                            icon: 'md-settings',
+                            routeName: 'user'
+                        }
+                    ]
                 },
                 {
                     name: '门店设置',
@@ -216,24 +204,33 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             name: '首页banner图',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
-                        }
+                            routeName: 'banner'
+                        },
+                        {
+                            name: '商品分类',
+                            icon: 'md-settings',
+                            routeName: 'goodsType',
+                        },
+                        {
+                            name: '商品品牌',
+                            icon: 'md-settings',
+                            routeName: 'goodsBrand',
+                        },
                     ]
                 },
                 {
                     name: '支付设置',
                     icon: 'md-settings',
-                    routeName: 'dashboard',
                     children: [
                         {
                             name: '微信支付',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'weixinPay'
                         },
                         {
                             name: '支付宝支付',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'aliPay'
                         }
                     ]
                 }

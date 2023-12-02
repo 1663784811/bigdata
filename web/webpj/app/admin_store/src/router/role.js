@@ -3,8 +3,8 @@ export const role = {
     children: [
         {
             path: 'user',
+            name: 'user',
             component: () => import('@/views/role/AdminUser.vue'),
-            name: 'user'
         },
         {
           path: '',
@@ -12,21 +12,21 @@ export const role = {
           children:[
               {
                   path: 'adminPower',
+                  name: 'adminPower',
                   component: () => import('@/views/role/AdminPower.vue'),
-                  name: 'adminPower'
               },
               {
                   path: 'adminPost',
+                  name: 'adminPost',
                   component: () => import('@/views/role/AdminPost.vue'),
-                  name: 'adminPost'
               },
           ]
         },
 
         {
             path: 'adminDepartment',
+            name: 'adminDepartment',
             component: () => import('@/views/role/AdminDepartment.vue'),
-            name: 'adminDepartment'
         },
         {
             path: 'role',

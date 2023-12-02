@@ -6,7 +6,9 @@
         部门
       </div>
       <div>
-        <tree-type :treeSetting="treeSetting" style="width: 0; background: none; padding: 0"/>
+        <tree-type :treeSetting="treeSetting"
+                   style="width: 0; background: none; padding: 0"
+                   @selectChange="selectChange"/>
       </div>
     </div>
     <router-view/>
@@ -15,14 +17,16 @@
 
 <script setup>
 
-import {ref} from "vue";
-import CommonTable from '@/component/CommonTable.vue'
+import {ref, provide} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 import TreeType from "@/component/tree/TreeType.vue";
 
 const usePageConfig = pageConfig();
 const commonTable = ref(null);
 const treeSetting = ref({});
+
+const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("admin");
@@ -31,6 +35,11 @@ const initFn = async () => {
   treeSetting.value = department.commonTable;
 }
 initFn();
+
+const selectChange = (arr, obj) => {
+  console.log(arr)
+  commonTableSearchData.value = {"ssss":"dddd"}
+}
 
 
 </script>

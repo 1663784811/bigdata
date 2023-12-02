@@ -159,12 +159,12 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
-  await getBanner().then(res => {
+  await getBanner({}, route.params.appid).then(res => {
     state.swiperList = res.data;
   }).catch((err) => {
     console.log(err)
   })
-  await searchGoods({}).then((rest) => {
+  await searchGoods({}, route.params.appid).then((rest) => {
     const {data} = rest;
     state.recommends = data;
   })

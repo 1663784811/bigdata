@@ -59,7 +59,7 @@ onMounted(() => {
 
   .mainContent {
     flex: 1;
-    padding: 15px;
+    padding: 10px 8px;
     height: 100%;
     overflow: auto;
   }

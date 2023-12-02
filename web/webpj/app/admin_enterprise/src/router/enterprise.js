@@ -18,8 +18,9 @@ export const enterprise = {
         },
         {
             path: 'storeList',
-            component: () => import('@/views/enterprise/StoreList.vue'),
             name: 'storeList',
+            component: () => import('@/views/enterprise/StoreList.vue'),
+            meta: {title: '门店列表'}
         },
         {
             path: 'storehouse',

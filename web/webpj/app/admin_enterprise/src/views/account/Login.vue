@@ -40,7 +40,7 @@
 import {onMounted, ref} from 'vue';
 import AccountFooter from "./AccountFooter.vue"
 import {useRouter, useRoute} from "vue-router";
-import {logInFn, enterpriseFindPage} from "@/api/api.js"
+import {logInFn} from "@/api/api.js"
 import {loginInfo} from "@/store/loginInfo.js"
 import {Message, Modal} from "view-ui-plus";
 
@@ -55,7 +55,6 @@ const enterprise = ref({
 const loginParams = {
   userName: "root",
   password: "root",
-  enterpriseId: "",
   code: "123456"
 };
 
@@ -69,8 +68,7 @@ onMounted(() => {
  * 点击登录
  */
 const clickLogin = function () {
-  loginParams.enterpriseId = loginInfoSt.enterpriseInfo.tid;
-  logInFn(loginParams).then((res) => {
+  logInFn(loginParams, route.params.code).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
       loginInfoSt.token = jwtToken;

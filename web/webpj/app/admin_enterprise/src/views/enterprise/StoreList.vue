@@ -1,10 +1,6 @@
 <template>
   <div>
-    <CommonTable
-        :table-setting="commonTable"
-    />
-
-
+    <CommonTable :table-setting="commonTable"/>
   </div>
 </template>
 
@@ -18,6 +14,7 @@ const commonTable = ref(null);
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("store");
   commonTable.value = role.commonTable;
+  console.log('ssssssssssssssssssssssss',commonTable)
 }
 initFn();
 

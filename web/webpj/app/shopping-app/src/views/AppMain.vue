@@ -20,7 +20,7 @@ onMounted(async () => {
     const {data} = await commonQuery({
       code: 'select_e_application_by_appid',
       appid
-    })
+    }, appid)
     if (data && data.length === 1) {
       appStore.appInfo = data[0];
     } else {

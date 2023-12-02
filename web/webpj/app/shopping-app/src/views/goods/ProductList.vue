@@ -81,7 +81,7 @@ onMounted(() => {
  * 初始化
  */
 const init = async () => {
-  searchGoods({}).then((rest) => {
+  searchGoods({}, route.params.appid).then((rest) => {
     const {data} = rest;
     state.productList = state.productList.concat(data)
   })

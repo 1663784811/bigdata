@@ -4,7 +4,7 @@
     <div class="searchBox">
       <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index" v-if="searchObj.queryRequest.show">
         <div class="inputLabel">{{ item.title }}:</div>
-        <Input v-model="item.searchVal" :placeholder="item.javaWhere" style="width: auto"/>
+        <Input v-model="item.searchVal" :placeholder="item.javaWhere" clearable style="width: auto"/>
       </div>
       <div class="btnBox">
         <Button class="btn" type="success" icon="ios-search" @click="search" v-if="searchObj.queryRequest.show">
@@ -63,13 +63,14 @@
 </template>
 
 <script setup>
-import {defineEmits, ref, watch, resolveComponent, provide} from "vue"
+import {defineEmits, ref, watch, resolveComponent, provide, inject} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import SelectPanel from './SelectPanel.vue'
 import ModalDataList from './ModalDataList.vue'
 
 const emits = defineEmits(['event']);
+const commonTableSearchData = inject('commonTableSearchData', {})
 
 const props = defineProps({
   tableSetting: {
@@ -151,6 +152,7 @@ const loadData = () => {
       {
         ...searchObj.value.queryRequest.pm,
         ...searchObj.value.queryRequest.parameter,
+        ...commonTableSearchData.value,
         ...objConfig.value.pageData
       }
   ).then((res) => {
@@ -307,6 +309,10 @@ watch(() => props.tableSetting, () => {
     console.log("=========== 未设置数据 =======", setting)
   }
 
+}, {deep: false, immediate: false})
+
+watch(() => commonTableSearchData.value, () => {
+  search()
 }, {deep: false, immediate: false})
 
 

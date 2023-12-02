@@ -16,7 +16,7 @@ onMounted(async () => {
   const {data} = await commonQuery({
     code: 'select_e_store_by_code',
     storeId: code
-  });
+  }, code);
   console.log("sssssssssssssssss", data)
   if (data && data.length === 1) {
     loginInfoSt.storeInfo = data[0];

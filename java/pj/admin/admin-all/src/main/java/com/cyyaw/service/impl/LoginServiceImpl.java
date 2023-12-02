@@ -196,9 +196,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public AdminAuthToken loginUserNameAndPassword(String enterpriseCode, String appId, String userName, String password) {
+    public AdminAuthToken loginUserNameAndPassword(String eCode, String userName, String password) {
         // 第一步: 查用户
-        TAdmin tAdmin = tAdminDao.findByAccount(enterpriseCode, userName);
+        TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
         if (ObjectUtils.isEmpty(tAdmin)) {
             WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
         }
@@ -225,8 +225,7 @@ public class LoginServiceImpl implements LoginService {
         loginInfo.setId(tAdmin.getTid());
         loginInfo.setAccount(tAdmin.getAccount());
         loginInfo.setRole(sb.toString());
-        loginInfo.setEnterpriseCode(enterpriseCode);
-        loginInfo.setAppId(appId);
+        loginInfo.setEnterpriseCode(eCode);
         // 第四步: 生成jwt
         String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
         AdminAuthToken authToken = new AdminAuthToken();

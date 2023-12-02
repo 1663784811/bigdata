@@ -78,7 +78,7 @@ public interface LoginService {
      * @param password
      * @return
      */
-    AdminAuthToken loginUserNameAndPassword(String enterpriseCode,String appId, String userName, String password);
+    AdminAuthToken loginUserNameAndPassword(String enterpriseCode, String userName, String password);
 
     /**
      * 注册

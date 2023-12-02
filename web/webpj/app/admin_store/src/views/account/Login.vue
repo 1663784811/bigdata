@@ -68,7 +68,7 @@ onMounted(() => {
  * 点击登录
  */
 const clickLogin = function () {
-  logInFn(loginParams).then((res) => {
+  logInFn(loginParams, route.params.code).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
       loginInfoSt.token = jwtToken;

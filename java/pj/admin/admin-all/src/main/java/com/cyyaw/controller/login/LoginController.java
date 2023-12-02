@@ -52,7 +52,7 @@ public class LoginController {
     public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String eCode) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(eCode, null, userName, password);
+        AdminAuthToken authToken = loginService.loginUserNameAndPassword(eCode, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
