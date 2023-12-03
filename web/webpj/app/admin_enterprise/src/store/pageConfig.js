@@ -25,13 +25,13 @@ export const pageConfig = defineStore('pageConfig', {
         const pageConfigList = ref({});
         const componentConfig = ref({
             show: false,
-            pageCodeList:{}
+            pageCodeList: {}
         });
         const getPageConfig = async (pageCode) => {
             console.log("=========== 获取配置 =============  ", pageCode)
             let codeData = pageConfigList.value[pageCode]
             if (!codeData) {
-                const loadData = await pageSetting({pageCode: pageCode});
+                const loadData = await pageSetting({pageCode: pageCode, url: window.location.href});
                 if (loadData.code === 2000) {
                     console.log(pageCode, "获取远程配置:", loadData.data)
                     codeData = loadData.data;

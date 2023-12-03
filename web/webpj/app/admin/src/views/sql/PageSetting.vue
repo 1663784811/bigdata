@@ -1,33 +1,6 @@
 <template>
   <div>
-    <CommonTable
-        :table-setting="commonTable"
-        @event="eventFn"
-    />
-    <div class="pageConfig">
-      <div class="cList">
-        <div>通用表格</div>
-      </div>
-      <div class="dataBox">
-        <div>
-          <div>查找数据</div>
-          <div>
-            地址:<Input size="large" placeholder="large size"/>
-          </div>
-          <div>
-            参数:<Input size="large" placeholder="large size"/>
-          </div>
-        </div>
-        <div>
-          字段:<Input size="large" placeholder="large size"/>
-        </div>
-        <div class="componentBox">
-          <CommonTableBox/>
-        </div>
-
-      </div>
-    </div>
-
+    <CommonTable :table-setting="commonTable" @event="eventFn"/>
   </div>
 </template>
 

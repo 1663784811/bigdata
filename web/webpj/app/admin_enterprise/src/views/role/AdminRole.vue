@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CommonTable :table-setting="commonTable"/>
+    <CommonTable :table-setting="tableSetting"/>
   </div>
 </template>
 
@@ -9,13 +9,14 @@
 import {onMounted, ref, provide} from "vue";
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute, useRouter} from "vue-router";
+
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
+const tableSetting = ref(null);
 
 
 onMounted(() => {
-
   initFn();
 })
 
@@ -23,7 +24,7 @@ onMounted(() => {
 const initFn = async () => {
   const pageCode = 'role'
   const pageData = await usePageConfig.getPageConfig(pageCode);
-  commonTable.value = pageData.commonTable;
+  tableSetting.value = pageData.commonTable;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <tree-type :treeSetting="treeSetting" :editer="true"/>
+  <tree-type :treeSetting="tableSetting" :editer="true"/>
 </template>
 
 <script setup>
@@ -8,11 +8,13 @@ import {pageConfig} from '@/store/pageConfig.js'
 import TreeType from "@/component/tree/TreeType.vue";
 
 const usePageConfig = pageConfig();
-const treeSetting = ref({});
+const tableSetting = ref({});
 
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("adminMenu");
-  treeSetting.value = role.commonTable;
+  const pageCode = 'adminMenu'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  tableSetting.value = pageData.commonTable;
+  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 initFn();
 

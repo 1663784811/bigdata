@@ -11,6 +11,7 @@ import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.sql.table.entity.CPageComponentsLog;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 
-@RequestMapping("/tx/config/page")
+@Slf4j
 @RestController
+@RequestMapping("/tx/config/page")
 public class PageSettingController {
 
     @Autowired
@@ -39,6 +41,10 @@ public class PageSettingController {
     public BaseResult pageSetting(@RequestParam Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
         String pageCode = json.getStr("pageCode");
+        String url = json.getStr("url");
+        //================= 收集请求地址数据
+        log.info("========收集请求地址数据: {}", url);
+        //=================
         CPage cPage = cPageService.findByPageCode(pageCode);
         if (null != cPage) {
             List<CPageComponents> components = cPage.getComponents();
