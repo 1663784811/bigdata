@@ -1,10 +1,6 @@
 package com.cyyaw.controller.page;
 
-import java.util.Date;
-
-
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.cyyaw.sql.service.CPageComponentsLogService;
@@ -18,6 +14,7 @@ import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -44,19 +41,8 @@ public class PageSettingController {
         String pageCode = json.getStr("pageCode");
         CPage cPage = cPageService.findByPageCode(pageCode);
         if (null != cPage) {
-            JSONObject rest = new JSONObject();
-            // 查找页面组件
             List<CPageComponents> components = cPage.getComponents();
-            for (int i = 0; i < components.size(); i++) {
-                CPageComponents cPageComponents = components.get(i);
-                String data = cPageComponents.getData();
-                if (StrUtil.isBlank(data)) {
-                    data = "{}";
-                }
-                // 通用表格
-                rest.set("commonTable", new JSONObject(data));
-            }
-            return BaseResult.ok(rest);
+            return pageSettingData(components);
         } else {
             return BaseResult.fail("找不到页面数据");
         }
@@ -64,16 +50,27 @@ public class PageSettingController {
 
     @GetMapping("/findSetting")
     public BaseResult findSetting(CPageComponents obj) {
-        JSONObject rest = new JSONObject();
         List<CPageComponents> components = cPageComponentsService.findByExample(obj);
+        return pageSettingData(components);
+    }
+
+    /**
+     * 处理页面数据
+     */
+    private BaseResult pageSettingData(List<CPageComponents> components) {
+        JSONObject rest = new JSONObject();
         for (int i = 0; i < components.size(); i++) {
             CPageComponents cPageComponents = components.get(i);
             String data = cPageComponents.getData();
-            if (StrUtil.isBlank(data)) {
-                data = "{}";
-            }
+            String componentsCode = cPageComponents.getComponentsCode();
+            if (StrUtil.isBlank(componentsCode)) componentsCode = "commonTable";
+            if (StrUtil.isBlank(data)) data = "{}";
+            // 查询组件模块数据
+            JSONObject js = new JSONObject(data);
+            js.set("id", cPageComponents.getId());
+            js.set("tid", cPageComponents.getTid());
             // 通用表格
-            rest.set("commonTable", new JSONObject(data));
+            rest.set(componentsCode, js);
         }
         return BaseResult.ok(rest);
     }
@@ -99,8 +96,10 @@ public class PageSettingController {
             infoLog.setData(data);
             cPageComponentsLogService.save(infoLog);
             // 修改数据
-            obj.setData(components.getData());
+            String newData = components.getData();
+            obj.setData(newData);
             cPageComponentsService.save(obj);
+            // 先删除
         } else {
             return BaseResult.fail("找不到数据:" + JSONUtil.toJsonStr(new JSONObject(components)));
         }

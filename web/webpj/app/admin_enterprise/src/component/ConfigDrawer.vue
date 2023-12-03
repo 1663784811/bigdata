@@ -12,7 +12,7 @@
           <div class="headerBox">
             <div></div>
             <div>
-              <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveRequestObjData">保存</Button>
+              <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
             </div>
           </div>
           <div class="dataContent">
@@ -48,10 +48,11 @@
           <div class="headerBox">
             <div></div>
             <div>
-              <Button class="dataBtn" type="primary" icon="md-cloud-upload">保存</Button>
+              <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
             </div>
           </div>
           <div class="dataContent">
+
             <div class="row">
               <div class="labelLeft">操作标题:</div>
               <Checkbox border></Checkbox>
@@ -63,16 +64,28 @@
                 <Input/>
               </div>
             </div>
+
+            <div class="row" v-for="(item, index) in state.operationObj.operationArr" :key="index">
+              <div class="labelLeft">名称:</div>
+              <Checkbox border v-model="item.show"></Checkbox>
+              <div class="rightInput">
+                <Input v-model="item.label" placeholder="名称"/>
+              </div>
+              <div>事件:</div>
+              <div class="rightInput">
+                <Input v-model="item.even" placeholder="事件" clearable/>
+              </div>
+            </div>
           </div>
         </div>
 
       </TabPane>
-      <TabPane label="字段列表" name="name3">
+      <TabPane label="字段排序" name="name3">
         <div class="configBox">
           <div class="headerBox">
             <div></div>
             <div>
-              <Button class="dataBtn" type="primary" icon="md-cloud-upload">保存</Button>
+              <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
             </div>
           </div>
           <div class="dataContent">
@@ -98,7 +111,7 @@
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
 import {pageConfig} from '@/store/pageConfig.js'
-import {pageSetting} from '@/api/api.js'
+import {pageSetting, saveComponents} from '@/api/api.js'
 
 const usePageConfig = pageConfig();
 
@@ -136,7 +149,13 @@ const state = reactive({
       show: true
     }
   },
-  columnsArr: []
+  columnsArr: [],
+  jsonData: {
+    loading: false,
+    id: '',
+    tid: '',
+    data: ''
+  }
 })
 
 
@@ -146,19 +165,35 @@ const loadData = (pageCode) => {
   }).then((rest) => {
     console.log('ssssssssssssssssssss', rest)
     usePageConfig.componentConfig.show = true;
-    const {columns, operation, requestObj} = rest.data.commonTable
+    const {columns, operation, requestObj, id, tid} = rest.data.commonTable
     state.requestObjData = requestObj;
     state.operationObj = operation;
     state.columnsArr = columns;
+    state.jsonData.id = id;
+    state.jsonData.tid = tid;
   })
 }
 
 
-const saveRequestObjData = () => {
-
+/**
+ * 保存组件数据
+ */
+const saveComponentsFn = () => {
+  state.jsonData.loading = true;
+  const json = {
+    requestObj: state.requestObjData,
+    operation: state.operationObj,
+    columns: state.columnsArr
+  }
+  state.jsonData.data = JSON.stringify(json, null, "  ");
+  saveComponents({
+    id: state.jsonData.id,
+    data: state.jsonData.data
+  }, true).finally(() => {
+    state.jsonData.loading = false;
+  })
 
 }
-
 
 </script>
 <style scoped lang="less">

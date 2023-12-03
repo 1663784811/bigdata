@@ -337,7 +337,6 @@ const databaseLoad = ref({
 
 const showJsonData = () => {
   jsonData.value.show = !jsonData.value.show
-
   const json = {
     requestObj: requestObjData.value,
     operation: operationObj.value,
