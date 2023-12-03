@@ -6,7 +6,7 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {onMounted, ref, provide} from "vue";
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 
@@ -14,13 +14,19 @@ const usePageConfig = pageConfig();
 const commonTable = ref(null);
 
 
+onMounted(() => {
+
+  initFn();
+})
 
 
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("role");
-  commonTable.value = role.commonTable;
+  const pageCode = 'role'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  commonTable.value = pageData.commonTable;
+  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
-initFn();
+
 
 </script>
 

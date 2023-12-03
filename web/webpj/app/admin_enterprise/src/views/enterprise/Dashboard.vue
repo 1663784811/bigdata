@@ -1,73 +1,39 @@
 <template>
   <div class="appBox">
-    <div>应用</div>
-    <div class="rowBox">
+    <div class="titleBox">我的应用</div>
+    <div class="appRowBox">
       <div class="rowItem">
-        <Card>
-          <template #title>
-            <Icon type="ios-film-outline"></Icon>
-            我的应用
-          </template>
-          <template #extra>
-            <div>
-              <Icon type="ios-film-outline"></Icon>
-              添加应用
-            </div>
-          </template>
-          <div>
-            <div>共5个</div>
-            <div>小黑屋</div>
-            <div>记账</div>
-            <div>点餐</div>
-          </div>
-        </Card>
+        ss
       </div>
       <div class="rowItem">
-        <Card>
-          <template #title>
-            <Icon type="ios-film-outline"></Icon>
-            用户
-          </template>
-          <template #extra>
-            <div>
-              <Icon type="ios-film-outline"></Icon>
-              添加应用
-            </div>
-          </template>
-          <div>
-            <div>共5个</div>
-            <div>小黑屋</div>
-            <div>记账</div>
-            <div>点餐</div>
-          </div>
-        </Card>
+        ddd
       </div>
-
       <div class="rowItem">
-        <Card>
-          <template #title>
-            <Icon type="ios-film-outline"></Icon>
-            我的应用
-          </template>
-          <template #extra>
-            <div>
-              <Icon type="ios-film-outline"></Icon>
-              添加应用
-            </div>
-          </template>
-          <div>
-            <div>共5个</div>
-            <div>小黑屋</div>
-            <div>记账</div>
-            <div>点餐</div>
-          </div>
-        </Card>
+        ssss
       </div>
     </div>
   </div>
 
+  <div class="dataBox">
+    <div class="saleData">
+      <div class="titleBox">销售额</div>
+      <div class="saleContent">
+        ssss
+      </div>
+    </div>
+    <div class="logBox">
+      <div class="titleBox">日志</div>
+      <div class="logContent">
+
+        ssss
+      </div>
+    </div>
+
+
+  </div>
+
   <div>
-    支付统计
+    用户统计IP
   </div>
 
 </template>
@@ -78,13 +44,49 @@
 
 <style scoped lang="less">
 .appBox {
-  .rowBox {
+  .titleBox {
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 0 6px #bdd3f5;
+    background: #fff;
+  }
+
+  .appRowBox {
     display: flex;
+    margin-bottom: 20px;
     background: #fff;
 
     .rowItem {
-      width: 400px;
+      width: 200px;
+      height: 160px;
       margin: 0 10px;
+    }
+  }
+}
+
+.dataBox {
+  display: flex;
+  height: 400px;
+
+  .titleBox {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+    background: #fff;
+  }
+
+  .saleData {
+    flex: 1;
+    background: #fff;
+  }
+
+  .logBox {
+    background: #fff;
+    width: 600px;
+    margin-left: 10px;
+
+    .logContent {
+      padding: 10px;
+
     }
   }
 }
