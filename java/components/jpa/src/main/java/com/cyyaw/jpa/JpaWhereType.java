@@ -12,7 +12,8 @@ public enum JpaWhereType {
     geq("geq", "大于等于 >="),
     gt("gt", "大于 >"),
     leq("leq", "小于等于 <="),
-    lt("lt", "小于 <");
+    lt("lt", "小于 <"),
+    in("in", "包含");
 
     JpaWhereType(String where, String note) {
         this.where = where;

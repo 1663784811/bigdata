@@ -1,6 +1,6 @@
 <template>
   <div class="menuBox" :style="style">
-    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" @on-select-change="selectTreeFn" show-checkbox>
+    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
         <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>
@@ -229,7 +229,13 @@ const saveEventFn = (ev, itemData) => {
 }
 
 const selectTreeFn = (arr, obj) => {
-  emits('selectChange', arr, obj);
+  const tempArr = []
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].title !== '全部') {
+      tempArr.push(arr[i].data)
+    }
+  }
+  emits('selectChange', tempArr, obj);
 }
 
 // =======================================

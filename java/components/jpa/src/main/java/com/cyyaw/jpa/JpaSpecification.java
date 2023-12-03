@@ -4,10 +4,7 @@ import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import java.util.ArrayList;
@@ -150,6 +147,13 @@ public class JpaSpecification<T> implements Specification<T> {
                 predicate = cb.le(root.get(columns), (Number) value);
             } else if (JpaWhereType.lt.equals(wheres)) {
                 predicate = cb.lt(root.get(columns), (Number) value);
+            } else if (JpaWhereType.in.equals(wheres)) {
+                CriteriaBuilder.In<Object> in = cb.in(root.get(columns));
+                String[] split = value.toString().split(",");
+                for (int i = 0; i < split.length; i++) {
+                    in.value(split[i]);
+                }
+                predicate = in;
             } else {
                 predicate = cb.equal(root.get(columns), value);
             }

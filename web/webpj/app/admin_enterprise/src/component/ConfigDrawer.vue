@@ -173,7 +173,7 @@
               </div>
               <div class="rowItem">
                 搜索条件:
-                <Select v-model="item.javaWhere" clearable size="small" style="width:100px">
+                <Select v-model="item.javaWhere" clearable size="small" style="width:160px">
                   <Option value="lk">%模糊查询%</Option>
                   <Option value="lkR">模糊查询%</Option>
                   <Option value="lkL">%模糊查询</Option>
