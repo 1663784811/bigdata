@@ -263,7 +263,7 @@ const state = reactive({
 
 onMounted(() => {
   setTimeout(() => {
-    if (route.query.debuger) {
+    if (route.query.debugger) {
       state.pageStatus.showOperation = true;
     }
   }, 1000)

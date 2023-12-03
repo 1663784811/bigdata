@@ -6,9 +6,7 @@
         部门
       </div>
       <div>
-        <tree-type :treeSetting="treeSetting"
-                   style="width: 0; background: none; padding: 0"
-                   @selectChange="selectChange"/>
+        <tree-type :treeSetting="treeSetting"  style="width: 0; background: none; padding: 0"  @selectChange="selectChange"/>
       </div>
     </div>
     <router-view/>
@@ -22,15 +20,12 @@ import {pageConfig} from '@/store/pageConfig.js'
 import TreeType from "@/component/tree/TreeType.vue";
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
 const treeSetting = ref({});
 
 const commonTableSearchData = ref({})
 provide("commonTableSearchData", commonTableSearchData);
 
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("admin");
-  commonTable.value = role.commonTable;
   const department = await usePageConfig.getPageConfig("department");
   treeSetting.value = department.commonTable;
 }

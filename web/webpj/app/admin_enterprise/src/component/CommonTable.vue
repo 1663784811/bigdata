@@ -345,7 +345,7 @@ const initFn = () => {
   }
   const setting = props.tableSetting;
   // 是否显示操作列
-  if (setting.operation) {
+  if (setting.operation && setting.operation.show) {
     const operation = setting.operation;
     operation.render = (h, params) => {
       return createH(operation, h, params);

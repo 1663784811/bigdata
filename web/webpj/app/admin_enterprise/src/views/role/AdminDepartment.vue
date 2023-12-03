@@ -1,6 +1,6 @@
 <template>
 
-  <tree-type :treeSetting="treeSetting" :editer="true" />
+  <tree-type :treeSetting="tableSetting" :editer="true" />
 
 </template>
 
@@ -12,11 +12,13 @@ import {ref} from "vue";
 
 const usePageConfig = pageConfig();
 
-const treeSetting = ref({});
+const tableSetting = ref({});
 
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("department");
-  treeSetting.value = role.commonTable;
+  const pageCode = 'department'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  tableSetting.value = pageData.commonTable;
+  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 
 initFn();
