@@ -12,6 +12,7 @@
           <div class="headerBox">
             <div></div>
             <div>
+              <Button class="dataBtn" type="primary" icon="md-cloud-upload">查看配置</Button>
               <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
             </div>
           </div>
@@ -52,21 +53,25 @@
             </div>
           </div>
           <div class="dataContent">
-
             <div class="row">
               <div class="labelLeft">操作标题:</div>
               <Checkbox border v-model="state.operationObj.show"></Checkbox>
               <div class="rightInput">
                 <Input v-model="state.operationObj.title" placeholder="标题"/>
               </div>
-              <div>事件:</div>
+              <div>宽度:</div>
               <div class="rightInput">
                 <Input v-model="state.operationObj.width" placeholder="宽" clearable type="number"/>
               </div>
+              <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addOperationFn">添加</Button>
             </div>
 
             <div class="row" v-for="(item, index) in state.operationObj.operationArr" :key="index">
-              <div class="labelLeft">名称:</div>
+              <div class="sortBtn">
+                <Button size="small" type="error" icon="ios-trash-outline"  @click="delOperationFn(index)"/>
+                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
+              </div>
+              <div>名称:</div>
               <Checkbox border v-model="item.show"></Checkbox>
               <div class="rightInput">
                 <Input v-model="item.label" placeholder="名称"/>
@@ -91,8 +96,8 @@
           <div class="dataContent">
             <div class="row" v-for="(item,index) in state.columnsArr" :key="index">
               <div class="rowItem sortBtn">
-                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
                 <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
+                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
               </div>
               <div class="rowItem">
                 <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
@@ -314,6 +319,17 @@ const saveComponentsFn = () => {
     state.jsonData.loading = false;
   })
 
+}
+
+const delOperationFn = (index) => {
+  state.operationObj.operationArr.splice(index, 1);
+}
+const addOperationFn = () => {
+  state.operationObj.operationArr.push({
+    label: "",
+    even: '',
+    show: true
+  })
 }
 
 </script>

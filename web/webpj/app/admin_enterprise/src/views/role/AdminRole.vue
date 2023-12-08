@@ -1,19 +1,24 @@
 <template>
-  <div>
-    <CommonTable :table-setting="tableSetting"/>
-  </div>
+  <CommonTable :table-setting="state.tableSetting" @event="eventFn"/>
+  <SelectDataDrawer :setting="state.drawerSetting"/>
 </template>
 
 <script setup>
 
-import {onMounted, ref, provide} from "vue";
+import {onMounted, ref, provide, reactive, inject} from "vue";
 import CommonTable from '@/component/CommonTable.vue'
-import {pageConfig} from '@/store/pageConfig.js'
-import {useRoute, useRouter} from "vue-router";
+import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
 
+import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-const tableSetting = ref(null);
+
+const showDrawer = ref(false)
+provide('showDrawer', showDrawer);
+const state = reactive({
+  tableSetting: {},
+  drawerSetting: {},
+})
 
 
 onMounted(() => {
@@ -24,8 +29,17 @@ onMounted(() => {
 const initFn = async () => {
   const pageCode = 'role'
   const pageData = await usePageConfig.getPageConfig(pageCode);
-  tableSetting.value = pageData.commonTable;
+  state.tableSetting = pageData.commonTable;
+  state.drawerSetting = pageData.commonTable;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
+}
+
+const eventFn = (eventObj) => {
+  if (eventObj.even === 'department') {
+    showDrawer.value = true
+    console.log('ssssssssssssssssssss')
+  }
+  console.log(eventObj)
 }
 
 

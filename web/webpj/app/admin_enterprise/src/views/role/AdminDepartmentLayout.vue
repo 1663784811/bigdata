@@ -6,7 +6,8 @@
         部门
       </div>
       <div>
-        <tree-type :treeSetting="treeSetting"  style="width: 0; background: none; padding: 0"  @selectChange="selectChange"/>
+        <tree-type :treeSetting="treeSetting" style="width: 0; background: none; padding: 0"
+                   @selectChange="selectChange"/>
       </div>
     </div>
     <router-view/>
@@ -32,8 +33,11 @@ const initFn = async () => {
 initFn();
 
 const selectChange = (arr, obj) => {
-  console.log(arr)
-  commonTableSearchData.value = {"ssss":"dddd"}
+  const departmentArr = []
+  for (let i = 0; i < arr.length; i++) {
+    departmentArr.push(arr[i].tid)
+  }
+  commonTableSearchData.value = {"in_department": departmentArr.join(',')}
 }
 
 

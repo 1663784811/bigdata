@@ -11,7 +11,7 @@ import {pageConfig} from '@/store/pageConfig.js'
 const usePageConfig = pageConfig();
 const tableSetting = ref(null);
 const initFn = async () => {
-  const pageCode = 'adminMenu'
+  const pageCode = 'rolePower'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   tableSetting.value = pageData.commonTable;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode

@@ -73,7 +73,13 @@ const clickLogin = function () {
       const {jwtToken, tadmin} = res.data;
       loginInfoSt.token = jwtToken;
       loginInfoSt.userInfo = tadmin;
-      router.push({name: 'home'})
+      Message.success({
+        content: `${res.msg}`
+      })
+      setTimeout(() => {
+        loginInfoSt.variable.eCode = route.params.code;
+        router.push({name: 'home'})
+      }, 500)
     }
   }).catch((err) => {
     console.log(err)

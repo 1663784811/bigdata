@@ -65,6 +65,9 @@ import {defineEmits, ref, watch, resolveComponent, provide, inject} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import ModalDataList from './ModalDataList.vue'
+import {loginInfo} from "@/store/loginInfo.js";
+
+const loginInfoSt = loginInfo();
 
 const emits = defineEmits(['event']);
 const commonTableSearchData = inject('commonTableSearchData', {})
@@ -136,6 +139,11 @@ const selectData = (row, index) => {
 const selectDataChange = (rows) => {
   console.log(rows)
   objConfig.value.selectData = rows;
+  const eventObj = {
+    even: 'table_select',
+    data: rows
+  }
+  emits('event', eventObj);
 }
 
 // ======================================================
@@ -145,7 +153,7 @@ const selectDataChange = (rows) => {
 const loadData = () => {
   objConfig.value.loading = true;
   commonRequest(
-      searchObj.value.queryRequest.url,
+      loginInfoSt.reLoadUrl(searchObj.value.queryRequest.url),
       {
         ...searchObj.value.queryRequest.pm,
         ...searchObj.value.queryRequest.parameter,
