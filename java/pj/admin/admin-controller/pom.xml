@@ -7,10 +7,9 @@
         <groupId>com.cyyaw</groupId>
         <artifactId>admin-parent</artifactId>
         <version>2.0.0</version>
-        <relativePath/>
+        <relativePath>../admin-parent</relativePath>
     </parent>
 
-    <groupId>com.cyyaw</groupId>
     <artifactId>admin-controller</artifactId>
     <version>2.0.0</version>
 
@@ -21,23 +20,6 @@
     <dependencies>
 
         <!--   =========================================================     -->
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>jpa</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-dao</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.cyyaw</groupId>
@@ -107,7 +89,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
