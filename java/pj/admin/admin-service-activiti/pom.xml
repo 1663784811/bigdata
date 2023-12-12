@@ -20,18 +20,35 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>jpa</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+
+
+
 
         <dependency>
             <groupId>org.activiti</groupId>
@@ -50,6 +67,8 @@
             <artifactId>activiti-json-converter</artifactId>
             <version>7.1.0.M6</version>
         </dependency>
+
+
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-transcoder</artifactId>
@@ -61,38 +80,11 @@
             <version>1.17</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.6</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.10.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>common</artifactId>
-            <version>2.0.0</version>
-            <scope>compile</scope>
-        </dependency>
 
 
     </dependencies>
+
+
 
     <build>
         <directory>${project.basedir}/target</directory>

@@ -15,14 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
+ *
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        return new UserDetailsService(){
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 // 不需要生成密码所以返回 null
@@ -43,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-                //  跨域问题
-                http.cors().and()
+        //  跨域问题
+        http.cors().and()
                 .csrf().disable()
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -58,11 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // =========   过滤器列表  END
                 // =========   异常处理列表  START
                 .exceptionHandling()
-                        // 认证异常处理
-                        .authenticationEntryPoint(new JWTAuthenticationEntryPoint())
-                        //添加无权限时的处理
-                        .accessDeniedHandler(new JWTAccessDeniedHandler())
-                        .and()
+                // 认证异常处理
+                .authenticationEntryPoint(new JWTAuthenticationEntryPoint())
+                //添加无权限时的处理
+                .accessDeniedHandler(new JWTAccessDeniedHandler())
+                .and()
                 // ========================================================   异常处理列表  END
                 // ========================================================
                 // ========================================================
@@ -95,7 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/admin/*/login/**",
                         "/app/*/common/**",
                         "/app/*/user/login/**",
-                        "/app/*/admin/login/**"
+                        "/app/*/admin/login/**",
+                        "/admin/phone/phone/**"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

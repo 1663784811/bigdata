@@ -7,14 +7,26 @@
             <Icon type="md-settings"/>
             {{ item.name }}
           </template>
-          <MenuItem :name="index+'-'+ ch" v-for="(children, ch) in item.children" :key="ch">
-            <Icon type="ios-paper"/>
-            {{ children.name }}
-          </MenuItem>
+          <template v-for="(children, ch) in item.children" :key="ch">
+            <Submenu :name="index+'-'+ ch" v-if="children.children && children.children.length>0">
+              <template #title>
+                <Icon type="md-settings"/>
+                {{ children.name }}
+              </template>
+              <MenuItem :name="index+'-'+ ch+'-'+inxx " v-for="(chch, inxx) in children.children" :key="inxx">
+                <Icon type="ios-paper"/>
+                {{ chch.name }}
+              </MenuItem>
+            </Submenu>
+            <MenuItem v-else :name="index+'-'+ ch">
+              <Icon type="ios-paper"/>
+              {{ children.name }}
+            </MenuItem>
+          </template>
         </Submenu>
         <MenuItem v-else :name="index">
           <div>
-            <Icon type="md-settings"/>
+            <Icon :type="item.icon?item.icon: 'md-settings'"/>
             {{ item.name }}
           </div>
         </MenuItem>
@@ -36,7 +48,7 @@ const clickMenu = (item) => {
   if (item.query) {
     query = item.query;
   }
-  if(item.routeName){
+  if (item.routeName) {
     router.replace({
       name: item.routeName,
       query: {

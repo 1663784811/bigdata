@@ -42,7 +42,21 @@
           <Icon type="ios-alert"/>
         </div>
         <div class="name">记账系统</div>
-        <div class="introduction">支持创建多个账目，生活工作账目分离，让账目一目了然,支持自定义设置不同风格的类目，适合各类人群</div>
+        <div class="introduction">
+          支持创建多个账目，生活工作账目分离，让账目一目了然,支持自定义设置不同风格的类目，适合各类人群
+        </div>
+        <div class="btnBox">
+          <Button type="success" long shape="circle" icon="md-locate">开通</Button>
+        </div>
+      </div>
+      <div class="appItem">
+        <div class="logoBox">
+          <Icon type="ios-alert"/>
+        </div>
+        <div class="name">手机管理</div>
+        <div class="introduction">
+          手机管理
+        </div>
         <div class="btnBox">
           <Button type="success" long shape="circle" icon="md-locate">开通</Button>
         </div>

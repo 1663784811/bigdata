@@ -7,6 +7,7 @@ import {spider} from './spider.js'
 import {shopping} from './shopping.js'
 import {login} from './login.js'
 import {worker} from './worker.js'
+import {phone} from './phone.js'
 import {loginInfo} from '../store/loginInfo.js'
 
 
@@ -48,7 +49,8 @@ const router = createRouter({
                         role,
                         spider,
                         shopping,
-                        worker
+                        worker,
+                        phone
                     ]
                 }
             ]

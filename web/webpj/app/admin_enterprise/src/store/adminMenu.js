@@ -83,14 +83,38 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: '',
                             children: [
                                 {
-                                    name: '我的待办',
+                                    name: '流程管理',
                                     icon: 'md-settings',
-                                    routeName: 'myTask'
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '模型管理',
+                                            icon: 'md-settings',
+                                            routeName: 'myTask'
+                                        },
+                                        {
+                                            name: '部署管理',
+                                            icon: 'md-settings',
+                                            routeName: 'myTask'
+                                        },
+                                    ]
                                 },
                                 {
-                                    name: '全部待办',
+                                    name: '待办任务',
                                     icon: 'md-settings',
-                                    routeName: 'adminPower'
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '我的待办',
+                                            icon: 'md-settings',
+                                            routeName: 'myTask'
+                                        },
+                                        {
+                                            name: '全部待办',
+                                            icon: 'md-settings',
+                                            routeName: 'adminPower'
+                                        },
+                                    ]
                                 },
                                 {
                                     name: '请假申请',
@@ -104,11 +128,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 },
                                 {
                                     name: '发起会议',
-                                    icon: 'md-settings',
-                                    routeName: ''
-                                },
-                                {
-                                    name: '模型管理',
                                     icon: 'md-settings',
                                     routeName: ''
                                 },
@@ -214,6 +233,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '小黑人列表',
                             icon: 'md-settings',
                             routeName: 'appCenter'
+                        }
+                    ]
+                },
+                {
+                    name: '手机管理',
+                    icon: 'md-settings',
+                    routeName: '',
+                    children: [
+                        {
+                            name: '手机列表',
+                            icon: 'md-settings',
+                            routeName: 'phoneList'
                         }
                     ]
                 }

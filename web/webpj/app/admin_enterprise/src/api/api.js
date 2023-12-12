@@ -150,3 +150,6 @@ export const enterpriseRegister = (parameter, showMsg = false) => {
 }
 
 
+export const getPhoneList = (parameter) => {
+    return AJAXGET(`${baseUrl}/admin/phone/phone/phoneList`, parameter)
+}
