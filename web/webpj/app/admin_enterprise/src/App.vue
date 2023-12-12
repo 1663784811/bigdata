@@ -7,7 +7,7 @@
 <script setup>
 import ModalFiles from '@/component/modal/ModalFiles.vue'
 import SelectPanel from '@/component/modal/SelectPanel.vue'
-import ConfigDrawer from '@/component/ConfigDrawer.vue'
+import ConfigDrawer from '@/component/comfig/ConfigDrawer.vue'
 
 </script>
 

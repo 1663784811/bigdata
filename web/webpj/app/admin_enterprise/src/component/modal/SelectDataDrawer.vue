@@ -11,16 +11,30 @@
         <Divider orientation="left">已选择</Divider>
         <div class="selectEd" v-for="(item, index) in state.config.selectData" :key="index">
           <div>{{ item.name }}</div>
-          <Button class="btn" type="error" size="small" icon="ios-trash-outline"></Button>
+          <Button class="btn" type="error" size="small" icon="ios-trash-outline" @click="delData(item)"></Button>
         </div>
       </div>
 
       <div class="tempSelectBox">
         <Divider orientation="left">选择</Divider>
-        <Button class="saveBtn" type="warning" size="small" icon="md-cloud-upload">保存</Button>
+        <Button
+            class="saveBtn"
+            type="warning"
+            size="small"
+            icon="md-cloud-upload"
+            @click="saveDataFn">
+          保存
+        </Button>
+
         <div class="select" v-for="(item, index) in state.config.tempData" :key="index">
           <div>{{ item.name }}</div>
-          <Button class="btn" type="error" size="small" icon="ios-trash-outline"></Button>
+          <Button class="btn"
+                  type="error"
+                  size="small"
+                  icon="ios-trash-outline"
+                  @click="state.config.tempData.splice(index, 1)">
+          </Button>
+
         </div>
       </div>
 
@@ -38,6 +52,7 @@ import CommonTable from "@/component/CommonTable.vue";
 import {reactive, inject, watch} from "vue";
 import {commonRequest} from "@/api/api.js";
 import {loginInfo} from "@/store/loginInfo.js";
+import {Message, Modal} from "view-ui-plus";
 
 const loginInfoSt = loginInfo();
 
@@ -58,6 +73,12 @@ const state = reactive({
         code: 'select_t_role'
       }
     },
+    delRequest: {
+      url: '/admin/${eCode}/common/query',
+      parameter: {
+        code: 'select_t_role'
+      }
+    },
     showDrawer: inject("showDrawer", false),
     selectData: [],
     tempData: [],
@@ -71,7 +92,6 @@ const state = reactive({
 // 初始化
 const initFn = () => {
   console.log('11111111111111111111111111111111111111111')
-
   loadData();
 }
 const loadData = () => {
@@ -91,6 +111,41 @@ const loadData = () => {
   })
 }
 
+const delData = (item) => {
+
+  delDataFn();
+}
+const delDataFn = (idArr = []) => {
+  Modal.confirm({
+    title: '是否删除?',
+    okText: '删除',
+    loading: true,
+    onOk: () => {
+      const url = loginInfoSt.reLoadUrl(state.config.delRequest.url);
+      console.log(url);
+      commonRequest(url, idArr, 'post').then((rest) => {
+        Message.success({
+          content: `${rest.data ? rest.data : rest.msg}`,
+          onClose: () => {
+            Modal.remove();
+            loadData();
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        Message.error({
+          content: `${err}`,
+        })
+      })
+    },
+  });
+}
+
+const saveDataFn = () => {
+
+  console.log('保存数据')
+
+}
 
 const eventFn = (eventObj) => {
   if (eventObj.even === 'table_select') {
@@ -108,7 +163,7 @@ const eventFn = (eventObj) => {
       }
     }
   } else {
-    
+
   }
   console.log(eventObj)
 }
