@@ -76,6 +76,7 @@ public class PageSettingController {
             js.set("id", cPageComponents.getId());
             js.set("tid", cPageComponents.getTid());
             js.set("type", cPageComponents.getType() == null ? "commonTable" : cPageComponents.getType());
+            js.set("pageId", cPageComponents.getPageId() == null ? "" : cPageComponents.getPageId());
             // 通用表格
             rest.set(componentsCode, js);
         }

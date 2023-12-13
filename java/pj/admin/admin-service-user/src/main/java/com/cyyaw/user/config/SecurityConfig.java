@@ -82,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html",
                         "/home/**",
                         "/wx/user/**/login",
+                        "/login/**",
                         "/admin/enterprise/findPage",
                         "/shopping/*/web/banner/findBanner",
                         "/shopping/*/goods/search/searchGoods",

@@ -4,6 +4,7 @@ package com.cyyaw.sql.buildcode.croe.tools;
 import com.cyyaw.sql.buildcode.croe.entity.java.JavaColumn;
 import com.cyyaw.sql.buildcode.croe.entity.vue.Filters;
 import com.cyyaw.sql.buildcode.croe.entity.vue.VueJson;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * 类型转换工具
  */
+@Slf4j
 public class TypeTools {
 
 
@@ -71,8 +73,8 @@ public class TypeTools {
         ) {
             //============= 数值字符
             objType = "Byte";
-        }else if( type.equals("Blob") || type.equals("blob")){
-
+        }else if( type.equals("Blob") || type.equals("blob") || type.equals("LONGBLOB") || type.equals("longblob")){
+            objType = "String";
         }
         if(objType==null){
             System.out.println("-------------");

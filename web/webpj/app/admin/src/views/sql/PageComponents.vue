@@ -196,6 +196,8 @@
     <Modal v-model="showCode.show" title="显示数据" width="80vw">
       <Input v-model="showCode.data" type="textarea" :rows="30"/>
     </Modal>
+
+
     <Modal
         v-model="databaseLoad.show"
         title="加载数库"
@@ -213,6 +215,8 @@
       </div>
       <Input v-model="databaseLoad.jsData" type="textarea" :rows="30"/>
     </Modal>
+
+
     <Modal
         v-model="settingParameter.show"
         :loading="settingParameter.loading"
@@ -239,6 +243,8 @@ const commonTable = ref(null);
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("PageComponents");
   commonTable.value = role.commonTable;
+
+  console.log(JSON.stringify(role.commonTable.columns))
 }
 initFn();
 

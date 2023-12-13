@@ -1,6 +1,7 @@
 <template>
   <CommonTable :table-setting="state.tableSetting" @event="eventFn"/>
   <SelectDataDrawer :setting="state.drawerSetting"/>
+  <DataTable :setting="state.newTable"/>
 </template>
 
 <script setup>
@@ -8,6 +9,7 @@
 import {onMounted, ref, provide, reactive, inject} from "vue";
 import CommonTable from '@/component/CommonTable.vue'
 import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
+import DataTable from '@/component/modal/DataTable.vue'
 
 import {pageConfig} from '@/store/pageConfig.js'
 
@@ -18,6 +20,7 @@ provide('showDrawer', showDrawer);
 const state = reactive({
   tableSetting: {},
   drawerSetting: {},
+  newTable: {}
 })
 
 
@@ -31,6 +34,7 @@ const initFn = async () => {
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.tableSetting = pageData.commonTable;
   state.drawerSetting = pageData.commonTable;
+  state.newTable = pageData.newTable;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 
