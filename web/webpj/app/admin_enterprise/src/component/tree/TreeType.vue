@@ -20,7 +20,7 @@
 
 import {defineEmits, ref, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
-import ModalDataList from '@/component/ModalDataList.vue'
+import ModalDataList from '@/component/modal/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";

@@ -259,6 +259,14 @@ import {useRoute, useRouter} from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
+const props = defineProps({
+  setting: {
+    type: Object,
+    default: {},
+    required: false
+  }
+});
+
 const state = reactive({
   operationObj: {
     title: '操作',
@@ -302,6 +310,9 @@ const state = reactive({
   }
 })
 
+onMounted(() => {
+  initFn();
+})
 
 const upIndexDataFn = (index) => {
   if (index > 0) {
@@ -346,6 +357,33 @@ const addOperationFn = () => {
     show: true
   })
 }
+
+
+const initFn = () => {
+  const {setting} = props;
+  const {columns, operation, requestObj, id, tid} = setting
+  if (requestObj) {
+    state.requestObjData = requestObj;
+  }
+  if (operation) {
+    state.operationObj = operation;
+  }
+  if (columns) {
+    state.columnsArr = columns;
+  }
+  if (id) {
+    state.jsonData.id = id;
+  }
+  if (tid) {
+    state.jsonData.tid = tid;
+  }
+}
+
+watch(() => props.setting, () => {
+  initFn()
+}, {deep: false, immediate: false})
+
+
 </script>
 <style scoped lang="less">
 .configBox {

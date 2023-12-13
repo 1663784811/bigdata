@@ -11,18 +11,18 @@
     <div class="modalBox">
       <div>
         <template v-for="(item,index) in modalData.columns" :key="index">
-          <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType == 'hidden'?'none':''}">
+          <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType === 'hidden'?'none':''}">
             <div class="label">{{ item.title }}:</div>
-            <div class="content" v-if="item.controlType == 'textarea'">
+            <div class="content" v-if="item.controlType === 'textarea'">
               <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
             </div>
-            <div class="content" v-else-if="item.controlType == 'datetime'">
+            <div class="content" v-else-if="item.controlType === 'datetime'">
               <DatePicker v-model="modalData.data[item.key]"
                           type="datetime"
                           format="yyyy-MM-dd HH:mm"
                           :placeholder="item.node"/>
             </div>
-            <div class="content" v-else-if="item.controlType == 'img'">
+            <div class="content" v-else-if="item.controlType === 'img'">
               <div class="imageBox">
                 <div class="closeImg">
                   <Icon type="md-close-circle"/>
@@ -35,7 +35,7 @@
                 </div>
                 <img :src="modalData.data[item.key]" alt="">
               </div>
-              <div class="imageBox addImage" @click="addImageFn(modalData.data, item.key)">
+              <div class="imageBox addImage">
                 <Icon type="md-add-circle"/>
               </div>
             </div>
@@ -51,9 +51,6 @@
 
 <script setup>
 import {defineEmits, ref, watch} from "vue";
-import EventBus from "@/component/EventBus";
-
-const emitter = EventBus();
 const emits = defineEmits(['event', 'update:modelValue']);
 
 const props = defineProps({
@@ -99,11 +96,6 @@ const eventFn = (ev) => {
   const {data} = modalData.value;
   emits('event', ev, data);
 }
-
-const addImageFn = (dataObj, keyObj) => {
-  emitter.emit('showModalFiles', true);
-}
-
 
 </script>
 

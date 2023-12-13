@@ -75,6 +75,7 @@ public class PageSettingController {
             JSONObject js = new JSONObject(data);
             js.set("id", cPageComponents.getId());
             js.set("tid", cPageComponents.getTid());
+            js.set("type", cPageComponents.getType() == null ? "commonTable" : cPageComponents.getType());
             // 通用表格
             rest.set(componentsCode, js);
         }

@@ -49,6 +49,9 @@ public class CPageComponents implements Serializable {
     @Column(name = "components_code", columnDefinition = "varchar(45) COMMENT '类型'")
     private String componentsCode;
     @Basic
+    @Column(name = "type", columnDefinition = "varchar(32) COMMENT '类型'")
+    private String type;
+    @Basic
     @Column(name = "data", columnDefinition = "text COMMENT '数据'")
     private String data;
     @Basic
