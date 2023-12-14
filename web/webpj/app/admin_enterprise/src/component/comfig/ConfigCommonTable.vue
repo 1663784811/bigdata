@@ -46,6 +46,8 @@
           </div>
         </div>
         <div class="dataContent">
+
+
           <div class="row">
             <div class="labelLeft">操作标题:</div>
             <Checkbox border v-model="state.operationObj.show"></Checkbox>
@@ -73,6 +75,9 @@
               <Input v-model="item.even" placeholder="事件" clearable/>
             </div>
           </div>
+
+
+
         </div>
       </div>
 

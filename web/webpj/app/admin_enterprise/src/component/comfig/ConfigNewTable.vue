@@ -1,13 +1,19 @@
 <template>
+
+  <div class="aaa">
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="loadDataBaseFn">加载数据库</Button>
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
+  </div>
+
   <Tabs value="name1">
     <TabPane label="搜索" name="搜索">
       <div class="configBox">
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="loadDataBaseFn">加载数据库</Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload">查看配置</Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('search')">查看代码
+            </Button>
           </div>
         </div>
         <div class="dataContent">
@@ -38,50 +44,78 @@
                 <Input v-model="item.even" placeholder="事件" clearable/>
               </div>
             </div>
-
-
             <!-- ================== -->
             <template v-if="item.even === 'search' && item.parameter.length>0">
-              <div class="row" style="margin-left: 50px;" v-for="(item,index) in item.parameter" :key="index">
+              <div class="row" style="margin-left: 100px;" v-for="(it,inx) in item.parameter" :key="inx">
                 <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
-                  <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
-
+                  <Button size="small" type="error" icon="ios-trash-outline" @click="item.parameter.splice(inx, 1)"/>
+                  <Button v-if="inx>0" size="small" type="primary" icon="md-arrow-up" disabled/>
                 </div>
                 <div class="rowItem">
-                  <Checkbox v-model="item.isShowColumn" />
-                  <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
+                  <Checkbox v-model="it.isShowColumn"/>
+                  <Input v-model="it.title" placeholder="标题" clearable style="width: 130px"/>
                 </div>
                 <div class="rowItem">
-                  <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
+                  <Input v-model="it.key" placeholder="key" clearable style="width: 100px"/>
                 </div>
                 <div class="rowItem">
-                  <Input v-model="item.width" placeholder="宽" clearable type="number" style="width: 80px"/>
-                </div>
-                <div class="rowItem">
-                  <Select v-model="item.type" size="small" clearable style="width:110px">
-                    <Option value="text">文本</Option>
-                    <Option value="selection">选择框</Option>
-                    <Option value="img">图片</Option>
-                    <Option value="filters">过滤</Option>
+                  搜索条件:
+                  <Select v-model="it.javaWhere" clearable size="small" style="width:160px">
+                    <Option value="lk">%模糊查询%</Option>
+                    <Option value="lkR">模糊查询%</Option>
+                    <Option value="lkL">%模糊查询</Option>
+                    <Option value="eq">等于</Option>
+                    <Option value="neq">不等于</Option>
+                    <Option value="geq">大于等于</Option>
+                    <Option value="gt">大于</Option>
+                    <Option value="leq">小于等于</Option>
+                    <Option value="lt">小于</Option>
                   </Select>
-                </div>
-                <div class="rowItem">
-
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="item.sortable">排序</Checkbox>
                 </div>
               </div>
             </template>
             <!-- ================== -->
-
           </template>
 
-
+        </div>
+      </div>
+    </TabPane>
+    <TabPane label="操作对象" name="操作对象">
+      <div class="configBox">
+        <div class="headerBox">
+          <div></div>
+          <div>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('operation')">加载默认</Button>
+          </div>
+        </div>
+        <div class="dataContent" v-if="state.operationObj">
+          <div class="row">
+            <div class="labelLeft">操作标题:</div>
+            <Checkbox border v-model="state.operationObj.show"></Checkbox>
+            <div class="rightInput">
+              <Input v-model="state.operationObj.title" placeholder="标题"/>
+            </div>
+            <div>宽度:</div>
+            <div class="rightInput">
+              <Input v-model="state.operationObj.width" placeholder="宽" clearable type="number"/>
+            </div>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addOperationFn">添加</Button>
+          </div>
+          <div class="row" v-for="(item, index) in state.operationObj.operationArr" :key="index">
+            <div class="sortBtn">
+              <Button size="small" type="error" icon="ios-trash-outline" @click="delOperationFn(index)"/>
+              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
+            </div>
+            <div>名称:</div>
+            <Checkbox border v-model="item.show"></Checkbox>
+            <div class="rightInput">
+              <Input v-model="item.label" placeholder="名称"/>
+            </div>
+            <div>事件:</div>
+            <div class="rightInput">
+              <Input v-model="item.even" placeholder="事件" clearable/>
+            </div>
+          </div>
         </div>
       </div>
     </TabPane>
@@ -90,7 +124,9 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('table')">
+              查看代码
+            </Button>
           </div>
         </div>
         <div class="dataContent">
@@ -99,13 +135,22 @@
           </div>
           <div>
             显示
-            查询地址:
-            删除地址:
+            <div v-if="state.tableObj.queryRequest">
+              查询地址: <Input v-model="state.tableObj.queryRequest.url" placeholder="查询地址" clearable/>
+            </div>
+            <div v-if="state.tableObj.delRequest">
+              删除地址: <Input v-model="state.tableObj.delRequest.url" placeholder="删除地址" clearable/>
+            </div>
+
           </div>
           <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
             <div class="rowItem sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
+              <Button size="small" type="error" icon="ios-trash-outline"
+                      @click="state.tableObj.columns.splice(index, 1)"/>
               <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
+            </div>
+            <div class="rowItem">
+              <Checkbox v-model="item.isShowColumn"/>
             </div>
             <div class="rowItem">
               <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
@@ -123,9 +168,6 @@
                 <Option value="img">图片</Option>
                 <Option value="filters">过滤</Option>
               </Select>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.isShowColumn">显示字段</Checkbox>
             </div>
             <div class="rowItem">
               <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
@@ -137,19 +179,27 @@
         </div>
       </div>
     </TabPane>
-    <TabPane label="添加" name="添加">
+    <TabPane label="保存" name="保存">
       <div class="configBox">
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload">查看配置</Button>
           </div>
         </div>
         <div class="dataContent">
-          <div class="row" v-for="(item,index) in state.columnsArr" :key="index">
+          <div v-if="state.saveObj">
+            保存地址: <Input v-model="state.saveObj.url" placeholder="保存地址" clearable/>
+          </div>
+
+          <div class="row" v-for="(item,index) in state.saveObj.columns" :key="index">
             <div class="rowItem sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
+              <Button size="small" type="error" icon="ios-trash-outline"
+                      @click="state.saveObj.columns.splice(index, 1)"/>
+              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
+            </div>
+            <div class="rowItem">
+              <Checkbox v-model="item.isShowSave"/>
             </div>
             <div class="rowItem">
               <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
@@ -158,68 +208,12 @@
               <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
             </div>
             <div class="rowItem">
-              <Input v-model="item.width" placeholder="宽" clearable type="number" style="width: 80px"/>
-            </div>
-            <div class="rowItem">
               <Select v-model="item.type" size="small" clearable style="width:110px">
                 <Option value="text">文本</Option>
                 <Option value="selection">选择框</Option>
                 <Option value="img">图片</Option>
                 <Option value="filters">过滤</Option>
               </Select>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.isShowColumn">显示字段</Checkbox>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.sortable">排序</Checkbox>
-            </div>
-          </div>
-        </div>
-      </div>
-    </TabPane>
-    <TabPane label="更新" name="更新">
-      <div class="configBox">
-        <div class="headerBox">
-          <div></div>
-          <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
-          </div>
-        </div>
-        <div class="dataContent">
-          <div class="row" v-for="(item,index) in state.columnsArr" :key="index">
-            <div class="rowItem sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline" @click="delIndexDataFn(index)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.width" placeholder="宽" clearable type="number" style="width: 80px"/>
-            </div>
-            <div class="rowItem">
-              <Select v-model="item.type" size="small" clearable style="width:110px">
-                <Option value="text">文本</Option>
-                <Option value="selection">选择框</Option>
-                <Option value="img">图片</Option>
-                <Option value="filters">过滤</Option>
-              </Select>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.isShowColumn">显示字段</Checkbox>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.sortable">排序</Checkbox>
             </div>
           </div>
         </div>
@@ -243,6 +237,23 @@
       ></Table>
     </div>
     <Input v-model="state.databaseLoad.jsData" type="textarea" :rows="30"/>
+  </Modal>
+
+  <Modal
+      v-model="state.jsonData.show"
+      :loading="state.jsonData.loading"
+      title="数据"
+      width="80vw"
+      @on-ok="saveComponentsFn"
+  >
+    <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
+  </Modal>
+
+  <Modal v-model="state.showCode.show"
+         title="查看代码" width="80vw"
+         @on-ok="showCodeHandleFn"
+  >
+    <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
 
 
@@ -273,28 +284,15 @@ const state = reactive({
   tableObj: {},
   // ===============  保存
   saveObj: {},
-
-  operationObj: {
-    title: '操作',
-    key: 'operation',
-    width: 200,
-    operationArr: [
-      {
-        label: "查看",
-        even: ''
-      },
-      {
-        label: "修改",
-        even: ''
-      },
-      {
-        label: "删除",
-        even: ''
-      }
-    ]
+  showCode: {
+    show: false,
+    data: '',
+    modal: ''
   },
+  operationObj: {},
   columnsArr: [],
   jsonData: {
+    show: false,
     loading: false,
     id: '',
     tid: '',
@@ -321,7 +319,34 @@ const state = reactive({
     data: [],
     newTable: {},
     jsData: ''
+  },
+  // ===========================
+  defaultConfig: {
+    operation: {
+      show: true,
+      title: '操作',
+      key: 'operation',
+      width: 200,
+      operationArr: [
+        {
+          label: "查看",
+          even: '',
+          show: true,
+        },
+        {
+          label: "修改",
+          even: '',
+          show: true,
+        },
+        {
+          label: "删除",
+          even: '',
+          show: true,
+        }
+      ]
+    },
   }
+
 })
 
 
@@ -329,37 +354,71 @@ onMounted(() => {
   initFn();
 })
 
-const upIndexDataFn = (index) => {
-  if (index > 0) {
-    const objA = state.columnsArr[index - 1]
-    const objB = state.columnsArr[index]
-    state.columnsArr[index - 1] = objB
-    state.columnsArr[index] = objA
+const showCodeTableFn = (modal) => {
+  state.showCode.show = true;
+  state.showCode.modal = modal
+  if (state.showCode.modal === 'table') {
+    state.showCode.data = JSON.stringify(state.tableObj, null, "  ");
+  } else if (state.showCode.modal === 'search') {
+    state.showCode.data = JSON.stringify(state.searchObj, null, "  ");
+  } else {
+    state.showCode.data = "";
+  }
+
+}
+
+const showCodeHandleFn = () => {
+  if (state.showCode.modal === 'table') {
+    state.tableObj = JSON.parse(state.showCode.data);
+  } else if (state.showCode.modal === 'search') {
+    state.searchObj = JSON.parse(state.showCode.data);
   }
 }
 
-const delIndexDataFn = (index) => {
-  state.columnsArr.splice(index, 1)
+const upIndexDataFn = (index) => {
+  if (index > 0) {
+    const objA = state.tableObj.columns[index - 1]
+    const objB = state.tableObj.columns[index]
+    state.tableObj.columns[index - 1] = objB
+    state.tableObj.columns[index] = objA
+  }
+}
+
+const loadDefaultFn = (str) => {
+  if (str === 'operation') {
+    state.operationObj = state.defaultConfig.operation;
+  }
+}
+
+/**
+ * 显示代码
+ */
+const showCodeFn = () => {
+  state.jsonData.show = true;
+  compileCode();
 }
 
 /**
  * 保存组件数据
  */
 const saveComponentsFn = () => {
-  state.jsonData.loading = true;
-  const json = {
-    searchObj: state.searchObj,
-    tableObj: state.tableObj,
-    saveObj: state.saveObj,
-  }
-  state.jsonData.data = JSON.stringify(json, null, "  ");
+  compileCode();
   saveComponents({
     id: state.jsonData.id,
     data: state.jsonData.data
   }, true).finally(() => {
     state.jsonData.loading = false;
   })
+}
 
+const compileCode = () => {
+  state.tableObj.operation = state.operationObj;
+  const json = {
+    searchObj: state.searchObj,
+    tableObj: state.tableObj,
+    saveObj: state.saveObj,
+  }
+  state.jsonData.data = JSON.stringify(json, null, "  ");
 }
 
 const delOperationFn = (index) => {
@@ -406,6 +465,7 @@ const initFn = () => {
   }
   if (tableObj) {
     state.tableObj = tableObj;
+    state.operationObj = tableObj.operation;
   }
   if (saveObj) {
     state.saveObj = saveObj;

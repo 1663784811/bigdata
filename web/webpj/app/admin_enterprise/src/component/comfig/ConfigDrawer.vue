@@ -1,6 +1,5 @@
 <template>
   <Drawer
-      placement="left"
       title="配置面板"
       v-model="usePageConfig.componentConfig.show"
       width="1200"

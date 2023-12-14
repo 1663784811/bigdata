@@ -186,8 +186,18 @@ public class BuildCodeController {
         // =================  表格
         JSONObject tableObj = new JSONObject();
         JSONObject queryRequest = new JSONObject();
-        queryRequest.set("url", "");
+        queryRequest.set("url", "/admin/${eCode}/common/query");
+        JSONObject parameter = new JSONObject();
+        parameter.set("code", "");
+        queryRequest.set("parameter", parameter);
         tableObj.set("queryRequest", queryRequest);
+
+        JSONObject delRequest = new JSONObject();
+        delRequest.set("url", "/admin/${eCode}/common/del");
+        JSONObject dparameter = new JSONObject();
+        dparameter.set("code", "");
+        delRequest.set("parameter", dparameter);
+        tableObj.set("delRequest", delRequest);
 
         tableObj.set("columns", tableObjFn(vueJsons));
         tableObj.set("loading", true);
@@ -196,7 +206,12 @@ public class BuildCodeController {
 
         // =================  保存
         JSONObject saveObj = new JSONObject();
-        saveObj.set("show", true);
+        saveObj.set("show", false);
+        saveObj.set("loading", true);
+        saveObj.set("editor", true);
+        saveObj.set("data", new JSONObject());
+        saveObj.set("columns", tableObjFn(vueJsons));
+
 
         JSONObject js = new JSONObject();
         js.set("searchObj", searchObj);

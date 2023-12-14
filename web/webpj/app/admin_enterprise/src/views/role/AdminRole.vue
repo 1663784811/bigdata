@@ -1,7 +1,7 @@
 <template>
   <CommonTable :table-setting="state.tableSetting" @event="eventFn"/>
   <SelectDataDrawer :setting="state.drawerSetting"/>
-  <DataTable :setting="state.newTable"/>
+  <DataTable :setting="state.newTable" @event="eventFn"/>
 </template>
 
 <script setup>
