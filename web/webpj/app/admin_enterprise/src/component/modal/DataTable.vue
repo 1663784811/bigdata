@@ -226,25 +226,6 @@ const selectTableData = (row, index, editor) => {
 // ==========================================
 
 
-const searchObj = ref({
-  columns: [],
-  queryRequest: {
-    url: '',
-    show: false,
-    parameter: {}
-  },
-  saveRequest: {
-    url: '',
-    show: false,
-    parameter: {}
-  },
-  delRequest: {
-    url: '',
-    show: false,
-    parameter: {}
-  }
-});
-
 const objConfig = ref({
   columns: [],
   data: [],
@@ -311,8 +292,7 @@ const delTableDataFn = (idArr = []) => {
     okText: '删除',
     loading: true,
     onOk: () => {
-      const url = searchObj.value.delRequest.url;
-      console.log(url);
+      const url = loginInfoSt.reLoadUrl(state.tableObj.delRequest.url);
       commonRequest(url, idArr, 'post').then((rest) => {
         Message.success({
           content: `${rest.data ? rest.data : rest.msg}`,

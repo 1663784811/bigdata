@@ -51,6 +51,7 @@ public class BuildCodeController {
             JSONObject rest = new JSONObject();
             rest.set("commonTable", commonTableFn(javaData));
             rest.set("newTable", newTableFn(javaData));
+            rest.set("selectData", selectDataFn(javaData));
             JSONObject jsobj = new JSONObject();
             jsobj.set("pageConfig", rest);
             jsobj.set("table", javaData.getTable());
@@ -61,6 +62,28 @@ public class BuildCodeController {
         return BaseResult.ok(arr);
     }
 
+
+    private JSONObject selectDataFn(JavaData javaData) {
+
+
+        JSONObject selectObj = new JSONObject();
+        selectObj.set("queryRequest", getRequest("/admin/${eCode}/common/query"));
+        selectObj.set("delRequest", getRequest("/admin/${eCode}/common/del"));
+
+
+        JSONObject saveObj = new JSONObject();
+        saveObj.set("saveRequest", getRequest("/admin/${eCode}/common/del"));
+
+        JSONObject tableObj = new JSONObject();
+
+
+
+        JSONObject js = new JSONObject();
+        js.set("selectObj", selectObj);
+        js.set("saveObj", saveObj);
+        js.set("tableObj", tableObj);
+        return js;
+    }
 
     private JSONObject commonTableFn(JavaData javaData) {
         JSONObject js = new JSONObject();
@@ -185,19 +208,9 @@ public class BuildCodeController {
 
         // =================  表格
         JSONObject tableObj = new JSONObject();
-        JSONObject queryRequest = new JSONObject();
-        queryRequest.set("url", "/admin/${eCode}/common/query");
-        JSONObject parameter = new JSONObject();
-        parameter.set("code", "");
-        queryRequest.set("parameter", parameter);
-        tableObj.set("queryRequest", queryRequest);
 
-        JSONObject delRequest = new JSONObject();
-        delRequest.set("url", "/admin/${eCode}/common/del");
-        JSONObject dparameter = new JSONObject();
-        dparameter.set("code", "");
-        delRequest.set("parameter", dparameter);
-        tableObj.set("delRequest", delRequest);
+        tableObj.set("queryRequest", getRequest("/admin/${eCode}/common/query"));
+        tableObj.set("delRequest", getRequest("/admin/${eCode}/common/del"));
 
         tableObj.set("columns", tableObjFn(vueJsons));
         tableObj.set("loading", true);
@@ -273,5 +286,14 @@ public class BuildCodeController {
         return arr;
     }
 
+
+    private JSONObject getRequest(String url) {
+        JSONObject queryRequest = new JSONObject();
+        queryRequest.set("url", url);
+        JSONObject parameter = new JSONObject();
+        parameter.set("code", "");
+        queryRequest.set("parameter", parameter);
+        return queryRequest;
+    }
 
 }

@@ -23,7 +23,7 @@
     <div class="newTable" v-if="state.pageStatus.select === 'newTable'">
       <ConfigNewTable :setting="state.pageStatus.data"/>
     </div>
-    <div class="selectDataDrawer" v-if="state.pageStatus.select === 'selectDataDrawer'">
+    <div class="selectData" v-if="state.pageStatus.select === 'selectData'">
       <ConfigSelectData :setting="state.pageStatus.data"/>
     </div>
   </Drawer>

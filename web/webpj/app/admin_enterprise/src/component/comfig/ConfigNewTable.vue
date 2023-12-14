@@ -268,12 +268,7 @@
 
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
-import {pageConfig} from '@/store/pageConfig.js'
-import {pageSetting, saveComponents, loadTable} from '@/api/api.js'
-import {useRoute, useRouter} from "vue-router";
-
-const router = useRouter();
-const route = useRoute();
+import {saveComponents, loadTable} from '@/api/api.js'
 
 const props = defineProps({
   setting: {

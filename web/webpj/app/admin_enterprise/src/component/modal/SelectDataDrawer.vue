@@ -2,19 +2,18 @@
   <Drawer
       placement="right"
       title="部门"
-      v-model="state.config.showDrawer"
+      v-model="state.pageStatus.show"
       width="1200"
       :mask-closable="false"
   >
     <div class="dataDrawerBox">
       <div class="selectEdBox">
         <Divider orientation="left">已选择</Divider>
-        <div class="selectEd" v-for="(item, index) in state.config.selectData" :key="index">
+        <div class="selectEd" v-for="(item, index) in state.selectData" :key="index">
           <div>{{ item.name }}</div>
           <Button class="btn" type="error" size="small" icon="ios-trash-outline" @click="delData(item)"></Button>
         </div>
       </div>
-
       <div class="tempSelectBox">
         <Divider orientation="left">选择</Divider>
         <Button
@@ -26,13 +25,13 @@
           保存
         </Button>
 
-        <div class="select" v-for="(item, index) in state.config.tempData" :key="index">
+        <div class="select" v-for="(item, index) in state.tempData" :key="index">
           <div>{{ item.name }}</div>
           <Button class="btn"
                   type="error"
                   size="small"
                   icon="ios-trash-outline"
-                  @click="state.config.tempData.splice(index, 1)">
+                  @click="state.tempData.splice(index, 1)">
           </Button>
 
         </div>
@@ -40,7 +39,7 @@
 
       <div class="dataBox">
         <Divider orientation="left">数据</Divider>
-        <CommonTable :table-setting="state.tableSetting" @event="eventFn"/>
+        <DataTable :setting="state.tableSetting" @event="eventFn"/>
       </div>
     </div>
   </Drawer>
@@ -48,7 +47,7 @@
 
 
 <script setup>
-import CommonTable from "@/component/CommonTable.vue";
+import DataTable from "@/component/modal/DataTable.vue";
 import {reactive, inject, watch} from "vue";
 import {commonRequest} from "@/api/api.js";
 import {loginInfo} from "@/store/loginInfo.js";
@@ -65,9 +64,11 @@ const props = defineProps({
 });
 
 const state = reactive({
-  tableSetting: {},
-  config: {
-    queryData: {
+  selectData: [],
+  tempData: [],
+  // =================
+  selectObj: {
+    queryRequest: {
       url: '/admin/${eCode}/common/query',
       parameter: {
         code: 'select_t_role'
@@ -79,21 +80,64 @@ const state = reactive({
         code: 'select_t_role'
       }
     },
-    showDrawer: inject("showDrawer", false),
-    selectData: [],
-    tempData: [],
+  },
+  // =================
+  saveObj: {
+    saveRequest: {
+      url: '/admin/${eCode}/common/query',
+      parameter: {
+        code: 'select_t_role'
+      }
+    },
+  },
+  tableSetting: {
+    tableObj: {}
   },
   pageStatus: {
-    loading: false
+    show: false,
+    loading: false,
+    data: {}
   }
 })
 
 
 // 初始化
 const initFn = () => {
-  console.log('11111111111111111111111111111111111111111')
-  loadData();
+  // 初始化页面
+  initPage();
+  // 初始化选择
+  initSelectFn()
+
+
+  // loadData();
 }
+
+const initPage = () => {
+  const {setting} = props;
+  state.pageStatus.show = setting.show;
+  state.pageStatus.data = setting.data;
+  state.selectObj = setting.selectObj;
+}
+const initSelectFn = () => {
+  commonRequest(
+      loginInfoSt.reLoadUrl(state.selectObj.queryRequest.url),
+      {
+        ...state.pageStatus.data,
+        ...state.selectObj.queryRequest.parameter
+      }
+  ).then((rest) => {
+    const {data, code} = rest;
+    if (code === 2000) {
+      state.selectData = data
+    } else {
+      state.selectData = [];
+    }
+  }).catch(err => {
+    console.log(err);
+  }).finally(() => {
+  })
+}
+
 const loadData = () => {
   state.pageStatus.loading = true;
   commonRequest(
@@ -170,23 +214,12 @@ const eventFn = (eventObj) => {
 
 // ===============================================
 watch(() => props.setting, () => {
-  console.log('ssssssssssssssssssssssssssssssss', props.setting)
-  const setting = props.setting;
+  const {setting} = props;
   if (setting) {
-    if (setting.columns) {
-      // saveData.value.columns = setting.columns;
-    }
-
-
     initFn()
-
-    state.tableSetting = setting;
-
-
   } else {
     console.log("=========== 未设置数据 =======", setting)
   }
-
 })
 
 </script>
