@@ -6,9 +6,6 @@ import com.cyyaw.user.table.entity.TRole;
 
 public interface TRoleService extends BaseTableService<TRole, Integer> {
 
-
-    TRole save(TRole tRole);
-
     /**
      * 初始化权限
      */

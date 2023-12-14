@@ -75,7 +75,7 @@ public class CommonDaoImpl implements CommonDao {
         if (StrUtil.isNotBlank(sort)) {
             if (sort.lastIndexOf("_desc") != -1) {
                 String sortLine = StrUtil.toUnderlineCase(sort.substring(0, sort.lastIndexOf("_desc")));
-                sqlcontent += " order by " + sortLine +" desc";
+                sqlcontent += " order by " + sortLine + " desc";
             } else {
                 String sortLine = StrUtil.toUnderlineCase(sort);
                 sqlcontent += " order by " + sortLine;
@@ -269,47 +269,37 @@ public class CommonDaoImpl implements CommonDao {
     }
 
     @Override
-    public Map<String, Object> delete(JSONObject json) {
-        // 第一步: 查询表结构
-        String table = json.getString("table");
-        JSONArray data = json.getJSONArray("data");
-        JSONArray reArr = new JSONArray();
-        String pk = null;
-        if (null != data && data.size() > 0) {
-            List<FieldInfo> page = DataBaseUtils.tableInfo(jdbcTemplate, table);
-            JSONArray delArr = new JSONArray();
-            // 判断数据库是否有数据
-            for (int i = 0; i < page.size(); i++) {
-                FieldInfo js = page.get(i);
-                String columnName = js.getField();
-                String columnKey = js.getKey();
-                if (columnKey.equals("PRI")) {
-                    pk = columnName;
-                    for (int j = 0; j < data.size(); j++) {
-                        JSONObject mm = data.getJSONObject(j);
-                        String id = mm.getString(columnName);
-                        if (!WhyStringUtil.isEmpty(id)) {
-                            delArr.add(mm);
-                        }
-                    }
-                    break;
-                }
-            }
-            // 删除
-            if (delArr.size() > 0) {
-                List slist = new ArrayList<>();
-                for (int i = 0; i < delArr.size(); i++) {
-                    slist.add(delArr.getJSONObject(i).getString(pk));
-                }
-                String sql = "delete FROM " + table + " where " + pk + " in (" + WhyStringUtil.createStr(slist.size(), "?", ",") + ")";
-                jdbcTemplate.update(sql, slist.toArray());
+    public BaseResult del(JSONObject json) {
+        String code = json.getString("code");
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
+        BaseResult rest = new BaseResult();
+        if (sqlRowSet.next()) {
+            String mainTable = sqlRowSet.getString("main_table");
+            String mainId = sqlRowSet.getString("main_id");
+            String delSql = sqlRowSet.getString("del_sql").replaceAll("\n", "");
+            String mainIdData = json.getString(mainId);
+            if (StrUtil.isNotBlank(mainIdData)) {
+                return delData(delSql, json);
+            } else {
+                WebException.fail("没有查到数据,表:" + mainTable + ", ID:" + mainId);
             }
         }
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("code", 0);
-        map.put("msg", "ok");
-        map.put("data", reArr);
-        return map;
+        return null;
+    }
+
+    private BaseResult delData(String delSql, JSONObject json) {
+        BaseResult rest = new BaseResult();
+        String sql = SqlUtils.saveExplainSql(delSql);
+        String[] strArr = SqlUtils.saveExplainData(delSql, json);
+        int update = jdbcTemplate.update(sql, strArr);
+        if (update > 0) {
+            rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
+            rest.setMsg("删除成功");
+        } else {
+            rest.setCode(WebErrCodeEnum.WEB_ERR.getCode());
+            rest.setMsg("删除失败");
+        }
+        return rest;
     }
 
     /**

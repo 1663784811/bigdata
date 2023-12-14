@@ -60,9 +60,10 @@ public class CommonController {
 
 
     @ApiOperation(value = "通用删除")
-    @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestBody JSONObject json) {
-        return commonDao.delete(json);
+    @RequestMapping("/del")
+    public BaseResult del(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
+        JSONObject json = new JSONObject(map);
+        return commonDao.del(json);
     }
 
 

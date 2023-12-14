@@ -39,9 +39,7 @@ public interface CommonDao {
 
     /**
      * 通用删除
-     *
-     * @param json
-     * @return
      */
-    Map<String, Object> delete(JSONObject json);
+    BaseResult del(JSONObject json);
+
 }

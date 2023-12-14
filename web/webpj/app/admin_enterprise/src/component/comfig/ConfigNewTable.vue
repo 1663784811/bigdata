@@ -184,7 +184,9 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload">查看配置</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
+              查看代码
+            </Button>
           </div>
         </div>
         <div class="dataContent">
@@ -196,7 +198,7 @@
             <div class="rowItem sortBtn">
               <Button size="small" type="error" icon="ios-trash-outline"
                       @click="state.saveObj.columns.splice(index, 1)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
+              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexSaveFn(index)"/>
             </div>
             <div class="rowItem">
               <Checkbox v-model="item.isShowSave"/>
@@ -208,11 +210,15 @@
               <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
             </div>
             <div class="rowItem">
-              <Select v-model="item.type" size="small" clearable style="width:110px">
+              输入类型:
+              <Select v-model="item.controlType" clearable size="small" style="width:100px">
+                <Option value="hidden">隐藏框</Option>
                 <Option value="text">文本</Option>
-                <Option value="selection">选择框</Option>
+                <Option value="textarea">长文本</Option>
+                <Option value="date">日期</Option>
+                <Option value="time">时间</Option>
+                <Option value="datetime">日期时间</Option>
                 <Option value="img">图片</Option>
-                <Option value="filters">过滤</Option>
               </Select>
             </div>
           </div>
@@ -361,6 +367,8 @@ const showCodeTableFn = (modal) => {
     state.showCode.data = JSON.stringify(state.tableObj, null, "  ");
   } else if (state.showCode.modal === 'search') {
     state.showCode.data = JSON.stringify(state.searchObj, null, "  ");
+  } else if (state.showCode.modal === 'save') {
+    state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
   } else {
     state.showCode.data = "";
   }
@@ -372,6 +380,8 @@ const showCodeHandleFn = () => {
     state.tableObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'search') {
     state.searchObj = JSON.parse(state.showCode.data);
+  } else if (state.showCode.modal === 'save') {
+    state.saveObj = JSON.parse(state.showCode.data);
   }
 }
 
@@ -381,6 +391,15 @@ const upIndexDataFn = (index) => {
     const objB = state.tableObj.columns[index]
     state.tableObj.columns[index - 1] = objB
     state.tableObj.columns[index] = objA
+  }
+}
+
+const upIndexSaveFn = (index) => {
+  if (index > 0) {
+    const objA = state.saveObj.columns[index - 1]
+    const objB = state.saveObj.columns[index]
+    state.saveObj.columns[index - 1] = objB
+    state.saveObj.columns[index] = objA
   }
 }
 

@@ -3,6 +3,8 @@ package com.cyyaw.tx;
 import com.alibaba.fastjson.JSONObject;
 import com.cyyaw.sql.table.dao.*;
 import com.cyyaw.table.spider.tag.dao.TagDao;
+import com.cyyaw.user.config.TokenData;
+import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,11 +76,10 @@ public class AppCommonController {
      * }
      */
     @ApiOperation(value = "通用删除")
-    @PostMapping("/del")
-    public BaseResult del(@RequestBody Map<String, Object> map) {
+    @RequestMapping("/del")
+    public BaseResult del(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-//        return commonDao.delete(json);
-        return null;
+        return commonDao.del(json);
     }
 
 }

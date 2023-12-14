@@ -14,7 +14,6 @@ import com.cyyaw.user.table.entity.TRolePower;
 import com.cyyaw.user.utils.RoleCode;
 import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,6 @@ public class TRoleServiceImpl extends BaseService<TRole, Integer> implements TRo
 
     @Autowired
     private TPowerService tPowerService;
-
 
     @Autowired
     private TRoleDao tRoleDao;
@@ -43,22 +41,6 @@ public class TRoleServiceImpl extends BaseService<TRole, Integer> implements TRo
         return tRoleDao;
     }
 
-
-    @Override
-    public TRole save(TRole tRole) {
-        Integer id = tRole.getId();
-        if (null != id) {
-            TRole role = tRoleDao.findByid(id);
-            BeanUtils.copyProperties(tRole, role);
-            return tRoleDao.save(role);
-        } else {
-            tRole.setTid(WhyStringUtil.getUUID());
-            tRole.setCreateTime(new Date());
-            tRole.setDel(0);
-            tRole.setNote("");
-            return tRoleDao.save(tRole);
-        }
-    }
 
     @Override
     public void initRole(String enterpriseCode, String adminId) {
