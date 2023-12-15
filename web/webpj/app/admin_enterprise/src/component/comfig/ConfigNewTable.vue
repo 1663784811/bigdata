@@ -127,6 +127,9 @@
             <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('table')">
               查看代码
             </Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addColumn('table')">
+              添加字段
+            </Button>
           </div>
         </div>
         <div class="dataContent">
@@ -349,6 +352,13 @@ const showCodeHandleFn = () => {
     state.searchObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'save') {
     state.saveObj = JSON.parse(state.showCode.data);
+  }
+}
+
+const addColumn = (name) => {
+
+  if (name === 'table') {
+    state.tableObj.columns.push({})
   }
 }
 

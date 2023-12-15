@@ -7,7 +7,7 @@
       </div>
       <div>
         <tree-type
-            :treeSetting="treeSetting"
+            :setting="treeSetting"
             style="width: 0;background: none; padding: 0"
             as-title="name"/>
       </div>

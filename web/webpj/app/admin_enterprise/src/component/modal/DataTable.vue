@@ -159,6 +159,7 @@ const loadData = () => {
         {
           ...state.tableObj.queryRequest.parameter,
           ...state.tableObj.queryRequest.pm,
+          ...commonTableSearchData.value,
           ...state.pageData
         }
     ).then((res) => {

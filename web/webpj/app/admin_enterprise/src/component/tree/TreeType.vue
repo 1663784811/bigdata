@@ -28,7 +28,7 @@ import {Message} from "view-ui-plus";
 const emits = defineEmits(['event', 'selectChange']);
 
 const props = defineProps({
-  treeSetting: {
+  setting: {
     type: Object,
     default: {},
     required: false
@@ -90,8 +90,8 @@ const objConfig = ref(
 // ======================================================
 
 const initFn = async () => {
-  if (props.treeSetting) {
-    saveData.value.columns = getAddColumns(props.treeSetting.columns);
+  if (props.setting) {
+    saveData.value.columns = getAddColumns(props.setting.columns);
   }
 }
 initFn();
@@ -239,8 +239,8 @@ const selectTreeFn = (arr, obj) => {
 }
 
 // =======================================
-watch(() => props.treeSetting, () => {
-  const setting = props.treeSetting;
+watch(() => props.setting, () => {
+  const setting = props.setting;
   console.log("=========== props =======")
   if (setting) {
     if (setting.columns) {

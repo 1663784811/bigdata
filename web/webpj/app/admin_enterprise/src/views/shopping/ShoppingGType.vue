@@ -1,6 +1,6 @@
 <template>
 
-  <tree-type :treeSetting="treeSetting"/>
+  <tree-type :setting="treeSetting"/>
 
 </template>
 

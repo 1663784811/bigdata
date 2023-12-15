@@ -38,6 +38,9 @@
     >
       {{ item }}
     </div>
+
+    <div class="pageCodeItem" @click="clickSqlConfigFn">SQL配置</div>
+
   </div>
 </template>
 <script setup>
@@ -78,6 +81,11 @@ onMounted(() => {
     loadData(configModule.configPage.pageCode);
   }
 })
+
+const clickSqlConfigFn = () => {
+
+
+}
 
 const loadData = (pageCode) => {
   configModule.configPage.pageCode = pageCode;

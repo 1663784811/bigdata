@@ -6,7 +6,7 @@
         部门
       </div>
       <div>
-        <tree-type :treeSetting="treeSetting" style="width: 0; background: none; padding: 0"
+        <tree-type :setting="treeSetting" style="width: 0; background: none; padding: 0"
                    @selectChange="selectChange"/>
       </div>
     </div>
