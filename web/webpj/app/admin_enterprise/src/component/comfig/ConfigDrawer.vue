@@ -1,7 +1,7 @@
 <template>
   <Drawer
       title="配置面板"
-      v-model="usePageConfig.componentConfig.show"
+      v-model="configModule.configPage.show"
       width="1200"
       :mask-closable="false"
   >
@@ -17,17 +17,17 @@
         </div>
       </div>
     </div>
-    <div class="commonTableBox" v-if="state.pageStatus.select === 'commonTable'">
-      <ConfigCommonTable :setting="state.pageStatus.data"/>
+    <div class="commonTableBox" v-if="configModule.configPage.select === 'commonTable'">
+      <ConfigCommonTable :setting="configModule.configPage.data"/>
     </div>
-    <div class="newTable" v-if="state.pageStatus.select === 'newTable'">
-      <ConfigNewTable :setting="state.pageStatus.data"/>
+    <div class="newTable" v-if="configModule.configPage.select === 'newTable'">
+      <ConfigNewTable :setting="configModule.configPage.data"/>
     </div>
-    <div class="selectData" v-if="state.pageStatus.select === 'selectData'">
-      <ConfigSelectData :setting="state.pageStatus.data"/>
+    <div class="selectData" v-if="configModule.configPage.select === 'selectData'">
+      <ConfigSelectData :setting="configModule.configPage.data"/>
     </div>
   </Drawer>
-  <div class="configOperation" v-show="state.pageStatus.showOperation">
+  <div class="configOperation" v-show="state.showOperation">
     <div class="pageCodeItem"
          v-for="(item, index) in usePageConfig.componentConfig.pageCodeList"
          :key="index"
@@ -43,6 +43,7 @@ import ConfigNewTable from './ConfigNewTable.vue'
 import ConfigSelectData from './ConfigSelectData.vue'
 import {onMounted, reactive} from "vue";
 import {pageConfig} from "@/store/pageConfig.js";
+import {useConfigModule} from "@/store/configModule.js";
 import {pageSetting, findIdCPageComponents} from "@/api/api.js";
 import {useRoute, useRouter} from "vue-router";
 import {useWinModal} from "@/store/winModal.js";
@@ -52,15 +53,11 @@ const winModal = useWinModal();
 const usePageConfig = pageConfig();
 const router = useRouter();
 const route = useRoute();
+const configModule = useConfigModule();
 
 
 const state = reactive({
-  pageStatus: {
-    showOperation: false,
-    select: '',
-    data: {},
-    pageId: ''
-  },
+  showOperation: false,
   pageObj: {}
 })
 
@@ -68,33 +65,36 @@ const state = reactive({
 onMounted(() => {
   setTimeout(() => {
     if (route.query.debugger) {
-      state.pageStatus.showOperation = true;
+      state.showOperation = true;
     }
   }, 1000)
+  if (configModule.configPage.show) {
+    loadData(configModule.configPage.pageCode);
+  }
 })
 
 const loadData = (pageCode) => {
+  configModule.configPage.pageCode = pageCode;
   pageSetting({
     pageCode
   }).then((rest) => {
-    usePageConfig.componentConfig.show = true;
+    configModule.configPage.show = true;
     const {data} = rest
     state.pageObj = data;
     for (const dataKey in data) {
-      state.pageStatus.pageId = data[dataKey].pageId;
+      configModule.configPage.pageId = data[dataKey].pageId;
     }
   })
 }
 
 const clickComponentItem = (item) => {
-  state.pageStatus.select = item.type;
-  state.pageStatus.data = item;
+  configModule.configPage.select = item.type;
+  configModule.configPage.data = item;
 }
 
 const updateComponent = (item) => {
   winModal.winData.show = true;
   initSave();
-
   findIdCPageComponents({
     id: item.id
   }).then(rest => {
@@ -117,76 +117,66 @@ const initSave = () => {
   winModal.winData.url = "/admin/config/cpagecomponents/saveCPageComponents";
   winModal.winData.data = {};
   winModal.winData.pageCode = 'sssss'
-  winModal.winData.columns = [{
-    "width": 60,
-    "key": "id",
-    "title": "id",
-    "type": "selection",
-    "length": 10,
-    "controlType": "input",
-    "isShowColumn": true,
-    "javaWhere": "equals",
-    "javaType": "integer",
-    "isShowSave": true
-  }, {
-    "width": 100,
-    "key": "icon",
-    "title": "icon图标",
-    "length": 255,
-    "controlType": "input",
-    "isShowColumn": true,
-    "isWhere": true,
-    "javaType": "string",
-    "isShowSave": true
-  }, {
-    "key": "name",
-    "title": "名称",
-    "length": 45,
-    "controlType": "input",
-    "isShowColumn": true,
-    "isWhere": true,
-    "javaWhere": "lk",
-    "javaType": "string",
-    "isShowSave": true,
-    "isShowSearch": true
-  }, {
-    "key": "componentsCode",
-    "title": "组件ID",
-    "length": 45,
-    "controlType": "input",
-    "isShowColumn": true,
-    "isWhere": true,
-    "javaType": "string",
-    "isShowSave": true
-  }, {
-    "key": "type",
-    "title": "类型",
-    "length": 45,
-    "controlType": "input",
-    "isShowColumn": true,
-    "isWhere": true,
-    "javaType": "string",
-    "isShowSave": true
-  }, {
-    "key": "note",
-    "title": "备注",
-    "length": 255,
-    "isShowColumn": true,
-    "isWhere": true,
-    "javaWhere": "like",
-    "javaType": "string",
-    "isShowSave": true
-  }, {
-    "key": "pageId",
-    "title": "页面ID",
-    "length": 45,
-    "controlType": "input",
-    "isShowColumn": false,
-    "isWhere": true,
-    "javaWhere": "like",
-    "javaType": "string",
-    "isShowSave": true
-  }]
+  winModal.winData.columns = [
+    {
+      "width": 100,
+      "key": "icon",
+      "title": "icon图标",
+      "length": 255,
+      "controlType": "input",
+      "isShowColumn": true,
+      "isWhere": true,
+      "javaType": "string",
+      "isShowSave": true
+    }, {
+      "key": "name",
+      "title": "名称",
+      "length": 45,
+      "controlType": "input",
+      "isShowColumn": true,
+      "isWhere": true,
+      "javaWhere": "lk",
+      "javaType": "string",
+      "isShowSave": true,
+      "isShowSearch": true
+    }, {
+      "key": "componentsCode",
+      "title": "组件ID",
+      "length": 45,
+      "controlType": "input",
+      "isShowColumn": true,
+      "isWhere": true,
+      "javaType": "string",
+      "isShowSave": true
+    }, {
+      "key": "type",
+      "title": "类型",
+      "length": 45,
+      "controlType": "input",
+      "isShowColumn": true,
+      "isWhere": true,
+      "javaType": "string",
+      "isShowSave": true
+    }, {
+      "key": "note",
+      "title": "备注",
+      "length": 255,
+      "isShowColumn": true,
+      "isWhere": true,
+      "javaWhere": "like",
+      "javaType": "string",
+      "isShowSave": true
+    }, {
+      "key": "pageId",
+      "title": "页面ID",
+      "length": 45,
+      "controlType": "input",
+      "isShowColumn": false,
+      "isWhere": true,
+      "javaWhere": "like",
+      "javaType": "string",
+      "isShowSave": true
+    }]
 }
 
 </script>
@@ -197,6 +187,7 @@ const initSave = () => {
   .comBox {
     background: #f5f5f5;
     padding: 4px;
+    margin: 16px 0;
 
     .comItem {
       cursor: pointer;

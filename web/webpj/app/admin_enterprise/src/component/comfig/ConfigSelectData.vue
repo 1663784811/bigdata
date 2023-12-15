@@ -107,7 +107,11 @@
               </div>
             </div>
           </div>
-
+          <div>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="loadTableColumns('table')">
+              加载数据字表格字段
+            </Button>
+          </div>
           <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
             <div class="rowItem sortBtn">
               <Button size="small" type="error" icon="ios-trash-outline"
@@ -181,6 +185,7 @@
     <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
 
+  <DatabaseLoad/>
 
 </template>
 <script setup>
@@ -188,6 +193,7 @@
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
+import DatabaseLoad from './DatabaseLoad.vue'
 
 const props = defineProps({
   setting: {
@@ -445,6 +451,12 @@ const initFn = () => {
   if (tid) {
     state.jsonData.tid = tid;
   }
+}
+
+
+const loadTableColumns = (name) => {
+
+
 }
 
 watch(() => props.setting, () => {
