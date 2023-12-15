@@ -2,7 +2,7 @@
   <Drawer
       placement="right"
       title="部门"
-      v-model="state.pageStatus.show"
+      v-model="pageStatus.show"
       width="1200"
       :mask-closable="false"
   >
@@ -48,19 +48,31 @@
 
 <script setup>
 import DataTable from "@/component/modal/DataTable.vue";
-import {reactive, inject, watch} from "vue";
+import {reactive, inject, watch, defineEmits, ref} from "vue";
 import {commonRequest} from "@/api/api.js";
 import {loginInfo} from "@/store/loginInfo.js";
 import {Message, Modal} from "view-ui-plus";
 
 const loginInfoSt = loginInfo();
+const emits = defineEmits(['event', 'update:modelValue']);
+
 
 const props = defineProps({
   setting: {
     type: Object,
     default: {},
     required: false
-  }
+  },
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
+});
+
+const pageStatus = ref({
+  show: false,
+  loading: false,
+  data: {}
 });
 
 const state = reactive({
@@ -108,15 +120,18 @@ const initFn = () => {
   // 初始化选择
   initSelectFn()
 
+  // 初始化表格
+  initTable();
 
-  // loadData();
 }
 
 const initPage = () => {
   const {setting} = props;
-  state.pageStatus.show = setting.show;
   state.pageStatus.data = setting.data;
   state.selectObj = setting.selectObj;
+  state.tableSetting = {
+    tableObj: setting.tableObj
+  };
 }
 const initSelectFn = () => {
   commonRequest(
@@ -138,6 +153,10 @@ const initSelectFn = () => {
   })
 }
 
+const initTable = () => {
+
+}
+
 const loadData = () => {
   state.pageStatus.loading = true;
   commonRequest(
@@ -156,31 +175,31 @@ const loadData = () => {
 }
 
 const delData = (item) => {
-
-  delDataFn();
+  delDataFn([item]);
 }
-const delDataFn = (idArr = []) => {
+const delDataFn = (objArr = []) => {
   Modal.confirm({
     title: '是否删除?',
     okText: '删除',
     loading: true,
-    onOk: () => {
-      const url = loginInfoSt.reLoadUrl(state.config.delRequest.url);
-      console.log(url);
-      commonRequest(url, idArr, 'post').then((rest) => {
-        Message.success({
-          content: `${rest.data ? rest.data : rest.msg}`,
-          onClose: () => {
-            Modal.remove();
-            loadData();
-          }
+    onOk: async () => {
+      for (let i = 0; i < objArr.length; i++) {
+        const url = loginInfoSt.reLoadUrl(state.selectObj.delRequest.url);
+        const parameter = {
+          ...objArr[i],
+          ...state.selectObj.delRequest.parameter
+        }
+        await commonRequest(url, parameter).then((rest) => {
+          Message.success(`${rest.msg}`)
+        }).catch((err) => {
+          console.log(err);
+          Message.error({
+            content: `${err}`,
+          })
         })
-      }).catch((err) => {
-        console.log(err);
-        Message.error({
-          content: `${err}`,
-        })
-      })
+      }
+      Modal.remove();
+      initSelectFn();
     },
   });
 }
@@ -188,38 +207,45 @@ const delDataFn = (idArr = []) => {
 const saveDataFn = () => {
 
   console.log('保存数据')
-
 }
 
 const eventFn = (eventObj) => {
-  if (eventObj.even === 'table_select') {
-    const arr = eventObj.data
-    for (let i = 0; i < arr.length; i++) {
-      const arrItem = arr[i]
-      let h = false;
-      for (let j = 0; j < state.config.tempData.length; j++) {
-        if (state.config.tempData[j]['tid'] === arrItem['tid']) {
-          h = true
-        }
-      }
-      if (!h) {
-        state.config.tempData.push(arrItem)
-      }
-    }
-  } else {
-
-  }
+  // if (eventObj.even === 'table_select') {
+  //   const arr = eventObj.data
+  //   for (let i = 0; i < arr.length; i++) {
+  //     const arrItem = arr[i]
+  //     let h = false;
+  //     for (let j = 0; j < state.config.tempData.length; j++) {
+  //       if (state.config.tempData[j]['tid'] === arrItem['tid']) {
+  //         h = true
+  //       }
+  //     }
+  //     if (!h) {
+  //       state.config.tempData.push(arrItem)
+  //     }
+  //   }
+  // } else {
+  //
+  // }
   console.log(eventObj)
 }
 
 // ===============================================
-watch(() => props.setting, () => {
+watch(() => props.modelValue, () => {
   const {setting} = props;
+  pageStatus.value.show = props.modelValue
+  state.pageStatus.show = props.modelValue;
   if (setting) {
-    initFn()
+    if (setting.show) {
+      initFn()
+    }
   } else {
     console.log("=========== 未设置数据 =======", setting)
   }
+}, {deep: false, immediate: false})
+
+watch(() => pageStatus.value.show, () => {
+  emits("update:modelValue", pageStatus.value.show)
 })
 
 </script>

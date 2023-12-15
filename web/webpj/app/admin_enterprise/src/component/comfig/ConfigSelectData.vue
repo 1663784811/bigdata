@@ -10,14 +10,37 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('search')">查看代码
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('select')">
+              查看代码
             </Button>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('select')">加载默认</Button>
           </div>
         </div>
         <div class="dataContent">
-
-
-
+          <div v-if="state.selectObj && state.selectObj.queryRequest">
+            查询地址: <Input v-model="state.selectObj.queryRequest.url" placeholder="查询地址" clearable/>
+            <div>
+              参数:
+              <div v-for="(parameter, pa) in state.selectObj.queryRequest.parameter" :key="pa">
+                {{ pa }} <Input
+                  v-model="state.selectObj.queryRequest.parameter[pa]"
+                  placeholder="查询地址" clearable
+                  type="textarea"/>
+              </div>
+            </div>
+          </div>
+          <div v-if="state.selectObj && state.selectObj.delRequest">
+            删除地址: <Input v-model="state.selectObj.delRequest.url" placeholder="删除地址" clearable/>
+            <div>
+              参数:
+              <div v-for="(parameter, pa) in state.selectObj.delRequest.parameter" :key="pa">
+                {{ pa }} <Input
+                  v-model="state.selectObj.delRequest.parameter[pa]"
+                  placeholder="查询地址" clearable
+                  type="textarea"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </TabPane>
@@ -26,7 +49,7 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('operation')">加载默认</Button>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('save')">加载默认</Button>
           </div>
         </div>
         <div class="dataContent" v-if="state.operationObj">
@@ -68,22 +91,23 @@
             <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('table')">
               查看代码
             </Button>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('table')">加载默认</Button>
           </div>
         </div>
         <div class="dataContent">
-          <div>
-            操作对象
+          <div v-if="state.tableObj && state.tableObj.queryRequest">
+            查询地址: <Input v-model="state.tableObj.queryRequest.url" placeholder="查询地址" clearable/>
+            <div>
+              参数:
+              <div v-for="(parameter, pa) in state.tableObj.queryRequest.parameter" :key="pa">
+                {{ pa }} <Input
+                  v-model="state.tableObj.queryRequest.parameter[pa]"
+                  placeholder="查询地址" clearable
+                  type="textarea"/>
+              </div>
+            </div>
           </div>
-          <div>
-            显示
-            <div v-if="state.tableObj.queryRequest">
-              查询地址: <Input v-model="state.tableObj.queryRequest.url" placeholder="查询地址" clearable/>
-            </div>
-            <div v-if="state.tableObj.delRequest">
-              删除地址: <Input v-model="state.tableObj.delRequest.url" placeholder="删除地址" clearable/>
-            </div>
 
-          </div>
           <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
             <div class="rowItem sortBtn">
               <Button size="small" type="error" icon="ios-trash-outline"
@@ -174,9 +198,7 @@ const props = defineProps({
 });
 
 const state = reactive({
-  selectObj:{},
-  // ===============  搜索
-  searchObj: {},
+  selectObj: {},
   // ===============  表格
   tableObj: {},
   // ===============  保存
@@ -242,6 +264,37 @@ const state = reactive({
         }
       ]
     },
+    selectObj: {
+      queryRequest: {
+        url: '/admin/${eCode}/common/query',
+        parameter: {
+          code: ''
+        }
+      },
+      delRequest: {
+        url: '/admin/${eCode}/common/query',
+        parameter: {
+          code: ''
+        }
+      },
+    },
+    saveObj: {
+      saveRequest: {
+        url: '/admin/${eCode}/common/query',
+        parameter: {
+          code: ''
+        }
+      },
+    },
+    tableObj: {
+      queryRequest: {
+        url: '',
+        parameter: {
+          code: ''
+        }
+      },
+      columns: []
+    }
   }
 
 })
@@ -257,7 +310,7 @@ const showCodeTableFn = (modal) => {
   if (state.showCode.modal === 'table') {
     state.showCode.data = JSON.stringify(state.tableObj, null, "  ");
   } else if (state.showCode.modal === 'search') {
-    state.showCode.data = JSON.stringify(state.searchObj, null, "  ");
+    state.showCode.data = JSON.stringify(state.selectObj, null, "  ");
   } else if (state.showCode.modal === 'save') {
     state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
   } else {
@@ -270,7 +323,7 @@ const showCodeHandleFn = () => {
   if (state.showCode.modal === 'table') {
     state.tableObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'search') {
-    state.searchObj = JSON.parse(state.showCode.data);
+    state.selectObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'save') {
     state.saveObj = JSON.parse(state.showCode.data);
   }
@@ -297,6 +350,12 @@ const upIndexSaveFn = (index) => {
 const loadDefaultFn = (str) => {
   if (str === 'operation') {
     state.operationObj = state.defaultConfig.operation;
+  } else if (str === 'select') {
+    state.selectObj = state.defaultConfig.selectObj;
+  } else if (str === 'save') {
+    state.saveObj = state.defaultConfig.saveObj;
+  } else if (str === 'table') {
+    state.tableObj = state.defaultConfig.tableObj;
   }
 }
 
@@ -324,7 +383,7 @@ const saveComponentsFn = () => {
 const compileCode = () => {
   state.tableObj.operation = state.operationObj;
   const json = {
-    searchObj: state.searchObj,
+    selectObj: state.selectObj,
     tableObj: state.tableObj,
     saveObj: state.saveObj,
   }
@@ -369,9 +428,9 @@ const selectTable = (item) => {
 
 const initFn = () => {
   const {setting} = props;
-  const {saveObj, tableObj, searchObj, id, tid} = setting
-  if (searchObj) {
-    state.searchObj = searchObj;
+  const {saveObj, tableObj, selectObj, id, tid} = setting
+  if (selectObj) {
+    state.selectObj = selectObj;
   }
   if (tableObj) {
     state.tableObj = tableObj;

@@ -1,6 +1,6 @@
 <template>
-  <SelectDataDrawer :setting="state.drawerSetting"/>
   <DataTable :setting="state.newTable" @event="eventFn"/>
+  <SelectDataDrawer v-model="state.drawerSetting.show" :setting="state.drawerSetting"/>
 </template>
 
 <script setup>
@@ -16,7 +16,9 @@ const usePageConfig = pageConfig();
 const state = reactive({
   pageData: {},
   drawerSetting: {},
-  newTable: {},
+  newTable: {
+    show: true
+  },
 })
 
 

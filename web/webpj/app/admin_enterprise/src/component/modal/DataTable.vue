@@ -78,7 +78,11 @@ const props = defineProps({
     type: Object,
     default: {},
     required: false
-  }
+  },
+  modelValue: {
+    type: Boolean,
+    default: true
+  },
 });
 
 const state = reactive({
@@ -146,28 +150,30 @@ const search = (columns = []) => {
  * 加载数据
  */
 const loadData = () => {
-  state.tableObj.loading = true;
-  commonRequest(
-      loginInfoSt.reLoadUrl(state.tableObj.queryRequest.url),
-      {
-        ...state.tableObj.queryRequest.parameter,
-        ...state.tableObj.queryRequest.pm,
-        ...state.pageData
+  if (state.tableObj.queryRequest.url) {
+    state.tableObj.loading = true;
+    commonRequest(
+        loginInfoSt.reLoadUrl(state.tableObj.queryRequest.url),
+        {
+          ...state.tableObj.queryRequest.parameter,
+          ...state.tableObj.queryRequest.pm,
+          ...state.pageData
+        }
+    ).then((res) => {
+      if (res.data && res.data.length !== undefined) {
+        state.tableObj.data = res.data;
+      } else {
+        console.error("返回的数据格式有误, data: ", res.data);
       }
-  ).then((res) => {
-    if (res.data && res.data.length !== undefined) {
-      state.tableObj.data = res.data;
-    } else {
-      console.error("返回的数据格式有误, data: ", res.data);
-    }
-    state.pageData.total = res.result.total;
-  }).catch(err => {
-    state.tableObj.loading = false;
-    state.tableObj.data = [];
-    console.log(err);
-  }).finally(() => {
-    state.tableObj.loading = false;
-  })
+      state.pageData.total = res.result.total;
+    }).catch(err => {
+      state.tableObj.loading = false;
+      state.tableObj.data = [];
+      console.log(err);
+    }).finally(() => {
+      state.tableObj.loading = false;
+    })
+  }
 }
 
 
@@ -263,7 +269,6 @@ const selectDataChange = (rows) => {
 // ======================================================
 
 // ======================================================
-
 
 
 /**
@@ -365,6 +370,7 @@ const Cancel = (itemData) => {
 // ==============================================
 watch(() => props.setting, () => {
   const setting = props.setting;
+  console.log("=================  变化  ===================", setting)
   if (setting) {
     if (setting.searchObj) {
       state.searchObj = setting.searchObj;
@@ -385,6 +391,9 @@ watch(() => commonTableSearchData.value, () => {
   search()
 }, {deep: false, immediate: false})
 
+watch(() => props.modelValue, () => {
+  console.log('ssssssssssssssssssssssssssssssssssss未设置数据未设置数据未设置数据未设置数据ss')
+})
 
 //==============================
 
