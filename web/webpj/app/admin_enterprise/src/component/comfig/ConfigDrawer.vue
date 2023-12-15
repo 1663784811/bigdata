@@ -26,6 +26,9 @@
     <div class="selectData" v-if="configModule.configPage.select === 'selectData'">
       <ConfigSelectData :setting="configModule.configPage.data"/>
     </div>
+    <div class="dataTree" v-if="configModule.configPage.select === 'dataTree'">
+      <ConfigDataTree :setting="configModule.configPage.data"/>
+    </div>
   </Drawer>
   <div class="configOperation" v-show="state.showOperation">
     <div class="pageCodeItem"
@@ -41,6 +44,9 @@
 import ConfigCommonTable from './ConfigCommonTable.vue'
 import ConfigNewTable from './ConfigNewTable.vue'
 import ConfigSelectData from './ConfigSelectData.vue'
+import ConfigDataTree from './ConfigDataTree.vue'
+
+
 import {onMounted, reactive} from "vue";
 import {pageConfig} from "@/store/pageConfig.js";
 import {useConfigModule} from "@/store/configModule.js";
@@ -98,7 +104,6 @@ const updateComponent = (item) => {
   findIdCPageComponents({
     id: item.id
   }).then(rest => {
-    console.log('ssssssssssss', rest)
     winModal.winData.data = rest.data;
   })
 

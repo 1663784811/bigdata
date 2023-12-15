@@ -205,29 +205,57 @@ const delDataFn = (objArr = []) => {
 }
 
 const saveDataFn = () => {
-
   console.log('保存数据')
+  let {url, parameter} = state.saveObj.saveRequest;
+  let pm = {};
+  if (!url || url === '/admin/common/save') {
+    url = "/admin/common/save";
+    pm = {
+      ...parameter,
+      data: {}
+    }
+  }
+  commonRequest(loginInfoSt.reLoadUrl(url), pm, 'post').then((rest) => {
+    if (rest.code === 2000) {
+      state.saveObj.data = rest.data;
+      Message.success({
+        content: `${rest.msg}`,
+        onClose: () => {
+          state.saveObj.show = false;
+          loadData();
+        }
+      })
+    }
+  }).catch(err => {
+    Message.error({
+      content: `${err}`
+    })
+  }).finally(() => {
+    state.saveObj.loading = false;
+    setTimeout(() => {
+      state.saveObj.loading = true;
+    })
+  })
+
 }
 
 const eventFn = (eventObj) => {
-  // if (eventObj.even === 'table_select') {
-  //   const arr = eventObj.data
-  //   for (let i = 0; i < arr.length; i++) {
-  //     const arrItem = arr[i]
-  //     let h = false;
-  //     for (let j = 0; j < state.config.tempData.length; j++) {
-  //       if (state.config.tempData[j]['tid'] === arrItem['tid']) {
-  //         h = true
-  //       }
-  //     }
-  //     if (!h) {
-  //       state.config.tempData.push(arrItem)
-  //     }
-  //   }
-  // } else {
-  //
-  // }
   console.log(eventObj)
+  if (eventObj.even === 'table_select') {
+    const arr = eventObj.data
+    for (let i = 0; i < arr.length; i++) {
+      const arrItem = arr[i]
+      let h = false;
+      for (let j = 0; j < state.tempData.length; j++) {
+        if (state.tempData[j]['tid'] === arrItem['tid']) {
+          h = true
+        }
+      }
+      if (!h) {
+        state.tempData.push(arrItem)
+      }
+    }
+  }
 }
 
 // ===============================================

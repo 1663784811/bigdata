@@ -14,6 +14,8 @@ export const useAdminMenuStore = defineStore('adminMenu',
             ]
         },
         state: () => {
+            const activeName = ref("");
+            const openNames = ref([]);
             // 已经选择的模式
             const selectList = {};
             // 模式列表
@@ -268,6 +270,8 @@ export const useAdminMenuStore = defineStore('adminMenu',
 
 
             return {
+                openNames,
+                activeName,
                 selectList,
                 topMenu,
                 nowMenu,

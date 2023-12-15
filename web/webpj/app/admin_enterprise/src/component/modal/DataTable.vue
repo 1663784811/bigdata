@@ -89,7 +89,9 @@ const state = reactive({
   // ===============  搜索
   searchObj: {},
   // ===============  表格
-  tableObj: {},
+  tableObj: {
+    queryRequest: {}
+  },
   showTableObj: {},
   // ===============  保存
   saveObj: {
@@ -392,7 +394,7 @@ watch(() => commonTableSearchData.value, () => {
 }, {deep: false, immediate: false})
 
 watch(() => props.modelValue, () => {
-  console.log('ssssssssssssssssssssssssssssssssssss未设置数据未设置数据未设置数据未设置数据ss')
+  console.log('设置数据未设置数据未设置数据未设置数据ss')
 })
 
 //==============================

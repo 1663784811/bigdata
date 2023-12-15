@@ -1,6 +1,7 @@
 <template>
   <div style="width: 200px; background: #fff">
-    <Menu v-if="store.leftMenu && store.leftMenu.length>0" width="200px" @on-select="selectFn">
+    <Menu :active-name="store.activeName" :open-names="store.openNames" @on-open-change="openChange"
+          v-if="store.leftMenu && store.leftMenu.length>0" width="200px" @on-select="selectFn">
       <template v-for="(item,index) in store.leftMenu" :key="index">
         <Submenu :name="index" v-if="item.children && item.children.length>0">
           <template #title>
@@ -59,6 +60,7 @@ const clickMenu = (item) => {
 }
 
 const selectFn = (name) => {
+  store.activeName = name;
   const arr = (name + '').split("-")
   let menuData = store.leftMenu;
   let menuItem = null;
@@ -72,6 +74,10 @@ const selectFn = (name) => {
     }
   }
   clickMenu(menuItem);
+}
+
+const openChange = (name) => {
+  store.openNames = name;
 }
 
 

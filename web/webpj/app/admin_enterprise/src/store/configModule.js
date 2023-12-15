@@ -23,7 +23,8 @@ export const useConfigModule = defineStore('configModule',
                 select: '',
                 data: {},
                 pageId: '',
-                pageCode: ''
+                pageCode: '',
+                tabsName: '',
             });
             return {
                 configPage

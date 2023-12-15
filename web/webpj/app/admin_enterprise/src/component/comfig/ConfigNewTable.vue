@@ -1,12 +1,12 @@
 <template>
 
   <div class="aaa">
-    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="loadDataBaseFn">加载数据库</Button>
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.databaseLoad = true">加载数据库</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
   </div>
 
-  <Tabs value="name1">
+  <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
     <TabPane label="搜索" name="搜索">
       <div class="configBox">
         <div class="headerBox">
@@ -226,25 +226,6 @@
       </div>
     </TabPane>
   </Tabs>
-
-  <Modal
-      v-model="state.databaseLoad.show"
-      title="加载数库"
-      width="80vw"
-      @on-ok="databaseLoadOkFn"
-  >
-    <div>
-      <Table :columns="state.databaseLoad.columns"
-             :data="state.databaseLoad.data"
-             :loading="state.databaseLoad.loading"
-             :height="300"
-             @on-row-click="selectTable"
-             highlight-row
-      ></Table>
-    </div>
-    <Input v-model="state.databaseLoad.jsData" type="textarea" :rows="30"/>
-  </Modal>
-
   <Modal
       v-model="state.jsonData.show"
       :loading="state.jsonData.loading"
@@ -262,13 +243,19 @@
     <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
 
+  <DatabaseLoad v-model="state.databaseLoad" @event="loadDataHandleFn"/>
+
 
 </template>
 <script setup>
-
+import DatabaseLoad from './DatabaseLoad.vue'
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
+import {useConfigModule} from "@/store/configModule.js";
+
+const configModule = useConfigModule();
+
 
 const props = defineProps({
   setting: {
@@ -299,28 +286,7 @@ const state = reactive({
     tid: '',
     data: ''
   },
-  databaseLoad: {
-    show: false,
-    loading: false,
-    columns: [
-      {
-        title: '数据表',
-        key: 'table',
-        width: 160
-      },
-      {
-        title: '名称',
-        key: 'note'
-      },
-      {
-        title: '操作',
-        key: 'operation'
-      }
-    ],
-    data: [],
-    newTable: {},
-    jsData: ''
-  },
+  databaseLoad: false,
   // ===========================
   defaultConfig: {
     operation: {
@@ -354,6 +320,12 @@ const state = reactive({
 onMounted(() => {
   initFn();
 })
+
+const loadDataHandleFn = (data) => {
+
+
+}
+
 
 const showCodeTableFn = (modal) => {
   state.showCode.show = true;
@@ -446,30 +418,6 @@ const addOperationFn = () => {
   })
 }
 
-
-const loadDataBaseFn = () => {
-  state.databaseLoad.show = true;
-  state.databaseLoad.loading = true;
-  loadTable({}).then((res) => {
-    const {data} = res;
-    state.databaseLoad.data = data;
-  }).finally(() => {
-    state.databaseLoad.loading = false
-  })
-}
-
-
-const databaseLoadOkFn = () => {
-  const {searchObj, tableObj, saveObj} = state.databaseLoad.newTable
-  state.searchObj = searchObj;
-  state.tableObj = tableObj;
-  state.saveObj = saveObj;
-}
-
-const selectTable = (item) => {
-  state.databaseLoad.newTable = item.pageConfig.newTable;
-  state.databaseLoad.jsData = JSON.stringify(state.databaseLoad.newTable, null, "  ");
-}
 
 const initFn = () => {
   const {setting} = props;
