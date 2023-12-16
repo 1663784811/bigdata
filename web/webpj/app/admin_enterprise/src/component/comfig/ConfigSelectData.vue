@@ -1,7 +1,7 @@
 <template>
   <div class="aaa">
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="loadTableColumns('')">加载数据库</Button>
-    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('all')">查看代码</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
   </div>
   <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
@@ -49,35 +49,23 @@
         <div class="headerBox">
           <div></div>
           <div>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
+              查看代码
+            </Button>
             <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('save')">加载默认</Button>
           </div>
         </div>
-        <div class="dataContent" v-if="state.operationObj">
-          <div class="row">
-            <div class="labelLeft">操作标题:</div>
-            <Checkbox border v-model="state.operationObj.show"></Checkbox>
-            <div class="rightInput">
-              <Input v-model="state.operationObj.title" placeholder="标题"/>
-            </div>
-            <div>宽度:</div>
-            <div class="rightInput">
-              <Input v-model="state.operationObj.width" placeholder="宽" clearable type="number"/>
-            </div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addOperationFn">添加</Button>
-          </div>
-          <div class="row" v-for="(item, index) in state.operationObj.operationArr" :key="index">
-            <div class="sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline" @click="delOperationFn(index)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
-            </div>
-            <div>名称:</div>
-            <Checkbox border v-model="item.show"></Checkbox>
-            <div class="rightInput">
-              <Input v-model="item.label" placeholder="名称"/>
-            </div>
-            <div>事件:</div>
-            <div class="rightInput">
-              <Input v-model="item.even" placeholder="事件" clearable/>
+        <div class="dataContent">
+          <div v-if="state.saveObj && state.saveObj.saveRequest">
+            保存地址: <Input v-model="state.saveObj.saveRequest.url" placeholder="保存地址" clearable/>
+            <div>
+              参数:
+              <div v-for="(parameter, pa) in state.saveObj.saveRequest.parameter" :key="pa">
+                {{ pa }} <Input
+                  v-model="state.saveObj.saveRequest.parameter[pa]"
+                  placeholder="查询地址" clearable
+                  type="textarea"/>
+              </div>
             </div>
           </div>
         </div>
@@ -292,6 +280,14 @@ const showCodeTableFn = (modal) => {
     state.showCode.data = JSON.stringify(state.selectObj, null, "  ");
   } else if (state.showCode.modal === 'save') {
     state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
+  } else if (state.showCode.modal === 'all') {
+    state.tableObj.operation = state.operationObj;
+    const json = {
+      selectObj: state.selectObj,
+      tableObj: state.tableObj,
+      saveObj: state.saveObj,
+    }
+    state.showCode.data = JSON.stringify(json, null, "  ");
   } else {
     state.showCode.data = "";
   }
@@ -305,6 +301,11 @@ const showCodeHandleFn = () => {
     state.selectObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'save') {
     state.saveObj = JSON.parse(state.showCode.data);
+  } else if (state.showCode.modal === 'all') {
+    const {selectObj, tableObj, saveObj} = JSON.parse(state.showCode.data);
+    state.selectObj = selectObj;
+    state.tableObj = tableObj;
+    state.saveObj = saveObj;
   }
 }
 
@@ -314,15 +315,6 @@ const upIndexDataFn = (index) => {
     const objB = state.tableObj.columns[index]
     state.tableObj.columns[index - 1] = objB
     state.tableObj.columns[index] = objA
-  }
-}
-
-const upIndexSaveFn = (index) => {
-  if (index > 0) {
-    const objA = state.saveObj.columns[index - 1]
-    const objB = state.saveObj.columns[index]
-    state.saveObj.columns[index - 1] = objB
-    state.saveObj.columns[index] = objA
   }
 }
 
@@ -339,14 +331,6 @@ const loadDefaultFn = (str) => {
 }
 
 /**
- * 显示代码
- */
-const showCodeFn = () => {
-  state.jsonData.show = true;
-  compileCode();
-}
-
-/**
  * 保存组件数据
  */
 const saveComponentsFn = () => {
@@ -356,6 +340,7 @@ const saveComponentsFn = () => {
     data: state.jsonData.data
   }, true).finally(() => {
     state.jsonData.loading = false;
+    initFn();
   })
 }
 
@@ -367,17 +352,6 @@ const compileCode = () => {
     saveObj: state.saveObj,
   }
   state.jsonData.data = JSON.stringify(json, null, "  ");
-}
-
-const delOperationFn = (index) => {
-  state.operationObj.operationArr.splice(index, 1);
-}
-const addOperationFn = () => {
-  state.operationObj.operationArr.push({
-    label: "",
-    even: '',
-    show: true
-  })
 }
 
 

@@ -83,8 +83,7 @@ onMounted(() => {
 })
 
 const clickSqlConfigFn = () => {
-
-
+  configModule.sqlConfig.show = true;
 }
 
 const loadData = (pageCode) => {

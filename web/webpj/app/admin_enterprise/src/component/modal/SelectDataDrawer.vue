@@ -81,24 +81,24 @@ const state = reactive({
   // =================
   selectObj: {
     queryRequest: {
-      url: '/admin/${eCode}/common/query',
+      url: '',
       parameter: {
-        code: 'select_t_role'
+        code: ''
       }
     },
     delRequest: {
-      url: '/admin/${eCode}/common/query',
+      url: '',
       parameter: {
-        code: 'select_t_role'
+        code: ''
       }
     },
   },
   // =================
   saveObj: {
     saveRequest: {
-      url: '/admin/${eCode}/common/query',
+      url: '',
       parameter: {
-        code: 'select_t_role'
+        code: ''
       }
     },
   },
@@ -129,6 +129,7 @@ const initPage = () => {
   const {setting} = props;
   state.pageStatus.data = setting.data;
   state.selectObj = setting.selectObj;
+  state.saveObj = setting.saveObj;
   state.tableSetting = {
     tableObj: setting.tableObj
   };
@@ -137,7 +138,7 @@ const initSelectFn = () => {
   commonRequest(
       loginInfoSt.reLoadUrl(state.selectObj.queryRequest.url),
       {
-        ...state.pageStatus.data,
+        ...dataMapping(state.pageStatus.data, state.selectObj.queryRequest.mapping),
         ...state.selectObj.queryRequest.parameter
       }
   ).then((rest) => {
@@ -151,6 +152,24 @@ const initSelectFn = () => {
     console.log(err);
   }).finally(() => {
   })
+}
+
+const dataMapping = (data, mapping) => {
+  const rest = {};
+  if (mapping && data && Object.keys(data).length > 0) {
+    for (const dataKey in data) {
+      if (mapping[dataKey]) {
+        if (mapping[dataKey] !== '_del') {
+          rest[mapping[dataKey]] = data[dataKey];
+        }
+      } else {
+        rest[dataKey] = data[dataKey];
+      }
+    }
+  } else {
+    return data;
+  }
+  return rest;
 }
 
 const initTable = () => {
@@ -205,8 +224,9 @@ const delDataFn = (objArr = []) => {
 }
 
 const saveDataFn = () => {
-  console.log('保存数据')
+
   let {url, parameter} = state.saveObj.saveRequest;
+  console.log('保存数据', url)
   let pm = {};
   if (!url || url === '/admin/common/save') {
     url = "/admin/common/save";

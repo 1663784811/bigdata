@@ -63,4 +63,7 @@ public class CSql implements Serializable {
     @Column(name = "update_sql", columnDefinition = "text COMMENT '更新sql内容'")
     private String updateSql;
 
+    @Basic
+    @Column(name = "del_sql", columnDefinition = "text COMMENT '删除sql内容'")
+    private String delSql;
 }

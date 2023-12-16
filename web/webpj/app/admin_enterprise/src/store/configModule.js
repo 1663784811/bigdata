@@ -26,7 +26,11 @@ export const useConfigModule = defineStore('configModule',
                 pageCode: '',
                 tabsName: '',
             });
+            const sqlConfig = ref({
+                show: false
+            })
             return {
+                sqlConfig,
                 configPage
             }
         }

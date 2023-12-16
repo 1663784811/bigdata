@@ -1,6 +1,6 @@
 <template>
   <Modal
-      v-model="state.pageConfig.show"
+      v-model="configModule.sqlConfig.show"
       title="保存数据"
       @on-ok="modalData.Save()"
       @on-cancel="modalData.Cancel()"
@@ -64,10 +64,11 @@
                 <Select v-model="sqlData.type">
                   <Option :value="0">查询</Option>
                   <Option :value="1">保存</Option>
+                  <Option :value="2">删除</Option>
                 </Select>
               </div>
             </div>
-            <div v-if="sqlData.type == 0">
+            <div v-if="sqlData.type === 0">
               <div class="row">
                 <div class="label">查询语句</div>
                 <div class="content">
@@ -81,7 +82,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="sqlData.type == 1">
+            <div v-else-if="sqlData.type === 1">
               <div class="row">
                 <div class="label">主表</div>
                 <div class="content">
@@ -107,6 +108,28 @@
                 </div>
               </div>
             </div>
+            <div v-else-if="sqlData.type === 2">
+              <div class="row">
+                <div class="label">主表</div>
+                <div class="content">
+                  <Input v-model="sqlData.mainTable" placeholder="主表"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="label">主表ID</div>
+                <div class="content">
+                  <Input v-model="sqlData.mainId" placeholder="主表ID"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="label">删除语句:</div>
+                <div class="content">
+                  <Input v-model="sqlData.delSql" placeholder="delSql" type="textarea" :rows="8"/>
+                </div>
+              </div>
+            </div>
+
+
           </div>
           <div class="sqlNote">
             <p>[] ---&gt; =</p>
@@ -122,7 +145,8 @@
           </div>
           <div style="width: 500px">
             <div>
-              <Input  placeholder="ID"/><Button size="small" type="warning" style="margin-right: 5px">加载表字段</Button>
+              <Input placeholder="ID"/>
+              <Button size="small" type="warning" style="margin-right: 5px">加载表字段</Button>
             </div>
           </div>
         </div>
@@ -136,14 +160,12 @@
 import {reactive, ref} from "vue";
 import {getSqlList, saveSql} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
+import {useConfigModule} from "@/store/configModule.js";
 
 
-const state = reactive({
-  pageConfig: {
-    show: false
-  }
+const configModule = useConfigModule();
 
-})
+const state = reactive({})
 const pageData = ref({
   page: 1,
   total: 0,
@@ -349,6 +371,7 @@ const modalData = ref({
 
 .modalBox {
   display: flex;
+  min-height: 50vh;
 
   .sqlContent {
     flex: 1;

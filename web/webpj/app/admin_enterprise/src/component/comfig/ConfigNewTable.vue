@@ -136,6 +136,7 @@
           <div>
             操作对象
           </div>
+
           <div>
             显示
             <div v-if="state.tableObj.queryRequest">
@@ -146,6 +147,9 @@
             </div>
 
           </div>
+
+
+
           <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
             <div class="rowItem sortBtn">
               <Button size="small" type="error" icon="ios-trash-outline"
