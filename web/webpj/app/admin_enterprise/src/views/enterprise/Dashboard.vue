@@ -2,6 +2,7 @@
   <div class="appBox">
     <div class="titleBox">我的应用</div>
     <div class="appRowBox">
+
       <div class="rowItem" v-for="item in 10">
         <div class="appLogo">
           <img
@@ -11,32 +12,15 @@
           小黑屋
         </div>
       </div>
-      <div class="rowItem">
-        <div class="appLogo">
-          <img
-              src="https://img10.360buyimg.com/seckillcms/s280x280_jfs/t1/115175/20/31509/35660/63abdd50F6828629c/5ede778905042c6a.jpg.avif">
-        </div>
-        <div class="appTitle">
-          小黑屋
-        </div>
-      </div>
-      <div class="rowItem">
-        <div class="appLogo">
-          <img
-              src="https://img10.360buyimg.com/seckillcms/s280x280_jfs/t1/115175/20/31509/35660/63abdd50F6828629c/5ede778905042c6a.jpg.avif">
-        </div>
-        <div class="appTitle">
-          小黑屋
-        </div>
-      </div>
+
     </div>
   </div>
 
   <div class="dataBox">
     <div class="saleData">
       <div class="titleBox">销售额</div>
-      <div class="saleContent">
-        ssss
+      <div class="saleContent" style="height: 100%">
+        <v-chart class="chart" :option="option" autoresize/>
       </div>
     </div>
     <div class="logBox">
@@ -55,8 +39,13 @@
 
 </template>
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {commonRequest} from '@/api/api.js'
+
+
+import VChart, {THEME_KEY} from 'vue-echarts';
+
+
 
 
 onMounted(() => {
@@ -64,6 +53,44 @@ onMounted(() => {
 
 })
 
+
+const option = ref({
+  title: {
+    text: 'Traffic Sources',
+    left: 'center',
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : {c} ({d}%)',
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines'],
+  },
+  series: [
+    {
+      name: 'Traffic Sources',
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '60%'],
+      data: [
+        {value: 335, name: 'Direct'},
+        {value: 310, name: 'Email'},
+        {value: 234, name: 'Ad Networks'},
+        {value: 135, name: 'Video Ads'},
+        {value: 1548, name: 'Search Engines'},
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)',
+        },
+      },
+    },
+  ],
+});
 
 </script>
 

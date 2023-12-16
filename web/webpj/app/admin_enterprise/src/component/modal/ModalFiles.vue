@@ -47,10 +47,8 @@
 
 <script setup>
 import {defineEmits, ref, watch, provide, onMounted, reactive} from "vue";
-import EventBus from "@/component/EventBus.js";
 import {findPageWebImage} from '@/api/api.js'
 
-const emitter = EventBus();
 const emits = defineEmits(['event', 'update:modelValue']);
 
 const props = defineProps({
@@ -130,13 +128,6 @@ const eventFn = (ev) => {
 
 
 // ============================================    事件总线
-emitter.on('showModalFiles', (valueObj) => {
-  modalData.value.show = valueObj
-});
-
-const clickBtnFn = () => {
-  emitter.emit("indexMsg", "sssssssssssssssss");
-}
 
 
 </script>

@@ -6,15 +6,24 @@ import piniaPluginPersist from 'pinia-plugin-persist'
 
 import router from '@/router/index.js';
 import 'view-ui-plus/dist/styles/viewuiplus.css'
-import mitt from 'mitt'
+
+import {use} from 'echarts/core';
+import {CanvasRenderer} from 'echarts/renderers';
+import {PieChart} from 'echarts/charts';
+import {TitleComponent, TooltipComponent, LegendComponent,} from 'echarts/components';
+use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent,]);
+
 
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersist);
 
 const app = createApp(App);
-app.config.globalProperties.emitter = mitt()
 app.use(router);
 app.use(ViewUIPlus);
 app.use(pinia);
 app.mount('#app');
+
+
+
+
