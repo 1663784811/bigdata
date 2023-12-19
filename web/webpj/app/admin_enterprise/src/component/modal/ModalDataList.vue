@@ -22,6 +22,11 @@
                           format="yyyy-MM-dd HH:mm"
                           :placeholder="item.node"/>
             </div>
+            <div class="content" v-else-if="item.controlType === 'select'">
+              <Select v-model="modalData.data[item.key]" clearable>
+                <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{it.label}}</Option>
+              </Select>
+            </div>
             <div class="content" v-else-if="item.controlType === 'img'">
               <div class="imageBox">
                 <div class="closeImg">

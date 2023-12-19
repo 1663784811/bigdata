@@ -282,12 +282,31 @@ const initSave = () => {
       "key": "type",
       "title": "类型",
       "length": 45,
-      "controlType": "input",
+      "controlType": "select",
       "isShowColumn": true,
       "isWhere": true,
       "javaType": "string",
-      "isShowSave": true
-    }, {
+      "isShowSave": true,
+      "filters": [
+        {
+          "value": "commonTable",
+          "label": "公共表格"
+        },
+        {
+          "value": "newTable",
+          "label": "新表格"
+        },
+        {
+          "value": "selectData",
+          "label": "数据选择"
+        },
+        {
+          "value": "dataTree",
+          "label": "数据树"
+        }
+      ],
+    },
+    {
       "key": "note",
       "title": "备注",
       "length": 255,
