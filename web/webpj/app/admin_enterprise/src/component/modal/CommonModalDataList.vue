@@ -43,7 +43,7 @@ const save = (itemData) => {
     winModal.winData.loading = false;
     setTimeout(() => {
       winModal.winData.loading = true;
-    }, 10)
+    })
   })
 }
 

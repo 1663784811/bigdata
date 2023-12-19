@@ -238,7 +238,7 @@ const addComponent = () => {
   winModal.winData.show = true;
   initSave();
   winModal.winData.data = {
-    pageId: state.pageStatus.pageId
+    pageId: configModule.configPage.pageId
   };
 }
 
