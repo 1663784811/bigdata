@@ -20,6 +20,9 @@ const commonTable = ref(null);
 const initFn = async () => {
   const role = await usePageConfig.getPageConfig("cPage");
   commonTable.value = role.commonTable;
+
+  console.log(JSON.stringify(role.commonTable.columns))
+
 }
 initFn();
 
