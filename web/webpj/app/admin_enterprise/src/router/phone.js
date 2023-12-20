@@ -7,7 +7,7 @@ export const phone = {
             meta: {
                 title: '手机列表',
             },
-            component: () => import('@/views/phone/PhoneList.vue')
+            component: () => import('@/views/app/phone/PhoneList.vue')
         }
     ]
 }

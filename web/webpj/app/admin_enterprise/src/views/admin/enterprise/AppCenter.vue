@@ -10,7 +10,7 @@
           记录账号信息、失信人等
         </div>
         <div class="btnBox">
-          <Button type="success" long shape="circle" icon="md-locate">开通</Button>
+          <Button type="success" long shape="circle" icon="md-locate" @click="openApp('')">开通</Button>
         </div>
       </div>
       <div class="appItem">
@@ -72,6 +72,12 @@ onMounted(() => {
 
 
 })
+
+const openApp = (appName) => {
+  console.log(appName)
+
+
+}
 
 
 </script>

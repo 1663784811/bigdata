@@ -68,6 +68,15 @@
               </div>
             </div>
           </div>
+          <div>
+            <div>映射</div>
+            <div>
+              <div>sssss</div>
+              <div>sssss</div>
+              <div>sssss</div>
+              <div>sssss{{state.saveObj}}</div>
+            </div>
+          </div>
         </div>
       </div>
     </TabPane>

@@ -6,7 +6,7 @@
 
 <script setup>
 import CommonTable from '@/component/CommonTable.vue'
-import {pageConfig} from "@/store/pageConfig";
+import {pageConfig} from "@/store/pageConfig.js";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 

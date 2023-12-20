@@ -21,7 +21,7 @@ const router = createRouter({
         {
             path: '/cyyaw/welcomePage',
             name: 'welcomePage',
-            component: () => import('@/views/welcomePage.vue'),
+            component: () => import('@/views/admin/welcomePage.vue'),
             meta: {notLogin: true, title: '欢迎页面'}
         },
         {
@@ -31,17 +31,17 @@ const router = createRouter({
                 title: '注册',
                 notLogin: true,
             },
-            component: () => import('@/views/account/Register.vue')
+            component: () => import('@/views/admin/account/Register.vue')
         },
         {
             path: '/:code',
-            component: () => import('@/views/AppMain.vue'),
+            component: () => import('@/views/admin/AppMain.vue'),
             children: [
                 login,
                 {
                     path: '',
                     name: 'home',
-                    component: () => import('@/views/layout/Main.vue'),
+                    component: () => import('@/views/admin/layout/Main.vue'),
                     children: [
                         enterprise,
                         common,

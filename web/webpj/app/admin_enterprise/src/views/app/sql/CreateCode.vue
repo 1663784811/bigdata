@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import {findSetting, saveComponents, loadTable} from "@/api/api";
+import {findSetting, saveComponents, loadTable} from "@/api/api.js";
 import {ref} from "vue";
 
 const tableList = ref([]);

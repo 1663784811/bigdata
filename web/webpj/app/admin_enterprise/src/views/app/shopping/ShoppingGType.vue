@@ -8,7 +8,7 @@
 import TreeType from '@/component/tree/TreeType.vue'
 
 import {getAddColumns} from "@/api/webUtil.js";
-import {pageConfig} from "@/store/pageConfig";
+import {pageConfig} from "@/store/pageConfig.js";
 import {ref} from "vue";
 
 const usePageConfig = pageConfig();

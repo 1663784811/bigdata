@@ -211,7 +211,7 @@
 import CommonTable from '@/component/CommonTable.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {ref} from "vue";
-import {findSetting, saveComponents, loadTable} from "@/api/api";
+import {findSetting, saveComponents, loadTable} from "@/api/api.js";
 
 
 const usePageConfig = pageConfig();

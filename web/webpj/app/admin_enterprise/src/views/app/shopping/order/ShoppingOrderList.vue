@@ -6,13 +6,13 @@
 
 <script setup>
 import CommonTable from '@/component/CommonTable.vue'
-import {pageConfig} from "@/store/pageConfig";
+import {pageConfig} from "@/store/pageConfig.js";
 import {ref} from "vue";
 
 const usePageConfig = pageConfig();
 const commonTable = ref(null);
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("ShoppingBanner");
+  const role = await usePageConfig.getPageConfig("orderList");
   commonTable.value = role.commonTable;
 }
 initFn();

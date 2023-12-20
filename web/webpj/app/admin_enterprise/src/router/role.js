@@ -4,23 +4,23 @@ export const role = {
         {
             path: 'adminDepartment',
             name: 'adminDepartment',
-            component: () => import('@/views/role/AdminDepartment.vue'),
+            component: () => import('@/views/admin/role/AdminDepartment.vue'),
             meta: {title: '部门管理'}
         },
         {
             path: '',
-            component: () => import('@/views/role/AdminDepartmentLayout.vue'),
+            component: () => import('@/views/admin/role/AdminDepartmentLayout.vue'),
             children: [
                 {
                     path: 'admin',
                     name: 'admin',
-                    component: () => import('@/views/role/Admin.vue'),
+                    component: () => import('@/views/admin/role/Admin.vue'),
                     meta: {title: '管理员管理'}
                 },
                 {
                     path: 'role',
                     name: 'role',
-                    component: () => import('@/views/role/AdminRole.vue'),
+                    component: () => import('@/views/admin/role/AdminRole.vue'),
                     meta: {title: '角色管理'}
                 }
             ]
@@ -28,34 +28,34 @@ export const role = {
         {
             path: 'adminPower',
             name: 'adminPower',
-            component: () => import('@/views/role/AdminPower.vue'),
+            component: () => import('@/views/admin/role/AdminPower.vue'),
             meta: {title: '权限管理'}
         },
 
         {
             path: '',
-            component: () => import('@/views/role/AdminRoleLayout.vue'),
+            component: () => import('@/views/admin/role/AdminRoleLayout.vue'),
             children: [
                 {
                     path: 'adminRolePower',
                     name: 'adminRolePower',
-                    component: () => import('@/views/role/AdminRolePower.vue'),
+                    component: () => import('@/views/admin/role/AdminRolePower.vue'),
                 }
             ]
         },
         {
             path: 'user',
-            component: () => import('@/views/role/AdminUser.vue'),
+            component: () => import('@/views/admin/role/AdminUser.vue'),
             name: 'user'
         },
         {
             path: 'power',
-            component: () => import('@/views/role/Power.vue'),
+            component: () => import('@/views/admin/role/Power.vue'),
             name: 'power'
         },
         {
             path: 'menu',
-            component: () => import('@/views/role/AdminMenu.vue'),
+            component: () => import('@/views/admin/role/AdminMenu.vue'),
             name: 'menu'
         }
     ]

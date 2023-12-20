@@ -39,8 +39,8 @@
 <script setup>
 
 import {useRouter} from "vue-router";
-import {useAdminMenuStore} from "@/store/adminMenu";
-import {loginInfo} from "@/store/loginInfo";
+import {useAdminMenuStore} from "@/store/adminMenu.js";
+import {loginInfo} from "@/store/loginInfo.js";
 
 
 const store = useAdminMenuStore();

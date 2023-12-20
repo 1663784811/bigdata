@@ -9,7 +9,7 @@ export const login = {
                 hideInMenu: true,
                 notLogin: true,
             },
-            component: () => import('@/views/account/Login.vue')
+            component: () => import('@/views/admin/account/Login.vue')
         }
     ]
 }
