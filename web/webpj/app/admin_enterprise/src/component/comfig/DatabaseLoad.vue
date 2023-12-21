@@ -26,7 +26,6 @@
 </template>
 <script setup>
 
-import {Input} from "view-ui-plus";
 import {defineEmits, ref, watch} from "vue";
 import {loadTable} from "@/api/api.js";
 

@@ -93,6 +93,8 @@ onMounted(() => {
       loadPage();
     }
   }, 1000)
+  state.showOperation = true;
+  loadPage();
   if (configModule.configPage.show) {
     loadData(configModule.configPage.pageCode);
   }

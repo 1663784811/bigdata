@@ -149,7 +149,6 @@
           </div>
 
 
-
           <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
             <div class="rowItem sortBtn">
               <Button size="small" type="error" icon="ios-trash-outline"
@@ -229,7 +228,6 @@
               </Select>
             </div>
           </div>
-
 
 
         </div>
@@ -332,8 +330,10 @@ onMounted(() => {
 })
 
 const loadDataHandleFn = (data) => {
-
-
+  state.saveObj = data.saveObj;
+  state.searchObj = data.searchObj
+  state.tableObj = data.tableObj;
+  state.operationObj = data.operationObj
 }
 
 
