@@ -2,6 +2,10 @@ export const shopping = {
     path: 'shopping',
     children: [
         {
+            path: 'shoppingUser',
+            component: () => import('@/views/app/shopping/ShoppingUser.vue'),
+            name: 'shoppingUser'
+        }, {
             path: 'shoppingList',
             component: () => import('@/views/app/shopping/ShoppingList.vue'),
             name: 'shopping'

@@ -2,15 +2,11 @@
   <div class="appBox">
     <div class="titleBox">我的应用</div>
     <div class="appRowBox">
-
-      <div class="rowItem" v-for="item in 10">
+      <div class="rowItem" v-for="(item, index) in state.appList" :key="index">
         <div class="appLogo">
-          <img
-              src="https://img10.360buyimg.com/seckillcms/s280x280_jfs/t1/115175/20/31509/35660/63abdd50F6828629c/5ede778905042c6a.jpg.avif">
+          <img :src="item.logo">
         </div>
-        <div class="appTitle">
-          小黑屋
-        </div>
+        <div class="appTitle">{{ item.name }}</div>
       </div>
 
     </div>
@@ -18,40 +14,59 @@
 
   <div class="dataBox">
     <div class="saleData">
-      <div class="titleBox">销售额</div>
-      <div class="saleContent" style="height: 100%">
+      <TitleBox title="销售额"/>
+      <div class="saleContent" style="height: 400px">
         <v-chart class="chart" :option="option" autoresize/>
       </div>
     </div>
     <div class="logBox">
-      <div class="titleBox">日志</div>
+      <TitleBox title="日志"/>
       <div class="logContent">
         ssss
       </div>
     </div>
-
-
   </div>
 
-  <div>
-    用户统计IP
+  <div class="userCount">
+    <TitleBox title="用户统计IP"/>
+    <div style="height: 400px">
+      <v-chart class="chart" :option="option" autoresize/>
+    </div>
   </div>
 
 </template>
 <script setup>
-import {onMounted, ref} from "vue";
+import TitleBox from '@/component/TitleBox.vue'
+import {onMounted, reactive, ref} from "vue";
 import {commonRequest} from '@/api/api.js'
-
+import {loginInfo} from "@/store/loginInfo.js"
 
 import VChart, {THEME_KEY} from 'vue-echarts';
 
 
+const loginInfoSt = loginInfo();
+
+
+const state = reactive({
+  appList: []
+})
 
 
 onMounted(() => {
 
+  loadData();
 
 })
+
+const loadData = () => {
+  commonRequest(loginInfoSt.reLoadUrl("/admin/${eCode}/common/query"), {
+    code: 'select_e_application'
+  }).then((rest) => {
+    const {data} = rest;
+    state.appList = data;
+  })
+
+}
 
 
 const option = ref({
@@ -110,6 +125,7 @@ const option = ref({
     margin-bottom: 20px;
     background: #fff;
     padding: 10px 10px 0 10px;
+    min-height: 180px;
 
     .rowItem {
       width: 160px;
@@ -143,13 +159,6 @@ const option = ref({
 
 .dataBox {
   display: flex;
-  height: 400px;
-
-  .titleBox {
-    padding: 10px;
-    border-bottom: 1px solid #efefef;
-    background: #fff;
-  }
 
   .saleData {
     flex: 1;
@@ -166,5 +175,11 @@ const option = ref({
 
     }
   }
+}
+
+.userCount {
+  background: #fff;
+  margin-top: 10px;
+  min-height: 400px;
 }
 </style>
