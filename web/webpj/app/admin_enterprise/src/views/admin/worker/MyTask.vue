@@ -1,16 +1,16 @@
 <template>
-  <DataTable :setting="state.newTable" @event="eventFn"/>
-
-
+  <data-table :setting="state.newTable"/>
 </template>
+
 <script setup>
-import {onMounted, ref, provide, reactive, inject} from "vue";
-import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
-import DataTable from '@/component/modal/DataTable.vue'
+
+import {onMounted, reactive, ref} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute, useRouter} from "vue-router";
 
+const router = useRouter();
+const route = useRoute();
 const usePageConfig = pageConfig();
-
 
 const state = reactive({
   pageData: {},
@@ -20,23 +20,17 @@ const state = reactive({
   },
 })
 
-
 onMounted(() => {
-  initFn();
+  initFn(route.name);
 })
 
-const initFn = async () => {
-  const pageCode = 'activity_module'
-  state.pageData = await usePageConfig.getPageConfig(pageCode);
-  state.newTable = state.pageData.newTable;
-  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
-}
-
-const eventFn = (eventObj) => {
-  console.log(eventObj)
+const initFn = async (pageCode) => {
+  console.log("页面ID:", pageCode)
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
 }
 
 </script>
-<style scoped lang="less">
 
+<style scoped lang="less">
 </style>
