@@ -148,14 +148,12 @@
 </template>
 
 <script setup>
-import EventBus from "@/component/EventBus.js";
 import {useRoute, useRouter} from "vue-router";
 import {findIdGGoods, goodsPhoto, findGoodsSku, saveGGoods, saveGStoreGoodsSku} from '@/api/api.js'
 import {onMounted, ref} from "vue";
 import {loginInfo} from '@/store/loginInfo.js'
 
 const loginInfoStore = loginInfo();
-const emitter = EventBus();
 const router = useRouter();
 const route = useRoute();
 
@@ -251,7 +249,9 @@ const addSku = () => {
 }
 
 const addImageFn = (dataObj, keyObj) => {
-  emitter.emit('showModalFiles', true);
+
+
+
 }
 
 const addValue = (node) => {
