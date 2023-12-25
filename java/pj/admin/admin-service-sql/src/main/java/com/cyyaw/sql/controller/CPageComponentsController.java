@@ -66,14 +66,4 @@ public class CPageComponentsController {
         }
         return BaseResult.ok(obj);
     }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delCPageComponents")
-    public BaseResult delCPageComponents(@RequestBody Integer idArr[]) {
-        cPageComponentsService.del(idArr);
-        return BaseResult.ok("删除成功");
-    }
-
 }

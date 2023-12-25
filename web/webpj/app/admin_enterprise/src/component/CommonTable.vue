@@ -13,7 +13,7 @@
         <Button class="btn" type="warning" icon="ios-search" @click="addData" v-if="searchObj.saveRequest.show">
           添加
         </Button>
-        <Button class="btn" type="error" icon="ios-search" @click="delSelect" v-if="searchObj.delRequest.show">
+        <Button class="btn" type="error" icon="md-trash" @click="delSelect" v-if="searchObj.delRequest.show">
           删除
         </Button>
       </div>

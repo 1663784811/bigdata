@@ -10,12 +10,13 @@
         <div>页面ID:{{ configModule.configPage.pageCode }}</div>
       </div>
       <div>选择组件:
-        <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addComponent">添加</Button>
+        <Button class="dataBtn" type="primary" icon="md-cloud-upload" size="small" @click="addComponent">添加</Button>
       </div>
       <div class="comBox">
         <div class="comItem" v-for="(item, index) in state.pageObj" :key="index" @click="clickComponentItem(item)">
           <div>组件ID:{{ item.id }} 名称:{{ item.name }} 类型:{{ item.type }}
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="updateComponent(item)">修改</Button>
+            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updateComponent(item)"/>
+            <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delComponent(item)"/>
           </div>
         </div>
       </div>
@@ -37,11 +38,15 @@
     <div class="pageContent">
       <div class="pageTitle">
         <div>页面</div>
-        <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addPage">添加页面</Button>
+        <Button class="dataBtn" type="primary" icon="md-cloud-upload" size="small" @click="addPage">添加页面</Button>
       </div>
       <div class="pageList">
-        <div v-for="(item, index) in state.pageList" :key="index">
-          <div class="pageItem" @click="selectPage(item)">{{ item.name }}</div>
+        <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
+          <div @click="selectPage(item)">{{ item.name }}</div>
+          <div class="rightBtn">
+            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updatePage(item)"/>
+            <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delPage(item)"/>
+          </div>
         </div>
       </div>
     </div>
@@ -70,6 +75,7 @@ import {useConfigModule} from "@/store/configModule.js";
 import {pageSetting, findIdCPageComponents, commonRequest} from "@/api/api.js";
 import {useRoute, useRouter} from "vue-router";
 import {useWinModal} from "@/store/winModal.js";
+import {Message, Modal} from "view-ui-plus";
 
 
 const winModal = useWinModal();
@@ -108,11 +114,8 @@ const loadPage = () => {
   })
 }
 
-const addPage = () => {
-  winModal.winData.show = true;
-  winModal.winData.url = "/admin/config/page/saveCPage";
-  winModal.winData.data = {};
-  winModal.winData.pageCode = ''
+const initPage = () => {
+
   winModal.winData.columns = [{
     "width": 60,
     "key": "id",
@@ -194,7 +197,30 @@ const addPage = () => {
     "width": "150",
     "isShowSave": false
   }]
+
 }
+
+const addPage = () => {
+  winModal.winData.show = true;
+  winModal.winData.url = "/admin/config/page/saveCPage";
+  winModal.winData.data = {};
+  winModal.winData.pageCode = ''
+  initPage();
+}
+
+const updatePage = (row) => {
+  winModal.winData.show = true;
+  winModal.winData.url = "/admin/config/page/saveCPage";
+  winModal.winData.data = row;
+  winModal.winData.pageCode = ''
+  initPage();
+}
+
+const delPage = (row) => {
+
+
+}
+
 const selectPage = (row) => {
   configModule.configPage.pageId = row.tid;
   loadData(row.pageCode)
@@ -231,7 +257,33 @@ const updateComponent = (item) => {
   }).then(rest => {
     winModal.winData.data = rest.data;
   })
+}
 
+const delComponent = (row) => {
+  Modal.confirm({
+    title: '是否删除?',
+    okText: '删除',
+    loading: true,
+    onOk: () => {
+      commonRequest("/admin/{eCode}/common/del", {
+        tid: row.tid,
+        code: 'del_c_page_components'
+      }).then((rest) => {
+        Message.success({
+          content: `${rest.data ? rest.data : rest.msg}`,
+          onClose: () => {
+            Modal.remove();
+            loadPage();
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        Message.error({
+          content: `${err}`,
+        })
+      })
+    },
+  });
 }
 
 const addComponent = () => {
@@ -363,15 +415,26 @@ const initSave = () => {
   display: flex;
 
   .pageContent {
-    width: 200px;
+    width: 300px;
     background: #f5f5f5;
+
+    .pageTitle {
+      display: flex;
+      justify-content: space-between;
+    }
 
     .pageList {
       .pageItem {
         cursor: pointer;
+        display: flex;
+        justify-content: space-between;
 
         &:hover {
           background: #ccc;
+        }
+
+        .rightBtn {
+          display: flex;
         }
       }
     }

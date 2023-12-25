@@ -428,4 +428,27 @@ public class SqlUtils {
         }
         return rest.toArray(new String[rest.size()]);
     }
+
+    /**
+     * 通用保存, 解释sql
+     * 把 [] 号里的东西替换成 ? 号
+     */
+    public static String delExplainSql(String sql) {
+        StringBuffer sb = new StringBuffer();
+        boolean start = false;
+        int startFlag = 0;
+        for (int i = 0; i < sql.length(); i++) {
+            if (sql.charAt(i) == '[') {
+                start = true;
+                startFlag = i + 1;
+            } else if (sql.charAt(i) == ']') {
+                start = false;
+                sb.append(sql.substring(startFlag, i) + "=?");
+            } else if (!start) {
+                sb.append(sql.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
 }
