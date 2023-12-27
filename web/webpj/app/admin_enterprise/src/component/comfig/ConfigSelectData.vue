@@ -285,7 +285,7 @@ const showCodeTableFn = (modal) => {
   state.showCode.modal = modal
   if (state.showCode.modal === 'table') {
     state.showCode.data = JSON.stringify(state.tableObj, null, "  ");
-  } else if (state.showCode.modal === 'search') {
+  } else if (state.showCode.modal === 'select') {
     state.showCode.data = JSON.stringify(state.selectObj, null, "  ");
   } else if (state.showCode.modal === 'save') {
     state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
@@ -306,7 +306,7 @@ const showCodeTableFn = (modal) => {
 const showCodeHandleFn = () => {
   if (state.showCode.modal === 'table') {
     state.tableObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'search') {
+  } else if (state.showCode.modal === 'select') {
     state.selectObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'save') {
     state.saveObj = JSON.parse(state.showCode.data);
@@ -357,8 +357,8 @@ const compileCode = () => {
   state.tableObj.operation = state.operationObj;
   const json = {
     selectObj: state.selectObj,
-    tableObj: state.tableObj,
     saveObj: state.saveObj,
+    tableObj: state.tableObj,
   }
   state.jsonData.data = JSON.stringify(json, null, "  ");
 }
@@ -375,6 +375,7 @@ const initFn = () => {
     state.operationObj = tableObj.operation;
   }
   if (saveObj) {
+
     state.saveObj = saveObj;
   }
   if (id) {

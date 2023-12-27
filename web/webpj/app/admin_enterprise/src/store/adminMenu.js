@@ -119,26 +119,44 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     ]
                                 },
                                 {
-                                    name: '请假申请',
+                                    name: '功能表',
                                     icon: 'md-settings',
-                                    routeName: ''
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '请假申请',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        },
+                                        {
+                                            name: '采购申请',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        },
+                                        {
+                                            name: '发起会议',
+                                            icon: 'md-settings',
+                                            routeName: ''
+                                        }
+                                    ]
                                 },
                                 {
-                                    name: '采购申请',
+                                    name: '流程监控',
                                     icon: 'md-settings',
-                                    routeName: ''
-                                },
-                                {
-                                    name: '发起会议',
-                                    icon: 'md-settings',
-                                    routeName: ''
-                                },
-                                {
-                                    name: '流程列表',
-                                    icon: 'md-settings',
-                                    routeName: ''
+                                    routeName: '',
+                                    children: [
+                                        {
+                                            name: '流程实例',
+                                            icon: 'md-settings',
+                                            routeName: 'processList'
+                                        },
+                                        {
+                                            name: '运行历史',
+                                            icon: 'md-settings',
+                                            routeName: 'historyProcess'
+                                        }
+                                    ]
                                 }
-
                             ]
                         },
                     ]

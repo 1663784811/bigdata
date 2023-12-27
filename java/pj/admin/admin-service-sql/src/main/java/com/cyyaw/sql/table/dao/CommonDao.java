@@ -1,11 +1,9 @@
 package com.cyyaw.sql.table.dao;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cyyaw.jpa.util.entity.CommonSaveData;
 import com.cyyaw.util.tools.BaseResult;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CommonDao {
 
@@ -15,12 +13,12 @@ public interface CommonDao {
      * @param json
      * @return
      */
-    BaseResult query(JSONObject json);
+    BaseResult<Object> query(JSONObject json);
 
     /**
      * 通用查询
      */
-    BaseResult query(String countSql, String querySql, JSONObject json, boolean touName);
+    BaseResult<Object> query(String countSql, String querySql, JSONObject json, boolean touName);
 
     /**
      * 通用查询
@@ -28,18 +26,13 @@ public interface CommonDao {
     List<JSONObject> query(String sqlcontent, JSONObject json, boolean touName);
 
     /**
-     * 通用更新
-     */
-    Map<String, Object> save(CommonSaveData commonSaveData);
-
-    /**
      * 通用保存
      */
-    BaseResult save(String code, JSONObject json);
+    BaseResult<Object> save(String code, JSONObject json);
 
     /**
      * 通用删除
      */
-    BaseResult del(JSONObject json);
+    BaseResult<Object> del(JSONObject json);
 
 }

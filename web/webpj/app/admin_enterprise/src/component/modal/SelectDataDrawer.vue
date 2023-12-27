@@ -223,40 +223,39 @@ const delDataFn = (objArr = []) => {
   });
 }
 
-const saveDataFn = () => {
-
-  let {url, parameter} = state.saveObj.saveRequest;
-  console.log('保存数据', url)
-  let pm = {};
-  if (!url || url === '/admin/common/save') {
-    url = "/admin/common/save";
-    pm = {
-      ...parameter,
-      data: {}
+const saveDataFn = async () => {
+  const {tempData, pageStatus} = state;
+  const oldData = pageStatus.data;
+  for (let i = 0; i < tempData.length; i++) {
+    const tempObj = tempData[i];
+    let {url, parameter, mapping, mapping1} = state.saveObj.saveRequest;
+    const sendData = {};
+    for (const mappingKey in mapping) {
+      sendData[mapping[mappingKey]] = oldData[mappingKey]
     }
-  }
-  commonRequest(loginInfoSt.reLoadUrl(url), pm, 'post').then((rest) => {
-    if (rest.code === 2000) {
-      state.saveObj.data = rest.data;
-      Message.success({
-        content: `${rest.msg}`,
-        onClose: () => {
-          state.saveObj.show = false;
-          loadData();
-        }
+    for (const mapping1Key in mapping1) {
+      sendData[mapping1[mapping1Key]] = tempObj[mapping1Key]
+    }
+    let pm = {};
+    if (!url || url === '/admin/${eCode}/common/save') {
+      url = "/admin/${eCode}/common/save";
+      pm = {
+        ...parameter,
+        data: sendData
+      }
+    } else {
+      pm = sendData
+    }
+    await commonRequest(loginInfoSt.reLoadUrl(url), pm, 'post').then((rest) => {
+      console.log(rest)
+    }).catch(err => {
+      Message.error({
+        content: `${err}`
       })
-    }
-  }).catch(err => {
-    Message.error({
-      content: `${err}`
     })
-  }).finally(() => {
-    state.saveObj.loading = false;
-    setTimeout(() => {
-      state.saveObj.loading = true;
-    })
-  })
-
+  }
+  state.tempData = [];
+  initFn()
 }
 
 const eventFn = (eventObj) => {

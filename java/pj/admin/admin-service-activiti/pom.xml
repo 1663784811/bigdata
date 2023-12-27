@@ -31,14 +31,11 @@
             <artifactId>jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.cyyaw</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
         <dependency>
             <groupId>com.cyyaw</groupId>
             <artifactId>config</artifactId>
@@ -48,42 +45,21 @@
 
 
 
+        <!--  ==========================  -->
 
 
         <dependency>
             <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring</artifactId>
-            <version>7.1.0.M6</version>
+            <artifactId>activiti-spring-boot-starter</artifactId>
+            <version>7.0.0.SR1</version>
         </dependency>
-        <!-- bpmn 转换 -->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-bpmn-converter</artifactId>
-            <version>7.1.0.M6</version>
-        </dependency>
-        <!-- bpmn json数据转换 -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-json-converter</artifactId>
-            <version>7.1.0.M6</version>
+            <version>7.0.0.SR1</version>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-transcoder</artifactId>
-            <version>1.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-codec</artifactId>
-            <version>1.17</version>
-        </dependency>
-
-
 
     </dependencies>
-
 
 
     <build>

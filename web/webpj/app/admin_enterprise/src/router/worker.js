@@ -12,6 +12,18 @@ export const worker = {
             name: 'modelList',
             component: () => import('@/views/admin/worker/ModelList.vue'),
             meta: {title: '模型管理'}
+        },
+        {
+            path: 'processList',
+            name: 'processList',
+            component: () => import('@/views/admin/worker/ProcessList.vue'),
+            meta: {title: '实例流程'}
+        },
+        {
+            path: 'historyProcess',
+            name: 'historyProcess',
+            component: () => import('@/views/admin/worker/HistoryProcess.vue'),
+            meta: {title: '运行历史'}
         }
     ]
 }

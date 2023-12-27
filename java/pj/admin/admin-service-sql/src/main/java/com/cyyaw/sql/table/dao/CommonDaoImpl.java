@@ -140,7 +140,7 @@ public class CommonDaoImpl implements CommonDao {
         return resData;
     }
 
-    @Override
+    @Deprecated
     public Map<String, Object> save(CommonSaveData commonSaveData) {
         // 第一步: 查询表结构
         String table = commonSaveData.getTable();
@@ -269,10 +269,9 @@ public class CommonDaoImpl implements CommonDao {
     }
 
     @Override
-    public BaseResult del(JSONObject json) {
+    public BaseResult<Object> del(JSONObject json) {
         String code = json.getString("code");
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
-        BaseResult rest = new BaseResult();
         if (sqlRowSet.next()) {
             String mainTable = sqlRowSet.getString("main_table");
             String mainId = sqlRowSet.getString("main_id");
@@ -287,8 +286,8 @@ public class CommonDaoImpl implements CommonDao {
         return null;
     }
 
-    private BaseResult delData(String delSql, JSONObject json) {
-        BaseResult rest = new BaseResult();
+    private BaseResult<Object> delData(String delSql, JSONObject json) {
+        BaseResult<Object> rest = new BaseResult<>();
         String sql = SqlUtils.delExplainSql(delSql);
         String[] strArr = SqlUtils.saveExplainData(delSql, json);
         int update = jdbcTemplate.update(sql, strArr);

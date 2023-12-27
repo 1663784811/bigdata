@@ -98,7 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/*/common/**",
                         "/app/*/user/login/**",
                         "/app/*/admin/login/**",
-                        "/admin/phone/phone/**"
+                        "/admin/phone/phone/**",
+                        "/admin/**"
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

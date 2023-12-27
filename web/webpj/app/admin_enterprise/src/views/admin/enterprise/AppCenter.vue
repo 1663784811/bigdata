@@ -8,7 +8,7 @@
         <div class="name">{{ item.name }}</div>
         <div class="introduction">{{ item.introduction }}</div>
         <div class="btnBox">
-          <Button type="success" long shape="circle" icon="md-locate" @click="openApp('')">开通</Button>
+          <Button type="success" long shape="circle" @click="openApp(item)">开通</Button>
         </div>
       </div>
     </div>
@@ -23,33 +23,7 @@ const loginInfoSt = loginInfo();
 
 
 const state = reactive({
-  appList: [
-    {
-      name: '小黑屋',
-      introduction: '记录账号信息、失信人等',
-      logo: 'https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzI3NjQ3LzM5LzE4MTA4LzI2MDI2LzYzMDQ4MDIyRThmZjcxZjNlLzE0Y2ViZDc0MTkyODcyMTgucG5n/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635187874214178818/cr/s/q.jpg'
-    },
-    {
-      name: 'H5商城',
-      introduction: '成熟稳定的私有化电商系统，可满足全场景和垂直行业的个性化需求,CRM精准营销',
-      logo: 'https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzI3NjQ3LzM5LzE4MTA4LzI2MDI2LzYzMDQ4MDIyRThmZjcxZjNlLzE0Y2ViZDc0MTkyODcyMTgucG5n/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635187874214178818/cr/s/q.jpg'
-    },
-    {
-      name: '点餐系统',
-      introduction: '扫码点单、计费结账、出菜上菜、菜品管理、菜单管理、账务管理、经营分析，全方位一步到位',
-      logo: 'https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzI3NjQ3LzM5LzE4MTA4LzI2MDI2LzYzMDQ4MDIyRThmZjcxZjNlLzE0Y2ViZDc0MTkyODcyMTgucG5n/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635187874214178818/cr/s/q.jpg'
-    },
-    {
-      name: '记账系统',
-      introduction: '支持创建多个账目，生活工作账目分离，让账目一目了然,支持自定义设置不同风格的类目，适合各类人群',
-      logo: 'https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzI3NjQ3LzM5LzE4MTA4LzI2MDI2LzYzMDQ4MDIyRThmZjcxZjNlLzE0Y2ViZDc0MTkyODcyMTgucG5n/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635187874214178818/cr/s/q.jpg'
-    },
-    {
-      name: '手机管理',
-      introduction: '手机管理',
-      logo: 'https://imgcps.jd.com/ling-cubic/ling4/lab/amZzL3QxLzI3NjQ3LzM5LzE4MTA4LzI2MDI2LzYzMDQ4MDIyRThmZjcxZjNlLzE0Y2ViZDc0MTkyODcyMTgucG5n/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/1635187874214178818/cr/s/q.jpg'
-    }
-  ]
+  appList: []
 })
 
 
@@ -69,8 +43,8 @@ const loadData = () => {
 
 }
 
-const openApp = (appName) => {
-  console.log(appName)
+const openApp = (row) => {
+  console.log(row)
 
 
 }
