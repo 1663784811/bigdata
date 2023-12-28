@@ -136,7 +136,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                         {
                                             name: '发起会议',
                                             icon: 'md-settings',
-                                            routeName: ''
+                                            routeName: 'meeting'
                                         }
                                     ]
                                 },

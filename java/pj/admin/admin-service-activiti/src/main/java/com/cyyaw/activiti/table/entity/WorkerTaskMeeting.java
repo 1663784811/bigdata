@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "worker_task_meeting")
-@org.hibernate.annotations.Table(appliesTo = "t_admin", comment = "管理员表")
+@org.hibernate.annotations.Table(appliesTo = "worker_task_meeting", comment = "工作流会议申请")
 public class WorkerTaskMeeting  implements BaseEntity<Integer>, Serializable {
 
     private static final long serialVersionUID = 1L;

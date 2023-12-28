@@ -25,7 +25,7 @@ public class ${__Table__}Controller {
     /**
      * 分页条件查询
      */
-    @GetMapping("/findPage")
+    @GetMapping("/findPage${__Table__}")
     public BaseResult<${__Table__}> findPage${__Table__}(@RequestParam Map<String, Object> map) {
         PageRespone<${__Table__}> page = ${__table__}Service.findPage(new JSONObject(map));
         return BaseResult.ok(page);

@@ -4,6 +4,7 @@ package com.cyyaw.buildcode.croe.tools;
 import com.cyyaw.buildcode.croe.entity.java.JavaColumn;
 import com.cyyaw.buildcode.croe.entity.vue.Filters;
 import com.cyyaw.buildcode.croe.entity.vue.VueJson;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * 类型转换工具
  */
+@Slf4j
 public class TypeTools {
 
 
@@ -24,17 +26,17 @@ public class TypeTools {
         String objType = null;
         if (
                 type.equals("INT") || type.equals("int")
-                || type.equals("INT UNSIGNED") || type.equals("int unsigned")
-                || type.equals("TINYINT UNSIGNED") || type.equals("tinyint unsigned")
-                || type.equals("TINYINT") || type.equals("tinyint")
-                || type.equals("SMALLINT") || type.equals("smallint")
-                || type.equals("MEDIUMINT") || type.equals("mediumint")
-                || type.equals("SMALLINT UNSIGNED") || type.equals("smallint unsigned")
+                        || type.equals("INT UNSIGNED") || type.equals("int unsigned")
+                        || type.equals("TINYINT UNSIGNED") || type.equals("tinyint unsigned")
+                        || type.equals("TINYINT") || type.equals("tinyint")
+                        || type.equals("SMALLINT") || type.equals("smallint")
+                        || type.equals("MEDIUMINT") || type.equals("mediumint")
+                        || type.equals("SMALLINT UNSIGNED") || type.equals("smallint unsigned")
         ) {
             objType = "Integer";
         } else if (
                 type.equals("BIGINT") || type.equals("bigint")
-               || type.equals("BIGINT UNSIGNED") || type.equals("bigint unsigned")
+                        || type.equals("BIGINT UNSIGNED") || type.equals("bigint unsigned")
         ) {
             objType = "BigInteger";
         } else if (type.equals("FLOAT") || type.equals("float")) {
@@ -52,17 +54,17 @@ public class TypeTools {
 
         } else if (
                 type.equals("VARCHAR") || type.equals("varchar")
-                || type.equals("CHAR") || type.equals("char")
-                || type.equals("TEXT") || type.equals("text")
-                || type.equals("TINYTEXT") || type.equals("tinytext")
-                || type.equals("MEDIUMTEXT") || type.equals("mediumtext")
-                || type.equals("LONGTEXT") || type.equals("longtext")
+                        || type.equals("CHAR") || type.equals("char")
+                        || type.equals("TEXT") || type.equals("text")
+                        || type.equals("TINYTEXT") || type.equals("tinytext")
+                        || type.equals("MEDIUMTEXT") || type.equals("mediumtext")
+                        || type.equals("LONGTEXT") || type.equals("longtext")
         ) {
             //============= 数值字符
             objType = "String";
         } else if (
                 type.equals("DECIMAL") || type.equals("decimal")
-                || type.equals("DECIMAL UNSIGNED") || type.equals("decimal unsigned")
+                        || type.equals("DECIMAL UNSIGNED") || type.equals("decimal unsigned")
         ) {
             //============= 数值字符
             objType = "BigDecimal";
@@ -71,11 +73,12 @@ public class TypeTools {
         ) {
             //============= 数值字符
             objType = "Byte";
-        }else if( type.equals("Blob") || type.equals("blob")){
-
-        }
-        if(objType==null){
-            System.out.println("-------------");
+        } else if (type.equals("Blob") || type.equals("blob") || type.equals("LONGBLOB") || type.equals("longblob")) {
+            objType = "String";
+        } else if ("JSON".equals(type) || "json".equals(type)) {
+            objType = "String";
+        } else {
+            System.out.println("-------------类型: " + type);
         }
         return objType;
     }
@@ -85,22 +88,22 @@ public class TypeTools {
         String objType = "";
         switch (type) {
             case "string":
-                objType = "like";
+                objType = "lk";
                 break;
             case "integer":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "biginteger":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "float":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "double":
-                objType = "equals";
+                objType = "eq";
                 break;
             case "date":
-                objType = "equals";
+                objType = "eq";
                 break;
         }
         return objType;
@@ -195,7 +198,7 @@ public class TypeTools {
     public static VueJson javaColumn2VueJson(JavaColumn javaColumn) {
         VueJson vueJson = new VueJson();
         if (null != javaColumn) {
-            vueJson.setKey(javaColumn.getColumnName()); //key
+            vueJson.setKey(OperationTools.delSpecial(javaColumn.getColumnName())); //key
 
             String note = javaColumn.getNote();
             List filters = new ArrayList<Filters>();
@@ -204,7 +207,7 @@ public class TypeTools {
                     int start = note.indexOf("{");
                     int end = note.indexOf("}");
                     if (start != -1 && end != -1) {
-                        String tempstr = note.substring(start + 1, end );
+                        String tempstr = note.substring(start + 1, end);
                         String[] splitstr = tempstr.split(",");
                         for (int i = 0; i < splitstr.length; i++) {
                             Filters f = new Filters();
@@ -247,7 +250,7 @@ public class TypeTools {
     }
 
     public static String dbType2MybatisType(String type) {
-        if("INT".equals(type)){
+        if ("INT".equals(type)) {
             return "INTEGER";
         }
         return type;
