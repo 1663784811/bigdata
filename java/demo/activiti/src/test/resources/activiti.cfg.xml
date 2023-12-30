@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+    <!-- 数据库驱动 -->
+    <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver" />
+    <!-- 数据库连接 -->
+    <property name="jdbcUrl" value="jdbc:mysql://139.198.115.132:3306/activiti?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;nullCatalogMeansCurrent=true" />
+    <!-- 数据库用户名 -->
+    <property name="jdbcUsername" value="root" />
+    <!-- 数据库密码 -->
+    <property name="jdbcPassword" value="because" />
+
+    <property name="databaseSchemaUpdate" value="false"/>
+
+  </bean>
+</beans>

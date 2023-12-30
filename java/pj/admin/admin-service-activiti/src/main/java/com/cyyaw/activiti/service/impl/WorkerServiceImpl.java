@@ -3,7 +3,6 @@ package com.cyyaw.activiti.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.cyyaw.activiti.service.WorkerService;
 import com.cyyaw.activiti.table.dto.ModelParam;
-import com.cyyaw.config.exception.WebException;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
@@ -74,21 +74,19 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public BaseResult<Object> addModel(ModelParam modelRequest) throws JsonProcessingException {
-        Model model = repositoryService.newModel();
-        model.setCategory(modelRequest.getCategory());
-        model.setKey(modelRequest.getKey());
-        ObjectNode modelNode = objectMapper.createObjectNode();
-        modelNode.put("name", modelRequest.getName());
-        modelNode.put("description", modelRequest.getDescription());
-        modelNode.put("revision", modelRequest.getVersion());
-        model.setMetaInfo(modelNode.toString());
-        model.setName(modelRequest.getName());
-        model.setVersion(modelRequest.getVersion());
         ModelQuery modelQuery = repositoryService.createModelQuery();
         List<Model> list = modelQuery.modelKey(modelRequest.getKey()).list();
-        if (list != null && !list.isEmpty()) {
-            WebException.fail("模型标识不能重复");
-        } else {
+        if (list.isEmpty()) {
+            Model model = repositoryService.newModel();
+            model.setCategory(modelRequest.getCategory());
+            model.setKey(modelRequest.getKey());
+            ObjectNode modelNode = objectMapper.createObjectNode();
+            modelNode.put(ModelDataJsonConstants.MODEL_NAME, modelRequest.getName());
+            modelNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, modelRequest.getDescription());
+            modelNode.put(ModelDataJsonConstants.MODEL_REVISION, modelRequest.getVersion());
+            model.setMetaInfo(modelNode.toString());
+            model.setName(modelRequest.getName());
+            model.setVersion(modelRequest.getVersion());
             // 保存模型到act_re_model表
             repositoryService.saveModel(model);
             HashMap<String, Object> content = new HashMap();
@@ -103,8 +101,10 @@ public class WorkerServiceImpl implements WorkerService {
             content.put("stencilset", stencilset);
             // 保存模型文件到act_ge_bytearray表
             repositoryService.addModelEditorSource(model.getId(), objectMapper.writeValueAsBytes(content));
+            return BaseResult.ok(model);
+        } else {
+            return BaseResult.fail("模型ID已存在");
         }
-        return BaseResult.ok(model);
     }
 
     @Override
@@ -117,8 +117,6 @@ public class WorkerServiceImpl implements WorkerService {
         repositoryService.deleteModel(modelId);
         return BaseResult.ok("删除成功");
     }
-
-
 
 
 }

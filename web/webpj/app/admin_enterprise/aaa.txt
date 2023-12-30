@@ -1,0 +1,3 @@
+  "mapping": {
+    "tid": "role_id"
+  }

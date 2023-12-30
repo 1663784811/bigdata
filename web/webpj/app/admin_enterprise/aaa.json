@@ -1,0 +1,158 @@
+{
+  "selectObj": {
+    "queryRequest": {
+      "url": "/admin/${eCode}/common/query",
+      "parameter": {
+        "code": "select_t_role_department"
+      },
+      "mapping": {
+        "tid": "role_id"
+      }
+    },
+    "delRequest": {
+      "url": "/admin/${eCode}/common/del",
+      "parameter": {
+        "code": "del_t_role_department"
+      }
+    }
+  },
+  "saveObj": {
+    "saveRequest": {
+      "url": "/admin/department/saveTDepartment",
+      "parameter": {
+        "code": ""
+      },
+      "mapping": {
+        "tid": "role_id"
+      }
+    }
+  },
+  "tableObj": {
+    "queryRequest": {
+      "url": "/admin/${eCode}/common/query",
+      "parameter": {
+        "code": "select_t_department"
+      }
+    },
+    "columns": [
+      {
+        "width": 60,
+        "key": "id",
+        "title": "id",
+        "type": "selection",
+        "length": 10,
+        "isRequire": false,
+        "regStr": "",
+        "message": "id",
+        "controlType": "hidden",
+        "format": "",
+        "isWhere": false,
+        "isShowColumn": true,
+        "javaWhere": "eq",
+        "javaType": "integer",
+        "isShowSave": true
+      },
+      {
+        "key": "code",
+        "title": "编码",
+        "type": "html",
+        "length": 32,
+        "isRequire": false,
+        "regStr": "",
+        "message": "编码",
+        "controlType": "input",
+        "format": "",
+        "isWhere": true,
+        "isShowColumn": false,
+        "javaWhere": "lk",
+        "javaType": "string",
+        "isShowSave": true
+      },
+      {
+        "key": "name",
+        "title": "部门名称",
+        "type": "html",
+        "length": 32,
+        "isRequire": false,
+        "regStr": "",
+        "message": "部门名称",
+        "controlType": "input",
+        "format": "",
+        "isWhere": true,
+        "isShowColumn": true,
+        "javaWhere": "lk",
+        "javaType": "string",
+        "isShowSave": true,
+        "isShowSearch": true,
+        "width": "200"
+      },
+      {
+        "key": "note",
+        "title": "备注",
+        "type": "html",
+        "length": 255,
+        "isRequire": false,
+        "regStr": "",
+        "message": "备注",
+        "controlType": "input",
+        "format": "",
+        "isWhere": true,
+        "isShowColumn": true,
+        "javaWhere": "lk",
+        "javaType": "string",
+        "isShowSave": true
+      },
+      {
+        "width": 160,
+        "key": "createTime",
+        "title": "创建时间",
+        "type": "html",
+        "length": 19,
+        "isRequire": false,
+        "regStr": "",
+        "message": "创建时间",
+        "controlType": "hidden",
+        "format": "yyyy-MM-dd HH:mm:ss",
+        "isWhere": true,
+        "isShowColumn": true,
+        "javaWhere": "eq",
+        "javaType": "date",
+        "isShowSave": true
+      },
+      {
+        "key": "tid",
+        "title": "tid",
+        "type": "html",
+        "length": 32,
+        "isRequire": false,
+        "regStr": "",
+        "message": "tid",
+        "controlType": "hidden",
+        "format": "",
+        "isWhere": true,
+        "isShowColumn": false,
+        "javaWhere": "lk",
+        "javaType": "string",
+        "tooltip": true,
+        "isShowSave": true
+      },
+      {
+        "key": "pid",
+        "title": "父级ID",
+        "type": "html",
+        "length": 32,
+        "isRequire": false,
+        "regStr": "",
+        "message": "父级ID",
+        "controlType": "input",
+        "format": "",
+        "isWhere": true,
+        "isShowColumn": false,
+        "javaWhere": "lk",
+        "javaType": "string",
+        "isShowSave": true
+      }
+    ],
+    "operation": {}
+  }
+}

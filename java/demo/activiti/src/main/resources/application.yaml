@@ -2,14 +2,23 @@
 spring:
   main:
     allow-bean-definition-overriding: true
+  freemarker:
+    checkTemplateLocation: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
   datasource:
-    url: jdbc:mysql://192.168.118.8:3306/activiti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://139.198.115.132:3306/activiti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: because
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 10000
       max-lifetime: 180000
       connection-test-query: select 1
-      minimum-idle: 10
+      minimum-idle: 180000
       maximum-pool-size: 15
+

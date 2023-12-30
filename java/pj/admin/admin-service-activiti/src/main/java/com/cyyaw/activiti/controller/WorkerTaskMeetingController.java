@@ -5,12 +5,17 @@ import com.cyyaw.activiti.table.entity.WorkerTaskMeeting;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.engine.RuntimeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 @Slf4j
@@ -20,6 +25,13 @@ public class WorkerTaskMeetingController {
 
     @Autowired
     private WorkerTaskMeetingService workerTaskMeetingService;
+
+//    @Resource
+//    IdentityService identityService;
+
+    @Resource
+    private RuntimeService runtimeService;
+
 
     /**
      * 添加或修改
@@ -34,6 +46,17 @@ public class WorkerTaskMeetingController {
              saveObj.setTid(WhyStringUtil.getUUID());
             log.info("添加:{}", saveObj);
             obj = workerTaskMeetingService.save(saveObj);
+
+
+            // 启动会议流程
+//            identityService.setAuthenticatedUserId(obj.getHost());
+//            HashMap<String, Object> variables = new HashMap<>();
+//            variables.put("host", obj.getHost());
+//            String[] person = obj.getPeoplelist().split(",");
+//            variables.put("people", Arrays.asList(person));
+//            runtimeService.startProcessInstanceByKey("meeting", String.valueOf(obj.getId()), variables);
+
+
         } else {
             //修改
             log.info("修改:{}", saveObj);
