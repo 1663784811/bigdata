@@ -97,7 +97,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                         {
                                             name: '部署管理',
                                             icon: 'md-settings',
-                                            routeName: 'myTask'
+                                            routeName: 'modelArrange'
                                         },
                                     ]
                                 },

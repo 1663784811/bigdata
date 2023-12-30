@@ -5,6 +5,7 @@ import com.cyyaw.sql.table.dao.*;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
+import com.cyyaw.util.SqlCommonUtil;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,9 +49,9 @@ public class AppCommonController {
      */
     @ApiOperation(value = "通用查询")
     @GetMapping("/query")
-    public BaseResult query(@RequestBody @RequestParam Map<String, Object> map) {
+    public BaseResult query(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-        return commonDao.query(json);
+        return commonDao.query(SqlCommonUtil.setDefaultData(json, loginInfo));
     }
 
 

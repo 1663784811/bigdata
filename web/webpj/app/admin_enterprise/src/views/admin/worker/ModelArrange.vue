@@ -7,7 +7,6 @@ import {onMounted, reactive, ref} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 import {useRoute, useRouter} from "vue-router";
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const router = useRouter();
 const route = useRoute();
@@ -31,12 +30,7 @@ const initFn = async (pageCode) => {
   state.newTable = pageData.newTable;
 }
 const eventFn = (event) => {
-  console.log(event)
-  if (event.even === 'design') {
-    window.open(baseUrl + "/activiti/index.html?modelId=" + event.data.id)
-  } else {
 
-  }
 }
 
 </script>

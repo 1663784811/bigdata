@@ -7,6 +7,7 @@ import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.table.spider.tag.dao.TagDao;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
+import com.cyyaw.util.SqlCommonUtil;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,7 +47,7 @@ public class CommonController {
     @GetMapping("/query")
     public BaseResult<Object> query(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-        return commonDao.query(json);
+        return commonDao.query(SqlCommonUtil.setDefaultData(json, loginInfo));
     }
 
 
@@ -65,15 +66,6 @@ public class CommonController {
     public BaseResult<Object> del(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
         return commonDao.del(json);
-    }
-
-
-    @GetMapping("/sqlList")
-    public BaseResult<Object> sqlList(@RequestBody @RequestParam Map<String, Object> json) {
-        String sqlCount = "select count(*) as count from c_sql";
-        String sqlContent = "select * from c_sql ";
-        boolean touName = true;
-        return commonDao.query(sqlCount, sqlContent, new JSONObject(json), touName);
     }
 
     @RequestMapping("/saveSql")

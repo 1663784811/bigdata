@@ -66,4 +66,8 @@ public class CSql implements Serializable {
     @Basic
     @Column(name = "del_sql", columnDefinition = "text COMMENT '删除sql内容'")
     private String delSql;
+
+    @Basic
+    @Column(name = "login", columnDefinition = "int default '1' COMMENT '是否需要登录{0:否,1:是}'")
+    private Integer login;
 }

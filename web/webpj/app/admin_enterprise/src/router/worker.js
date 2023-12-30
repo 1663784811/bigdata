@@ -24,5 +24,11 @@ export const worker = {
         name: 'meeting',
         component: () => import('@/views/admin/worker/Meeting.vue'),
         meta: {title: '会议申请'}
-    }]
+    }, {
+        path: 'modelArrange',
+        name: 'modelArrange',
+        component: () => import('@/views/admin/worker/ModelArrange.vue'),
+        meta: {title: '模型部署'}
+    }
+    ]
 }

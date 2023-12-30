@@ -4,25 +4,7 @@
       <div class="textNote">企业模式</div>
     </div>
     <div class="userInfoItem">
-      <Poptip trigger="hover">
-        <div class="textNote">
-          <Badge :count="3">
-            <a href="#" class="demo-badge"></a>
-          </Badge>
-        </div>
-        <template #content>
-          <div>商城模式</div>
-          <Divider orientation="left" size="small">门店</Divider>
-          <div>听心一号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-          <div>听心二号店</div>
-        </template>
-      </Poptip>
+      ssdd
     </div>
 
     <div class="userInfoItem">
@@ -30,6 +12,7 @@
         <Icon type="md-contact"/>
       </div>
       <div class="infoBox">
+        <div class="infoList">个人中心</div>
         <div class="infoList" @click="logOut">退出登录</div>
       </div>
     </div>

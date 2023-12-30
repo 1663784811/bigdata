@@ -51,7 +51,18 @@ public class CommonDaoImpl implements CommonDao {
         if (sqlRowSet.next()) {
             String countsql = sqlRowSet.getString("count_sql");
             String sqlcontent = sqlRowSet.getString("content_sql");
-            return query(countsql, sqlcontent, json, true);
+            Integer login = sqlRowSet.getInt("login");
+            if (null == login || login == 1) {
+                String uId = json.getString("__user_uId");
+                if (StrUtil.isNotBlank(uId)) {
+                    return query(countsql, sqlcontent, json, true);
+                } else {
+                    rest.setCode(-1);
+                    rest.setMsg("未登录,状态不可用");
+                }
+            } else {
+                return query(countsql, sqlcontent, json, true);
+            }
         } else {
             rest.setCode(-1);
             rest.setMsg("找不到可用条件");

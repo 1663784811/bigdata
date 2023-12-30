@@ -142,6 +142,16 @@
             <p>[:=] ----&gt; 别名 [cc:=sss]</p>
             <p>[!!&lt;=] ----&gt; 大于等于</p>
             <p>[!!&lt;=] ----&gt; 小于等于</p>
+
+            <div>----------------------------------</div>
+            <div>----------------------------------</div>
+            <div>内置变量</div>
+            <div>__user_eCode:登录所在的企业</div>
+            <div>__user_appId:登录所在的app</div>
+            <div>__user_uId:用户ID</div>
+            <div>__user_account:用户账号</div>
+            <div>__user_name:用户名</div>
+
           </div>
           <div style="width: 500px">
             <div>

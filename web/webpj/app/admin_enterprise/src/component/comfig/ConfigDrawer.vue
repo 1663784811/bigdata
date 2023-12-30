@@ -34,7 +34,8 @@
       <ConfigDataTree :setting="configModule.configPage.data"/>
     </div>
   </Drawer>
-  <div class="configOperation" v-show="state.showOperation">
+  <div class="configOperation" v-show="configModule.configPage.showOperation">
+    <div @click="configModule.configPage.showOperation = false">xxxx</div>
     <div class="pageContent">
       <div class="pageTitle">
         <div>页面</div>
@@ -86,7 +87,6 @@ const configModule = useConfigModule();
 
 
 const state = reactive({
-  showOperation: false,
   pageObj: {},
   pageList: []
 })
@@ -95,11 +95,10 @@ const state = reactive({
 onMounted(() => {
   setTimeout(() => {
     if (route.query.debugger) {
-      state.showOperation = true;
+      configModule.configPage.showOperation = true;
       loadPage();
     }
   }, 1000)
-  state.showOperation = true;
   loadPage();
   if (configModule.configPage.show) {
     loadData(configModule.configPage.pageCode);
