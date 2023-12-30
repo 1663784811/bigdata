@@ -1,4 +1,4 @@
-package com.cyyaw.monitor.server;
+package com.cyyaw.monitor.table.server;
 
 import lombok.Data;
 

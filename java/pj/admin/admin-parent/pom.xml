@@ -36,6 +36,7 @@
         <module>../admin-service-black-room</module>
         <module>../admin-dao</module>
         <module>../admin-all</module>
+        <module>../admin-service-monitor</module>
     </modules>
 
     <dependencyManagement>

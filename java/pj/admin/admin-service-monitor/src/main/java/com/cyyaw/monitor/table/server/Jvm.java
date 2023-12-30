@@ -1,8 +1,8 @@
-package com.cyyaw.monitor.server;
+package com.cyyaw.monitor.table.server;
 
 
 import cn.hutool.core.date.DateUtil;
-import com.cyyaw.util.Arith;
+import com.cyyaw.monitor.utils.Arith;
 
 import java.lang.management.ManagementFactory;
 import java.util.Date;

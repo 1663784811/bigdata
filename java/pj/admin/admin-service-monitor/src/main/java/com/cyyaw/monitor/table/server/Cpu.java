@@ -1,6 +1,6 @@
-package com.cyyaw.monitor.server;
+package com.cyyaw.monitor.table.server;
 
-import com.cyyaw.util.Arith;
+import com.cyyaw.monitor.utils.Arith;
 
 /**
  * CPU相关信息
