@@ -4,16 +4,18 @@
       <div class="textNote">企业模式</div>
     </div>
     <div class="userInfoItem">
-      ssdd
-    </div>
-
-    <div class="userInfoItem">
       <div class="textNote">
-        <Icon type="md-contact"/>
+        <Icon class="icon" type="md-contact"/>
       </div>
       <div class="infoBox">
-        <div class="infoList">个人中心</div>
-        <div class="infoList" @click="logOut">退出登录</div>
+        <div class="infoList" @click="goFn('peopleCenter')">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">个人中心</div>
+        </div>
+        <div class="infoList logout" @click="logOut">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">退出登录</div>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +47,10 @@ const logOut = function () {
   })
 }
 
+const goFn = (name) => {
+  router.push({name})
+}
+
 </script>
 
 <style scoped lang="less">
@@ -67,6 +73,11 @@ const logOut = function () {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      .icon {
+        font-size: 20px;
+        color: #fff;
+      }
     }
 
     &:hover {
@@ -81,11 +92,48 @@ const logOut = function () {
       position: absolute;
       right: 0;
       top: 46px;
-      border: 1px solid #000;
+      box-shadow: 2px 2px 2px #ccc;
       z-index: 999;
-      width: 200px;
+      width: 260px;
+      min-height: 300px;
       background: #fff;
       display: none;
+      padding-bottom: 40px;
+      border-radius: 0 0 4px 4px;
+      overflow: hidden;
+
+      .infoList {
+        cursor: pointer;
+        padding: 5px 10px;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        background: #f6f6f6;
+        margin-bottom: 2px;
+
+        &:hover {
+          background: #35456b;
+          color: #fff;
+        }
+
+        .icon {
+          font-size: 16px;
+        }
+
+        .menuName {
+          margin-left: 4px;
+
+        }
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        margin: 0;
+      }
     }
 
     .modelBox {

@@ -2,6 +2,11 @@ export const enterprise = {
     path: 'enterprise',
     children: [
         {
+            path: 'peopleCenter',
+            component: () => import('@/views/admin/account/PeopleCenter.vue'),
+            name: 'peopleCenter',
+        },
+        {
             path: 'dashboard',
             component: () => import('@/views/admin/enterprise/Dashboard.vue'),
             name: 'dashboard',
