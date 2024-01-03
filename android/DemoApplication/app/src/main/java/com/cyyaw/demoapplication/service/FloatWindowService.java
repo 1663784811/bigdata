@@ -44,8 +44,14 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         int eventType = event.getEventType();
         if (eventType == 222) {
 
-
             CharSequence packageName = event.getPackageName();
+
+//            AccessibilityNodeInfo root = getRootInActiveWindow();
+//           root.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+
+
+
+
             showWindowInfo("onAccessibilityEvent:" + packageName);
         }
 
