@@ -23,6 +23,7 @@ import com.cyyaw.demoapplication.data.LogInfoAdapter;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowInfoService;
 import com.cyyaw.demoapplication.service.FloatWindowService;
+import com.cyyaw.demoapplication.service.FloatWindowTaskService;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -83,15 +84,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
         ComponentName floatWindows = startService(intent);
 
-
-
         Intent in = new Intent(MainActivity.this, FloatWindowInfoService.class);
         ComponentName componentName = startService(in);
-
 
         // 创建操作跟踪红点
         Intent inx = new Intent(MainActivity.this, FloatMarkWindowService.class);
         ComponentName componentNamex = startService(inx);
+
+
+        Intent inxx = new Intent(MainActivity.this, FloatWindowTaskService.class);
+        startService(inxx);
 
 
 
