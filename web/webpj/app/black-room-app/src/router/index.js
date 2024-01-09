@@ -6,7 +6,9 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/cyyaw/welcomePage'
+            name: 'index',
+            component: () => import('@/views/Index.vue'),
+            meta: {notLogin: true, title: '首页'}
         },
         {
             path: '/cyyaw/welcomePage',
@@ -27,7 +29,7 @@ const router = createRouter({
                 {
                     path: 'home',
                     name: 'home',
-                    component: import('@/views/home/Home.vue'),
+                    component: () => import('@/views/home/Home.vue'),
                     meta: {index: 1, notLogin: true, title: '首页'}
                 },
                 {
@@ -70,12 +72,19 @@ router.beforeEach(({meta = {}, name, params}, from, next) => {
     let token = useUser.token;
     if (!token && !notLogin) {
         // 未登录
-        next({
-            name: 'login',
-            params: {
-                appid: params.appid
-            }
-        })
+        console.log('ssssssssssssssssss', params)
+        if (params.code) {
+            next({
+                name: 'login',
+                params: {
+                    appid: params.appid
+                }
+            })
+        } else {
+            next({
+                name: 'welcomePage'
+            })
+        }
     } else {
         next()
     }

@@ -7,11 +7,12 @@ import {onMounted} from "vue";
 import {commonQuery} from "@/service/api";
 import {useRoute, useRouter} from "vue-router";
 import {useAppStore} from "@/stores/app";
+import {useUserStore} from "@/stores/user";
 
 const route = useRoute();
 const router = useRouter();
 const appStore = useAppStore();
-
+const loginInfoSt = useUserStore();
 
 onMounted(async () => {
   const {appid} = route.params;
@@ -23,10 +24,11 @@ onMounted(async () => {
   if (data && data.length == 1) {
     // 保存app信息
     appStore.appInfo = data[0];
+    loginInfoSt.variable.appid = appid;
   } else {
-    router.replace({name: 'welcomePage'});
+    delete loginInfoSt.variable.appid;
+    await router.replace({name: 'welcomePage'});
   }
-
 })
 
 </script>

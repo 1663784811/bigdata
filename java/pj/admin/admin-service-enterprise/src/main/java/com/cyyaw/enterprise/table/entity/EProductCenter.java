@@ -50,7 +50,9 @@ public class EProductCenter implements Serializable {
     @Column(name = "introduction", columnDefinition = "varchar(255) COMMENT '产品简介'")
     private String introduction;
 
-
+    @Basic
+    @Column(name = "type_code", columnDefinition = "varchar(255) COMMENT '类型'")
+    private String typeCode;
 }
 
 

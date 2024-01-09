@@ -7,7 +7,6 @@ import {useUserStore} from "@/stores/user.js";
 
 console.log('import.meta.env', import.meta.env)
 
-axios.defaults.baseURL = import.meta.env.MODE == 'development' ? '//backend-api-01.newbee.ltd/api/v1' : '//backend-api-01.newbee.ltd/api/v1'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -46,6 +45,7 @@ axios.interceptors.response.use(res => {
     // }
     return res.data
 }, error => {
+    showFailToast('服务端异常！')
     return Promise.reject(error)
 })
 

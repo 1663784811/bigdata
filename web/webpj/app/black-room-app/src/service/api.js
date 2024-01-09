@@ -1,5 +1,5 @@
-import axios from "@/utils/axios";
-import {baseUrl, appId} from '@/service/webConfig.js'
+import axios from "./axiosRequest";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 // =====================================================================
 // =====================================================================

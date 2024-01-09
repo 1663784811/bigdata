@@ -14,9 +14,13 @@ export const useUserStore = defineStore('user', {
     state: () => {
         const userInfo = ref({});
         const token = ref("");
+        const variable = ref({
+            appid: ''
+        });
         return {
             userInfo,
-            token
+            token,
+            variable
         }
     }
 })

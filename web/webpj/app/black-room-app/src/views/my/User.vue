@@ -34,7 +34,7 @@
 import {reactive, onMounted, toRefs} from 'vue'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getAppAdminInfo} from '@/service/api'
+import {getUserInfo} from '@/service/api'
 import {useRouter} from 'vue-router'
 import {useUserStore} from "@/stores/user";
 import {showSuccessToast} from "vant";
@@ -50,7 +50,7 @@ const state = reactive({
 
 onMounted(async () => {
   state.loading = true;
-  const {data} = await getAppAdminInfo()
+  const {data} = await getUserInfo()
   if (data) {
     state.user = data
   } else {

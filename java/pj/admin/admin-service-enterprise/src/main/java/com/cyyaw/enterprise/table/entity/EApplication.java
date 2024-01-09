@@ -56,7 +56,9 @@ public class EApplication implements BaseEntity<Integer>, Serializable {
     @Basic
     @Column(name = "logo", columnDefinition = "varchar(255) COMMENT 'logo图片'")
     private String logo;
-
+    @Basic
+    @Column(name = "type_code", columnDefinition = "varchar(255) COMMENT '类型'")
+    private String typeCode;
 }
 
 

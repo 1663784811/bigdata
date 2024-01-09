@@ -1,5 +1,6 @@
 import axios from "@/utils/axios";
-import {baseUrl} from '@/service/webConfig.js'
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 // =====================================================================
 // =====================================================================
@@ -9,7 +10,9 @@ export function commonQuery(params = {}, appId) {return axios.get(`${baseUrl}/ap
 //通用保存
 export function commonSave(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/common/save`, params);}
 //登录
-export const login = (params = {}, appId) => {return axios.post(`${baseUrl}/app/${appId}/user/login/login`, params);}
+export const login = (params = {}, appId) => {
+    console.log(baseUrl)
+    return axios.post(`${baseUrl}/app/${appId}/user/login/login`, params);}
 //注册
 export const register = (params = {}) => {return axios.post(`${baseUrl}/app/${appId}/user/login/register`, params);}
 //登录

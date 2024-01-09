@@ -82,7 +82,7 @@
 import {reactive, ref, onMounted} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
 import vueImgVerify from '@/components/VueImageVerify.vue'
-import {login, register} from '@/service/api'
+import {adminLogin, register} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
@@ -135,13 +135,13 @@ const toggle = (v) => {
 const onSubmit = async (values) => {
   state.imgCode = verifyRef.value.state.imgCode || ''
   console.log("验证码", state.imgCode)
-  if (state.verify.toLowerCase() != state.imgCode.toLowerCase()) {
+  if (state.verify.toLowerCase() !== state.imgCode.toLowerCase()) {
     showFailToast('验证码有误')
     return
   }
-  if (state.type == 'login') {
+  if (state.type === 'login') {
     state.loading = true;
-    const {data, msg, code} = await login({
+    const {data, msg, code} = await adminLogin({
       "userName": values.username,
       "password": values.password
     })
