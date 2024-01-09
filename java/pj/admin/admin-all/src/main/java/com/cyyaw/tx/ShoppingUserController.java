@@ -5,7 +5,6 @@ import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.UAddressService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UAddress;
-import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -26,19 +25,8 @@ public class ShoppingUserController {
     @Autowired
     private UUserService uUserService;
 
-
     @Autowired
     private UAddressService uAddressService;
-
-
-    @ApiOperation(value = "商城用户信息", notes = "商城用户信息")
-    @GetMapping("/userInfo")
-    public BaseResult userInfo(@TokenData LoginInfo loginInfo) {
-        String userId = loginInfo.getId();
-        UUser user = uUserService.findByTid(userId);
-        return BaseResult.ok(user);
-    }
-
 
     @ApiOperation(value = "用户地址列表", notes = "用户地址列表")
     @GetMapping("/address")

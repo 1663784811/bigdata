@@ -22,6 +22,14 @@ public class AppUserLoginController {
     @Autowired
     private LoginUserService loginUserService;
 
+
+    @ApiOperation(value = "退出登录", notes = "退出登录")
+    @GetMapping(value = "/logout")
+    public BaseResult logout() {
+        return BaseResult.ok("退出登录成功");
+    }
+
+
     @ApiOperation(value = "APP用户登录", notes = "APP用户登录")
     @PostMapping("login")
     public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {

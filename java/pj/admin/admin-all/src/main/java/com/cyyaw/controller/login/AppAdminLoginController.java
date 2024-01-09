@@ -21,12 +21,6 @@ public class AppAdminLoginController {
     @Autowired
     private LoginService loginService;
 
-    @ApiOperation(value = "退出登录", notes = "退出登录")
-    @GetMapping(value = "/logout")
-    public BaseResult logout() {
-        return BaseResult.ok("退出登录成功");
-    }
-
     @ApiOperation(value = "app管理员登录", notes = "app管理员登录")
     @PostMapping(value = "/adminLogin")
     public BaseResult adminLogin(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {

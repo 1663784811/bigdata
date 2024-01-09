@@ -41,12 +41,6 @@ public class AdminLoginController {
     private TRoleService tRoleService;
 
 
-    @ApiOperation(value = "退出登录", notes = "退出登录")
-    @GetMapping(value = "/logout")
-    public BaseResult logout() {
-        return BaseResult.ok("退出登录成功");
-    }
-
     @ApiOperation(value = "后台登录", notes = "后台登录")
     @PostMapping(value = "/login")
     public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String eCode) {

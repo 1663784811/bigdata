@@ -12,6 +12,9 @@ public class LoginInfo {
     @ApiModelProperty(value = "id", example = "id")
     private String id;
 
+    @ApiModelProperty(value = "登录类型:{0:用户,1:管理员}", example = "0")
+    private Integer type;
+
     @ApiModelProperty(value = "登录账号", example = "userName")
     private String account;
 
