@@ -20,13 +20,13 @@
           <!------------------->
           <div class="good-item" v-for="(item,index) in state.recommends" :key="index" @click="goToDetail(item)">
             <div>
-              <div class="itemTitle" @click="goToDetail(item)">{{ item.name }}  {{ item.account }}</div>
+              <div class="itemTitle" @click="goToDetail(item)">{{ item.name }} {{ item.account }}</div>
               <div class="itemTime" @click="goToDetail(item)">{{ item.startTime }}</div>
               <div class="itemCount" @click="goToDetail(item)">
                 <div>类型:</div>
-                <div>{{ item.type == 1 ? '微信' : item.type == 2 ? '支付宝': '其它'  }}</div>
+                <div>{{ item.type == 1 ? '微信' : item.type == 2 ? '支付宝' : '其它' }}</div>
               </div>
-              <div class="itemStatus">时间:{{ item.createTime}}</div>
+              <div class="itemStatus">时间:{{ item.createTime }}</div>
             </div>
           </div>
           <!------------------->
@@ -98,7 +98,7 @@ const loadData = () => {
   commonQuery(state.reqParameter).then((rest) => {
     const {data} = rest
     state.recommends.push(...data)
-    if (data.length == 0) {
+    if (data.length === 0) {
       state.pageStatus = 2
     } else {
       state.pageStatus = 1

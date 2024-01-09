@@ -13,6 +13,12 @@
 
 <script setup>
 
+import {useUserStore} from "@/stores/user";
+
+const loginInfoSt = useUserStore();
+console.log('ssssss', loginInfoSt.variable)
+
+
 </script>
 
 <style scoped lang="less">
