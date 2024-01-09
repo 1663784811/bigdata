@@ -68,6 +68,16 @@
                 </Select>
               </div>
             </div>
+
+            <div class="row">
+              <div class="label">是否需要登录</div>
+              <div class="content">
+                <Select v-model="sqlData.login">
+                  <Option :value="0">不需要</Option>
+                  <Option :value="1">需要</Option>
+                </Select>
+              </div>
+            </div>
             <div v-if="sqlData.type === 0">
               <div class="row">
                 <div class="label">查询语句</div>

@@ -1,10 +1,10 @@
 package com.cyyaw.controller.login;
 
+import com.cyyaw.enterprise.service.EEnterpriseService;
 import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.service.LoginService;
 import com.cyyaw.user.service.TPowerService;
 import com.cyyaw.user.service.TRoleService;
-import com.cyyaw.enterprise.service.EEnterpriseService;
 import com.cyyaw.user.table.entity.TAdmin;
 import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.user.utils.entity.AdminAuthToken;
@@ -25,7 +25,7 @@ import java.util.Map;
 @Api(tags = "后台登录模块")
 @RequestMapping("/admin/{eCode}/login")
 @RestController
-public class LoginController {
+public class AdminLoginController {
 
     @Autowired
     private LoginService loginService;
@@ -97,6 +97,12 @@ public class LoginController {
     @GetMapping("/checkCode")
     public void checkCode() {
 
+    }
+
+    @ApiOperation(value = "APP用户微信登录", notes = "APP用户手机验证码登录")
+    @PostMapping("weixinLogin")
+    public BaseResult weixinLogin(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {
+        return BaseResult.ok("sss", "登录成功");
     }
 
 }

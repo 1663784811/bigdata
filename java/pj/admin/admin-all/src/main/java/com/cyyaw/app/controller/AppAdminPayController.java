@@ -1,4 +1,4 @@
-package com.cyyaw.controller.login;
+package com.cyyaw.app.controller;
 
 
 import io.swagger.annotations.Api;

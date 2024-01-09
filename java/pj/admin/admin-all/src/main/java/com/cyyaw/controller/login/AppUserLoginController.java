@@ -46,6 +46,18 @@ public class AppUserLoginController {
     }
 
 
+    @ApiOperation(value = "APP用户微信登录", notes = "APP用户手机验证码登录")
+    @PostMapping("weixinLogin")
+    public BaseResult weixinLogin(@RequestBody LoginRequest loginRequest, @PathVariable String appId) {
+        String userName = loginRequest.getUserName();
+        String password = loginRequest.getPassword();
+        UserAuthToken authToken = loginUserService.loginUserNameAndPassword(appId, userName, password);
+        UUser uUser = authToken.getUUser();
+        uUser.setPassword(null);
+        return BaseResult.ok(authToken, "登录成功");
+    }
+
+
     @ApiOperation(value = "APP用户注册", notes = "APP用户注册")
     @PostMapping(value = "/register")
     public BaseResult register(@RequestBody LoginRequest registerInfo, @PathVariable String appId) {
