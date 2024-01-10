@@ -1,7 +1,6 @@
 package com.cyyaw.user.service;
 
 
-import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.cyyaw.jpa.BaseTableService;
 import com.cyyaw.user.table.entity.UUser;
 
@@ -23,10 +22,6 @@ public interface UUserService extends BaseTableService<UUser, Integer> {
      *
      */
     UUser findByTid(String tid);
-
-
-    UUser updateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo);
-
 
 
 }

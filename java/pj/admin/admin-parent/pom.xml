@@ -37,6 +37,7 @@
         <module>../admin-dao</module>
         <module>../admin-all</module>
         <module>../admin-service-monitor</module>
+        <module>../admin-tools-weixin</module>
     </modules>
 
     <dependencyManagement>
@@ -54,11 +55,6 @@
                 <version>5.8.6</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-miniapp</artifactId>
-                <version>4.0.0</version>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -95,8 +91,6 @@
         <directory>${project.basedir}/target</directory>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
-        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>

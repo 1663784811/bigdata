@@ -1,7 +1,6 @@
 package com.cyyaw.user.service.impl;
 
 
-import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import cn.hutool.core.util.StrUtil;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
@@ -60,18 +59,5 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
         return uUserDao.findByTid(tid);
     }
 
-    @Override
-    public UUser updateUserByWxMaUserInfo(WxMaUserInfo wxMaUserInfo) {
-        String openId = wxMaUserInfo.getOpenId();
-        List<UUser> uUserList = uUserDao.findByOpenId(openId);
-        UUser user = null;
-        if (uUserList != null && uUserList.size() > 0) {
-            user = uUserList.get(0);
-        }
-        user.setFace(wxMaUserInfo.getAvatarUrl());
-        user.setNickName(wxMaUserInfo.getNickName());
-        user.setSex(wxMaUserInfo.getGender());
-        return uUserDao.save(user);
-    }
 }
 
