@@ -30,7 +30,8 @@ public class WxCpJsController {
             @PathVariable Integer agentId,
             String uri) throws WxErrorException {
 
-        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+//        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+        final WxCpService wxCpService = null;
         if (wxCpService == null) {
             throw new IllegalArgumentException(String.format("未找到对应agentId=[%d]的配置，请核实！", agentId));
         }

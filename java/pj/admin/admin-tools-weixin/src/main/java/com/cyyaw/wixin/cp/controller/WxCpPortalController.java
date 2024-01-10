@@ -1,10 +1,8 @@
 package com.cyyaw.wixin.cp.controller;
 
 
-import com.cyyaw.wixin.cp.config.WxCpConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.bean.message.WxCpXmlMessage;
@@ -12,8 +10,6 @@ import me.chanjar.weixin.cp.bean.message.WxCpXmlOutMessage;
 import me.chanjar.weixin.cp.util.crypto.WxCpCryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,9 +20,11 @@ public class WxCpPortalController {
     @PostMapping("/test")
     public String test(@PathVariable String corpId,
                        @RequestParam(name = "userId", required = true) String userId) throws WxErrorException {
-        final val wxCpService = WxCpConfiguration.getCpService(corpId, 10001);
-        List<String> list = wxCpService.getExternalContactService().listExternalContacts(userId);
-        return list.toString();
+//        final val wxCpService = WxCpConfiguration.getCpService(corpId, 10001);
+//        List<String> list = wxCpService.getExternalContactService().listExternalContacts(userId);
+//        return list.toString();
+
+        return null;
     }
 
     @GetMapping(produces = "text/plain;charset=utf-8")
@@ -43,7 +41,8 @@ public class WxCpPortalController {
             throw new IllegalArgumentException("请求参数非法，请核实!");
         }
 
-        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+//        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+        final WxCpService wxCpService = null;
         if (wxCpService == null) {
             throw new IllegalArgumentException(String.format("未找到对应agentId=[%d]的配置，请核实！", agentId));
         }
@@ -65,7 +64,8 @@ public class WxCpPortalController {
         log.info("\n接收微信请求：[signature=[{}], timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
                 signature, timestamp, nonce, requestBody);
 
-        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+//        final WxCpService wxCpService = WxCpConfiguration.getCpService(corpId, agentId);
+        final WxCpService wxCpService = null;
         if (wxCpService == null) {
             throw new IllegalArgumentException(String.format("未找到对应agentId=[%d]的配置，请核实！", agentId));
         }
@@ -84,7 +84,7 @@ public class WxCpPortalController {
 
     private WxCpXmlOutMessage route(String corpId, Integer agentId, WxCpXmlMessage message) {
         try {
-            return WxCpConfiguration.getRouters().get(corpId + agentId).route(message);
+//            return WxCpConfiguration.getRouters().get(corpId + agentId).route(message);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
