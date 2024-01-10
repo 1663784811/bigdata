@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/wx/message/{appid}")
-public class WxPortalController {
+@RequestMapping("/wx/mp/message/{appid}")
+public class WxMpPortalController {
 
     private final WxMpService wxService;
     private final WxMpMessageRouter messageRouter;

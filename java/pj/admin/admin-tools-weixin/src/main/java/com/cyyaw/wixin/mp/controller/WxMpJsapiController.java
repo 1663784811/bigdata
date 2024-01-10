@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/wx/jsapi/{mpAppId}")
-public class WxJsapiController {
+@RequestMapping("/wx/mp/jsapi/{mpAppId}")
+public class WxMpJsapiController {
 
     private final WxMpService wxService;
 
