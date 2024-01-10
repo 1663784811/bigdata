@@ -14,7 +14,7 @@ import static me.chanjar.weixin.common.api.WxConsts.EventType;
 
 @Slf4j
 @Component
-public class MenuHandler extends AbstractHandler {
+public class MenuHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,

@@ -15,7 +15,7 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
 
 @Slf4j
 @Component
-public class MsgHandler extends AbstractHandler {
+public class MsgHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService weixinService, WxSessionManager sessionManager) {

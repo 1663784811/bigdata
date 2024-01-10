@@ -6,7 +6,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 
 
-public class TextBuilder extends AbstractBuilder {
+public class TextBuilderWxMp extends WxMpAbstractBuilder {
 
     @Override
     public WxMpXmlOutMessage build(String content, WxMpXmlMessage wxMessage, WxMpService service) {

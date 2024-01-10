@@ -12,10 +12,13 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class LogHandler extends AbstractHandler {
+public class UnsubscribeHandlerWxMp extends WxMpAbstractHandler {
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService wxMpService, WxSessionManager sessionManager) {
-        log.info("\n接收到请求消息，内容：{}", wxMessage.toString());
+        String openId = wxMessage.getFromUser();
+        log.info("取消关注用户 OPENID: " + openId);
+        // TODO 可以更新本地数据库为取消关注状态
         return null;
     }
 

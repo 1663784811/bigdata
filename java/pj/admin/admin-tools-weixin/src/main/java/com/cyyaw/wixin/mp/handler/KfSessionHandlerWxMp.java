@@ -10,10 +10,11 @@ import java.util.Map;
 
 
 @Component
-public class NullHandler extends AbstractHandler {
+public class KfSessionHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService wxMpService, WxSessionManager sessionManager) {
+        //TODO 对会话做处理
         return null;
     }
 

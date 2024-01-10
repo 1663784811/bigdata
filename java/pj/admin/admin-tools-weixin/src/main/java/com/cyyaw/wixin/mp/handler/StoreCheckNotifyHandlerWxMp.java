@@ -8,13 +8,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-
+/**
+ * 门店审核事件处理
+ *
+ * @author <a href="https://github.com/binarywang">Binary Wang</a>
+ */
 @Component
-public class KfSessionHandler extends AbstractHandler {
+public class StoreCheckNotifyHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService wxMpService, WxSessionManager sessionManager) {
-        //TODO 对会话做处理
+        // TODO 处理门店审核事件
         return null;
     }
 

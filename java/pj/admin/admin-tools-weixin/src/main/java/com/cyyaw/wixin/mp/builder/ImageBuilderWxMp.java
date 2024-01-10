@@ -6,7 +6,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutImageMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 
 
-public class ImageBuilder extends AbstractBuilder {
+public class ImageBuilderWxMp extends WxMpAbstractBuilder {
 
     @Override
     public WxMpXmlOutMessage build(String content, WxMpXmlMessage wxMessage, WxMpService service) {

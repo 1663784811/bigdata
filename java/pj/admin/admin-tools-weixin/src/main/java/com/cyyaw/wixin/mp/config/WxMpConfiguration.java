@@ -29,16 +29,16 @@ import static me.chanjar.weixin.mp.constant.WxMpEventConstants.POI_CHECK_NOTIFY;
 public class WxMpConfiguration {
 
 
-    private final LogHandler logHandler;
-    private final NullHandler nullHandler;
-    private final KfSessionHandler kfSessionHandler;
-    private final StoreCheckNotifyHandler storeCheckNotifyHandler;
-    private final LocationHandler locationHandler;
-    private final MenuHandler menuHandler;
-    private final MsgHandler msgHandler;
-    private final UnsubscribeHandler unsubscribeHandler;
-    private final SubscribeHandler subscribeHandler;
-    private final ScanHandler scanHandler;
+    private final LogHandlerWxMp logHandler;
+    private final NullHandlerWxMp nullHandler;
+    private final KfSessionHandlerWxMp kfSessionHandler;
+    private final StoreCheckNotifyHandlerWxMp storeCheckNotifyHandler;
+    private final LocationHandlerWxMp locationHandler;
+    private final MenuHandlerWxMp menuHandler;
+    private final MsgHandlerWxMp msgHandler;
+    private final UnsubscribeHandlerWxMp unsubscribeHandler;
+    private final SubscribeHandlerWxMp subscribeHandler;
+    private final ScanHandlerWxMp scanHandler;
 
     // =====================
     private final WeixinMpSettingDao weixinMpSettingDao;

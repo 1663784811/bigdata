@@ -1,6 +1,6 @@
 package com.cyyaw.wixin.mp.handler;
 
-import com.cyyaw.wixin.mp.builder.TextBuilder;
+import com.cyyaw.wixin.mp.builder.TextBuilderWxMp;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class SubscribeHandler extends AbstractHandler {
+public class SubscribeHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService weixinService, WxSessionManager sessionManager) throws WxErrorException {
@@ -47,7 +47,7 @@ public class SubscribeHandler extends AbstractHandler {
         }
 
         try {
-            return new TextBuilder().build("感谢关注", wxMessage, weixinService);
+            return new TextBuilderWxMp().build("感谢关注", wxMessage, weixinService);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

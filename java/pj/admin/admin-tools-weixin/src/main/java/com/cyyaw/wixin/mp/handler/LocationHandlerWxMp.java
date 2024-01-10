@@ -1,6 +1,6 @@
 package com.cyyaw.wixin.mp.handler;
 
-import com.cyyaw.wixin.mp.builder.TextBuilder;
+import com.cyyaw.wixin.mp.builder.TextBuilderWxMp;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -15,7 +15,7 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
 
 @Slf4j
 @Component
-public class LocationHandler extends AbstractHandler {
+public class LocationHandlerWxMp extends WxMpAbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context, WxMpService wxMpService, WxSessionManager sessionManager) {
@@ -23,7 +23,7 @@ public class LocationHandler extends AbstractHandler {
             //TODO 接收处理用户发送的地理位置消息
             try {
                 String content = "感谢反馈，您的的地理位置已收到！";
-                return new TextBuilder().build(content, wxMessage, null);
+                return new TextBuilderWxMp().build(content, wxMessage, null);
             } catch (Exception e) {
                 log.error("位置消息接收处理失败", e);
                 return null;

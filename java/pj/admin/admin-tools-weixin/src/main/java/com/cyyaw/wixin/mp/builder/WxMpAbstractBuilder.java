@@ -5,7 +5,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 
 
-public abstract class AbstractBuilder {
+public abstract class WxMpAbstractBuilder {
 
     public abstract WxMpXmlOutMessage build(String content, WxMpXmlMessage wxMessage, WxMpService service);
 }
