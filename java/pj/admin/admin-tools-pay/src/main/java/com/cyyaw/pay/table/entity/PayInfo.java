@@ -1,4 +1,4 @@
-package com.cyyaw.store.table.pay.entity;
+package com.cyyaw.pay.table.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,13 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "pay_setting")
-@org.hibernate.annotations.Table(appliesTo = "pay_setting", comment = "支付设置")
-public class PaySetting implements Serializable {
+@Table(name = "pay_info")
+@org.hibernate.annotations.Table(appliesTo = "pay_info", comment = "支付记录")
+public class PayInfo implements Serializable {
     private static final long serialVersionUID = 1568712426273933758L;
 
     @Id
@@ -39,15 +40,18 @@ public class PaySetting implements Serializable {
     @Basic
     @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
     private String appId;
-
-    // =================================================================================
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(32) COMMENT '支付名称'")
-    private String name;
+    @Column(name = "order_no", columnDefinition = "varchar(32) not null COMMENT 'o_order订单表ID'")
+    private String orderNo;
+    // =================================================================================
 
     @Basic
     @Column(name = "pay_type", columnDefinition = "int COMMENT '最后付款方式{0:微信,1:支付宝}'")
     private Integer payType;
+
+    @Basic
+    @Column(name = "price", columnDefinition = "decimal(18,2) COMMENT '支付的钱'")
+    private BigDecimal price;
 
     //==============
     @Basic
