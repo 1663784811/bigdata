@@ -3,6 +3,38 @@
     <div class="userInfoItem">
       <div class="textNote">企业模式</div>
     </div>
+
+    <div class="userInfoItem">
+      <div class="textNote">
+        <Icon class="icon" type="md-contract"/>
+      </div>
+    </div>
+
+
+    <div class="userInfoItem">
+      <div class="textNote">
+        <Icon class="icon" type="md-notifications"/>
+      </div>
+      <div class="infoBox">
+        <div class="infoList" @click="goFn('peopleCenter')">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">消息1</div>
+        </div>
+        <div class="infoList" @click="goFn('peopleCenter')">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">消息1</div>
+        </div>
+        <div class="infoList" @click="goFn('peopleCenter')">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">消息1</div>
+        </div>
+        <div class="infoList" @click="goFn('peopleCenter')">
+          <Icon class="icon" type="md-contact"/>
+          <div class="menuName">消息1</div>
+        </div>
+      </div>
+    </div>
+
     <div class="userInfoItem">
       <div class="textNote">
         <Icon class="icon" type="md-contact"/>
@@ -18,6 +50,8 @@
         </div>
       </div>
     </div>
+
+
   </div>
 </template>
 
@@ -75,7 +109,7 @@ const goFn = (name) => {
       align-items: center;
 
       .icon {
-        font-size: 20px;
+        font-size: 22px;
         color: #fff;
       }
     }
