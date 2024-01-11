@@ -38,6 +38,7 @@
         <module>../admin-all</module>
         <module>../admin-service-monitor</module>
         <module>../admin-tools-weixin</module>
+        <module>../admin-tools-pay</module>
     </modules>
 
     <dependencyManagement>

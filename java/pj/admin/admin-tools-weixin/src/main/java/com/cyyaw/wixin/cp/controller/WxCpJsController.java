@@ -1,6 +1,6 @@
 package com.cyyaw.wixin.cp.controller;
 
-import com.cyyaw.wixin.cp.config.WxCpConfiguration;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
@@ -24,6 +24,8 @@ import java.util.Map;
 public class WxCpJsController {
 
 
+
+    @ApiOperation(value = "getJsConf")
     @PostMapping("/getJsConf")
     public Map getJsConf(
             @PathVariable String corpId,
