@@ -1,7 +1,14 @@
 <template>
   <div class="winHeight">
     <div class="loginContent">
+
+      <div class="imgContent">
+        <img data-v-aa5851c8="" class="login-left-img"
+             src="https://admin.spicyboy.cn/assets/png/login_left-VQgr6mRR.png" alt="login">
+      </div>
       <div class="contentBox">
+
+
         <div class="loginBox">
           <div class="loginTitle">登录</div>
           <div class="loginRow">
@@ -11,23 +18,8 @@
             <Input placeholder="密码" v-model="loginParams.password"/>
           </div>
           <div class="loginRow">
-            <Input placeholder="验证码" v-model="loginParams.code"/>
-            <div style="width: 150px;height: 30px ; background: red; margin-left: 10px">
-              <img src="" alt="">
-            </div>
-          </div>
-          <div class="loginRow">
-            <Input placeholder="验证码" v-model="loginParams.code"/>
-            <div style="margin-left: 10px">
-              <Button>获取验证码</Button>
-            </div>
-          </div>
-          <div class="loginRow">
-            <Button type="success" long @click="clickLogin">登录</Button>
-          </div>
-          <div>
-            忘记密码 、
-            <span @click="router.push({name:'register'})">注册</span>
+            <Button class="submitBtn" long>重置</Button>
+            <Button class="submitBtn" type="success" long @click="clickLogin">登录</Button>
           </div>
         </div>
       </div>
@@ -93,24 +85,45 @@ const clickLogin = function () {
 <style scoped lang="less">
 .winHeight {
   height: 100vh;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7e7e7;
 
   .loginContent {
-    padding: 60px 0;
-    background: #e93854;
+    min-height: 550px;
+    height: 90%;
+    width: 95%;
+    margin: auto;
+    padding: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    .imgContent {
+      width: 600px;
+      margin-right: 40px;
+
+      img {
+        width: 100%;
+      }
+    }
 
     .contentBox {
       display: flex;
       flex-direction: row-reverse;
       max-width: 1920px;
-      margin: auto;
-      background: #333;
-      background: url("https://passport.jd.com/new/misc/2015/background.png") no-repeat center center;
-      padding: 60px 60px;
+      padding: 30px;
+
+      border-radius: 10px;
+      box-shadow: #a3a3a3 0 2px 10px 2px;
+
 
       .loginBox {
-        width: 400px;
-        padding: 20px 20px;
-        border-radius: 6px;
+        width: 420px;
         background: #fff;
 
         .loginTitle {
@@ -122,6 +135,10 @@ const clickLogin = function () {
         .loginRow {
           margin: 30px 0;
           display: flex;
+        }
+
+        .submitBtn {
+          margin: 0 10px;
         }
       }
     }

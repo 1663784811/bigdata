@@ -1,8 +1,10 @@
 package com.cyyaw.demoapplication.service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
@@ -18,19 +20,11 @@ import com.cyyaw.demoapplication.service.window.FloatWindow;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 打印信息
  */
-public class FloatWindowInfoService extends Service {
-
-    // ==============================
-    // 临时日志
-    private CopyOnWriteArrayList tempLog = new CopyOnWriteArrayList();
-
-
-    // ==============================
+public class FloatWindowInfoService extends FloatWindowAbstract {
     public static String logKey = "msg";
 
     private WindowManager wManager;
@@ -45,14 +39,26 @@ public class FloatWindowInfoService extends Service {
 
     private RecyclerView recyclerView;
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+    // ==============================
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null) {
+                if (intent.getAction().equals(winLog)) {
+                    // 处理收到的广播消息
+                    String value = intent.getStringExtra("key");
+                    // 进行相应处理
+                }
+            }
+        }
+    };
 
     @Override
     public void onCreate() {
+
+        IntentFilter filter = new IntentFilter(winLog);
+        registerReceiver(receiver, filter);
+
         Context context = getApplicationContext();
         if (null == wManager) {
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -87,10 +93,4 @@ public class FloatWindowInfoService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    /**
-     * 输出信息到窗口
-     */
-    public void outInfo(String msg) {
-        floatWindow.findViewById(R.class.getModifiers());
-    }
 }
