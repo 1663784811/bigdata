@@ -36,6 +36,17 @@ public class WebSocketServer {
      */
     private volatile static ConcurrentHashMap<String, ConnectSession> connectSessionMap = new ConcurrentHashMap<>();
 
+    public static void crateBoardMessage(String boardId) {
+        Board board = socketBoard.get(boardId);
+        if (null != board) {
+            CopyOnWriteArrayList<String> userList = board.getUserList();
+            for (int i = 0; i < userList.size(); i++) {
+                ConnectSession connectSession = connectSessionMap.get(userList.get(i));
+                Session session = connectSession.getSession();
+                sendMessage("{code:1}", session);
+            }
+        }
+    }
 
     /**
      * 连接建立成功调用的方法
@@ -58,6 +69,8 @@ public class WebSocketServer {
         connectSessionMap.put(id, ct);
         CopyOnWriteArrayList<String> userList = board.getUserList();
         userList.add(id);
+        // 回复连接信息
+        sendMessage("{code:111}", session);
     }
 
     /**
@@ -127,8 +140,12 @@ public class WebSocketServer {
     /**
      * 实现服务器主动推送
      */
-    public void sendMessage(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText(message);
+    public static void sendMessage(String message, Session session) {
+        try {
+            session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            log.error(String.valueOf(e));
+        }
     }
 
 }

@@ -3,11 +3,13 @@
     <s-header name='选择用餐人数' :noback="true" :showMenu="false"></s-header>
 
     <div class="headerBox">
-      <div>ion</div>
+      <div>餐桌号:A001</div>
       <div>请选择正确用餐人数,小马上为您上餐具</div>
     </div>
     <div>
-
+      <div v-for="i in 12">
+        {{ i }}
+      </div>
     </div>
     <div class="btnBox">
       <div @click="startOrder">点菜</div>
@@ -50,8 +52,7 @@ onMounted(() => {
 
 const startOrder = () => {
   // 第一步:提交人数到服务器
-
-
+  console.log('ssssssssssss')
 }
 
 // 1. 监听餐台状态, 开餐则跳转点餐页面
