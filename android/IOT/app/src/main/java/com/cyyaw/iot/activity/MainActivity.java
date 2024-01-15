@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.cyyaw.iot.R;
-import com.cyyaw.iot.activity.adapter.MyPagerAdapter;
+import com.cyyaw.iot.activity.adapter.ViewPagerAdapter;
 import com.cyyaw.iot.activity.entity.TabEntity;
 import com.cyyaw.iot.activity.fragment.HomeFragment;
 import com.cyyaw.iot.activity.fragment.MyFragment;
 import com.cyyaw.iot.activity.fragment.NewsFragment;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -46,14 +47,42 @@ public class MainActivity extends BaseActivity {
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(NewsFragment.newInstance());
         mFragments.add(MyFragment.newInstance());
-
-
-        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
-
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
         commonTabLayout.setTabData(mTabEntities);
+
+        // 设置事件
+        commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+                if (position == 0) {
+//                    viewPager.showMsg(0, mRandom.nextInt(100) + 1);
+//                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
+                }
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                commonTabLayout.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
 
     }
 
