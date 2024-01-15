@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] mTitles;
     private ArrayList<Fragment> mFragments;
+    private String[] mTitles;
 
-    public MyPagerAdapter(FragmentManager fm, String[] titles, ArrayList<Fragment> fragments) {
+    public MyPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments, String[] mTitles) {
         super(fm);
-        this.mTitles = titles;
-        this.mFragments = fragments;
+        this.mFragments = mFragments;
+        this.mTitles = mTitles;
     }
 
     @Override

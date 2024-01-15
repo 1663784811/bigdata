@@ -15,7 +15,6 @@ import com.cyyaw.iot.activity.fragment.MyFragment;
 import com.cyyaw.iot.activity.fragment.NewsFragment;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 
@@ -47,41 +46,16 @@ public class MainActivity extends BaseActivity {
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(NewsFragment.newInstance());
         mFragments.add(MyFragment.newInstance());
+
+
+        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
         commonTabLayout.setTabData(mTabEntities);
-        commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                viewPager.setCurrentItem(position);
-            }
 
-            @Override
-            public void onTabReselect(int position) {
-            }
-        });
-        viewPager.setOffscreenPageLimit(mFragments.size());
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                commonTabLayout.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mTitles, mFragments));
     }
-
-
 
 
     private void simulateClick() {

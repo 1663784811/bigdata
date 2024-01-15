@@ -1,4 +1,4 @@
-package com.cyyaw.iot.view;
+package com.cyyaw.iot.activity.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
