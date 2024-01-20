@@ -3,23 +3,28 @@ export const enterprise = {
     children: [
         {
             path: 'peopleCenter',
-            component: () => import('@/views/admin/account/PeopleCenter.vue'),
             name: 'peopleCenter',
+            component: () => import('@/views/admin/account/PeopleCenter.vue'),
         },
         {
             path: 'dashboard',
-            component: () => import('@/views/admin/enterprise/Dashboard.vue'),
             name: 'dashboard',
+            component: () => import('@/views/admin/enterprise/Dashboard.vue'),
         },
         {
             path: 'appCenter',
-            component: () => import('@/views/admin/enterprise/AppCenter.vue'),
             name: 'appCenter',
+            component: () => import('@/views/admin/enterprise/AppCenter.vue'),
+        },
+        {
+            path: 'systemMonitor',
+            name: 'systemMonitor',
+            component: () => import('@/views/admin/enterprise/SystemMonitor.vue'),
         },
         {
             path: 'List',
-            component: () => import('@/views/admin/enterprise/List.vue'),
             name: 'enterprise',
+            component: () => import('@/views/admin/enterprise/List.vue'),
         },
         {
             path: 'storeList',
@@ -29,18 +34,18 @@ export const enterprise = {
         },
         {
             path: 'storehouse',
-            component: () => import('@/views/admin/enterprise/Storehouse.vue'),
             name: 'storehouse',
+            component: () => import('@/views/admin/enterprise/Storehouse.vue'),
         },
         {
             path: 'productCenter',
-            component: () => import('@/views/admin/enterprise/productCenter.vue'),
             name: 'productCenter',
+            component: () => import('@/views/admin/enterprise/productCenter.vue'),
         },
         {
             path: 'MyProductCenter',
-            component: () => import('@/views/admin/enterprise/MyProductCenter.vue'),
             name: 'MyProductCenter',
+            component: () => import('@/views/admin/enterprise/MyProductCenter.vue'),
         }
     ]
 

@@ -34,7 +34,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             name: '系统监控',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'systemMonitor'
                         },
                         {
                             name: '应用中心',
