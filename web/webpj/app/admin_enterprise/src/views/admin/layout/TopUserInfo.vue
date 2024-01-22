@@ -5,6 +5,12 @@
     </div>
 
     <div class="userInfoItem">
+      <div class="textNote" @click="debuggerFn">
+        <Icon class="icon" type="md-notifications"/>
+      </div>
+    </div>
+
+    <div class="userInfoItem">
       <div class="textNote">
         <Icon class="icon" type="md-contract"/>
       </div>
@@ -60,10 +66,13 @@
 import {useRouter} from "vue-router";
 import {useAdminMenuStore} from "@/store/adminMenu.js";
 import {loginInfo} from "@/store/loginInfo.js";
+import {useConfigModule} from "@/store/configModule.js";
 
 
 const store = useAdminMenuStore();
 const loginInfoSt = loginInfo();
+const configModule = useConfigModule();
+
 
 console.log(store)
 
@@ -84,6 +93,11 @@ const logOut = function () {
 const goFn = (name) => {
   router.push({name})
 }
+
+const debuggerFn = () => {
+  configModule.configPage.showOperation = true;
+}
+
 
 </script>
 

@@ -1,17 +1,13 @@
 <template>
-  <DataTable :setting="state.newTable" @event="eventFn"/>
-
-
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
-import DataTable from '@/component/modal/DataTable.vue'
-import {pageConfig} from "@/store/pageConfig.js";
-import {onMounted, reactive, ref} from "vue";
 
+import {onMounted, reactive, ref} from "vue";
+import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
-
 
 const state = reactive({
   pageData: {},
@@ -21,31 +17,17 @@ const state = reactive({
   },
 })
 
-
-onMounted(() => {
+onMounted(()=>{
   initFn();
 })
 
-
 const initFn = async () => {
-  const pageCode = 'role'
-  state.pageData = await usePageConfig.getPageConfig(pageCode);
-  state.newTable = state.pageData.newTable;
-  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
-}
-
-const eventFn = (eventObj) => {
-  if (eventObj.even === 'department') {
-    state.pageData.drawerSetting.show = true;
-    state.pageData.drawerSetting.data = eventObj.data;
-    state.drawerSetting = state.pageData.drawerSetting;
-    console.log('ssssssssssssssssssss', eventObj)
-  }
-  console.log(eventObj)
+  const pageCode = 'ent_shopping_user'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
 }
 
 </script>
 
 <style scoped lang="less">
-
 </style>
