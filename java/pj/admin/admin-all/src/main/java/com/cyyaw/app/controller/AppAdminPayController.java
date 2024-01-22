@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(tags = "APP管理员支付设置")
-@RequestMapping("/app/{appId}/admin/pay")
+@RequestMapping("/app/{appId}/pay")
 @RestController
 public class AppAdminPayController {
 

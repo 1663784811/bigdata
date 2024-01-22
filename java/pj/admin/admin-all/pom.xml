@@ -83,6 +83,12 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-tools-pay</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
     </dependencies>
 
