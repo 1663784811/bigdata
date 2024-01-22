@@ -26,19 +26,17 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 const loginInfoSt = loginInfo();
-
-
-userInfo({}, ).then((rest) => {
-  console.log(rest);
-
-})
-onMounted(() => {
+onMounted( () => {
   if (!loginInfoSt.token) {
     router.replace({
       name: 'login',
       query: {
-        eCode: loginInfoSt.eCode
+        eCode: loginInfoSt.variable.eCode
       }
+    })
+  } else {
+    userInfo({}, loginInfoSt.variable.eCode).then((rest) => {
+      console.log(rest);
     })
   }
 })
@@ -59,7 +57,7 @@ onMounted(() => {
 
   .mainContent {
     flex: 1;
-    padding: 10px 8px;
+    padding: 15px;
     height: 100%;
     overflow: auto;
   }

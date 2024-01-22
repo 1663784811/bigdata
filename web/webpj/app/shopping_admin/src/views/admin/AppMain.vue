@@ -25,7 +25,6 @@ onMounted(async () => {
     loginInfoSt.storeInfo = {}
     await router.replace({name: 'welcomePage'});
   }
-
 })
 </script>
 <style scoped lang="less">

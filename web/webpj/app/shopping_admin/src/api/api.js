@@ -46,7 +46,7 @@ export const enterpriseFindPage = (params, code) => {return axios.get( `${baseUr
 // 获取菜单
 export const apiAdminMenu = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/menu`, params);}
 //
-export const findPageWebImage = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/menu`, params);}
+export const findPageWebImage = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/messsssssssssnu`, params);}
 export const findIdCPageComponents = (params, code) => {return axios.get( `${baseUrl}/appAdmin/config/cpagecomponents/findIdCPageComponents`, params);}
 export const findCPageComponents = (params, code) => {return axios.get( `${baseUrl}/appAdmin/config/cpagecomponents/findPage`, params);}
 export const loadTable = (params, code) => {return axios.get( `${baseUrl}/appAdmin/buildCode/loadTable`, params);}

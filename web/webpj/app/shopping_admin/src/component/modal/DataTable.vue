@@ -1,32 +1,33 @@
 <template>
   <div class="commonTable">
+
     <!-- ========================================   搜索   ======================================== -->
-    <div class="searchBox">
-      <div class="searchRow" v-for="(item,index) in searchObj.columns" :key="index" v-if="searchObj.queryRequest.show">
-        <div class="inputLabel">{{ item.title }}:</div>
-        <Input v-model="item.searchVal" :placeholder="item.javaWhere" clearable style="width: auto"/>
-      </div>
-      <div class="btnBox">
-        <Button class="btn" type="success" icon="ios-search" @click="search" v-if="searchObj.queryRequest.show">
-          搜索
-        </Button>
-        <Button class="btn" type="warning" icon="ios-search" @click="addData" v-if="searchObj.saveRequest.show">
-          添加
-        </Button>
-        <Button class="btn" type="error" icon="md-trash" @click="delSelect" v-if="searchObj.delRequest.show">
-          删除
-        </Button>
-      </div>
+    <div class="searchBox" v-if="state.searchObj.show">
+      <template v-for="(item,index) in state.searchObj.columns" :key="index">
+        <template v-if="item.show">
+          <template v-if="item.name == '搜索'">
+            <div class="searchRow" v-for="(pt,inx) in item.parameter" :key="inx">
+              <div class="inputLabel">{{ pt.title }}:</div>
+              <Input v-model="pt.val" :placeholder="pt.javaWhere" clearable style="width: auto"/>
+            </div>
+          </template>
+          <div class="btnBox">
+            <Button class="btn" :type="item.type" :icon="item.icon" @click="searchBoxEven(item, index)">
+              {{ item.name }}
+            </Button>
+          </div>
+        </template>
+      </template>
     </div>
+
     <!--  ===========================  表格 ========================================  -->
     <div class="tableBox">
       <div class="tableColumnsBtn">
-        <Button type="primary" icon="md-list" @click="objConfig.isShowColumns = !objConfig.isShowColumns"/>
-        <Drawer title="字段" :closable="true" v-model="objConfig.isShowColumns">
-          <div style="margin: 6px 0" v-for=" (columnsItem,inx) in objConfig.columnsList" :key="inx">
-            <Switch v-model="columnsItem.isShowColumn"
-                    @on-change="changeColumnsList"/>
-            {{ columnsItem.title }}
+        <Button type="primary" icon="md-list" @click="state.tableObj.showColumns = !state.tableObj.showColumns"/>
+        <Drawer title="字段" :closable="true" v-model="state.tableObj.showColumns">
+          <div style="margin: 6px 0" v-for=" (item,inx) in state.tableObj.columns" :key="inx">
+            <Switch v-model="item.isShowColumn" @on-change="changeColumnsList"/>
+            {{ item.title }}
           </div>
         </Drawer>
       </div>
@@ -36,35 +37,35 @@
              highlight-row
              stripe
              size="small"
-             :columns="objConfig.columns"
-             :data="objConfig.data"
-             :loading="objConfig.loading"
+             :columns="state.showTableObj.columns"
+             :data="state.tableObj.data"
+             :loading="state.tableObj.loading"
              @on-row-click="selectData"
              @on-selection-change="selectDataChange"
       >
       </Table>
     </div>
-    <!-- ========================================  分页  ======================================== -->
+    <!-- ===== 分页 ===== -->
     <div class="pageBox">
-      <Page :total="objConfig.pageData.total"
-            :page-size="objConfig.pageData.size"
+      <Page :total="state.pageData.total"
+            :page-size="state.pageData.size"
             @on-change="changePage"
             show-elevator/>
     </div>
   </div>
-  <!--==================    ====================-->
+  <!--==================  保存数据  ====================-->
   <ModalDataList
-      v-model="saveData.show"
-      :modalSetting="saveData"
+      v-model="state.saveObj.show"
+      :modalSetting="state.saveObj"
       @event="saveEventFn"
   />
 </template>
 
 <script setup>
-import {defineEmits, ref, watch, resolveComponent, provide, inject} from "vue"
+import {defineEmits, inject, reactive, ref, resolveComponent, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
-import ModalDataList from './modal/ModalDataList.vue'
+import ModalDataList from './ModalDataList.vue'
 import {loginInfo} from "@/store/loginInfo.js";
 
 const loginInfoSt = loginInfo();
@@ -73,46 +74,40 @@ const emits = defineEmits(['event']);
 const commonTableSearchData = inject('commonTableSearchData', {})
 
 const props = defineProps({
-  tableSetting: {
+  setting: {
     type: Object,
     default: {},
     required: false
-  }
+  },
+  modelValue: {
+    type: Boolean,
+    default: true
+  },
 });
 
-const operationObj = ref({});
-
-
-const searchObj = ref({
-  columns: [],
-  queryRequest: {
-    url: '',
-    show: false,
-    parameter: {}
+const state = reactive({
+  // ===============  搜索
+  searchObj: {},
+  // ===============  表格
+  tableObj: {
+    queryRequest: {}
   },
-  saveRequest: {
-    url: '',
+  showTableObj: {},
+  // ===============  保存
+  saveObj: {
     show: false,
-    parameter: {}
+    loading: true,
+    editor: false,
+    data: {},
+    columns: [],
+    url: ''
   },
-  delRequest: {
-    url: '',
-    show: false,
-    parameter: {}
-  }
-});
+  showSaveObj: {},
 
-const objConfig = ref({
-  columns: [],
-  data: [],
   pageData: {
     total: 0,
     size: 10
-  },
-  loading: false,
-  isShowColumns: false,
-  columnsList: [],
-  selectData: []
+  }
 });
 
 const saveData = ref({
@@ -121,6 +116,134 @@ const saveData = ref({
   data: {},
   show: false
 });
+
+// ==========================================
+const searchBoxEven = (item, index) => {
+  console.log(item, index)
+  if (item.even === 'search') {
+    search(item.parameter);
+  } else if (item.even === 'save') {
+    state.saveObj.show = true;
+    state.saveObj.data = {};
+  } else if (item.even === 'del') {
+    // console.log(item)
+  } else {
+    emits('event', {
+      even: item.even,
+      data: item
+    });
+  }
+}
+
+const search = (columns = []) => {
+  state.pageData.page = 1;
+  let searchData = {}
+  for (let i = 0; i < columns.length; i++) {
+    const it = columns[i]
+    if (it.val) {
+      searchData[it.javaWhere + "_" + it.key] = it.val
+    }
+  }
+  state.tableObj.queryRequest.pm = searchData;
+  loadData();
+}
+
+/**
+ * 加载数据
+ */
+const loadData = () => {
+  if (state.tableObj.queryRequest.url) {
+    state.tableObj.loading = true;
+    commonRequest(
+        loginInfoSt.reLoadUrl(state.tableObj.queryRequest.url),
+        {
+          ...state.tableObj.queryRequest.parameter,
+          ...state.tableObj.queryRequest.pm,
+          ...commonTableSearchData.value,
+          ...state.pageData
+        }
+    ).then((res) => {
+      if (res.data && res.data.length !== undefined) {
+        state.tableObj.data = res.data;
+      } else {
+        console.error("返回的数据格式有误, data: ", res.data);
+      }
+      state.pageData.total = res.result.total;
+    }).catch(err => {
+      state.tableObj.loading = false;
+      state.tableObj.data = [];
+      console.log(err);
+    }).finally(() => {
+      state.tableObj.loading = false;
+    })
+  }
+}
+
+
+/**
+ * 初始化表格
+ */
+const initFn = () => {
+  // 表格初始化
+  initTable();
+  // 初始化保存列表
+  initSave();
+  // 加载数据
+  loadData()
+}
+
+/**
+ * 表格初始化
+ */
+const initTable = () => {
+  const {columns, operation} = state.tableObj;
+  const temp = [];
+  for (let i = 0; i < columns.length; i++) {
+    const itemObj = columns[i];
+    if (itemObj.isShowColumn) {
+      if (itemObj.type == 'img' || itemObj.type == 'filters') {
+        itemObj.render = (h, params) => {
+          return createH(itemObj, h, params);
+        }
+      }
+      temp.push(itemObj);
+    }
+  }
+  if (operation && operation.show) {
+    operation.render = (h, params) => {
+      return createH(operation, h, params);
+    }
+    temp.push(operation)
+  }
+
+  state.showTableObj.columns = temp;
+}
+const changeColumnsList = () => {
+  initTable();
+}
+
+const initSave = () => {
+  state.showSaveObj.columns = state.saveObj.columns;
+}
+
+
+const selectTableData = (row, index, editor) => {
+  state.saveObj.show = true;
+  state.saveObj.data = row;
+}
+
+// ==========================================
+
+
+const objConfig = ref({
+  columns: [],
+  data: [],
+  loading: false,
+  isShowColumns: false,
+  columnsList: [],
+  selectData: []
+});
+
 
 // ======================================================
 const selectData = (row, index) => {
@@ -147,58 +270,9 @@ const selectDataChange = (rows) => {
 }
 
 // ======================================================
-/**
- * 加载数据
- */
-const loadData = () => {
-  objConfig.value.loading = true;
-  commonRequest(
-      loginInfoSt.reLoadUrl(searchObj.value.queryRequest.url),
-      {
-        ...searchObj.value.queryRequest.pm,
-        ...searchObj.value.queryRequest.parameter,
-        ...commonTableSearchData.value,
-        ...objConfig.value.pageData
-      }
-  ).then((res) => {
-    objConfig.value.loading = false;
-    if (res.data && res.data.length !== undefined) {
-      objConfig.value.data = res.data;
-    } else {
-      console.error("返回的数据格式有误, data: ", res.data);
-    }
-    objConfig.value.pageData.total = res.result.total;
-  }).catch(err => {
-    objConfig.value.loading = false;
-    objConfig.value.data = [];
-    console.log(err);
-  })
-}
 
 // ======================================================
-const search = () => {
-  objConfig.value.pageData.page = 1;
-  let columns = searchObj.value.columns;
-  let searchData = {}
-  for (let i = 0; i < columns.length; i++) {
-    const it = columns[i]
-    if (it.searchVal) {
-      searchData[it.javaWhere + "_" + it.key] = it.searchVal
-    }
-  }
-  searchObj.value.queryRequest.pm = searchData;
-  loadData();
-}
 
-const addData = () => {
-  saveData.value.data = {};
-  saveData.value.show = true;
-}
-
-const selectTableData = (row, index, editor) => {
-  saveData.value.show = true;
-  saveData.value.data = row;
-}
 
 /**
  * 点击删除
@@ -226,8 +300,7 @@ const delTableDataFn = (idArr = []) => {
     okText: '删除',
     loading: true,
     onOk: () => {
-      const url = searchObj.value.delRequest.url;
-      console.log(url);
+      const url = loginInfoSt.reLoadUrl(state.tableObj.delRequest.url);
       commonRequest(url, idArr, 'post').then((rest) => {
         Message.success({
           content: `${rest.data ? rest.data : rest.msg}`,
@@ -248,7 +321,7 @@ const delTableDataFn = (idArr = []) => {
 
 
 const changePage = (page) => {
-  objConfig.value.pageData.page = page
+  state.pageData.page = page
   loadData();
 }
 
@@ -261,109 +334,71 @@ const saveEventFn = (ev, itemData) => {
   }
 }
 const Save = (itemData) => {
-  let url = searchObj.value.saveRequest.url;
+  let url = state.saveObj.url;
   let parameter = itemData;
   if (!url || url === '/admin/common/save') {
     url = "/admin/common/save";
     parameter = {
-      ...searchObj.value.saveRequest.parameter,
+      ...state.saveObj.parameter,
       data: [itemData]
     }
   }
-  commonRequest(url, parameter, 'post').then((rest) => {
-    saveData.value.data = rest.data;
-    Message.success({
-      content: `${rest.msg}`,
-      onClose: () => {
-        saveData.value.show = false;
-        loadData();
-      }
-    })
+  commonRequest(loginInfoSt.reLoadUrl(url), parameter, 'post').then((rest) => {
+    if (rest.code === 2000) {
+      state.saveObj.data = rest.data;
+      Message.success({
+        content: `${rest.msg}`,
+        onClose: () => {
+          state.saveObj.show = false;
+          loadData();
+        }
+      })
+    }
   }).catch(err => {
     Message.error({
       content: `${err}`
     })
-    saveData.value.loading = false;
-    setTimeout(() => {
-      saveData.value.loading = true;
-    })
   }).finally(() => {
-
+    state.saveObj.loading = false;
+    setTimeout(() => {
+      state.saveObj.loading = true;
+    })
   })
 }
 const Cancel = (itemData) => {
-  console.log('dddd', itemData)
+  console.log('cancel', itemData)
 }
 
 
 // ==============================================
-watch(() => props.tableSetting, () => {
-  const setting = props.tableSetting;
+watch(() => props.setting, () => {
+  const setting = props.setting;
+  console.log("=================  变化  ===================", setting)
   if (setting) {
-    if (setting.columns) {
-      saveData.value.columns = setting.columns;
+    if (setting.searchObj) {
+      state.searchObj = setting.searchObj;
     }
-    operationObj.value = setting.operation
-    if (setting.columns) {
-      objConfig.value.columnsList = setting.columns;
-      setTimeout(() => {
-        initFn()
-        loadData()
-      })
+    if (setting.tableObj) {
+      state.tableObj = setting.tableObj;
     }
-    searchObj.value.queryRequest = setting.requestObj.queryRequest;
-    searchObj.value.saveRequest = setting.requestObj.saveRequest;
-    searchObj.value.delRequest = setting.requestObj.delRequest;
+    if (setting.saveObj) {
+      state.saveObj = setting.saveObj;
+    }
+    initFn();
   } else {
     console.log("=========== 未设置数据 =======", setting)
   }
-
 }, {deep: false, immediate: false})
 
 watch(() => commonTableSearchData.value, () => {
   search()
 }, {deep: false, immediate: false})
 
+watch(() => props.modelValue, () => {
+  console.log('设置数据未设置数据未设置数据未设置数据ss')
+})
 
 //==============================
-const changeColumnsList = () => {
-  initFn();
-}
-
-/**
- * 初始化表格
- */
-const initFn = () => {
-  const arr = objConfig.value.columnsList;
-  const temp = [];
-  const searchTemp = [];
-  for (let i = 0; i < arr.length; i++) {
-    const itemObj = arr[i];
-    if (itemObj.isShowColumn) {
-      if (itemObj.type == 'img' || itemObj.type == 'filters') {
-        itemObj.render = (h, params) => {
-          return createH(itemObj, h, params);
-        }
-      }
-      temp.push(itemObj);
-    }
-    if (itemObj.isShowSearch) {
-      searchTemp.push(itemObj)
-    }
-  }
-  const setting = props.tableSetting;
-  // 是否显示操作列
-  if (setting.operation && setting.operation.show) {
-    const operation = setting.operation;
-    operation.render = (h, params) => {
-      return createH(operation, h, params);
-    }
-    temp.push(operation)
-  }
-  objConfig.value.columns = temp;
-  searchObj.value.columns = searchTemp;
-  console.log(searchTemp)
-}
 
 
 const createH = (columnsItem, h, params) => {
@@ -372,18 +407,18 @@ const createH = (columnsItem, h, params) => {
   if (columnsItem.key === 'operation') {
     for (const operationKey in columnsItem.operationArr) {
       const opObj = columnsItem.operationArr[operationKey];
-      let btnType = 'info';
-      if (opObj.btnType) {
-        btnType = opObj.btnType;
+      let type = 'info';
+      if (opObj.type) {
+        type = opObj.type;
       } else if (opObj.label === '查看') {
-        btnType = 'info';
+        type = 'info';
       } else if (opObj.label === '修改') {
-        btnType = 'warning';
+        type = 'warning';
       } else if (opObj.label === '删除') {
-        btnType = 'error';
+        type = 'error';
       }
       hArr.push(h(resolveComponent('Button'), {
-        type: btnType,
+        type: type,
         size: 'small',
         style: {
           marginRight: '5px'
@@ -468,16 +503,14 @@ const createH = (columnsItem, h, params) => {
     .searchRow {
       display: flex;
       align-items: center;
-      margin-right: 10px;
 
       .inputLabel {
+        margin-left: 6px;
         margin-right: 4px;
       }
     }
 
     .btnBox {
-      margin-left: 10px;
-
       .btn {
         margin: 0 6px;
       }

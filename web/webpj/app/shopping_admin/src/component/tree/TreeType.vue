@@ -1,37 +1,51 @@
 <template>
-  <div class="menuBox">
-    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" show-checkbox>
+  <div class="menuBox" :style="style">
+    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
-        <DropdownItem @click="handleContextMenuSave(true)">编辑</DropdownItem>
-        <DropdownItem @click="handleContextMenuDelete" style="color: #ed4014">删除</DropdownItem>
+        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>
+        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuDelete" style="color: #ed4014">删除
+        </DropdownItem>
       </template>
     </Tree>
   </div>
-
   <ModalDataList
       v-model="saveData.show"
       :modalSetting="saveData"
       @event="saveEventFn"
   />
-
 </template>
 
 <script setup>
 
 import {defineEmits, ref, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
-import ModalDataList from '@/component/ModalDataList.vue'
+import ModalDataList from '@/component/modal/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";
 
-const emits = defineEmits(['event']);
+const emits = defineEmits(['event', 'selectChange']);
 
 const props = defineProps({
-  treeSetting: {
+  setting: {
     type: Object,
     default: {},
+    required: false
+  },
+  style: {
+    type: Object,
+    default: {},
+    required: false
+  },
+  asTitle: {
+    type: String,
+    default: null,
+    required: false
+  },
+  editer: {
+    type: Boolean,
+    default: false,
     required: false
   }
 });
@@ -63,11 +77,12 @@ const saveData = ref({
 
 const objConfig = ref(
     {
+      showMainMenu: false,
       data: [
         {
           title: '全部',
           expand: true,
-          contextmenu: true,
+          contextmenu: props.editer,
           children: []
         }
       ]
@@ -75,8 +90,8 @@ const objConfig = ref(
 // ======================================================
 
 const initFn = async () => {
-  if (props.treeSetting) {
-    saveData.value.columns = getAddColumns(props.treeSetting.columns);
+  if (props.setting) {
+    saveData.value.columns = getAddColumns(props.setting.columns);
   }
 }
 initFn();
@@ -97,7 +112,9 @@ const loadData = () => {
   ).then((rest) => {
     const {data} = rest;
     const arr = [];
-    if (data) {
+    if (data && data.root && data.root.length > 0) {
+      arr.push(...reTree(data.root));
+    } else if (data) {
       arr.push(...reTree(data));
     }
     objConfig.value.data[0].children = arr;
@@ -121,7 +138,10 @@ const reTree = (list) => {
   for (let i = 0; i < list.length; i++) {
     let itemObj = list[i];
     itemObj.expand = true;
-    itemObj.contextmenu = true;
+    itemObj.contextmenu = props.editer;
+    if (props.asTitle) {
+      itemObj.title = itemObj[props.asTitle]
+    }
     if (itemObj.children && itemObj.children.length > 0) {
       itemObj.children = reTree(itemObj.children);
     }
@@ -131,7 +151,12 @@ const reTree = (list) => {
 
 
 const handleContextMenu = (data, event, position) => {
-  console.log(data)
+  console.log(data, position)
+  if (data.nodeKey === 0) {
+    objConfig.value.showMainMenu = false;
+  } else {
+    objConfig.value.showMainMenu = true;
+  }
   selectData.value = data;
 }
 /**
@@ -164,9 +189,7 @@ const handleContextMenuDelete = () => {
   const id = selectData.value.data.id;
   commonRequest(
       url,
-      {
-        id
-      },
+      [id],
       'post'
   ).then((res) => {
     console.log(res)
@@ -205,9 +228,19 @@ const saveEventFn = (ev, itemData) => {
   }
 }
 
+const selectTreeFn = (arr, obj) => {
+  const tempArr = []
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].title !== '全部') {
+      tempArr.push(arr[i].data)
+    }
+  }
+  emits('selectChange', tempArr, obj);
+}
+
 // =======================================
-watch(() => props.treeSetting, () => {
-  const setting = props.treeSetting;
+watch(() => props.setting, () => {
+  const setting = props.setting;
   console.log("=========== props =======")
   if (setting) {
     if (setting.columns) {
@@ -228,6 +261,7 @@ watch(() => props.treeSetting, () => {
   }
 }, {deep: false, immediate: false})
 // =======================================
+
 
 </script>
 

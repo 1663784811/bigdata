@@ -71,7 +71,7 @@
 <script setup>
 
 import {ref} from "vue";
-import {commonRequest} from "@/api/api";
+import {commonRequest} from "@/api/api.js";
 
 const selectPanel = ref({
   show: false,
