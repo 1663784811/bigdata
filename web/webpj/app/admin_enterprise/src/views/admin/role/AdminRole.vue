@@ -14,7 +14,9 @@ const usePageConfig = pageConfig();
 
 
 const state = reactive({
-  pageData: {},
+  pageData: {
+    drawerSetting:{}
+  },
   drawerSetting: {},
   newTable: {
     show: true

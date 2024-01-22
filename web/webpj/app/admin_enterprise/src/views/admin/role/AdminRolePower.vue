@@ -1,5 +1,5 @@
 <template>
-  <data-table :setting="state.newTable" />
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>

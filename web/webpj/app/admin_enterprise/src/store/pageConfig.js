@@ -28,7 +28,7 @@ export const pageConfig = defineStore('pageConfig', {
             pageCodeList: {}
         });
         const getPageConfig = async (pageCode) => {
-            console.log("=========== 获取配置 =============  ", pageCode)
+            componentConfig.value.pageCodeList[pageCode] = pageCode
             let codeData = pageConfigList.value[pageCode]
             if (!codeData) {
                 const loadData = await pageSetting({pageCode: pageCode, url: window.location.href});
