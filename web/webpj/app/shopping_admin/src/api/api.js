@@ -1,158 +1,66 @@
-import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
-
+import axios from "./axiosRequest";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-export const commonRequest = (url, parameter, type = 'get') => {
+// =====================================================================
+// =====================================================================
+// =====================================================================
+// 获取页面设置
+export const pageSetting = (params = {}, code) => {return axios.get( `${baseUrl}/tx/config/page/pageSetting`, {params});}
+//获取表格数据
+export const getSqlList = (params, code) => {return axios.get( `${baseUrl}/appAdmin/common/sql/sqlList`, params);}
+//保存SQL
+export const saveSql = (params, code) => {return axios.get( `${baseUrl}/appAdmin/common/sql/saveSql`, params);}
+// 获取页面设置
+export const findSetting = (params, code) => {return axios.get( `${baseUrl}/tx/config/page/findSetting`, params);}
+//
+export const saveComponents = (params, code) => {return axios.post( `${baseUrl}/tx/config/page/saveComponents`, params);}
+
+// ===============================================================================================================================================================================================================
+// ===============================================================================================================================================================================================================
+// ===============================================================================================================================================================================================================
+export const commonRequest = (url, params, type = 'get') => {
     if (type === 'post') {
-        return AJAXPOST(`${baseUrl}${url}`, parameter, 1)
+        return axios.post(`${baseUrl}${url}`, params);
     } else {
-        return AJAXGET(`${baseUrl}${url}`, parameter)
+        return axios.get( `${baseUrl}${url}`, {params})
     }
 }
+//通用查询
+export function commonQuery(params = {}, code) {return axios.get(`${baseUrl}/appAdmin/${code}/common/query`, {params});}
+//通用保存
+export function commonSave(params = {}, code) {return axios.post(`${baseUrl}/appAdmin/${code}/common/save`, params);}
+//登录
+export const logInFn = (params = {}, code) => {return axios.post(`${baseUrl}/appAdmin/${code}/login/login`, params);}
+//注册
+export const register = (params = {}) => {return axios.post(`${baseUrl}/appAdmin/${code}/login/register`, params);}
+//
+export const logout = (code) => {return axios.get(`${baseUrl}/appAdmin/${code}/user/login`)}
+//
+export const userInfo = (params = {}, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/userInfo`, {params});}
 
-// =======================================================  通用
-// 通用查询
-export const commonQuery = (parameter, appId) => {
-    return AJAXGET(`${baseUrl}/admin/${appId}/common/query`, parameter)
-}
-
-
-// =======================================================
-
-/**
- * 获取表格数据
- */
-export const getSqlList = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/common/sql/sqlList`, parameter)
-}
-
-/**
- * 保存SQL
- */
-export const saveSql = (parameter) => {
-    return AJAXPOST(`${baseUrl}/admin/common/sql/saveSql`, parameter, 1)
-}
-
-/**
- * 获取管理员菜单
- */
-export const apiAdminMenu = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
-}
-/**
- * 查询系统菜单
- */
-export const queryMenu = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/power/queryMenu`, parameter, 1)
-}
-
-/**
- * 保存系统菜单
- */
-export const saveMenu = (parameter) => {
-    return AJAXPOST(`${baseUrl}/admin/power/saveMenu`, parameter, 1)
-}
-
-/**
- * 删除系统菜单
- */
-export const delMenu = (parameter) => {
-    return AJAXPOST(`${baseUrl}/admin/power/delMenu`, parameter, 1)
-}
-
-/**
- * 获取页面设置
- */
-export const pageSetting = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/tx/config/page/pageSetting`, parameter, 0)
-}
-
-/**
- * 获取页面设置
- */
-export const findSetting = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/tx/config/page/findSetting`, parameter, 0)
-}
-/**
- * 获取页面设置
- */
-export const saveComponents = (parameter, showMsg = false) => {
-    return AJAXPOST(`${baseUrl}/tx/config/page/saveComponents`, parameter, 1, showMsg)
-}
-
-/**
- * 登录
- */
-export const logInFn = (parameter, appId) => {
-    return asyncREQUEST(`${baseUrl}/app/${appId}/admin/login/adminLogin`, parameter, 1, "post")
-}
-
-/**
- * 获取用户信息
- */
-export const userInfo = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/admin/user/info`, parameter, 0, "get")
-}
-
-/**
- * 获取企业信息
- */
-export const enterpriseFindPage = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
-}
-
-export const findIdCPageComponents = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, parameter, 0)
-}
-
-export const findCPageComponents = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findPage`, parameter, 0)
-}
+// ===============================================================================================================================================================================================================
+// ===============================================================================================================================================================================================================
+// ===============================================================================================================================================================================================================
+//获取企业信息
+export const enterpriseFindPage = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/enterprise/enterpriseInfo`, params);}
+// 获取菜单
+export const apiAdminMenu = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/menu`, params);}
+//
+export const findPageWebImage = (params, code) => {return axios.get( `${baseUrl}/appAdmin/${code}/user/menu`, params);}
+export const findIdCPageComponents = (params, code) => {return axios.get( `${baseUrl}/appAdmin/config/cpagecomponents/findIdCPageComponents`, params);}
+export const findCPageComponents = (params, code) => {return axios.get( `${baseUrl}/appAdmin/config/cpagecomponents/findPage`, params);}
+export const loadTable = (params, code) => {return axios.get( `${baseUrl}/appAdmin/buildCode/loadTable`, params);}
+export const findIdGGoods = (params, code) => {return axios.get( `${baseUrl}/appAdmin/gGoods/findIdGGoods`, params);}
+export const goodsPhoto = (params, code) => {return axios.get( `${baseUrl}/shopping/goods/search/goodsPhoto`, params);}
+export const findGoodsSku = (params, code) => {return axios.get( `${baseUrl}/shopping/appAdmin/findGoodsSku`, params);}
+export const saveGGoods = (params, code) => {return axios.get( `${baseUrl}/appAdmin/gGoods/saveGGoods`, params);}
+export const saveGStoreGoodsSku = (params, code) => {return axios.get( `${baseUrl}/appAdmin/gStoreGoodsSku/saveGStoreGoodsSku`, params);}
+export const enterpriseRegister = (params, code) => {return axios.get( `${baseUrl}/login/appAdmin/enterpriseRegister`, params);}
+export const getPhoneList = (params, code) => {return axios.get( `${baseUrl}/appAdmin/phone/phone/phoneList`, params);}
 
 
-export const loadTable = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/buildCode/loadTable`, parameter, 0)
-}
 
 
-/**
- * 查询企业部门
- */
-export const dss = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/buildCode/loadTable`, parameter, 0)
-}
 
-
-export const findIdGGoods = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/gGoods/findIdGGoods`, parameter, 0)
-}
-
-
-export const goodsPhoto = (parameter) => {
-    return AJAXGET(`${baseUrl}/shopping/goods/search/goodsPhoto`, parameter, 0)
-}
-
-
-export const findGoodsSku = (parameter) => {
-    return AJAXGET(`${baseUrl}/shopping/admin/findGoodsSku`, parameter, 0)
-}
-
-export const saveGGoods = (parameter, showMsg = false) => {
-    return AJAXPOST(`${baseUrl}/admin/gGoods/saveGGoods`, parameter, 1, showMsg)
-}
-
-export const saveGStoreGoodsSku = (parameter, showMsg = false) => {
-    return AJAXPOST(`${baseUrl}/admin/gStoreGoodsSku/saveGStoreGoodsSku`, parameter, 1, showMsg)
-}
-
-
-export const findPageWebImage = (parameter, appId) => {
-    return AJAXGET(`${baseUrl}/admin/image/findPageWebImage`, parameter, 0);
-}
-
-
-export const enterpriseRegister = (parameter, showMsg = false) => {
-    return AJAXPOST(`${baseUrl}/login/admin/enterpriseRegister`, parameter, 1, showMsg)
-}
 
 

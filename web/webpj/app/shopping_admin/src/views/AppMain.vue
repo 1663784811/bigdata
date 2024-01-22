@@ -13,6 +13,7 @@ const router = useRouter();
 const loginInfoSt = loginInfo();
 onMounted(async () => {
   const {code} = route.params;
+  // 查app
   const {data} = await commonQuery({
     code: 'select_e_store_by_code',
     storeId: code

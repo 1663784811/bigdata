@@ -9,7 +9,7 @@ export const pageSetting = (params = {}, eCode) => {return axios.get( `${baseUrl
 //获取表格数据
 export const getSqlList = (params, eCode) => {return axios.get( `${baseUrl}/admin/common/sql/sqlList`, params);}
 //保存SQL
-export const saveSql = (params, eCode) => {return axios.get( `${baseUrl}/admin/common/sql/saveSql`, params);}
+export const saveSql = (params, eCode) => {return axios.post( `${baseUrl}/admin/common/sql/saveSql`, params);}
 // 获取页面设置
 export const findSetting = (params, eCode) => {return axios.get( `${baseUrl}/tx/config/page/findSetting`, params);}
 //

@@ -13,7 +13,7 @@ export const loginInfo = defineStore('loginInfo', {
     },
     state: () => {
         const variable = ref({
-            eCode: ''
+            code: ''
         })
         const userInfo = ref({});
         const token = ref("");

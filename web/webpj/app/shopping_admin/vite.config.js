@@ -9,7 +9,7 @@ const srcPath = path.resolve(__dirname, 'src');
 
 export default defineConfig({
   envDir:"env",
-  base: '/storePage',
+  base: '/shoppingAdmin',
   resolve: {
     // 配置路径别名
     alias: [

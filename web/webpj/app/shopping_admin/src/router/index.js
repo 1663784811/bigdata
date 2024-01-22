@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
+import {welcome} from './welcome.js'
 import {common} from './common.js'
 import {role} from './role.js'
 import {login} from './login.js'
@@ -11,16 +12,7 @@ import {loginInfo} from '../store/loginInfo.js'
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
-        {
-            path: '/',
-            redirect: '/cyyaw/welcomePage'
-        },
-        {
-            path: '/cyyaw/welcomePage',
-            name: 'welcomePage',
-            component: () => import('@/views/welcomePage.vue'),
-            meta: {notLogin: true, title: '欢迎页面'}
-        },
+        ...welcome,
         {
             path: '/:code',
             component: () => import('@/views/AppMain.vue'),
