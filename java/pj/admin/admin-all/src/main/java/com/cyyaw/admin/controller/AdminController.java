@@ -29,7 +29,7 @@ public class AdminController {
     /**
      * 分页条件查询
      */
-    @GetMapping("/findPage")
+    @GetMapping("/findPageTAdmin")
     public BaseResult<TAdmin> findPageTAdmin(@RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         String eId = loginInfo.getEnterpriseCode();
         map.put("eq_enterpriseCode", eId);

@@ -111,6 +111,7 @@ const loadPage = () => {
     size: 1000
   }).then((rest) => {
     const {data} = rest;
+    console.log('eeeeeeeeeeeeeeeeeeeeeee', data)
     state.pageList = data;
   })
 }
