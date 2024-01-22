@@ -24,6 +24,10 @@ public interface LoginService {
     AdminAuthToken loginEnterUserNameAndPassword(String enterpriseCode, String userName, String password);
 
     // ========================================= 3. APP管理
+    /**
+     * 应用后台登录
+     */
+    AdminAuthToken appAdminLogin(String appId, String userName, String password);
 
     // ========================================= 3. APP用户
 
@@ -92,10 +96,6 @@ public interface LoginService {
     TAdmin adminRegister(LoginRequest registerInfo, String eCode);
 
 
-    /**
-     * 应用后台登录
-     */
-    AdminAuthToken appAdminLogin(String appId, String userName, String password);
 
 
 }

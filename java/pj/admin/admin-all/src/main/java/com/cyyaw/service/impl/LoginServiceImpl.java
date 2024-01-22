@@ -110,7 +110,35 @@ public class LoginServiceImpl implements LoginService {
     }
 
     // =================================
-
+    @Override
+    public AdminAuthToken appAdminLogin(String appId, String userName, String password) {
+        TAdmin tAdmin = tAdminDao.findByAccountAndAppId(userName, appId);
+        if (ObjectUtils.isEmpty(tAdmin)) {
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+        }
+        // 第二步: 对比密码
+//        if (!BCryptUtil.matches(password, passworded)) {
+//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+//        }
+        // 查应用
+        // 登录
+        String account = tAdmin.getAccount();
+        String enterpriseCode = tAdmin.getEnterpriseCode();
+        // ==
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setId(tAdmin.getTid());
+        loginInfo.setAccount(tAdmin.getAccount());
+        loginInfo.setRole("");
+        loginInfo.setEnterpriseCode(enterpriseCode);
+        loginInfo.setAppId(appId);
+        loginInfo.setType(LoginType.appAdmin.getType());
+        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
+        AdminAuthToken authToken = new AdminAuthToken();
+        authToken.setTAdmin(tAdmin);
+        authToken.setJwtToken(token);
+        // 第五步: jwt存放到 redis里
+        return authToken;
+    }
 
 
 
@@ -270,33 +298,6 @@ public class LoginServiceImpl implements LoginService {
         return save;
     }
 
-    @Override
-    public AdminAuthToken appAdminLogin(String appId, String userName, String password) {
-        TAdmin tAdmin = tAdminDao.findByAccountAndAppId(userName, appId);
-        if (ObjectUtils.isEmpty(tAdmin)) {
-            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
-        }
-        // 第二步: 对比密码
-//        if (!BCryptUtil.matches(password, passworded)) {
-//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
-//        }
-        // 查应用
-        // 登录
-        String account = tAdmin.getAccount();
-        String enterpriseCode = tAdmin.getEnterpriseCode();
-        // ==
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setId(tAdmin.getTid());
-        loginInfo.setAccount(tAdmin.getAccount());
-        loginInfo.setRole("");
-        loginInfo.setEnterpriseCode(enterpriseCode);
-        loginInfo.setAppId(appId);
-        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
-        AdminAuthToken authToken = new AdminAuthToken();
-        authToken.setTAdmin(tAdmin);
-        authToken.setJwtToken(token);
-        // 第五步: jwt存放到 redis里
-        return authToken;
-    }
+
 
 }

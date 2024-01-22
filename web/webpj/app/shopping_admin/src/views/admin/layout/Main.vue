@@ -15,10 +15,10 @@
 </template>
 
 <script setup>
-import LogoBox from "@/views/layout/LogoBox.vue";
-import TopMenuBox from "@/views/layout/TopMenuBox.vue";
-import TopUserInfo from "@/views/layout/TopUserInfo.vue";
-import LeftMenu from "@/views/layout/LeftMenu.vue";
+import LogoBox from "@/views/admin/layout/LogoBox.vue";
+import TopMenuBox from "@/views/admin/layout/TopMenuBox.vue";
+import TopUserInfo from "@/views/admin/layout/TopUserInfo.vue";
+import LeftMenu from "@/views/admin/layout/LeftMenu.vue";
 import {userInfo} from "@/api/api.js"
 import {loginInfo} from "@/store/loginInfo.js"
 import {onMounted, ref} from 'vue';
@@ -28,7 +28,7 @@ const router = useRouter();
 const loginInfoSt = loginInfo();
 
 
-userInfo({}).then((rest) => {
+userInfo({}, ).then((rest) => {
   console.log(rest);
 
 })

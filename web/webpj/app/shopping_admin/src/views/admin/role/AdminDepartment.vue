@@ -7,7 +7,7 @@
 <script setup>
 import TreeType from '@/component/tree/TreeType.vue'
 
-import {pageConfig} from "@/store/pageConfig";
+import {pageConfig} from "@/store/pageConfig.js";
 import {ref} from "vue";
 
 const usePageConfig = pageConfig();

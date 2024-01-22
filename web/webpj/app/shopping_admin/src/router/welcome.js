@@ -8,7 +8,7 @@ export const welcome = [
     {
         path: '/cyyaw/welcomePage',
         name: 'welcomePage',
-        component: () => import('@/views/welcomePage.vue'),
+        component: () => import('@/views/admin/welcomePage.vue'),
         meta: {notLogin: true, title: '欢迎页面'}
     }
 ]

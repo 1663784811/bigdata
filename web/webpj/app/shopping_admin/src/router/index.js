@@ -15,13 +15,13 @@ const router = createRouter({
         ...welcome,
         {
             path: '/:code',
-            component: () => import('@/views/AppMain.vue'),
+            component: () => import('@/views/admin/AppMain.vue'),
             children: [
                 login,
                 {
                     path: '',
                     name: 'home',
-                    component: () => import('@/views/layout/Main.vue'),
+                    component: () => import('@/views/admin/layout/Main.vue'),
                     children: [
                         common,
                         web,

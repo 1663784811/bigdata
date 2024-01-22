@@ -9,7 +9,12 @@ export const common = {
         {
             path: 'dashboard',
             name: 'dashboard',
-            component: () => import('@/views/home/Dashboard.vue'),
-        }
+            component: () => import('@/views/admin/home/Dashboard.vue'),
+        },
+        {
+            path: 'peopleCenter',
+            name: 'peopleCenter',
+            component: () => import('@/views/admin/account/PeopleCenter.vue'),
+        },
     ]
 }
