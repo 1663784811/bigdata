@@ -15,6 +15,17 @@ import java.util.List;
  */
 public interface LoginService {
 
+    // ========================================= 1. 管理员
+
+    // ========================================= 2. 企业
+    /**
+     * 企业后台登录
+     */
+    AdminAuthToken loginEnterUserNameAndPassword(String enterpriseCode, String userName, String password);
+
+    // ========================================= 3. APP管理
+
+    // ========================================= 3. APP用户
 
     /**
      * 获取用户信息
@@ -71,14 +82,6 @@ public interface LoginService {
      */
     AuthToken weixinLogin(String openid, String unionid);
 
-    /**
-     * 后台登录
-     *
-     * @param userName
-     * @param password
-     * @return
-     */
-    AdminAuthToken loginUserNameAndPassword(String enterpriseCode, String userName, String password);
 
     /**
      * 注册
@@ -86,14 +89,13 @@ public interface LoginService {
      * @param registerInfo
      * @return
      */
-    TAdmin adminRegister(LoginRequest registerInfo,  String eCode);
+    TAdmin adminRegister(LoginRequest registerInfo, String eCode);
 
 
     /**
      * 应用后台登录
      */
     AdminAuthToken appAdminLogin(String appId, String userName, String password);
-
 
 
 }

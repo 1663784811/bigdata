@@ -46,9 +46,10 @@ public class AdminLoginController {
     public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String eCode) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-        AdminAuthToken authToken = loginService.loginUserNameAndPassword(eCode, userName, password);
+        AdminAuthToken authToken = loginService.loginEnterUserNameAndPassword(eCode, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);
+        // 查权限
         List<TPower> tPowerList = tPowerService.findAdminPower(tAdmin.getTid());
         authToken.setAuthList(tPowerList);
         return BaseResult.ok(authToken, "登录成功");

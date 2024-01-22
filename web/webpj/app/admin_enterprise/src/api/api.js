@@ -1,6 +1,43 @@
-import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
-
+import axios from "./axiosRequest";
 const baseUrl = import.meta.env.VITE_BASE_URL;
+
+import {AJAXGET, AJAXPOST, asyncREQUEST} from "@/api/webinfo";
+// =====================================================================
+// =====================================================================
+// =====================================================================
+//通用查询
+export function commonQuery(params = {}, eCode) {return axios.get(`${baseUrl}/admin/${eCode}/common/query`, {params});}
+//通用保存
+export function commonSave(params = {}, eCode) {return axios.post(`${baseUrl}/admin/${eCode}/common/save`, params);}
+//登录
+export const logInFn = (params = {}, eCode) => {return axios.post(`${baseUrl}/admin/${eCode}/login/login`, params);}
+//注册
+export const register = (params = {}) => {return axios.post(`${baseUrl}/admin/${eCode}/login/register`, params);}
+//
+export const logout = (eCode) => {return axios.get(`${baseUrl}/admin/${eCode}/user/login`)}
+//
+export const userInfo = (params = {}, eCode) => {return axios.get( `${baseUrl}/admin/${eCode}/user/userInfo`, {params});}
+
+// =====================================================================
+// =====================================================================
+// =====================================================================
+
+//获取企业信息
+export const enterpriseFindPage = (parameter, eCode) => {return axios.get( `${baseUrl}/admin/${eCode}/enterprise/enterpriseInfo`, parameter);}
+// 获取菜单
+export const apiAdminMenu = (parameter, eCode) => {return axios.get( `${baseUrl}/admin/${eCode}/user/menu`, parameter);}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27,12 +64,7 @@ export const saveSql = (parameter) => {
     return AJAXPOST(`${baseUrl}/admin/common/sql/saveSql`, parameter, 1)
 }
 
-/**
- * 获取管理员菜单
- */
-export const apiAdminMenu = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/user/adminMenu`, parameter, 1)
-}
+
 /**
  * 查询系统菜单
  */
@@ -74,26 +106,9 @@ export const saveComponents = (parameter, showMsg = false) => {
     return AJAXPOST(`${baseUrl}/tx/config/page/saveComponents`, parameter, 1, showMsg)
 }
 
-/**
- * 登录
- */
-export const logInFn = (parameter, eCode) => {
-    return asyncREQUEST(`${baseUrl}/admin/${eCode}/login/login`, parameter, 1, "post")
-}
 
-/**
- * 获取用户信息
- */
-export const userInfo = (parameter) => {
-    return asyncREQUEST(`${baseUrl}/admin/user/info`, parameter, 0, "get")
-}
 
-/**
- * 获取企业信息
- */
-export const enterpriseFindPage = (parameter) => {
-    return AJAXGET(`${baseUrl}/admin/enterprise/findPage`, parameter, 0)
-}
+
 
 export const findIdCPageComponents = (parameter) => {
     return AJAXGET(`${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, parameter, 0)

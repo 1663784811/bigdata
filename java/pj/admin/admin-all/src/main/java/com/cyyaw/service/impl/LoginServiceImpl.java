@@ -6,6 +6,7 @@ import com.cyyaw.enterprise.service.EApplicationService;
 import com.cyyaw.enterprise.table.dao.EEnterpriseDao;
 import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.service.LoginService;
+import com.cyyaw.service.em.LoginType;
 import com.cyyaw.user.service.TAdminService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.dao.TAdminDao;
@@ -65,6 +66,53 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private EApplicationService eApplicationService;
+
+    // =================================
+    @Override
+    public AdminAuthToken loginEnterUserNameAndPassword(String eCode, String userName, String password) {
+        // 第一步: 查用户
+        TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
+        if (ObjectUtils.isEmpty(tAdmin)) {
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+        }
+        String account = tAdmin.getAccount();
+        String tid = tAdmin.getTid();
+        String passworded = tAdmin.getPassword();
+        // 第二步: 对比密码
+//        if (!BCryptUtil.matches(password, passworded)) {
+//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+//        }
+        // 第三步: 查角色
+        List<TRole> roleList = tRoleDao.findByAdminId(tid);
+        StringBuffer sb = new StringBuffer();
+        if (null != roleList && roleList.size() > 0) {
+            for (TRole role : roleList) {
+                if (sb.length() > 0) {
+                    sb.append(role.getCode());
+                } else {
+                    sb.append("," + role.getCode());
+                }
+            }
+        }
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setId(tAdmin.getTid());
+        loginInfo.setAccount(tAdmin.getAccount());
+        loginInfo.setRole(sb.toString());
+        loginInfo.setEnterpriseCode(eCode);
+        loginInfo.setType(LoginType.enterAdmin.getType());
+        // 第四步: 生成jwt
+        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
+        AdminAuthToken authToken = new AdminAuthToken();
+        authToken.setTAdmin(tAdmin);
+        authToken.setJwtToken(token);
+        // 第五步: jwt存放到 redis里
+        return authToken;
+    }
+
+    // =================================
+
+
+
 
     @Override
     public TAdmin getLoginInfo(String account, String enterpriseCode) {
@@ -195,45 +243,7 @@ public class LoginServiceImpl implements LoginService {
         return authToken;
     }
 
-    @Override
-    public AdminAuthToken loginUserNameAndPassword(String eCode, String userName, String password) {
-        // 第一步: 查用户
-        TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
-        if (ObjectUtils.isEmpty(tAdmin)) {
-            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
-        }
-        String account = tAdmin.getAccount();
-        String tid = tAdmin.getTid();
-        String passworded = tAdmin.getPassword();
-        // 第二步: 对比密码
-//        if (!BCryptUtil.matches(password, passworded)) {
-//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
-//        }
-        // 第三步: 查角色
-        List<TRole> roleList = tRoleDao.findByAdminId(tid);
-        StringBuffer sb = new StringBuffer();
-        if (null != roleList && roleList.size() > 0) {
-            for (TRole role : roleList) {
-                if (sb.length() > 0) {
-                    sb.append(role.getCode());
-                } else {
-                    sb.append("," + role.getCode());
-                }
-            }
-        }
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setId(tAdmin.getTid());
-        loginInfo.setAccount(tAdmin.getAccount());
-        loginInfo.setRole(sb.toString());
-        loginInfo.setEnterpriseCode(eCode);
-        // 第四步: 生成jwt
-        String token = JwtTokenUtils.createToken(account, JSONUtil.toJsonStr(loginInfo));
-        AdminAuthToken authToken = new AdminAuthToken();
-        authToken.setTAdmin(tAdmin);
-        authToken.setJwtToken(token);
-        // 第五步: jwt存放到 redis里
-        return authToken;
-    }
+
 
     @Override
     public TAdmin adminRegister(LoginRequest registerInfo, String eCode) {

@@ -6,7 +6,6 @@
 import {useRoute, useRouter} from "vue-router";
 import {loginInfo} from "@/store/loginInfo.js";
 import {onMounted} from "vue";
-import {enterpriseFindPage} from "@/api/api.js";
 
 const route = useRoute();
 const router = useRouter();

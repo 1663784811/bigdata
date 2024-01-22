@@ -13,14 +13,13 @@ const router = useRouter();
 const loginInfoSt = loginInfo();
 onMounted(async () => {
   const {code} = route.params;
-  const {data} = await enterpriseFindPage({code});
-  if (data && data.length === 1) {
-    loginInfoSt.enterpriseInfo = data[0];
+  const {data} = await enterpriseFindPage({code}, code);
+  if (data && data.code) {
+    loginInfoSt.enterpriseInfo = data;
   } else {
     loginInfoSt.enterpriseInfo = {}
     await router.replace({name: 'welcomePage'});
   }
-
 })
 </script>
 <style scoped lang="less">
