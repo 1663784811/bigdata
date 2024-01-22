@@ -1,4 +1,4 @@
-package com.cyyaw.pay.wx.config;
+package com.cyyaw.appadmin.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
