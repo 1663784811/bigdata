@@ -177,6 +177,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: 'dashboard'
                         },
                         {
+                            name: '用户管理',
+                            icon: 'md-settings',
+                            routeName: 'shoppingUser'
+                        },
+                        {
                             name: '门店管理',
                             icon: 'md-settings',
                             children: [
@@ -184,22 +189,6 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     name: '门店列表',
                                     icon: 'md-settings',
                                     routeName: 'storeList',
-                                }
-                            ]
-                        },
-                        {
-                            name: '用户管理',
-                            icon: 'md-settings',
-                            routeName: 'shoppingUser'
-                        },
-                        {
-                            name: '商城设置',
-                            icon: 'md-settings',
-                            children: [
-                                {
-                                    name: '首页banner图',
-                                    icon: 'md-settings',
-                                    routeName: 'appCenter'
                                 }
                             ]
                         },
@@ -215,6 +204,44 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 },
                                 {
                                     name: '异常订单',
+                                    icon: 'md-settings',
+                                    routeName: 'dashboard',
+                                },
+                            ]
+                        },
+                        {
+                            name: '商城设置',
+                            icon: 'md-settings',
+                            children: [
+                                {
+                                    name: '首页banner图',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                },
+                                {
+                                    name: '分类',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                },
+                                {
+                                    name: '品牌',
+                                    icon: 'md-settings',
+                                    routeName: 'appCenter'
+                                }
+                            ]
+                        },
+                        {
+                            name: '支付设置',
+                            icon: 'md-settings',
+                            routeName: '',
+                            children: [
+                                {
+                                    name: '微信支付',
+                                    icon: 'md-settings',
+                                    routeName: 'dashboard',
+                                },
+                                {
+                                    name: '支付宝支付',
                                     icon: 'md-settings',
                                     routeName: 'dashboard',
                                 },
