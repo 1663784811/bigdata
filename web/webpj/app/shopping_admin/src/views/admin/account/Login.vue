@@ -10,7 +10,7 @@
 
 
         <div class="loginBox">
-          <div class="loginTitle">登录</div>
+          <div class="loginTitle">门店登录</div>
           <div class="loginRow">
             <Input placeholder="用户名" v-model="loginParams.userName"/>
           </div>

@@ -3,31 +3,31 @@ export const shopping = {
     children: [
         {
             path: 'shoppingUser',
+            name: 'shoppingUser',
             component: () => import('@/views/app/shopping/ShoppingUser.vue'),
-            name: 'shoppingUser'
-        }, {
+            meta: {title: '商城-用户管理'}
+        },
+        {
             path: 'shoppingList',
+            name: 'shopping',
             component: () => import('@/views/app/shopping/ShoppingList.vue'),
-            name: 'shopping'
+            meta: {title: '商城-'}
         },
         {
             path: 'shoppingBanner',
-            component: () => import('@/views/app/shopping/ShoppingBanner.vue'),
-            name: 'shoppingBanner'
+            name: 'shoppingBanner',
+            component: () => import('@/views/app/shopping/setting/ShoppingBanner.vue'),
+            meta: {title: '商城-首页Banner'}
         },
         {
             path: 'shoppingBrand',
-            component: () => import('@/views/app/shopping/ShoppingBrand.vue'),
-            name: 'shoppingBrand'
-        },
-        {
-            path: 'shoppingGoodsSku',
-            component: () => import('@/views/app/shopping/goods/ShoppingGoodsSku.vue'),
-            name: 'shoppingGoodsSku'
+            name: 'shoppingBrand',
+            component: () => import('@/views/app/shopping/setting/ShoppingBrand.vue'),
+            meta: {title: '商城-首页品牌'}
         },
         {
             path: 'shoppingGType',
-            component: () => import('@/views/app/shopping/ShoppingGType.vue'),
+            component: () => import('@/views/app/shopping/setting/ShoppingGType.vue'),
             name: 'shoppingGType'
         },
         {
@@ -36,40 +36,9 @@ export const shopping = {
             name: 'shoppingStore'
         },
         {
-            path: 'goodsList',
-            component: () => import('@/views/app/shopping/goods/ShoppingGoodsList.vue'),
-            name: 'goodsList'
-        },
-        {
-            path: 'shoppingDepository',
-            component: () => import('@/views/app/shopping/depository/ShoppingDepository.vue'),
-            name: 'shoppingDepository'
-        },
-        {
-            path: 'depository',
-            component: () => import('@/views/app/shopping/depository/ShoppingDepositoryLayout.vue'),
-            children: [
-                {
-                    path: 'shoppingDepositoryGoods',
-                    component: () => import('@/views/app/shopping/depository/ShoppingDepositoryGoods.vue'),
-                    name: 'shoppingDepositoryGoods'
-                },
-                {
-                    path: 'shoppingDepositoryLog',
-                    component: () => import('@/views/app/shopping/depository/ShoppingDepositoryLog.vue'),
-                    name: 'shoppingDepositoryLog'
-                }
-            ]
-        },
-        {
             path: 'orderList',
             component: () => import('@/views/app/shopping/order/ShoppingOrderList.vue'),
             name: 'orderList'
-        },
-        {
-            path: 'shoppingGoodsEditor',
-            component: () => import('@/views/app/shopping/goods/ShoppingGoodsEditor.vue'),
-            name: 'shoppingGoodsEditor'
         },
     ]
 }
