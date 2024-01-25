@@ -6,13 +6,16 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // =====================================================================
 // =====================================================================
 //通用查询
-export function commonQuery(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/common/query`, {params});}
+export function commonQuery(params = {}, appId) {
+    params.url=window.location.href;
+    return axios.get(`${baseUrl}/appAdmin/${appId}/common/query`, {params});
+}
 //通用保存
 export function commonSave(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/common/save`, params);}
 //登录
-export const login = (params = {}, appId) => {
-    console.log(baseUrl)
-    return axios.post(`${baseUrl}/app/${appId}/user/login/login`, params);}
+export const ApiLogin = (params = {}, appId) => {
+    return axios.post(`${baseUrl}/app/${appId}/user/login/login`, params);
+}
 //注册
 export const register = (params = {}) => {return axios.post(`${baseUrl}/app/${appId}/user/login/register`, params);}
 //登录
@@ -28,35 +31,40 @@ export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/a
 
 
 //
-export const getBanner = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/web/banner/findBanner`,{ params });}
+export const getBanner = (params = {}, appId) => {
+    params.code="select_app_banner";
+    params.appId=appId;
+    return commonQuery(params,appId)
+}
 //
-export const searchGoods = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/goods/search/searchGoods`,{ params });}
+export const searchGoods = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/search/searchGoods`,{ params });}
+//
+export const enterpriseType = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/type/findType`,{ params });}
 //查询购物车列表
-export function getCart(params, appId) {return axios.get(`${baseUrl}/shopping/${appId}/goods/cart/query`, {params});}
+export function getCart(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/cart/query`, {params});}
 //添加购物车
-export function addCart(params = {},appId) {return axios.post(`${baseUrl}/shopping/${appId}/goods/cart/updateCart`, params);}
+export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/goods/cart/updateCart`, params);}
 //计算商品价格
-export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/shopping/${appId}/goods/order/countGoodsPrice`, params);}
+export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/countGoodsPrice`, params);}
 //删除购物车商品
-export function deleteCartItem(params, appId) {return axios.post(`${baseUrl}/shopping/${appId}/goods/cart/delCartGoods`, params);}
+export function deleteCartItem(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/cart/delCartGoods`, params);}
 //订单列表
-export function getOrderList(params, appId) {return axios.get(`${baseUrl}/shopping/${appId}/goods/order/query`, { params });}
+export function getOrderList(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/order/query`, { params });}
 //订单详情
-export function getOrderDetail(params, appId) {return axios.get(`${baseUrl}/shopping/${appId}/goods/order/orderById`, { params });}
+export function getOrderDetail(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/order/orderById`, { params });}
 //
-export function getAddressList(params = {}, appId) {return axios.get(`${baseUrl}/shopping/${appId}/user/address`, {params})}
+export function getAddressList(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/address`, {params})}
 // 获取默认地址
-export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/shopping/${appId}/user/defaultAddress`, {params});}
+export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/defaultAddress`, {params});}
 
-export const goodsDetails = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/goods/search/goodsDetails`,{ params });}
+export const goodsDetails = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsDetails`,{ params });}
 
-export const goodsDetailsText = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/goods/search/goodsDetailsText`,{ params });}
+export const goodsDetailsText = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsDetailsText`,{ params });}
 
-export const goodsPhoto = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/goods/search/goodsPhoto`,{ params });}
+export const goodsPhoto = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsPhoto`,{ params });}
 
-export const enterpriseType = (params = {}, appId) => {return axios.get(`${baseUrl}/shopping/${appId}/goods/type/enterpriseType`,{ params });}
 //创建订单
-export function createOrder(params, appId) {return axios.post(`${baseUrl}/shopping/${appId}/goods/order/createOrder`, params);}
+export function createOrder(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/createOrder`, params);}
 
 
 // =====================================================================

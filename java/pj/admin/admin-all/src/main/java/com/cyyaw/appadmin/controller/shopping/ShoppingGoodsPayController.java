@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller;
+package com.cyyaw.appadmin.controller.shopping;
 
 
 import com.cyyaw.service.PayService;

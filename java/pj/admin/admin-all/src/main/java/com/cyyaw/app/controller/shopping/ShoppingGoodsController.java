@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller;
+package com.cyyaw.app.controller.shopping;
 
 import com.cyyaw.service.ShoppingGoodsService;
 import com.cyyaw.store.table.goods.entity.GGoodsSearch;
@@ -8,13 +8,14 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Api(tags = "商品")
+@Api(tags = "app-商品")
 @RestController
-@RequestMapping("/appAdmin/{appId}/shopping/goods/search")
+@RequestMapping("/app/{appId}/shopping/goods/search")
 public class ShoppingGoodsController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class ShoppingGoodsController {
 
     @ApiOperation(value = "搜索商品", notes = "搜索商品")
     @GetMapping("/searchGoods")
-    public BaseResult searchGoods(GGoodsSearch goodsSearch) {
+    public BaseResult searchGoods(GGoodsSearch goodsSearch, @PathVariable("appId") String appId) {
         return shoppingGoodsService.searchGoods(goodsSearch);
     }
 

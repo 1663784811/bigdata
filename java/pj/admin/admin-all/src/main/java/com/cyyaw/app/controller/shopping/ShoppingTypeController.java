@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller;
+package com.cyyaw.app.controller.shopping;
 
 
 import cn.hutool.json.JSONObject;
@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "商品品类")
+@Api(tags = "app-商品品类")
 @RestController
-@RequestMapping("/appAdmin/{appId}/shopping/goods/type")
-public class ShoppingGoodsTypeController {
+@RequestMapping("/app/{appId}/shopping/type")
+public class ShoppingTypeController {
 
     @Autowired
     private GTypeService gTypeService;
 
     @ApiOperation(value = "商品品类", notes = "商品品类")
-    @GetMapping("/enterpriseType")
+    @GetMapping("/findType")
     public BaseResult enterpriseType(GType gType) {
         JSONObject object = new JSONObject();
         List<GType> data = gTypeService.findTree(object);
