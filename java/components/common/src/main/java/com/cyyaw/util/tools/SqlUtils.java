@@ -1,5 +1,6 @@
 package com.cyyaw.util.tools;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +41,7 @@ public class SqlUtils {
     public static String explainSql(String sql, JSONObject json) {
         Map<String, String> map = explainSquare(sql, json);
         for (String key : map.keySet()) {
+            // 替换[]里的数据
             sql = sql.replace(key, map.get(key));
         }
         return sql;
@@ -114,12 +116,21 @@ public class SqlUtils {
     private static String explainWhere(String str, JSONObject json) {
         int index = 0;
         int keyIndex = 0;
+        // 别名
         String key = null;
+        // 是否可以传空
+        boolean isValueNull = true;
+        //=============================  第一层: 是否可以为空
+        if (str.indexOf("&") == 0) {
+            str = str.substring(1, str.length());
+            isValueNull = false;
+        }
+        //=============================  第二层: 别名
         if ((keyIndex = str.indexOf(":=")) > 0) {
             key = str.substring(0, keyIndex);
             str = str.substring(keyIndex + 2, str.length());
         }
-
+        // =============================   第三层：条件
         if ((index = str.indexOf("!@")) == 0) {
             String keyN = str.substring(index + 2);
             String value = null;
@@ -253,7 +264,12 @@ public class SqlUtils {
                 return keyN + " = '" + value + "'";
             }
         }
-        return "1=1";
+        // ============== 空值才会跑到最后
+        if (!isValueNull) {
+            return "1<>1";
+        } else {
+            return "1=1";
+        }
     }
 
     /**
@@ -430,10 +446,10 @@ public class SqlUtils {
     }
 
     /**
-     * 通用保存, 解释sql
+     * 通用删除, 解释sql
      * 把 [] 号里的东西替换成 ? 号
      */
-    public static String delExplainSql(String sql) {
+    public static String delExplainSql(String sql, JSONObject json) {
         StringBuffer sb = new StringBuffer();
         boolean start = false;
         int startFlag = 0;
@@ -443,7 +459,17 @@ public class SqlUtils {
                 startFlag = i + 1;
             } else if (sql.charAt(i) == ']') {
                 start = false;
-                sb.append(sql.substring(startFlag, i) + "=?");
+                String substr = sql.substring(startFlag, i);
+                if (substr.indexOf("&") == 0) {
+                    String key = substr.substring(1, substr.length());
+                    if (ObjectUtil.isEmpty(json.get(key))) {
+                        sb.append("1<>1");
+                    } else {
+                        sb.append(key + "=?");
+                    }
+                } else {
+                    sb.append(substr + "=?");
+                }
             } else if (!start) {
                 sb.append(sql.charAt(i));
             }

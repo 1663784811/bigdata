@@ -299,7 +299,7 @@ public class CommonDaoImpl implements CommonDao {
 
     private BaseResult<Object> delData(String delSql, JSONObject json) {
         BaseResult<Object> rest = new BaseResult<>();
-        String sql = SqlUtils.delExplainSql(delSql);
+        String sql = SqlUtils.delExplainSql(delSql, json);
         String[] strArr = SqlUtils.saveExplainData(delSql, json);
         int update = jdbcTemplate.update(sql, strArr);
         if (update > 0) {

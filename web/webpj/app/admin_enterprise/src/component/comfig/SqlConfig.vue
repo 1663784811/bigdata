@@ -142,6 +142,8 @@
 
           </div>
           <div class="sqlNote">
+            <p>[&] ---&gt; 必传参</p>
+            <p>[:=] ----&gt; 别名 [cc:=sss]</p>
             <p>[] ---&gt; =</p>
             <p>[@] ---&gt; in</p>
             <p>[!@] ----&gt; not in</p>
@@ -149,7 +151,6 @@
             <p>[L%] ----&gt; like</p>
             <p>[R%] ----&gt; like</p>
             <p>[!%] ----&gt; not like</p>
-            <p>[:=] ----&gt; 别名 [cc:=sss]</p>
             <p>[!!&lt;=] ----&gt; 大于等于</p>
             <p>[!!&lt;=] ----&gt; 小于等于</p>
 
