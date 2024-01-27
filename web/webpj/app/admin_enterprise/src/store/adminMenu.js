@@ -200,7 +200,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 {
                                     name: '订单列表',
                                     icon: 'md-settings',
-                                    routeName: 'dashboard',
+                                    routeName: 'orderList',
                                 },
                                 {
                                     name: '异常订单',
@@ -238,12 +238,12 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 {
                                     name: '微信支付',
                                     icon: 'md-settings',
-                                    routeName: 'dashboard',
+                                    routeName: 'weixinPay',
                                 },
                                 {
                                     name: '支付宝支付',
                                     icon: 'md-settings',
-                                    routeName: 'dashboard',
+                                    routeName: 'aliPay',
                                 },
                             ]
                         }
