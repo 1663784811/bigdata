@@ -13,5 +13,4 @@
     <string name="autoRun">自动运行</string>
     <string name="getWinInfo">获取窗口信息</string>
     <string name="logInfo">日志信息</string>
-    <string name="taskInfo">任务信息</string>
 </resources>
