@@ -7,6 +7,13 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
+     <SurfaceView
+         android:id="@+id/surfaceView"
+         android:layout_width="match_parent"
+         android:layout_height="200dp"
+         />
+
      <WebView
            android:layout_width="match_parent"
            android:layout_height="match_parent"

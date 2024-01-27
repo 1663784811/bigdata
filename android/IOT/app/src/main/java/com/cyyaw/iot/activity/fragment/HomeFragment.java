@@ -1,17 +1,27 @@
 package com.cyyaw.iot.activity.fragment;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
+import android.view.SurfaceView;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.cyyaw.iot.R;
+import com.cyyaw.iot.activity.WangyiPlayer;
+
+import java.io.File;
 
 
 /**
  * 首页
  */
 public class HomeFragment extends BaseFragment {
+
+    WangyiPlayer wangyiPlayer;
+
+    SurfaceView surfaceView;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -51,6 +61,10 @@ public class HomeFragment extends BaseFragment {
             }
 
         });
+
+        surfaceView = webView.findViewById(R.id.surfaceView);
+        wangyiPlayer = new WangyiPlayer();
+        wangyiPlayer.setSurfaceView(surfaceView);
 
     }
 

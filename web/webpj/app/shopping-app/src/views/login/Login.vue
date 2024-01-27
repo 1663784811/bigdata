@@ -82,7 +82,7 @@
 import {reactive, ref, onMounted} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
 import vueImgVerify from '@/components/VueImageVerify.vue'
-import {login, register} from '@/service/api'
+import {ApiLogin, register} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
@@ -131,10 +131,11 @@ const onSubmit = async (values) => {
     return
   }
   if (state.type === 'login') {
-    const {data, msg, code} = await login({
+
+    const {data, msg, code} = await ApiLogin({
       "userName": values.username,
       "password": values.password
-    })
+    }, appid)
     if (data && code && data.jwtToken) {
       userStore.token = data.jwtToken;
       showSuccessToast(msg);
