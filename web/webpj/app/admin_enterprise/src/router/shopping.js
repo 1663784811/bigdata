@@ -37,8 +37,22 @@ export const shopping = {
         },
         {
             path: 'orderList',
+            name: 'orderList',
             component: () => import('@/views/app/shopping/order/ShoppingOrderList.vue'),
-            name: 'orderList'
+            meta: {title: '商城-订单列表'}
         },
+        {
+            path: 'weixinPay',
+            name: 'weixinPay',
+            component: () => import('@/views/app/shopping/pay/WeixinPay.vue'),
+            meta: {title: '商城-微信支付'}
+        },
+        {
+            path: 'aliPay',
+            name: 'aliPay',
+            component: () => import('@/views/app/shopping/pay/AliPay.vue'),
+            meta: {title: '商城-支付宝支付'}
+        },
+
     ]
 }
