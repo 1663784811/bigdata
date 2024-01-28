@@ -17,10 +17,25 @@
         android:layout_height="wrap_content"
         android:text="访问网络" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="读 、写 文件" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_read_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="读文件" />
+
+        <Button
+            android:id="@+id/btn_write_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="写文件" />
+
+    </LinearLayout>
+
 
     <Button
         android:layout_width="match_parent"
@@ -44,6 +59,18 @@
         android:layout_height="wrap_content"
         android:text="截图" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输出的信息:"
+        />
+
+    <TextView
+        android:id="@+id/pageInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <!-- =====================================================   -->
     <View
         android:layout_width="match_parent"
