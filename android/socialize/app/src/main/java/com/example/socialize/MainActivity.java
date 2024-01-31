@@ -1,6 +1,7 @@
 package com.example.socialize;
 
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import com.example.socialize.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Used to load the 'socialize' library on application startup.
     static {
         System.loadLibrary("socialize");
     }
@@ -19,20 +19,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        // Example of a call to a native method
-        TextView tv = binding.sampleText;
-        tv.setText(stringFromJNI());
+        SurfaceView surfaceView =  findViewById(R.id.surfaceView);
+
+
+        
+
     }
 
-    /**
-     * A native method that is implemented by the 'socialize' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
+
 }
 
 
