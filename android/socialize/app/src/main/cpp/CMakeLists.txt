@@ -4,13 +4,13 @@ project("socialize")
 
 
 
-include_directories(./include)
+
 #设置链接静态库的目录.
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${CMAKE_SOURCE_DIR}/../../../libs/${CMAKE_ANDROID_ARCH_ABI}")
 
 add_library(${CMAKE_PROJECT_NAME} SHARED native-lib.cpp)
 
-
+include_directories(include)
 
 
 target_link_libraries(
