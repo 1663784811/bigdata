@@ -43,8 +43,7 @@ public class WangyiPlayer implements SurfaceHolder.Callback {
 
     public void start(String path) {
 
-//        native_start(path, surfaceHolder.getSurface());
-
+        native_start(path, surfaceHolder.getSurface());
     }
 
     public native void native_start(String path, Surface surface);
