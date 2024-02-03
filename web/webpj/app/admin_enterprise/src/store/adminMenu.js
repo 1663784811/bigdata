@@ -214,6 +214,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             icon: 'md-settings',
                             children: [
                                 {
+                                    name: '商城设置',
+                                    icon: 'md-settings',
+                                    routeName: 'shoppingSettings'
+                                },
+                                {
                                     name: '首页banner图',
                                     icon: 'md-settings',
                                     routeName: 'shoppingBanner'

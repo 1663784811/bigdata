@@ -1,8 +1,8 @@
 <template>
   <div class="login">
 
-    <s-header :name="state.type === 'login' ? '登录' : '注册'" ></s-header>
-    <img class="logo" src="https://s.yezgea02.com/1604045825972/newbee-mall-vue3-app-logo.png" alt="">
+    <s-header :name="state.type === 'login' ? '登录' : '注册'"></s-header>
+    <img class="logo" :src="appStore.appInfo.logo" alt="">
 
     <!--  ===============   登录  ===============  -->
     <div v-if="state.type === 'login'" class="login-body login">
@@ -83,11 +83,13 @@ import {reactive, ref, onMounted} from 'vue'
 import sHeader from '@/components/SimpleHeader.vue'
 import vueImgVerify from '@/components/VueImageVerify.vue'
 import {ApiLogin, register} from '@/service/api'
-import {setLocal} from '@/common/js/utils'
-import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
 import {useRoute, useRouter} from 'vue-router'
 import {useUserStore} from '@/stores/user.js'
+import {useAppStore} from "@/stores/app";
+
+const appStore = useAppStore();
+
 
 const router = useRouter();
 const route = useRoute();

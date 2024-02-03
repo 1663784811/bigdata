@@ -4,26 +4,38 @@ export const shopping = {
         {
             path: 'shoppingDashboard',
             name: 'shoppingDashboard',
+            meta: {title: '商城-概览'},
             component: () => import('@/views/app/shopping/ShoppingDashboard.vue'),
-            meta: {title: '商城-概览'}
         },
         {
             path: 'shoppingUser',
             name: 'shoppingUser',
+            meta: {title: '商城-用户管理'},
             component: () => import('@/views/app/shopping/ShoppingUser.vue'),
-            meta: {title: '商城-用户管理'}
         },
         {
-            path: 'shoppingList',
-            name: 'shopping',
-            component: () => import('@/views/app/shopping/ShoppingList.vue'),
-            meta: {title: '商城-'}
+            path: 'shoppingStore',
+            name: 'shoppingStore',
+            meta: {title: '商城-门店'},
+            component: () => import('@/views/app/shopping/ShoppingStore.vue'),
+        },
+        {
+            path: 'shoppingOrderList',
+            name: 'shoppingOrderList',
+            component: () => import('@/views/app/shopping/order/ShoppingOrderList.vue'),
+            meta: {title: '商城-订单列表'}
+        },
+        {
+            path: 'shoppingExceptionalOrder',
+            name: 'shoppingExceptionalOrder',
+            component: () => import('@/views/app/shopping/order/ShoppingExceptionalOrder.vue'),
+            meta: {title: '商城-订单列表'}
         },
         {
             path: 'shoppingBanner',
             name: 'shoppingBanner',
+            meta: {title: '商城-首页Banner'},
             component: () => import('@/views/app/shopping/setting/ShoppingBanner.vue'),
-            meta: {title: '商城-首页Banner'}
         },
         {
             path: 'shoppingBrand',
@@ -38,21 +50,10 @@ export const shopping = {
             component: () => import('@/views/app/shopping/setting/ShoppingGType.vue'),
         },
         {
-            path: 'shoppingStore',
-            component: () => import('@/views/app/shopping/ShoppingStore.vue'),
-            name: 'shoppingStore'
-        },
-        {
-            path: 'shoppingOrderList',
-            name: 'shoppingOrderList',
-            component: () => import('@/views/app/shopping/order/ShoppingOrderList.vue'),
-            meta: {title: '商城-订单列表'}
-        },
-        {
-            path: 'shoppingExceptionalOrder',
-            name: 'shoppingExceptionalOrder',
-            component: () => import('@/views/app/shopping/order/ShoppingExceptionalOrder.vue'),
-            meta: {title: '商城-订单列表'}
+            path: 'shoppingSettings',
+            name: 'shoppingSettings',
+            meta: {title: '商城-设置'},
+            component: () => import('@/views/app/shopping/setting/ShoppingSettings.vue'),
         },
         {
             path: 'shoppingWeixinPay',
