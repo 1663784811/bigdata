@@ -43,21 +43,27 @@ export const shopping = {
             name: 'shoppingStore'
         },
         {
-            path: 'orderList',
-            name: 'orderList',
+            path: 'shoppingOrderList',
+            name: 'shoppingOrderList',
             component: () => import('@/views/app/shopping/order/ShoppingOrderList.vue'),
             meta: {title: '商城-订单列表'}
         },
         {
-            path: 'weixinPay',
-            name: 'weixinPay',
-            component: () => import('@/views/app/shopping/pay/WeixinPay.vue'),
+            path: 'shoppingExceptionalOrder',
+            name: 'shoppingExceptionalOrder',
+            component: () => import('@/views/app/shopping/order/ShoppingExceptionalOrder.vue'),
+            meta: {title: '商城-订单列表'}
+        },
+        {
+            path: 'shoppingWeixinPay',
+            name: 'shoppingWeixinPay',
+            component: () => import('@/views/app/shopping/pay/ShoppingWeixinPay.vue'),
             meta: {title: '商城-微信支付'}
         },
         {
-            path: 'aliPay',
-            name: 'aliPay',
-            component: () => import('@/views/app/shopping/pay/AliPay.vue'),
+            path: 'shoppingAliPay',
+            name: 'shoppingAliPay',
+            component: () => import('@/views/app/shopping/pay/ShoppingAliPay.vue'),
             meta: {title: '商城-支付宝支付'}
         },
 

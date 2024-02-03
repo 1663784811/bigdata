@@ -3,13 +3,14 @@
   <div class="headTitle">
     微信支付设置
   </div>
+
   <div class="formBox">
     <div class="rowBox">
       <div class="itemLabel">
         APPID:
       </div>
       <div class="itemValBox">
-        <Input placeholder="APPID" />
+        <Input placeholder="APPID"/>
       </div>
     </div>
     <div class="rowBox">
@@ -55,6 +56,27 @@
 
 </template>
 <script setup>
+import {onMounted} from "vue";
+import {commonRequest} from "@/api/api.js"
+import {useRoute, useRouter} from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+
+onMounted(() => {
+
+  const {code} = route.params;
+
+  commonRequest("/admin/aaa/common/query", {
+    code: 'select_ent_pay_setting',
+    pay_type: 1,
+    appId: 'ssss'
+  }).then(rest => {
+    console.log(rest)
+  })
+
+})
+
 
 </script>
 <style scoped lang="less">
