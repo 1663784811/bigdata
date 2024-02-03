@@ -96,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/admin/*/common/query",
                         "/admin/*/login/**",
                         "/app/*/common/**",
+                        "/app/*/shopping/**",  //   商城
                         "/app/*/user/login/**",
                         "/app/*/admin/login/**",
                         "/admin/phone/phone/**",
