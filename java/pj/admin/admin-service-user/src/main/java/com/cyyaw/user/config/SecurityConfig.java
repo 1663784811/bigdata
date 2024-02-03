@@ -83,27 +83,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/home/**",
                         "/wx/user/**/login",
                         "/login/**",
+                        "/activiti/**",
+                        // ==============================================================   admin
                         "/admin/enterprise/findPage",
-                        "/shopping/*/web/banner/findBanner",
-                        "/shopping/*/goods/search/searchGoods",
-                        "/shopping/*/goods/search/goodsDetails",
-                        "/shopping/*/goods/search/goodsPhoto",
-                        "/shopping/*/goods/search/goodsDetailsText",
-                        "/shopping/*/goods/type/enterpriseType",
                         "/admin/file/**",
-                        "/si/*/signIn/findIdSiSignIn",
-                        "/si/*/signIn/signInLogSave",
                         "/admin/*/common/query",
                         "/admin/*/login/**",
-                        "/app/*/common/**",
-                        "/app/*/shopping/**",  //   商城
-                        "/app/*/user/login/**",
-                        "/app/*/admin/login/**",
                         "/admin/phone/phone/**",
                         "/admin/**",
-                        "/activiti/**",
+
+                        // ============================================================== appAdmin
                         "/appAdmin/*/login/**",
-                        "/appAdmin/*/common/query"
+                        "/appAdmin/*/common/query",
+
+
+                        // ============================================================== app
+                        "/app/*/common/**",
+                        "/app/*/login/**",
+                        "/app/*/shopping/**"  //   商城
+
+
                 ).permitAll()
                 // 每一个请求都要验证
                 .anyRequest().authenticated().and();

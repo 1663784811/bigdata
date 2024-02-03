@@ -86,11 +86,12 @@ import {ApiLogin, register} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import md5 from 'js-md5'
 import {showSuccessToast, showFailToast} from 'vant'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import {useUserStore} from '@/stores/user.js'
 
 const router = useRouter();
-let userStore = useUserStore();
+const route = useRoute();
+const userStore = useUserStore();
 
 
 const verifyRef = ref(null)
@@ -124,6 +125,7 @@ const toggle = (v) => {
 
 // 提交登录或注册表单
 const onSubmit = async (values) => {
+  const {appid} = route.params;
   state.imgCode = verifyRef.value.state.imgCode || ''
   console.log("验证码", state.imgCode)
   if (state.verify.toLowerCase() !== state.imgCode.toLowerCase()) {

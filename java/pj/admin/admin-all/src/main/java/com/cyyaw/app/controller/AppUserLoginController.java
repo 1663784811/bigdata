@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Api(tags = "APP用户登录")
+@Api(tags = "APP-用户登录")
 @RequestMapping("/app/{appId}/login")
 @RestController
 public class AppUserLoginController {
