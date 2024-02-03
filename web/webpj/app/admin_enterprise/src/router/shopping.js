@@ -2,6 +2,12 @@ export const shopping = {
     path: 'shopping',
     children: [
         {
+            path: 'shoppingDashboard',
+            name: 'shoppingDashboard',
+            component: () => import('@/views/app/shopping/ShoppingDashboard.vue'),
+            meta: {title: '商城-概览'}
+        },
+        {
             path: 'shoppingUser',
             name: 'shoppingUser',
             component: () => import('@/views/app/shopping/ShoppingUser.vue'),

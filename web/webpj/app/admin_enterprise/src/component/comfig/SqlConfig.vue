@@ -234,8 +234,16 @@ const tableData = ref({
       width: 250
     },
     {
+      title: '应用类型',
+      key: 'appType'
+    },
+    {
       title: '名称',
       key: 'name'
+    },
+    {
+      title: '类型',
+      key: 'type'
     },
     {
       title: '备注',

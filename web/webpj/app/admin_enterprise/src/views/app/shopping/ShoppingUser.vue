@@ -4,10 +4,12 @@
 
 <script setup>
 
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, provide, reactive, ref} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
+const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
 const state = reactive({
   pageData: {},
@@ -25,6 +27,7 @@ const initFn = async () => {
   const pageCode = 'ent_shopping_user'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.newTable = pageData.newTable;
+  commonTableSearchData.value = {"appId": 'sss'}
 }
 
 </script>

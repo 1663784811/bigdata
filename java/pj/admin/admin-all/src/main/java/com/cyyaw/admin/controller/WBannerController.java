@@ -1,4 +1,4 @@
-package com.cyyaw.web.controller;
+package com.cyyaw.admin.controller;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.util.tools.BaseResult;
@@ -6,6 +6,7 @@ import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
 import com.cyyaw.web.service.WBannerService;
 import com.cyyaw.web.table.entity.WBanner;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,31 +18,13 @@ import java.util.Date;
 import java.util.Map;
 
 @Slf4j
-@RequestMapping("/admin/wBanner")
 @RestController
+@Api(tags = "Banner图")
+@RequestMapping("/admin/{eCode}/banner")
 public class WBannerController {
 
     @Autowired
     private WBannerService wBannerService;
-
-    /**
-     * 分页条件查询
-     */
-    @GetMapping("/findPage")
-    public BaseResult<WBanner> findPageWBanner(@RequestParam Map<String, Object> map) {
-        PageRespone<WBanner> page = wBannerService.findPage(new JSONObject(map));
-        return BaseResult.ok(page);
-    }
-
-    /**
-     * 根据ID查询
-     */
-    @GetMapping("/findIdWBanner")
-    public BaseResult findIdWBanner(Integer id) {
-        WBanner obj = wBannerService.findId(id);
-        return BaseResult.ok(obj);
-    }
-
 
     /**
      * 添加或修改
@@ -65,15 +48,6 @@ public class WBannerController {
             obj = wBannerService.save(cpObj);
         }
         return BaseResult.ok(obj);
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delWBanner")
-    public BaseResult delWBanner(@RequestBody Integer idArr[]) {
-        wBannerService.del(idArr);
-        return BaseResult.ok("删除成功");
     }
 
 }
