@@ -6,7 +6,7 @@
       <div class="eventItem" v-for="i in 100">
         <div class="timeBar">2024-01-05</div>
         <div class="eventContent">
-          新春走基层丨满足多元需求 提供更好体验——多地年货市场走访见闻
+          sssdd
         </div>
       </div>
     </div>
