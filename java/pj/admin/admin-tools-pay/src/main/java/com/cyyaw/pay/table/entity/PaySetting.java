@@ -51,8 +51,8 @@ public class PaySetting implements Serializable {
 
     //==============
     @Basic
-    @Column(name = "pay_id", columnDefinition = "varchar(32) not null COMMENT '支付ID'")
-    private String payId;
+    @Column(name = "pay_app_id", columnDefinition = "varchar(32) not null COMMENT '支付ID'")
+    private String payAppId;
 
 
 }

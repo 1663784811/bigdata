@@ -9,7 +9,7 @@
         APPID:
       </div>
       <div class="itemValBox">
-        abcdefeefsse
+        <Input placeholder="APPID" />
       </div>
     </div>
     <div class="rowBox">
@@ -45,11 +45,9 @@
       </div>
     </div>
     <div class="rowBox">
-      <div class="itemLabel">
-        APPID:
-      </div>
-      <div class="itemValBox">
-        abcdefeefsse
+      <div class="itemLabel"></div>
+      <div>
+        <Button type="info">保存</Button>
       </div>
     </div>
   </div>
