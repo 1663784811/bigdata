@@ -1,4 +1,4 @@
-package com.cyyaw.app.controller;
+package com.cyyaw.appadmin.controller.pay;
 
 
 import io.swagger.annotations.Api;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @Api(tags = "APP管理员支付设置")
-@RequestMapping("/app/{appId}/pay")
+@RequestMapping("/appAdmin/{appId}/pay")
 @RestController
 public class AppAdminPayController {
 

@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller.shopping;
+package com.cyyaw.app.controller.pay;
 
 
 import com.cyyaw.service.PayService;
@@ -13,20 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = "支付")
 @RestController
-@RequestMapping("/appAdmin/{appId}/shopping/pay")
-public class ShoppingGoodsPayController {
+@RequestMapping("/app/{appId}/pay")
+public class AppPayController {
 
 
     @Autowired
     private PayService payOrder;
 
-    @ApiOperation(value = "支付回调", notes = "支付回调")
-    @PostMapping("/payBack")
-    public void payBack(){
-
-
-
-    }
 
     @ApiOperation(value = "支付订单", notes = "支付订单")
     @PostMapping("/payOrder")

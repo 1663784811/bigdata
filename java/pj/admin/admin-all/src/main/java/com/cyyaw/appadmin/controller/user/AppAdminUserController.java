@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller.shopping;
+package com.cyyaw.appadmin.controller.user;
 
 
 import com.cyyaw.user.config.TokenData;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Api(tags = "商城用户")
-@RequestMapping("/appAdmin/{appId}/shopping/user")
+@Api(tags = "用户管理")
+@RequestMapping("/appAdmin/{appId}/user")
 @RestController
-public class ShoppingUserController {
+public class AppAdminUserController {
 
 
     @Autowired

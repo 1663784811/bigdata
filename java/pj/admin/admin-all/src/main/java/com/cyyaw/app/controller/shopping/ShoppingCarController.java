@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller.shopping;
+package com.cyyaw.app.controller.shopping;
 
 
 import com.cyyaw.service.CartService;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Api(tags = "购物车")
 @RestController
-@RequestMapping("/appAdmin/{appId}/shopping/goods/cart")
-public class ShoppingGoodsCarController {
+@RequestMapping("/app/{appId}/shopping/cart")
+public class ShoppingCarController {
 
     @Autowired
     private CartService cartService;

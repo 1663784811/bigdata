@@ -17,7 +17,7 @@ export const ApiLogin = (params = {}, appId) => {
     return axios.post(`${baseUrl}/app/${appId}/login/login`, params);
 }
 //注册
-export const register = (params = {}) => {return axios.post(`${baseUrl}/app/${appId}/login/register`, params);}
+export const register = (params = {}, appId) => {return axios.post(`${baseUrl}/app/${appId}/login/register`, params);}
 //登录
 export const adminLogin = (params = {}, appId) => {return axios.post(`${baseUrl}/app/${appId}/admin/login/adminLogin`, params);}
 //
@@ -43,7 +43,7 @@ export const enterpriseType = (params = {}, appId) => {return axios.get(`${baseU
 //查询购物车列表
 export function getCart(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/cart/query`, {params});}
 //添加购物车
-export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/goods/cart/updateCart`, params);}
+export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/shopping/cart/updateCart`, params);}
 //计算商品价格
 export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/countGoodsPrice`, params);}
 //删除购物车商品

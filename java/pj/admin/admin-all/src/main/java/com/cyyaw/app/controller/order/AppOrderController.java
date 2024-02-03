@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.controller.shopping;
+package com.cyyaw.app.controller.order;
 
 
 import com.cyyaw.service.OrderService;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Api(tags = "订单")
 @RestController
-@RequestMapping("/appAdmin/{appId}/shopping/goods/order")
-public class ShoppingGoodsOrderController {
+@RequestMapping("/app/{appId}/order")
+public class AppOrderController {
 
     @Autowired
     private OOrderService gTypeService;

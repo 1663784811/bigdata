@@ -154,7 +154,7 @@ const onSubmit = async (values) => {
     await register({
       "userName": values.username1,
       "password": values.password1
-    })
+    }, appid)
     showSuccessToast('注册成功')
     state.type = 'login'
     state.verify = ''
