@@ -1,30 +1,41 @@
 <template>
-
-  <tree-type :setting="treeSetting"/>
-
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
-import TreeType from '@/component/tree/TreeType.vue'
 
-import {getAddColumns} from "@/api/webUtil.js";
-import {pageConfig} from "@/store/pageConfig.js";
-import {ref} from "vue";
+import {onMounted, provide, reactive, ref} from "vue";
+import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute, useRouter} from "vue-router";
 
+const router = useRouter();
+const route = useRoute();
 const usePageConfig = pageConfig();
 
-const treeSetting = ref({});
+const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
-const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("shoppingGType");
-  treeSetting.value = role.commonTable;
+
+const state = reactive({
+  pageData: {},
+  drawerSetting: {},
+  newTable: {
+    show: true
+  },
+})
+
+onMounted(() => {
+  initFn(route.name);
+})
+
+const initFn = async (pageCode) => {
+  console.log("页面ID:", pageCode)
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
+  commonTableSearchData.value = {"appId": 'sss'}
 }
-
-initFn();
-
 
 </script>
 
-<style lang="less" scoped>
-
+<style scoped lang="less">
 </style>

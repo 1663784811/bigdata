@@ -28,13 +28,14 @@ export const shopping = {
         {
             path: 'shoppingBrand',
             name: 'shoppingBrand',
+            meta: {title: '商城-首页品牌'},
             component: () => import('@/views/app/shopping/setting/ShoppingBrand.vue'),
-            meta: {title: '商城-首页品牌'}
         },
         {
             path: 'shoppingGType',
+            name: 'shoppingGType',
+            meta: {title: '商城-分类'},
             component: () => import('@/views/app/shopping/setting/ShoppingGType.vue'),
-            name: 'shoppingGType'
         },
         {
             path: 'shoppingStore',

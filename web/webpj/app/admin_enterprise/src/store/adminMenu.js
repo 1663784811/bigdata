@@ -219,14 +219,14 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     routeName: 'shoppingBanner'
                                 },
                                 {
-                                    name: '分类',
+                                    name: '商品分类',
                                     icon: 'md-settings',
-                                    routeName: 'appCenter'
+                                    routeName: 'shoppingGType'
                                 },
                                 {
-                                    name: '品牌',
+                                    name: '商品品牌',
                                     icon: 'md-settings',
-                                    routeName: 'appCenter'
+                                    routeName: 'shoppingBrand'
                                 }
                             ]
                         },
