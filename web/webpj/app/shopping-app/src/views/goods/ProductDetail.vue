@@ -126,7 +126,7 @@ onMounted(async () => {
   const {id} = route.params
 
   // cart.updateCart()
-  const {data} = await goodsDetails({skuId: id})
+  const {data} = await goodsDetails({skuId: id}, route.params.appid)
   state.detail = data;
 
   // 查商品图片

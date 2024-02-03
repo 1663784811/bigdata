@@ -37,7 +37,7 @@ export const getBanner = (params = {}, appId) => {
     return commonQuery(params,appId)
 }
 //
-export const searchGoods = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/search/searchGoods`,{ params });}
+export const searchGoods = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/searchGoods`,{ params });}
 //
 export const enterpriseType = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/type/findType`,{ params });}
 //查询购物车列表
@@ -57,11 +57,11 @@ export function getAddressList(params = {}, appId) {return axios.get(`${baseUrl}
 // 获取默认地址
 export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/defaultAddress`, {params});}
 
-export const goodsDetails = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsDetails`,{ params });}
+export const goodsDetails = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/goodsDetails`,{ params });}
 
-export const goodsDetailsText = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsDetailsText`,{ params });}
+export const goodsDetailsText = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/goodsDetailsText`,{ params });}
 
-export const goodsPhoto = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/goods/search/goodsPhoto`,{ params });}
+export const goodsPhoto = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/goodsPhoto`,{ params });}
 
 //创建订单
 export function createOrder(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/createOrder`, params);}
