@@ -1,7 +1,7 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">门店模式</div>
+      <div class="textNote">门店: {{loginInfoSt.storeInfo.name}} </div>
     </div>
     <div class="userInfoItem">
       <div class="textNote">

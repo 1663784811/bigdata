@@ -19,11 +19,6 @@ export const loginInfo = defineStore('loginInfo', {
         const token = ref("");
         // 企业信息
         const enterpriseInfo = ref({})
-        // 门店信息
-        const storeInfo = ref({
-            tid: 'dd',
-            name: '听心一号店'
-        })
         const reLoadUrl = (url) => {
             for (const key in variable.value) {
                 url = url.replaceAll('${' + key + '}', variable.value[key]);
@@ -34,7 +29,6 @@ export const loginInfo = defineStore('loginInfo', {
             userInfo,
             token,
             enterpriseInfo,
-            storeInfo,
             reLoadUrl,
             variable
         }

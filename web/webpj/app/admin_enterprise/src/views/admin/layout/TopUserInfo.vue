@@ -1,7 +1,7 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">企业模式</div>
+      <div class="textNote">企业: {{loginInfoSt.enterpriseInfo.name}}</div>
     </div>
 
     <div class="userInfoItem">
