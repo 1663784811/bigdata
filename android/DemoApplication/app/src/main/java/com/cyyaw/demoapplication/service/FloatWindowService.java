@@ -31,7 +31,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         context = getApplicationContext();
         createWindow();
-
     }
 
     @Override
@@ -43,17 +42,11 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
+        Log.d("mmmmmmmmmmmmm", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeee:"+eventType);
         if (eventType == 222) {
-
             CharSequence packageName = event.getPackageName();
-
 //            AccessibilityNodeInfo root = getRootInActiveWindow();
 //           root.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-
-
-
-
-            showWindowInfo("onAccessibilityEvent:" + packageName);
         }
 
     }
@@ -81,8 +74,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     @Override
     public void onClick(View v) {
         try {
-
-
             AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
             CharSequence packageName = rootInActiveWindow.getPackageName();
             List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
@@ -91,7 +82,9 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
 
             // 开启任务
-            AutoHelloTask.start(this);
+//            AutoHelloTask.start(this);
+
+            ServerMessage.sendMsg(FloatWindowLogService.class, "ssssssss");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +104,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
             // 点击打开微信
             AccessibilityNodeInfo parent = nodeInfo.getParent();
             parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            showWindowInfo("点击：" + text);
+//            showWindowInfo("点击：" + text);
 //            SquareView square = AppUtil.createSquare(wManager, context, parent);
         }
         // 递归遍历子节点
@@ -119,13 +112,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
             traverseLayout(nodeInfo.getChild(i));
         }
         // ========================================================
-    }
-
-    // TODO  通信方式有问题
-    private void showWindowInfo(String msg) {
-//        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
-//        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
-//        startService(serviceIntent);
     }
 
 }
