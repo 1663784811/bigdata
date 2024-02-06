@@ -40,16 +40,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ComponentName componentNamex;
 
 
-    private ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-        @Override
-        public void onActivityResult(Boolean isGranted) {
-            if (Settings.canDrawOverlays(MainActivity.this)) {
-                Toast.makeText(MainActivity.this, "权限申请-成功", Toast.LENGTH_SHORT).show();
-                showFloatWin();
-            } else {
-                Toast.makeText(MainActivity.this, "权限申请-失败", Toast.LENGTH_SHORT).show();
-            }
+    private ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), (Boolean isGranted) -> {
+        if (Settings.canDrawOverlays(MainActivity.this)) {
+            Toast.makeText(MainActivity.this, "权限申请-成功", Toast.LENGTH_SHORT).show();
+            showFloatWin();
+        } else {
+            Toast.makeText(MainActivity.this, "权限申请-失败", Toast.LENGTH_SHORT).show();
         }
+
     });
 
     private ActivityResultLauncher<Intent> activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int resultCode = result.getResultCode();
         getPermission.launch(Manifest.permission.SYSTEM_ALERT_WINDOW);
     });
-
 
 
     // ========================================================================================================================================================
