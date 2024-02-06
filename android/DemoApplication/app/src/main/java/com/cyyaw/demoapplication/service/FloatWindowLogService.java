@@ -50,7 +50,7 @@ public class FloatWindowLogService extends BaseService {
         ServerMessage.register(this);
         if (null == wManager) {
 
-            Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" );
+            Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 
 
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -85,10 +85,17 @@ public class FloatWindowLogService extends BaseService {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public void receiveMsg(String msg){
+    public void receiveMsg(String msg) {
 
 
-        Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" );
+        Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+
+        int newItemPosition = itemList.size() - 1;
+
+        itemList.add(msg + newItemPosition);
+
+        adapter.notifyItemInserted(newItemPosition);
+
 
     }
 
