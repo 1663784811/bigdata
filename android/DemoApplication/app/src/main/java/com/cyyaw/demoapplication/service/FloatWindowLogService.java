@@ -23,12 +23,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * 打印信息
  */
-public class FloatWindowInfoService extends Service {
+public class FloatWindowLogService extends BaseService {
 
     // ==============================
     // 临时日志
-    private CopyOnWriteArrayList tempLog = new CopyOnWriteArrayList();
-
 
     // ==============================
     public static String logKey = "msg";
@@ -45,16 +43,16 @@ public class FloatWindowInfoService extends Service {
 
     private RecyclerView recyclerView;
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
 
     @Override
     public void onCreate() {
         Context context = getApplicationContext();
+        ServerMessage.register(this);
         if (null == wManager) {
+
+            Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" );
+
+
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.float_window_info);
             layoutParams = floatWindow.getFloatWindowParams();
@@ -70,8 +68,8 @@ public class FloatWindowInfoService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // 在服务端 Service 中接收来自客户端 Service 的数据
-        if (intent != null && intent.hasExtra(FloatWindowInfoService.logKey)) {
-            String msg = intent.getStringExtra(FloatWindowInfoService.logKey);
+        if (intent != null && intent.hasExtra(FloatWindowLogService.logKey)) {
+            String msg = intent.getStringExtra(FloatWindowLogService.logKey);
             // 在这里处理接收到的数据
             // 例如，将数据记录到日志
             // 或执行其他操作
@@ -87,10 +85,12 @@ public class FloatWindowInfoService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    /**
-     * 输出信息到窗口
-     */
-    public void outInfo(String msg) {
-        floatWindow.findViewById(R.class.getModifiers());
+    public void receiveMsg(String msg){
+
+
+        Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" );
+
     }
+
+
 }

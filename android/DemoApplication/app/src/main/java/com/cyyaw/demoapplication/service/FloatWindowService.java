@@ -31,6 +31,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
         Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         context = getApplicationContext();
         createWindow();
+
     }
 
     @Override
@@ -122,9 +123,9 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     // TODO  通信方式有问题
     private void showWindowInfo(String msg) {
-        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
-        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
-        startService(serviceIntent);
+//        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
+//        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
+//        startService(serviceIntent);
     }
 
 }

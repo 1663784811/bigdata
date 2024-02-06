@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -18,7 +19,7 @@ import com.cyyaw.demoapplication.service.window.FloatWindow;
 /**
  * 标记
  */
-public class FloatMarkWindowService extends Service {
+public class FloatMarkWindowService extends BaseService implements View.OnClickListener {
 
     private WindowManager wManager;
 
@@ -31,17 +32,7 @@ public class FloatMarkWindowService extends Service {
     public void onCreate() {
         Context context = getApplicationContext();
         createWindow(context);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+        ServerMessage.register(this);
     }
 
 
@@ -51,8 +42,12 @@ public class FloatMarkWindowService extends Service {
     private void createWindow(Context context) {
         WindowManager wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         FloatWindow floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.mark_circle);
+
         WindowManager.LayoutParams layoutParams = floatWindow.getFloatWindowParams();
         wManager.addView(floatWindow, layoutParams);
+
+        floatWindow.findViewById(R.id.marker_circle).setOnClickListener(this);
+
     }
 
     private void traverseLayout(AccessibilityNodeInfo nodeInfo) {
@@ -95,9 +90,18 @@ public class FloatMarkWindowService extends Service {
     }
 
     private void showWindowInfo(String msg) {
-        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
-        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
-        startService(serviceIntent);
+//        Intent serviceIntent = new Intent(this, FloatWindowInfoService.class);
+//        serviceIntent.putExtra(FloatWindowInfoService.logKey, msg);
+//        startService(serviceIntent);
     }
 
+
+    @Override
+    public void onClick(View v) {
+
+
+        ServerMessage.sendMsg(FloatWindowLogService.class, "----------");
+        Log.d("AccessibilityService", "Left: " );
+
+    }
 }
