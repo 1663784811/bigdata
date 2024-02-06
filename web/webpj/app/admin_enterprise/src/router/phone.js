@@ -8,6 +8,22 @@ export const phone = {
                 title: '手机列表',
             },
             component: () => import('@/views/app/phone/PhoneList.vue')
+        },
+        {
+            path: 'companyList',
+            name: 'companyList',
+            meta: {
+                title: '公司列表',
+            },
+            component: () => import('@/views/app/phone/CompanyList.vue')
+        },
+        {
+            path: 'spiderData',
+            name: 'spiderData',
+            meta: {
+                title: '黑洞',
+            },
+            component: () => import('@/views/app/phone/SpiderData.vue')
         }
     ]
 }

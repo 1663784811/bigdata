@@ -51,6 +51,11 @@ public class SpiderNickName implements Serializable {
     private String nickName;
 
     @Basic
+    @Column(name = "source", columnDefinition = "int default '0' COMMENT '来源{1:网页,2:小红书}'")
+    private Integer source;
+
+
+    @Basic
     @Column(name = "content", columnDefinition = "text COMMENT '内容'")
     private String content;
 

@@ -297,6 +297,16 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '手机列表',
                             icon: 'md-settings',
                             routeName: 'phoneList'
+                        },
+                        {
+                            name: '公司',
+                            icon: 'md-settings',
+                            routeName: 'companyList'
+                        },
+                        {
+                            name: '黑洞',
+                            icon: 'md-settings',
+                            routeName: 'spiderData'
                         }
                     ]
                 }
