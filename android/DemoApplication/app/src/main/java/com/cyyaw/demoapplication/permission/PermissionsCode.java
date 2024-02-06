@@ -10,7 +10,7 @@ import com.cyyaw.demoapplication.BaseAppCompatActivity;
  */
 public enum PermissionsCode {
 
-    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 1, "读取联系人信息", null, null);
+    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null, null);
 
     /**
      * 系统权限
