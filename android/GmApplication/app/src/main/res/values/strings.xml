@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">听心app</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">消息</string>
-    <string name="title_dashboard">广场</string>
-    <string name="title_my">我的</string>
-</resources>
