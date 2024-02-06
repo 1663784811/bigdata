@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#99111111"
+    android:radius="50dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="序号"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="任务"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,6 +51,12 @@
             android:enabled="true"
             android:exported="true" />
 
+      <service
+            android:name=".service.FloatWindowTaskService"
+            android:enabled="true"
+            android:exported="true" />
+
+
         <service
             android:name=".service.FloatWindowService"
             android:enabled="true"

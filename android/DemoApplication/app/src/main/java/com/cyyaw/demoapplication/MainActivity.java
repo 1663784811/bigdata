@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.service.FloatWindowService;
+import com.cyyaw.demoapplication.service.FloatWindowTaskService;
 
 import java.io.File;
 
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent in = new Intent(MainActivity.this, FloatWindowLogService.class);
         windowLog = startService(in);
 
+        Intent ins = new Intent(MainActivity.this, FloatWindowTaskService.class);
+        startService(ins);
 
         // 创建操作跟踪红点
         Intent inx = new Intent(MainActivity.this, FloatMarkWindowService.class);
