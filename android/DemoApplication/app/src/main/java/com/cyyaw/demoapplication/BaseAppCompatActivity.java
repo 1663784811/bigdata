@@ -2,10 +2,8 @@ package com.cyyaw.demoapplication;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.provider.Settings;
 import android.widget.Toast;
 
@@ -25,25 +23,23 @@ import com.cyyaw.demoapplication.permission.PermissionsCode;
  */
 public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
-
     /**
-     * 异步受权
+     * 特殊受权
      */
-    protected ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), (Boolean isGranted) -> {
-        if (isGranted) {
-            Toast.makeText(getActivity(), "权限申请-成功", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "权限申请-失败", Toast.LENGTH_SHORT).show();
-        }
-    });
+    private String otherPermissions;
+
 
     /**
      * 需要跳转其它Active才能受权的
      */
     protected ActivityResultLauncher<Intent> activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
         // 申请权限
-        int resultCode = result.getResultCode();
-        getPermission.launch(Manifest.permission.SYSTEM_ALERT_WINDOW);
+        if (null != otherPermissions) {
+            PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(otherPermissions);
+            if(permissionsCode != null){
+                ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
+            }
+        }
     });
 
     // ============================================================================
@@ -53,14 +49,13 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (permissions.length > 0) {
             PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions[0]);
             if (null != permissionsCode) {
-                if (grantResults[0] != -1) {
-                    Toast.makeText(getActivity(), "受权成功::" + grantResults, Toast.LENGTH_SHORT).show();
+                String ps = permissionsCode.getPermissions();
+                if (alreadyPermissions(ps)) {
                     PermissionsCode.PermissionsSuccessCallback successCallback = permissionsCode.getSuccessCallback();
                     if (null != successCallback) {
                         successCallback.run();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "受权失败::" + grantResults, Toast.LENGTH_SHORT).show();
                     PermissionsCode.PermissionsErrorCallback errorCallback = permissionsCode.getErrorCallback();
                     if (null != errorCallback) {
                         errorCallback.run();
@@ -74,11 +69,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 受权处理
      */
-    protected void requestPermissionsFn(String permissions) {
-        requestPermissionsFn(permissions, () -> {
-        });
-    }
-
     protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback) {
         requestPermissionsFn(permissions, successCallback, () -> {
         });
@@ -86,23 +76,40 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
         PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions);
+        otherPermissions = null;
         if (null != permissionsCode) {
             // 检查是否已经有这个权限了
-            if (ContextCompat.checkSelfPermission(getActivity(), permissions) != PackageManager.PERMISSION_GRANTED) {
+            if (alreadyPermissions(permissions)) {
+                successCallback.run();
+            } else {
                 String sysActivity = permissionsCode.getSysActivity();
                 if (sysActivity != null) {
-                    // 跳转受权页面
+                    // 特殊
+                    otherPermissions = permissionsCode.getPermissions();
+                    permissionsCode.setSuccessCallback(successCallback);
+                    permissionsCode.setErrorCallback(errorCallback);
                     activityResult.launch(new Intent(sysActivity));
                 } else {
                     permissionsCode.setSuccessCallback(successCallback);
                     permissionsCode.setErrorCallback(errorCallback);
                     ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
                 }
-            } else {
-                successCallback.run();
             }
         } else {
             Toast.makeText(getActivity(), "错误:请求未定义权限", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 判断是否已经受权
+     */
+    private boolean alreadyPermissions(String permissions) {
+        // 正常
+        if (permissions.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) && Settings.canDrawOverlays(getActivity())) {
+            // 浮窗
+            return true;
+        } else {
+            return ContextCompat.checkSelfPermission(getActivity(), permissions) == PackageManager.PERMISSION_GRANTED;
         }
     }
 
