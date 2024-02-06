@@ -18,6 +18,8 @@
     <!--  是 Android 系统引入的一个新权限，用于控制应用是否能够直接访问外部存储（例如 SD 卡等）。这个权限通常用于限制应用对外部存储的直接访问，以提高用户数据的安全性和隐私保护  -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
+    <!--    获取联系人权限  -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 
     <application

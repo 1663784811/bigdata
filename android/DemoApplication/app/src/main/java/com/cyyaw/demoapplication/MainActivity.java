@@ -1,12 +1,19 @@
 package com.cyyaw.demoapplication;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +24,10 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
@@ -26,7 +36,7 @@ import com.cyyaw.demoapplication.service.FloatWindowTaskService;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
 
@@ -39,24 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //
     private ComponentName componentNamex;
 
-
-    private ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), (Boolean isGranted) -> {
-        if (Settings.canDrawOverlays(MainActivity.this)) {
-            Toast.makeText(MainActivity.this, "权限申请-成功", Toast.LENGTH_SHORT).show();
-            showFloatWin();
-        } else {
-            Toast.makeText(MainActivity.this, "权限申请-失败", Toast.LENGTH_SHORT).show();
-        }
-
-    });
-
-    private ActivityResultLauncher<Intent> activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
-        // 申请权限
-        int resultCode = result.getResultCode();
-        getPermission.launch(Manifest.permission.SYSTEM_ALERT_WINDOW);
-    });
-
-
     // ========================================================================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_read_file).setOnClickListener(this);
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
+
+
+        requestPermissionsFn(Manifest.permission.READ_CONTACTS, () -> {
+
+        });
+        // 请求权限
+//        getPermission.launch(Manifest.permission.READ_CONTACTS);
     }
 
 
@@ -128,4 +127,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         componentNamex = startService(inx);
     }
 
+
+    @Override
+    Activity getActivity() {
+        return this;
+    }
 }
