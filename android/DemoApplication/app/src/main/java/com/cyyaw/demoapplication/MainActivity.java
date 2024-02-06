@@ -23,7 +23,6 @@ import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.service.FloatWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowTaskService;
-import com.cyyaw.demoapplication.util.PermissionUtil;
 
 import java.io.File;
 
@@ -41,6 +40,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ComponentName componentNamex;
 
 
+    private ActivityResultLauncher<String> getPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean isGranted) {
+            if (Settings.canDrawOverlays(MainActivity.this)) {
+                Toast.makeText(MainActivity.this, "权限申请-成功", Toast.LENGTH_SHORT).show();
+                showFloatWin();
+            } else {
+                Toast.makeText(MainActivity.this, "权限申请-失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+
+    private ActivityResultLauncher<Intent> activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+        // 申请权限
+        int resultCode = result.getResultCode();
+        getPermission.launch(Manifest.permission.SYSTEM_ALERT_WINDOW);
+    });
+
+
+
+    // ========================================================================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +75,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openFloatWin) {
-            PermissionUtil.applyAuthority(this, Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                // 跳转受权页面
+                activityResult.launch(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION));
+            } else {
+                showFloatWin();
+            }
+
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
 
