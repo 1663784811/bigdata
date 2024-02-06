@@ -59,24 +59,14 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
 
-
-        requestPermissionsFn(Manifest.permission.READ_CONTACTS, () -> {
-
-        });
-        // 请求权限
-//        getPermission.launch(Manifest.permission.READ_CONTACTS);
     }
 
 
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openFloatWin) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-                // 跳转受权页面
-                activityResult.launch(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION));
-            } else {
-                showFloatWin();
-            }
+            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
+
 
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");

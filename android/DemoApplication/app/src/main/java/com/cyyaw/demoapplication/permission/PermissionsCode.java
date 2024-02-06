@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.permission;
 
 
 import android.Manifest;
+import android.provider.Settings;
 
 import com.cyyaw.demoapplication.BaseAppCompatActivity;
 
@@ -10,7 +11,9 @@ import com.cyyaw.demoapplication.BaseAppCompatActivity;
  */
 public enum PermissionsCode {
 
-    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null, null);
+    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null)
+    ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 22222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+    ;
 
     /**
      * 系统权限
@@ -25,6 +28,12 @@ public enum PermissionsCode {
      * 说明
      */
     private String note;
+
+    /**
+     * 是否需要打开系统Activity 不需要为则NULL
+     */
+    private String sysActivity;
+
     /**
      * 受权成功回调
      */
@@ -38,12 +47,11 @@ public enum PermissionsCode {
 
     // ===========================================================================================
 
-    PermissionsCode(String permissions, int code, String note, PermissionsSuccessCallback successCallback, PermissionsErrorCallback errorCallback) {
+    PermissionsCode(String permissions, int code, String note, String sysActivity) {
         this.permissions = permissions;
         this.code = code;
         this.note = note;
-        this.successCallback = successCallback;
-        this.errorCallback = errorCallback;
+        this.sysActivity = sysActivity;
     }
 
 
@@ -58,6 +66,10 @@ public enum PermissionsCode {
         return null;
     }
     // ===========================================================================================
+
+    public String getSysActivity() {
+        return sysActivity;
+    }
 
     public String getPermissions() {
         return permissions;

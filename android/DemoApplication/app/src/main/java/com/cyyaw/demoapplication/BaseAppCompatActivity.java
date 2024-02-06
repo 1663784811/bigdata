@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -44,7 +46,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         getPermission.launch(Manifest.permission.SYSTEM_ALERT_WINDOW);
     });
 
-
+    // ============================================================================
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -71,10 +73,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * 受权处理
-     *
-     * @param permissions     成功回调
-     * @param successCallback 失败回调
      */
+    protected void requestPermissionsFn(String permissions) {
+        requestPermissionsFn(permissions, () -> {
+        });
+    }
+
     protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback) {
         requestPermissionsFn(permissions, successCallback, () -> {
         });
@@ -85,11 +89,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (null != permissionsCode) {
             // 检查是否已经有这个权限了
             if (ContextCompat.checkSelfPermission(getActivity(), permissions) != PackageManager.PERMISSION_GRANTED) {
-                // TODO 判断是否需要打开系统Active
-
-                permissionsCode.setSuccessCallback(successCallback);
-                permissionsCode.setErrorCallback(errorCallback);
-                ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
+                String sysActivity = permissionsCode.getSysActivity();
+                if (sysActivity != null) {
+                    // 跳转受权页面
+                    activityResult.launch(new Intent(sysActivity));
+                } else {
+                    permissionsCode.setSuccessCallback(successCallback);
+                    permissionsCode.setErrorCallback(errorCallback);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
+                }
             } else {
                 successCallback.run();
             }
