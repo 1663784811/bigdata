@@ -56,11 +56,12 @@ public class FloatWindowLogService extends BaseService {
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             floatWindow = FloatWindow.crateDefaultWindow(context, wManager, R.layout.float_window_info);
             layoutParams = floatWindow.getFloatWindowParams();
-
+            // ===
             recyclerView = floatWindow.findViewById(R.id.recyclerInfoList);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new LogInfoAdapter(itemList);
             recyclerView.setAdapter(adapter);
+            //====
             wManager.addView(floatWindow, layoutParams);
         }
     }

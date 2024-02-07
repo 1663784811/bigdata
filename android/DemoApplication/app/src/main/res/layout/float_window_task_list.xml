@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#99111111"
+    >
+
+
+    <TextView
+        android:id="@+id/task_index"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="序号"
+        android:textColor="#ffffff"
+        android:textSize="9sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/task_name"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="任务"
+        android:textColor="#ffffff"
+        android:textSize="9sp"
+        tools:ignore="SmallSp" />
+
+</LinearLayout>

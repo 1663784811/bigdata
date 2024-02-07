@@ -1,4 +1,4 @@
-package com.cyyaw.demoapplication.data;
+package com.cyyaw.demoapplication.task.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,26 +13,27 @@ import java.util.List;
 
 
 /**
- * 日志适配器
+ * 任务适配器
  */
-public class LogInfoAdapter extends RecyclerView.Adapter<LogInfoAdapter.ViewHolder> {
+public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
-    private List<String> items;
+    private List<TaskBean> items;
 
-    public LogInfoAdapter(List<String> items) {
+    public TaskListAdapter(List<TaskBean> items) {
         this.items = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.float_window_info_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.float_window_task_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String item = items.get(position);
-        holder.textView.setText(item);
+        TaskBean item = items.get(position);
+        holder.taskIndex.setText(""+position);
+        holder.taskName.setText(item.getName());
     }
 
     @Override
@@ -41,11 +42,14 @@ public class LogInfoAdapter extends RecyclerView.Adapter<LogInfoAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView taskIndex;
+        public TextView taskName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.infoText);
+            taskIndex = itemView.findViewById(R.id.task_index);
+            taskName = itemView.findViewById(R.id.task_name);
+
         }
     }
 

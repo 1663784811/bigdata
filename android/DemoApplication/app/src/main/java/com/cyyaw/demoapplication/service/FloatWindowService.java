@@ -15,6 +15,10 @@ import com.cyyaw.demoapplication.task.AutoHelloTask;
 
 import java.util.List;
 
+
+/**
+ * 辅助 触发
+ */
 public class FloatWindowService extends AccessibilityService implements View.OnClickListener {
 
     private WindowManager wManager;
@@ -41,8 +45,9 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+
         int eventType = event.getEventType();
-        Log.d("mmmmmmmmmmmmm", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeee:"+eventType);
+        Log.d("mmmmmmmm", "seeeeeeeeeeeeeeeeeeeeeeeddddddeeeeeee:"+eventType);
         if (eventType == 222) {
             CharSequence packageName = event.getPackageName();
 //            AccessibilityNodeInfo root = getRootInActiveWindow();

@@ -38,13 +38,15 @@ import java.io.File;
 
 public class MainActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
+
     public static final String TAG = "MainActivity";
+
+    // 浮窗
+    private ComponentName floatWindows;
 
     // 日志信息
     private ComponentName windowLog;
 
-
-    private ComponentName floatWindows;
 
     //
     private ComponentName componentNamex;
@@ -58,6 +60,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_read_file).setOnClickListener(this);
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
+        findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
 
     }
 
@@ -65,12 +68,15 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openFloatWin) {
-            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
+            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, ()->{
+                Toast.makeText(MainActivity.this, "成功" , Toast.LENGTH_SHORT).show();
+            });
 
+        } else if (id == R.id.btn_openFloatWin) {
+            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
 
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
-
 
         } else if (id == R.id.btn_write_file) {
             Log.i(TAG, "  =================   onClick: btn_write_file  ");

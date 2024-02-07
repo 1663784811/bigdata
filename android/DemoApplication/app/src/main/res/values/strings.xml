@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DemoApplication</string>
     <string name="openFloatWin">开启浮窗</string>
+    <string name="openAccessibilityService">开启无障碍服务</string>
     <string name="btnStartText">开始</string>
     <string name="textTime">时间</string>
     <string name="textDistance">距离</string>
