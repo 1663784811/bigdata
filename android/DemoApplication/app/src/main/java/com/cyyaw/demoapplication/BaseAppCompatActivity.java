@@ -1,10 +1,13 @@
 package com.cyyaw.demoapplication;
 
 import android.Manifest;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -36,7 +39,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         // 申请权限
         if (null != otherPermissions) {
             PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(otherPermissions);
-            if(permissionsCode != null){
+            if (permissionsCode != null) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
             }
         }
@@ -49,8 +52,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (permissions.length > 0) {
             PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions[0]);
             if (null != permissionsCode) {
-                String ps = permissionsCode.getPermissions();
-                if (alreadyPermissions(ps)) {
+                if (PermissionsCode.alreadyPermissions(getActivity(), permissionsCode)) {
                     PermissionsCode.PermissionsSuccessCallback successCallback = permissionsCode.getSuccessCallback();
                     if (null != successCallback) {
                         successCallback.run();
@@ -69,17 +71,17 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 受权处理
      */
-    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback) {
-        requestPermissionsFn(permissions, successCallback, () -> {
+    protected void requestPermissionsFn(String permissions, Object other, PermissionsCode.PermissionsSuccessCallback successCallback) {
+        requestPermissionsFn(permissions, other, successCallback, () -> {
         });
     }
 
-    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
+    protected void requestPermissionsFn(String permissions, Object other, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
         PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions);
         otherPermissions = null;
         if (null != permissionsCode) {
             // 检查是否已经有这个权限了
-            if (alreadyPermissions(permissions)) {
+            if (PermissionsCode.alreadyPermissions(getActivity(), permissionsCode)) {
                 successCallback.run();
             } else {
                 String sysActivity = permissionsCode.getSysActivity();
@@ -88,6 +90,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                     otherPermissions = permissionsCode.getPermissions();
                     permissionsCode.setSuccessCallback(successCallback);
                     permissionsCode.setErrorCallback(errorCallback);
+                    permissionsCode.setOther(other);
                     activityResult.launch(new Intent(sysActivity));
                 } else {
                     permissionsCode.setSuccessCallback(successCallback);
@@ -100,18 +103,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 判断是否已经受权
-     */
-    private boolean alreadyPermissions(String permissions) {
-        // 正常
-        if (permissions.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) && Settings.canDrawOverlays(getActivity())) {
-            // 浮窗
-            return true;
-        } else {
-            return ContextCompat.checkSelfPermission(getActivity(), permissions) == PackageManager.PERMISSION_GRANTED;
-        }
-    }
 
     abstract Activity getActivity();
 

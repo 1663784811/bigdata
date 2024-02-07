@@ -2,7 +2,14 @@ package com.cyyaw.demoapplication.permission;
 
 
 import android.Manifest;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
+import android.view.accessibility.AccessibilityManager;
+
+import androidx.core.content.ContextCompat;
 
 import com.cyyaw.demoapplication.BaseAppCompatActivity;
 
@@ -45,7 +52,10 @@ public enum PermissionsCode {
      */
     private PermissionsErrorCallback errorCallback;
 
-
+    /**
+     * 其它
+     */
+    private Object other;
     // ===========================================================================================
 
     PermissionsCode(String permissions, int code, String note, String sysActivity) {
@@ -67,6 +77,14 @@ public enum PermissionsCode {
         return null;
     }
     // ===========================================================================================
+
+    public Object getOther() {
+        return other;
+    }
+
+    public void setOther(Object other) {
+        this.other = other;
+    }
 
     public String getSysActivity() {
         return sysActivity;
@@ -113,5 +131,38 @@ public enum PermissionsCode {
     public static interface PermissionsErrorCallback {
         void run();
     }
+
+
+    /**
+     * 判断是否已经受权
+     */
+    public static boolean alreadyPermissions(Context context, PermissionsCode permissionsCode) {
+        String permissions = permissionsCode.getPermissions();
+        Object other = permissionsCode.getOther();
+        // 正常
+        if (permissions.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) && Settings.canDrawOverlays(context)) {
+            // 浮窗
+            return true;
+        }if (permissions.equals(Manifest.permission.BIND_ACCESSIBILITY_SERVICE) && isAccessibilityServiceEnabled(context, (Class<?>) other)) {
+            // 无障碍服务AccessibilityService
+            return true;
+        } else {
+            return ContextCompat.checkSelfPermission(context, permissions) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+
+    private static boolean isAccessibilityServiceEnabled(Context context, Class<?> serviceClass) {
+        AccessibilityManager accessibilityManager = (AccessibilityManager)context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        if (accessibilityManager != null) {
+            for (AccessibilityServiceInfo serviceInfo : accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)) {
+                if (serviceInfo.getId().equals(context.getPackageName() + "/" + serviceClass.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

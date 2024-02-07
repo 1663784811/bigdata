@@ -68,12 +68,12 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openAccessibilityService) {
-            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, ()->{
-                Toast.makeText(MainActivity.this, "成功" , Toast.LENGTH_SHORT).show();
+            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, FloatWindowService.class, () -> {
+                Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
             });
 
         } else if (id == R.id.btn_openFloatWin) {
-            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
+            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, null, this::showFloatWin);
 
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
