@@ -67,7 +67,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_openFloatWin) {
+        if (id == R.id.btn_openAccessibilityService) {
             requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, ()->{
                 Toast.makeText(MainActivity.this, "成功" , Toast.LENGTH_SHORT).show();
             });
