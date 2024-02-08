@@ -1,33 +1,18 @@
 package com.cyyaw.demoapplication;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
@@ -68,13 +53,12 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openAccessibilityService) {
-            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, FloatWindowService.class, () -> {
-                Toast.makeText(MainActivity.this, "成功", Toast.LENGTH_SHORT).show();
+            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, () -> {
+                Toast.makeText(this, "成功:请求未定义权限----", Toast.LENGTH_SHORT).show();
             });
 
         } else if (id == R.id.btn_openFloatWin) {
-            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, null, this::showFloatWin);
-
+            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
 

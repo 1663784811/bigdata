@@ -5,11 +5,9 @@ import android.accessibilityservice.AccessibilityService;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
-import com.cyyaw.demoapplication.MainActivity;
 import com.cyyaw.demoapplication.task.hello.HelloDesktopTask;
 import com.cyyaw.demoapplication.task.hello.TaskOperation;
 
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 

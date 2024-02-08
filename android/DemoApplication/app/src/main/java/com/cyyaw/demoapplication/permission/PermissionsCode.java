@@ -3,7 +3,6 @@ package com.cyyaw.demoapplication.permission;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
@@ -11,7 +10,7 @@ import android.view.accessibility.AccessibilityManager;
 
 import androidx.core.content.ContextCompat;
 
-import com.cyyaw.demoapplication.BaseAppCompatActivity;
+import com.cyyaw.demoapplication.service.FloatWindowService;
 
 /**
  * 受权码
@@ -55,7 +54,7 @@ public enum PermissionsCode {
     /**
      * 其它
      */
-    private Object other;
+//    private Object other;
     // ===========================================================================================
 
     PermissionsCode(String permissions, int code, String note, String sysActivity) {
@@ -77,14 +76,6 @@ public enum PermissionsCode {
         return null;
     }
     // ===========================================================================================
-
-    public Object getOther() {
-        return other;
-    }
-
-    public void setOther(Object other) {
-        this.other = other;
-    }
 
     public String getSysActivity() {
         return sysActivity;
@@ -138,12 +129,12 @@ public enum PermissionsCode {
      */
     public static boolean alreadyPermissions(Context context, PermissionsCode permissionsCode) {
         String permissions = permissionsCode.getPermissions();
-        Object other = permissionsCode.getOther();
+
         // 正常
         if (permissions.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) && Settings.canDrawOverlays(context)) {
             // 浮窗
             return true;
-        }if (permissions.equals(Manifest.permission.BIND_ACCESSIBILITY_SERVICE) && isAccessibilityServiceEnabled(context, (Class<?>) other)) {
+        }if (permissions.equals(Manifest.permission.BIND_ACCESSIBILITY_SERVICE) && isAccessibilityServiceEnabled(context)) {
             // 无障碍服务AccessibilityService
             return true;
         } else {
@@ -152,11 +143,13 @@ public enum PermissionsCode {
     }
 
 
-    private static boolean isAccessibilityServiceEnabled(Context context, Class<?> serviceClass) {
+    private static boolean isAccessibilityServiceEnabled(Context context) {
         AccessibilityManager accessibilityManager = (AccessibilityManager)context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (accessibilityManager != null) {
             for (AccessibilityServiceInfo serviceInfo : accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)) {
-                if (serviceInfo.getId().equals(context.getPackageName() + "/" + serviceClass.getName())) {
+                String id = serviceInfo.getId();
+                String packageName = context.getPackageName();
+                if (id.indexOf(packageName) == 0) {
                     return true;
                 }
             }

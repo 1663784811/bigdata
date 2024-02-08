@@ -71,12 +71,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 受权处理
      */
-    protected void requestPermissionsFn(String permissions, Object other, PermissionsCode.PermissionsSuccessCallback successCallback) {
-        requestPermissionsFn(permissions, other, successCallback, () -> {
+    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback) {
+        requestPermissionsFn(permissions, successCallback, () -> {
         });
     }
 
-    protected void requestPermissionsFn(String permissions, Object other, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
+    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
         PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions);
         otherPermissions = null;
         if (null != permissionsCode) {
@@ -90,7 +90,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                     otherPermissions = permissionsCode.getPermissions();
                     permissionsCode.setSuccessCallback(successCallback);
                     permissionsCode.setErrorCallback(errorCallback);
-                    permissionsCode.setOther(other);
                     activityResult.launch(new Intent(sysActivity));
                 } else {
                     permissionsCode.setSuccessCallback(successCallback);
