@@ -164,6 +164,29 @@
                 android:layout_margin="20pt"
                 android:background="#000000" />
 
+            <Button
+                android:id="@+id/btn_openFloatWinssss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="启动任务" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="停止任务" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="暂停任务" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="20pt"
+                android:background="#000000" />
+
         </LinearLayout>
     </ScrollView>
 
