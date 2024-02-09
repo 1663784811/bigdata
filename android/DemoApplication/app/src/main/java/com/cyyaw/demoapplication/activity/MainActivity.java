@@ -18,7 +18,6 @@ import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.service.FloatWindowTaskService;
-import com.cyyaw.demoapplication.task.ThreadController;
 
 import java.io.File;
 
@@ -35,7 +34,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     //
     private ComponentName componentNamex;
 
-    private ThreadController threadController = new ThreadController();
 
     // ========================================================================================================================================================
     @Override
@@ -47,7 +45,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
         findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
-        findViewById(R.id.btn_openTask).setOnClickListener(this);
 
     }
 
@@ -63,8 +60,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                 Toast.makeText(this, "开启浮窗成功----", Toast.LENGTH_SHORT).show();
                 showFloatWin();
             });
-        } else if (id == R.id.btn_openTask) {
-            threadController.start();
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
 

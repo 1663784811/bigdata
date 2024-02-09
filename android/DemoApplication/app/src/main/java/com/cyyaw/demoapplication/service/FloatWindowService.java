@@ -2,9 +2,6 @@ package com.cyyaw.demoapplication.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,12 +10,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
-import com.cyyaw.demoapplication.task.AutoHelloTask;
+import com.cyyaw.demoapplication.task.ThreadController;
 
 import java.util.List;
-
-
-import android.app.ActivityManager;
 
 /**
  * 辅助 触发
@@ -37,6 +31,9 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     private Context context;
 
 
+    private ThreadController threadController = new ThreadController();
+
+
     @Override
     public void onCreate() {
         context = getApplicationContext();
@@ -53,7 +50,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     public void onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         if (eventType == 222) {
-            Log.d("mmmmmmmm", "seeeeeeeeeeeeeeeeeeeeeeeddddddeeeeeee:"+eventType);
+            Log.d("mmmmmmmm", "seeeeeeeeeeeeeeeeeeeeeeeddddddeeeeeee:" + eventType);
             CharSequence packageName = event.getPackageName();
 //            AccessibilityNodeInfo root = getRootInActiveWindow();
 //           root.performAction(AccessibilityNodeInfo.ACTION_CLICK);
@@ -88,7 +85,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
             CharSequence packageName = rootInActiveWindow.getPackageName();
             List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
 
-            Log.d(TAG, "onClick: "+ packageName);
+            Log.d(TAG, "onClick: " + packageName);
             // 开启任务
             ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
 
