@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ServerMessage {
 
-    private static List<BaseService> baseServiceList = new CopyOnWriteArrayList<>();
+    private static volatile List<BaseService> baseServiceList = new CopyOnWriteArrayList<>();
 
     private ServerMessage(){}
 

@@ -89,9 +89,9 @@ public class FloatWindowLogService extends BaseService {
     public void receiveMsg(String msg) {
 
 
-        Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        Log.d("AccessibilityService", "Left: ssssssssss::: "+ msg);
 
-        int newItemPosition = itemList.size() - 1;
+        int newItemPosition = itemList.size();
 
         itemList.add(msg + newItemPosition);
 

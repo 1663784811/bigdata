@@ -3,6 +3,8 @@ package com.cyyaw.demoapplication.service;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +17,8 @@ import com.cyyaw.demoapplication.task.AutoHelloTask;
 
 import java.util.List;
 
+
+import android.app.ActivityManager;
 
 /**
  * 辅助 触发
