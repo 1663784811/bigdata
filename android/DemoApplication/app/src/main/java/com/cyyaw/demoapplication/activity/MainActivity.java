@@ -1,4 +1,4 @@
-package com.cyyaw.demoapplication;
+package com.cyyaw.demoapplication.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,10 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
-import com.cyyaw.demoapplication.service.FloatWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowTaskService;
+import com.cyyaw.demoapplication.task.ThreadController;
 
 import java.io.File;
 
@@ -26,8 +27,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
     public static final String TAG = "MainActivity";
 
-    // 浮窗
-    private ComponentName floatWindows;
 
     // 日志信息
     private ComponentName windowLog;
@@ -35,6 +34,8 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
     //
     private ComponentName componentNamex;
+
+    private ThreadController threadController = new ThreadController();
 
     // ========================================================================================================================================================
     @Override
@@ -46,6 +47,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
         findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
+        findViewById(R.id.btn_openTask).setOnClickListener(this);
 
     }
 
@@ -54,11 +56,15 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         int id = view.getId();
         if (id == R.id.btn_openAccessibilityService) {
             requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, () -> {
-                Toast.makeText(this, "成功:请求未定义权限----", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "无障碍功能开启成功----", Toast.LENGTH_SHORT).show();
             });
-
         } else if (id == R.id.btn_openFloatWin) {
-            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, this::showFloatWin);
+            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, () -> {
+                Toast.makeText(this, "开启浮窗成功----", Toast.LENGTH_SHORT).show();
+                showFloatWin();
+            });
+        } else if (id == R.id.btn_openTask) {
+            threadController.start();
         } else if (id == R.id.btn_read_file) {
             Log.i(TAG, "  =================   onClick: btn_read_file  ");
 
@@ -96,8 +102,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
 
     private synchronized void showFloatWin() {
-        Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-        floatWindows = startService(intent);
         Intent in = new Intent(MainActivity.this, FloatWindowLogService.class);
         windowLog = startService(in);
         Intent ins = new Intent(MainActivity.this, FloatWindowTaskService.class);

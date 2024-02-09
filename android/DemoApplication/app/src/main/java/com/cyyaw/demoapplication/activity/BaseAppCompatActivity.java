@@ -1,4 +1,4 @@
-package com.cyyaw.demoapplication;
+package com.cyyaw.demoapplication.activity;
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;

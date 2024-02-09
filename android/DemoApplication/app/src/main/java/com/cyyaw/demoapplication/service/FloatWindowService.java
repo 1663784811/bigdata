@@ -21,6 +21,9 @@ import java.util.List;
  */
 public class FloatWindowService extends AccessibilityService implements View.OnClickListener {
 
+    public static final String TAG = "FloatWindowService";
+
+
     private WindowManager wManager;
 
     private FloatWindow floatWindow;
@@ -32,7 +35,6 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
 
     @Override
     public void onCreate() {
-        Log.i("ssssssssssssssssssssssssssssss", "seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         context = getApplicationContext();
         createWindow();
     }
@@ -82,13 +84,9 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
             CharSequence packageName = rootInActiveWindow.getPackageName();
             List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
 
-
-
-
+            Log.d(TAG, "onClick: "+ packageName);
             // 开启任务
-//            AutoHelloTask.start(this);
-
-            ServerMessage.sendMsg(FloatWindowLogService.class, "ssssssss");
+            ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
 
         } catch (Exception e) {
             e.printStackTrace();

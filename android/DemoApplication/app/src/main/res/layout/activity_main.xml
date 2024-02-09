@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activity.MainActivity"
     android:orientation="vertical">
     <!-- LinearLayout 线性布局   -->
 
@@ -165,7 +165,7 @@
                 android:background="#000000" />
 
             <Button
-                android:id="@+id/btn_openFloatWinssss"
+                android:id="@+id/btn_openTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="启动任务" />
