@@ -1,9 +1,13 @@
 package com.cyyaw.demoapplication.util;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.os.SystemClock;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -12,6 +16,8 @@ import com.cyyaw.demoapplication.data.NodeInfoCenterXY;
 import com.cyyaw.demoapplication.view.SquareView;
 
 public class AppUtil {
+
+    private static Instrumentation inst = new Instrumentation();
 
     private AppUtil() {
     }
@@ -58,7 +64,7 @@ public class AppUtil {
     /**
      * 创建正方形
      */
-    public static SquareView createSquare(WindowManager wManager, Context context,AccessibilityNodeInfo nodeInfo) {
+    public static SquareView createSquare(WindowManager wManager, Context context, AccessibilityNodeInfo nodeInfo) {
         Rect rect = new Rect();
         nodeInfo.getBoundsInScreen(rect);
         int left = rect.left;
@@ -81,4 +87,24 @@ public class AppUtil {
         return squareView;
     }
 
+
+    public static void onClick(int x, int y) {
+        // 按下事件
+        MotionEvent downEvent = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, x, y, 0);
+        inst.sendPointerSync(downEvent);
+        SystemClock.sleep(100);
+        // 模拟触摸事件，ACTION_UP表示抬起
+        MotionEvent upEvent = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, x, y, 0);
+        inst.sendPointerSync(upEvent);
+    }
+
+
+    /**
+     * 点击HOME键
+     */
+    public static void onKeyHome() {
+        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_HOME);
+        // 延迟一段时间，确保 HOME 按钮事件被发送
+        SystemClock.sleep(100);
+    }
 }

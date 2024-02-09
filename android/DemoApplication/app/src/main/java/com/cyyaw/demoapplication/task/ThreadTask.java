@@ -1,9 +1,18 @@
 package com.cyyaw.demoapplication.task;
 
+import java.util.List;
+
 /**
  * 任务线程
  */
 public class ThreadTask {
+
+
+    /**
+     * 任务列表
+     */
+    private List<TaskEntity> taskEntityList;
+
 
     // app
     // 页面

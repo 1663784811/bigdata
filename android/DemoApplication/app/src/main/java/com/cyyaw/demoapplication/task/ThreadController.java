@@ -21,10 +21,6 @@ public class ThreadController {
 
     private AccessibilityService accessibilityService;
 
-    /**
-     * 任务列表
-     */
-    private List<TaskEntity> taskEntityList;
 
 
     /**
@@ -33,6 +29,8 @@ public class ThreadController {
     public void start() {
 
 
+        ThreadTask threadTask = new ThreadTask();
+        threadTask.run();
 
 
 
