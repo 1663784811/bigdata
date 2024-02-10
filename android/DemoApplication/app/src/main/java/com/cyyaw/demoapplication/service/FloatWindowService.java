@@ -81,40 +81,19 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     @Override
     public void onClick(View v) {
         try {
-            AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
-            CharSequence packageName = rootInActiveWindow.getPackageName();
-            List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
-
-            Log.d(TAG, "onClick: " + packageName);
-            // 开启任务
-            ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
-
+//            AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
+//            CharSequence packageName = rootInActiveWindow.getPackageName();
+//            List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
+//
+//            Log.d(TAG, "onClick: " + packageName);
+//            // 开启任务
+//            ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
+            threadController.start(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    private void traverseLayout(AccessibilityNodeInfo nodeInfo) {
-        if (nodeInfo == null) {
-            return;
-        }
-        // 获取节点的类名
-        CharSequence className = nodeInfo.getClassName();
-        // 获取节点的文本内容
-        CharSequence text = nodeInfo.getText();
-        if ("微信".equals(text)) {
-            // 点击打开微信
-            AccessibilityNodeInfo parent = nodeInfo.getParent();
-            parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//            showWindowInfo("点击：" + text);
-//            SquareView square = AppUtil.createSquare(wManager, context, parent);
-        }
-        // 递归遍历子节点
-        for (int i = 0; i < nodeInfo.getChildCount(); i++) {
-            traverseLayout(nodeInfo.getChild(i));
-        }
-        // ========================================================
-    }
 
 }
