@@ -45,6 +45,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_write_file).setOnClickListener(this);
         findViewById(R.id.btn_openFloatWin).setOnClickListener(this);
         findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
+        findViewById(R.id.btn_go_my_view).setOnClickListener(this);
 
     }
 
@@ -92,6 +93,9 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
 
             }
 
+        } else if (id == R.id.btn_go_my_view) {
+            Intent intent = new Intent(this, ViewTestActivity.class);
+            startActivity(intent);
         }
     }
 

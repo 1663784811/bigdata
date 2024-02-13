@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity"
-    android:orientation="vertical">
-    <!-- LinearLayout 线性布局   -->
+    android:orientation="vertical"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -186,6 +186,31 @@
                 android:layout_height="1dp"
                 android:layout_margin="20pt"
                 android:background="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打开窗口"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_go_my_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跳转自定义View" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="20pt"
+                android:background="#000000" />
+
+
 
         </LinearLayout>
     </ScrollView>

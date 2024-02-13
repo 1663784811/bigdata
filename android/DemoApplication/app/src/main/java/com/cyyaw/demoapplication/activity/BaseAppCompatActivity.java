@@ -1,13 +1,7 @@
 package com.cyyaw.demoapplication.activity;
 
-import android.Manifest;
-import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.provider.Settings;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -16,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.cyyaw.demoapplication.permission.PermissionsCode;
 
