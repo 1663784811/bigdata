@@ -59,9 +59,11 @@
 import {reactive} from 'vue';
 import sHeader from '@/components/SimpleHeader.vue'
 import {getOrderList} from '@/service/api'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
+
 const state = reactive({
   status: '',
   loading: false,
@@ -88,7 +90,11 @@ const onChangeTab = ({name}) => {
 }
 
 const goTo = (id) => {
-  router.push({path: '/order-detail', query: {id}})
+  router.push({
+    name: 'orderDetail',
+    query: {id},
+    params: route.params
+  })
 }
 
 const goBack = () => {
@@ -231,7 +237,8 @@ const onRefresh = () => {
           }
         }
       }
-      .otherInfo{
+
+      .otherInfo {
         .price {
           font-size: 16px;
           color: red;

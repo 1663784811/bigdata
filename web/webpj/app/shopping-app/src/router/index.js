@@ -118,8 +118,8 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: 'order-detail',
-                    name: 'order-detail',
+                    path: 'orderDetail',
+                    name: 'orderDetail',
                     component: () => import('@/views/order/OrderDetail.vue'),
                     meta: {
                         index: 3

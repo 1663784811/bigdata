@@ -6,10 +6,8 @@ import com.cyyaw.util.tools.BaseResult;
 
 public interface UAddressService extends BaseTableService<UAddress, Integer> {
 
-
-    BaseResult findUserAddress(String userId);
-
-
     UAddress defaultAddress(String userId, String addressId);
+
+    Object saveAddress(UAddress uAddress);
 
 }
