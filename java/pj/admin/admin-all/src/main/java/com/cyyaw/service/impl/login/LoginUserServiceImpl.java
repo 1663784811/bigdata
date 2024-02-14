@@ -6,6 +6,7 @@ import com.cyyaw.config.exception.WebException;
 import com.cyyaw.enterprise.service.EApplicationService;
 import com.cyyaw.enterprise.table.entity.EApplication;
 import com.cyyaw.service.LoginUserService;
+import com.cyyaw.service.em.LoginType;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.LoginInfo;
@@ -47,6 +48,7 @@ public class LoginUserServiceImpl implements LoginUserService {
         loginInfo.setUserName(user.getNickName());
         loginInfo.setAppId(appId);
         loginInfo.setEnterpriseCode(eCode);
+        loginInfo.setType(LoginType.appUser.getType());
         String token = JwtTokenUtils.createToken(tid, JSONUtil.toJsonStr(new JSONObject(loginInfo)));
         UserAuthToken userAuthToken = new UserAuthToken();
         userAuthToken.setJwtToken(token);
@@ -112,6 +114,7 @@ public class LoginUserServiceImpl implements LoginUserService {
         loginInfo.setUserName(user.getNickName());
         loginInfo.setAppId(appId);
         loginInfo.setEnterpriseCode(eCode);
+        loginInfo.setType(LoginType.appUser.getType());
         String token = JwtTokenUtils.createToken(tid, JSONUtil.toJsonStr(new JSONObject(loginInfo)));
         UserAuthToken userAuthToken = new UserAuthToken();
         userAuthToken.setJwtToken(token);

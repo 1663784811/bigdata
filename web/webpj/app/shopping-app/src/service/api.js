@@ -45,17 +45,18 @@ export function getCart(params, appId) {return axios.get(`${baseUrl}/app/${appId
 //添加购物车
 export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/shopping/cart/updateCart`, params);}
 //计算商品价格
-export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/countGoodsPrice`, params);}
+export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/order/countGoodsPrice`, params);}
 //删除购物车商品
 export function deleteCartItem(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/cart/delCartGoods`, params);}
 //订单列表
-export function getOrderList(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/order/query`, { params });}
+export function getOrderList(params, appId) {return axios.get(`${baseUrl}/app/${appId}/order/query`, { params });}
 //订单详情
-export function getOrderDetail(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/order/orderById`, { params });}
-//
-export function getAddressList(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/address`, {params})}
+export function getOrderDetail(params, appId) {return axios.get(`${baseUrl}/app/${appId}/order/orderById`, { params });}
+
 // 获取默认地址
 export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/defaultAddress`, {params});}
+// 保存地址
+export function saveAddress(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/address/saveAddress`, params);}
 
 export const goodsDetails = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/goodsDetails`,{ params });}
 
@@ -64,7 +65,7 @@ export const goodsDetailsText = (params = {}, appId) => {return axios.get(`${bas
 export const goodsPhoto = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/goodsPhoto`,{ params });}
 
 //创建订单
-export function createOrder(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/order/createOrder`, params);}
+export function createOrder(params, appId) {return axios.post(`${baseUrl}/app/${appId}/order/createOrder`, params);}
 
 
 // =====================================================================
@@ -80,9 +81,3 @@ export function EditUserInfo(params) {
 export function payOrder(params) {
     return axios.get(`/paySuccess`, { params })
 }
-export function addAddress(params, appId) {return axios.post(`/address`, params);}
-
-export function EditAddress(params) {return axios.put(`/address`, params);}
-
-export function DeleteAddress(id) {return axios.delete(`/address/${appId}`);}
-

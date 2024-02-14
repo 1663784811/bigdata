@@ -190,7 +190,7 @@ const state = reactive({})
 const pageData = ref({
   page: 1,
   total: 0,
-  size: 30
+  size: 10
 });
 
 const changePage = (page) => {

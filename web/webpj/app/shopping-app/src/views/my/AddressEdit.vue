@@ -20,7 +20,7 @@
 import { reactive, onMounted } from 'vue'
 import { showToast } from 'vant'
 import sHeader from '@/components/SimpleHeader.vue'
-import { addAddress, EditAddress, DeleteAddress, getDefaultAddress } from '@/service/api'
+import { saveAddress, getDefaultAddress } from '@/service/api'
 import { tdist } from '@/common/js/utils'
 import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
@@ -54,12 +54,11 @@ onMounted(async () => {
   state.areaList.city_list = _city_list
   state.areaList.county_list = _county_list
 
-  const { addressId, type, from } = route.query
+  const { addressId, from } = route.query
   state.addressId = addressId
-  state.type = type
   state.from = from || ''
-  if (type == 'edit') {
-    const { data: addressDetail } = await getDefaultAddress(addressId)
+  if (addressId) {
+    const { data: addressDetail } = await getDefaultAddress({addressId}, route.params.appid)
     let _areaCode = ''
     const province = tdist.getLev1()
     Object.entries(state.areaList.county_list).forEach(([id, text]) => {
@@ -100,10 +99,10 @@ const onSave = async (content) => {
     detailAddress: content.addressDetail,
     defaultFlag: content.isDefault ? 1 : 0,
   }
-  if (state.type == 'edit') {
+  if (state.addressId) {
     params['addressId'] = state.addressId
   }
-  await state.type == 'add' ? addAddress(params) : EditAddress(params)
+  await saveAddress(params, route.params.appid)
   showToast('保存成功')
   setTimeout(() => {
     router.back()

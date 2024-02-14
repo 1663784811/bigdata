@@ -18,10 +18,12 @@ import sHeader from '@/components/SimpleHeader.vue'
 import {getUserInfo, EditUserInfo, logout} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import {showSuccessToast} from 'vant'
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "@/stores/user.js";
 
 const router = useRouter();
+const route = useRoute()
+
 const userStore = useUserStore();
 
 
@@ -32,7 +34,7 @@ const state = reactive({
 })
 
 onMounted(async () => {
-  const {data} = await getUserInfo()
+  const {data} = await getUserInfo({},  route.params.appid)
   state.nickName = data.nickName
   state.introduceSign = data.introduceSign
 })

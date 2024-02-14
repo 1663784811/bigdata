@@ -1,4 +1,4 @@
-package com.cyyaw.app.controller;
+package com.cyyaw.app.controller.user;
 
 
 import com.cyyaw.user.config.TokenData;
@@ -31,13 +31,7 @@ public class AppUserController {
     @ApiOperation(value = "app用户信息", notes = "app用户信息")
     @GetMapping("/userInfo")
     public BaseResult userInfo(@TokenData LoginInfo loginInfo) {
-        Integer type = loginInfo.getType();
-        if (null != type && type.equals(1)) {
-            String userId = loginInfo.getId();
-            UUser user = uUserService.findByTid(userId);
-            return BaseResult.ok(user);
-        }
-        return BaseResult.fail("没有登录");
+        return BaseResult.ok(uUserService.findByTid(loginInfo.getId()));
     }
 
 

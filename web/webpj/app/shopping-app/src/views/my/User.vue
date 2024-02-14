@@ -45,16 +45,19 @@ import {reactive, onMounted, toRefs} from 'vue'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
 import {getUserInfo} from '@/service/api'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
+
+
 const state = reactive({
   user: {},
   loading: true
 })
 
 onMounted(async () => {
-  const {data} = await getUserInfo()
+  const {data} = await getUserInfo({},  route.params.appid)
   if (data) {
     state.user = data
   }

@@ -26,7 +26,7 @@
 <script setup>
 import sHeader from '@/components/SimpleHeader.vue'
 import {reactive, onMounted} from 'vue'
-import {getAddressList} from '@/service/api'
+import {commonQuery} from '@/service/api'
 import {useRoute, useRouter} from 'vue-router'
 
 const route = useRoute()
@@ -42,7 +42,9 @@ onMounted(() => {
 })
 
 const init = async () => {
-  const {data} = await getAddressList()
+  const {data} = await commonQuery({
+    code: 'select_app_u_address'
+  }, route.params.appid)
   if (!data) {
     state.list = []
     return

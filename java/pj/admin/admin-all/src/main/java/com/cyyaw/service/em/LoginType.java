@@ -1,5 +1,8 @@
 package com.cyyaw.service.em;
 
+import lombok.Getter;
+
+@Getter
 public enum LoginType {
 
     root(0,"超级管理员")
@@ -15,11 +18,4 @@ public enum LoginType {
         this.note = note;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public String getNote() {
-        return note;
-    }
 }

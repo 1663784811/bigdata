@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // 获取页面设置
 export const pageSetting = (params = {}, eCode) => {return axios.get( `${baseUrl}/tx/config/page/pageSetting`, {params});}
 //获取表格数据
-export const getSqlList = (params, eCode) => {return axios.get( `${baseUrl}/admin/common/sql/sqlList`, params);}
+export const getSqlList = (params, eCode) => {return axios.get( `${baseUrl}/admin/common/sql/sqlList`, {params});}
 //保存SQL
 export const saveSql = (params, eCode) => {return axios.post( `${baseUrl}/admin/common/sql/saveSql`, params);}
 // 获取页面设置
