@@ -27,7 +27,7 @@ public class LoginInfo {
     @ApiModelProperty(value = "权限", example = "powerList")
     private String power;
 
-    @ApiModelProperty(value = "企业ID", example = "enterpriseCode")
+    @ApiModelProperty(value = "企业Code", example = "enterpriseCode")
     private String enterpriseCode;
 
     @ApiModelProperty(value = "APP_ID", example = "appId")

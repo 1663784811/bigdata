@@ -2,6 +2,7 @@ package com.cyyaw.user.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.cyyaw.config.exception.WebException;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
 import com.cyyaw.user.service.UUserService;
@@ -29,7 +30,7 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
     }
 
     @Override
-    public UUser findByAppIdAndPassword(String appId, String account) {
+    public UUser findByAppIdAndAccount(String appId, String account) {
         if (StrUtil.isNotBlank(appId) && StrUtil.isNotBlank(account)) {
             List<UUser> uUsers = uUserDao.findByAppIdAndAccount(appId, account);
             if (uUsers.size() == 1) {
@@ -39,24 +40,25 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
 
             }
         } else {
-            throw new WhyException("您输入的信息有误");
+            WebException.fail("您输入的信息有误");
         }
         return null;
     }
 
+
     @Override
-    public UUser findByAccount(String account) {
-        List<UUser> userList = uUserDao.findByAccount(account);
+    public UUser findByTid(String tid) {
+        return uUserDao.findByTid(tid);
+    }
+
+    @Override
+    public UUser findByAppIdAndPhone(String appId, String phone) {
+        List<UUser> userList = uUserDao.findByAppIdAndPhone(appId, phone);
         if (userList.size() == 1) {
             return userList.get(0);
         } else {
             return null;
         }
-    }
-
-    @Override
-    public UUser findByTid(String tid) {
-        return uUserDao.findByTid(tid);
     }
 
 }
