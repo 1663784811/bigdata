@@ -19,15 +19,15 @@
             @load="onLoad"
             @offset="10"
         >
-          <div v-for="(item, index) in state.list" :key="index" class="order-item-box" @click="goTo(item.order.tid)">
+          <div v-for="(item, index) in state.list" :key="index" class="order-item-box">
             <div class="storeBox">
               <van-cell :title="item.name||'门店'" is-link icon="shop-o"/>
             </div>
-            <div class="order-item-header">
+            <div class="order-item-header"  @click="goTo(item.order.tid)">
               <span>订单时间：{{ item.order.createTime }}</span>
               <span>订单状态：{{ item.order.status }}</span>
             </div>
-            <div class="good-item" v-for="(goods, gx) in item.detailsList" :key="gx">
+            <div class="good-item" v-for="(goods, gx) in item.detailsList" :key="gx"  @click="goTo(item.order.tid)">
               <div class="good-img">
                 <img
                     :src="goods.photo || 'https://img13.360buyimg.com/seckillcms/s280x280_jfs/t1/170929/22/39881/69113/64d066e8Fdf9a291a/abdc1f554cd06780.jpg.avif'"
@@ -43,7 +43,7 @@
                 </div>
               </div>
             </div>
-            <div class="otherInfo">
+            <div class="otherInfo"  @click="goTo(item.order.tid)">
               <van-cell title="合计">
                 <div class="price">¥{{ item.order.payableAmount || '--:--' }}</div>
               </van-cell>
