@@ -36,7 +36,15 @@
         <van-icon name="arrow"/>
       </li>
     </ul>
-    <nav-bar></nav-bar>
+
+    <ul class="user-list">
+      <li @click="handleLogout" style="justify-content: center; color: #ff8f8f">
+        <span>退出登录</span>
+      </li>
+    </ul>
+
+
+    <nav-bar/>
   </div>
 </template>
 
@@ -44,8 +52,9 @@
 import {reactive, onMounted, toRefs} from 'vue'
 import navBar from '@/components/NavBar.vue'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getUserInfo} from '@/service/api'
+import {getUserInfo, logout} from '@/service/api'
 import {useRoute, useRouter} from 'vue-router'
+import {showSuccessToast} from "vant";
 
 const router = useRouter()
 const route = useRoute()
@@ -57,12 +66,22 @@ const state = reactive({
 })
 
 onMounted(async () => {
-  const {data} = await getUserInfo({},  route.params.appid)
+  const {data} = await getUserInfo({}, route.params.appid)
   if (data) {
     state.user = data
   }
   state.loading = false
 })
+
+const handleLogout = () => {
+  logout()
+  // userStore.token = '';
+  showSuccessToast('退出成功')
+  setTimeout(() => {
+    router.replace({name: 'login'})
+  }, 1000);
+
+}
 
 const goBack = () => {
   router.go(-1)

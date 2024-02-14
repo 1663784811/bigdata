@@ -70,7 +70,7 @@
 
 <script setup>
 import {reactive, onMounted, computed} from 'vue'
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 import {useCartStore} from '@/stores/cart'
 import {showToast, showLoadingToast, closeToast, showFailToast} from 'vant'
 import navBar from '@/components/NavBar.vue'
@@ -78,6 +78,8 @@ import sHeader from '@/components/SimpleHeader.vue'
 import {getCart, deleteCartItem, countGoodsPrice, addCart} from '@/service/api'
 
 const router = useRouter()
+const route = useRoute()
+
 const cart = useCartStore()
 const state = reactive({
   checked: false,
@@ -140,7 +142,7 @@ const onSubmit = async () => {
     })
   }
   const params = JSON.stringify(skuIdList)
-  await router.push({name: 'create-order', query: {cartItemIds: params}})
+  await router.push({name: 'createOrder', query: {cartItemIds: params}})
 }
 
 const deleteGood = async (goods) => {
@@ -199,7 +201,7 @@ const changeSelect = (cartArr) => {
 const countPrice = (skuIdList) => {
   countGoodsPrice({
     goodsList: skuIdList
-  }).then(rest => {
+  }, route.params.appid).then(rest => {
     const {data} = rest;
     state.countData = data;
   })

@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // =====================================================================
 //通用查询
 export function commonQuery(params = {}, appId) {
-    params.url=window.location.href;
+    params.url= encodeURIComponent(window.location.href);
     return axios.get(`${baseUrl}/appAdmin/${appId}/common/query`, {params});
 }
 //通用保存
@@ -22,8 +22,10 @@ export const register = (params = {}, appId) => {return axios.post(`${baseUrl}/a
 export const adminLogin = (params = {}, appId) => {return axios.post(`${baseUrl}/app/${appId}/admin/login/adminLogin`, params);}
 //
 export function logout(appId) {return axios.get(`${baseUrl}/app/${appId}/login/logout`)}
-//
+// 获取用户信息
 export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/user/userInfo`, {params});}
+// 修改用户信息
+export function updateUserInfo(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/user/updateUserInfo`, params);}
 
 // =====================================================================
 // =====================================================================
@@ -40,21 +42,21 @@ export const getBanner = (params = {}, appId) => {
 export const searchGoods = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/goods/searchGoods`,{ params });}
 //
 export const enterpriseType = (params = {}, appId) => {return axios.get(`${baseUrl}/app/${appId}/shopping/type/findType`,{ params });}
-//查询购物车列表
-export function getCart(params, appId) {return axios.get(`${baseUrl}/app/${appId}/goods/cart/query`, {params});}
-//添加购物车
-export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/shopping/cart/updateCart`, params);}
 //计算商品价格
 export function countGoodsPrice(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/order/countGoodsPrice`, params);}
+//查询购物车列表
+export function getCart(params, appId) {return axios.get(`${baseUrl}/app/${appId}/shopping/cart/query`, {params});}
+//添加购物车
+export function addCart(params = {},appId) {return axios.post(`${baseUrl}/app/${appId}/shopping/cart/updateCart`, params);}
 //删除购物车商品
-export function deleteCartItem(params, appId) {return axios.post(`${baseUrl}/app/${appId}/goods/cart/delCartGoods`, params);}
+export function deleteCartItem(params, appId) {return axios.post(`${baseUrl}/app/${appId}/shopping/cart/delCartGoods`, params);}
 //订单列表
 export function getOrderList(params, appId) {return axios.get(`${baseUrl}/app/${appId}/order/query`, { params });}
 //订单详情
 export function getOrderDetail(params, appId) {return axios.get(`${baseUrl}/app/${appId}/order/orderById`, { params });}
 
 // 获取默认地址
-export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/user/defaultAddress`, {params});}
+export function getDefaultAddress(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/address/defaultAddress`, params);}
 // 保存地址
 export function saveAddress(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/address/saveAddress`, params);}
 
@@ -74,9 +76,6 @@ export function search(params) {
     return axios.get('/search', { params });
 }
 
-export function EditUserInfo(params) {
-    return axios.put('/user/info', params);
-}
 
 export function payOrder(params) {
     return axios.get(`/paySuccess`, { params })

@@ -95,7 +95,7 @@ const init = async () => {
     state.cartList = data.storeRestList
     state.priceObj = data;
   })
-  await getDefaultAddress({addressId}).then(rest => {
+  await getDefaultAddress({addressId}, route.params.appid).then(rest => {
     const {data} = rest;
     state.address = data;
   })
@@ -103,7 +103,7 @@ const init = async () => {
 }
 
 const goTo = () => {
-  router.push({name: 'address', query: {cartItemIds: JSON.stringify(state.cartItemIds), from: 'create-order'}})
+  router.push({name: 'address', query: {cartItemIds: JSON.stringify(state.cartItemIds), from: 'createOrder'}})
 }
 
 const deleteLocal = () => {
@@ -124,13 +124,10 @@ const handleCreateOrder = async () => {
   if (code !== 2000) {
     showFailToast(`${msg}`);
   } else {
+    showSuccessToast("订单提交成功")
     //跳转支付页面
-    router.replace({
-      name: 'payOrder',
-      query: {
-        orderId: data.tid
-      }
-    })
+    router.replace({name: 'payOrder', query: {orderId: data.tid}})
+
   }
 
 }

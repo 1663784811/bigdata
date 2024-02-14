@@ -7,7 +7,6 @@
       <van-field v-model="state.password" type='password' label="修改密码"/>
     </div>
     <van-button round class="save-btn" color="#1baeae" type="primary" @click="save" block>保存</van-button>
-    <van-button round class="save-btn" color="#1baeae" type="primary" @click="handleLogout" block>退出登录</van-button>
   </div>
 </template>
 
@@ -15,7 +14,7 @@
 import {reactive, onMounted} from 'vue'
 import md5 from 'js-md5'
 import sHeader from '@/components/SimpleHeader.vue'
-import {getUserInfo, EditUserInfo, logout} from '@/service/api'
+import {getUserInfo, updateUserInfo} from '@/service/api'
 import {setLocal} from '@/common/js/utils'
 import {showSuccessToast} from 'vant'
 import {useRoute, useRouter} from "vue-router";
@@ -47,19 +46,10 @@ const save = async () => {
   if (state.password) {
     params.passwordMd5 = md5(state.password)
   }
-  await EditUserInfo(params)
+  await updateUserInfo(params)
   showSuccessToast('保存成功')
 }
 
-const handleLogout = () => {
-  logout()
-  userStore.token = '';
-  showSuccessToast('退出成功')
-  setTimeout(() => {
-    router.replace({name: 'login'})
-  }, 1000);
-
-}
 </script>
 
 <style lang="less" scoped>

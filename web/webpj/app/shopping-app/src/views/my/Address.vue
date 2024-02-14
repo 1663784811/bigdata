@@ -1,6 +1,6 @@
 <template>
   <div class="address-box">
-    <s-header :name="'地址管理'" :back="state.from == 'create-order' ? '' : ''"/>
+    <s-header :name="'地址管理'" :back="state.from == 'createOrder' ? '' : ''"/>
     <div class="address-item">
       <van-address-list
           v-if="state.from != 'mine'"
@@ -70,7 +70,7 @@ const onEdit = (item) => {
 }
 // 选择某个地址后，跳回订单生成页面
 const select = (item, index) => {
-  router.push({path: 'create-order', query: {addressId: item.id, from: state.from}})
+  router.push({path: 'createOrder', query: {addressId: item.id, from: state.from}})
 }
 </script>
 
