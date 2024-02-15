@@ -3,6 +3,7 @@ package com.cyyaw.demoapplication.task;
 import android.accessibilityservice.AccessibilityService;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
@@ -23,11 +24,14 @@ public class ThreadController {
     private volatile AccessibilityService accessibilityService;
 
 
+//    private View aa= new View();
+
     /**
      * 启动
      */
     public void start(AccessibilityService accessibilityService) {
         this.accessibilityService = accessibilityService;
+
 
 //        ThreadTask threadTask = new ThreadTask();
 //        threadTask.run();

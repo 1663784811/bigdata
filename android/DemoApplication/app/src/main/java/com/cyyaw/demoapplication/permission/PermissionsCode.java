@@ -20,6 +20,7 @@ public enum PermissionsCode {
     READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null)
     ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 22222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
     ,BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 3333,"无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS)
+    ,CAMERA(Manifest.permission.CAMERA, 444,"摄像头", null)
     ;
 
     /**
