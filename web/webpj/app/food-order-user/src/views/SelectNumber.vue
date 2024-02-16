@@ -24,6 +24,7 @@ import {adminLogin, register} from '@/service/api'
 import {showSuccessToast, showFailToast} from 'vant'
 import {useRouter, useRoute} from 'vue-router'
 import {useUserStore} from '@/stores/user.js'
+import {crateBoard} from '@/service/api.js'
 
 const router = useRouter();
 let userStore = useUserStore();
@@ -51,7 +52,10 @@ onMounted(() => {
 
 const startOrder = () => {
   // 第一步:提交人数到服务器
-  console.log('ssssssssssss')
+  crateBoard({
+    tid: '111',
+    number: 2
+  }, route.params.appid)
 }
 
 // 1. 监听餐台状态, 开餐则跳转点餐页面

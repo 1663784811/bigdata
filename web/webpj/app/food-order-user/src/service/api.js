@@ -23,3 +23,4 @@ export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/a
 // =====================================================================
 // =====================================================================
 
+export function crateBoard(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/food/board/crateBoard`, params);}
