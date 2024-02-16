@@ -1,4 +1,4 @@
-package com.cyyaw.food.service;
+package com.cyyaw.service;
 
 import com.cyyaw.util.tools.BaseResult;
 

@@ -53,7 +53,7 @@ onMounted(() => {
 const startOrder = () => {
   // 第一步:提交人数到服务器
   crateBoard({
-    tid: '111',
+    boardId: '111',
     number: 2
   }, route.params.appid)
 }
