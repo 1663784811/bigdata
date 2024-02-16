@@ -15,6 +15,7 @@ const loginInfoSt = useUserStore();
 const socket = ref(null);
 
 onMounted(async () => {
+  initWebSocket();
   const {appid} = route.params;
   const {data} = await commonQuery({
     code: 'select_e_application_by_appid',
@@ -25,7 +26,7 @@ onMounted(async () => {
     loginInfoSt.variable.appid = appid;
     // 查询当前餐台状态
     console.log('查询当前餐台状态')
-    initWebSocket();
+
 
   } else {
     delete loginInfoSt.variable.appid;
@@ -43,7 +44,7 @@ const initWebSocket = () => {
     alert("您的浏览器不支持socket")
   } else {
     // 实例化socket
-    socket.value = new WebSocket("ws://192.168.0.103:8080/app/appId/food/websocket/id/user")
+    socket.value = new WebSocket("ws://192.168.0.103:8080/app/appId/food/websocket/111/user")
     // 监听socket连接
     socket.value.onopen = openWebSocket
     // 监听socket错误信息
