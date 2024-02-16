@@ -20,4 +20,8 @@ public class FoodOrderServiceImpl implements FoodOrderService {
         WebSocketServer.crateBoardMessage(boardId);
         return BaseResult.ok();
     }
+
+
+
+
 }

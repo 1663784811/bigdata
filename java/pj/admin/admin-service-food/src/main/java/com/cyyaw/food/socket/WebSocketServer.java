@@ -3,9 +3,12 @@ package com.cyyaw.food.socket;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.cyyaw.food.service.FoodBoardService;
 import com.cyyaw.food.socket.entity.Board;
 import com.cyyaw.food.socket.entity.ConnectSession;
 import com.cyyaw.food.socket.handle.SocketHandle;
+import com.cyyaw.food.table.entity.FoodBoard;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,8 +27,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ServerEndpoint("/app/{appId}/food/websocket/{id}/{user}")
 public class WebSocketServer {
 
+    private static ApplicationContext applicationContext;
+
     @Autowired
-    private ApplicationContext applicationContext;
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        WebSocketServer.applicationContext = applicationContext;
+    }
 
     /**
      * 餐桌
@@ -52,26 +59,32 @@ public class WebSocketServer {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("id") String boardId) {
+    public void onOpen(Session session, @PathParam("id") String boardId) throws IOException {
         log.info("============ 餐桌ID: {}", boardId);
-        Board board = socketBoard.get(boardId);
-        if (null == board) {
-            Board boardTemp = new Board();
-            boardTemp.setName("餐桌名");
-            socketBoard.put(boardId, boardTemp);
-            board = socketBoard.get(boardId);
+        //
+        FoodBoardService foodBoardService = applicationContext.getBean(FoodBoardService.class);
+        FoodBoard foodBoard = foodBoardService.findByTid(boardId);
+        if (null != foodBoard) {
+            Board board = socketBoard.get(boardId);
+            if (null == board) {
+                Board boardTemp = new Board();
+                boardTemp.setName("餐桌名");
+                socketBoard.put(boardId, boardTemp);
+                board = socketBoard.get(boardId);
+            }
+            // 添加新的Session
+            String id = session.getId();
+            ConnectSession ct = new ConnectSession();
+            ct.setSession(session);
+            ct.setBoard(boardId);
+            connectSessionMap.put(id, ct);
+            CopyOnWriteArrayList<String> userList = board.getUserList();
+            userList.add(id);
+            // 回复连接信息
+            sendMessage(JSONUtil.toJsonStr(new JSONObject(foodBoard)), session);
+        } else {
+            session.close();
         }
-        // 添加新的Session
-        String id = session.getId();
-        ConnectSession ct = new ConnectSession();
-        ct.setSession(session);
-        ct.setBoard(boardId);
-        connectSessionMap.put(id, ct);
-        CopyOnWriteArrayList<String> userList = board.getUserList();
-        userList.add(id);
-        // 回复连接信息
-        sendMessage("{code:111}", session);
-
     }
 
     /**

@@ -53,4 +53,11 @@ public class FoodBoard implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "status", columnDefinition = "int COMMENT '状态{0:空闲,1:占用,2:预定}'")
     private Integer status;
+
+
+    @Basic
+    @Column(name = "number", columnDefinition = "int COMMENT '人数'")
+    private Integer number;
+
+
 }
