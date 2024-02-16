@@ -100,6 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         // ============================================================== app
                         "/app/*/common/**",
                         "/app/*/login/**",
+                        "/app/*/food/websocket/**",
                         "/app/*/shopping/**"  //   商城
 
 

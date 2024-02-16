@@ -255,6 +255,23 @@ export const useAdminMenuStore = defineStore('adminMenu',
                     ]
                 },
                 {
+                    name: '点餐系统',
+                    icon: 'md-settings',
+                    routeName: 'appCenter',
+                    children: [
+                        {
+                            name: '系统概览',
+                            icon: 'md-settings',
+                            routeName: 'dashboard'
+                        },
+                        {
+                            name: '门店管理',
+                            icon: 'md-settings',
+                            routeName: 'appCenter'
+                        }
+                    ]
+                },
+                {
                     name: '小黑屋',
                     icon: 'md-settings',
                     routeName: 'appCenter',

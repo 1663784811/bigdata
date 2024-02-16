@@ -1,6 +1,7 @@
 package com.cyyaw.user.table.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name = "u_user")
 @org.hibernate.annotations.Table(appliesTo = "u_user", comment = "用户表")
-public class UUser implements Serializable {
+public class UUser implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 15873011723682985L;
 
     @Id

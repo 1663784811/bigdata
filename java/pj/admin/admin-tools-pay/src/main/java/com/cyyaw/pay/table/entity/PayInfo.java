@@ -1,5 +1,6 @@
 package com.cyyaw.pay.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "pay_info")
 @org.hibernate.annotations.Table(appliesTo = "pay_info", comment = "支付记录")
-public class PayInfo implements Serializable {
+public class PayInfo implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1568712426273933758L;
 
     @Id

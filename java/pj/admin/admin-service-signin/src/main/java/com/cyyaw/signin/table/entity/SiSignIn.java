@@ -1,5 +1,6 @@
 package com.cyyaw.signin.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "si_sign_in")
 @org.hibernate.annotations.Table(appliesTo = "si_sign_in", comment = "签到表")
-public class SiSignIn implements Serializable {
+public class SiSignIn implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 166727146408891L;
 

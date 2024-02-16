@@ -1,6 +1,7 @@
 package com.cyyaw.table.spider.user.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "pp_history")
 @org.hibernate.annotations.Table(appliesTo = "pp_history", comment = "人历史")
-public class PpHistory implements Serializable {
+public class PpHistory implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 15736693283L;
 

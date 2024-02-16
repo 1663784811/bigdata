@@ -2,6 +2,7 @@ package com.cyyaw.store.table.activity.entity;
 
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name = "a_activity")
 @org.hibernate.annotations.Table(appliesTo = "a_activity", comment = "活动定义表")
-public class AActivity  implements Serializable {
+public class AActivity  implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 15877011723682985L;
 
     @Id

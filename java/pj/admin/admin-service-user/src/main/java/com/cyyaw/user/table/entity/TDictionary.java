@@ -1,5 +1,6 @@
 package com.cyyaw.user.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_dictionary")
 @org.hibernate.annotations.Table(appliesTo = "t_dictionary", comment = "字典表")
-public class TDictionary implements Serializable {
+public class TDictionary implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1587301175682985L;
 
     @Id

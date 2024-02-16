@@ -5,7 +5,7 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // =====================================================================
 // =====================================================================
 //通用查询
-export function commonQuery(params = {}, appId) {return axios.get(`${baseUrl}/app/${appId}/common/query`, {params});}
+export function commonQuery(params = {}, appId) {return axios.get(`${baseUrl}/appAdmin/${appId}/common/query`, {params});}
 //通用保存
 export function commonSave(params = {}, appId) {return axios.post(`${baseUrl}/app/${appId}/common/save`, params);}
 //登录

@@ -1,6 +1,7 @@
 package com.cyyaw.store.table.activity.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "a_activity_range")
 @org.hibernate.annotations.Table(appliesTo = "a_activity_range", comment = "活动门店或商场")
-public class AActivityRange implements Serializable {
+public class AActivityRange implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 15873011733682985L;
 

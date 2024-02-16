@@ -21,9 +21,9 @@ const router = createRouter({
             component: () => import('@/views/AppMain.vue'),
             children: [
                 {
-                    path: 'login',
-                    name: 'login',
-                    component: () => import('@/views/Login.vue'),
+                    path: 'selectNumber',
+                    name: 'selectNumber',
+                    component: () => import('@/views/SelectNumber.vue'),
                     meta: {notLogin: true, title: '选择用餐人数'}
                 },
                 {
@@ -51,7 +51,7 @@ router.beforeEach(({meta = {}, name, params}, from, next) => {
     if (!token && !notLogin) {
         // 未登录
         if (params.appid) {
-            next({name: 'login', params})
+            next({name: 'selectNumber', params})
         } else {
             next({name: 'welcomePage'})
         }

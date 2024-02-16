@@ -1,4 +1,4 @@
-package com.cyyaw.user.table.entity;
+package com.cyyaw.food.table.entity;
 
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -11,10 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "t_admin_role")
-@org.hibernate.annotations.Table(appliesTo = "t_admin_role", comment = "管理员角色表")
-public class TAdminRole implements BaseEntity<Integer>,  Serializable {
-    private static final long serialVersionUID = 1568782627170401L;
+@Table(name = "food_board")
+@org.hibernate.annotations.Table(appliesTo = "food_board", comment = "桌子")
+public class FoodBoard implements BaseEntity<Integer>,  Serializable {
+    private static final long serialVersionUID = 158730117368985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,15 +37,20 @@ public class TAdminRole implements BaseEntity<Integer>,  Serializable {
     private String note;
 
     // =================================================================================
+    @Basic
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
+    @Basic
+    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
+    private String storeId;
 
+    // =================================================================================
 
     @Basic
+    @Column(name = "name", columnDefinition = "varchar(32) COMMENT '名称'")
+    private String name;
 
-    @Column(name = "admin_id", columnDefinition = "varchar(32) COMMENT '管理员表ID'")
-    private String adminId;
     @Basic
-    @Column(name = "role_id", columnDefinition = "varchar(32) COMMENT '角色表ID'")
-    private String roleId;
-
-
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:空闲,1:占用,2:预定}'")
+    private Integer status;
 }

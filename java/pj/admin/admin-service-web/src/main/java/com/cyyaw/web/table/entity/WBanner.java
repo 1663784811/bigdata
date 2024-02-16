@@ -1,6 +1,7 @@
 package com.cyyaw.web.table.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "w_banner")
 @org.hibernate.annotations.Table(appliesTo = "w_banner", comment = "首页banner图")
-public class WBanner implements Serializable {
+public class WBanner implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1568784262756870L;
 
     @Id

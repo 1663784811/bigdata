@@ -1,5 +1,6 @@
 package com.cyyaw.user.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_admin_power")
 @org.hibernate.annotations.Table(appliesTo = "t_admin_power", comment = "管理员_禁用权限表")
-public class TAdminPower implements Serializable {
+public class TAdminPower implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1568782627140356L;
 
     @Id

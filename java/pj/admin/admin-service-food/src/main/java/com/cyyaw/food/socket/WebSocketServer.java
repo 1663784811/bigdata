@@ -71,6 +71,7 @@ public class WebSocketServer {
         userList.add(id);
         // 回复连接信息
         sendMessage("{code:111}", session);
+
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.cyyaw.store.table.goods.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "g_cart")
 @org.hibernate.annotations.Table(appliesTo = "g_cart", comment = "我的购物车")
-public class GCart implements Serializable {
+public class GCart implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 156878272233758L;
 
     @Id

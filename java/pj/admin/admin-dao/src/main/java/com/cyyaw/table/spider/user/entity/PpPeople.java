@@ -1,6 +1,7 @@
 package com.cyyaw.table.spider.user.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "pp_people")
 @org.hibernate.annotations.Table(appliesTo = "pp_people", comment = "人")
-public class PpPeople implements Serializable {
+public class PpPeople implements BaseEntity<Integer>,  Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

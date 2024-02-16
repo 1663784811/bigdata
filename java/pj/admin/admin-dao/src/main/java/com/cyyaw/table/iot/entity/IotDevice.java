@@ -1,6 +1,7 @@
 package com.cyyaw.table.iot.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "iot_device")
 @org.hibernate.annotations.Table(appliesTo = "iot_device", comment = "设备")
-public class IotDevice implements Serializable {
+public class IotDevice implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 1573669328L;
 

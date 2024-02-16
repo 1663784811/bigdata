@@ -1,5 +1,6 @@
 package com.cyyaw.sql.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "c_page")
 @org.hibernate.annotations.Table(appliesTo = "c_page", comment = "页面")
-public class CPage implements Serializable {
+public class CPage implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 166582321135876L;
 

@@ -1,5 +1,6 @@
 package com.cyyaw.web.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "web_image")
 @org.hibernate.annotations.Table(appliesTo = "web_image", comment = "影像")
-public class WebImage implements Serializable {
+public class WebImage implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1387301173682985L;
 
     @Id

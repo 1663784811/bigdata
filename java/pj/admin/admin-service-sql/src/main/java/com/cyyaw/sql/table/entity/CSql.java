@@ -1,5 +1,6 @@
 package com.cyyaw.sql.table.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "c_sql")
 @org.hibernate.annotations.Table(appliesTo = "c_sql", comment = "查询语句")
-public class CSql implements Serializable {
+public class CSql implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1665182321135876L;
 
     @Id

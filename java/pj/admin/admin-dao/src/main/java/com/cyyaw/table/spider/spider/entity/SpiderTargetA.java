@@ -1,6 +1,7 @@
 package com.cyyaw.table.spider.spider.entity;
 
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "spider_target_a")
 @org.hibernate.annotations.Table(appliesTo = "spider_target_a", comment = "标签A数据")
-public class SpiderTargetA implements Serializable {
+public class SpiderTargetA implements BaseEntity<Integer>,  Serializable {
 
     private static final long serialVersionUID = 1573693283L;
 

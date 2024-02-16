@@ -1,5 +1,6 @@
 package com.cyyaw.store.table.order.entity;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "o_order")
 @org.hibernate.annotations.Table(appliesTo = "o_order", comment = "订单表")
-public class OOrder implements Serializable {
+public class OOrder implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 1568712426273933758L;
 
     @Id
