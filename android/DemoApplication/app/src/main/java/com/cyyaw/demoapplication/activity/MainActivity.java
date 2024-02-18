@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,14 +50,13 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     private PreviewView previewView;
 
 
-
     // ========================================================================================================================================================
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        previewView=findViewById(R.id.previewView);//初始化
+        previewView = findViewById(R.id.previewView);//初始化
 
         findViewById(R.id.btn_read_file).setOnClickListener(this);
         findViewById(R.id.btn_write_file).setOnClickListener(this);
@@ -66,6 +64,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
         findViewById(R.id.btn_go_my_view).setOnClickListener(this);
         findViewById(R.id.btn_camera).setOnClickListener(this);
+        findViewById(R.id.btn_Home).setOnClickListener(this);
 
     }
 
@@ -124,6 +123,8 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         } else if (id == R.id.btn_go_my_view) {
             Intent intent = new Intent(this, ViewTestActivity.class);
             startActivity(intent);
+        } else if (id == R.id.btn_Home) {
+
         }
     }
 
@@ -158,7 +159,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview);
 
     }
 

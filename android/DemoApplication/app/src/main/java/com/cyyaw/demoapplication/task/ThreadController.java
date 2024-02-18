@@ -1,32 +1,85 @@
 package com.cyyaw.demoapplication.task;
 
 import android.accessibilityservice.AccessibilityService;
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
+import com.cyyaw.demoapplication.activity.MainActivity;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
+import com.cyyaw.demoapplication.util.AppUtil;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 任务控制线程
  * 启动、停止、暂停
  */
 public class ThreadController {
-
     public static final String TAG = "ThreadController";
-
-
     private volatile AccessibilityService accessibilityService;
+
+    // ===========================================
+
+    // 桌面包名
+    private static final String deskHome = "com.miui.home";
+    // 任务状态
+    private volatile int status = 0;
+    // 任务列表
+    private volatile List<TaskContainer> taskList = null;
+
+    private volatile Thread taskThread;
+    // ===========================================
+
 
     public ThreadController(AccessibilityService accessibilityService) {
         this.accessibilityService = accessibilityService;
+        taskList = new CopyOnWriteArrayList<>();
+        TaskContainer taskContainer = new TaskContainer();
+        TaskEntity taskEntity = new TaskEntity();
+        taskEntity.setName("打开小红书");
+        taskEntity.setPackageName("com.xingin.xhs");
+        taskEntity.setActivityName("sss");
+        taskContainer.addTask(taskEntity);
+        taskList.add(taskContainer);
     }
 
     /**
      * 启动
      */
     public void start() {
+
+        if (status == 0) {
+            status = 1;
+            Toast.makeText(accessibilityService, "正在启动任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            taskThread = new Thread(() -> {
+                for (int i = 0; i < taskList.size(); i++) {
+                    TaskContainer task = taskList.get(i);
+                    int execNum = task.getExecNum();
+                    int num = 0;
+                    while ((execNum - num) > 0) {
+                        num++;
+                        task.exec(accessibilityService);
+                    }
+                    // ========================
+                    SystemClock.sleep(1000);
+                    if (Thread.currentThread().isInterrupted()) {
+                        break;
+                    }
+                }
+            });
+            taskThread.start();
+        } else {
+            status = 0;
+            Toast.makeText(accessibilityService, "正在停止任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            taskThread.interrupt();
+        }
 ////        ThreadTask threadTask = new ThreadTask();
 ////        threadTask.run();
 //
@@ -46,7 +99,7 @@ public class ThreadController {
     /**
      * 遍历布局文件
      */
-    private void traverseLayout(AccessibilityNodeInfo nodeInfo) {
+    public static void traverseLayout(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo == null) {
             return;
         }
@@ -59,13 +112,13 @@ public class ThreadController {
         int left = boundsInScreen.left;
         int top = boundsInScreen.top;
 
-        System.out.println("节点在屏幕上的左上角坐标：(" + className + "--" + text + "---" + left + ", " + top + ")");
+        System.out.println("节点在屏幕上的左上角坐标：(" + className + "--" + text + "---左" + left + ", 上" + top + ")");
 
 
         if ("微信".equals(text)) {
             // 点击打开微信
-            AccessibilityNodeInfo parent = nodeInfo.getParent();
-            parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//            AccessibilityNodeInfo parent = nodeInfo.getParent();
+//            parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 //            showWindowInfo("点击：" + text);
 //            SquareView square = AppUtil.createSquare(wManager, context, parent);
         }
@@ -82,11 +135,9 @@ public class ThreadController {
     public void getWinInfo() {
         AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
         CharSequence packageName = rootInActiveWindow.getPackageName();
-        Log.d("mmmmmmmm", "seeeeeeeeeee:" + packageName);
         // 获取包名
-        new Thread(() -> {
-            accessibilityService.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
-        }).start();
+        accessibilityService.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
+
     }
 
 

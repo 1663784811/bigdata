@@ -5,6 +5,8 @@ package com.cyyaw.demoapplication.task;
  */
 public class TaskEntity {
 
+    private int type = 0;
+
     // 任务名称
     private String name;
 

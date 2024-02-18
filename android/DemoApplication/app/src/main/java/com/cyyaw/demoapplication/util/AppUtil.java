@@ -87,24 +87,4 @@ public class AppUtil {
         return squareView;
     }
 
-
-    public static void onClick(int x, int y) {
-        // 按下事件
-        MotionEvent downEvent = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, x, y, 0);
-        inst.sendPointerSync(downEvent);
-        SystemClock.sleep(100);
-        // 模拟触摸事件，ACTION_UP表示抬起
-        MotionEvent upEvent = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, x, y, 0);
-        inst.sendPointerSync(upEvent);
-    }
-
-
-    /**
-     * 点击HOME键
-     */
-    public static void onKeyHome() {
-        inst.sendKeyDownUpSync(KeyEvent.KEYCODE_HOME);
-        // 延迟一段时间，确保 HOME 按钮事件被发送
-        SystemClock.sleep(100);
-    }
 }
