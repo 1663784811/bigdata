@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 public class SemaphoreDemoTest {
 
-
     public static void main(String[] args) {
         //模拟3个停车位
         Semaphore semaphore = new Semaphore(3);
@@ -30,10 +29,6 @@ public class SemaphoreDemoTest {
                 }
             }, String.valueOf(i)).start();
         }
-
         System.out.println("==========================================");
-
     }
-
-
 }

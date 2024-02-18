@@ -1,9 +1,7 @@
 package com.cyyaw.juc.ccs;
 
 import lombok.Getter;
-
 import java.util.concurrent.CountDownLatch;
-
 public class CountDownLatchTest {
 
 

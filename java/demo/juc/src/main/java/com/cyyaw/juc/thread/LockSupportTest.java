@@ -8,6 +8,9 @@ public class LockSupportTest {
     public static void main(String[] args) {
 
 
+        LockSupport.park();
+
+
     }
 
 
