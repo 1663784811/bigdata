@@ -66,10 +66,12 @@ public class FloatMarkWindowService extends BaseService implements View.OnClickL
      * 接收到的message
      */
     public void receiveMsg(String msg) {
-//        JSONObject json = new JSONObject(msg);
-        Log.d("AccessibilityService", "收到消息sassssssssssssssssssssssssssssssssss");
-        updateWindow(0, 0, 800, 800);
-
+        try {
+            JSONObject json = new JSONObject(msg);
+            updateWindow(json.getInt("x1"), json.getInt("y1"), json.getInt("x2"),  json.getInt("y2"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateWindow(int x1, int y1, int x2, int y2) {

@@ -5,7 +5,12 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.task.AppInfo;
@@ -43,11 +48,22 @@ public abstract class ScreenOperation extends AccessibilityService {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
+
+    /**
+     * 点击
+     */
+    public void clickAtXY(int x, int y) {
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("构建点击: %s,%s", x, y)));
+        Path path = new Path();
+        path.moveTo(x, y);
+        path.lineTo(x + 2, y + 2);
+        dispatchGesture(new GestureDescription.Builder().addStroke(new GestureDescription.StrokeDescription(path, 0, 100)).build(), null, null);
+    }
+
     /**
      * 划动
      */
     public void performSwipeLeft(int x1, int y1, int x2, int y2, int duration) {
-        // 构建向左滑动手势
         sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("构建向左滑动手势: %s,%s - %s,%s", x1, y1, x2, y2)));
         Path path = new Path();
         path.moveTo(x1, y1);
@@ -70,6 +86,8 @@ public abstract class ScreenOperation extends AccessibilityService {
         sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appInfo.getAppName()));
         AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
         CharSequence pk = windowRoot.getPackageName();
+
+
         if (!appInfo.getPackageName().equals(pk)) {
             // 不在当前的package
             keyHome();

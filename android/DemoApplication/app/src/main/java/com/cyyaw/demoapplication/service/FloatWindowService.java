@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +12,9 @@ import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 import com.cyyaw.demoapplication.task.ThreadController;
+
+import cn.hutool.json.JSONUtil;
+import cn.hutool.json.JSONObject;
 
 /**
  * 辅助 触发
@@ -77,10 +81,18 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     openApp(appInfo);
                     threadController.getWinInfo();
                     // 刷新
-                    performSwipeLeft(500, 300, 500, 1000, 5000);
+                    SystemClock.sleep(500);
+                    clickAtXY(480, 520);
 
+                    performSwipeLeft(480, 500, 480, 1000, 500);
 
-                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", "sssssss"));
+                    SystemClock.sleep(100);
+                    JSONObject json = new JSONObject();
+                    json.set("x1", 500);
+                    json.set("y1", 500);
+                    json.set("x2", 510);
+                    json.set("y2", 510);
+                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
 
                 }).start();
 
