@@ -39,7 +39,6 @@ public class FloatWindowTaskService extends BaseService implements View.OnClickL
     public void onCreate() {
         Context context = getApplicationContext();
         createWindow(context);
-        ServerMessage.register(this);
     }
 
     /**
@@ -68,7 +67,6 @@ public class FloatWindowTaskService extends BaseService implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        ServerMessage.sendMsg(FloatWindowLogService.class, "----------");
         Log.d("AccessibilityService", "Left: " );
 
     }

@@ -1,14 +1,18 @@
 package com.cyyaw.demoapplication.service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,8 +50,8 @@ public class FloatWindowLogService extends BaseService {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         Context context = getApplicationContext();
-        ServerMessage.register(this);
         if (null == wManager) {
 
             Log.d("AccessibilityService", "Left: sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
@@ -86,15 +90,17 @@ public class FloatWindowLogService extends BaseService {
         return super.onStartCommand(intent, flags, startId);
     }
 
+
+
+    public String receiverClass() {
+        return FloatWindowLogService.class.getName();
+    }
+
+
     public void receiveMsg(String msg) {
-
-
         Log.d("AccessibilityService", "Left: ssssssssss::: "+ msg);
-
         int newItemPosition = itemList.size();
-
         itemList.add(msg + newItemPosition);
-
         adapter.notifyItemInserted(newItemPosition);
 
 

@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,13 +32,14 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     private Context context;
 
 
-    private ThreadController threadController = new ThreadController();
+    private volatile ThreadController threadController = new ThreadController();
 
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
         createWindow();
+        threadController.start(this);
     }
 
     @Override
@@ -81,19 +83,17 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     @Override
     public void onClick(View v) {
         try {
-//            AccessibilityNodeInfo rootInActiveWindow = getRootInActiveWindow();
-//            CharSequence packageName = rootInActiveWindow.getPackageName();
-//            List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
-//
-//            Log.d(TAG, "onClick: " + packageName);
-//            // 开启任务
-//            ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
-            threadController.start(this);
+            int id = v.getId();
+            if (R.id.btnWinInfo == id) {
+                // 获取窗口信息
+                threadController.updateWindow(this);
+            } else if (id == 1111) {
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

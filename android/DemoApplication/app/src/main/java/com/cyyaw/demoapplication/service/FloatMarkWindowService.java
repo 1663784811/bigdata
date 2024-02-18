@@ -1,16 +1,11 @@
 package com.cyyaw.demoapplication.service;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import androidx.annotation.Nullable;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
@@ -32,7 +27,6 @@ public class FloatMarkWindowService extends BaseService implements View.OnClickL
     public void onCreate() {
         Context context = getApplicationContext();
         createWindow(context);
-        ServerMessage.register(this);
     }
 
 
@@ -100,8 +94,7 @@ public class FloatMarkWindowService extends BaseService implements View.OnClickL
     public void onClick(View v) {
 
 
-        ServerMessage.sendMsg(FloatWindowLogService.class, "----------");
-        Log.d("AccessibilityService", "Left: " );
+        Log.d("AccessibilityService", "Left: ");
 
     }
 }

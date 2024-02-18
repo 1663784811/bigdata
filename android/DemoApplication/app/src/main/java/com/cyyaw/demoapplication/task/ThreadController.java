@@ -1,22 +1,18 @@
 package com.cyyaw.demoapplication.task;
 
 import android.accessibilityservice.AccessibilityService;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.Log;
-import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
-import com.cyyaw.demoapplication.service.ServerMessage;
-
-import java.util.List;
 
 /**
  * 任务控制线程
  * 启动、停止、暂停
  */
 public class ThreadController {
-
 
     public static final String TAG = "ThreadController";
 
@@ -31,22 +27,25 @@ public class ThreadController {
      */
     public void start(AccessibilityService accessibilityService) {
         this.accessibilityService = accessibilityService;
+////        ThreadTask threadTask = new ThreadTask();
+////        threadTask.run();
+//
+//        //  ==============================================
+//        AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
+//        CharSequence packageName = rootInActiveWindow.getPackageName();
+//        List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
+//        Log.d(TAG, "onClick: " + packageName);
+//        // 开启任务
+//        ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
+//        traverseLayout(rootInActiveWindow);
 
 
-//        ThreadTask threadTask = new ThreadTask();
-//        threadTask.run();
-
-        //  ==============================================
-        AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
-        CharSequence packageName = rootInActiveWindow.getPackageName();
-        List<AccessibilityNodeInfo.AccessibilityAction> actionList = rootInActiveWindow.getActionList();
-        Log.d(TAG, "onClick: " + packageName);
-        // 开启任务
-        ServerMessage.sendMsg(FloatWindowLogService.class, String.valueOf(packageName));
-        traverseLayout(rootInActiveWindow);
     }
 
 
+    /**
+     * 遍历布局文件
+     */
     private void traverseLayout(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo == null) {
             return;
@@ -77,4 +76,28 @@ public class ThreadController {
         // ========================================================
     }
 
+    /**
+     * 获取窗口信息
+     */
+    public void getWinInfo(AccessibilityService accessibilityService) {
+        AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
+        CharSequence packageName = rootInActiveWindow.getPackageName();
+        Log.d("mmmmmmmm", "seeeeeeeeeee:" + packageName);
+        // 获取包名
+        new Thread(() -> {
+            accessibilityService.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
+        }).start();
+
+    }
+
+    /**
+     * 更新窗口
+     */
+    public void updateWindow(AccessibilityService sss) {
+        new Thread(() -> {
+            getWinInfo(accessibilityService);
+        }).start();
+
+
+    }
 }
