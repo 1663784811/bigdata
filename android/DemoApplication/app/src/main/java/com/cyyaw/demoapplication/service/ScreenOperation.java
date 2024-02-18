@@ -1,11 +1,13 @@
 package com.cyyaw.demoapplication.service;
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.GestureDescription;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.cyyaw.demoapplication.task.ThreadController;
+import cn.hutool.core.util.StrUtil;
 
 public abstract class ScreenOperation extends AccessibilityService {
 
@@ -39,21 +41,76 @@ public abstract class ScreenOperation extends AccessibilityService {
     }
 
     /**
+     * 划动
+     */
+    private void performSwipeLeft(int x1, int y1, int x2, int y2, int duration) {
+        // 构建向左滑动手势
+        Path path = new Path();
+        path.moveTo(x1, y1);
+        path.lineTo(x2, y2);
+        GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
+        gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 0, duration));
+        // 发送手势事件
+        dispatchGesture(gestureBuilder.build(), null, null);
+    }
+
+
+    // =============================================
+
+    /**
      * 打开APP
      */
     public void openApp(String packageName) {
-        new Thread(()->{
+        new Thread(() -> {
             AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
             CharSequence pk = windowRoot.getPackageName();
             if (!packageName.equals(pk)) {
                 // 不在当前的package
                 keyHome();
-                SystemClock.sleep(1000);
-                windowRoot = getRootInActiveWindow();
-                ThreadController.traverseLayout(windowRoot);
+                SystemClock.sleep(500);
+                AccessibilityNodeInfo nodeInfo = findNodeInfoByName("小红书");
+                AccessibilityNodeInfo parent = nodeInfo.getParent();
+                parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         }).start();
 
+    }
+
+    // =============================================
+    public AccessibilityNodeInfo findNodeInfoByName(String name) {
+        return traverseLayout(getRootInActiveWindow(), name);
+    }
+
+    /**
+     * 遍历布局文件
+     */
+    public AccessibilityNodeInfo traverseLayout(AccessibilityNodeInfo nodeInfo, String byName) {
+        if (nodeInfo != null) {
+            // 获取节点的文本内容
+            CharSequence text = nodeInfo.getText();
+            // 获取节点的类名
+            CharSequence className = nodeInfo.getClassName();
+            Rect bounds = new Rect();
+            nodeInfo.getBoundsInScreen(bounds);
+            int left = bounds.left;
+            int top = bounds.top;
+            int bottom = bounds.bottom;
+            int right = bounds.right;
+            System.out.println("节点在屏幕上的左上角坐标：(" + className + "--" + text + "---左" + left + ", 上" + top + "  右:" + right + "  下:" + bottom + ")");
+
+            if (StrUtil.isNotBlank(byName) && byName.equals(text)) {
+                return nodeInfo;
+            }
+            // 递归遍历子节点
+            for (int i = 0; i < nodeInfo.getChildCount(); i++) {
+                AccessibilityNodeInfo rest = traverseLayout(nodeInfo.getChild(i), byName);
+                if (null != rest) {
+                    return rest;
+                }
+            }
+            // ========================================================
+        }
+        return null;
     }
 
 }

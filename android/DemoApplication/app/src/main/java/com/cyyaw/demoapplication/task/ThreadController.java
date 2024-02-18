@@ -96,38 +96,6 @@ public class ThreadController {
     }
 
 
-    /**
-     * 遍历布局文件
-     */
-    public static void traverseLayout(AccessibilityNodeInfo nodeInfo) {
-        if (nodeInfo == null) {
-            return;
-        }
-        // 获取节点的文本内容
-        CharSequence text = nodeInfo.getText();
-        // 获取节点的类名
-        CharSequence className = nodeInfo.getClassName();
-        Rect boundsInScreen = new Rect();
-        nodeInfo.getBoundsInScreen(boundsInScreen);
-        int left = boundsInScreen.left;
-        int top = boundsInScreen.top;
-
-        System.out.println("节点在屏幕上的左上角坐标：(" + className + "--" + text + "---左" + left + ", 上" + top + ")");
-
-
-        if ("微信".equals(text)) {
-            // 点击打开微信
-//            AccessibilityNodeInfo parent = nodeInfo.getParent();
-//            parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//            showWindowInfo("点击：" + text);
-//            SquareView square = AppUtil.createSquare(wManager, context, parent);
-        }
-        // 递归遍历子节点
-        for (int i = 0; i < nodeInfo.getChildCount(); i++) {
-            traverseLayout(nodeInfo.getChild(i));
-        }
-        // ========================================================
-    }
 
     /**
      * 获取窗口信息
