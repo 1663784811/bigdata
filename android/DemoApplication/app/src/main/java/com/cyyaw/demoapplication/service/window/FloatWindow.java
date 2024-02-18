@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.service.window;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.view.Gravity;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.util.PreferenceUtil;
 
 /**
@@ -55,7 +57,7 @@ public class FloatWindow extends RelativeLayout {
         } else {
             LayoutInflater.from(context).inflate(R.layout.float_window_layout, floatWindow);
         }
-        setOnTouchListener(windowManager, floatWindow, floatWindow.getFloatWindowParams());
+        setOnTouchListener(context, windowManager, floatWindow);
         return floatWindow;
     }
 
@@ -102,7 +104,8 @@ public class FloatWindow extends RelativeLayout {
 
 
     @SuppressLint("ClickableViewAccessibility")
-    private static void setOnTouchListener(final WindowManager windowManager, final FloatWindow windowView, WindowManager.LayoutParams windowParams) {
+    private static void setOnTouchListener(final Context context, final WindowManager windowManager, final FloatWindow windowView) {
+        WindowManager.LayoutParams windowParams = windowView.getFloatWindowParams();
         Point sizePoint = new Point();
         windowManager.getDefaultDisplay().getSize(sizePoint);
         int winX = sizePoint.x;
@@ -154,6 +157,9 @@ public class FloatWindow extends RelativeLayout {
                         windowParams.y = setY;
                         // 更新悬浮窗位置
                         windowManager.updateViewLayout(windowView, windowParams);
+                        if (MotionEvent.ACTION_UP == event.getAction()) {
+                            context.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("当前窗口坐标:%s,%s  宽高: %s,%s", setX, setY, windowParams.width, windowParams.height)));
+                        }
                         return true;
                     default:
                         break;

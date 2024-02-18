@@ -1,22 +1,16 @@
 package com.cyyaw.demoapplication.service;
 
-import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.GestureDescription;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.os.SystemClock;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 import com.cyyaw.demoapplication.task.ThreadController;
-
-import java.util.List;
 
 /**
  * 辅助 触发
@@ -82,6 +76,11 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     appInfo.setAppName("小红书");
                     openApp(appInfo);
                     threadController.getWinInfo();
+                    // 刷新
+                    performSwipeLeft(500, 300, 500, 1000, 5000);
+
+
+                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", "sssssss"));
 
                 }).start();
 
