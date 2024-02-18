@@ -84,7 +84,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     SystemClock.sleep(500);
                     clickAtXY(480, 520);
 
-                    performSwipeLeft(480, 500, 480, 1000, 500);
+                    performSwipeLeft(480, 500, 480, 1000, 100);
 
                     SystemClock.sleep(100);
                     JSONObject json = new JSONObject();

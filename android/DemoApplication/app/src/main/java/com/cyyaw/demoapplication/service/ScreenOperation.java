@@ -83,11 +83,9 @@ public abstract class ScreenOperation extends AccessibilityService {
      * @return
      */
     public boolean openApp(AppInfo appInfo) {
-        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appInfo.getAppName()));
         AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
         CharSequence pk = windowRoot.getPackageName();
-
-
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appInfo.getAppName()));
         if (!appInfo.getPackageName().equals(pk)) {
             // 不在当前的package
             keyHome();

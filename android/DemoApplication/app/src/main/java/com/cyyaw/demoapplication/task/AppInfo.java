@@ -5,8 +5,10 @@ package com.cyyaw.demoapplication.task;
  */
 public class AppInfo {
 
+    // 包名
     private String packageName;
 
+    // app名
     private String appName;
 
 
