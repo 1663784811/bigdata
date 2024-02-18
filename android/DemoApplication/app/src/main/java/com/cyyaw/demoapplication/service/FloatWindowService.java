@@ -32,14 +32,14 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
     private Context context;
 
 
-    private volatile ThreadController threadController = new ThreadController();
+    private volatile ThreadController threadController = null;
 
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
         createWindow();
-        threadController.start(this);
+        threadController = new ThreadController(this);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class FloatWindowService extends AccessibilityService implements View.OnC
             int id = v.getId();
             if (R.id.btnWinInfo == id) {
                 // 获取窗口信息
-                threadController.updateWindow(this);
+                threadController.getWinInfo();
             } else if (id == 1111) {
 
             }

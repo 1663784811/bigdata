@@ -19,14 +19,14 @@ public class ThreadController {
 
     private volatile AccessibilityService accessibilityService;
 
-
-//    private View aa= new View();
+    public ThreadController(AccessibilityService accessibilityService) {
+        this.accessibilityService = accessibilityService;
+    }
 
     /**
      * 启动
      */
-    public void start(AccessibilityService accessibilityService) {
-        this.accessibilityService = accessibilityService;
+    public void start() {
 ////        ThreadTask threadTask = new ThreadTask();
 ////        threadTask.run();
 //
@@ -79,7 +79,7 @@ public class ThreadController {
     /**
      * 获取窗口信息
      */
-    public void getWinInfo(AccessibilityService accessibilityService) {
+    public void getWinInfo() {
         AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
         CharSequence packageName = rootInActiveWindow.getPackageName();
         Log.d("mmmmmmmm", "seeeeeeeeeee:" + packageName);
@@ -87,17 +87,7 @@ public class ThreadController {
         new Thread(() -> {
             accessibilityService.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
         }).start();
-
     }
 
-    /**
-     * 更新窗口
-     */
-    public void updateWindow(AccessibilityService sss) {
-        new Thread(() -> {
-            getWinInfo(accessibilityService);
-        }).start();
 
-
-    }
 }
