@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
+import com.cyyaw.demoapplication.task.AppInfo;
 import com.cyyaw.demoapplication.task.ThreadController;
 
 import java.util.List;
@@ -44,7 +46,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     }
 
 
-
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
@@ -75,10 +76,15 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             int id = v.getId();
             if (R.id.btnWinInfo == id) {
                 // 获取窗口信息
+                new Thread(() -> {
+                    AppInfo appInfo = new AppInfo();
+                    appInfo.setPackageName("com.xingin.xhs");
+                    appInfo.setAppName("小红书");
+                    openApp(appInfo);
+                    threadController.getWinInfo();
 
-                openApp("com.tencent.mm");
-//                threadController.start();
-                threadController.getWinInfo();
+                }).start();
+
             } else if (id == 1111) {
 
             }

@@ -2,10 +2,13 @@ package com.cyyaw.demoapplication.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
+import android.content.Intent;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import com.cyyaw.demoapplication.task.AppInfo;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -59,21 +62,28 @@ public abstract class ScreenOperation extends AccessibilityService {
 
     /**
      * 打开APP
+     *
+     * @return
      */
-    public void openApp(String packageName) {
-        new Thread(() -> {
-            AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
-            CharSequence pk = windowRoot.getPackageName();
-            if (!packageName.equals(pk)) {
-                // 不在当前的package
-                keyHome();
-                SystemClock.sleep(500);
-                AccessibilityNodeInfo nodeInfo = findNodeInfoByName("小红书");
+    public boolean openApp(AppInfo appInfo) {
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appInfo.getAppName()));
+        AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
+        CharSequence pk = windowRoot.getPackageName();
+        if (!appInfo.getPackageName().equals(pk)) {
+            // 不在当前的package
+            keyHome();
+            SystemClock.sleep(100);
+            AccessibilityNodeInfo nodeInfo = findNodeInfoByName(appInfo.getAppName());
+            if (nodeInfo != null) {
                 AccessibilityNodeInfo parent = nodeInfo.getParent();
                 parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                SystemClock.sleep(300);
+                return true;
             }
-        }).start();
-
+        } else {
+            return true;
+        }
+        return false;
     }
 
     // =============================================
