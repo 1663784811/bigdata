@@ -5,12 +5,7 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.SystemClock;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.task.AppInfo;
@@ -105,6 +100,8 @@ public abstract class ScreenOperation extends AccessibilityService {
 
     // =============================================
     public AccessibilityNodeInfo findNodeInfoByName(String name) {
+//        AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
+//        List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByViewId("com.cyyaw.demoapplication:id/btn_Home");
         return traverseLayout(getRootInActiveWindow(), name);
     }
 
