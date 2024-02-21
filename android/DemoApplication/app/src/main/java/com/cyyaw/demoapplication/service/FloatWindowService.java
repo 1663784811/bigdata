@@ -27,7 +27,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     public static final String TAG = "FloatWindowService";
 
 
-    private WindowManager wManager;
+    private volatile static WindowManager wManager;
 
     private FloatWindow floatWindow;
 
@@ -43,9 +43,17 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     @Override
     public void onCreate() {
-        context = getApplicationContext();
-        createWindow();
-        threadController = new ThreadController(this);
+        if (wManager == null) {
+            context = getApplicationContext();
+            wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
+            layoutParams = floatWindow.getFloatWindowParams();
+            floatWindow.findViewById(R.id.btn_start_task).setOnClickListener(this);
+            floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
+            wManager.addView(floatWindow, layoutParams);
+            // ==============
+            threadController = new ThreadController(this);
+        }
     }
 
 
@@ -59,19 +67,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     }
 
-    /**
-     * 创建窗口
-     */
-    private void createWindow() {
-        if (wManager == null) {
-            wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
-            layoutParams = floatWindow.getFloatWindowParams();
-            floatWindow.findViewById(R.id.btn_start_task).setOnClickListener(this);
-            floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
-            wManager.addView(floatWindow, layoutParams);
-        }
-    }
 
 
     @Override
@@ -80,9 +75,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             int id = v.getId();
             if (R.id.btn_start_task == id) {
                 // 获取窗口信息
-//                threadController.start();
-
-
                 new Thread(() -> {
 
 
@@ -114,16 +106,20 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
 
             } else if (R.id.btnWinInfo == id) {
-                String boxId = "com.xingin.xhs:id/eq2";
-                AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
-                int childCount = boxContent.getChildCount();
-                if (childCount > index) {
-                    AccessibilityNodeInfo child = boxContent.getChild(index);
-                    clickNode(child);
-
-
+                new Thread(()->{
+                    String boxId = "com.xingin.xhs:id/eq2";
+                    AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
+                    int childCount = boxContent.getChildCount();
+                    if (childCount > index) {
+                        AccessibilityNodeInfo child = boxContent.getChild(index);
+                        clickNode(child);
+                        // ===========
+                        SystemClock.sleep(2000);
+                        // ===========
+                        back();
 //                    markRect(child,1000L);
-                }
+                    }
+                }).start();
 
             }
         } catch (Exception e) {

@@ -125,7 +125,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         Rect nodeRect = getNodeRect(nodeInfo);
         // 计算中心点
         int x = (nodeRect.right - nodeRect.left) / 2 + nodeRect.left;
-        int y = nodeRect.bottom - nodeRect.top / 2 + nodeRect.top;
+        int y = (nodeRect.bottom - nodeRect.top) / 2 + nodeRect.top;
         clickAtXY(x, y);
     }
 
@@ -197,8 +197,9 @@ public abstract class ScreenOperation extends AccessibilityService {
 
     public void markRect(AccessibilityNodeInfo nodeInfo, Long time) {
         markRect(nodeInfo);
-        SystemClock.sleep(time == null ? 2000L : time);
+        SystemClock.sleep(time == null ? 1000L : time);
         removeMarkRect();
+        SystemClock.sleep(time == null ? 1000L : time);
     }
 
     private void removeMarkRect() {
@@ -210,4 +211,19 @@ public abstract class ScreenOperation extends AccessibilityService {
         sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
     }
 
+
+    /**
+     * 判断当前页面
+     */
+    public void aaa(){
+
+
+    }
+
+
+
+
 }
+
+
+
