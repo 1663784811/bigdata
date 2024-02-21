@@ -89,7 +89,7 @@ public abstract class ScreenOperation extends AccessibilityService {
             if (nodeInfo != null) {
                 AccessibilityNodeInfo parent = nodeInfo.getParent();
                 parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                SystemClock.sleep(300);
+                SystemClock.sleep(500);
                 return true;
             }
         } else {

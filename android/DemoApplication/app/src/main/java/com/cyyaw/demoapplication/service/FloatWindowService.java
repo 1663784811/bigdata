@@ -75,26 +75,29 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             if (R.id.btnWinInfo == id) {
                 // 获取窗口信息
                 new Thread(() -> {
-//                    AppInfo appInfo = new AppInfo();
-//                    appInfo.setPackageName("com.xingin.xhs");
-//                    appInfo.setAppName("小红书");
-//                    openApp(appInfo);
-//                    threadController.getWinInfo();
-//                    // 刷新
-//                    SystemClock.sleep(500);
-//                    clickAtXY(480, 520);
-//
-//                    performSwipeLeft(480, 500, 480, 1000, 100);
-//
-//                    SystemClock.sleep(100);
-//                    JSONObject json = new JSONObject();
-//                    json.set("x1", 500);
-//                    json.set("y1", 500);
-//                    json.set("x2", 510);
-//                    json.set("y2", 510);
-//                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
 
-                    findNodeInfoByName(null);
+
+                    AppInfo appInfo = new AppInfo();
+                    appInfo.setPackageName("com.xingin.xhs");
+                    appInfo.setAppName("小红书");
+
+
+                    openApp(appInfo);
+
+
+
+                    threadController.getWinInfo();
+                    // 刷新
+                    SystemClock.sleep(500);
+                    clickAtXY(480, 520);
+                    performSwipeLeft(480, 500, 480, 1000, 100);
+                    SystemClock.sleep(100);
+                    JSONObject json = new JSONObject();
+                    json.set("x1", 500);
+                    json.set("y1", 500);
+                    json.set("x2", 510);
+                    json.set("y2", 510);
+                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
 
 
                 }).start();

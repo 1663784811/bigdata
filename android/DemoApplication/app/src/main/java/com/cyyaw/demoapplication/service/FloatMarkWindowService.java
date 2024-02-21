@@ -1,16 +1,13 @@
 package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 
-import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
 
 
@@ -68,7 +65,7 @@ public class FloatMarkWindowService extends BaseService implements View.OnClickL
     public void receiveMsg(String msg) {
         try {
             JSONObject json = new JSONObject(msg);
-            updateWindow(json.getInt("x1"), json.getInt("y1"), json.getInt("x2"),  json.getInt("y2"));
+            updateWindow(json.getInt("x1"), json.getInt("y1"), json.getInt("x2"), json.getInt("y2"));
         } catch (Exception e) {
             e.printStackTrace();
         }
