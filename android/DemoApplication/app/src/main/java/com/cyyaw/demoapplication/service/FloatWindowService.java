@@ -7,11 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 import com.cyyaw.demoapplication.task.ThreadController;
+
+import java.util.List;
 
 import cn.hutool.json.JSONUtil;
 import cn.hutool.json.JSONObject;
@@ -35,6 +38,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     private volatile ThreadController threadController = null;
 
+
+    private volatile int index = 0;
 
     @Override
     public void onCreate() {
@@ -62,6 +67,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             wManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             floatWindow = FloatWindow.crateDefaultWindow(context, wManager);
             layoutParams = floatWindow.getFloatWindowParams();
+            floatWindow.findViewById(R.id.btn_start_task).setOnClickListener(this);
             floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
             wManager.addView(floatWindow, layoutParams);
         }
@@ -72,37 +78,52 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     public void onClick(View v) {
         try {
             int id = v.getId();
-            if (R.id.btnWinInfo == id) {
+            if (R.id.btn_start_task == id) {
                 // 获取窗口信息
+//                threadController.start();
+
+
                 new Thread(() -> {
 
 
+                    // =========== 第一步: 打开小红书
                     AppInfo appInfo = new AppInfo();
                     appInfo.setPackageName("com.xingin.xhs");
                     appInfo.setAppName("小红书");
-
-
                     openApp(appInfo);
+                    // =========== 第二步: 点击首页
+                    clickNodeById("com.xingin.xhs:id/dhc");
+                    // ===========
+                    SystemClock.sleep(2000);
+                    // ===========
+                    // 获取外部列表框
+
+                    while (true) {
 
 
+                        break;
+                    }
 
-                    threadController.getWinInfo();
-                    // 刷新
-                    SystemClock.sleep(500);
+
+                    // ===========
                     clickAtXY(480, 520);
                     performSwipeLeft(480, 500, 480, 1000, 100);
                     SystemClock.sleep(100);
-                    JSONObject json = new JSONObject();
-                    json.set("x1", 500);
-                    json.set("y1", 500);
-                    json.set("x2", 510);
-                    json.set("y2", 510);
-                    sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
-
 
                 }).start();
 
-            } else if (id == 1111) {
+
+            } else if (R.id.btnWinInfo == id) {
+                String boxId = "com.xingin.xhs:id/eq2";
+                AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
+                int childCount = boxContent.getChildCount();
+                if (childCount > index) {
+                    AccessibilityNodeInfo child = boxContent.getChild(index);
+                    clickNode(child);
+
+
+//                    markRect(child,1000L);
+                }
 
             }
         } catch (Exception e) {

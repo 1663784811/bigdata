@@ -11,11 +11,16 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import com.cyyaw.demoapplication.activity.MainActivity;
+import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
+import com.cyyaw.demoapplication.service.ScreenOperation;
 import com.cyyaw.demoapplication.util.AppUtil;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 任务控制线程
@@ -23,7 +28,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ThreadController {
     public static final String TAG = "ThreadController";
-    private volatile AccessibilityService accessibilityService;
+    private volatile ScreenOperation screenOperation;
 
     // ===========================================
 
@@ -38,9 +43,11 @@ public class ThreadController {
     // ===========================================
 
 
-    public ThreadController(AccessibilityService accessibilityService) {
-        this.accessibilityService = accessibilityService;
+    public ThreadController(ScreenOperation accessibilityService) {
+        this.screenOperation = accessibilityService;
         taskList = new CopyOnWriteArrayList<>();
+
+
         TaskContainer taskContainer = new TaskContainer();
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setName("打开小红书");
@@ -48,6 +55,10 @@ public class ThreadController {
         taskEntity.setActivityName("sss");
         taskContainer.addTask(taskEntity);
         taskList.add(taskContainer);
+
+
+
+
     }
 
     /**
@@ -57,7 +68,7 @@ public class ThreadController {
 
         if (status == 0) {
             status = 1;
-            Toast.makeText(accessibilityService, "正在启动任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            Toast.makeText(screenOperation, "正在启动任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
             taskThread = new Thread(() -> {
                 for (int i = 0; i < taskList.size(); i++) {
                     TaskContainer task = taskList.get(i);
@@ -65,7 +76,7 @@ public class ThreadController {
                     int num = 0;
                     while ((execNum - num) > 0) {
                         num++;
-                        task.exec(accessibilityService);
+                        task.exec(screenOperation);
                     }
                     // ========================
                     SystemClock.sleep(1000);
@@ -77,7 +88,7 @@ public class ThreadController {
             taskThread.start();
         } else {
             status = 0;
-            Toast.makeText(accessibilityService, "正在停止任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            Toast.makeText(screenOperation, "正在停止任务" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
             taskThread.interrupt();
         }
 ////        ThreadTask threadTask = new ThreadTask();
@@ -93,6 +104,7 @@ public class ThreadController {
 //        traverseLayout(rootInActiveWindow);
 
 
+
     }
 
 
@@ -101,11 +113,10 @@ public class ThreadController {
      * 获取窗口信息
      */
     public void getWinInfo() {
-        AccessibilityNodeInfo rootInActiveWindow = accessibilityService.getRootInActiveWindow();
+        AccessibilityNodeInfo rootInActiveWindow = screenOperation.getRootInActiveWindow();
         CharSequence packageName = rootInActiveWindow.getPackageName();
         // 获取包名
-        accessibilityService.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
-
+        screenOperation.sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", packageName));
     }
 
 
