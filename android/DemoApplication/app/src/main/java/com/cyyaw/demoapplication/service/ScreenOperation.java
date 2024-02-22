@@ -41,6 +41,7 @@ public abstract class ScreenOperation extends AccessibilityService {
      */
     public void keyHome() {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
+        SystemClock.sleep(500);
     }
 
     /**
@@ -48,6 +49,7 @@ public abstract class ScreenOperation extends AccessibilityService {
      */
     public void back() {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+        SystemClock.sleep(500);
     }
 
 
