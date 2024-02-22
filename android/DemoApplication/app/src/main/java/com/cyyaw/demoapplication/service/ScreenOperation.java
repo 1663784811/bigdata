@@ -66,7 +66,7 @@ public abstract class ScreenOperation extends AccessibilityService {
      * 划动
      */
     public void performSwipeLeft(int x1, int y1, int x2, int y2, int duration) {
-        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("构建向左滑动手势: %s,%s - %s,%s", x1, y1, x2, y2)));
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("滑动手势: %s,%s - %s,%s", x1, y1, x2, y2)));
         Path path = new Path();
         path.moveTo(x1, y1);
         path.lineTo(x2, y2);
@@ -133,7 +133,12 @@ public abstract class ScreenOperation extends AccessibilityService {
     // ==================================================================================
     // ==================================================================================
     public AccessibilityNodeInfo findNodeInfoById(String id, int index) {
-        List<AccessibilityNodeInfo> nodeInfoList = getRootInActiveWindow().findAccessibilityNodeInfosByViewId(id);
+        List<AccessibilityNodeInfo> nodeInfoList = null;
+        try {
+            nodeInfoList = getRootInActiveWindow().findAccessibilityNodeInfosByViewId(id);
+        } catch (Exception ignored) {
+
+        }
         if (null != nodeInfoList && nodeInfoList.size() > index) {
             return nodeInfoList.get(index);
         }
@@ -215,12 +220,10 @@ public abstract class ScreenOperation extends AccessibilityService {
     /**
      * 判断当前页面
      */
-    public void aaa(){
+    public void aaa() {
 
 
     }
-
-
 
 
 }

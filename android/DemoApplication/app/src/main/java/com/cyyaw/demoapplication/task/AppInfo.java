@@ -11,6 +11,9 @@ public class AppInfo {
     // app名
     private String appName;
 
+    // 首页标识
+    private String indexMake;
+
 
     public String getPackageName() {
         return packageName;
@@ -26,5 +29,13 @@ public class AppInfo {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+
+    public String getIndexMake() {
+        return indexMake;
+    }
+
+    public void setIndexMake(String indexMake) {
+        this.indexMake = indexMake;
     }
 }
