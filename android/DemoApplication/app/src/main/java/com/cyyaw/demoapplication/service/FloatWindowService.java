@@ -36,6 +36,10 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     private volatile int index = 0;
 
+    private volatile Thread thread;
+
+    private static volatile boolean start = false;
+
     @Override
     public void onCreate() {
         if (wManager == null) {
@@ -78,116 +82,119 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             int id = v.getId();
             if (R.id.btn_start_task == id) {
                 // 获取窗口信息
-                new Thread(() -> {
+                if (!start) {
+                    start = true;
+                    thread = new Thread(() -> {
+                        // =========== 第一步: 打开小红书
+                        AppInfo appInfo = new AppInfo();
+                        appInfo.setPackageName("com.xingin.xhs");
+                        appInfo.setAppName("小红书");
+                        openApp(appInfo);
+                        // =========== 第二步: 点击首页
+                        boolean ok = true;
+                        do {
+                            if (findNodeInfoById("com.xingin.xhs:id/dhc", 0) == null) {
+                                back();
+                                SystemClock.sleep(500);
+                            } else {
+                                ok = false;
+                            }
+                        } while (ok);
+                        clickNodeById("com.xingin.xhs:id/dhc");
+                        // ===========
+                        SystemClock.sleep(2000);
+                        // ===========
+                        // 获取外部列表框
 
 
-                    // =========== 第一步: 打开小红书
-                    AppInfo appInfo = new AppInfo();
-                    appInfo.setPackageName("com.xingin.xhs");
-                    appInfo.setAppName("小红书");
-                    openApp(appInfo);
-                    // =========== 第二步: 点击首页
-                    boolean ok = true;
-                    do {
-                        if (findNodeInfoById("com.xingin.xhs:id/dhc", 0) == null) {
-                            back();
-                            SystemClock.sleep(500);
-                        } else {
-                            ok = false;
-                        }
-                    } while (ok);
-                    clickNodeById("com.xingin.xhs:id/dhc");
-                    // ===========
-                    SystemClock.sleep(2000);
-                    // ===========
-                    // 获取外部列表框
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        String content = null;
+                        ok = true;
+                        do {
+                            AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                            if (boxContent == null) {
+                                SystemClock.sleep(2000);
+                                boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                            }
+                            int childCount = boxContent.getChildCount();
+                            if (childCount > index) {
+                                AccessibilityNodeInfo child = boxContent.getChild(index);
+                                CharSequence chq = child.getContentDescription();
+                                SystemClock.sleep(100);
+                                clickNode(child);
+                                // ===========
+                                SystemClock.sleep(3000);
+                                // 详情页面  com.xingin.xhs:id/hts
+                                // =========== 收集数据
+                                Log.d(TAG, "onClick: " + chq);
+                                if (chq.toString().indexOf("视频") == 0) {
 
 
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-                    String content = null;
-                    ok = true;
-                    do {
-                        AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                        if (boxContent == null) {
-                            SystemClock.sleep(2000);
-                            boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                        }
-                        int childCount = boxContent.getChildCount();
-                        if (childCount > index) {
-                            AccessibilityNodeInfo child = boxContent.getChild(index);
-                            CharSequence chq = child.getContentDescription();
-                            SystemClock.sleep(100);
-                            clickNode(child);
-                            // ===========
-                            SystemClock.sleep(3000);
-                            // 详情页面  com.xingin.xhs:id/hts
-                            // =========== 收集数据
+                                } else if (chq.toString().indexOf("笔记") == 0) {
 
 
-                            // =========== 点击主页面
-                            //clickNodeById("com.xingin.xhs:id/wo");
-                            // =========== 收集数据
+                                } else if (chq.toString().indexOf("直播") == 0) {
 
-                            // =========== 返回列表页面 收集第二个
+                                }
+                                // =========== 点击主页面
+                                //clickNodeById("com.xingin.xhs:id/wo");
+                                // =========== 收集数据
 
-                            back();
-                            //SystemClock.sleep(100);
-                            //back();
-                            //SystemClock.sleep(5000);
-                            // ===========
-                            //back();
+                                // =========== 返回列表页面 收集第二个
+
+                                //SystemClock.sleep(100);
+                                back();
+                                //SystemClock.sleep(5000);
+                                // ===========
+                                //back();
 //                    markRect(child,1000L);
 
 
-                            // ================================================================     滑动     =======================================================
-                            if (index > 2) {
-                                SystemClock.sleep(1500);
-                                // 移动屏幕
-                                boolean isBreak = false;
-                                AccessibilityNodeInfo ch = null;
-                                do {
-                                    performSwipeLeft(480, 1000, 480, 800, 200);
-                                    SystemClock.sleep(1500);
-                                    ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                                    CharSequence cs = ch.getChild(index).getContentDescription();
-                                    isBreak = chq.equals(cs);
-                                } while (isBreak);
-                                //  判断当前index位置
-                                for (int i = 0; i < ch.getChildCount(); i++) {
-                                    CharSequence cc = ch.getChild(i).getContentDescription();
-                                    if (cc.equals(chq)) {
-                                        index = i + 1;
-                                        break;
+                                // ================================================================     滑动     =======================================================
+                                if (index > 2) {
+
+                                    // 移动屏幕
+                                    boolean isBreak = false;
+                                    AccessibilityNodeInfo ch = null;
+                                    do {
+                                        performSwipeLeft(480, 1000, 480, 800, 200);
+                                        SystemClock.sleep(1500);
+                                        ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                                        CharSequence cs = ch.getChild(index).getContentDescription();
+                                        isBreak = chq.equals(cs);
+                                    } while (isBreak);
+                                    //  判断当前index位置
+                                    for (int i = 0; i < ch.getChildCount(); i++) {
+                                        CharSequence cc = ch.getChild(i).getContentDescription();
+                                        if (cc.equals(chq)) {
+                                            index = i + 1;
+                                            break;
+                                        }
                                     }
+                                } else {
+                                    index++;
                                 }
-                            } else {
-                                index++;
+                                // =======================================================================================================================
                             }
-                            // =======================================================================================================================
-                        }
-                    } while (ok);
-
-
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-                    // ===============================================
-
-                    // ===========
-                    // 点击
-                    //clickAtXY(480, 520);
-                    //  下拉
-                    //performSwipeLeft(480, 500, 480, 1000, 100);
-                    //SystemClock.sleep(100);
-
-                }).start();
-
-
+                            if (thread.isInterrupted()) {
+                                ok = false;
+                            }
+                        } while (ok);
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        // ===============================================
+                        Log.d(TAG, "onClick: =======================   结束");
+                    });
+                    thread.start();
+                } else {
+                    thread.interrupt();
+                }
             } else if (R.id.btnWinInfo == id) {
 
 
