@@ -1,7 +1,6 @@
 package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +11,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
-import com.cyyaw.demoapplication.task.ThreadController;
-
-import java.util.List;
-
-import cn.hutool.json.JSONUtil;
-import cn.hutool.json.JSONObject;
 
 /**
  * 辅助 触发
@@ -36,9 +29,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     private Context context;
 
 
-    private volatile ThreadController threadController = null;
-
-
     private volatile int index = 0;
 
     @Override
@@ -52,7 +42,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
             wManager.addView(floatWindow, layoutParams);
             // ==============
-            threadController = new ThreadController(this);
         }
     }
 
@@ -66,7 +55,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         }
 
     }
-
 
 
     @Override
@@ -89,11 +77,18 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     SystemClock.sleep(2000);
                     // ===========
                     // 获取外部列表框
+                    AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
 
-                    while (true) {
+                    int childCount = boxContent.getChildCount();
 
-
-                        break;
+                    if (childCount > index) {
+                        AccessibilityNodeInfo child = boxContent.getChild(index);
+                        clickNode(child);
+                        // ===========
+                        SystemClock.sleep(2000);
+                        // ===========
+                        back();
+//                    markRect(child,1000L);
                     }
 
 
@@ -106,20 +101,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
 
             } else if (R.id.btnWinInfo == id) {
-                new Thread(()->{
-                    String boxId = "com.xingin.xhs:id/eq2";
-                    AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
-                    int childCount = boxContent.getChildCount();
-                    if (childCount > index) {
-                        AccessibilityNodeInfo child = boxContent.getChild(index);
-                        clickNode(child);
-                        // ===========
-                        SystemClock.sleep(2000);
-                        // ===========
-                        back();
-//                    markRect(child,1000L);
-                    }
-                }).start();
+
 
             }
         } catch (Exception e) {
