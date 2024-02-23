@@ -193,7 +193,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                             boolean isBreak = false;
                             AccessibilityNodeInfo ch = null;
                             do {
-                                performSwipeLeft(480, 1000, 480, 800, 200);
+                                performSwipeLeft(480, 1000, 480, 850, 200);
                                 SystemClock.sleep(1500);
                                 ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                                 int cc = ch.getChildCount();
