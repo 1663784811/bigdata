@@ -175,13 +175,13 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("直播") == 0) {
-                            SystemClock.sleep(100);
+                            SystemClock.sleep(1000);
                         }
                         back();
 
 
                         // ================================================================     滑动     =======================================================
-                        if (index > 2) {
+                        if (index > 3) {
                             // 移动屏幕
                             boolean isBreak = false;
                             AccessibilityNodeInfo ch = null;

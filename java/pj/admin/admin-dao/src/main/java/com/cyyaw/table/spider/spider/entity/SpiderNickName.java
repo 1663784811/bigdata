@@ -52,6 +52,10 @@ public class SpiderNickName implements BaseEntity<Integer>,  Serializable {
     private String nickName;
 
     @Basic
+    @Column(name = "face", columnDefinition = "text COMMENT '头像'")
+    private String face;
+
+    @Basic
     @Column(name = "account", columnDefinition = "varchar(255) COMMENT '账号'")
     private String account;
 
