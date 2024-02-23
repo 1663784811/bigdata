@@ -150,38 +150,45 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 while (start) {
                     AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                     if (boxContent == null) {
-                        SystemClock.sleep(2000);
+                        SystemClock.sleep(3000);
                         boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                     }
                     int childCount = boxContent.getChildCount();
                     if (childCount > index) {
+                        SystemClock.sleep(500);
                         AccessibilityNodeInfo child = boxContent.getChild(index);
                         CharSequence chq = child.getContentDescription();
-                        SystemClock.sleep(100);
                         clickNode(child);
                         // ===========
                         // =========== 收集数据
                         Log.d(TAG, "onClick: " + chq);
                         if (chq.toString().indexOf("视频") == 0) {
-                            SystemClock.sleep(1500);
-                            clickNode(findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0));
-                            // =========== 收集数据
-                            userViewPage();
-                            back();
+                            SystemClock.sleep(2000);
+                            AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
+                            if (null != nodeInfo) {
+                                clickNode(nodeInfo);
+                                // =========== 收集数据
+                                userViewPage();
+                                back();
+                            }
+
                         } else if (chq.toString().indexOf("笔记") == 0) {
-                            SystemClock.sleep(1500);
-                            clickNode(findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0));
-                            // =========== 收集数据
-                            userViewPage();
-                            back();
+                            SystemClock.sleep(2000);
+                            AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
+                            if (null != nodeInfo) {
+                                clickNode(nodeInfo);
+                                // =========== 收集数据
+                                userViewPage();
+                                back();
+                            }
                         } else if (chq.toString().indexOf("直播") == 0) {
-                            SystemClock.sleep(1000);
+                            SystemClock.sleep(2000);
                         }
                         back();
 
 
                         // ================================================================     滑动     =======================================================
-                        if (index > 3) {
+                        if (index > 2) {
                             // 移动屏幕
                             boolean isBreak = false;
                             AccessibilityNodeInfo ch = null;
