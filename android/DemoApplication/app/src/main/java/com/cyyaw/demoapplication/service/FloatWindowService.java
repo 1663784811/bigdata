@@ -40,8 +40,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     private volatile int index = 0;
 
-    private volatile Thread thread;
-
     private static volatile boolean start = false;
 
     @Override
@@ -121,7 +119,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         // 获取窗口信息
         if (!start) {
             start = true;
-            thread = new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 // =========== 第一步: 打开小红书
                 AppInfo appInfo = new AppInfo();
                 appInfo.setPackageName("com.xingin.xhs");
@@ -149,9 +147,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 // ===============================================
                 // ===============================================
                 // ===============================================
-                String content = null;
-                ok = true;
-                do {
+                while (start) {
                     AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                     if (boxContent == null) {
                         SystemClock.sleep(2000);
@@ -167,13 +163,13 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         // =========== 收集数据
                         Log.d(TAG, "onClick: " + chq);
                         if (chq.toString().indexOf("视频") == 0) {
-                            SystemClock.sleep(1000);
+                            SystemClock.sleep(1500);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0));
                             // =========== 收集数据
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("笔记") == 0) {
-                            SystemClock.sleep(1000);
+                            SystemClock.sleep(1500);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0));
                             // =========== 收集数据
                             userViewPage();
@@ -193,36 +189,45 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                                 performSwipeLeft(480, 1000, 480, 800, 200);
                                 SystemClock.sleep(1500);
                                 ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                                CharSequence cs = ch.getChild(index).getContentDescription();
-                                isBreak = chq.equals(cs);
+                                int cc = ch.getChildCount();
+                                if (cc > index) {
+                                    CharSequence cs = ch.getChild(index).getContentDescription();
+                                    isBreak = chq.equals(cs);
+                                } else {
+                                    isBreak = false;
+                                }
+
                             } while (isBreak);
                             //  判断当前index位置
+                            int num = 0;
                             for (int i = 0; i < ch.getChildCount(); i++) {
                                 CharSequence cc = ch.getChild(i).getContentDescription();
-                                if (cc.equals(chq)) {
-                                    index = i + 1;
+                                if (null != cc && cc.equals(chq)) {
+                                    num = i + 1;
                                     break;
                                 }
                             }
+                            index = num;
                         } else {
                             index++;
                         }
                         // =======================================================================================================================
                     }
-                    if (thread.isInterrupted()) {
-                        ok = false;
-                    }
-                } while (ok);
+
+                }
+                ;
                 // ===============================================
                 // ===============================================
                 // ===============================================
                 // ===============================================
                 // ===============================================
                 Log.d(TAG, "onClick: =======================   结束");
+                sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
             });
             thread.start();
         } else {
-            thread.interrupt();
+            sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("正在停止....")));
+            start = false;
         }
     }
 
@@ -238,15 +243,22 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence nickName = null;
         if (null != gfl) {
             nickName = gfl.getText();
-            sb.append(nickName);
+            sb.append(nickName + " --- ");
             json.set("nickName", nickName);
+        }
+        // 头像
+        AccessibilityNodeInfo y0 = findNodeInfoById("com.xingin.xhs:id/y0", 0);
+        CharSequence y0_t = null;
+        if (null != y0) {
+            y0_t = y0.getContentDescription();
+            json.set("face", y0_t);
         }
         // 小红书号
         AccessibilityNodeInfo gfn = findNodeInfoById("com.xingin.xhs:id/gfn", 0);
         CharSequence no = null;
         if (null != gfn) {
             no = gfn.getText();
-            sb.append(no);
+            sb.append(no + " --- ");
             json.set("account", no);
         }
         // 公司
@@ -254,7 +266,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence vb_t = null;
         if (null != vb) {
             vb_t = vb.getText();
-            sb.append(vb_t);
+            sb.append(vb_t + " --- ");
             json.set("company", vb_t);
         }
         //IP属地：湖南
@@ -262,7 +274,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence ip = null;
         if (null != gfj) {
             ip = gfj.getText();
-            sb.append(ip);
+            sb.append(ip + " --- ");
             json.set("address", ip);
         }
         // 生活技巧分享，创意制作制作解压视频
@@ -270,14 +282,14 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence dec = null;
         if (null != j0l) {
             dec = j0l.getText();
-            sb.append(dec);
+            sb.append(dec + " --- ");
         }
         // 关注
         AccessibilityNodeInfo u = findNodeInfoById("com.xingin.xhs:id/u_", 0);
         CharSequence uu = null;
         if (null != u) {
             uu = u.getText();
-            sb.append("关注数:" + uu);
+            sb.append("关注数:" + uu + " --- ");
             json.set("follow", stringToNumber(uu));
         }
         // 粉丝
@@ -285,7 +297,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence c13_x = null;
         if (null != c13) {
             c13_x = c13.getText();
-            sb.append("粉丝数:" + c13_x);
+            sb.append("粉丝数:" + c13_x + " --- ");
             json.set("fans", stringToNumber(c13_x));
         }
         // 5.2 万获赞与收藏
@@ -293,12 +305,12 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         CharSequence e4g_x = null;
         if (null != e4g) {
             e4g_x = e4g.getText();
-            sb.append("获赞与收藏:" + e4g_x);
+            sb.append("获赞与收藏:" + e4g_x + " --- ");
             json.set("likeNum", stringToNumber(e4g_x));
         }
         // 男，26岁
         // 标签
-        String tag = null;
+        String tag = "";
         List<AccessibilityNodeInfo> nodeInfoById = findNodeInfoById("com.xingin.xhs:id/gfk");
         if (null != nodeInfoById) {
             for (int i = 0; i < nodeInfoById.size(); i++) {
