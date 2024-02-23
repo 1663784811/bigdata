@@ -41,7 +41,7 @@ public abstract class ScreenOperation extends AccessibilityService {
      */
     public void keyHome() {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME);
-        SystemClock.sleep(300);
+        SystemClock.sleep(500);
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class ScreenOperation extends AccessibilityService {
      */
     public void back() {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
-        SystemClock.sleep(300);
+        SystemClock.sleep(500);
     }
 
 
@@ -62,7 +62,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         path.moveTo(x, y);
         path.lineTo(x + 2, y + 2);
         dispatchGesture(new GestureDescription.Builder().addStroke(new GestureDescription.StrokeDescription(path, 0, 100)).build(), null, null);
-        SystemClock.sleep(300);
+        SystemClock.sleep(500);
     }
 
     /**

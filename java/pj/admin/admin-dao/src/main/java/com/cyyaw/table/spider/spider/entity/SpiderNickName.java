@@ -72,6 +72,10 @@ public class SpiderNickName implements BaseEntity<Integer>,  Serializable {
     private Integer fans;
 
     @Basic
+    @Column(name = "like_num", columnDefinition = "int default '0' COMMENT '点赞'")
+    private Integer likeNum;
+
+    @Basic
     @Column(name = "address", columnDefinition = "varchar(255) COMMENT '地址'")
     private String address;
 
