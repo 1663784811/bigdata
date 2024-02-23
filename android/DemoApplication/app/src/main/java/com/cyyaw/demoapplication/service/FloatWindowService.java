@@ -94,19 +94,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         try {
             int id = v.getId();
             if (R.id.btn_start_task == id) {
-
-                try {
-                    startTask();
-                } catch (Exception e) {
-                    try {
-                        startTask();
-                    } catch (Exception ex) {
-                        startTask();
-                    }
-                }
-
+                startTask();
             } else if (R.id.btnWinInfo == id) {
-
 
             }
         } catch (Exception e) {
@@ -147,80 +136,100 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 // ===============================================
                 // ===============================================
                 // ===============================================
+                int nnn = 0;
                 while (start) {
                     AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                     if (boxContent == null) {
                         SystemClock.sleep(3000);
                         boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
                     }
-                    int childCount = boxContent.getChildCount();
-                    if (childCount > index) {
-                        SystemClock.sleep(500);
-                        AccessibilityNodeInfo child = boxContent.getChild(index);
-                        CharSequence chq = child.getContentDescription();
-                        clickNode(child);
-                        // ===========
-                        // =========== 收集数据
-                        Log.d(TAG, "onClick: " + chq);
-                        if (chq.toString().indexOf("视频") == 0) {
-                            SystemClock.sleep(2000);
-                            AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
-                            if (null != nodeInfo) {
-                                clickNode(nodeInfo);
-                                // =========== 收集数据
-                                userViewPage();
-                                back();
-                            }
+                    if (null != boxContent) {
+                        nnn = 0;
+                        int childCount = boxContent.getChildCount();
+                        if (childCount > index) {
+                            SystemClock.sleep(500);
+                            AccessibilityNodeInfo child = boxContent.getChild(index);
+                            CharSequence chq = child.getContentDescription();
+                            clickNode(child);
+                            // ===========
+                            // =========== 收集数据
+                            Log.d(TAG, "onClick: " + Thread.currentThread().getName() + "----------" + chq);
+                            if (chq.toString().indexOf("视频") == 0) {
+                                SystemClock.sleep(2000);
+                                AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
+                                if (null != nodeInfo) {
+                                    clickNode(nodeInfo);
+                                    // =========== 收集数据
+                                    userViewPage();
+                                    back();
+                                }
 
-                        } else if (chq.toString().indexOf("笔记") == 0) {
-                            SystemClock.sleep(2000);
-                            AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
-                            if (null != nodeInfo) {
-                                clickNode(nodeInfo);
-                                // =========== 收集数据
-                                userViewPage();
-                                back();
+                            } else if (chq.toString().indexOf("笔记") == 0) {
+                                SystemClock.sleep(2000);
+                                AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
+                                if (null != nodeInfo) {
+                                    clickNode(nodeInfo);
+                                    // =========== 收集数据
+                                    userViewPage();
+                                    back();
+                                }
+                            } else if (chq.toString().indexOf("直播") == 0) {
+                                SystemClock.sleep(2000);
                             }
-                        } else if (chq.toString().indexOf("直播") == 0) {
-                            SystemClock.sleep(2000);
+                            back();
+
+
+                            // ================================================================     滑动     =======================================================
+                            if (index > 2) {
+                                // 移动屏幕
+                                boolean isBreak = false;
+                                AccessibilityNodeInfo ch = null;
+                                int numx = 0;
+                                do {
+                                    performSwipeLeft(480, 1000, 480, 850, 200);
+                                    SystemClock.sleep(1500);
+                                    ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                                    if (ch != null) {
+                                        int cc = ch.getChildCount();
+                                        if (cc > index) {
+                                            CharSequence cs = ch.getChild(index).getContentDescription();
+                                            isBreak = chq.equals(cs);
+                                        } else {
+                                            isBreak = false;
+                                        }
+                                    } else {
+                                        numx++;
+                                        back();
+                                        if (numx > 5) {
+                                            isBreak = false;
+                                        }
+                                    }
+                                } while (isBreak);
+                                //  判断当前index位置
+                                int num = 0;
+                                if (ch != null) {
+                                    for (int i = 0; i < ch.getChildCount(); i++) {
+                                        CharSequence cc = ch.getChild(i).getContentDescription();
+                                        if (null != cc && cc.equals(chq)) {
+                                            num = i + 1;
+                                            break;
+                                        }
+                                    }
+                                }
+                                index = num;
+                                System.gc();
+                            } else {
+                                index++;
+                            }
+                            // =======================================================================================================================
                         }
+                    } else {
                         back();
-
-
-                        // ================================================================     滑动     =======================================================
-                        if (index > 2) {
-                            // 移动屏幕
-                            boolean isBreak = false;
-                            AccessibilityNodeInfo ch = null;
-                            do {
-                                performSwipeLeft(480, 1000, 480, 850, 200);
-                                SystemClock.sleep(1500);
-                                ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                                int cc = ch.getChildCount();
-                                if (cc > index) {
-                                    CharSequence cs = ch.getChild(index).getContentDescription();
-                                    isBreak = chq.equals(cs);
-                                } else {
-                                    isBreak = false;
-                                }
-
-                            } while (isBreak);
-                            //  判断当前index位置
-                            int num = 0;
-                            for (int i = 0; i < ch.getChildCount(); i++) {
-                                CharSequence cc = ch.getChild(i).getContentDescription();
-                                if (null != cc && cc.equals(chq)) {
-                                    num = i + 1;
-                                    break;
-                                }
-                            }
-                            index = num;
-                        } else {
-                            index++;
+                        if (nnn > 5) {
+                            back();
+                            nnn++;
                         }
-                        // =======================================================================================================================
                     }
-
                 }
                 ;
                 // ===============================================
