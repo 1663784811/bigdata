@@ -16,7 +16,13 @@ import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 辅助 触发
@@ -199,36 +205,95 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
 
     private void userViewPage() {
+        StringBuffer sb = new StringBuffer();
+        JSONObject json = new JSONObject();
+        json.set("host", "小红书app");
+        json.set("url", "");
+        json.set("source", 2);
         // 大聪明小强
-        CharSequence gfl = findNodeInfoById("com.xingin.xhs:id/gfl", 0).getText();
-        // 小红书号：1816934197
-        CharSequence gfn = findNodeInfoById("com.xingin.xhs:id/gfn", 0).getText();
+        AccessibilityNodeInfo gfl = findNodeInfoById("com.xingin.xhs:id/gfl", 0);
+        CharSequence nickName = null;
+        if (null != gfl) {
+            nickName = gfl.getText();
+            sb.append(nickName);
+            json.set("nickName", nickName);
+        }
+        // 小红书号
+        AccessibilityNodeInfo gfn = findNodeInfoById("com.xingin.xhs:id/gfn", 0);
+        CharSequence no = null;
+        if (null != gfn) {
+            no = gfn.getText();
+            sb.append(no);
+            json.set("account", no);
+        }
+        // 公司
+        AccessibilityNodeInfo vb = findNodeInfoById("com.xingin.xhs:id/vb", 0);
+        CharSequence vb_t = null;
+        if (null != vb) {
+            vb_t = vb.getText();
+            sb.append(vb_t);
+            json.set("company", vb_t);
+        }
         //IP属地：湖南
-        CharSequence gfj = findNodeInfoById("com.xingin.xhs:id/gfj", 0).getText();
+        AccessibilityNodeInfo gfj = findNodeInfoById("com.xingin.xhs:id/gfj", 0);
+        CharSequence ip = null;
+        if (null != gfj) {
+            ip = gfj.getText();
+            sb.append(ip);
+            json.set("address", ip);
+        }
         // 生活技巧分享，创意制作制作解压视频
-        CharSequence j0l = findNodeInfoById("com.xingin.xhs:id/j0l", 0).getText();
+        AccessibilityNodeInfo j0l = findNodeInfoById("com.xingin.xhs:id/j0l", 0);
+        CharSequence dec = null;
+        if (null != j0l) {
+            dec = j0l.getText();
+            sb.append(dec);
+        }
         // 关注
-        CharSequence u_ = findNodeInfoById("com.xingin.xhs:id/u_", 0).getText();
+        AccessibilityNodeInfo u = findNodeInfoById("com.xingin.xhs:id/u_", 0);
+        CharSequence uu = null;
+        if (null != u) {
+            uu = u.getText();
+            sb.append("关注数:" + uu);
+            json.set("follow", 2);
+        }
         // 粉丝
-        CharSequence c13 = findNodeInfoById("com.xingin.xhs:id/c13", 0).getText();
+        AccessibilityNodeInfo c13 = findNodeInfoById("com.xingin.xhs:id/c13", 0);
+        CharSequence c13_x = null;
+        if (null != c13) {
+            c13_x = u.getText();
+            sb.append("粉丝数:" + c13_x);
+            json.set("fans", Integer.valueOf(c13_x + ""));
+        }
         // 5.2 万获赞与收藏
-        CharSequence e4g = findNodeInfoById("com.xingin.xhs:id/e4g", 0).getText();
-
+        AccessibilityNodeInfo e4g = findNodeInfoById("com.xingin.xhs:id/e4g", 0);
+        CharSequence e4g_x = null;
+        if (null != c13) {
+            e4g_x = e4g.getText();
+            sb.append("获赞与收藏:" + e4g_x);
+        }
         // 男，26岁
         // 标签
+        String tag = null;
         List<AccessibilityNodeInfo> nodeInfoById = findNodeInfoById("com.xingin.xhs:id/gfk");
         if (null != nodeInfoById) {
             for (int i = 0; i < nodeInfoById.size(); i++) {
-                nodeInfoById.get(i).getContentDescription();
+                tag += "," + nodeInfoById.get(i).getContentDescription();
             }
         }
-        // 保存到队列中
-
-
-
-        Log.d(TAG, "userViewPage: " + gfj + gfn + gfl + j0l + u_ + c13 + e4g);
-
-
+        sb.append(tag);
+        // 性别
+        if (sb.indexOf("男") != -1) {
+            json.set("gender", 1);
+        } else if (sb.indexOf("女") != -1) {
+            json.set("gender", 2);
+        } else {
+            json.set("gender", 0);
+        }
+        // 内容
+        json.set("content", sb.toString());
+        //
+        HttpRequest.post("http://192.168.0.103:8080/admin/sss/spider/nickname/saveSpiderNickName").body(JSONUtil.toJsonStr(json)).execute().body();
     }
 
 
