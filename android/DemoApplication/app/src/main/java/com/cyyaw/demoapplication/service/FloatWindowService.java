@@ -167,19 +167,19 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         // =========== 收集数据
                         Log.d(TAG, "onClick: " + chq);
                         if (chq.toString().indexOf("视频") == 0) {
-                            SystemClock.sleep(500);
+                            SystemClock.sleep(1000);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0));
                             // =========== 收集数据
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("笔记") == 0) {
-                            SystemClock.sleep(500);
+                            SystemClock.sleep(1000);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0));
                             // =========== 收集数据
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("直播") == 0) {
-                            SystemClock.sleep(500);
+                            SystemClock.sleep(100);
                         }
                         back();
 
@@ -284,14 +284,14 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         AccessibilityNodeInfo c13 = findNodeInfoById("com.xingin.xhs:id/c13", 0);
         CharSequence c13_x = null;
         if (null != c13) {
-            c13_x = u.getText();
+            c13_x = c13.getText();
             sb.append("粉丝数:" + c13_x);
             json.set("fans", stringToNumber(c13_x));
         }
         // 5.2 万获赞与收藏
         AccessibilityNodeInfo e4g = findNodeInfoById("com.xingin.xhs:id/e4g", 0);
         CharSequence e4g_x = null;
-        if (null != c13) {
+        if (null != e4g) {
             e4g_x = e4g.getText();
             sb.append("获赞与收藏:" + e4g_x);
             json.set("likeNum", stringToNumber(e4g_x));
