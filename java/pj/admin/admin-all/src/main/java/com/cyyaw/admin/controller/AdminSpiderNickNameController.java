@@ -1,10 +1,8 @@
-package com.cyyaw.tx.spider;
+package com.cyyaw.admin.controller;
 
-import cn.hutool.json.JSONObject;
 import com.cyyaw.service.spider.SpiderNickNameService;
 import com.cyyaw.table.spider.spider.entity.SpiderNickName;
 import com.cyyaw.util.tools.BaseResult;
-import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -12,38 +10,21 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.Map;
 
 @Slf4j
-@Api(tags = "抓取标签")
-@RequestMapping("/spider/spidernickname")
 @RestController
-public class SpiderNickNameController {
+@Api(tags = "抓取标签")
+@RequestMapping("/admin/{eCode}/spider/nickname")
+public class AdminSpiderNickNameController {
 
     @Autowired
     private SpiderNickNameService spiderNickNameService;
-
-    /**
-     * 分页条件查询
-     */
-    @GetMapping("/findPage")
-    public BaseResult<SpiderNickName> findPageSpiderNickName(@RequestParam Map<String, Object> map) {
-        PageRespone<SpiderNickName> page = spiderNickNameService.findPage(new JSONObject(map));
-        return BaseResult.ok(page);
-    }
-
-    /**
-     * 根据ID查询
-     */
-    @GetMapping("/findIdSpiderNickName")
-    public BaseResult findIdSpiderNickName(Integer id) {
-        SpiderNickName obj = spiderNickNameService.findId(id);
-        return BaseResult.ok(obj);
-    }
-
 
     /**
      * 添加或修改
@@ -69,13 +50,5 @@ public class SpiderNickNameController {
         return BaseResult.ok(obj);
     }
 
-    /**
-     * 删除
-     */
-    @PostMapping("/delSpiderNickName")
-    public BaseResult delSpiderNickName(@RequestBody Integer idArr[]) {
-        spiderNickNameService.del(idArr);
-        return BaseResult.ok("删除成功");
-    }
 
 }

@@ -95,6 +95,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>repository.com.cyyaw</groupId>
+            <artifactId>admin-service-spider</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

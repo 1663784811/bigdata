@@ -2,7 +2,6 @@ package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -11,16 +10,14 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
-import com.cyyaw.demoapplication.activity.MainActivity;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
@@ -51,6 +48,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     public void onInterrupt() {
         wManager = null;
     }
+
     @Override
     public void onDestroy() {
         wManager = null;
@@ -169,19 +167,19 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         // =========== 收集数据
                         Log.d(TAG, "onClick: " + chq);
                         if (chq.toString().indexOf("视频") == 0) {
-                            SystemClock.sleep(2000);
+                            SystemClock.sleep(500);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0));
                             // =========== 收集数据
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("笔记") == 0) {
-                            SystemClock.sleep(1000);
+                            SystemClock.sleep(500);
                             clickNode(findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0));
                             // =========== 收集数据
                             userViewPage();
                             back();
                         } else if (chq.toString().indexOf("直播") == 0) {
-                            SystemClock.sleep(3000);
+                            SystemClock.sleep(500);
                         }
                         back();
 
@@ -280,9 +278,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != u) {
             uu = u.getText();
             sb.append("关注数:" + uu);
-            if (!"-".equals(uu)) {
-                json.set("follow", Integer.valueOf(uu + ""));
-            }
+            json.set("follow", stringToNumber(uu));
         }
         // 粉丝
         AccessibilityNodeInfo c13 = findNodeInfoById("com.xingin.xhs:id/c13", 0);
@@ -290,9 +286,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != c13) {
             c13_x = u.getText();
             sb.append("粉丝数:" + c13_x);
-            if (!"-".equals(c13_x)) {
-                json.set("fans", Integer.valueOf(c13_x + ""));
-            }
+            json.set("fans", stringToNumber(c13_x));
         }
         // 5.2 万获赞与收藏
         AccessibilityNodeInfo e4g = findNodeInfoById("com.xingin.xhs:id/e4g", 0);
@@ -300,6 +294,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != c13) {
             e4g_x = e4g.getText();
             sb.append("获赞与收藏:" + e4g_x);
+            json.set("likeNum", stringToNumber(e4g_x));
         }
         // 男，26岁
         // 标签
@@ -322,7 +317,25 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         // 内容
         json.set("content", sb.toString());
         //
-        HttpRequest.post("http://192.168.0.103:8080/admin/sss/spider/nickname/saveSpiderNickName").body(JSONUtil.toJsonStr(json)).execute().body();
+        if (StrUtil.isNotBlank(nickName)) {
+            HttpRequest.post("http://192.168.0.103:8080/admin/sss/spider/nickname/saveSpiderNickName").body(JSONUtil.toJsonStr(json)).execute().body();
+        }
+    }
+
+
+    public int stringToNumber(CharSequence str) {
+        if (null != str) {
+            if (!"-".equals(str)) {
+                if (str.toString().contains("万")) {
+                    BigDecimal bd = new BigDecimal(str.toString().replaceAll("万", "").replace(" ", ""));
+                    BigDecimal mu = bd.multiply(new BigDecimal("10000"));
+                    return mu.intValue();
+                } else {
+                    return Integer.valueOf(str.toString());
+                }
+            }
+        }
+        return 0;
     }
 
 
