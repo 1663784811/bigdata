@@ -62,6 +62,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         path.moveTo(x, y);
         path.lineTo(x + 2, y + 2);
         dispatchGesture(new GestureDescription.Builder().addStroke(new GestureDescription.StrokeDescription(path, 0, 100)).build(), null, null);
+        SystemClock.sleep(500);
     }
 
     /**

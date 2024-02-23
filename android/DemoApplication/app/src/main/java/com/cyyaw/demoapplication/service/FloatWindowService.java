@@ -16,6 +16,7 @@ import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 辅助 触发
@@ -127,36 +128,28 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                                 SystemClock.sleep(100);
                                 clickNode(child);
                                 // ===========
-                                SystemClock.sleep(3000);
-                                // 详情页面  com.xingin.xhs:id/hts
                                 // =========== 收集数据
                                 Log.d(TAG, "onClick: " + chq);
                                 if (chq.toString().indexOf("视频") == 0) {
-
-
+                                    SystemClock.sleep(2000);
+                                    clickNode(findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0));
+                                    // =========== 收集数据
+                                    userViewPage();
+                                    back();
                                 } else if (chq.toString().indexOf("笔记") == 0) {
-
-
+                                    SystemClock.sleep(1000);
+                                    clickNode(findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0));
+                                    // =========== 收集数据
+                                    userViewPage();
+                                    back();
                                 } else if (chq.toString().indexOf("直播") == 0) {
-
+                                    SystemClock.sleep(3000);
                                 }
-                                // =========== 点击主页面
-                                //clickNodeById("com.xingin.xhs:id/wo");
-                                // =========== 收集数据
-
-                                // =========== 返回列表页面 收集第二个
-
-                                //SystemClock.sleep(100);
                                 back();
-                                //SystemClock.sleep(5000);
-                                // ===========
-                                //back();
-//                    markRect(child,1000L);
 
 
                                 // ================================================================     滑动     =======================================================
                                 if (index > 2) {
-
                                     // 移动屏幕
                                     boolean isBreak = false;
                                     AccessibilityNodeInfo ch = null;
@@ -203,5 +196,40 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             e.printStackTrace();
         }
     }
+
+
+    private void userViewPage() {
+        // 大聪明小强
+        CharSequence gfl = findNodeInfoById("com.xingin.xhs:id/gfl", 0).getText();
+        // 小红书号：1816934197
+        CharSequence gfn = findNodeInfoById("com.xingin.xhs:id/gfn", 0).getText();
+        //IP属地：湖南
+        CharSequence gfj = findNodeInfoById("com.xingin.xhs:id/gfj", 0).getText();
+        // 生活技巧分享，创意制作制作解压视频
+        CharSequence j0l = findNodeInfoById("com.xingin.xhs:id/j0l", 0).getText();
+        // 关注
+        CharSequence u_ = findNodeInfoById("com.xingin.xhs:id/u_", 0).getText();
+        // 粉丝
+        CharSequence c13 = findNodeInfoById("com.xingin.xhs:id/c13", 0).getText();
+        // 5.2 万获赞与收藏
+        CharSequence e4g = findNodeInfoById("com.xingin.xhs:id/e4g", 0).getText();
+
+        // 男，26岁
+        // 标签
+        List<AccessibilityNodeInfo> nodeInfoById = findNodeInfoById("com.xingin.xhs:id/gfk");
+        if (null != nodeInfoById) {
+            for (int i = 0; i < nodeInfoById.size(); i++) {
+                nodeInfoById.get(i).getContentDescription();
+            }
+        }
+        // 保存到队列中
+
+
+
+        Log.d(TAG, "userViewPage: " + gfj + gfn + gfl + j0l + u_ + c13 + e4g);
+
+
+    }
+
 
 }

@@ -87,16 +87,19 @@ public class FloatWindowLogService extends BaseService {
     }
 
 
-
     public String receiverClass() {
         return FloatWindowLogService.class.getName();
     }
 
 
     public void receiveMsg(String msg) {
-        int newItemPosition = itemList.size();
+        int size = itemList.size();
+        if (size > 5) {
+            itemList.remove(0);
+            adapter.notifyItemRemoved(0);
+        }
         itemList.add(msg);
-        adapter.notifyItemInserted(newItemPosition);
+        adapter.notifyItemInserted(size);
     }
 
 
