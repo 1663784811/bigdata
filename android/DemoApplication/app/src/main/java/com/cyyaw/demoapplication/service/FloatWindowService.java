@@ -234,15 +234,15 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                             }
                         }
                         index = num;
-                        System.gc();
                     } else {
                         index++;
                     }
                     // =======================================================================================================================
                 }
             } else {
+                SystemClock.sleep(2000);
                 back();
-                if (nnn > 5) {
+                if (nnn > 20) {
                     back();
                     nnn++;
                 }

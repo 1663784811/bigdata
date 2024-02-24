@@ -12,7 +12,7 @@
       <div class="sqlLeft">
         <!--    搜索    -->
         <div class="searchBox">
-          <Input search enter-button placeholder="搜索" @on-search="search"/>
+          <Input v-model="pageData.lk_name" search enter-button placeholder="搜索" @on-search="search"/>
           <Button type="primary" class="searchBtn" @click="addData">添加</Button>
         </div>
         <!--   表格   -->
@@ -190,7 +190,8 @@ const state = reactive({})
 const pageData = ref({
   page: 1,
   total: 0,
-  size: 10
+  size: 10,
+  lk_name: ''
 });
 
 const changePage = (page) => {
