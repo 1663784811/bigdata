@@ -1,49 +1,37 @@
 <template>
-  <Modal
-      v-model="modalData.show"
-      title="数据"
-      @on-ok="eventFn('ok')"
-      @on-cancel="eventFn('cancel')"
-      :mask-closable="false"
-      :loading="modalData.loading"
-      width="80wh"
-  >
+  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')" :mask-closable="false" :loading="modalData.loading" width="80wh">
     <div class="modalBox">
       <div>
         <template v-for="(item,index) in modalData.columns" :key="index">
           <div v-if="item.isShowSave !== false" class="row" :style="{display: item.controlType === 'hidden'?'none':''}">
             <div class="label">{{ item.title }}:</div>
+            <!--     ==========      长文本     ===========       -->
             <div class="content" v-if="item.controlType === 'textarea'">
               <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
             </div>
+            <!--     ==========      日期时间     ===========       -->
             <div class="content" v-else-if="item.controlType === 'datetime'">
-              <DatePicker v-model="modalData.data[item.key]"
-                          type="datetime"
-                          format="yyyy-MM-dd HH:mm"
-                          :placeholder="item.node"/>
+              <DatePicker v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"/>
             </div>
+            <!--     ==========      选择     ===========       -->
             <div class="content" v-else-if="item.controlType === 'select'">
               <Select v-model="modalData.data[item.key]" clearable>
-                <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{it.label}}</Option>
+                <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{ it.label }}</Option>
               </Select>
             </div>
+            <!--     ==========      图片     ===========       -->
             <div class="content" v-else-if="item.controlType === 'img'">
-              <div class="imageBox">
+              <div class="imageBox" v-if="modalData.data[item.key]">
                 <div class="closeImg">
-                  <Icon type="md-close-circle"/>
+                  <Icon type="md-close-circle" @click="delete modalData.data[item.key]"/>
                 </div>
                 <img :src="modalData.data[item.key]" alt="">
               </div>
-              <div class="imageBox">
-                <div class="closeImg">
-                  <Icon type="md-close-circle"/>
-                </div>
-                <img :src="modalData.data[item.key]" alt="">
-              </div>
-              <div class="imageBox addImage">
+              <div v-else class="imageBox addImage" @click="updateImage(item.key)">
                 <Icon type="md-add-circle"/>
               </div>
             </div>
+            <!--     ==========      文本     ===========       -->
             <div class="content" v-else>
               <Input v-model="modalData.data[item.key]" :placeholder="item.node"/>
             </div>
@@ -56,6 +44,9 @@
 
 <script setup>
 import {defineEmits, ref, watch} from "vue";
+import {useUploadFileStore} from "@/store/uploadFile.js";
+
+const fileStore = useUploadFileStore();
 const emits = defineEmits(['event', 'update:modelValue']);
 
 const props = defineProps({
@@ -100,6 +91,16 @@ watch(() => modalData.value.show, () => {
 const eventFn = (ev) => {
   const {data} = modalData.value;
   emits('event', ev, data);
+}
+
+/**
+ * 上传文件
+ */
+const updateImage = (key) => {
+  fileStore.uploadFile.show = true;
+  fileStore.uploadFile.callBack = (data) => {
+    modalData.value.data[key] = data.data;
+  }
 }
 
 </script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Sortable List</title>
+    <style>
+        #sortableList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #sortableList li {
+            margin: 5px;
+            padding: 005px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="sortableList">
+    <li draggable="true">Item 1</li>
+    <li draggable="true">Item 2</li>
+    <li draggable="true">Item 3</li>
+    <li draggable="true">Item 4</li>
+</ul>
+
+<script>
+    function dragStart(event) {
+        event.dataTransfer.setData("text/plain", event.target.id);
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text");
+        // 移动元素到新位置
+        const draggedElement = document.getElementById(data);
+        event.target.appendChild(draggedElement);
+
+        // 更新列表顺序
+        const listItems = document.getElementById("sortableList").childNodes;
+        const listItemsArray = Array.from(listItems);
+        const newOrder = listItemsArray.map(li => li.textContent).join(', ');
+        console.log(newOrder);
+    }
+
+    // 添加拖动事件监听器
+    const listItems = document.querySelectorAll('#sortableList li');
+    listItems.forEach(li => {
+        li.setAttribute('draggable', 'true'); // 使li元素可拖动
+        li.addEventListener('dragstart', dragStart);
+    });
+
+    // 添加放置事件监听器
+    const dropZone = document.getElementById('sortableList');
+    dropZone.addEventListener('dragover', allowDrop);
+    dropZone.addEventListener('drop', drop);
+    var aaa = 111222;
+</script>
+
+</body>
+</html>
