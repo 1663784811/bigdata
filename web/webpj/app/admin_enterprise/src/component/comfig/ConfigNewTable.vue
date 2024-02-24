@@ -154,7 +154,7 @@
             <template #item="{ element, index }">
               <div class="row" >
                 <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline"/>
+                  <Button size="small" type="error" icon="ios-trash-outline" @click="state.tableObj.columns.splice(index, 1)"/>
                 </div>
                 <div class="rowItem">
                   <Checkbox v-model="element.isShowColumn"/>
@@ -174,6 +174,7 @@
                     <Option value="selection">选择框</Option>
                     <Option value="img">图片</Option>
                     <Option value="filters">过滤</Option>
+                    <Option value="filters">开关</Option>
                   </Select>
                 </div>
                 <div class="rowItem">
@@ -181,6 +182,12 @@
                 </div>
                 <div class="rowItem">
                   <Checkbox v-model="element.sortable">排序</Checkbox>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.event" placeholder="事件" clearable style="width: 100px"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.event" placeholder="表达式" clearable style="width: 100px"/>
                 </div>
               </div>
             </template>

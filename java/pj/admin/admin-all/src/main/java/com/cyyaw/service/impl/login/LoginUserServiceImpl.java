@@ -13,7 +13,6 @@ import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.user.utils.entity.UserAuthToken;
 import com.cyyaw.util.tools.JwtTokenUtils;
-import com.cyyaw.util.tools.WhyException;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,9 @@ public class LoginUserServiceImpl implements LoginUserService {
 
     @Autowired
     private UUserService uUserService;
+
+    @Autowired
+    private LoginCommon loginCommon;
 
     @Override
     public UserAuthToken loginUserNameAndPassword(String appId, String userName, String password) {
@@ -95,7 +97,7 @@ public class LoginUserServiceImpl implements LoginUserService {
         String eCode = app.getCode();
         if (app == null) WebException.fail("APP不存在");
         //验证验证码
-        LoginCommon.verifyPhoneCode(appId, phone, eCode);
+        loginCommon.verifyPhoneCode(appId, phone, eCode);
         // 查询手机号
         UUser user = uUserService.findByAppIdAndPhone(appId, phone);
         if (null == user) {
@@ -124,7 +126,7 @@ public class LoginUserServiceImpl implements LoginUserService {
 
     @Override
     public void checkCode(String appId, String phone) {
-        LoginCommon.getPhoneCode(appId, phone);
+        loginCommon.getPhoneCode(appId, phone);
     }
 
 

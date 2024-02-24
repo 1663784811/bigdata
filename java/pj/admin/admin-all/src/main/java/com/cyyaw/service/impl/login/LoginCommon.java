@@ -2,9 +2,12 @@ package com.cyyaw.service.impl.login;
 
 import com.cyyaw.config.exception.WebException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class LoginCommon {
+
 
 
     /**
@@ -29,7 +32,7 @@ public class LoginCommon {
     /**
      * 验证手机
      */
-    public static void verifyPhoneCode(String appId, String phone, String eCode) {
+    public void verifyPhoneCode(String appId, String phone, String eCode) {
         if (!eCode.equals("")) {
 
         } else {
@@ -40,7 +43,7 @@ public class LoginCommon {
     /**
      * 获取手机验证码
      */
-    public static void getPhoneCode(String appId, String phone) {
+    public void getPhoneCode(String appId, String phone) {
 
     }
 }
