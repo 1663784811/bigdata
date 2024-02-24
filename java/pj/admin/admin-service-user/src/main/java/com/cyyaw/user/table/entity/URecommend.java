@@ -11,11 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "u_group_message")
-@org.hibernate.annotations.Table(appliesTo = "u_group_message", comment = "群消息")
-public class UGroupMessage implements BaseEntity<Integer>,  Serializable {
-
-    private static final long serialVersionUID = 13663017723582985L;
+@Table(name = "u_recommend")
+@org.hibernate.annotations.Table(appliesTo = "u_recommend", comment = "用户表推荐表")
+public class URecommend implements BaseEntity<Integer>,  Serializable {
+    private static final long serialVersionUID = 15873011723682985L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,29 +37,20 @@ public class UGroupMessage implements BaseEntity<Integer>,  Serializable {
     private String note;
 
     // =================================================================================
-
     @Basic
-    @Column(name = "group_id", columnDefinition = "varchar(32) not null COMMENT 'u_groupid群表id'")
-    private String groupId;
+    @Column(name = "app_id", columnDefinition = "varchar(32) COMMENT '应用ID'")
+    private String appId;
 
     @Basic
     @Column(name = "user_id", columnDefinition = "varchar(32) not null COMMENT 'u_user用户表id'")
     private String userId;
 
     @Basic
-    @Column(name = "user_name", columnDefinition = "varchar(32) not null COMMENT '用户名'")
-    private String userName;
+    @Column(name = "level_one_uid", columnDefinition = "varchar(32) not null COMMENT '一级用户表id'")
+    private String levelOneUid;
 
     @Basic
-    @Column(name = "face", columnDefinition = "varchar(255) COMMENT '用户头像'")
-    private String face;
-
-    @Basic
-    @Column(name = "type",length = 10, columnDefinition = "int  not null COMMENT '消息类型{0:文字,1:图片,2:视频}'")
-    private Integer type;
-
-    @Basic
-    @Column(name = "content", columnDefinition = "text COMMENT '消息内容'")
-    private String content;
+    @Column(name = "level_Two_uid", columnDefinition = "varchar(32) not null COMMENT '二级用户表id'")
+    private String levelTwoUid;
 
 }
