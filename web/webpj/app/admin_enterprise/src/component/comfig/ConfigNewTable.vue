@@ -149,39 +149,47 @@
           </div>
 
 
-          <div class="row" v-for="(item,index) in state.tableObj.columns" :key="index">
-            <div class="rowItem sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline"
-                      @click="state.tableObj.columns.splice(index, 1)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexDataFn(index)"/>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.isShowColumn"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.width" placeholder="宽" clearable type="number" style="width: 80px"/>
-            </div>
-            <div class="rowItem">
-              <Select v-model="item.type" size="small" clearable style="width:110px">
-                <Option value="text">文本</Option>
-                <Option value="selection">选择框</Option>
-                <Option value="img">图片</Option>
-                <Option value="filters">过滤</Option>
-              </Select>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.tooltip">越长不换行</Checkbox>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.sortable">排序</Checkbox>
-            </div>
-          </div>
+          <draggable
+              ghost-class="ghost"
+              chosen-class="chosenClass"
+              animation="300"
+              :list="state.tableObj.columns"
+          >
+            <template #item="{ element, index }">
+              <div class="row" >
+                <div class="rowItem sortBtn">
+                  <Button size="small" type="error" icon="ios-trash-outline"/>
+                </div>
+                <div class="rowItem">
+                  <Checkbox v-model="element.isShowColumn"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.title" placeholder="标题" clearable style="width: 130px"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.key" placeholder="key" clearable style="width: 100px"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.width" placeholder="宽" clearable type="number" style="width: 80px"/>
+                </div>
+                <div class="rowItem">
+                  <Select v-model="element.type" size="small" clearable style="width:110px">
+                    <Option value="text">文本</Option>
+                    <Option value="selection">选择框</Option>
+                    <Option value="img">图片</Option>
+                    <Option value="filters">过滤</Option>
+                  </Select>
+                </div>
+                <div class="rowItem">
+                  <Checkbox v-model="element.tooltip">越长不换行</Checkbox>
+                </div>
+                <div class="rowItem">
+                  <Checkbox v-model="element.sortable">排序</Checkbox>
+                </div>
+              </div>
+            </template>
+          </draggable>
+
         </div>
       </div>
     </TabPane>
@@ -261,6 +269,8 @@ import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
+import draggable from "vuedraggable";
+
 
 const configModule = useConfigModule();
 
@@ -462,6 +472,15 @@ watch(() => props.setting, () => {
 }, {deep: false, immediate: false})
 
 
+const onStart = () => {
+  console.log("sssssssssssssssss")
+}
+
+const onEnd = () => {
+  console.log("ddddddd")
+}
+
+
 </script>
 <style scoped lang="less">
 .configBox {
@@ -500,7 +519,6 @@ watch(() => props.setting, () => {
       }
 
       .sortBtn {
-        width: 60px;
       }
 
       .saveTitle {
