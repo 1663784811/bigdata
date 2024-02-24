@@ -40,6 +40,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     private volatile int index = 0;
 
+    private volatile int collect = 0;
+
     private static volatile boolean start = false;
 
     @Override
@@ -109,136 +111,11 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (!start) {
             start = true;
             Thread thread = new Thread(() -> {
-                // =========== 第一步: 打开小红书
-                AppInfo appInfo = new AppInfo();
-                appInfo.setPackageName("com.xingin.xhs");
-                appInfo.setAppName("小红书");
-                openApp(appInfo);
-                // =========== 第二步: 点击首页
-                boolean ok = true;
-                do {
-                    if (findNodeInfoById("com.xingin.xhs:id/dhc", 0) == null) {
-                        back();
-                        SystemClock.sleep(500);
-                    } else {
-                        ok = false;
-                    }
-                } while (ok);
-                clickNodeById("com.xingin.xhs:id/dhc");
-                // ===========
-                SystemClock.sleep(2000);
-                // ===========
-                // 获取外部列表框
-
-
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                int nnn = 0;
-                while (start) {
-                    AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                    if (boxContent == null) {
-                        SystemClock.sleep(3000);
-                        boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                    }
-                    if (null != boxContent) {
-                        nnn = 0;
-                        int childCount = boxContent.getChildCount();
-                        if (childCount > index) {
-                            SystemClock.sleep(500);
-                            AccessibilityNodeInfo child = boxContent.getChild(index);
-                            CharSequence chq = child.getContentDescription();
-                            clickNode(child);
-                            // ===========
-                            // =========== 收集数据
-                            Log.d(TAG, "onClick: " + Thread.currentThread().getName() + "----------" + chq);
-                            if (chq.toString().indexOf("视频") == 0) {
-                                SystemClock.sleep(2000);
-                                AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
-                                if (null != nodeInfo) {
-                                    clickNode(nodeInfo);
-                                    // =========== 收集数据
-                                    userViewPage();
-                                    back();
-                                }
-
-                            } else if (chq.toString().indexOf("笔记") == 0) {
-                                SystemClock.sleep(2000);
-                                AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
-                                if (null != nodeInfo) {
-                                    clickNode(nodeInfo);
-                                    // =========== 收集数据
-                                    userViewPage();
-                                    back();
-                                }
-                            } else if (chq.toString().indexOf("直播") == 0) {
-                                SystemClock.sleep(2000);
-                            }
-                            back();
-
-
-                            // ================================================================     滑动     =======================================================
-                            if (index > 2) {
-                                // 移动屏幕
-                                boolean isBreak = false;
-                                AccessibilityNodeInfo ch = null;
-                                int numx = 0;
-                                do {
-                                    performSwipeLeft(480, 1000, 480, 850, 200);
-                                    SystemClock.sleep(1500);
-                                    ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
-                                    if (ch != null) {
-                                        int cc = ch.getChildCount();
-                                        if (cc > index) {
-                                            CharSequence cs = ch.getChild(index).getContentDescription();
-                                            isBreak = chq.equals(cs);
-                                        } else {
-                                            isBreak = false;
-                                        }
-                                    } else {
-                                        numx++;
-                                        back();
-                                        if (numx > 5) {
-                                            isBreak = false;
-                                        }
-                                    }
-                                } while (isBreak);
-                                //  判断当前index位置
-                                int num = 0;
-                                if (ch != null) {
-                                    for (int i = 0; i < ch.getChildCount(); i++) {
-                                        CharSequence cc = ch.getChild(i).getContentDescription();
-                                        if (null != cc && cc.equals(chq)) {
-                                            num = i + 1;
-                                            break;
-                                        }
-                                    }
-                                }
-                                index = num;
-                                System.gc();
-                            } else {
-                                index++;
-                            }
-                            // =======================================================================================================================
-                        }
-                    } else {
-                        back();
-                        if (nnn > 5) {
-                            back();
-                            nnn++;
-                        }
-                    }
+                collect = 0;
+                while (start || (!start && collect == 0)) {
+                    start = true;
+                    restart();
                 }
-                ;
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                // ===============================================
-                Log.d(TAG, "onClick: =======================   结束");
-                sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
             });
             thread.start();
         } else {
@@ -247,6 +124,143 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         }
     }
 
+
+    private void restart() {
+        // =========== 第一步: 打开小红书
+        AppInfo appInfo = new AppInfo();
+        appInfo.setPackageName("com.xingin.xhs");
+        appInfo.setAppName("小红书");
+        openApp(appInfo);
+        // =========== 第二步: 点击首页
+        boolean ok = true;
+        do {
+            if (findNodeInfoById("com.xingin.xhs:id/dhc", 0) == null) {
+                back();
+                SystemClock.sleep(500);
+            } else {
+                ok = false;
+            }
+        } while (ok);
+        clickNodeById("com.xingin.xhs:id/dhc");
+        // ===========
+        SystemClock.sleep(2000);
+        // ===========
+        // 获取外部列表框
+
+
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        int nnn = 0;
+        while (start) {
+            AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+            if (boxContent == null) {
+                SystemClock.sleep(3000);
+                boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+            }
+            if (null != boxContent) {
+                nnn = 0;
+                int childCount = boxContent.getChildCount();
+                if (childCount > index) {
+                    SystemClock.sleep(500);
+                    AccessibilityNodeInfo child = boxContent.getChild(index);
+                    CharSequence chq = child.getContentDescription();
+                    clickNode(child);
+                    // ===========
+                    // =========== 收集数据
+                    Log.d(TAG, "onClick: " + Thread.currentThread().getName() + "----------" + chq);
+                    if (chq.toString().indexOf("视频") == 0) {
+                        SystemClock.sleep(2000);
+                        AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
+                        if (null != nodeInfo) {
+                            clickNode(nodeInfo);
+                            // =========== 收集数据
+                            userViewPage();
+                            back();
+                        }
+
+                    } else if (chq.toString().indexOf("笔记") == 0) {
+                        SystemClock.sleep(2000);
+                        AccessibilityNodeInfo nodeInfo = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
+                        if (null != nodeInfo) {
+                            clickNode(nodeInfo);
+                            // =========== 收集数据
+                            userViewPage();
+                            back();
+                        }
+                    } else if (chq.toString().indexOf("直播") == 0) {
+                        SystemClock.sleep(2000);
+                    }
+                    back();
+
+
+                    // ================================================================     滑动     =======================================================
+                    if (index > 2) {
+                        // 移动屏幕
+                        boolean isBreak = false;
+                        AccessibilityNodeInfo ch = null;
+                        int numx = 0;
+                        do {
+                            performSwipeLeft(480, 1000, 480, 850, 200);
+                            SystemClock.sleep(1500);
+                            ch = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                            if (ch != null) {
+                                int cc = ch.getChildCount();
+                                if (cc > index) {
+                                    CharSequence cs = ch.getChild(index).getContentDescription();
+                                    isBreak = chq.equals(cs);
+                                } else {
+                                    isBreak = false;
+                                }
+                            } else {
+                                numx++;
+                                back();
+                                if (numx > 5) {
+                                    isBreak = false;
+                                }
+                            }
+                        } while (isBreak);
+                        //  判断当前index位置
+                        int num = 0;
+                        if (ch != null) {
+                            for (int i = 0; i < ch.getChildCount(); i++) {
+                                CharSequence cc = ch.getChild(i).getContentDescription();
+                                if (null != cc && cc.equals(chq)) {
+                                    num = i + 1;
+                                    break;
+                                }
+                            }
+                        }
+                        index = num;
+                        System.gc();
+                    } else {
+                        index++;
+                    }
+                    // =======================================================================================================================
+                }
+            } else {
+                back();
+                if (nnn > 5) {
+                    back();
+                    nnn++;
+                }
+            }
+            collect++;
+            if (collect > 30) {
+                start = false;
+                collect = 0;
+            }
+        }
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        // ===============================================
+        Log.d(TAG, "onClick: =======================   结束");
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
+    }
 
     private void userViewPage() {
         StringBuffer sb = new StringBuffer();
