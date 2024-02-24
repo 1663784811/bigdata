@@ -136,7 +136,6 @@
           <div>
             操作对象
           </div>
-
           <div>
             显示
             <div v-if="state.tableObj.queryRequest">
@@ -145,10 +144,7 @@
             <div v-if="state.tableObj.delRequest">
               删除地址: <Input v-model="state.tableObj.delRequest.url" placeholder="删除地址" clearable/>
             </div>
-
           </div>
-
-
           <draggable
               ghost-class="ghost"
               chosen-class="chosenClass"
@@ -208,59 +204,55 @@
             保存地址: <Input v-model="state.saveObj.url" placeholder="保存地址" clearable/>
           </div>
 
-          <div class="row" v-for="(item,index) in state.saveObj.columns" :key="index">
-            <div class="rowItem sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline"
-                      @click="state.saveObj.columns.splice(index, 1)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up" @click="upIndexSaveFn(index)"/>
-            </div>
-            <div class="rowItem">
-              <Checkbox v-model="item.isShowSave"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.title" placeholder="标题" clearable style="width: 130px"/>
-            </div>
-            <div class="rowItem">
-              <Input v-model="item.key" placeholder="key" clearable style="width: 100px"/>
-            </div>
-            <div class="rowItem">
-              输入类型:
-              <Select v-model="item.controlType" clearable size="small" style="width:100px">
-                <Option value="hidden">隐藏框</Option>
-                <Option value="text">文本</Option>
-                <Option value="textarea">长文本</Option>
-                <Option value="date">日期</Option>
-                <Option value="time">时间</Option>
-                <Option value="datetime">日期时间</Option>
-                <Option value="img">图片</Option>
-              </Select>
-            </div>
-          </div>
 
+          <draggable
+              ghost-class="ghost"
+              chosen-class="chosenClass"
+              animation="300"
+              :list="state.saveObj.columns"
+          >
+            <template #item="{ element, index }">
+              <div class="row">
+                <div class="rowItem sortBtn">
+                  <Button size="small" type="error" icon="ios-trash-outline" @click="state.saveObj.columns.splice(index, 1)"/>
+                </div>
+                <div class="rowItem">
+                  <Checkbox v-model="element.isShowSave"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.title" placeholder="标题" clearable style="width: 130px"/>
+                </div>
+                <div class="rowItem">
+                  <Input v-model="element.key" placeholder="key" clearable style="width: 100px"/>
+                </div>
+                <div class="rowItem">
+                  输入类型:
+                  <Select v-model="element.controlType" clearable size="small" style="width:100px">
+                    <Option value="hidden">隐藏框</Option>
+                    <Option value="text">文本</Option>
+                    <Option value="textarea">长文本</Option>
+                    <Option value="date">日期</Option>
+                    <Option value="time">时间</Option>
+                    <Option value="datetime">日期时间</Option>
+                    <Option value="img">图片</Option>
+                  </Select>
+                </div>
+              </div>
+            </template>
+          </draggable>
 
         </div>
       </div>
     </TabPane>
   </Tabs>
-  <Modal
-      v-model="state.jsonData.show"
-      :loading="state.jsonData.loading"
-      title="数据"
-      width="80vw"
-      @on-ok="saveComponentsFn"
-  >
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
 
-  <Modal v-model="state.showCode.show"
-         title="查看代码" width="80vw"
-         @on-ok="showCodeHandleFn"
-  >
+  <Modal v-model="state.showCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
     <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
-
   <DatabaseLoad v-model="state.databaseLoad" @event="loadDataHandleFn"/>
-
 
 </template>
 <script setup>
@@ -470,16 +462,6 @@ const initFn = () => {
 watch(() => props.setting, () => {
   initFn()
 }, {deep: false, immediate: false})
-
-
-const onStart = () => {
-  console.log("sssssssssssssssss")
-}
-
-const onEnd = () => {
-  console.log("ddddddd")
-}
-
 
 </script>
 <style scoped lang="less">
