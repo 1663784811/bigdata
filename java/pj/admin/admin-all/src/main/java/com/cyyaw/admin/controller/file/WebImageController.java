@@ -1,4 +1,4 @@
-package com.cyyaw.admin.controller;
+package com.cyyaw.admin.controller.file;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.util.tools.BaseResult;

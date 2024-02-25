@@ -14,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_admin")
 @org.hibernate.annotations.Table(appliesTo = "t_admin", comment = "管理员表")
-public class TAdmin implements BaseEntity<Integer>,  Serializable {
+public class TAdmin implements BaseEntity<Integer>, Serializable {
     private static final long serialVersionUID = 1587301173682985L;
 
     @Id
@@ -50,39 +50,52 @@ public class TAdmin implements BaseEntity<Integer>,  Serializable {
     @Column(name = "account", columnDefinition = "varchar(32) COMMENT '账号'")
     private String account;
     @Basic
-    @Column(name = "can_login_time", nullable = true, columnDefinition = "datetime COMMENT '可登录时间'")
+    @Column(name = "can_login_time", columnDefinition = "datetime COMMENT '可登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date canLoginTime;
     @Basic
-    @Column(name = "email", nullable = true, columnDefinition = "varchar(255) COMMENT '邮箱'")
+    @Column(name = "email", columnDefinition = "varchar(255) COMMENT '邮箱'")
     private String email;
     @Basic
-    @Column(name = "ip", nullable = true, columnDefinition = "varchar(60) COMMENT '最后登录IP'")
+    @Column(name = "ip", columnDefinition = "varchar(60) COMMENT '最后登录IP'")
     private String ip;
     @Basic
-    @Column(name = "last_login_time", nullable = true, columnDefinition = "datetime COMMENT '最后登录时间'")
+    @Column(name = "last_login_time", columnDefinition = "datetime COMMENT '最后登录时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
     @Basic
-    @Column(name = "nick_name", nullable = true, columnDefinition = "varchar(32) COMMENT '昵称'")
+    @Column(name = "nick_name", columnDefinition = "varchar(32) COMMENT '昵称'")
     private String nickName;
     @Basic
-    @Column(name = "password", nullable = true, columnDefinition = "varchar(255) COMMENT '密码'")
+    @Column(name = "password", columnDefinition = "varchar(255) COMMENT '密码'")
     private String password;
     @Basic
-    @Column(name = "phone", nullable = true, columnDefinition = "varchar(15) COMMENT '手机号'")
+    @Column(name = "phone", columnDefinition = "varchar(15) COMMENT '手机号'")
     private String phone;
     @Basic
-    @Column(name = "salt", nullable = true, columnDefinition = "varchar(32) COMMENT '加密盐'")
+    @Column(name = "salt", columnDefinition = "varchar(32) COMMENT '加密盐'")
     private String salt;
     @Basic
-    @Column(name = "status",nullable = true, columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:正常,1:暂时锁定,2:永久锁定}'")
     private Integer status;
     @Basic
-    @Column(name = "true_name", nullable = true, columnDefinition = "varchar(32) COMMENT '真实姓名'")
+    @Column(name = "true_name", columnDefinition = "varchar(32) COMMENT '真实姓名'")
     private String trueName;
+    @Basic
+    @Column(name = "sex", columnDefinition = "int COMMENT '性别{0:未知,1:男,2:女}'")
+    private Integer sex;
+    @Basic
+    @Column(name = "id_car", columnDefinition = "varchar(18) COMMENT '身份证号'")
+    private String idCar;
+    @Basic
+    @Column(name = "address", columnDefinition = "varchar(255) COMMENT '地址'")
+    private String address;
+    @Basic
+    @Column(name = "personal_signature", columnDefinition = "varchar(255) COMMENT '个性签名'")
+    private String personalSignature;
+
 }

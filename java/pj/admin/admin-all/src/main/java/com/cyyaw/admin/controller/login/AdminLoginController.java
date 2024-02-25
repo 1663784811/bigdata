@@ -1,4 +1,4 @@
-package com.cyyaw.admin.controller;
+package com.cyyaw.admin.controller.login;
 
 import com.cyyaw.enterprise.service.EEnterpriseService;
 import com.cyyaw.enterprise.table.entity.EEnterprise;

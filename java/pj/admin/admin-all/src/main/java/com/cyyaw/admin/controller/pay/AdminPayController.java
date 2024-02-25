@@ -1,4 +1,4 @@
-package com.cyyaw.admin.controller;
+package com.cyyaw.admin.controller.pay;
 
 import com.cyyaw.pay.service.PaySettingService;
 import com.cyyaw.pay.table.entity.PaySetting;

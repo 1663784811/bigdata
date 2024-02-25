@@ -5,13 +5,13 @@ spring:
   main:
     allow-bean-definition-overriding: true
   freemarker:
-    checkTemplateLocation: false
+    checkTemplateLocation: true
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
+    open-in-view: true
   datasource:
     url: jdbc:mysql://192.168.118.8:3306/t_all?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
@@ -23,7 +23,8 @@ spring:
       connection-test-query: select 1
       minimum-idle: 180000
       maximum-pool-size: 15
-
+  jackson:
+    default-property-inclusion: use_defaults
 
 wx:
   pay:
