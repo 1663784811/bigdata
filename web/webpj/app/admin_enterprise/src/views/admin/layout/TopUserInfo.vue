@@ -1,7 +1,7 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">企业: {{loginInfoSt.enterpriseInfo.name}}</div>
+      <div class="textNote">企业: {{ loginInfoSt.enterpriseInfo.name }}</div>
     </div>
 
     <div class="userInfoItem">
@@ -22,19 +22,19 @@
         <Icon class="icon" type="md-notifications"/>
       </div>
       <div class="infoBox">
-        <div class="infoList" @click="goFn('peopleCenter')">
+        <div class="infoList" @click="goFn('messageDetails')">
           <Icon class="icon" type="md-contact"/>
           <div class="menuName">消息1</div>
         </div>
-        <div class="infoList" @click="goFn('peopleCenter')">
+        <div class="infoList" @click="goFn('messageDetails')">
           <Icon class="icon" type="md-contact"/>
           <div class="menuName">消息1</div>
         </div>
-        <div class="infoList" @click="goFn('peopleCenter')">
+        <div class="infoList" @click="goFn('messageDetails')">
           <Icon class="icon" type="md-contact"/>
           <div class="menuName">消息1</div>
         </div>
-        <div class="infoList" @click="goFn('peopleCenter')">
+        <div class="infoList" @click="goFn('messageDetails')">
           <Icon class="icon" type="md-contact"/>
           <div class="menuName">消息1</div>
         </div>
@@ -63,20 +63,30 @@
 
 <script setup>
 
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useAdminMenuStore} from "@/store/adminMenu.js";
 import {loginInfo} from "@/store/loginInfo.js";
 import {useConfigModule} from "@/store/configModule.js";
 
+import {commonQuery} from '@/api/api.js'
+import {onMounted} from "vue";
 
 const store = useAdminMenuStore();
 const loginInfoSt = loginInfo();
 const configModule = useConfigModule();
 
-
-console.log(store)
-
 const router = useRouter();
+const route = useRoute();
+
+onMounted(() => {
+
+  // commonQuery({
+  //   code: ""
+  // }, route.params.code).then((rest) => {
+  //   console.log(rest)
+  // })
+})
+
 
 const logOut = function () {
   loginInfoSt.token = ''
