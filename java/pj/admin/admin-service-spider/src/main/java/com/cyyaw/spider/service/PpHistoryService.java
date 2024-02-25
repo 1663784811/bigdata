@@ -1,7 +1,7 @@
-package com.cyyaw.service.spider;
+package com.cyyaw.spider.service;
 
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.table.spider.user.entity.PpHistory;
+import com.cyyaw.spider.table.entity.PpHistory;
 
 public interface PpHistoryService extends BaseTableService<PpHistory, Integer> {
 

@@ -1,4 +1,4 @@
-package com.cyyaw.table.spider.user.entity;
+package com.cyyaw.spider.table.entity;
 
 
 import com.cyyaw.jpa.util.entity.BaseEntity;

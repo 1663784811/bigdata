@@ -1,15 +1,13 @@
-package com.cyyaw.service.spider.impl;
+package com.cyyaw.spider.service.impl;
 
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
-import com.cyyaw.service.spider.SpiderTargetAService;
-import com.cyyaw.table.spider.spider.entity.SpiderTargetA;
-import com.cyyaw.table.spider.spider.entity.dao.SpiderTargetADao;
+import com.cyyaw.spider.service.SpiderTargetAService;
+import com.cyyaw.spider.table.entity.SpiderTargetA;
+import com.cyyaw.spider.table.dao.SpiderTargetADao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 
 @Slf4j

@@ -1,7 +1,8 @@
-package com.cyyaw.table.spider.user.dao;
+package com.cyyaw.spider.table.dao;
+
 
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.table.spider.user.entity.PpPeople;
+import com.cyyaw.spider.table.entity.PpPeople;
 
 public interface PpPeopleDao extends BaseDao<PpPeople, Integer> {
 

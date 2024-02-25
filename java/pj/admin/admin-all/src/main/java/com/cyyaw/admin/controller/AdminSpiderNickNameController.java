@@ -1,7 +1,8 @@
 package com.cyyaw.admin.controller;
 
-import com.cyyaw.service.spider.SpiderNickNameService;
-import com.cyyaw.table.spider.spider.entity.SpiderNickName;
+
+import com.cyyaw.spider.service.SpiderNickNameService;
+import com.cyyaw.spider.table.entity.SpiderNickName;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
 import io.swagger.annotations.Api;

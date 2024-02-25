@@ -1,7 +1,7 @@
 package com.cyyaw.tx.spider;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.spider.PpHistoryService;
+import com.cyyaw.spider.service.PpHistoryService;
 import com.cyyaw.table.spider.user.entity.PpHistory;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;

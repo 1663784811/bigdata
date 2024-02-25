@@ -1,8 +1,8 @@
 package com.cyyaw.tx.spider;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.spider.SpiderTargetAService;
-import com.cyyaw.table.spider.spider.entity.SpiderTargetA;
+import com.cyyaw.spider.service.SpiderTargetAService;
+import com.cyyaw.spider.table.entity.SpiderTargetA;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;

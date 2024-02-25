@@ -1,7 +1,7 @@
 package com.cyyaw.tx.spider;
 
 import cn.hutool.json.JSONObject;
-import com.cyyaw.service.spider.PpPeopleService;
+import com.cyyaw.spider.service.PpPeopleService;
 import com.cyyaw.table.spider.user.entity.PpPeople;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.PageRespone;
