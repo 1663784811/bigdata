@@ -21,6 +21,12 @@
           </div>
         </div>
         <div class="row">
+          <div class="rowLabel">确认密码:</div>
+          <div class="rowVal">
+            <Input clearable/>
+          </div>
+        </div>
+        <div class="row">
           <div class="rowVal">
             <Button class="dataBtn" type="primary" icon="md-cloud-upload">修改</Button>
           </div>
@@ -36,43 +42,43 @@
         <div class="infoRow">
           <div class="rowLabel">昵称:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.nickName" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">真实姓名:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.trueName" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">性别:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.sex" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">身份证号:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.idCar" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">手机号:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.sex" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">地址:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input v-model="state.userData.address" clearable/>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">个性签名:</div>
           <div class="rowVal">
-            <Input clearable type="textarea"/>
+            <Input v-model="state.userData.personalSignature" clearable type="textarea"/>
           </div>
         </div>
         <div class="infoRow">
@@ -98,8 +104,42 @@
 </template>
 <script setup>
 
+import {userInfo} from '@/api/api.js'
+import {onMounted, reactive} from "vue";
 
-import {Input} from "view-ui-plus";
+const state = reactive({
+  userData: {
+    account: null,
+    address: null,
+    canLoginTime: null,
+    createTime: null,
+    email: null,
+    enterpriseCode: null,
+    id: null,
+    idCar: null,
+    ip: null,
+    lastLoginTime: null,
+    nickName: null,
+    note: null,
+    personalSignature: null,
+    phone: null,
+    salt: null,
+    sex: null,
+    status: null,
+    trueName: null
+  }
+})
+
+
+onMounted(() => {
+
+  userInfo().then((res) => {
+    state.userData = res.data
+  })
+
+})
+
+
 </script>
 <style scoped lang="less">
 .peopleCenter {

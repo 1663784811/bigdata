@@ -1,12 +1,14 @@
 <template>
   <div class="welcomeBox">
-    <div>
-      <p>一万个美丽的未来，</p>
-      <p>抵不上一个温暖的现在</p>
-      <p>每一个真实的现在</p>
-      <p>都是我们曾经幻想的未来</p>
-      <p>愿你爱上现在</p>
-      <p>梦见未来</p>
+
+    <div class="eventBox">
+
+      <div class="eventItem" v-for="i in 100">
+        <div class="timeBar">2024-01-05</div>
+        <div class="eventContent">
+          sssdd
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,11 +30,36 @@ const goFn = (name) => {
 <style scoped lang="less">
 .welcomeBox {
   height: 100vh;
-  text-align: center;
-  padding: 50px 0;
+  overflow: auto;
 
-  .btnBox {
-    margin-top: 70px;
+  .eventBox {
+    .eventItem {
+      position: relative;
+      clear: both;
+      padding-left: 100px;
+
+
+      .timeBar {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+      }
+
+      .eventContent {
+        background: #fff;
+        padding: 10px;
+        margin: 4px;
+        border-radius: 8px;
+        min-height: 100px;
+      }
+
+      &:before, &:after {
+        content: "";
+        height: 0;
+        clear: both;
+        display: block;
+      }
+    }
   }
 }
 </style>

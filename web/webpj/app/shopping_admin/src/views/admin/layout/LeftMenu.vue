@@ -1,20 +1,33 @@
 <template>
   <div style="width: 200px; background: #fff">
-    <Menu v-if="store.leftMenu && store.leftMenu.length>0" width="200px" @on-select="selectFn">
+    <Menu :active-name="store.activeName" :open-names="store.openNames" @on-open-change="openChange"
+          v-if="store.leftMenu && store.leftMenu.length>0" width="200px" @on-select="selectFn">
       <template v-for="(item,index) in store.leftMenu" :key="index">
         <Submenu :name="index" v-if="item.children && item.children.length>0">
           <template #title>
             <Icon type="md-settings"/>
             {{ item.name }}
           </template>
-          <MenuItem :name="index+'-'+ ch" v-for="(children, ch) in item.children" :key="ch">
-            <Icon type="ios-paper"/>
-            {{ children.name }}
-          </MenuItem>
+          <template v-for="(children, ch) in item.children" :key="ch">
+            <Submenu :name="index+'-'+ ch" v-if="children.children && children.children.length>0">
+              <template #title>
+                <Icon type="md-settings"/>
+                {{ children.name }}
+              </template>
+              <MenuItem :name="index+'-'+ ch+'-'+inxx " v-for="(chch, inxx) in children.children" :key="inxx">
+                <Icon type="ios-paper"/>
+                {{ chch.name }}
+              </MenuItem>
+            </Submenu>
+            <MenuItem v-else :name="index+'-'+ ch">
+              <Icon type="ios-paper"/>
+              {{ children.name }}
+            </MenuItem>
+          </template>
         </Submenu>
         <MenuItem v-else :name="index">
           <div>
-            <Icon type="md-settings"/>
+            <Icon :type="item.icon?item.icon: 'md-settings'"/>
             {{ item.name }}
           </div>
         </MenuItem>
@@ -36,7 +49,7 @@ const clickMenu = (item) => {
   if (item.query) {
     query = item.query;
   }
-  if(item.routeName){
+  if (item.routeName) {
     router.replace({
       name: item.routeName,
       query: {
@@ -47,6 +60,7 @@ const clickMenu = (item) => {
 }
 
 const selectFn = (name) => {
+  store.activeName = name;
   const arr = (name + '').split("-")
   let menuData = store.leftMenu;
   let menuItem = null;
@@ -60,6 +74,10 @@ const selectFn = (name) => {
     }
   }
   clickMenu(menuItem);
+}
+
+const openChange = (name) => {
+  store.openNames = name;
 }
 
 

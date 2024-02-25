@@ -12,7 +12,7 @@
       <div class="sqlLeft">
         <!--    搜索    -->
         <div class="searchBox">
-          <Input search enter-button placeholder="搜索" @on-search="search"/>
+          <Input v-model="pageData.lk_name" search enter-button placeholder="搜索" @on-search="search"/>
           <Button type="primary" class="searchBtn" @click="addData">添加</Button>
         </div>
         <!--   表格   -->
@@ -142,6 +142,8 @@
 
           </div>
           <div class="sqlNote">
+            <p>[&] ---&gt; 必传参</p>
+            <p>[:=] ----&gt; 别名 [cc:=sss]</p>
             <p>[] ---&gt; =</p>
             <p>[@] ---&gt; in</p>
             <p>[!@] ----&gt; not in</p>
@@ -149,7 +151,6 @@
             <p>[L%] ----&gt; like</p>
             <p>[R%] ----&gt; like</p>
             <p>[!%] ----&gt; not like</p>
-            <p>[:=] ----&gt; 别名 [cc:=sss]</p>
             <p>[!!&lt;=] ----&gt; 大于等于</p>
             <p>[!!&lt;=] ----&gt; 小于等于</p>
 
@@ -189,7 +190,8 @@ const state = reactive({})
 const pageData = ref({
   page: 1,
   total: 0,
-  size: 30
+  size: 10,
+  lk_name: ''
 });
 
 const changePage = (page) => {
@@ -233,8 +235,16 @@ const tableData = ref({
       width: 250
     },
     {
+      title: '应用类型',
+      key: 'appType'
+    },
+    {
       title: '名称',
       key: 'name'
+    },
+    {
+      title: '类型',
+      key: 'type'
     },
     {
       title: '备注',
