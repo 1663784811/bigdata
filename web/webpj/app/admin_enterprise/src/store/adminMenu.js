@@ -329,6 +329,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '单词解释',
                             icon: 'md-settings',
                             routeName: 'bookWord'
+                        },
+                        {
+                            name: '招聘列表',
+                            icon: 'md-settings',
+                            routeName: 'recruitList'
                         }
                     ]
                 }

@@ -32,6 +32,14 @@ export const phone = {
                 title: '单词解释',
             },
             component: () => import('@/views/app/phone/BookWord.vue')
+        },
+        {
+            path: 'recruitList',
+            name: 'recruitList',
+            meta: {
+                title: '招聘列表',
+            },
+            component: () => import('@/views/app/phone/RecruitList.vue')
         }
     ]
 }
