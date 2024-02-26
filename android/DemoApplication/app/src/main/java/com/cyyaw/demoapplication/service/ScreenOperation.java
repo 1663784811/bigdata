@@ -98,13 +98,14 @@ public abstract class ScreenOperation extends AccessibilityService {
             AccessibilityNodeInfo nodeInfo = findNodeInfoByName(appInfo.getAppName());
             if (nodeInfo != null) {
                 AccessibilityNodeInfo parent = nodeInfo.getParent();
-                parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                clickNode(parent);
                 SystemClock.sleep(500);
                 return true;
             }
         } else {
             return true;
         }
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "没有找到:" + appInfo.getAppName()));
         return false;
     }
 
@@ -136,9 +137,13 @@ public abstract class ScreenOperation extends AccessibilityService {
     // ==================================================================================
     // ==================================================================================
     public AccessibilityNodeInfo findNodeInfoById(String id, int index) {
+        return findNodeInfoById(getRootInActiveWindow(), id, index);
+    }
+
+    public AccessibilityNodeInfo findNodeInfoById(AccessibilityNodeInfo nodeInfo, String id, int index) {
         List<AccessibilityNodeInfo> nodeInfoList = null;
         try {
-            nodeInfoList = getRootInActiveWindow().findAccessibilityNodeInfosByViewId(id);
+            nodeInfoList = nodeInfo.findAccessibilityNodeInfosByViewId(id);
         } catch (Exception ignored) {
 
         }
