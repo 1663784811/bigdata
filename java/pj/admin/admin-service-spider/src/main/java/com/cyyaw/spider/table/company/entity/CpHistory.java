@@ -1,4 +1,5 @@
-package com.cyyaw.table.spider.company.entity;
+package com.cyyaw.spider.table.company.entity;
+
 
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -11,11 +12,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "cp_company")
-@org.hibernate.annotations.Table(appliesTo = "cp_company", comment = "公司")
-public class CpCompany implements BaseEntity<Integer>,  Serializable {
+@Table(name = "cp_history")
+@org.hibernate.annotations.Table(appliesTo = "cp_history", comment = "公司历史")
+public class CpHistory implements BaseEntity<Integer>,  Serializable {
 
-    private static final long serialVersionUID = 1573661935283L;
+    private static final long serialVersionUID = 157366193283L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,29 +41,22 @@ public class CpCompany implements BaseEntity<Integer>,  Serializable {
     // ==================================================
 
     @Basic
-    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '公司名称'")
-    private String name;
+    @Column(name = "cp_id", columnDefinition = "varchar(32) COMMENT '公司ID'")
+    private String cpId;
 
     @Basic
-    @Column(name = "establish_time", columnDefinition = "datetime COMMENT '成立时间'")
+    @Column(name = "history_time", columnDefinition = "datetime COMMENT '时间'")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date establishTime;
-
-
-    @Basic
-    @Column(name = "legal_person", columnDefinition = "varchar(255) COMMENT '法人'")
-    private String legalPerson;
+    private Date historyTime;
 
     @Basic
-    @Column(name = "stock_type", columnDefinition = "int COMMENT '地区类型{1:A股,2:港股,3:美股}'")
-    private Integer stockType;
+    @Column(name = "cp_describe", columnDefinition = "text COMMENT '描述'")
+    private String cpDescribe;
 
     @Basic
-    @Column(name = "stock_name", columnDefinition = "varchar(255) COMMENT '股票名称'")
-    private String stockName;
+    @Column(name = "analysis", columnDefinition = "text COMMENT '分析'")
+    private String analysis;
 
-    @Basic
-    @Column(name = "stock_no", columnDefinition = "varchar(32) COMMENT '证券代码'")
-    private String stockNo;
+
 }

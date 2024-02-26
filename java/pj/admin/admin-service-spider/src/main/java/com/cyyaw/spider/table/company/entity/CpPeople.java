@@ -1,4 +1,4 @@
-package com.cyyaw.table.spider.company.entity;
+package com.cyyaw.spider.table.company.entity;
 
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
