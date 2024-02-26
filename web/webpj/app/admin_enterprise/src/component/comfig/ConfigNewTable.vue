@@ -150,6 +150,7 @@
               chosen-class="chosenClass"
               animation="300"
               :list="state.tableObj.columns"
+              item-key="id"
           >
             <template #item="{ element, index }">
               <div class="row" >
@@ -217,6 +218,7 @@
               chosen-class="chosenClass"
               animation="300"
               :list="state.saveObj.columns"
+              item-key="id"
           >
             <template #item="{ element, index }">
               <div class="row">

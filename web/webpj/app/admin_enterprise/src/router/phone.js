@@ -24,6 +24,14 @@ export const phone = {
                 title: '黑洞',
             },
             component: () => import('@/views/app/phone/SpiderData.vue')
+        },
+        {
+            path: 'bookWord',
+            name: 'bookWord',
+            meta: {
+                title: '单词解释',
+            },
+            component: () => import('@/views/app/phone/BookWord.vue')
         }
     ]
 }

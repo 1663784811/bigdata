@@ -324,6 +324,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '黑洞',
                             icon: 'md-settings',
                             routeName: 'spiderData'
+                        },
+                        {
+                            name: '单词解释',
+                            icon: 'md-settings',
+                            routeName: 'bookWord'
                         }
                     ]
                 }
