@@ -19,15 +19,15 @@ public class MapTest {
         appGraph.addEdge("0", "6", 6);
         appGraph.addEdge("1", "2", 1);
         appGraph.addEdge("1", "3", 2);
-        appGraph.addEdge("1", "4", 3);
-        appGraph.addEdge("2", "9", 3);
+        appGraph.addEdge("1", "8", 3);
+        appGraph.addEdge("2", "5", 3);
         appGraph.addEdge("3", "6", 3);
         appGraph.addEdge("5", "7", 2);
         appGraph.addEdge("5", "8", 3);
         appGraph.addEdge("8", "9", 1);
 
         // 查找某节点到某节点的最短路径
-        List<String> list = appGraph.shortestRoute("1", "9");
+        List<String> list = appGraph.shortestRoute("1", "8");
 
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));

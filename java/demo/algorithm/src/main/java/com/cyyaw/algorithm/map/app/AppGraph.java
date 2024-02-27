@@ -89,8 +89,11 @@ public class AppGraph {
         String path = routeTable.getPath();
         if (dist > 0 && null != path && !path.equals(to)) {
             rest.addAll(routeTableFn(tableMap, path));
+
         }
-        rest.add(vertex);
+        if(dist >= 0){
+            rest.add(vertex);
+        }
         return rest;
     }
 
