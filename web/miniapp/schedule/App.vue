@@ -28,5 +28,11 @@
 		min-height: 100vh;
 		background: #eee;
 	}
-	
+	.content:before,.content:after{
+    content: ' ';
+    height: 0.01rpx;
+    display: block;
+    clear: both;
+  }
+
 </style>

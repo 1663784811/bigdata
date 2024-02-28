@@ -93,7 +93,7 @@ const state = reactive({
 <style lang="less" scoped>
 .myHeadBox {
   background: #fff;
-  padding: 16px;
+  padding: 16rpx;
   .userInfo {
     display: flex;
     justify-content: space-between;
