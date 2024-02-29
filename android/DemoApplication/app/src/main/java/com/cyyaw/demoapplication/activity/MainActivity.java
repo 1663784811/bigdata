@@ -128,7 +128,9 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         }
     }
 
-
+    /**
+     *
+     */
     private synchronized void showFloatWin() {
         Intent in = new Intent(MainActivity.this, FloatWindowLogService.class);
         windowLog = startService(in);
@@ -139,6 +141,9 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         componentNamex = startService(inx);
     }
 
+    /**
+     *
+     */
     private void startCamera() {
         // 请求 CameraProvider
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -154,7 +159,9 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         }, ContextCompat.getMainExecutor(this));
     }
 
-    //选择相机并绑定生命周期和用例
+    /**
+     * 选择相机并绑定生命周期和用例
+     */
     private void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();

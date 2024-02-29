@@ -17,16 +17,16 @@
       </view>
       <view class="statistics">
         <view class="stItem">
-          <view class="stNum">100</view>
-          <view class="stNote">优惠券</view>
+          <view class="stNum">5</view>
+          <view class="stNote">节日</view>
+        </view>
+        <view class="stItem">
+          <view class="stNum">10</view>
+          <view class="stNote">习惯</view>
         </view>
         <view class="stItem">
           <view class="stNum">100</view>
-          <view class="stNote">积分</view>
-        </view>
-        <view class="stItem">
-          <view class="stNum">100</view>
-          <view class="stNote">余额</view>
+          <view class="stNote">通信录</view>
         </view>
         <view class="stItem">
           <view class="stNum">100</view>
