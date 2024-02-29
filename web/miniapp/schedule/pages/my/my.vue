@@ -29,8 +29,8 @@
           <view class="stNote">通信录</view>
         </view>
         <view class="stItem">
-          <view class="stNum">100</view>
-          <view class="stNote">消费历史</view>
+          <view class="stNum">VIP</view>
+          <view class="stNote">会员</view>
         </view>
       </view>
     </view>
