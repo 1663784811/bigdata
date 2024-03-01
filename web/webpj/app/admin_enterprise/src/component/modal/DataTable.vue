@@ -42,6 +42,8 @@
              :loading="state.tableObj.loading"
              @on-row-click="selectData"
              @on-selection-change="selectDataChange"
+             @on-sort-change="sortChange"
+             @on-filter-change="filterChange"
       >
       </Table>
     </div>
@@ -106,7 +108,8 @@ const state = reactive({
 
   pageData: {
     total: 0,
-    size: 10
+    size: 10,
+    sort: ''
   }
 });
 
@@ -116,6 +119,41 @@ const saveData = ref({
   data: {},
   show: false
 });
+
+
+const filterChange = (data) => {
+  console.log(data)
+  if (data._filterChecked.length > 0) {
+    let dataStr = '';
+    for (let i = 0; i < data._filterChecked.length; i++) {
+      if (i === 0) {
+        dataStr = data._filterChecked[i];
+      } else {
+        dataStr += ',' + data._filterChecked[i];
+      }
+    }
+    state.pageData[`in_${data.key}`] = dataStr;
+  } else {
+    delete state.pageData[`in_${data.key}`];
+  }
+  state.pageData.page = 1;
+  loadData();
+}
+const filterMethod = (value, row) => {
+  return true;
+}
+
+const sortChange = (data) => {
+  if (data.order === 'normal') {
+    state.pageData.sort = ''
+  } else if (data.order === 'asc') {
+    state.pageData.sort = `${data.key}`
+  } else if (data.order === 'desc') {
+    state.pageData.sort = `${data.key}_desc`
+  }
+  state.pageData.page = 1;
+  loadData();
+}
 
 // ==========================================
 const searchBoxEven = (item, index) => {
@@ -201,6 +239,7 @@ const initTable = () => {
   for (let i = 0; i < columns.length; i++) {
     const itemObj = columns[i];
     if (itemObj.isShowColumn) {
+      console.log(itemObj.type)
       if (itemObj.type == 'img' || itemObj.type == 'filters') {
         itemObj.render = (h, params) => {
           return createH(itemObj, h, params);
@@ -485,6 +524,7 @@ const createH = (columnsItem, h, params) => {
         return strData
       }
     }))
+    columnsItem.filterMethod = filterMethod;
   }
   return h('div', hArr);
 }
