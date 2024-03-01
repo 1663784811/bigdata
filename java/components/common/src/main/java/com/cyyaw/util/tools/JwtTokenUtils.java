@@ -29,7 +29,7 @@ public class JwtTokenUtils {
     // sub: jwt所面向的用户
     public static final String SUB = "sso_";
     // 过期时间
-    public static final long EXP = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7;
+    public static final long EXP = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365;
     // secret
     public static final String secret = "@#vws##35SW324";
     private static final Algorithm algorithm = Algorithm.HMAC256(secret);
