@@ -6,24 +6,35 @@
       @on-cancel="eventFn('cancel')"
       :mask-closable="false"
       :loading="fileStore.uploadFile.loading"
-      width="80wh"
+      width="600px"
   >
-    <!-- ========================================   搜索   ======================================== -->
-    <div class="searchBox">
-      <div class="searchRow">
-        <div class="inputLabel">图片:</div>
-        <Input placeholder="搜索" style="width: auto"/>
+    <div class="showImageBox">
+      <div class="sizeBox">
+        <div class="sizeItem"
+             v-for="(item, index) in state.fixedNumber"
+             :key="index"
+             :class="{'active': index === state.cropper.fnIndex}"
+             @click="clickFixed(index)"
+        >
+          {{ item.text }}
+        </div>
       </div>
-      <div class="btnBox">
-        <Button class="btn" type="success" icon="ios-search">搜索</Button>
+      <div class="imgBox">
+        <vue-cropper
+            v-if="state.cropper.img"
+            class="cropperImg"
+            ref="cropper"
+            :img="state.cropper.img"
+            :outputSize="state.cropper.size"
+            :outputType="state.cropper.outputType"
+            autoCrop
+            centerBox
+            :fixedNumber="state.cropper.fixedNumber"
+        ></vue-cropper>
+        <div v-else class="addImg">
+          <Icon type="md-add" />
+        </div>
       </div>
-      <Upload
-          multiple
-          :format="['jpg','jpeg','png']"
-          action="http://192.168.0.130:8080/admin/file/upload"
-      >
-        <Button icon="ios-cloud-upload-outline">上传图片</Button>
-      </Upload>
     </div>
   </Modal>
 </template>
@@ -32,13 +43,45 @@
 import {defineEmits, ref, watch, provide, onMounted, reactive} from "vue";
 import {findPageWebImage} from '@/api/api.js'
 import {useUploadFileStore} from '@/store/uploadFile.js'
+import 'vue-cropper/dist/index.css'
+import {VueCropper} from "vue-cropper";
+
 
 const fileStore = useUploadFileStore();
 
+const state = reactive({
+  cropper: {
+    img: '',
+    size: null,
+    outputType: null,
+    fnIndex: 0,
+    fixedNumber: [1, 1]
+  },
+  fixedNumber: [
+    {
+      text: '1:1',
+      data: [1, 1]
+    },
+    {
+      text: '3:4',
+      data: [4, 3]
+    },
+    {
+      text: '16:9',
+      data: [16, 9]
+    }
+  ]
+});
+
+
 onMounted(() => {
-  console.log("sssssssssssssssss")
 
 })
+
+const clickFixed = (index) => {
+  state.cropper.fnIndex = index;
+  state.cropper.fixedNumber = state.fixedNumber[index].data;
+}
 
 /**
  * 事件
@@ -53,71 +96,46 @@ const eventFn = (ev) => {
 </script>
 
 <style scoped lang="less">
-.searchBox {
+.showImageBox {
   display: flex;
-  padding: 10px 10px 20px;
-  border-bottom: 1px solid #e9e9e9;
 
-  .searchRow {
+  .sizeBox {
+    width: 140px;
+
+    .sizeItem {
+      margin-bottom: 10px;
+      width: 100px;
+      text-align: center;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #e7e7e7;
+      cursor: pointer;
+
+      &.active {
+        background: #17233d;
+        color: #fff;
+      }
+    }
+  }
+
+  .cropperImg {
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+  }
+  .addImg{
+    width: 400px;
+    height: 400px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-right: 10px;
-
-    .inputLabel {
-      margin-right: 4px;
+    border: 1px solid #e1e1e1;
+    cursor: pointer;
+    &:hover{
+      background: #f5f5f5;
     }
   }
 
-  .btnBox {
-    margin-left: 10px;
-
-    .btn {
-      margin: 0 6px;
-    }
-  }
 }
 
-.modalBox {
-  .imageBox {
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 30vh;
-
-    .imageItem {
-      height: 70px;
-      width: 70px;
-      padding: 4px;
-      border-radius: 2px;
-      border: 1px solid #ddd;
-      margin: 6px;
-      background: #f3f1f1;
-      position: relative;
-
-      .closeImg {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        border-radius: 50%;
-        justify-content: center;
-        align-content: center;
-        cursor: pointer;
-      }
-
-      &:hover {
-        cursor: pointer;
-        background: #efefef;
-      }
-
-      img {
-        max-height: 100%;
-        max-width: 100%;
-      }
-    }
-  }
-
-  .pageBox {
-    border-top: 1px solid #ededed;
-    padding-top: 10px;
-  }
-}
 </style>
