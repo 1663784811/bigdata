@@ -140,6 +140,7 @@ const filterChange = (data) => {
   loadData();
 }
 const filterMethod = (value, row) => {
+  console.log(value, row)
   return true;
 }
 
