@@ -12,9 +12,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "st_word")
+@Table(name = "st_word", indexes = {@Index(columnList = "word")})
 @org.hibernate.annotations.Table(appliesTo = "st_word", comment = "单词统计")
-public class StWord implements BaseEntity<Integer>,  Serializable {
+public class StWord implements BaseEntity<Integer>, Serializable {
 
     private static final long serialVersionUID = 157393283L;
 
