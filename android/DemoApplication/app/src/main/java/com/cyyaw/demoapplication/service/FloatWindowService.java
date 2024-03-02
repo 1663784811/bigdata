@@ -10,11 +10,17 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.service.map.AppGraph;
+import com.cyyaw.demoapplication.service.map.AppNode;
+import com.cyyaw.demoapplication.service.map.Task;
+import com.cyyaw.demoapplication.service.map.page.HomePage;
+import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 import com.cyyaw.demoapplication.task.AppInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
@@ -43,6 +49,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     private volatile int collect = 0;
 
     private static volatile boolean start = false;
+
+    private static volatile AppGraph appGraph = new AppGraph();
 
     @Override
     public void onInterrupt() {
@@ -76,6 +84,19 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             floatWindow.findViewById(R.id.btnWinInfo).setOnClickListener(this);
             wManager.addView(floatWindow, layoutParams);
             // ==============
+
+
+            // 首页
+            appGraph.addNode(new AppNode("Home", new HomePage()));
+            // 小红书首页
+            appGraph.addNode(new AppNode("小红书首页", new RedBookIndexPage()));
+            //
+
+
+            // ======================   页面关联
+
+
+
         }
     }
 
@@ -93,16 +114,68 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        try {
-            int id = v.getId();
-            if (R.id.btn_start_task == id) {
-                startTask();
-            } else if (R.id.btnWinInfo == id) {
-                startBoos();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        int id = v.getId();
+        if (R.id.btn_start_task == id) {
+            startTask();
+        } else if (R.id.btnWinInfo == id) {
+            startBoos();
         }
+
+
+        // ======================================  初始化
+        // 当前任务: 打开小红书
+        execTask("", new Task() {
+            @Override
+            public void exec(AccessibilityNodeInfo rootInActiveWindow) {
+                userViewPage();
+            }
+        });
+
+    }
+
+    // 执行任务
+    public boolean execTask(String targetPage, Task task) {
+        // 最大15跳
+        int nodeNum = 15;
+        while (true) {
+            // 当前任务 、 当前页面
+            String page = nowPage(targetPage);
+            if (targetPage.equals(page)) {
+                // 执行任务
+                task.exec(getRootInActiveWindow());
+                // 执行成功
+                return true;
+            } else {
+                // 查找图最短路线
+                List<String> listPage = appGraph.shortestRoute(page, targetPage);
+                if (listPage.size() > 1) {
+                    AppNode nodeByKey = appGraph.getNodeByKey(page);
+                    AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
+                    appNodeRout.getTask().exec(getRootInActiveWindow());
+                }
+                nodeNum--;
+                if (nodeNum < 0) {
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    public String nowPage(String targetPage) {
+        Map<String, AppNode> node = appGraph.getNode();
+        AppNode appNode = node.get(targetPage);
+        AccessibilityNodeInfo root = getRootInActiveWindow();
+        if (appNode.isThisPage(root)) {
+            return appNode.getNodeId();
+        }
+        for (String key : node.keySet()) {
+            AppNode appNodeTemp = node.get(key);
+            if (appNodeTemp.isThisPage(root)) {
+                return appNodeTemp.getNodeId();
+            }
+        }
+        return null;
     }
 
 
@@ -187,7 +260,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     SystemClock.sleep(500);
                     AccessibilityNodeInfo child = findNodeInfoById(boxContent.getChild(index), "com.hpbr.bosszhipin:id/tv_position_name", 0);
                     CharSequence chq = null;
-                    if(child != null){
+                    if (child != null) {
                         chq = child.getText();
                         clickNode(child);
                         // ===========
@@ -196,7 +269,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         back();
 
                     }
-
 
 
                     // ================================================================     滑动     =======================================================
@@ -228,7 +300,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         //  判断当前index位置
                         int num = 0;
                         if (ch != null) {
-                             for (int i = 0; i < ch.getChildCount(); i++) {
+                            for (int i = 0; i < ch.getChildCount(); i++) {
                                 CharSequence cc = ch.getChild(i).getContentDescription();
                                 if (null != cc && cc.equals(chq)) {
                                     num = i + 1;
