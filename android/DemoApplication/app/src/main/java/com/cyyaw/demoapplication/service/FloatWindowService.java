@@ -13,6 +13,7 @@ import com.cyyaw.demoapplication.R;
 import com.cyyaw.demoapplication.service.map.AppGraph;
 import com.cyyaw.demoapplication.service.map.AppNode;
 import com.cyyaw.demoapplication.service.map.Task;
+import com.cyyaw.demoapplication.service.map.page.BossIndexPage;
 import com.cyyaw.demoapplication.service.map.page.HomePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
@@ -90,11 +91,17 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             appGraph.addNode(new AppNode("Home", new HomePage()));
             // 小红书首页
             appGraph.addNode(new AppNode("小红书首页", new RedBookIndexPage()));
+            appGraph.addNode(new AppNode("BOSS直聘首页", new BossIndexPage()));
             //
 
 
             // ======================   页面关联
-
+            appGraph.addEdge("Home", "BOSS直聘首页", 1, (AccessibilityNodeInfo nodeInfo) -> {
+                AppInfo appInfo = new AppInfo();
+                appInfo.setPackageName("com.hpbr.bosszhipin");
+                appInfo.setAppName("BOSS直聘");
+                openApp(appInfo);
+            });
 
 
         }
@@ -116,20 +123,28 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
         if (R.id.btn_start_task == id) {
-            startTask();
+            // startTask();
+            // ======================================  初始化
+            // 当前任务: 打开小红书
+            new Thread(()->{
+
+
+                execTask("BOSS直聘首页", new Task() {
+                    @Override
+                    public void exec(AccessibilityNodeInfo rootInActiveWindow) {
+                        // userViewPage();
+                        System.out.println("========================= 执行任务");
+                    }
+                });
+
+
+            }).start();
+
+
         } else if (R.id.btnWinInfo == id) {
             startBoos();
         }
 
-
-        // ======================================  初始化
-        // 当前任务: 打开小红书
-        execTask("", new Task() {
-            @Override
-            public void exec(AccessibilityNodeInfo rootInActiveWindow) {
-                userViewPage();
-            }
-        });
 
     }
 
@@ -146,12 +161,16 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 // 执行成功
                 return true;
             } else {
-                // 查找图最短路线
-                List<String> listPage = appGraph.shortestRoute(page, targetPage);
-                if (listPage.size() > 1) {
-                    AppNode nodeByKey = appGraph.getNodeByKey(page);
-                    AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
-                    appNodeRout.getTask().exec(getRootInActiveWindow());
+                if (null != page) {
+                    // 查找图最短路线
+                    List<String> listPage = appGraph.shortestRoute(page, targetPage);
+                    if (listPage.size() > 1) {
+                        AppNode nodeByKey = appGraph.getNodeByKey(page);
+                        AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
+                        appNodeRout.getTask().exec(getRootInActiveWindow());
+                    }
+                } else {
+                    keyHome();
                 }
                 nodeNum--;
                 if (nodeNum < 0) {

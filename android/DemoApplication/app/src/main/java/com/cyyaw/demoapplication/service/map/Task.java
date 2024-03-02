@@ -4,6 +4,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 public interface Task {
 
-    void exec(AccessibilityNodeInfo rootInActiveWindow);
+    void exec(AccessibilityNodeInfo nodeInfo);
 
 }

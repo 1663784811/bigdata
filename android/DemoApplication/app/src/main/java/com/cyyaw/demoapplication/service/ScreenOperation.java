@@ -202,7 +202,6 @@ public abstract class ScreenOperation extends AccessibilityService {
         json.set("y1", nodeRect.top);
         json.set("x2", nodeRect.right);
         json.set("y2", nodeRect.bottom);
-        // System.out.println("坐标：(left:" + nodeRect.left + "--top" + nodeRect.top + "---right" + nodeRect.right + ", bottom" + nodeRect.bottom +")");
         sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "坐标：(left:" + nodeRect.left + "--top" + nodeRect.top + "---right" + nodeRect.right + ", bottom" + nodeRect.bottom + ")"));
         sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(json)));
 
