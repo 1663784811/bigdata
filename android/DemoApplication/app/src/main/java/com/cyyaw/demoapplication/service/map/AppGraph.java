@@ -54,7 +54,8 @@ public class AppGraph {
 
 
     public List<String> shortestRoute(String from, String to) {
-        List<String> routeTableList = route.get(from);
+        String fromKey = from+"--->"+to;
+        List<String> routeTableList = route.get(fromKey);
         if (null != routeTableList) {
             return routeTableList;
         }
@@ -78,7 +79,7 @@ public class AppGraph {
         Map<String, RouteTable> mapTable = getRouteTableList(tableList, tableMap);
         // 第三步:
         List<String> list = routeTableFn(mapTable, to);
-        route.put(from, list);
+        route.put(fromKey, list);
         return list;
     }
 

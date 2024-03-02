@@ -103,6 +103,12 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 openApp(appInfo);
             });
 
+            appGraph.addEdge("Home", "小红书首页", 1, (AccessibilityNodeInfo nodeInfo) -> {
+                AppInfo appInfo = new AppInfo();
+                appInfo.setPackageName("com.xingin.xhs");
+                appInfo.setAppName("小红书");
+                openApp(appInfo);
+            });
 
         }
     }
@@ -126,17 +132,23 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             // startTask();
             // ======================================  初始化
             // 当前任务: 打开小红书
-            new Thread(()->{
+            new Thread(() -> {
 
 
                 execTask("BOSS直聘首页", new Task() {
                     @Override
                     public void exec(AccessibilityNodeInfo rootInActiveWindow) {
-                        // userViewPage();
-                        System.out.println("========================= 执行任务");
+                        System.out.println("========================= BOSS直聘首页");
                     }
                 });
 
+                execTask("小红书首页", new Task() {
+                    @Override
+                    public void exec(AccessibilityNodeInfo rootInActiveWindow) {
+                        // userViewPage();
+                        System.out.println("========================= 小红书首页");
+                    }
+                });
 
             }).start();
 
@@ -168,6 +180,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         AppNode nodeByKey = appGraph.getNodeByKey(page);
                         AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
                         appNodeRout.getTask().exec(getRootInActiveWindow());
+                    } else {
+                        keyHome();
                     }
                 } else {
                     keyHome();
