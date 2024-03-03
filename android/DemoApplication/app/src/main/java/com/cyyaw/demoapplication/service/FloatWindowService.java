@@ -444,6 +444,10 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != name) {
             js.set("name", name.getText());
         }
+        AccessibilityNodeInfo activity = findNodeInfoById("com.hpbr.bosszhipin:id/boss_label_tv", 0);
+        if (null != activity) {
+            js.set("activity", activity.getText());
+        }
 
         AccessibilityNodeInfo sala = findNodeInfoById("com.hpbr.bosszhipin:id/tv_job_salary", 0);
         if (null != sala) {

@@ -77,4 +77,8 @@ public class CpRecruit implements BaseEntity<Integer>, Serializable {
     @Column(name = "resource", columnDefinition = "varchar(255) COMMENT '来源'")
     private String resource;
 
+    @Basic
+    @Column(name = "activity", columnDefinition = "varchar(255) COMMENT '活跃'")
+    private String activity;
+
 }
