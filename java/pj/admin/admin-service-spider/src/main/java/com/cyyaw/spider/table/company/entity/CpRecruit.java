@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -49,9 +50,31 @@ public class CpRecruit implements BaseEntity<Integer>, Serializable {
     private String name;
 
     @Basic
+    @Column(name = "tag", columnDefinition = "varchar(255) COMMENT '标签'")
+    private String tag;
+
+    @Basic
+    @Column(name = "address", columnDefinition = "varchar(255) COMMENT '地址'")
+    private String address;
+
+    @Basic
+    @Column(name = "hr", columnDefinition = "varchar(255) COMMENT 'hr'")
+    private String hr;
+
+    @Basic
+    @Column(name = "max_price", columnDefinition = "decimal(18,2)  default '0' COMMENT '最高工资'")
+    private BigDecimal maxPrice;
+
+    @Basic
+    @Column(name = "min_price", columnDefinition = "decimal(18,2)  default '0' COMMENT '最低工资'")
+    private BigDecimal minPrice;
+
+    @Basic
     @Column(name = "demand", columnDefinition = "text COMMENT '需求'")
     private String demand;
 
-
+    @Basic
+    @Column(name = "resource", columnDefinition = "varchar(255) COMMENT '来源'")
+    private String resource;
 
 }

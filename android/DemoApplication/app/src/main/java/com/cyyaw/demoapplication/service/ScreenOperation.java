@@ -75,6 +75,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 0, duration));
         // 发送手势事件
         dispatchGesture(gestureBuilder.build(), null, null);
+        SystemClock.sleep(duration + 300);
     }
 
 

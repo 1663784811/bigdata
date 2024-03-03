@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -44,6 +45,10 @@ public class CpCompany implements BaseEntity<Integer>,  Serializable {
     private String name;
 
     @Basic
+    @Column(name = "industry", columnDefinition = "varchar(255) COMMENT '行业'")
+    private String industry;
+
+    @Basic
     @Column(name = "establish_time", columnDefinition = "datetime COMMENT '成立时间'")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -65,4 +70,8 @@ public class CpCompany implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "stock_no", columnDefinition = "varchar(32) COMMENT '证券代码'")
     private String stockNo;
+
+
+    @Transient
+    private List<CpRecruit> recruitList;
 }

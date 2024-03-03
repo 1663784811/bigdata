@@ -544,14 +544,21 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
     public void workDetailsViewPage() {
         JSONObject json = new JSONObject();
-
-        AccessibilityNodeInfo gfl = findNodeInfoById("com.xingin.xhs:id/gfl", 0);
-
-
         JSONObject js = new JSONObject();
         AccessibilityNodeInfo name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_job_name", 0);
         if (null != name) {
             js.set("name", name.getText());
+        }
+
+        AccessibilityNodeInfo sala = findNodeInfoById("com.hpbr.bosszhipin:id/tv_job_salary", 0);
+        if (null != sala) {
+            String text = sala.getText().toString();
+            text = text.replaceAll("K", "").replaceAll(" ", "");
+            String[] split = text.split("-");
+            if(split.length == 2){
+                js.set("minPrice", new BigDecimal(split[1]));
+                js.set("maxPrice", new BigDecimal(split[2]));
+            }
         }
         AccessibilityNodeInfo above = findNodeInfoById("com.hpbr.bosszhipin:id/fl_content_above", 0);
         StringBuffer sbv = new StringBuffer("");
@@ -579,10 +586,10 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             js.set("hr", bossTitle.getText() + "-" + js.getStr("hr"));
         }
         AccessibilityNodeInfo com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
-        if(com_name == null){
+        if (com_name == null) {
             performSwipeLeft(480, 1000, 480, 750, 200);
             com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
-            if(com_name == null){
+            if (com_name == null) {
                 performSwipeLeft(480, 1000, 480, 750, 200);
                 com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
             }
@@ -591,10 +598,10 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             json.set("name", com_name.getText());
         }
         AccessibilityNodeInfo location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
-        if(location == null){
+        if (location == null) {
             performSwipeLeft(480, 1000, 480, 750, 200);
             location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
-            if(location == null){
+            if (location == null) {
                 performSwipeLeft(480, 1000, 480, 750, 200);
                 location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
             }
