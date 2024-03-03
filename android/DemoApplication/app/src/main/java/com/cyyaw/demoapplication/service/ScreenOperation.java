@@ -231,7 +231,7 @@ public abstract class ScreenOperation extends AccessibilityService {
     /**
      * 划动列表
      */
-    public int strokeList(int index, String mark, String boxId, String childId) {
+    public int strokeList(final int index, final String mark,final String boxId,final String childId) {
         boolean isBreak = true;
         int numx = 0;
         AccessibilityNodeInfo ch = null;
@@ -261,9 +261,15 @@ public abstract class ScreenOperation extends AccessibilityService {
             }
         } while (isBreak);
         // 找Index 位置
+        ch = findNodeInfoById(boxId, 0);
         if (ch != null) {
             for (int i = 0; i < ch.getChildCount(); i++) {
-                CharSequence cc = ch.getChild(i).getContentDescription();
+                CharSequence cc = null;
+                if (StrUtil.isNotBlank(childId)) {
+                    cc = findNodeInfoById(ch.getChild(i), childId, 0).getText().toString();
+                } else {
+                    cc = ch.getChild(i).getContentDescription();
+                }
                 if (null != cc && cc.equals(mark)) {
                     return i + 1;
                 }
