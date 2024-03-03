@@ -1,6 +1,7 @@
 package com.cyyaw.demoapplication.service.map.page;
 
-import android.view.accessibility.AccessibilityNodeInfo;
+
+import com.cyyaw.demoapplication.service.ScreenOperation;
 
 /**
  * 判断当前页面
@@ -8,7 +9,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 public interface IsPage {
 
 
-    boolean isThisPage(AccessibilityNodeInfo nodeInfo);
+    boolean isThisPage(ScreenOperation nodeInfo);
 
 
 }

@@ -3,6 +3,7 @@ package com.cyyaw.demoapplication.service.map;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.cyyaw.demoapplication.service.ScreenOperation;
 import com.cyyaw.demoapplication.service.map.page.IsPage;
 
 import java.util.Map;
@@ -27,11 +28,11 @@ public class AppNode {
     /**
      * 添加边
      */
-    public void addEdge(String to, int weight, Task task) {
+    public void addEdge(String to, int weight, OpenPage openPage) {
         if (null != edge.get(to)) {
             throw new RuntimeException("所添加图的边已经存在");
         } else {
-            edge.put(to, new AppNodeRout(weight, task));
+            edge.put(to, new AppNodeRout(weight, openPage));
         }
     }
 
@@ -58,7 +59,7 @@ public class AppNode {
         this.edge = edge;
     }
 
-    public boolean isThisPage(AccessibilityNodeInfo nodeInfo) {
+    public boolean isThisPage(ScreenOperation nodeInfo) {
         if (null != isPage) {
             return isPage.isThisPage(nodeInfo);
         }
@@ -69,11 +70,11 @@ public class AppNode {
     public static class AppNodeRout {
         private Integer width;
 
-        private Task task;
+        private OpenPage openPage;
 
-        public AppNodeRout(int weight, Task task) {
+        public AppNodeRout(int weight, OpenPage openPage) {
             this.width = weight;
-            this.task = task;
+            this.openPage = openPage;
         }
 
         public Integer getWidth() {
@@ -84,12 +85,12 @@ public class AppNode {
             this.width = width;
         }
 
-        public Task getTask() {
-            return task;
+        public OpenPage getOpenPage() {
+            return openPage;
         }
 
-        public void setTask(Task task) {
-            this.task = task;
+        public void setOpenPage(OpenPage openPage) {
+            this.openPage = openPage;
         }
     }
 }

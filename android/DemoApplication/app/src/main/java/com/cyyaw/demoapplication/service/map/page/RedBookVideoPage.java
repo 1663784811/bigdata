@@ -3,6 +3,8 @@ package com.cyyaw.demoapplication.service.map.page;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.cyyaw.demoapplication.service.ScreenOperation;
+
 import java.util.List;
 
 /**
@@ -12,8 +14,8 @@ public class RedBookVideoPage implements IsPage{
 
 
     @Override
-    public boolean isThisPage(AccessibilityNodeInfo nodeInfo) {
-        List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByViewId("com.xingin.xhs:id/j81");
+    public boolean isThisPage(ScreenOperation nodeInfo) {
+        List<AccessibilityNodeInfo> list = nodeInfo.findNodeInfoById("com.xingin.xhs:id/j81");
         if (null != list && list.size() > 0) {
             return true;
         } else {

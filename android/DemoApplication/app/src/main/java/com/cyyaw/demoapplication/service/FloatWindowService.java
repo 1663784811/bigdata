@@ -17,6 +17,8 @@ import com.cyyaw.demoapplication.service.map.Task;
 import com.cyyaw.demoapplication.service.map.page.BossIndexPage;
 import com.cyyaw.demoapplication.service.map.page.HomePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
+import com.cyyaw.demoapplication.service.map.page.RedBookNotePage;
+import com.cyyaw.demoapplication.service.map.page.RedBookUserPage;
 import com.cyyaw.demoapplication.service.map.page.RedBookVideoPage;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
 
@@ -93,6 +95,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             // 小红书
             appGraph.addNode(new AppNode(PageCode.RedBookIndex.getPageCode(), new RedBookIndexPage()));
             appGraph.addNode(new AppNode(PageCode.RedBookVideo.getPageCode(), new RedBookVideoPage()));
+            appGraph.addNode(new AppNode(PageCode.RedBookUser.getPageCode(), new RedBookUserPage()));
+            appGraph.addNode(new AppNode(PageCode.RedBookNote.getPageCode(), new RedBookNotePage()));
 
 
             // BOSS直聘
@@ -110,8 +114,13 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             });
 
             // ================
-            appGraph.addEdge(PageCode.RedBookIndex.getPageCode(), PageCode.RedBookVideo.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
-
+            appGraph.addEdge(PageCode.RedBookVideo.getPageCode(), PageCode.RedBookUser.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                AccessibilityNodeInfo inf = findNodeInfoById("com.xingin.xhs:id/matrixAvatarView", 0);
+                clickNode(inf);
+            });
+            appGraph.addEdge(PageCode.RedBookNote.getPageCode(), PageCode.RedBookUser.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                AccessibilityNodeInfo inf = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
+                clickNode(inf);
             });
             // ========================
 
@@ -139,31 +148,36 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             // ======================================  初始化
             // 当前任务: 打开小红书
             new Thread(() -> {
-                execTask("小红书首页", (AccessibilityNodeInfo nodeInfo, String js) -> {
-
+                execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo nodeInfo) -> {
+                    start = true;
                     // 列表标题
                     Integer index = 0;
                     String title = "";
                     // 找列表
                     while (start) {
                         // 找第index个点击
-
-
-                        execTask("小红书首页", (AccessibilityNodeInfo inx, String json) -> {
-
-
-                        }, "");
-
-
+                        AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                        if (null != boxContent) {
+                            int childCount = boxContent.getChildCount();
+                            if (childCount > index) {
+                                AccessibilityNodeInfo child = boxContent.getChild(index);
+                                title = child.getContentDescription().toString();
+                                if (title.indexOf("视频") == 0 || title.indexOf("笔记") == 0) {
+                                    clickNode(child);
+                                    SystemClock.sleep(2000);
+                                    // 已到视频页
+                                    execTask(PageCode.RedBookUser.getPageCode(), (AccessibilityNodeInfo nodeInfoUser) -> {
+                                        userViewPage();
+                                    });
+                                    back();
+                                    back();
+                                } else if (title.indexOf("直播") == 0) {
+                                    SystemClock.sleep(2000);
+                                }
+                            }
+                        }
                     }
-
-
-                    System.out.println("========================= 小红书首页");
-                    start = true;
-                    restart();
-
-
-                }, "");
+                });
             }).start();
 
         } else if (R.id.btnWinInfo == id) {
@@ -176,7 +190,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     /**
      * 执行任务
      */
-    public boolean execTask(String targetPage, Task task, String json) {
+    public boolean execTask(String targetPage, Task task) {
         // 最大15跳
         int nodeNum = 15;
         while (true) {
@@ -184,7 +198,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             String page = nowPage(targetPage);
             if (targetPage.equals(page)) {
                 // 执行任务
-                task.exec(getRootInActiveWindow(), json);
+                task.exec(getRootInActiveWindow());
                 // 执行成功
                 return true;
             } else {
@@ -194,13 +208,21 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     if (listPage.size() > 1) {
                         AppNode nodeByKey = appGraph.getNodeByKey(page);
                         AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
-                        appNodeRout.getTask().exec(getRootInActiveWindow(), json);
+                        appNodeRout.getOpenPage().exec(getRootInActiveWindow(), "");
                     } else {
-                        keyHome();
+                        if (nodeNum % 2 == 0) {
+                            back();
+                        } else {
+                            keyHome();
+                        }
                         SystemClock.sleep(3000);
                     }
                 } else {
-                    keyHome();
+                    if (nodeNum % 2 == 0) {
+                        back();
+                    } else {
+                        keyHome();
+                    }
                     SystemClock.sleep(3000);
                 }
                 nodeNum--;
@@ -218,13 +240,12 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     public String nowPage(String targetPage) {
         Map<String, AppNode> node = appGraph.getNode();
         AppNode appNode = node.get(targetPage);
-        AccessibilityNodeInfo root = getRootInActiveWindow();
-        if (appNode.isThisPage(root)) {
+        if (appNode.isThisPage(this)) {
             return appNode.getNodeId();
         }
         for (String key : node.keySet()) {
             AppNode appNodeTemp = node.get(key);
-            if (appNodeTemp.isThisPage(root)) {
+            if (appNodeTemp.isThisPage(this)) {
                 return appNodeTemp.getNodeId();
             }
         }

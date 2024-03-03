@@ -13,6 +13,8 @@ public enum PageCode {
     // =====================================================================================================
     RedBookIndex("小红书-首页", "com.xingin.xhs", ""),
     RedBookVideo("小红书-视频页", "com.xingin.xhs", ""),
+    RedBookUser("小红书-用户页面", "com.xingin.xhs", ""),
+    RedBookNote("小红书-笔记页面", "com.xingin.xhs", ""),
 
 
 

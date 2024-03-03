@@ -39,11 +39,11 @@ public class AppGraph {
     /**
      * 添加边
      */
-    public void addEdge(String from, String to, int weight, Task task) {
+    public void addEdge(String from, String to, int weight, OpenPage openPage) {
         AppNode fromNode = node.get(from);
         AppNode toNode = node.get(to);
         if (null != fromNode && null != toNode) {
-            fromNode.addEdge(to, weight, task);
+            fromNode.addEdge(to, weight, openPage);
             // 重构
             route = new ConcurrentHashMap<>();
         } else {

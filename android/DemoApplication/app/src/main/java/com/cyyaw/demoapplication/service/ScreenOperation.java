@@ -155,7 +155,12 @@ public abstract class ScreenOperation extends AccessibilityService {
      * 查找节点
      */
     public List<AccessibilityNodeInfo> findNodeInfoById(String id) {
-        return getRootInActiveWindow().findAccessibilityNodeInfosByViewId(id);
+        List<AccessibilityNodeInfo> nodeInfoList = null;
+        try {
+            nodeInfoList = getRootInActiveWindow().findAccessibilityNodeInfosByViewId(id);
+        } catch (Exception ignored) {
+        }
+        return nodeInfoList;
     }
 
 
