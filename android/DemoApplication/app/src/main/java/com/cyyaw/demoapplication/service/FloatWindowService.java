@@ -15,6 +15,7 @@ import com.cyyaw.demoapplication.service.map.AppGraph;
 import com.cyyaw.demoapplication.service.map.AppNode;
 import com.cyyaw.demoapplication.service.map.Task;
 import com.cyyaw.demoapplication.service.map.page.BossIndexPage;
+import com.cyyaw.demoapplication.service.map.page.BossWorkDetailsPage;
 import com.cyyaw.demoapplication.service.map.page.HomePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
 import com.cyyaw.demoapplication.service.map.page.RedBookLivePage;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
@@ -103,6 +105,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
             // BOSS直聘
             appGraph.addNode(new AppNode(PageCode.BossIndex.getPageCode(), new BossIndexPage()));
+            appGraph.addNode(new AppNode(PageCode.BossWorkDetails.getPageCode(), new BossWorkDetailsPage()));
             //
 
 
@@ -132,6 +135,10 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 clickNode(exz);
             });
             // ========================
+            appGraph.addEdge(PageCode.BossWorkDetails.getPageCode(), PageCode.BossIndex.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                back();
+            });
+            // ========================
 
 
         }
@@ -155,57 +162,109 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (R.id.btn_start_task == id) {
             // startTask();
             // ======================================  初始化
-            // 当前任务: 打开小红书
-            new Thread(() -> {
-                execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo nodeInfo) -> {
-                    start = true;
-                    // 列表标题
-                    Integer index = 0;
-                    String title = "";
-                    // 找列表
-                    while (start) {
-                        // 找第index个点击
-                        String boxId = "com.xingin.xhs:id/eq2";
-                        AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
-                        if (null != boxContent) {
-                            int childCount = boxContent.getChildCount();
-                            if (childCount > index) {
-                                AccessibilityNodeInfo child = boxContent.getChild(index);
-                                title = child.getContentDescription().toString();
-                                if (title.indexOf("视频") == 0 || title.indexOf("笔记") == 0) {
-                                    clickNode(child);
-                                    SystemClock.sleep(2000);
-                                    // 已到视频页
-                                    execTask(PageCode.RedBookUser.getPageCode(), (AccessibilityNodeInfo nodeInfoUser) -> {
-                                        userViewPage();
-                                    });
-                                    back();
-                                    back();
-                                } else if (title.indexOf("直播") == 0) {
-                                    SystemClock.sleep(2000);
-                                }
-                                // =================
-                                if (index > 2) {
-                                    index = strokeList(index, title, boxId);
+            if (!start) {
+                // 当前任务: 打开小红书
+                new Thread(() -> {
+                    execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo nodeInfo) -> {
+                        start = true;
+                        // 列表标题
+                        Integer index = 0;
+                        String title = "";
+                        // 找列表
+                        while (start) {
+                            // 找第index个点击
+                            String boxId = "com.xingin.xhs:id/eq2";
+                            AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
+                            if (null != boxContent) {
+                                int childCount = boxContent.getChildCount();
+                                if (childCount > index) {
+                                    AccessibilityNodeInfo child = boxContent.getChild(index);
+                                    title = child.getContentDescription().toString();
+                                    if (title.indexOf("视频") == 0 || title.indexOf("笔记") == 0) {
+                                        clickNode(child);
+                                        SystemClock.sleep(2000);
+                                        // 已到视频页
+                                        execTask(PageCode.RedBookUser.getPageCode(), (AccessibilityNodeInfo nodeInfoUser) -> {
+                                            userViewPage();
+                                        });
+                                        back();
+                                        back();
+                                    } else if (title.indexOf("直播") == 0) {
+                                        SystemClock.sleep(2000);
+                                    }
+                                    // =================
+                                    if (index > 2) {
+                                        index = strokeList(index, title, boxId, null);
+                                    } else {
+                                        ++index;
+                                    }
                                 } else {
-                                    ++index;
+                                    index = 0;
                                 }
                             } else {
-                                index = 0;
+                                execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo fo) -> {
+                                });
                             }
-                        } else {
-                            execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo fo) -> {
-                            });
                         }
-                    }
-                });
-            }).start();
-
+                        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
+                        start = false;
+                    });
+                }).start();
+            } else {
+                start = false;
+                sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("正在停止...")));
+            }
         } else if (R.id.btnWinInfo == id) {
-//            startBoos();
+            if (!start) {
+                new Thread(() -> {
+                    start = true;
+                    execTask(PageCode.BossIndex.getPageCode(), (AccessibilityNodeInfo nodeInfo) -> {
+                        // 列表标题
+                        Integer index = 0;
+                        String title = "";
+
+                        while (start) {
+                            // 找第index个点击
+                            String boxId = "com.hpbr.bosszhipin:id/rv_list";
+                            AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
+                            if (null != boxContent) {
+                                int childCount = boxContent.getChildCount();
+                                if (childCount > index) {
+                                    AccessibilityNodeInfo child = boxContent.getChild(index);
+                                    AccessibilityNodeInfo info = findNodeInfoById(child, "com.hpbr.bosszhipin:id/tv_position_name", 0);
+                                    if (null != info) {
+                                        title = info.getText().toString();
+                                        clickNode(child);
+                                        SystemClock.sleep(2000);
+                                        execTask(PageCode.BossWorkDetails.getPageCode(), (AccessibilityNodeInfo inf) -> {
+                                            workDetailsViewPage();
+                                        });
+                                        back();
+                                    }
+                                    // =================
+                                    if (index > 2) {
+                                        index = strokeList(index, title, boxId, "com.hpbr.bosszhipin:id/tv_position_name");
+                                    } else {
+                                        ++index;
+                                    }
+                                } else {
+                                    index = 0;
+                                }
+                            } else {
+                                execTask(PageCode.BossIndex.getPageCode(), (AccessibilityNodeInfo fo) -> {
+                                });
+                            }
+                        }
+                    });
+
+                    sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
+                    start = false;
+                }).start();
+            } else {
+                start = false;
+                sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("正在停止...")));
+            }
         }
-
-
     }
 
     /**
@@ -480,6 +539,80 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         //
         if (StrUtil.isNotBlank(nickName)) {
             HttpRequest.post("http://192.168.0.103:8080/admin/sss/spider/nickname/saveSpiderNickName").body(JSONUtil.toJsonStr(json)).execute().body();
+        }
+    }
+
+    public void workDetailsViewPage() {
+        JSONObject json = new JSONObject();
+
+        AccessibilityNodeInfo gfl = findNodeInfoById("com.xingin.xhs:id/gfl", 0);
+
+
+        JSONObject js = new JSONObject();
+        AccessibilityNodeInfo name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_job_name", 0);
+        if (null != name) {
+            js.set("name", name.getText());
+        }
+        AccessibilityNodeInfo above = findNodeInfoById("com.hpbr.bosszhipin:id/fl_content_above", 0);
+        StringBuffer sbv = new StringBuffer("");
+        if (null != above) {
+            int childCount = above.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                if (sbv.length() > 0) {
+                    sbv.append("," + above.getChild(i).getText());
+                } else {
+                    sbv.append(above.getChild(i).getText());
+                }
+            }
+        }
+        js.set("tag", sbv);
+        AccessibilityNodeInfo escription = findNodeInfoById("com.hpbr.bosszhipin:id/tv_description", 0);
+        if (null != escription) {
+            js.set("demand", escription.getText());
+        }
+        AccessibilityNodeInfo hr = findNodeInfoById("com.hpbr.bosszhipin:id/tv_boss_name", 0);
+        if (null != hr) {
+            js.set("hr", hr.getText());
+        }
+        AccessibilityNodeInfo bossTitle = findNodeInfoById("com.hpbr.bosszhipin:id/tv_boss_title", 0);
+        if (null != bossTitle) {
+            js.set("hr", bossTitle.getText() + "-" + js.getStr("hr"));
+        }
+        AccessibilityNodeInfo com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
+        if(com_name == null){
+            performSwipeLeft(480, 1000, 480, 750, 200);
+            com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
+            if(com_name == null){
+                performSwipeLeft(480, 1000, 480, 750, 200);
+                com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
+            }
+        }
+        if (null != com_name) {
+            json.set("name", com_name.getText());
+        }
+        AccessibilityNodeInfo location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
+        if(location == null){
+            performSwipeLeft(480, 1000, 480, 750, 200);
+            location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
+            if(location == null){
+                performSwipeLeft(480, 1000, 480, 750, 200);
+                location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
+            }
+        }
+        if (null != location) {
+            json.set("address", location.getText());
+        }
+
+        AccessibilityNodeInfo tv_com_info = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_info", 0);
+        if (null != tv_com_info) {
+            json.set("industry", tv_com_info.getText());
+        }
+        js.set("resource", "BOOS直聘");
+        JSONArray arr = new JSONArray();
+        arr.add(js);
+        json.set("recruitList", arr);
+        if (StrUtil.isNotBlank(js.getStr("name"))) {
+            HttpRequest.post("http://192.168.0.103:8080/admin/sss/company/recruit/saveCpRecruit").body(JSONUtil.toJsonStr(json)).execute().body();
         }
     }
 

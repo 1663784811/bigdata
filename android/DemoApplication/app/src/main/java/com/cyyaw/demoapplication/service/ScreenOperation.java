@@ -230,7 +230,7 @@ public abstract class ScreenOperation extends AccessibilityService {
     /**
      * 划动列表
      */
-    public int strokeList(int index, String mark, String boxId) {
+    public int strokeList(int index, String mark, String boxId, String childId) {
         boolean isBreak = true;
         int numx = 0;
         AccessibilityNodeInfo ch = null;
@@ -241,7 +241,12 @@ public abstract class ScreenOperation extends AccessibilityService {
             if (ch != null) {
                 int cc = ch.getChildCount();
                 if (cc > index) {
-                    String cs = ch.getChild(index).getContentDescription().toString();
+                    String cs = null;
+                    if (StrUtil.isNotBlank(childId)) {
+                        cs = findNodeInfoById(ch.getChild(index), childId, 0).getText().toString();
+                    } else {
+                        cs = ch.getChild(index).getContentDescription().toString();
+                    }
                     isBreak = mark.equals(cs);
                 } else {
                     isBreak = false;

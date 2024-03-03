@@ -20,7 +20,10 @@ public enum PageCode {
 
 
     // =====================================================================================================
-    BossIndex("BOSS直聘-首页", "", "");
+    BossIndex("BOSS直聘-首页", "", ""),
+    BossWorkDetails("BOSS直聘-工作详情", "", ""),
+
+    ;
 
     private String appPackage;
 
