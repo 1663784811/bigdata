@@ -204,8 +204,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
      */
     public boolean execTask(String targetPage, Task task) {
         // 最大10跳
-        int nodeNum = 10;
-        int noRout = 5;
+        int nodeNum = 0;
+        int noRout = 0;
         while (true) {
             // 当前任务 、 当前页面
             String page = nowPage(targetPage);
@@ -223,24 +223,24 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
                         appNodeRout.getOpenPage().exec(getRootInActiveWindow(), "");
                     } else {
-                        if (noRout > 2) {
+                        if (noRout < 3) {
                             back();
                         } else {
                             keyHome();
                         }
                         SystemClock.sleep(3000);
-                        --noRout;
+                        ++noRout;
                     }
                 } else {
-                    if (nodeNum % 2 == 0) {
+                    if (nodeNum < 3) {
                         back();
                     } else {
                         keyHome();
                     }
                     SystemClock.sleep(3000);
                 }
-                nodeNum--;
-                if (nodeNum < 0 || noRout < 0) {
+                ++nodeNum;
+                if (nodeNum > 10 || noRout > 5) {
                     break;
                 }
             }
