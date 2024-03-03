@@ -243,7 +243,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                                         back();
                                     }
                                     // =================
-                                    if (index > 2) {
+                                    if (index >= 2) {
                                         index = strokeList(index, title, boxId, "com.hpbr.bosszhipin:id/tv_position_name");
                                     } else {
                                         ++index;

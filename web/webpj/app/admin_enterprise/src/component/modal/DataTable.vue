@@ -52,7 +52,11 @@
       <Page :total="state.pageData.total"
             :page-size="state.pageData.size"
             @on-change="changePage"
-            show-elevator/>
+            @on-page-size-change="pageSizChange"
+            show-elevator
+            show-total
+            show-sizer
+      />
     </div>
   </div>
   <!--==================  保存数据  ====================-->
@@ -153,6 +157,12 @@ const sortChange = (data) => {
     state.pageData.sort = `${data.key}_desc`
   }
   state.pageData.page = 1;
+  loadData();
+}
+
+const pageSizChange = (size) => {
+  state.pageData.page = 1;
+  state.pageData.size = size;
   loadData();
 }
 
