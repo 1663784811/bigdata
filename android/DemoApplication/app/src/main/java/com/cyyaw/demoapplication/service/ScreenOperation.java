@@ -8,8 +8,6 @@ import android.graphics.Rect;
 import android.os.SystemClock;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.cyyaw.demoapplication.task.AppInfo;
-
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
@@ -87,15 +85,15 @@ public abstract class ScreenOperation extends AccessibilityService {
      *
      * @return
      */
-    public boolean openApp(AppInfo appInfo) {
+    public boolean openApp(String packageName, String appName) {
         AccessibilityNodeInfo windowRoot = getRootInActiveWindow();
         CharSequence pk = windowRoot.getPackageName();
-        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appInfo.getAppName()));
-        if (!appInfo.getPackageName().equals(pk)) {
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "打开:" + appName));
+        if (!packageName.equals(pk)) {
             // 不在当前的package
             keyHome();
             SystemClock.sleep(100);
-            AccessibilityNodeInfo nodeInfo = findNodeInfoByName(appInfo.getAppName());
+            AccessibilityNodeInfo nodeInfo = findNodeInfoByName(appName);
             if (nodeInfo != null) {
                 AccessibilityNodeInfo parent = nodeInfo.getParent();
                 clickNode(parent);
@@ -105,7 +103,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         } else {
             return true;
         }
-        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "没有找到:" + appInfo.getAppName()));
+        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", "没有找到:" + appName));
         return false;
     }
 

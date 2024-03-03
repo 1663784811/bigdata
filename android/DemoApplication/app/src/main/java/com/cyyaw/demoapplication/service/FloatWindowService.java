@@ -10,14 +10,15 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.permission.PageCode;
 import com.cyyaw.demoapplication.service.map.AppGraph;
 import com.cyyaw.demoapplication.service.map.AppNode;
 import com.cyyaw.demoapplication.service.map.Task;
 import com.cyyaw.demoapplication.service.map.page.BossIndexPage;
 import com.cyyaw.demoapplication.service.map.page.HomePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
+import com.cyyaw.demoapplication.service.map.page.RedBookVideoPage;
 import com.cyyaw.demoapplication.service.window.FloatWindow;
-import com.cyyaw.demoapplication.task.AppInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -88,27 +89,32 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
 
 
             // 首页
-            appGraph.addNode(new AppNode("Home", new HomePage()));
-            // 小红书首页
-            appGraph.addNode(new AppNode("小红书首页", new RedBookIndexPage()));
-            appGraph.addNode(new AppNode("BOSS直聘首页", new BossIndexPage()));
+            appGraph.addNode(new AppNode(PageCode.Home.getPageCode(), new HomePage()));
+            // 小红书
+            appGraph.addNode(new AppNode(PageCode.RedBookIndex.getPageCode(), new RedBookIndexPage()));
+            appGraph.addNode(new AppNode(PageCode.RedBookVideo.getPageCode(), new RedBookVideoPage()));
+
+
+            // BOSS直聘
+            appGraph.addNode(new AppNode(PageCode.BossIndex.getPageCode(), new BossIndexPage()));
             //
 
 
             // ======================   页面关联
-            appGraph.addEdge("Home", "BOSS直聘首页", 1, (AccessibilityNodeInfo nodeInfo) -> {
-                AppInfo appInfo = new AppInfo();
-                appInfo.setPackageName("com.hpbr.bosszhipin");
-                appInfo.setAppName("BOSS直聘");
-                openApp(appInfo);
+            appGraph.addEdge(PageCode.Home.getPageCode(), PageCode.BossIndex.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                openApp("com.hpbr.bosszhipin", "BOSS直聘");
             });
 
-            appGraph.addEdge("Home", "小红书首页", 1, (AccessibilityNodeInfo nodeInfo) -> {
-                AppInfo appInfo = new AppInfo();
-                appInfo.setPackageName("com.xingin.xhs");
-                appInfo.setAppName("小红书");
-                openApp(appInfo);
+            appGraph.addEdge(PageCode.Home.getPageCode(), PageCode.RedBookIndex.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                openApp("com.xingin.xhs", "小红书");
             });
+
+            // ================
+            appGraph.addEdge(PageCode.RedBookIndex.getPageCode(), PageCode.RedBookVideo.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+
+            });
+            // ========================
+
 
         }
     }
@@ -133,35 +139,44 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             // ======================================  初始化
             // 当前任务: 打开小红书
             new Thread(() -> {
+                execTask("小红书首页", (AccessibilityNodeInfo nodeInfo, String js) -> {
+
+                    // 列表标题
+                    Integer index = 0;
+                    String title = "";
+                    // 找列表
+                    while (start) {
+                        // 找第index个点击
 
 
-                execTask("BOSS直聘首页", new Task() {
-                    @Override
-                    public void exec(AccessibilityNodeInfo rootInActiveWindow) {
-                        System.out.println("========================= BOSS直聘首页");
+                        execTask("小红书首页", (AccessibilityNodeInfo inx, String json) -> {
+
+
+                        }, "");
+
+
                     }
-                });
 
-                execTask("小红书首页", new Task() {
-                    @Override
-                    public void exec(AccessibilityNodeInfo rootInActiveWindow) {
-                        // userViewPage();
-                        System.out.println("========================= 小红书首页");
-                    }
-                });
 
+                    System.out.println("========================= 小红书首页");
+                    start = true;
+                    restart();
+
+
+                }, "");
             }).start();
 
-
         } else if (R.id.btnWinInfo == id) {
-            startBoos();
+//            startBoos();
         }
 
 
     }
 
-    // 执行任务
-    public boolean execTask(String targetPage, Task task) {
+    /**
+     * 执行任务
+     */
+    public boolean execTask(String targetPage, Task task, String json) {
         // 最大15跳
         int nodeNum = 15;
         while (true) {
@@ -169,7 +184,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             String page = nowPage(targetPage);
             if (targetPage.equals(page)) {
                 // 执行任务
-                task.exec(getRootInActiveWindow());
+                task.exec(getRootInActiveWindow(), json);
                 // 执行成功
                 return true;
             } else {
@@ -179,12 +194,14 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     if (listPage.size() > 1) {
                         AppNode nodeByKey = appGraph.getNodeByKey(page);
                         AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
-                        appNodeRout.getTask().exec(getRootInActiveWindow());
+                        appNodeRout.getTask().exec(getRootInActiveWindow(), json);
                     } else {
                         keyHome();
+                        SystemClock.sleep(3000);
                     }
                 } else {
                     keyHome();
+                    SystemClock.sleep(3000);
                 }
                 nodeNum--;
                 if (nodeNum < 0) {
@@ -195,6 +212,9 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         return false;
     }
 
+    /**
+     * 查找当前页面
+     */
     public String nowPage(String targetPage) {
         Map<String, AppNode> node = appGraph.getNode();
         AppNode appNode = node.get(targetPage);
@@ -212,193 +232,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     }
 
 
-    private void startTask() {
-        // 获取窗口信息
-        if (!start) {
-            start = true;
-            Thread thread = new Thread(() -> {
-                collect = 0;
-                while (start || (!start && collect == 0)) {
-                    start = true;
-                    restart();
-                }
-            });
-            thread.start();
-        } else {
-            sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("正在停止....")));
-            start = false;
-        }
-    }
-
-    public void startBoos() {
-        // 获取窗口信息
-        if (!start) {
-            start = true;
-            Thread thread = new Thread(() -> {
-                collect = 0;
-//                while (start || (!start && collect == 0)) {
-//                    start = true;
-//                    restartBoos();
-//                }
-                restartBoos();
-            });
-            thread.start();
-        } else {
-            sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("正在停止....")));
-            start = false;
-        }
-    }
-
-
-    private void restartBoos() {
-        // =========== 第一步: 打开小红书
-        AppInfo appInfo = new AppInfo();
-        appInfo.setPackageName("com.hpbr.bosszhipin");
-        appInfo.setAppName("BOSS直聘");
-        openApp(appInfo);
-        // =========== 第二步: 点击职位
-        boolean ok = true;
-        do {
-            if (findNodeInfoById("com.hpbr.bosszhipin:id/cl_tab_1", 0) == null) {
-                back();
-                SystemClock.sleep(500);
-            } else {
-                ok = false;
-            }
-        } while (ok);
-        clickNodeById("com.hpbr.bosszhipin:id/cl_tab_1");
-        // ===========
-        SystemClock.sleep(2000);
-        // ===========
-        // 获取外部列表框
-
-
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        int nnn = 0;
-        while (start) {
-            AccessibilityNodeInfo boxContent = findNodeInfoById("com.hpbr.bosszhipin:id/rv_list", 0);
-            if (boxContent == null) {
-                SystemClock.sleep(3000);
-                boxContent = findNodeInfoById("com.hpbr.bosszhipin:id/rv_list", 0);
-            }
-            if (null != boxContent) {
-                nnn = 0;
-                int childCount = boxContent.getChildCount();
-                if (childCount > index) {
-                    // ================================================================     收集数据     =======================================================
-                    SystemClock.sleep(500);
-                    AccessibilityNodeInfo child = findNodeInfoById(boxContent.getChild(index), "com.hpbr.bosszhipin:id/tv_position_name", 0);
-                    CharSequence chq = null;
-                    if (child != null) {
-                        chq = child.getText();
-                        clickNode(child);
-                        // ===========
-                        // =========== 收集数据
-
-                        back();
-
-                    }
-
-
-                    // ================================================================     滑动     =======================================================
-                    if (index > 2) {
-                        // 移动屏幕
-                        boolean isBreak = false;
-                        AccessibilityNodeInfo ch = null;
-                        int numx = 0;
-                        do {
-                            performSwipeLeft(480, 1000, 480, 850, 200);
-                            SystemClock.sleep(1500);
-                            ch = findNodeInfoById("com.hpbr.bosszhipin:id/rv_list", 0);
-                            if (ch != null) {
-                                int cc = ch.getChildCount();
-                                if (cc > index) {
-                                    CharSequence cs = findNodeInfoById(ch.getChild(index), "com.hpbr.bosszhipin:id/tv_position_name", 0).getText();
-                                    isBreak = chq.equals(cs);
-                                } else {
-                                    isBreak = false;
-                                }
-                            } else {
-                                numx++;
-                                back();
-                                if (numx > 5) {
-                                    isBreak = false;
-                                }
-                            }
-                        } while (isBreak);
-                        //  判断当前index位置
-                        int num = 0;
-                        if (ch != null) {
-                            for (int i = 0; i < ch.getChildCount(); i++) {
-                                CharSequence cc = ch.getChild(i).getContentDescription();
-                                if (null != cc && cc.equals(chq)) {
-                                    num = i + 1;
-                                    break;
-                                }
-                            }
-                        }
-                        index = num;
-                    } else {
-                        index++;
-                    }
-                    // =======================================================================================================================
-                }
-            } else {
-                SystemClock.sleep(2000);
-                back();
-                if (nnn > 20) {
-                    back();
-                    nnn++;
-                }
-            }
-            collect++;
-            if (collect > 30) {
-                start = false;
-                collect = 0;
-            }
-        }
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        Log.d(TAG, "onClick: =======================   结束");
-        sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
-    }
-
-
     private void restart() {
-        // =========== 第一步: 打开小红书
-        AppInfo appInfo = new AppInfo();
-        appInfo.setPackageName("com.xingin.xhs");
-        appInfo.setAppName("小红书");
-        openApp(appInfo);
-        // =========== 第二步: 点击首页
-        boolean ok = true;
-        do {
-            if (findNodeInfoById("com.xingin.xhs:id/dhc", 0) == null) {
-                back();
-                SystemClock.sleep(500);
-            } else {
-                ok = false;
-            }
-        } while (ok);
-        clickNodeById("com.xingin.xhs:id/dhc");
-        // ===========
-        SystemClock.sleep(2000);
-        // ===========
-        // 获取外部列表框
-
-
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
         int nnn = 0;
         while (start) {
             AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
@@ -499,11 +333,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                 collect = 0;
             }
         }
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
-        // ===============================================
         Log.d(TAG, "onClick: =======================   结束");
         sendBroadcast(new Intent(FloatWindowLogService.class.getName()).putExtra("data", String.format("已经停止")));
     }
