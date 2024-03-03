@@ -556,8 +556,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             text = text.replaceAll("K", "").replaceAll(" ", "");
             String[] split = text.split("-");
             if(split.length == 2){
-                js.set("minPrice", new BigDecimal(split[1]));
-                js.set("maxPrice", new BigDecimal(split[2]));
+                js.set("minPrice", new BigDecimal(split[0]));
+                js.set("maxPrice", new BigDecimal(split[1]));
             }
         }
         AccessibilityNodeInfo above = findNodeInfoById("com.hpbr.bosszhipin:id/fl_content_above", 0);
