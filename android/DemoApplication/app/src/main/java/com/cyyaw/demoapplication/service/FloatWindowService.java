@@ -335,7 +335,6 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
     }
 
 
-
     private void userViewPage() {
         StringBuffer sb = new StringBuffer();
         JSONObject json = new JSONObject();
@@ -450,8 +449,12 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != sala) {
             String text = sala.getText().toString();
             text = text.replaceAll("K", "").replaceAll(" ", "");
+            int i = text.indexOf("·");
+            if (i != -1) {
+                text = text.substring(0, i);
+            }
             String[] split = text.split("-");
-            if(split.length == 2){
+            if (split.length == 2) {
                 js.set("minPrice", new BigDecimal(split[0]));
                 js.set("maxPrice", new BigDecimal(split[1]));
             }
