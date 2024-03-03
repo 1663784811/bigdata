@@ -513,7 +513,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             if (text.contains("查看更多")) {
                 Rect nodeRect = getNodeRect(escription);
                 JSONObject jsonAll = new JSONObject();
-                jsonAll.set("x1", nodeRect.right - 500);
+                jsonAll.set("x1", nodeRect.right - 300);
                 jsonAll.set("y1", nodeRect.bottom - 100);
                 jsonAll.set("x2", nodeRect.right);
                 jsonAll.set("y2", nodeRect.bottom);
