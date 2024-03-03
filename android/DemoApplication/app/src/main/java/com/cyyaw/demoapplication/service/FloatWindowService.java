@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -476,10 +477,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             }
         }
         js.set("tag", sbv);
-        AccessibilityNodeInfo escription = findNodeInfoById("com.hpbr.bosszhipin:id/tv_description", 0);
-        if (null != escription) {
-            js.set("demand", escription.getText());
-        }
+
         AccessibilityNodeInfo hr = findNodeInfoById("com.hpbr.bosszhipin:id/tv_boss_name", 0);
         if (null != hr) {
             js.set("hr", hr.getText());
@@ -507,6 +505,31 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         if (null != com_name) {
             json.set("name", com_name.getText());
         }
+
+
+        AccessibilityNodeInfo escription = findNodeInfoById("com.hpbr.bosszhipin:id/tv_description", 0);
+        if (null != escription) {
+            String text = escription.getText().toString();
+            if (text.contains("查看更多")) {
+                Rect nodeRect = getNodeRect(escription);
+                JSONObject jsonAll = new JSONObject();
+                jsonAll.set("x1", nodeRect.right - 500);
+                jsonAll.set("y1", nodeRect.bottom - 100);
+                jsonAll.set("x2", nodeRect.right);
+                jsonAll.set("y2", nodeRect.bottom);
+                sendBroadcast(new Intent(FloatMarkWindowService.class.getName()).putExtra("data", JSONUtil.toJsonStr(jsonAll)));
+                SystemClock.sleep(1000L);
+                int x = (jsonAll.getInt("x2") - jsonAll.getInt("x1")) / 2 + jsonAll.getInt("x1");
+                int y = (jsonAll.getInt("y2") - jsonAll.getInt("y1")) / 2 + jsonAll.getInt("y1");
+                removeMarkRect();
+                SystemClock.sleep(1000L);
+                clickAtXY(x, y);
+                escription = findNodeInfoById("com.hpbr.bosszhipin:id/tv_description", 0);
+            }
+            js.set("demand", escription.getText());
+        }
+
+
         AccessibilityNodeInfo location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
         if (location == null) {
             performSwipeLeft(480, 1000, 480, 600, 200);

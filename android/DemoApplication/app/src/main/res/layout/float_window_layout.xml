@@ -15,6 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+        <TextView
+            android:id="@+id/textFloatWinTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textFloatWinTile"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
 
         <Button
@@ -22,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="boss"
+            android:textSize="10dp"
             />
 
         <Button
@@ -29,140 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="小红书"
+            android:textSize="10dp"
             />
 
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textFloatWinTile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textFloatWinTile"
-        android:textColor="#ffffff"
-        android:textSize="12sp" />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textTime"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textDistance"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textPeopleNumber"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textMileage"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textPrice"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/textScore"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="22:20~10:10"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="300.55"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="300.5"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="600.00"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="50.55"
-            android:textColor="#ffffff"
-            android:textSize="9sp"
-            tools:ignore="SmallSp" />
-    </LinearLayout>
-
 
 </LinearLayout>

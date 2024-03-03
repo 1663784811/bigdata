@@ -218,7 +218,7 @@ public abstract class ScreenOperation extends AccessibilityService {
         SystemClock.sleep(time == null ? 1000L : time);
     }
 
-    private void removeMarkRect() {
+    public void removeMarkRect() {
         JSONObject json = new JSONObject();
         json.set("x1", 0);
         json.set("y1", 0);
