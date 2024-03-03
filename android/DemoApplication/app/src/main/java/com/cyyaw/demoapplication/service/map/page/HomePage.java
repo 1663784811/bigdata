@@ -13,11 +13,13 @@ public class HomePage implements IsPage {
 
     @Override
     public boolean isThisPage(ScreenOperation nodeInfo) {
-        CharSequence packageName = nodeInfo.getRootInActiveWindow().getPackageName();
-        if ("com.miui.home".equals(packageName + "")) {
-            return true;
-        } else {
-            return false;
+        AccessibilityNodeInfo rootInActiveWindow = nodeInfo.getRootInActiveWindow();
+        if (null != rootInActiveWindow) {
+            CharSequence packageName = rootInActiveWindow.getPackageName();
+            if ("com.miui.home".equals(packageName + "")) {
+                return true;
+            }
         }
+        return false;
     }
 }

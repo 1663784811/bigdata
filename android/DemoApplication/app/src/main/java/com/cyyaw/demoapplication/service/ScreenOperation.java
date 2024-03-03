@@ -228,11 +228,42 @@ public abstract class ScreenOperation extends AccessibilityService {
 
 
     /**
-     * 判断当前页面
+     * 划动列表
      */
-    public void aaa() {
-
-
+    public int strokeList(int index, String mark, String boxId) {
+        boolean isBreak = true;
+        int numx = 0;
+        AccessibilityNodeInfo ch = null;
+        do {
+            performSwipeLeft(480, 1000, 480, 850, 200);
+            SystemClock.sleep(1500);
+            ch = findNodeInfoById(boxId, 0);
+            if (ch != null) {
+                int cc = ch.getChildCount();
+                if (cc > index) {
+                    String cs = ch.getChild(index).getContentDescription().toString();
+                    isBreak = mark.equals(cs);
+                } else {
+                    isBreak = false;
+                }
+            } else {
+                numx++;
+                back();
+                if (numx > 5) {
+                    isBreak = false;
+                }
+            }
+        } while (isBreak);
+        // 找Index 位置
+        if (ch != null) {
+            for (int i = 0; i < ch.getChildCount(); i++) {
+                CharSequence cc = ch.getChild(i).getContentDescription();
+                if (null != cc && cc.equals(mark)) {
+                    return i + 1;
+                }
+            }
+        }
+        return 0;
     }
 
 

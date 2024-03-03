@@ -156,7 +156,8 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     // 找列表
                     while (start) {
                         // 找第index个点击
-                        AccessibilityNodeInfo boxContent = findNodeInfoById("com.xingin.xhs:id/eq2", 0);
+                        String boxId = "com.xingin.xhs:id/eq2";
+                        AccessibilityNodeInfo boxContent = findNodeInfoById(boxId, 0);
                         if (null != boxContent) {
                             int childCount = boxContent.getChildCount();
                             if (childCount > index) {
@@ -174,7 +175,18 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                                 } else if (title.indexOf("直播") == 0) {
                                     SystemClock.sleep(2000);
                                 }
+                                // =================
+                                if (index > 2) {
+                                    index = strokeList(index, title, boxId);
+                                } else {
+                                    ++index;
+                                }
+                            } else {
+                                index = 0;
                             }
+                        } else {
+                            execTask(PageCode.RedBookIndex.getPageCode(), (AccessibilityNodeInfo fo) -> {
+                            });
                         }
                     }
                 });
@@ -191,8 +203,9 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
      * 执行任务
      */
     public boolean execTask(String targetPage, Task task) {
-        // 最大15跳
-        int nodeNum = 15;
+        // 最大10跳
+        int nodeNum = 10;
+        int noRout = 5;
         while (true) {
             // 当前任务 、 当前页面
             String page = nowPage(targetPage);
@@ -210,12 +223,13 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                         AppNode.AppNodeRout appNodeRout = nodeByKey.getEdgeByKey(listPage.get(1));
                         appNodeRout.getOpenPage().exec(getRootInActiveWindow(), "");
                     } else {
-                        if (nodeNum % 2 == 0) {
+                        if (noRout > 2) {
                             back();
                         } else {
                             keyHome();
                         }
                         SystemClock.sleep(3000);
+                        --noRout;
                     }
                 } else {
                     if (nodeNum % 2 == 0) {
@@ -226,7 +240,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
                     SystemClock.sleep(3000);
                 }
                 nodeNum--;
-                if (nodeNum < 0) {
+                if (nodeNum < 0 || noRout < 0) {
                     break;
                 }
             }
