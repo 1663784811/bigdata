@@ -17,6 +17,7 @@ import com.cyyaw.demoapplication.service.map.Task;
 import com.cyyaw.demoapplication.service.map.page.BossIndexPage;
 import com.cyyaw.demoapplication.service.map.page.HomePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookIndexPage;
+import com.cyyaw.demoapplication.service.map.page.RedBookLivePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookNotePage;
 import com.cyyaw.demoapplication.service.map.page.RedBookUserPage;
 import com.cyyaw.demoapplication.service.map.page.RedBookVideoPage;
@@ -97,6 +98,7 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             appGraph.addNode(new AppNode(PageCode.RedBookVideo.getPageCode(), new RedBookVideoPage()));
             appGraph.addNode(new AppNode(PageCode.RedBookUser.getPageCode(), new RedBookUserPage()));
             appGraph.addNode(new AppNode(PageCode.RedBookNote.getPageCode(), new RedBookNotePage()));
+            appGraph.addNode(new AppNode(PageCode.RedBookLive.getPageCode(), new RedBookLivePage()));
 
 
             // BOSS直聘
@@ -121,6 +123,13 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
             appGraph.addEdge(PageCode.RedBookNote.getPageCode(), PageCode.RedBookUser.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
                 AccessibilityNodeInfo inf = findNodeInfoById("com.xingin.xhs:id/avatarLayout", 0);
                 clickNode(inf);
+            });
+            appGraph.addEdge(PageCode.RedBookLive.getPageCode(), PageCode.RedBookUser.getPageCode(), 1, (AccessibilityNodeInfo nodeInfo, String json) -> {
+                AccessibilityNodeInfo inf = findNodeInfoById("com.xingin.xhs:id/xg", 0);
+                clickNode(inf);
+                SystemClock.sleep(100);
+                AccessibilityNodeInfo exz = findNodeInfoById("com.xingin.xhs:id/exz", 0);
+                clickNode(exz);
             });
             // ========================
 
