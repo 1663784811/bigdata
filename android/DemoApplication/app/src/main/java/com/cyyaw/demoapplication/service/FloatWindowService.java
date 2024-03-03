@@ -490,13 +490,18 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         }
         AccessibilityNodeInfo com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
         if (com_name == null) {
-            performSwipeLeft(480, 1000, 480, 750, 200);
+            performSwipeLeft(480, 1000, 480, 600, 200);
             SystemClock.sleep(1000);
             com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
             if (com_name == null) {
-                performSwipeLeft(480, 1000, 480, 750, 200);
+                performSwipeLeft(480, 1000, 480, 600, 200);
                 SystemClock.sleep(1000);
                 com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
+                if (com_name == null) {
+                    performSwipeLeft(480, 1000, 480, 600, 200);
+                    SystemClock.sleep(1000);
+                    com_name = findNodeInfoById("com.hpbr.bosszhipin:id/tv_com_name", 0);
+                }
             }
         }
         if (null != com_name) {
@@ -504,13 +509,18 @@ public class FloatWindowService extends ScreenOperation implements View.OnClickL
         }
         AccessibilityNodeInfo location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
         if (location == null) {
-            performSwipeLeft(480, 1000, 480, 750, 200);
+            performSwipeLeft(480, 1000, 480, 600, 200);
             SystemClock.sleep(1000);
             location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
             if (location == null) {
-                performSwipeLeft(480, 1000, 480, 750, 200);
+                performSwipeLeft(480, 1000, 480, 600, 200);
                 SystemClock.sleep(1000);
                 location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
+                if (location == null) {
+                    performSwipeLeft(480, 1000, 480, 600, 200);
+                    SystemClock.sleep(1000);
+                    location = findNodeInfoById("com.hpbr.bosszhipin:id/tv_location", 0);
+                }
             }
         }
         if (null != location) {
