@@ -12,7 +12,8 @@
       <div class="sqlLeft">
         <!--    搜索    -->
         <div class="searchBox">
-          <Input v-model="pageData.lk_name" search enter-button placeholder="搜索" @on-search="search"/>
+          <Input v-model="pageData.lk_name" clearable placeholder="名称"/>
+          <Input v-model="pageData.lk_tid" clearable search enter-button placeholder="ID" @on-search="search"/>
           <Button type="primary" class="searchBtn" @click="addData">添加</Button>
         </div>
         <!--   表格   -->
@@ -179,7 +180,7 @@
 
 <script setup>
 import {reactive, ref} from "vue";
-import {getSqlList, saveSql} from '@/api/api.js'
+import {getSqlList, saveSql, delSql} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
 import {useConfigModule} from "@/store/configModule.js";
 
@@ -191,7 +192,8 @@ const pageData = ref({
   page: 1,
   total: 0,
   size: 10,
-  lk_name: ''
+  lk_name: '',
+  lk_tid: ''
 });
 
 const changePage = (page) => {
@@ -317,7 +319,9 @@ const delTableData = (row, index) => {
     loading: true,
     onOk: () => {
       console.log("onOk", this);
-      Modal.remove();
+      delSql([row.id]).then(res => {
+        Modal.remove();
+      });
     },
   });
 

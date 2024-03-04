@@ -1,45 +1,36 @@
 package com.cyyaw.sql.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.cyyaw.jpa.util.entity.SelectEntity;
+import cn.hutool.json.JSONObject;
+import com.cyyaw.jpa.BaseDao;
+import com.cyyaw.jpa.BaseService;
 import com.cyyaw.sql.service.SqlService;
 import com.cyyaw.sql.table.dao.CSqlDao;
 import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
+import com.cyyaw.util.tools.PageRespone;
 import com.cyyaw.util.tools.WhyStringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 @Service
-public class SqlServiceImpl implements SqlService {
+public class SqlServiceImpl extends BaseService<CSql, Integer> implements SqlService {
 
     @Autowired
     private CSqlDao cSqlDao;
 
+    @Override
+    public BaseDao getBaseDao() {
+        return cSqlDao;
+    }
 
     @Override
-    public BaseResult<CSql> sqlList(SelectEntity select) {
-        int page = select.getPage();
-        int size = select.getSize();
-        CSql cSql = new CSql();
-        ExampleMatcher matcher = ExampleMatcher.matching();
-        PageRequest of = PageRequest.of(page - 1, size);
-        Example<CSql> ex = Example.of(cSql, matcher);
-        Page<CSql> sqlPage = cSqlDao.findAll(ex, of);
-
-        int number = sqlPage.getNumber() + 1;
-        int sizeN = sqlPage.getSize();
-        long total = sqlPage.getTotalElements();
-        BaseResult.Result result = new BaseResult.Result(number, sizeN, total);
-        BaseResult<CSql> ok = BaseResult.ok(sqlPage.getContent(), result);
-        return ok;
+    public BaseResult<CSql> sqlList(JSONObject json) {
+        PageRespone<CSql> sqlPage = findPage(json);
+        return BaseResult.ok(sqlPage);
     }
 
     @Override

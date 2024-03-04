@@ -1,14 +1,17 @@
 package com.cyyaw.sql.controller;
 
-import com.cyyaw.jpa.util.entity.SelectEntity;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.service.SqlService;
 import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 
+@Slf4j
 @Api(tags = "SQL配置模块")
 @RequestMapping("/admin/common/sql")
 @RestController
@@ -18,8 +21,8 @@ public class SqlController {
     private SqlService sqlService;
 
     @GetMapping("/sqlList")
-    public BaseResult<CSql> sqlList(SelectEntity select) {
-        return sqlService.sqlList(select);
+    public BaseResult<CSql> sqlList(@RequestParam Map<String, Object> map) {
+        return sqlService.sqlList(new JSONObject(map));
     }
 
     @PostMapping("/saveSql")
@@ -29,7 +32,7 @@ public class SqlController {
     }
 
     @PostMapping("/delSql")
-    public BaseResult delSql(@RequestBody Integer idArr[]){
+    public BaseResult delSql(@RequestBody Integer idArr[]) {
         sqlService.delSql(idArr);
         return BaseResult.ok("删除成功");
     }
