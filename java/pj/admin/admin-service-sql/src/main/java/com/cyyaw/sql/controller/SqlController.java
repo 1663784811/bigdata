@@ -74,7 +74,7 @@ public class SqlController {
                 }
                 if(StrUtil.isNotBlank(str)){
                     if(!rest.isEmpty()){
-                        rest.add("\r\n and " +str);
+                        rest.add(" and " +str);
                     }else{
                         rest.add(str);
                     }

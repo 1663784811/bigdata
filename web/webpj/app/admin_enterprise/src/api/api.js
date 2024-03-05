@@ -12,6 +12,7 @@ export const getSqlList = (params, eCode) => {return axios.get( `${baseUrl}/admi
 export const saveSql = (params, eCode) => {return axios.post( `${baseUrl}/admin/common/sql/saveSql`, params);}
 // 删除
 export const delSql = (params, eCode) => {return axios.post( `${baseUrl}/admin/common/sql/delSql`, params);}
+export const loadColumn = (params, eCode) => {return axios.get( `${baseUrl}/admin/common/sql/loadColumn`, {params});}
 // 获取页面设置
 export const findSetting = (params, eCode) => {return axios.get( `${baseUrl}/tx/config/page/findSetting`, params);}
 //
