@@ -1,6 +1,7 @@
 package com.cyyaw.sql.buildcode.croe.database;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.sql.buildcode.croe.entity.java.*;
 import com.cyyaw.sql.buildcode.croe.tools.OperationTools;
 import com.cyyaw.sql.buildcode.croe.tools.TypeTools;
@@ -41,9 +42,9 @@ public class DataBase {
                 javaData.setTableType(tables.getString("TABLE_TYPE"));       //数据表类型  （表 ， 视图，。。。）
                 List<JavaColumn> javaColumnList = getColumnList(table_name);
                 javaData.setJavaColumns(javaColumnList);                                 //字段
-                if(StringUtils.isEmpty(table)){
+                if (StringUtils.isEmpty(table)) {
                     javaDataArrayList.add(javaData);
-                }else if(table.equals(table_name)){
+                } else if (table.equals(table_name)) {
                     javaDataArrayList.add(javaData);
                 }
             }
@@ -55,9 +56,9 @@ public class DataBase {
     /**
      * 数据库类型转换
      */
-    private String dbTypeChange(String type){
-        if(type.indexOf("UNSIGNED")!=-1){
-            type = type.substring(0,type.indexOf("UNSIGNED")-1);
+    private String dbTypeChange(String type) {
+        if (type.indexOf("UNSIGNED") != -1) {
+            type = type.substring(0, type.indexOf("UNSIGNED") - 1);
         }
         return type;
     }
@@ -199,6 +200,27 @@ public class DataBase {
     }
 
 
+    public JavaData getTable(String table) throws SQLException {
+        JavaData rest = null;
+        if (StrUtil.isNotBlank(table)) {
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(connection.getCatalog(), "%", table, null);
+            if (tables.next()) {
+                //数据表名
+                String table_name = tables.getString("TABLE_NAME");
+                if (StrUtil.isNotBlank(table_name)) {
+                    rest = new JavaData();
+                    rest.setDatabase(connection.getCatalog());                           //数据库名
+                    rest.setTable(table_name);                                           //表名
+                    rest.setTableNote(getTableNotes(table_name));                        //表注释
+                    rest.setTableType(tables.getString("TABLE_TYPE"));       //数据表类型  （表 ， 视图，。。。）
+                    List<JavaColumn> javaColumnList = getColumnList(table_name);
+                    rest.setJavaColumns(javaColumnList);                                 //字段
+                }
+            }
+        }
+        return rest;
+    }
 }
 
 
