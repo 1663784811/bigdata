@@ -1,10 +1,50 @@
 {
 	"pages": [
 		{
-			"path" : "pages/login/login",
-			"style" : 
+			"path" : "pages/my/my",
+			"style" :
 			{
-				"navigationBarTitleText" : "登录",
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/festival/festival",
+			"style" :
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/activity/activity",
+			"style" :
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/activity/activityDetails/activityDetails",
+			"style" :
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/activity/addActivity/addActivity",
+			"style" :
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/activity/signIn/signIn",
+			"style" :
+			{
+				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
 		},
@@ -14,31 +54,16 @@
 				"navigationBarTitleText": ""
 			}
 		},
+
+
 		{
-			"path" : "pages/activity/activity",
-			"style" : 
+			"path" : "pages/login/login",
+			"style" :
 			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-			"path" : "pages/my/my",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-			"path" : "pages/festival/festival",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
+				"navigationBarTitleText" : "登录",
 				"enablePullDownRefresh" : false
 			}
 		}
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -63,7 +88,7 @@
 					"text": "活动",
 					"iconPath": "static/tabBar/drink.png",
 					"selectedIconPath": "static/tabBar/drink-selected.png"
-				}, 
+				},
 				{"pagePath": "pages/my/my",
 					"text": "我的",
 					"iconPath": "static/tabBar/mine.png",

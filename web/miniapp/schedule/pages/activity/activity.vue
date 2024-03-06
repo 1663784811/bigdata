@@ -2,7 +2,7 @@
   <view class="content">
 
     <view class="taskBox">
-      <view class="taskItem" v-for="(item, index) in state.taskList" :key="index">
+      <view class="taskItem" v-for="(item, index) in state.taskList" :key="index" @click="goToFn('/pages/activity/activityDetails/activityDetails')">
         <view class="taskTime">
           2024年3月8日
         </view>
@@ -18,9 +18,7 @@
       </view>
     </view>
 
-    <view class="addBtn">
-
-    </view>
+    <view class="addBtn" @click="goToFn('/pages/activity/addActivity/addActivity')">+</view>
 
   </view>
 </template>
@@ -42,10 +40,13 @@ const state = reactive({
   ]
 });
 
+const goToFn = (url) => {
+  uni.navigateTo({url});
+}
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .taskBox {
   padding: 1rpx 0;
   margin: 16rpx;
@@ -56,21 +57,25 @@ const state = reactive({
     margin-bottom: 10rpx;
     border-radius: 10rpx;
     position: relative;
-    .taskTime{
+
+    .taskTime {
       font-size: 30rpx;
       padding: 10rpx 20rpx;
       font-weight: bold;
     }
-    .taskName{
+
+    .taskName {
       font-size: 28rpx;
       padding: 10rpx 20rpx;
     }
-    .statistics{
+
+    .statistics {
       display: flex;
       font-size: 24rpx;
       padding: 10rpx 20rpx;
     }
-    .status{
+
+    .status {
       position: absolute;
       top: 0;
       right: 0;
@@ -81,7 +86,7 @@ const state = reactive({
 
 }
 
-.addBtn{
+.addBtn {
   position: fixed;
   bottom: 80rpx;
   right: 80rpx;
@@ -90,6 +95,12 @@ const state = reactive({
   width: 100rpx;
   height: 100rpx;
   background: #f6aaaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60rpx;
+  color: #fff;
+
 }
 </style>
 

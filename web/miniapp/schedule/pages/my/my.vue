@@ -37,7 +37,7 @@
     <view class="myServer">
       <view class="title">我的功能</view>
       <view class="serverBox">
-        <view class="serverItem" v-for="(item, index) in state.serverList" :key="index">
+        <view class="serverItem" v-for="(item, index) in state.serverList" :key="index" @click="goToFn(item)">
           <image :src="item.icon" class="img-icon"/>
           <view class="text">
             {{ item.text }}
@@ -59,12 +59,12 @@ const state = reactive({
     {
       icon: 'static/delivered_selected.png',
       text: '节日',
-      router: ''
+      url: '/pages/festival/festival'
     },
     {
       icon: 'static/delivered_selected.png',
       text: '习惯',
-      router: ''
+      url: ''
     },
     {
       icon: 'static/delivered_selected.png',
@@ -88,12 +88,23 @@ const state = reactive({
     },
   ]
 })
+
+
+const goToFn = (row) => {
+  console.log(row)
+  if (row && row.url) {
+    uni.navigateTo({url: row.url});
+  }
+
+}
+
 </script>
 
 <style lang="less" scoped>
 .myHeadBox {
   background: #fff;
   padding: 16rpx;
+
   .userInfo {
     display: flex;
     justify-content: space-between;
@@ -102,6 +113,7 @@ const state = reactive({
 
     .leftInfo {
       display: flex;
+
       .face {
         .img-face {
           width: 130rpx;
@@ -110,14 +122,17 @@ const state = reactive({
           border-radius: 12rpx;
         }
       }
-      .user{
+
+      .user {
         margin-left: 10rpx;
-        .userName{
+
+        .userName {
           margin: 10rpx;
           font-weight: bold;
           font-size: 30rpx;
         }
-        .userTxt{
+
+        .userTxt {
           margin: 10rpx;
           font-size: 24rpx;
           color: #666;
@@ -129,18 +144,22 @@ const state = reactive({
 
     }
   }
-  .statistics{
+
+  .statistics {
     margin-top: 40rpx;
     display: flex;
     justify-content: space-around;
-    .stItem{
+
+    .stItem {
       text-align: center;
-      .stNum{
+
+      .stNum {
         font-weight: bold;
         font-size: 30rpx;
         margin-bottom: 6rpx;
       }
-      .stNote{
+
+      .stNote {
         font-size: 24rpx;
         color: #666;
       }
