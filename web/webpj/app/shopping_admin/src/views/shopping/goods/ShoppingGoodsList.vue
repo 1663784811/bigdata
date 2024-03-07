@@ -1,53 +1,42 @@
 <template>
-  <div>
-    <CommonTable :table-setting="commonTable" @event="tableEvent"/>
-  </div>
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
-import CommonTable from '@/component/CommonTable.vue'
-import {pageConfig} from "@/store/pageConfig";
-import {ref} from "vue";
-import {useRouter} from "vue-router";
 
-const route = useRouter();
+import {onMounted, provide, reactive, ref} from "vue";
+import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute, useRouter} from "vue-router";
 
-
+const router = useRouter();
+const route = useRoute();
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
-const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("goodsList");
-  commonTable.value = role.commonTable;
-}
-initFn();
 
-const tableEvent = (eData) => {
-  console.log(eData)
-  if (eData.even && eData.even === "showEvent") {
-    const {tid} = eData.data;
-    route.push({
-      name: 'shoppingGoodsEditor',
-      query: {
-        goodsId: tid,
-        show: true
-      }
-    })
-  } else if (eData.even && eData.even === "updateEvent") {
-    const {tid} = eData.data;
-    route.push({
-      name: 'shoppingGoodsEditor',
-      query: {
-        goodsId: tid,
-        show: false
-      }
-    })
-  }
+const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
 
+const state = reactive({
+  pageData: {},
+  drawerSetting: {},
+  newTable: {
+    show: true
+  },
+})
+
+onMounted(() => {
+  initFn(route.name);
+})
+
+const initFn = async (pageCode) => {
+  console.log("页面ID:", pageCode)
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
+  commonTableSearchData.value = {"appId": 'sss'}
 }
 
 </script>
 
 <style scoped lang="less">
-
 </style>
+

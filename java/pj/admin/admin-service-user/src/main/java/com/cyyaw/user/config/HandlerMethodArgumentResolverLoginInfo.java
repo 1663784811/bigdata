@@ -29,10 +29,12 @@ public class HandlerMethodArgumentResolverLoginInfo implements HandlerMethodArgu
             if (parameter.getParameterType().isAssignableFrom(LoginInfo.class) && parameter.hasParameterAnnotation(TokenData.class)) {
                 String token = webRequest.getHeader(JwtTokenUtils.TOKEN_HEADER);
                 if (StrUtil.isNotBlank(token)) {
-                    String tokenData = token.replace(JwtTokenUtils.TOKEN_PREFIX, "");
-                    String json = JwtTokenUtils.getClaim(tokenData);
-                    LoginInfo loginInfo = new JSONObject(json).toBean(LoginInfo.class);
-                    return loginInfo;
+                    if (token.indexOf(JwtTokenUtils.TOKEN_PREFIX) == 0) {
+                        String tokenData = token.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+                        String json = JwtTokenUtils.getClaim(tokenData);
+                        LoginInfo loginInfo = new JSONObject(json).toBean(LoginInfo.class);
+                        return loginInfo;
+                    }
                 }
             }
         } catch (Exception e) {

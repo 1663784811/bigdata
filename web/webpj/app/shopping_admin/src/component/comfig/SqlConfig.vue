@@ -12,7 +12,8 @@
       <div class="sqlLeft">
         <!--    搜索    -->
         <div class="searchBox">
-          <Input v-model="pageData.lk_name" search enter-button placeholder="搜索" @on-search="search"/>
+          <Input v-model="pageData.lk_name" clearable placeholder="名称"/>
+          <Input v-model="pageData.lk_tid" clearable search enter-button placeholder="ID" @on-search="search"/>
           <Button type="primary" class="searchBtn" @click="addData">添加</Button>
         </div>
         <!--   表格   -->
@@ -143,7 +144,7 @@
           </div>
           <div class="sqlNote">
             <p>[&] ---&gt; 必传参</p>
-            <p>[:=] ----&gt; 别名 [cc:=sss]</p>
+            <p>[:=] ----&gt; 别名 [别名:=数据库字段]</p>
             <p>[] ---&gt; =</p>
             <p>[@] ---&gt; in</p>
             <p>[!@] ----&gt; not in</p>
@@ -165,9 +166,16 @@
 
           </div>
           <div style="width: 500px">
+            <div style="display: flex">
+              <Input placeholder="主表" v-model="state.mainTable"/>
+              <Button size="small" type="warning" style="margin-right: 5px" @click="loadTableFn">加载表字段</Button>
+            </div>
             <div>
-              <Input placeholder="ID"/>
-              <Button size="small" type="warning" style="margin-right: 5px">加载表字段</Button>
+              <p v-for="(it, index) in state.tableColumn" :key="index">{{ it }}</p>
+            </div>
+            <div>-------------------------</div>
+            <div>
+              <span v-for="(it, index) in state.tableColumn" :key="index">{{ it }}</span>
             </div>
           </div>
         </div>
@@ -179,19 +187,23 @@
 
 <script setup>
 import {reactive, ref} from "vue";
-import {getSqlList, saveSql} from '@/api/api.js'
+import {getSqlList, saveSql, delSql, loadColumn} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
 import {useConfigModule} from "@/store/configModule.js";
 
 
 const configModule = useConfigModule();
 
-const state = reactive({})
+const state = reactive({
+  mainTable: '',
+  tableColumn: []
+})
 const pageData = ref({
   page: 1,
   total: 0,
   size: 10,
-  lk_name: ''
+  lk_name: '',
+  lk_tid: ''
 });
 
 const changePage = (page) => {
@@ -317,7 +329,9 @@ const delTableData = (row, index) => {
     loading: true,
     onOk: () => {
       console.log("onOk", this);
-      Modal.remove();
+      delSql([row.id]).then(res => {
+        Modal.remove();
+      });
     },
   });
 
@@ -347,7 +361,14 @@ const modalData = ref({
   Cancel
 })
 //======================================
-
+const loadTableFn = () => {
+  console.log('aaaaaaaaaaaa')
+  loadColumn({
+    table: state.mainTable
+  }).then(res => {
+    state.tableColumn = res.data;
+  })
+}
 
 </script>
 

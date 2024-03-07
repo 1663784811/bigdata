@@ -1,14 +1,16 @@
 import axios from 'axios'
 import {loginInfo} from "@/store/loginInfo.js"
 
-axios.defaults.withCredentials = true
-axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+const instance = axios.create();
+
+instance.defaults.withCredentials = true
+instance.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
+instance.defaults.headers.post['Content-Type'] = 'application/json'
 
 /**
  * 请求拦截器
  */
-axios.interceptors.request.use(config => {
+instance.interceptors.request.use(config => {
     const userStore = loginInfo();
     config.headers['token'] = userStore.token;
     return config
@@ -20,7 +22,7 @@ axios.interceptors.request.use(config => {
 /**
  * 响应拦截器
  */
-axios.interceptors.response.use(res => {
+instance.interceptors.response.use(res => {
     if (typeof res.data !== 'object') {
         console.error('服务端异常！')
         return Promise.reject(res)
@@ -43,5 +45,5 @@ axios.interceptors.response.use(res => {
     return Promise.reject(error)
 })
 
-export default axios
+export default instance
  

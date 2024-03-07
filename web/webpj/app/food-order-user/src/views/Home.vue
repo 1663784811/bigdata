@@ -20,7 +20,7 @@
               <div>$100</div>
             </div>
             <div>
-              <van-stepper  />
+              <van-stepper/>
             </div>
           </div>
         </div>
@@ -64,6 +64,17 @@ onMounted(async () => {
     state.isLogin = true;
   }
 })
+
+
+/**
+ * 查询菜单
+ */
+const aaa = (rest) => {
+
+
+
+}
+
 
 </script>
 

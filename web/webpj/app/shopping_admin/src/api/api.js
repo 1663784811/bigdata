@@ -10,6 +10,9 @@ export const pageSetting = (params = {}, code) => {return axios.get( `${baseUrl}
 export const getSqlList = (params, code) => {return axios.get( `${baseUrl}/appAdmin/common/sql/sqlList`, params);}
 //保存SQL
 export const saveSql = (params, code) => {return axios.get( `${baseUrl}/appAdmin/common/sql/saveSql`, params);}
+// 删除
+export const delSql = (params, code) => {return axios.post( `${baseUrl}/admin/common/sql/delSql`, params);}
+export const loadColumn = (params, code) => {return axios.get( `${baseUrl}/admin/common/sql/loadColumn`, {params});}
 // 获取页面设置
 export const findSetting = (params, code) => {return axios.get( `${baseUrl}/tx/config/page/findSetting`, params);}
 //

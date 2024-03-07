@@ -150,6 +150,7 @@
               chosen-class="chosenClass"
               animation="300"
               :list="state.tableObj.columns"
+              item-key="id"
           >
             <template #item="{ element, index }">
               <div class="row" >
@@ -210,13 +211,12 @@
           <div v-if="state.saveObj">
             保存地址: <Input v-model="state.saveObj.url" placeholder="保存地址" clearable/>
           </div>
-
-
           <draggable
               ghost-class="ghost"
               chosen-class="chosenClass"
               animation="300"
               :list="state.saveObj.columns"
+              item-key="id"
           >
             <template #item="{ element, index }">
               <div class="row">
@@ -242,6 +242,8 @@
                     <Option value="time">时间</Option>
                     <Option value="datetime">日期时间</Option>
                     <Option value="img">图片</Option>
+                    <Option value="select">单选</Option>
+                    <Option value="number">数字</Option>
                   </Select>
                 </div>
               </div>

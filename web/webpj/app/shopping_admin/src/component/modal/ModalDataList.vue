@@ -1,5 +1,5 @@
 <template>
-  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')" :mask-closable="false" :loading="modalData.loading" width="80wh">
+  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')" :mask-closable="false" :loading="modalData.loading" width="auto" style="max-width: 1000px; margin-bottom: 300px">
     <div class="modalBox">
       <div>
         <template v-for="(item,index) in modalData.columns" :key="index">
@@ -11,7 +11,7 @@
             </div>
             <!--     ==========      日期时间     ===========       -->
             <div class="content" v-else-if="item.controlType === 'datetime'">
-              <DatePicker v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"/>
+              <DatePicker style="width: 100%" v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"/>
             </div>
             <!--     ==========      选择     ===========       -->
             <div class="content" v-else-if="item.controlType === 'select'">
@@ -30,6 +30,10 @@
               <div v-else class="imageBox addImage" @click="updateImage(item.key)">
                 <Icon type="md-add-circle"/>
               </div>
+            </div>
+            <!--     ==========      数字     ===========       -->
+            <div class="content" v-else-if="item.controlType === 'number'">
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" type="number"/>
             </div>
             <!--     ==========      文本     ===========       -->
             <div class="content" v-else>
