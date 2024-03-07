@@ -15,7 +15,6 @@ const loginInfoSt = useUserStore();
 const socket = ref(null);
 
 onMounted(async () => {
-  initWebSocket();
   const {appid} = route.params;
   const {data} = await commonQuery({
     code: 'select_e_application_by_appid',
@@ -26,9 +25,9 @@ onMounted(async () => {
     loginInfoSt.variable.appid = appid;
     // 查询当前餐台状态
     console.log('查询当前餐台状态')
-
-
+    initWebSocket();
   } else {
+    console.log(data)
     delete loginInfoSt.variable.appid;
     await router.replace({name: 'welcomePage'});
   }
@@ -64,6 +63,22 @@ const errorWebSocket = () => {
 }
 const msgWebSocket = (msg) => {
   console.log(msg.data)
+  const routeName = route.name;
+  const json = JSON.parse(msg.data);
+  if (json.code === 1) {
+    loginInfoSt.token = 'sssss'
+    router.replace({name: 'home'});
+    // if (json.data.status === 0) {
+    //
+    // } else if (json.data.status === 1) {
+    //   if (routeName === 'selectNumber') {
+    //     router.replace({name: 'home'});
+    //   }
+    // }
+
+
+
+  }
 }
 
 const send = (params) => {
@@ -74,7 +89,6 @@ const close = () => {
   // 重连
 
 }
-
 
 
 /**

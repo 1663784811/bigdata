@@ -69,7 +69,10 @@ public class WebSocketServer {
             CopyOnWriteArrayList<String> userList = board.getUserList();
             userList.add(id);
             // 回复连接信息
-            sendMessage(JSONUtil.toJsonStr(new JSONObject(foodBoard)), session);
+            JSONObject json = new JSONObject();
+            json.set("code", 1);
+            json.set("data", foodBoard);
+            sendMessage(JSONUtil.toJsonStr(json), session);
         } else {
             session.close();
         }
@@ -150,7 +153,7 @@ public class WebSocketServer {
             for (int i = 0; i < userList.size(); i++) {
                 ConnectSession connectSession = connectSessionMap.get(userList.get(i));
                 Session session = connectSession.getSession();
-                sendMessage("{code:1}", session);
+                sendMessage("{\"code\":1}", session);
             }
         }
     }

@@ -1,38 +1,6 @@
 <template>
   <div id="start">
-    <div v-show='showLoading'>
-      放loading图片 gif showLoading...........
-    </div>
-    <div class="start_content" v-show="!showLoading">
-      <header class="start_header">
-        <img src="../assets/images/canju.png"/> 用餐人数
-      </header>
-      <p class="notice">请选择正确的用餐人数 ，小二马上给你送餐具</p>
-      <div class="content">
-        <ul class="user_list">
-          <li v-for="(item,key) in userList" :class="{'active':key==0}" :key='key'>
-            <span>{{ item }}</span>
-          </li>
-        </ul>
-        <div class="mark_input">
-          <input type="text" v-model='p_mark' placeholder="请输入您的口味要求，忌口等（可不填）"/>
-        </div>
-        <ul class="mark_list">
-          <li>
-            <span>打包带走</span>
-          </li>
-          <li>
-            <span>不要放辣椒</span>
-          </li>
-          <li>
-            <span>微辣</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div v-if="!showLoading" id="start" class="start" @click="addPeopleInfo()">
-      <span>开始点菜</span>
-    </div>
+    sssss
   </div>
   <navBar/>
 

@@ -1,6 +1,7 @@
 package com.cyyaw.app.controller;
 
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.service.CartService;
 import com.cyyaw.service.FoodOrderService;
 import com.cyyaw.service.OrderService;
@@ -15,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Slf4j
 @Api(tags = "点餐系统")
@@ -32,7 +35,9 @@ public class FoodOrderController {
 
     @ApiOperation(value = "开桌", notes = "开桌")
     @PostMapping("/crateBoard")
-    public BaseResult crateBoard(Integer number, @PathVariable String boardId) {
+    public BaseResult crateBoard(@RequestBody Map<String, Object> map, @PathVariable String boardId) {
+        JSONObject json = new JSONObject(map);
+        Integer number = json.getInt("number");
         if (number != null && number > 0) {
             return foodOrderService.crateBoard(boardId, number);
         } else {
@@ -60,9 +65,6 @@ public class FoodOrderController {
         return BaseResult.ok(order);
     }
     // 获取餐桌订单
-
-
-
 
 
     // 点击支付
