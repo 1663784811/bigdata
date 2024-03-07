@@ -334,6 +334,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '招聘列表',
                             icon: 'md-settings',
                             routeName: 'recruitList'
+                        },
+                        {
+                            name: '商业历史',
+                            icon: 'md-settings',
+                            routeName: 'commerceHistory'
                         }
                     ]
                 }

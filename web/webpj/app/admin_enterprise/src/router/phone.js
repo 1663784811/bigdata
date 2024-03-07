@@ -40,6 +40,14 @@ export const phone = {
                 title: '招聘列表',
             },
             component: () => import('@/views/app/phone/RecruitList.vue')
+        },
+        {
+            path: 'commerceHistory',
+            name: 'commerceHistory',
+            meta: {
+                title: '商业历史',
+            },
+            component: () => import('@/views/app/phone/CommerceHistory.vue')
         }
     ]
 }
