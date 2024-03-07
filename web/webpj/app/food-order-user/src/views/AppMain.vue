@@ -24,7 +24,6 @@ onMounted(async () => {
     // 保存app信息
     loginInfoSt.variable.appid = appid;
     // 查询当前餐台状态
-    console.log('查询当前餐台状态')
     initWebSocket();
   } else {
     console.log(data)
@@ -40,10 +39,11 @@ onMounted(async () => {
 
 const initWebSocket = () => {
   if (typeof (WebSocket) === "undefined") {
-    alert("您的浏览器不支持socket")
+    alert("您的浏览aasssdddssdssddsssddddddsss器不支持socket")
   } else {
+    const {code} = route.params;
     // 实例化socket
-    socket.value = new WebSocket("ws://192.168.0.103:8080/app/appId/food/websocket/111/user")
+    socket.value = new WebSocket(`ws://192.168.0.103:8080/app/appId/food/websocket/${code}/user`)
     // 监听socket连接
     socket.value.onopen = openWebSocket
     // 监听socket错误信息
@@ -62,24 +62,35 @@ const errorWebSocket = () => {
 
 }
 const msgWebSocket = (msg) => {
-  console.log(msg.data)
+  console.log("接收的数:" + msg.data)
   const routeName = route.name;
   const json = JSON.parse(msg.data);
   if (json.code === 1) {
-    loginInfoSt.token = 'sssss'
-    router.replace({name: 'home'});
-    // if (json.data.status === 0) {
-    //
-    // } else if (json.data.status === 1) {
-    //   if (routeName === 'selectNumber') {
-    //     router.replace({name: 'home'});
-    //   }
-    // }
-
-
-
+    boardStatus(route.params.code);
   }
 }
+
+const boardStatus = (tid) => {
+  console.log('查询当前餐台状态:' + tid)
+  commonQuery({
+    code: 'select_food_board_by_tid',
+    tid
+  }).then(res => {
+    if (res.data.length > 0) {
+      const obj = res.data[0];
+      if (obj.status === 1) {
+        loginInfoSt.token = 'sssss'
+        router.replace({
+          name: 'home',
+          params: route.params,
+          query: route.query
+        });
+      }
+    } else {
+    }
+  })
+}
+
 
 const send = (params) => {
   socket.value.send(params)

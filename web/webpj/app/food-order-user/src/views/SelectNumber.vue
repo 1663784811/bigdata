@@ -39,11 +39,15 @@ onMounted(() => {
     setTimeout(() => {
       if (route.query.replace) {
         router.replace({
-          name: route.query.replace
+          name: route.query.replace,
+          query: route.query,
+          params: route.params
         });
       } else {
         router.replace({
-          name: 'home'
+          name: 'home',
+          params: route.params,
+          query: route.query
         });
       }
     }, 100);

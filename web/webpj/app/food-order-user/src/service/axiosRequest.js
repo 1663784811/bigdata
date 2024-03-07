@@ -1,31 +1,25 @@
 import axios from 'axios'
 import {showToast, showFailToast} from 'vant'
-import router from '../router'
 import {useUserStore} from "@/stores/user.js";
 
-
-console.log('import.meta.env', import.meta.env)
-
-axios.defaults.withCredentials = true
-axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-
+const instance = axios.create();
+instance.defaults.withCredentials = true
+instance.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
+instance.defaults.headers.post['Content-Type'] = 'application/json'
 /**
  * 请求拦截器
  */
-axios.interceptors.request.use(config => {
+instance.interceptors.request.use(config => {
     const userStore = useUserStore();
     config.headers['token'] = userStore.token;
     return config
 }, error => {
     return Promise.reject(error)
 })
-
-
 /**
  * 响应拦截器
  */
-axios.interceptors.response.use(res => {
+instance.interceptors.response.use(res => {
     if (typeof res.data !== 'object') {
         showFailToast('服务端异常！')
         return Promise.reject(res)
@@ -42,11 +36,11 @@ axios.interceptors.response.use(res => {
     //     console.log("=============================")
     //     return Promise.reject(res.data)
     // }
+    console.log('sssssssssssssssssssssssss', res.data)
     return res.data
 }, error => {
     showFailToast('服务端异常！')
     return Promise.reject(error)
 })
-
-export default axios
+export default instance
  
