@@ -5,9 +5,12 @@ import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.view.accessibility.AccessibilityManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.cyyaw.demoapplication.service.FloatWindowService;
@@ -17,10 +20,15 @@ import com.cyyaw.demoapplication.service.FloatWindowService;
  */
 public enum PermissionsCode {
 
-    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null)
-    ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 22222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    ,BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 3333,"无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS)
-    ,CAMERA(Manifest.permission.CAMERA, 444,"摄像头", null)
+    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null, false)
+    ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 22222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION, false)
+    ,BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 3333,"无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS, false)
+    ,CAMERA(Manifest.permission.CAMERA, 444,"摄像头", null, false)
+    ,READ_MEDIA_AUDIO(Manifest.permission.READ_MEDIA_AUDIO, 555,"音频", null, false)
+    ,READ_MEDIA_IMAGES(Manifest.permission.READ_MEDIA_IMAGES, 666,"图片", null, false)
+    ,READ_MEDIA_VIDEO(Manifest.permission.READ_MEDIA_VIDEO, 777,"视频", null, false)
+    ,READ_EXTERNAL_STORAGE(Manifest.permission.READ_EXTERNAL_STORAGE, 888,"读文件", Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, true)
+    ,WRITE_EXTERNAL_STORAGE(Manifest.permission.WRITE_EXTERNAL_STORAGE, 999,"文件写入", Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, true)
     ;
 
     /**
@@ -42,6 +50,8 @@ public enum PermissionsCode {
      */
     private String sysActivity;
 
+    private Boolean needPackage;
+
     /**
      * 受权成功回调
      */
@@ -58,11 +68,12 @@ public enum PermissionsCode {
 //    private Object other;
     // ===========================================================================================
 
-    PermissionsCode(String permissions, int code, String note, String sysActivity) {
+    PermissionsCode(String permissions, int code, String note, String sysActivity, Boolean needPackage) {
         this.permissions = permissions;
         this.code = code;
         this.note = note;
         this.sysActivity = sysActivity;
+        this.needPackage = needPackage;
     }
 
 
@@ -77,6 +88,15 @@ public enum PermissionsCode {
         return null;
     }
     // ===========================================================================================
+
+
+    public Boolean getNeedPackage() {
+        return needPackage;
+    }
+
+    public void setNeedPackage(Boolean needPackage) {
+        this.needPackage = needPackage;
+    }
 
     public String getSysActivity() {
         return sysActivity;
@@ -130,20 +150,27 @@ public enum PermissionsCode {
      */
     public static boolean alreadyPermissions(Context context, PermissionsCode permissionsCode) {
         String permissions = permissionsCode.getPermissions();
-
         // 正常
         if (permissions.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) && Settings.canDrawOverlays(context)) {
             // 浮窗
             return true;
-        }if (permissions.equals(Manifest.permission.BIND_ACCESSIBILITY_SERVICE) && isAccessibilityServiceEnabled(context)) {
+        } else if (permissions.equals(Manifest.permission.BIND_ACCESSIBILITY_SERVICE) && isAccessibilityServiceEnabled(context)) {
             // 无障碍服务AccessibilityService
             return true;
+        } else if (permissions.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) || permissions.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                return Environment.isExternalStorageManager();
+            } else {
+                return false;
+            }
         } else {
             return ContextCompat.checkSelfPermission(context, permissions) == PackageManager.PERMISSION_GRANTED;
         }
     }
 
-
+    /**
+     * 判断是否有无障碍权限
+     */
     private static boolean isAccessibilityServiceEnabled(Context context) {
         AccessibilityManager accessibilityManager = (AccessibilityManager)context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (accessibilityManager != null) {

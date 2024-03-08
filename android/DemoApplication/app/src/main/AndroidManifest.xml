@@ -15,6 +15,17 @@
     <!--  33中已取消了这个权限:  是一个用于在外部存储上进行写操作的 Android 权限。这个权限允许应用访问设备的外部存储（如 SD 卡）以进行文件写入操作。通常，这个权限用于保存和读取用户数据、缓存、下载的文件等  -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
+
+    <!--  音频  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!--  图片  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!--  视频  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+
+
+
     <!--  是 Android 系统引入的一个新权限，用于控制应用是否能够直接访问外部存储（例如 SD 卡等）。这个权限通常用于限制应用对外部存储的直接访问，以提高用户数据的安全性和隐私保护  -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
@@ -27,6 +38,9 @@
     <!--  摄像头  -->
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
+
+
+
 
 
     <application

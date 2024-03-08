@@ -64,7 +64,10 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_openAccessibilityService).setOnClickListener(this);
         findViewById(R.id.btn_go_my_view).setOnClickListener(this);
         findViewById(R.id.btn_camera).setOnClickListener(this);
-        findViewById(R.id.btn_Home).setOnClickListener(this);
+
+        findViewById(R.id.btn_audio).setOnClickListener(this);
+        findViewById(R.id.btn_picture).setOnClickListener(this);
+        findViewById(R.id.btn_video).setOnClickListener(this);
 
     }
 
@@ -81,50 +84,55 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                 showFloatWin();
             });
         } else if (id == R.id.btn_camera) {
-            Log.i(TAG, "  =================   onClick: btn_camera  ");
             requestPermissionsFn(Manifest.permission.CAMERA, () -> {
                 Toast.makeText(this, "摄像头申请成功成功----", Toast.LENGTH_SHORT).show();
                 startCamera();
             });
-
-
         } else if (id == R.id.btn_read_file) {
-            Log.i(TAG, "  =================   onClick: btn_read_file  ");
-
-        } else if (id == R.id.btn_write_file) {
-            Log.i(TAG, "  =================   onClick: btn_write_file  ");
-
-            // 检查权限是否已经被授予
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(MainActivity.this, "有写文件权限" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
-                    File mVideoFile = new File(getApplication().getFilesDir().getPath());
-                    File[] files = mVideoFile.getParentFile().listFiles();
-                    StringBuffer sb = new StringBuffer("大小:" + files.length + "\r\n");
-                    for (int i = 0; i < files.length; i++) {
-                        String name = files[i].getName();
-                        sb.append(name + "\r\n");
-                    }
-                    TextView pageInfo = findViewById(R.id.pageInfo);
-                    pageInfo.setText("路径:" + sb);
-                } else {
-                    // 如果权限未被授予，请求权限
-                    Toast.makeText(MainActivity.this, "没有写文件权限" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.setData(Uri.parse("package:" + this.getPackageName()));
-                    startActivity(intent);
+            requestPermissionsFn(Manifest.permission.READ_EXTERNAL_STORAGE, () -> {
+                Toast.makeText(this, "有读文件权限----"+  Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+                File mVideoFile = new File(getApplication().getFilesDir().getPath());
+                File[] files = mVideoFile.getParentFile().listFiles();
+                StringBuffer sb = new StringBuffer("大小:" + files.length + "\r\n");
+                for (int i = 0; i < files.length; i++) {
+                    String name = files[i].getName();
+                    sb.append(name + "\r\n");
                 }
-            } else {
-                // TODO 小于 11 没有适配 权限不一样
+                TextView pageInfo = findViewById(R.id.pageInfo);
+                pageInfo.setText("路径:" + sb);
+            });
+        } else if (id == R.id.btn_write_file) {
+            // 检查权限是否已经被授予
+            requestPermissionsFn(Manifest.permission.WRITE_EXTERNAL_STORAGE, () -> {
+                Toast.makeText(this, "有写文件权限----"+  Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+                File mVideoFile = new File(getApplication().getFilesDir().getPath());
+                File[] files = mVideoFile.getParentFile().listFiles();
+                StringBuffer sb = new StringBuffer("大小:" + files.length + "\r\n");
+                for (int i = 0; i < files.length; i++) {
+                    String name = files[i].getName();
+                    sb.append(name + "\r\n");
+                }
+                TextView pageInfo = findViewById(R.id.pageInfo);
+                pageInfo.setText("路径:" + sb);
+            });
+        } else if (id == R.id.btn_audio) {
+            requestPermissionsFn(Manifest.permission.READ_MEDIA_AUDIO, () -> {
+                Toast.makeText(this, "音频", Toast.LENGTH_SHORT).show();
+            });
 
+        } else if (id == R.id.btn_picture) {
+            requestPermissionsFn(Manifest.permission.READ_MEDIA_IMAGES, () -> {
+                Toast.makeText(this, "图片", Toast.LENGTH_SHORT).show();
+            });
 
-            }
-
+        }  else if (id == R.id.btn_video) {
+            requestPermissionsFn(Manifest.permission.READ_MEDIA_VIDEO, () -> {
+                Toast.makeText(this, "视频", Toast.LENGTH_SHORT).show();
+            });
         } else if (id == R.id.btn_go_my_view) {
+
             Intent intent = new Intent(this, ViewTestActivity.class);
             startActivity(intent);
-        } else if (id == R.id.btn_Home) {
-
         }
     }
 

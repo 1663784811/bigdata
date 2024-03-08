@@ -2,6 +2,7 @@ package com.cyyaw.demoapplication.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -83,7 +84,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                     otherPermissions = permissionsCode.getPermissions();
                     permissionsCode.setSuccessCallback(successCallback);
                     permissionsCode.setErrorCallback(errorCallback);
-                    activityResult.launch(new Intent(sysActivity));
+                    Intent intent = new Intent(sysActivity);
+                    if(permissionsCode.getNeedPackage()){
+                        intent.setData(Uri.parse("package:" + this.getPackageName()));
+                    }
+                    activityResult.launch(intent);
                 } else {
                     permissionsCode.setSuccessCallback(successCallback);
                     permissionsCode.setErrorCallback(errorCallback);
