@@ -120,6 +120,15 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public BaseResult myStoreCartList(String boardId, String storeId) {
+
+        
+
+
+        return null;
+    }
+
+    @Override
     public BaseResult updateMyCar(String userId, AddMyCar addMyCar) {
         Integer number = addMyCar.getNumber();
         if (number == null || number.equals(0)) {

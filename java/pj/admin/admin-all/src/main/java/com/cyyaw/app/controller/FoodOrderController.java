@@ -56,8 +56,8 @@ public class FoodOrderController {
 
     @ApiOperation(value = "查询购物车", notes = "查询购物车")
     @GetMapping("/findMyCart")
-    public BaseResult findMyCart(@PathVariable String boardId) {
-        BaseResult result = cartService.myCartList(boardId);
+    public BaseResult findMyCart(@PathVariable String boardId, String storeId) {
+        BaseResult result = cartService.myStoreCartList(boardId, storeId);
         return result;
     }
 

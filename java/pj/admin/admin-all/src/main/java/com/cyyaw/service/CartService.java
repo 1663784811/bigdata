@@ -11,6 +11,10 @@ public interface CartService {
      */
     BaseResult myCartList(String userId);
 
+    /**
+     * 查询我的门店购物车
+     */
+    BaseResult myStoreCartList(String boardId, String storeId);
 
     /**
      * 更新我的购物车
