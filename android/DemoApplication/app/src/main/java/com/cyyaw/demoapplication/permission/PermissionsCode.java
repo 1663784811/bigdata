@@ -20,15 +20,18 @@ import com.cyyaw.demoapplication.service.FloatWindowService;
  */
 public enum PermissionsCode {
 
-    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111111, "读取联系人信息", null, false)
-    ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 22222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION, false)
-    ,BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 3333,"无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS, false)
+    READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111, "读取联系人信息", null, false)
+    ,SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW, 222,"开启浮窗", Settings.ACTION_MANAGE_OVERLAY_PERMISSION, false)
+    ,BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 333,"无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS, false)
     ,CAMERA(Manifest.permission.CAMERA, 444,"摄像头", null, false)
     ,READ_MEDIA_AUDIO(Manifest.permission.READ_MEDIA_AUDIO, 555,"音频", null, false)
     ,READ_MEDIA_IMAGES(Manifest.permission.READ_MEDIA_IMAGES, 666,"图片", null, false)
     ,READ_MEDIA_VIDEO(Manifest.permission.READ_MEDIA_VIDEO, 777,"视频", null, false)
     ,READ_EXTERNAL_STORAGE(Manifest.permission.READ_EXTERNAL_STORAGE, 888,"读文件", Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, true)
     ,WRITE_EXTERNAL_STORAGE(Manifest.permission.WRITE_EXTERNAL_STORAGE, 999,"文件写入", Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, true)
+    ,ACCESS_FINE_LOCATION(Manifest.permission.ACCESS_FINE_LOCATION, 1000,"精确定位GPS", null, false)
+    ,ACCESS_COARSE_LOCATION(Manifest.permission.ACCESS_COARSE_LOCATION, 1100,"粗略定位CellID或WiFi", null, false)
+    ,ACCESS_BACKGROUND_LOCATION(Manifest.permission.ACCESS_BACKGROUND_LOCATION, 1200,"后台定位权限", null, false)
     ;
 
     /**

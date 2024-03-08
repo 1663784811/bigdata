@@ -4,7 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.Preview;
@@ -25,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.cyyaw.demoapplication.R;
+import com.cyyaw.demoapplication.permission.PermissionsCode;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.service.FloatWindowTaskService;
@@ -68,29 +72,31 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_audio).setOnClickListener(this);
         findViewById(R.id.btn_picture).setOnClickListener(this);
         findViewById(R.id.btn_video).setOnClickListener(this);
+        findViewById(R.id.btn_location).setOnClickListener(this);
 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_openAccessibilityService) {
-            requestPermissionsFn(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, () -> {
+            requestPermissionsFn(PermissionsCode.BIND_ACCESSIBILITY_SERVICE, () -> {
                 Toast.makeText(this, "无障碍功能开启成功----", Toast.LENGTH_SHORT).show();
             });
         } else if (id == R.id.btn_openFloatWin) {
-            requestPermissionsFn(Manifest.permission.SYSTEM_ALERT_WINDOW, () -> {
+            requestPermissionsFn(PermissionsCode.SYSTEM_ALERT_WINDOW, () -> {
                 Toast.makeText(this, "开启浮窗成功----", Toast.LENGTH_SHORT).show();
                 showFloatWin();
             });
         } else if (id == R.id.btn_camera) {
-            requestPermissionsFn(Manifest.permission.CAMERA, () -> {
+            requestPermissionsFn(PermissionsCode.CAMERA, () -> {
                 Toast.makeText(this, "摄像头申请成功成功----", Toast.LENGTH_SHORT).show();
                 startCamera();
             });
         } else if (id == R.id.btn_read_file) {
-            requestPermissionsFn(Manifest.permission.READ_EXTERNAL_STORAGE, () -> {
-                Toast.makeText(this, "有读文件权限----"+  Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            requestPermissionsFn(PermissionsCode.READ_EXTERNAL_STORAGE, () -> {
+                Toast.makeText(this, "有读文件权限----" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
                 File mVideoFile = new File(getApplication().getFilesDir().getPath());
                 File[] files = mVideoFile.getParentFile().listFiles();
                 StringBuffer sb = new StringBuffer("大小:" + files.length + "\r\n");
@@ -103,8 +109,8 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
             });
         } else if (id == R.id.btn_write_file) {
             // 检查权限是否已经被授予
-            requestPermissionsFn(Manifest.permission.WRITE_EXTERNAL_STORAGE, () -> {
-                Toast.makeText(this, "有写文件权限----"+  Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
+            requestPermissionsFn(PermissionsCode.WRITE_EXTERNAL_STORAGE, () -> {
+                Toast.makeText(this, "有写文件权限----" + Build.VERSION.SDK_INT, Toast.LENGTH_SHORT).show();
                 File mVideoFile = new File(getApplication().getFilesDir().getPath());
                 File[] files = mVideoFile.getParentFile().listFiles();
                 StringBuffer sb = new StringBuffer("大小:" + files.length + "\r\n");
@@ -116,18 +122,28 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                 pageInfo.setText("路径:" + sb);
             });
         } else if (id == R.id.btn_audio) {
-            requestPermissionsFn(Manifest.permission.READ_MEDIA_AUDIO, () -> {
+            requestPermissionsFn(PermissionsCode.READ_MEDIA_AUDIO, () -> {
                 Toast.makeText(this, "音频", Toast.LENGTH_SHORT).show();
             });
 
         } else if (id == R.id.btn_picture) {
-            requestPermissionsFn(Manifest.permission.READ_MEDIA_IMAGES, () -> {
+            requestPermissionsFn(PermissionsCode.READ_MEDIA_IMAGES, () -> {
                 Toast.makeText(this, "图片", Toast.LENGTH_SHORT).show();
             });
 
-        }  else if (id == R.id.btn_video) {
-            requestPermissionsFn(Manifest.permission.READ_MEDIA_VIDEO, () -> {
+        } else if (id == R.id.btn_video) {
+            requestPermissionsFn(PermissionsCode.READ_MEDIA_VIDEO, () -> {
                 Toast.makeText(this, "视频", Toast.LENGTH_SHORT).show();
+            });
+        } else if (id == R.id.btn_location) {
+            requestPermissionsFn(PermissionsCode.ACCESS_COARSE_LOCATION, () -> {
+                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
+            });
+            requestPermissionsFn(PermissionsCode.ACCESS_FINE_LOCATION, () -> {
+                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
+            });
+            requestPermissionsFn(PermissionsCode.ACCESS_BACKGROUND_LOCATION, () -> {
+                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
             });
         } else if (id == R.id.btn_go_my_view) {
 

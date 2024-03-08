@@ -65,38 +65,33 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 受权处理
      */
-    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback) {
-        requestPermissionsFn(permissions, successCallback, () -> {
+    protected void requestPermissionsFn(PermissionsCode permissionsCode, PermissionsCode.PermissionsSuccessCallback successCallback) {
+        requestPermissionsFn(permissionsCode, successCallback, () -> {
         });
     }
 
-    protected void requestPermissionsFn(String permissions, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
-        PermissionsCode permissionsCode = PermissionsCode.getPermissionsCode(permissions);
+    protected void requestPermissionsFn(PermissionsCode permissionsCode, PermissionsCode.PermissionsSuccessCallback successCallback, PermissionsCode.PermissionsErrorCallback errorCallback) {
         otherPermissions = null;
-        if (null != permissionsCode) {
-            // 检查是否已经有这个权限了
-            if (PermissionsCode.alreadyPermissions(getActivity(), permissionsCode)) {
-                successCallback.run();
-            } else {
-                String sysActivity = permissionsCode.getSysActivity();
-                if (sysActivity != null) {
-                    // 特殊
-                    otherPermissions = permissionsCode.getPermissions();
-                    permissionsCode.setSuccessCallback(successCallback);
-                    permissionsCode.setErrorCallback(errorCallback);
-                    Intent intent = new Intent(sysActivity);
-                    if(permissionsCode.getNeedPackage()){
-                        intent.setData(Uri.parse("package:" + this.getPackageName()));
-                    }
-                    activityResult.launch(intent);
-                } else {
-                    permissionsCode.setSuccessCallback(successCallback);
-                    permissionsCode.setErrorCallback(errorCallback);
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
-                }
-            }
+        // 检查是否已经有这个权限了
+        if (PermissionsCode.alreadyPermissions(getActivity(), permissionsCode)) {
+            successCallback.run();
         } else {
-            Toast.makeText(getActivity(), "错误:请求未定义权限", Toast.LENGTH_SHORT).show();
+            String sysActivity = permissionsCode.getSysActivity();
+            if (sysActivity != null) {
+                // 特殊
+                otherPermissions = permissionsCode.getPermissions();
+                permissionsCode.setSuccessCallback(successCallback);
+                permissionsCode.setErrorCallback(errorCallback);
+                Intent intent = new Intent(sysActivity);
+                if(permissionsCode.getNeedPackage()){
+                    intent.setData(Uri.parse("package:" + this.getPackageName()));
+                }
+                activityResult.launch(intent);
+            } else {
+                permissionsCode.setSuccessCallback(successCallback);
+                permissionsCode.setErrorCallback(errorCallback);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{permissionsCode.getPermissions()}, permissionsCode.getCode());
+            }
         }
     }
 

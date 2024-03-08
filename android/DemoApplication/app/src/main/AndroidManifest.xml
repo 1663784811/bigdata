@@ -39,6 +39,15 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!--   获取地理位置 -->
+    <!--   粗略定位的话请加上此权限  -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--   精确定位的话请加上此权限   -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--  定位权限，Android Q 新增后台定位权限  -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+
 
 
 
