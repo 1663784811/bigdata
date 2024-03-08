@@ -7,7 +7,7 @@
       </div>
       <div class="nav-list-item" @click="goToFn('order')">
         <i class="nbicon nbfenlei"></i>
-        <span>订单</span>
+        <span>账单</span>
       </div>
     </ul>
   </div>

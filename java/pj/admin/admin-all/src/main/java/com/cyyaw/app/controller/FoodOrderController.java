@@ -51,9 +51,16 @@ public class FoodOrderController {
     public BaseResult updateCar(@RequestBody AddMyCar addMyCar, @PathVariable String boardId) {
         BaseResult result = cartService.updateMyCar(boardId, addMyCar);
         // 通知其它手机
-
         return result;
     }
+
+    @ApiOperation(value = "查询购物车", notes = "查询购物车")
+    @GetMapping("/findMyCart")
+    public BaseResult findMyCart(@PathVariable String boardId) {
+        BaseResult result = cartService.myCartList(boardId);
+        return result;
+    }
+
 
     // 提交菜品
     @ApiOperation(value = "创建订单", notes = "创建订单")
@@ -64,9 +71,14 @@ public class FoodOrderController {
         OOrder order = orderService.createOrder(submitOrder);
         return BaseResult.ok(order);
     }
+
     // 获取餐桌订单
-
-
+    @ApiOperation(value = "获取餐桌订单", notes = "获取餐桌订单")
+    @GetMapping("/boardOrder")
+    public BaseResult boardOrder(@PathVariable String boardId) {
+        OOrder order = orderService.boardOrder(boardId);
+        return BaseResult.ok(order);
+    }
     // 点击支付
 
 

@@ -12,27 +12,38 @@
           </div>
           <div class="goodsInfo">
             <div>
-              米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]米家互联网空调[砍价]
+              米家互联网空调[砍调[砍价]米家互联网空调[砍价]
             </div>
             <div>
               <div>$100</div>
             </div>
             <div>
-              <van-stepper/>
+              <van-stepper @change="updateCartFn" name="aaaaa"/>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="carBox">
+    <div class="carLogo">
+      <div class="imgBox">
+        <img src="@/assets/reserv_hot.png" alt="">
+      </div>
+    </div>
+    <div class="carInfo">
+      <div class="price">￥20</div>
+      <div class="priceNote">查看明细</div>
+    </div>
+    <div class="submitBtn">去结算</div>
+  </div>
   <navBar/>
 </template>
 
 <script setup>
-import {nextTick, onMounted, reactive} from 'vue'
+import {onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {commonQuery} from '@/service/api'
-import {closeToast, showLoadingToast, showToast} from 'vant'
+import {commonQuery, updateCart, findMyCart} from '@/service/api'
 import {useCartStore} from '@/stores/cart'
 import {useUserStore} from "@/stores/user";
 import NavBar from "@/components/NavBar.vue";
@@ -53,6 +64,7 @@ onMounted(async () => {
     state.isLogin = true;
   }
   goodsType();
+  findMyCartFn();
 })
 
 
@@ -91,6 +103,26 @@ const storeGoods = (typeCode) => {
 }
 
 
+const updateCartFn = (value, detail) => {
+  updateCart({
+    number: 1,
+    skuId: 'ss',
+    boardId: route.params.code
+  }).then((rest) => {
+    console.log(rest)
+  })
+  console.log(value, detail)
+}
+
+const findMyCartFn = () => {
+  findMyCart({
+    boardId: route.params.code
+  }).then((rest) => {
+    console.log(rest)
+  })
+
+}
+
 </script>
 
 <style lang="less" scoped>
@@ -110,6 +142,7 @@ const storeGoods = (typeCode) => {
     background: #fff;
     display: flex;
     align-items: center;
+    padding: 6px;
 
     .imgBox {
       width: 100px;
@@ -127,6 +160,61 @@ const storeGoods = (typeCode) => {
       flex: 1;
     }
   }
+}
 
+.carBox {
+  position: fixed;
+  bottom: 66px;
+  left: 10px;
+  right: 10px;
+  background: #212526;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  height: 45px;
+
+  .carLogo {
+    position: relative;
+
+    .imgBox {
+      position: absolute;
+      bottom: -20px;
+      left: 12px;
+      width: 44px;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+
+  .carInfo {
+    flex: 1;
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+
+    .price {
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .priceNote {
+      color: #fff;
+      margin-left: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .submitBtn {
+    height: 100%;
+    background: #ffdf20;
+    border-radius: 0 30px 30px 0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 16px;
+  }
 }
 </style>

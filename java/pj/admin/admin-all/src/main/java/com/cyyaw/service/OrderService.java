@@ -29,4 +29,9 @@ public interface OrderService {
      */
     BaseResult orderById(String orderId);
 
+    /**
+     * 获取餐桌订单
+     */
+    OOrder boardOrder(String boardId);
+
 }

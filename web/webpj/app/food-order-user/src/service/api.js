@@ -24,3 +24,10 @@ export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/a
 // =====================================================================
 
 export function crateBoard(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/food/board/${params.boardId}/crateBoard`, params);}
+
+// 订单详情
+export function getBoardOrder(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/food/board/${params.boardId}/boardOrder`);}
+// 更新购物车
+export function updateCart(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/food/board/${params.boardId}/updateCart`, params);}
+// 查找购物车
+export function findMyCart(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/food/board/${params.boardId}/findMyCart`, {params});}

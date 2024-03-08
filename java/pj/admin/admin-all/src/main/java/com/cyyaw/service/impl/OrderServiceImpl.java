@@ -347,6 +347,18 @@ public class OrderServiceImpl implements OrderService {
         return BaseResult.ok(data);
     }
 
+    @Override
+    public OOrder boardOrder(String boardId) {
+        OOrder order = oOrderDao.findNowBoardOrder(boardId);
+        if (null != order) {
+            String tid = order.getTid();
+            List<ODetails> oDetailsList = oDetailsDao.findByOrderId(tid);
+            order.setODetailsList(oDetailsList);
+            return order;
+        }
+        return null;
+    }
+
     private OOrder createOrder(StoreRest storeRest, SubmitOrder submitOrder) {
         String userId = submitOrder.getUid();
         String userName = submitOrder.getUserName();

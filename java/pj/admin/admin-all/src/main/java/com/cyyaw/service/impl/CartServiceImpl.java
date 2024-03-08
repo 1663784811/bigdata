@@ -1,7 +1,5 @@
 package com.cyyaw.service.impl;
 
-import java.util.Date;
-
 import com.cyyaw.enterprise.table.dao.EStoreDao;
 import com.cyyaw.enterprise.table.entity.EStore;
 import com.cyyaw.service.CartService;
@@ -25,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,15 +46,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public BaseResult myCartList(String userId) {
-
         //  第一步: 根据门店分组，查出有多少门店
         GCart gCart = new GCart();
         gCart.setUserId(userId);
-
-
         ExampleMatcher matcher = ExampleMatcher.matching();
-
-
         PageRequest of = PageRequest.of(0, 10);
         Example<GCart> ex = Example.of(gCart, matcher);
         Page<GCart> gCartPage = gCartDao.findAll(ex, of);

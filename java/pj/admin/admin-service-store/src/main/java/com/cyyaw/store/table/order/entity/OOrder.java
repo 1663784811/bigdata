@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -62,7 +63,9 @@ public class OOrder implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "store_name", columnDefinition = "varchar(32) COMMENT '门店名'")
     private String storeName;
-
+    @Basic
+    @Column(name = "board_id", columnDefinition = "varchar(32) COMMENT '餐桌Id'")
+    private String boardId;
     //==============
     @Basic
     @Column(name = "order_no", columnDefinition = "varchar(32) not null COMMENT '订单号'")
@@ -109,5 +112,10 @@ public class OOrder implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "pay_type", columnDefinition = "int COMMENT '最后付款方式{0:微信,1:支付宝}'")
     private Integer payType;
+
+
+
+    @Transient
+    private List<ODetails> oDetailsList;
 
 }
