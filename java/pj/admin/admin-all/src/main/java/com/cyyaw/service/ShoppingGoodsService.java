@@ -1,5 +1,6 @@
 package com.cyyaw.service;
 
+import com.cyyaw.store.table.goods.entity.GGoods;
 import com.cyyaw.store.table.goods.entity.GGoodsSearch;
 import com.cyyaw.util.entity.GoodsEntity;
 import com.cyyaw.util.tools.BaseResult;
@@ -19,5 +20,10 @@ public interface ShoppingGoodsService {
     BaseResult goodsDetailsText(String goodsId);
 
     BaseResult findGoodsSku(String goodsId);
+
+    BaseResult goodsTypeList(GGoods gGoods);
+
+
+
 
 }

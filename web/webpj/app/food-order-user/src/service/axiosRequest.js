@@ -36,7 +36,6 @@ instance.interceptors.response.use(res => {
     //     console.log("=============================")
     //     return Promise.reject(res.data)
     // }
-    console.log('sssssssssssssssssssssssss', res.data)
     return res.data
 }, error => {
     showFailToast('服务端异常！')

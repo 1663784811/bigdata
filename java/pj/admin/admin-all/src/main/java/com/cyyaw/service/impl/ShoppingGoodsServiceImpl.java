@@ -195,4 +195,12 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
         return BaseResult.ok(goodsEntity);
     }
 
+    @Override
+    public BaseResult goodsTypeList(GGoods gGoods) {
+
+
+
+        return null;
+    }
+
 }

@@ -17,7 +17,8 @@ onMounted(async () => {
     await router.replace({
       name: 'home',
       params: {
-        appid
+        appid,
+        code: 'A001'
       }
     });
   } else {

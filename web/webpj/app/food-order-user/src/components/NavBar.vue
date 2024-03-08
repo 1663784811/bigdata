@@ -1,26 +1,38 @@
 <template>
   <div class="nav-bar van-hairline--top">
     <ul class="nav-list">
-      <router-link class="nav-list-item active" to="home">
+      <div class="nav-list-item active" @click="goToFn('home')">
         <i class="nbicon nblvsefenkaicankaoxianban-1"></i>
         <span>点菜</span>
-      </router-link>
-      <router-link class="nav-list-item" to="order">
+      </div>
+      <div class="nav-list-item" @click="goToFn('order')">
         <i class="nbicon nbfenlei"></i>
         <span>订单</span>
-      </router-link>
+      </div>
     </ul>
   </div>
 </template>
 
 <script setup>
 import {onMounted} from 'vue'
-import {useRoute} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 
+const router = useRouter()
 const route = useRoute()
+
 onMounted(() => {
 
 })
+
+const goToFn = (name) => {
+  router.push({
+    name,
+    params: route.params,
+    query: route.query
+  })
+}
+
+
 </script>
 
 <style lang="less" scoped>

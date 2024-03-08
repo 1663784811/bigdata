@@ -1,9 +1,7 @@
 <template>
   <div class="mainMenu">
     <van-sidebar>
-      <van-sidebar-item title="标签名 1"/>
-      <van-sidebar-item title="标签名 2"/>
-      <van-sidebar-item title="标签名 3"/>
+      <van-sidebar-item v-for="(item, index) in state.typeArr" :key="index" :title="item.name"/>
     </van-sidebar>
     <div class="menuItemBox">
       <div v-for="item in 10" :key="item">
@@ -39,40 +37,57 @@ import {useCartStore} from '@/stores/cart'
 import {useUserStore} from "@/stores/user";
 import NavBar from "@/components/NavBar.vue";
 
+
 let userStore = useUserStore();
 const cart = useCartStore()
 const router = useRouter()
 const route = useRoute()
 const state = reactive({
   isLogin: false,
-  recommends: [],
   loading: true,
-  scrollTop: 0,
-  pageStatus: 0,
-  reqParameter: {
-    sort: 'createTime_desc',
-    code: 'select_black_room',
-    name: '',
-    account: '',
-    page: 1,
-    size: 30
-  }
+  typeArr: [],
 })
 
 onMounted(async () => {
   if (userStore.token) {
     state.isLogin = true;
   }
+  goodsType();
 })
 
 
 /**
  * 查询菜单
  */
-const aaa = (rest) => {
+const goodsType = () => {
+  commonQuery({
+    code: 'select_g_type_by_app_id',
+    appid: route.params.appid,
+    page: 1,
+    size: 200
+  }).then((res) => {
+    if (res.data && res.data.length > 0) {
+      state.typeArr = res.data;
+      for (let i = 0; i < state.typeArr.length; i++) {
+        storeGoods(state.typeArr[i].tid);
+      }
+    } else {
+      state.typeArr = [];
+    }
+    console.log('sssssssssssssss', res)
+  })
+}
 
-
-
+const storeGoods = (typeCode) => {
+  commonQuery({
+    code: 'select_g_goods_by_store_id',
+    storeId: route.params.appid,
+    page: 1,
+    size: 200,
+    typeCode
+  }).then((res) => {
+    console.log('sssssssssssssss', res)
+  })
 }
 
 
