@@ -6,6 +6,10 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.GnssStatus;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +28,7 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -35,6 +40,7 @@ import com.cyyaw.demoapplication.service.FloatWindowTaskService;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends BaseAppCompatActivity implements View.OnClickListener {
@@ -136,14 +142,38 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                 Toast.makeText(this, "视频", Toast.LENGTH_SHORT).show();
             });
         } else if (id == R.id.btn_location) {
-            requestPermissionsFn(PermissionsCode.ACCESS_COARSE_LOCATION, () -> {
-                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
-            });
+
             requestPermissionsFn(PermissionsCode.ACCESS_FINE_LOCATION, () -> {
-                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
-            });
-            requestPermissionsFn(PermissionsCode.ACCESS_BACKGROUND_LOCATION, () -> {
-                Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
+                requestPermissionsFn(PermissionsCode.ACCESS_BACKGROUND_LOCATION, () -> {
+                    Toast.makeText(this, "GPS已开启", Toast.LENGTH_SHORT).show();
+                    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    List<String> allProviders = locationManager.getAllProviders();
+                    if (null != allProviders) {
+                        for (int i = 0; i < allProviders.size(); i++) {
+                            Log.d(TAG, "=====" + allProviders.get(i));
+                        }
+                    }
+                    // 创建 LocationListener 实例
+                    LocationListener  locationListener = new LocationListener() {
+                        @Override
+                        public void onLocationChanged(@NonNull Location location) {
+                            // 当位置变化时调用此方法
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            // 在此处处理获取到的经纬度信息
+                            Log.d(TAG, "=====" + longitude);
+                            Log.d(TAG, "=====" + latitude);
+                        }
+                    };
+
+                    // 请求位置更新
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                    locationManager.requestFlush(LocationManager.GPS_PROVIDER, locationListener, 0);
+
+                });
             });
         } else if (id == R.id.btn_go_my_view) {
 
@@ -197,5 +227,11 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     @Override
     Activity getActivity() {
         return this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
