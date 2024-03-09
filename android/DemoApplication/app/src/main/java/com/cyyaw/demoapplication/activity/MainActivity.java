@@ -163,6 +163,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                             // 在此处处理获取到的经纬度信息
                             Log.d(TAG, "=====" + longitude);
                             Log.d(TAG, "=====" + latitude);
+                            locationManager.removeUpdates(this);
                         }
                     };
 
@@ -171,7 +172,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                         return;
                     }
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                    locationManager.requestFlush(LocationManager.GPS_PROVIDER, locationListener, 0);
 
                 });
             });
