@@ -71,4 +71,8 @@ public class CSql implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "login", columnDefinition = "int default '1' COMMENT '是否需要登录{0:否,1:是}'")
     private Integer login;
+
+    @Basic
+    @Column(name = "status", columnDefinition = "int default '0' COMMENT '状态{0:启用,1:停用}'")
+    private Integer status;
 }

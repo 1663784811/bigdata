@@ -47,7 +47,7 @@ public class CommonDaoImpl implements CommonDao {
         BaseResult rest = new BaseResult();
         //第一步：查询  sql 字符串
         String code = json.getString("code");
-        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.status = 0 and c.tid = ?", code);
         if (sqlRowSet.next()) {
             String countsql = sqlRowSet.getString("count_sql");
             String sqlcontent = sqlRowSet.getString("content_sql");
