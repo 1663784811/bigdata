@@ -12,13 +12,12 @@ const route = useRoute();
 const router = useRouter();
 const loginInfoSt = loginInfo();
 onMounted(async () => {
-  const {code} = route.params;
+  const {appid, storeId} = route.params;
   // 查app
   const {data} = await commonQuery({
     code: 'select_e_store_by_code',
-    storeId: code
-  }, code);
-  console.log("sssssssssssssssss", data)
+    storeId
+  }, appid);
   if (data && data.length === 1) {
     loginInfoSt.storeInfo = data[0];
   } else {

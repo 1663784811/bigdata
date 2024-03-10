@@ -17,7 +17,7 @@ const router = createRouter({
             meta: {notLogin: true, title: '欢迎页面'}
         },
         {
-            path: '/:appid',
+            path: '/:appid/store/:storeId',
             component: () => import('@/views/AppMain.vue'),
             children: [
                 {

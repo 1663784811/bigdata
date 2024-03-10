@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 @Api(tags = "点餐系统")
 @RestController
-@RequestMapping("/app/{appId}/food/board/{boardId}")
+@RequestMapping("/app/{appId}/store/{storeId}/food/board")
 public class FoodOrderController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class FoodOrderController {
     private OrderService orderService;
 
     @ApiOperation(value = "开桌", notes = "开桌")
-    @PostMapping("/crateBoard")
+    @PostMapping("/crateBoard/{boardId}")
     public BaseResult crateBoard(@RequestBody Map<String, Object> map, @PathVariable String boardId) {
         JSONObject json = new JSONObject(map);
         Integer number = json.getInt("number");
@@ -47,17 +47,17 @@ public class FoodOrderController {
 
     // 添加或减少菜品,
     @ApiOperation(value = "更新购物车", notes = "更新购物车")
-    @PostMapping("/updateCart")
-    public BaseResult updateCar(@RequestBody AddMyCar addMyCar, @PathVariable String boardId) {
+    @PostMapping("/updateCart/{boardId}")
+    public BaseResult updateCar(@PathVariable String boardId, @RequestBody AddMyCar addMyCar) {
         BaseResult result = cartService.updateMyCar(boardId, addMyCar);
         // 通知其它手机
         return result;
     }
 
     @ApiOperation(value = "查询购物车", notes = "查询购物车")
-    @GetMapping("/findMyCart")
-    public BaseResult findMyCart(@PathVariable String boardId, String storeId) {
-        BaseResult result = cartService.myStoreCartList(boardId, storeId);
+    @GetMapping("/findMyCart/{boardId}")
+    public BaseResult findMyCart(@PathVariable String storeId, @PathVariable String boardId) {
+        BaseResult result = cartService.myStoreCartList(storeId, boardId);
         return result;
     }
 
@@ -74,7 +74,7 @@ public class FoodOrderController {
 
     // 获取餐桌订单
     @ApiOperation(value = "获取餐桌订单", notes = "获取餐桌订单")
-    @GetMapping("/boardOrder")
+    @GetMapping("/boardOrder/{boardId}")
     public BaseResult boardOrder(@PathVariable String boardId) {
         OOrder order = orderService.boardOrder(boardId);
         return BaseResult.ok(order);

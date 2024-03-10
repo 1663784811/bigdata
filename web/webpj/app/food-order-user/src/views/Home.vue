@@ -77,11 +77,11 @@ const goodsType = () => {
     appid: route.params.appid,
     page: 1,
     size: 200
-  }).then((res) => {
+  }, route.params.appid).then((res) => {
     if (res.data && res.data.length > 0) {
       state.typeArr = res.data;
       for (let i = 0; i < state.typeArr.length; i++) {
-        storeGoods(state.typeArr[i].tid);
+        // storeGoods(state.typeArr[i].tid);
       }
     } else {
       state.typeArr = [];
@@ -90,6 +90,9 @@ const goodsType = () => {
   })
 }
 
+/**
+ * 查询商品
+ */
 const storeGoods = (typeCode) => {
   commonQuery({
     code: 'select_g_goods_by_store_id',
@@ -97,27 +100,34 @@ const storeGoods = (typeCode) => {
     page: 1,
     size: 200,
     typeCode
-  }).then((res) => {
+  }, route.params.appid).then((res) => {
     console.log('sssssssssssssss', res)
   })
 }
 
-
+/**
+ * 更新购物车
+ */
 const updateCartFn = (value, detail) => {
   updateCart({
     number: 1,
     skuId: 'ss',
-    boardId: route.params.code
-  }).then((rest) => {
+    boardId: route.params.code,
+    storeId: route.params.storeId
+  }, route.params.appid).then((rest) => {
     console.log(rest)
   })
   console.log(value, detail)
 }
 
+/**
+ * 查找购物车
+ */
 const findMyCartFn = () => {
   findMyCart({
-    boardId: route.params.code
-  }).then((rest) => {
+    boardId: route.params.code,
+    storeId: route.params.storeId
+  }, route.params.appid).then((rest) => {
     console.log(rest)
   })
 

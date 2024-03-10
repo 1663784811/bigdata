@@ -23,11 +23,11 @@ export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/a
 // =====================================================================
 // =====================================================================
 
-export function crateBoard(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/food/board/${params.boardId}/crateBoard`, params);}
+export function crateBoard(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/crateBoard`, params);}
 
 // 订单详情
-export function getBoardOrder(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/food/board/${params.boardId}/boardOrder`);}
+export function getBoardOrder(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/boardOrder/${params.boardId}`);}
 // 更新购物车
-export function updateCart(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/food/board/${params.boardId}/updateCart`, params);}
+export function updateCart(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/updateCart/${params.boardId}`, params);}
 // 查找购物车
-export function findMyCart(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/food/board/${params.boardId}/findMyCart`, {params});}
+export function findMyCart(params = {}, appId) {return axios.get( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/findMyCart/${params.boardId}`);}

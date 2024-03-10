@@ -1,7 +1,7 @@
 <template>
   <div class="userInfo">
     <div class="userInfoItem">
-      <div class="textNote">门店: {{loginInfoSt.storeInfo.name}} </div>
+      <div class="textNote">门店: {{ loginInfoSt.storeInfo.name }}</div>
     </div>
 
     <div class="userInfoItem">
@@ -82,7 +82,7 @@ onMounted(() => {
 
   // commonQuery({
   //   code: ""
-  // }, route.params.code).then((rest) => {
+  // }, route.params.appid).then((rest) => {
   //   console.log(rest)
   // })
 })
@@ -94,9 +94,8 @@ const logOut = function () {
   const eCode = loginInfoSt.eCode;
   router.push({
     name: 'login',
-    query: {
-      eCode
-    }
+    query: route.query,
+    params: route.params
   })
 }
 

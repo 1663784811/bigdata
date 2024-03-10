@@ -1,5 +1,5 @@
 export const login = {
-    path: '/:code/account',
+    path: 'account',
     children: [
         {
             path: 'login',

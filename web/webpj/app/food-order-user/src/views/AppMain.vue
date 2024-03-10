@@ -15,11 +15,12 @@ const loginInfoSt = useUserStore();
 const socket = ref(null);
 
 onMounted(async () => {
-  const {appid} = route.params;
+  const {appid, storeId} = route.params;
+  // 查询门店
   const {data} = await commonQuery({
-    code: 'select_e_application_by_appid',
-    appid
-  })
+    code: 'select_e_store_by_code',
+    storeId: storeId
+  }, appid)
   if (data && data.length === 1) {
     // 保存app信息
     loginInfoSt.variable.appid = appid;

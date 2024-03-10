@@ -14,7 +14,7 @@ public interface CartService {
     /**
      * 查询我的门店购物车
      */
-    BaseResult myStoreCartList(String boardId, String storeId);
+    BaseResult myStoreCartList(String storeId, String userId);
 
     /**
      * 更新我的购物车
