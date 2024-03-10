@@ -31,12 +31,33 @@
         <img src="@/assets/reserv_hot.png" alt="">
       </div>
     </div>
-    <div class="carInfo">
+    <div class="carInfo" @click="state.showCart = true">
       <div class="price">￥20</div>
       <div class="priceNote">查看明细</div>
     </div>
-    <div class="submitBtn">去结算</div>
+    <div class="submitBtn" @click="goPay">去结算</div>
   </div>
+  <van-popup
+      v-model:show="state.showCart"
+      round
+      :overlay="true"
+      z-index="9"
+      position="bottom"
+  >
+    <div class="carPopup">
+      <div class="goods" v-for="(item, index) in state.cartArr" :key="index">
+        <div class="imgBox">
+          <img :src="item.goods.photo" alt="">
+        </div>
+        <div class="goodsInfo">
+          <div>{{ item.goods.name }}</div>
+        </div>
+        <div>
+          <van-stepper @change="updateCartFn" name="aaaaa"/>
+        </div>
+      </div>
+    </div>
+  </van-popup>
   <navBar/>
 </template>
 
@@ -44,19 +65,19 @@
 import {onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {commonQuery, updateCart, findMyCart} from '@/service/api'
-import {useCartStore} from '@/stores/cart'
 import {useUserStore} from "@/stores/user";
 import NavBar from "@/components/NavBar.vue";
 
 
 let userStore = useUserStore();
-const cart = useCartStore()
 const router = useRouter()
 const route = useRoute()
 const state = reactive({
   isLogin: false,
   loading: true,
   typeArr: [],
+  cartArr: [],
+  showCart: true
 })
 
 onMounted(async () => {
@@ -111,7 +132,7 @@ const storeGoods = (typeCode) => {
 const updateCartFn = (value, detail) => {
   updateCart({
     number: 1,
-    skuId: 'ss',
+    skuId: 'ee',
     boardId: route.params.code,
     storeId: route.params.storeId
   }, route.params.appid).then((rest) => {
@@ -128,9 +149,20 @@ const findMyCartFn = () => {
     boardId: route.params.code,
     storeId: route.params.storeId
   }, route.params.appid).then((rest) => {
-    console.log(rest)
+    state.cartArr = rest.data;
+    console.log("dddddddddddddddddd", rest.data)
   })
+}
 
+/**
+ * 去结算
+ */
+const goPay = () => {
+  if (state.showCart) {
+    console.log('提交订单')
+  } else {
+    state.showCart = true;
+  }
 }
 
 </script>
@@ -182,6 +214,7 @@ const findMyCartFn = () => {
   display: flex;
   align-items: center;
   height: 45px;
+  z-index: 99;
 
   .carLogo {
     position: relative;
@@ -225,6 +258,32 @@ const findMyCartFn = () => {
     align-items: center;
     padding: 0 20px;
     font-size: 16px;
+  }
+}
+
+.carPopup {
+  max-height: 80vh;
+  padding-bottom: 126px;
+  overflow: auto;
+
+  .goods {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+
+    .imgBox {
+      width: 70px;
+      height: 70px;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .goodsInfo {
+      flex: 1;
+    }
   }
 }
 </style>

@@ -48,6 +48,7 @@ const goToFn = (name) => {
   background: #fff;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  border-top: 1px solid #eee;
 
   .nav-list {
     width: 100%;
