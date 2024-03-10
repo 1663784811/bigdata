@@ -43,7 +43,7 @@
       </div>
       <div class="pageList">
         <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
-          <div @click="selectPage(item)">{{ item.name }}</div>
+          <div @click="selectPage(item)">{{ item.name +"\t"+ item.pageCode }}</div>
           <div class="rightBtn">
             <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updatePage(item)"/>
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delPage(item)"/>

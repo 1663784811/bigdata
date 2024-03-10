@@ -206,7 +206,7 @@ const loadData = () => {
     commonRequest(
         loginInfoSt.reLoadUrl(state.tableObj.queryRequest.url),
         {
-          ...state.tableObj.queryRequest.parameter,
+          ...loginInfoSt.reLoadParameter(state.tableObj.queryRequest.parameter),
           ...state.tableObj.queryRequest.pm,
           ...commonTableSearchData.value,
           ...state.pageData

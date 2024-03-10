@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api(tags = "APP管理员登录模块")
-@RequestMapping("/appAdmin/{appId}/login")
+@RequestMapping("/appAdmin/{appId}/store/{storeId}/login")
 @RestController
 public class AppAdminLoginController {
 

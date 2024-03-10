@@ -20,6 +20,7 @@ onMounted(async () => {
   }, appid);
   if (data && data.length === 1) {
     loginInfoSt.storeInfo = data[0];
+    loginInfoSt.variable.storeId = loginInfoSt.storeInfo.tid;
   } else {
     loginInfoSt.storeInfo = {}
     await router.replace({name: 'welcomePage'});

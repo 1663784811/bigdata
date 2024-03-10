@@ -13,23 +13,45 @@ export const loginInfo = defineStore('loginInfo', {
     },
     state: () => {
         const variable = ref({
-            code: ''
+            eCode: '',
+            appid: '',
+            storeId: '',
         })
         const userInfo = ref({});
         const token = ref("");
         // 企业信息
         const enterpriseInfo = ref({})
+
+        /**
+         * 解释地址
+         */
         const reLoadUrl = (url) => {
             for (const key in variable.value) {
-                url = url.replaceAll('${' + key + '}', variable.value[key]);
+                const val = variable.value[key];
+                url = url.replaceAll('${' + key + '}', val ? val : '');
             }
             return url;
+        }
+        /**
+         * 解释参数
+         */
+        const reLoadParameter = (obj) => {
+            if (obj) {
+                for (const objKey in obj) {
+                    for (const key in variable.value) {
+                        const val = variable.value[key];
+                        obj[objKey] = obj[objKey].replaceAll('${' + key + '}', val ? val : '');
+                    }
+                }
+            }
+            return obj;
         }
         return {
             userInfo,
             token,
             enterpriseInfo,
             reLoadUrl,
+            reLoadParameter,
             variable
         }
     }
