@@ -15,8 +15,9 @@ onMounted(async () => {
   const {appid, storeId} = route.params;
   // 查app
   const {data} = await commonQuery({
-    code: 'select_e_store_by_code',
-    storeId
+    code: 'select_e_store_by_storeId',
+    storeId,
+    appid
   }, appid);
   if (data && data.length === 1) {
     loginInfoSt.storeInfo = data[0];

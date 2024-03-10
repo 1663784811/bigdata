@@ -18,8 +18,9 @@ onMounted(async () => {
   const {appid, storeId} = route.params;
   // 查询门店
   const {data} = await commonQuery({
-    code: 'select_e_store_by_code',
-    storeId: storeId
+    code: 'select_e_store_by_storeId',
+    storeId: storeId,
+    appid
   }, appid)
   if (data && data.length === 1) {
     // 保存app信息

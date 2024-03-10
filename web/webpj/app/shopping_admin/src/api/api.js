@@ -33,7 +33,7 @@ export function commonQuery(params = {}, appid) {return axios.get(`${baseUrl}/ap
 //通用保存
 export function commonSave(params = {}, appid) {return axios.post(`${baseUrl}/appAdmin/${appid}/common/save`, params);}
 //登录
-export const logInFn = (params = {}, appid) => {return axios.post(`${baseUrl}/appAdmin/${appid}/login/login`, params);}
+export const logInFn = (params = {}, appid) => {return axios.post(`${baseUrl}/appAdmin/${appid}/store/${params.storeId}/login/login`, params);}
 //注册
 export const register = (params = {}) => {return axios.post(`${baseUrl}/appAdmin/${appid}/login/register`, params);}
 //

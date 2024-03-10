@@ -1,7 +1,7 @@
 <template>
   <Modal
       v-model="configModule.sqlConfig.show"
-      title="保存数据"
+      title="SQL列表数据"
       @on-ok="modalData.Save()"
       @on-cancel="modalData.Cancel()"
       :mask-closable="false"
@@ -38,7 +38,7 @@
       <!--==================    ====================-->
       <Modal
           v-model="modalData.showModal"
-          title="保存数据"
+          title="保存SQL数据"
           @on-ok="modalData.Save()"
           @on-cancel="modalData.Cancel()"
           :mask-closable="false"
@@ -76,6 +76,15 @@
                 <Select v-model="sqlData.login">
                   <Option :value="0">不需要</Option>
                   <Option :value="1">需要</Option>
+                </Select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">状态</div>
+              <div class="content">
+                <Select v-model="sqlData.status">
+                  <Option :value="0">启用</Option>
+                  <Option :value="1">停用</Option>
                 </Select>
               </div>
             </div>
@@ -255,8 +264,8 @@ const tableData = ref({
       key: 'name'
     },
     {
-      title: '类型',
-      key: 'type'
+      title: '状态',
+      key: 'status'
     },
     {
       title: '备注',

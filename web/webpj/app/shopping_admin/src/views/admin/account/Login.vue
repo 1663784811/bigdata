@@ -2,7 +2,8 @@
   <div class="winHeight">
     <div class="loginContent">
       <div class="imgContent">
-        <img data-v-aa5851c8="" class="login-left-img" src="https://admin.spicyboy.cn/assets/png/login_left-VQgr6mRR.png" alt="login">
+        <img data-v-aa5851c8="" class="login-left-img"
+             src="https://admin.spicyboy.cn/assets/png/login_left-VQgr6mRR.png" alt="login">
       </div>
       <div class="contentBox">
         <div class="loginBox">
@@ -43,7 +44,8 @@ const enterprise = ref({
 const loginParams = {
   userName: "root",
   password: "root",
-  code: "123456"
+  code: "123456",
+  storeId: ''
 };
 
 
@@ -56,6 +58,7 @@ onMounted(() => {
  * 点击登录
  */
 const clickLogin = function () {
+  loginParams.storeId = route.params.storeId
   logInFn(loginParams, route.params.appid).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
