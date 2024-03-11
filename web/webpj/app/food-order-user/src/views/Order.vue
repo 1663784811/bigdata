@@ -1,6 +1,6 @@
 <template>
   <div class="order-detail-box">
-    <div v-if="!state.loading">
+    <div v-if="!state.loading && state.detail.detailsList && state.detail.detailsList.length>0">
       <!--   =======================   -->
       <div class="storeBox" v-if="state.detail.store">
         <van-cell :title="state.detail.store.name||'门店'" is-link icon="shop-o"/>
@@ -30,7 +30,6 @@
         <van-cell title="订单编号" :value="state.detail.order.orderNo"/>
         <van-cell title="订单状态" :value="state.detail.order.status"/>
         <van-cell title="下单时间" :value="state.detail.order.createTime"/>
-        <van-cell title="快递" value="0.00"/>
         <van-cell title="商品数量" :value="state.detail.order.number"/>
         <van-cell title="商品总价" :value="state.detail.order.payableAmount"/>
         <van-cell title="优惠" value="0.00"/>
@@ -38,10 +37,12 @@
       </div>
       <!--   =======================   -->
       <div class="order-status">
-        <van-button>加菜</van-button>
+        <van-button block round type="success">加菜</van-button>
       </div>
     </div>
-    <van-empty description="您还没有点餐"/>
+    <van-empty
+        v-if="!state.loading && state.detail.detailsList && state.detail.detailsList.length == 0"
+        description="您还没有点餐"/>
   </div>
 
   <navBar/>
@@ -78,7 +79,8 @@ const init = async () => {
     boardId: route.params.code
   }, route.params.appid)
   if (data) {
-
+    state.detail.order = data;
+    state.detail.detailsList = data.odetailsList;
   }
   // state.detail = data
   state.loading = false;
@@ -113,14 +115,19 @@ const showPayFn = () => {
 
     .good-item {
       display: flex;
-      padding: 16px 10px;
+      padding: 6px 10px;
       border-bottom: 1px solid #ebebeb;
+      align-items: center;
 
       .good-img {
         display: flex;
         align-items: center;
+        width: 70px;
+        height: 70px;
 
         img {
+          max-width: 100%;
+          max-height: 100%;
         }
       }
 
@@ -134,6 +141,11 @@ const showPayFn = () => {
         .good-title {
           display: flex;
           justify-content: space-between;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
 
         .good-btn {
@@ -163,21 +175,10 @@ const showPayFn = () => {
 
   .order-status {
     background: #fff;
-    margin-bottom: 50px;
+    margin-bottom: 120px;
     padding: 20px;
     font-size: 15px;
 
-    .status-item {
-      margin-bottom: 10px;
-
-      label {
-        color: #999;
-      }
-
-      span {
-
-      }
-    }
   }
 }
 </style>

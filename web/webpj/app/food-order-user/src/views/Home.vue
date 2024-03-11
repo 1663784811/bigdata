@@ -32,7 +32,8 @@
       </div>
     </div>
     <div class="carInfo" @click="state.showCart = true">
-      <div class="price">￥20</div>
+      <div class="price" v-if="state.countPriceObj.allTotalPrice">￥{{ state.countPriceObj.allTotalPrice }}</div>
+      <div class="price" v-else>￥--:--</div>
       <div class="priceNote">查看明细</div>
     </div>
     <div class="submitBtn" @click="goPay">去结算</div>
@@ -53,7 +54,7 @@
           <div>{{ item.goods.name }}</div>
         </div>
         <div>
-          <van-stepper @change="updateCartFn" name="aaaaa"/>
+          <van-stepper v-model="item.number" @minus="updateCartFn" @plus="updateCartFn" name="aaaaa"/>
         </div>
       </div>
     </div>
@@ -64,7 +65,7 @@
 <script setup>
 import {onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {commonQuery, updateCart, findMyCart} from '@/service/api'
+import {commonQuery, updateCart, findMyCart, countGoodsPrice, createOrder} from '@/service/api'
 import {useUserStore} from "@/stores/user";
 import NavBar from "@/components/NavBar.vue";
 
@@ -77,6 +78,7 @@ const state = reactive({
   loading: true,
   typeArr: [],
   cartArr: [],
+  countPriceObj: {},
   showCart: true
 })
 
@@ -88,6 +90,19 @@ onMounted(async () => {
   findMyCartFn();
 })
 
+
+/**
+ * 计算金额
+ */
+const countPrice = () => {
+  const params = getOrderParams();
+  countGoodsPrice(params, route.params.appid).then((rest) => {
+    console.log('sssssssssssssss', rest.data)
+    state.countPriceObj = rest.data;
+  })
+
+
+}
 
 /**
  * 查询菜单
@@ -136,7 +151,7 @@ const updateCartFn = (value, detail) => {
     boardId: route.params.code,
     storeId: route.params.storeId
   }, route.params.appid).then((rest) => {
-    console.log(rest)
+    findMyCartFn();
   })
   console.log(value, detail)
 }
@@ -149,8 +164,9 @@ const findMyCartFn = () => {
     boardId: route.params.code,
     storeId: route.params.storeId
   }, route.params.appid).then((rest) => {
+    console.log(rest)
     state.cartArr = rest.data;
-    console.log("dddddddddddddddddd", rest.data)
+    countPrice();
   })
 }
 
@@ -160,9 +176,32 @@ const findMyCartFn = () => {
 const goPay = () => {
   if (state.showCart) {
     console.log('提交订单')
+    const params = getOrderParams();
+    params.boardId = route.params.code
+    createOrder(params, route.params.appid).then((rest) => {
+      console.log('sssssssssssssssssssssssss', rest)
+    });
+
+
   } else {
     state.showCart = true;
   }
+}
+
+const getOrderParams = () => {
+  const params = {
+    goodsList: []
+  }
+  if (state.cartArr && state.cartArr.length > 0) {
+    for (let i = 0; i < state.cartArr.length; i++) {
+      const item = state.cartArr[i];
+      params.goodsList.push({
+        skuId: item.skuId,
+        number: item.number
+      })
+    }
+  }
+  return params;
 }
 
 </script>

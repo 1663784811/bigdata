@@ -23,6 +23,9 @@ export function getUserInfo(params = {}, appId) {return axios.get( `${baseUrl}/a
 // =====================================================================
 // =====================================================================
 
+export function countGoodsPrice(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/order/countGoodsPrice`, params);}
+export function createOrder(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/createOrder/${params.boardId}`, params);}
+
 export function crateBoard(params = {}, appId) {return axios.post( `${baseUrl}/app/${appId}/store/${params.storeId}/food/board/crateBoard`, params);}
 
 // 订单详情
