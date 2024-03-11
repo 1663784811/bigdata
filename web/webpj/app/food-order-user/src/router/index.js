@@ -21,16 +21,16 @@ const router = createRouter({
             component: () => import('@/views/AppMain.vue'),
             children: [
                 {
-                    path: 'selectNumber/:code',
-                    name: 'selectNumber',
-                    component: () => import('@/views/SelectNumber.vue'),
-                    meta: {notLogin: true, title: '选择用餐人数'}
-                },
-                {
                     path: 'home/:code',
                     name: 'home',
                     component: () => import('@/views/Home.vue'),
                     meta: {index: 1, title: '点菜'}
+                },
+                {
+                    path: 'selectNumber/:code',
+                    name: 'selectNumber',
+                    component: () => import('@/views/SelectNumber.vue'),
+                    meta: {notLogin: true, title: '选择用餐人数'}
                 },
                 {
                     path: 'order/:code',

@@ -15,11 +15,9 @@ onMounted(async () => {
   const token = loginInfoSt.token
   if (token && appid) {
     await router.replace({
-      name: 'home',
-      params: {
-        appid,
-        code: 'A001'
-      }
+      name: 'welcomePage',
+      params: route.params,
+      query: route.query
     });
   } else {
     loginInfoSt.enterpriseInfo = {}
