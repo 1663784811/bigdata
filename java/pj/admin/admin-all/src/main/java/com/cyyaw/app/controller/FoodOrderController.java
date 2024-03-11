@@ -6,8 +6,6 @@ import com.cyyaw.service.CartService;
 import com.cyyaw.service.FoodOrderService;
 import com.cyyaw.service.OrderService;
 import com.cyyaw.store.table.order.entity.OOrder;
-import com.cyyaw.user.config.TokenData;
-import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.entity.AddMyCar;
 import com.cyyaw.util.entity.SubmitOrder;
 import com.cyyaw.util.tools.BaseResult;
@@ -64,11 +62,9 @@ public class FoodOrderController {
 
     // 提交菜品
     @ApiOperation(value = "创建订单", notes = "创建订单")
-    @PostMapping("/createOrder")
-    public BaseResult createOrder(@RequestBody SubmitOrder submitOrder, @TokenData LoginInfo loginInfo) {
-        String userId = loginInfo.getId();
-        submitOrder.setUid(userId);
-        OOrder order = orderService.createOrder(submitOrder);
+    @PostMapping("/createOrder/{boardId}")
+    public BaseResult createOrder(@PathVariable String boardId, @RequestBody SubmitOrder submitOrder) {
+        OOrder order = orderService.createFoodOrder(boardId, submitOrder);
         return BaseResult.ok(order);
     }
 
@@ -79,6 +75,8 @@ public class FoodOrderController {
         OOrder order = orderService.boardOrder(boardId);
         return BaseResult.ok(order);
     }
+
+
     // 点击支付
 
 

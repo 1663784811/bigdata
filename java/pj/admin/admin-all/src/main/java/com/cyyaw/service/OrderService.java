@@ -34,4 +34,10 @@ public interface OrderService {
      */
     OOrder boardOrder(String boardId);
 
+    /**
+     * 提交点餐订单
+     */
+    OOrder createFoodOrder(String boardId, SubmitOrder submitOrder);
+
+
 }

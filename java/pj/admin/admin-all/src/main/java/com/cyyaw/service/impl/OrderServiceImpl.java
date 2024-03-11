@@ -250,7 +250,6 @@ public class OrderServiceImpl implements OrderService {
             order.setUserName(userName);
 
             order.setEnterpriseCode("");
-            order.setEnterpriseName("");
             order.setStoreId("");
             order.setStoreName("");
 
@@ -359,6 +358,61 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    @Override
+    public OOrder createFoodOrder(String boardId, SubmitOrder submitOrder) {
+        String description = submitOrder.getDescription();
+        // 第一点: 计算商品价格
+        CountGoodsRst countGoodsRst = countGoodsPrice(submitOrder);
+        List<StoreRest> storeRestList = countGoodsRst.getStoreRestList();
+        if (storeRestList == null || storeRestList.size() > 1) {
+            WebException.fail("非法提交");
+        }
+        StoreRest storeRest = storeRestList.get(0);
+        List<GoodsRest> goodsRestList = storeRest.getGoodsRestList();
+        EStore eStore = storeRest.getEStore();
+        BigDecimal goodsNum = storeRest.getGoodsNum();
+        //查询台桌是否有没有结束的订单
+        OOrder order = boardOrder(boardId);
+        List<ODetails> oDetailsList = new ArrayList<>();
+        if (null == order) {
+            order = new OOrder();
+            order.setTid(WhyStringUtil.getUUID());
+            order.setCreateTime(new Date());
+            order.setDel(0);
+            order.setNote("");
+            order.setUserId("");
+            order.setBoardId(boardId);
+            order.setUserName("点餐订单");
+
+            order.setEnterpriseCode(eStore.getEnterpriseCode());
+            order.setStoreId(eStore.getTid());
+            order.setStoreName(eStore.getName());
+
+            order.setOrderNo(WhyStringUtil.createOrderNum());
+            order.setType(1);
+            order.setStatus(0);
+            order.setDescription(description);
+            order.setNumber(goodsNum.intValue());
+            order.setAmount(BigDecimal.ZERO);
+            order.setExpressPrice(BigDecimal.ZERO);
+            order.setPayableAmount(BigDecimal.ZERO);
+            order.setPayType(null);
+        } else {
+            // 查找订单详情
+            oDetailsList.addAll(oDetailsDao.findByOrderId(order.getTid()));
+        }
+        // 钱
+        order.setAmount(order.getAmount().add(storeRest.getGoodsTotalPrice()));
+        order.setExpressPrice(order.getExpressPrice().add(storeRest.getExpressPrice()));
+        order.setPayableAmount(order.getPayableAmount().add(storeRest.getAllTotalPrice()));
+        order.setStatus(0);
+        oOrderDao.save(order);
+        // 保存订单详情
+        oDetailsList.addAll(saveOrderDetails(goodsRestList, order.getTid()));
+        order.setODetailsList(oDetailsList);
+        return order;
+    }
+
     private OOrder createOrder(StoreRest storeRest, SubmitOrder submitOrder) {
         String userId = submitOrder.getUid();
         String userName = submitOrder.getUserName();
@@ -381,8 +435,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUserId(userId);
         order.setUserName(userName);
 
-        order.setEnterpriseCode("");
-        order.setEnterpriseName("");
+        order.setEnterpriseCode(eStore.getEnterpriseCode());
         order.setStoreId(storeId);
         order.setStoreName(eStore.getName());
 
@@ -401,7 +454,16 @@ public class OrderServiceImpl implements OrderService {
         oOrderDao.save(order);
         // 生成订单详情
         List<GoodsRest> goodsRestList = storeRest.getGoodsRestList();
+        List<ODetails> oDetailsList = saveOrderDetails(goodsRestList, order.getTid());
+        order.setODetailsList(oDetailsList);
+        return order;
+    }
 
+    /**
+     * 保存订单详情
+     */
+    private List<ODetails> saveOrderDetails(List<GoodsRest> goodsRestList, String orderId) {
+        List<ODetails> oDetailsList = new ArrayList<>();
         for (int i = 0; i < goodsRestList.size(); i++) {
             GoodsRest goodsRest = goodsRestList.get(i);
             ODetails oDetails = new ODetails();
@@ -409,7 +471,7 @@ public class OrderServiceImpl implements OrderService {
             oDetails.setCreateTime(new Date());
             oDetails.setDel(0);
             oDetails.setNote("");
-            oDetails.setOrderId(order.getTid());
+            oDetails.setOrderId(orderId);
             oDetails.setGoodsId(goodsRest.getGGoods().getTid());
             oDetails.setSkuId(goodsRest.getGStoreGoodsSku().getTid());
             oDetails.setType(0);
@@ -418,9 +480,10 @@ public class OrderServiceImpl implements OrderService {
             oDetails.setPrice(goodsRest.getGStoreGoodsSku().getPrice());
             oDetails.setLastPrice(goodsRest.getGStoreGoodsSku().getPrice());
             oDetails.setNumber(goodsRest.getNumber());
-            oDetailsDao.save(oDetails);
+            oDetailsList.add(oDetailsDao.save(oDetails));
         }
-        return order;
+        return oDetailsList;
     }
+
 
 }
