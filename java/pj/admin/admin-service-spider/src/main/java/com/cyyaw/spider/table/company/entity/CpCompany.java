@@ -60,6 +60,11 @@ public class CpCompany implements BaseEntity<Integer>,  Serializable {
     private String legalPerson;
 
     @Basic
+    @Column(name = "person", columnDefinition = "text COMMENT '主要要员'")
+    private String person;
+
+
+    @Basic
     @Column(name = "stock_type", columnDefinition = "int COMMENT '地区类型{1:A股,2:港股,3:美股}'")
     private Integer stockType;
 
