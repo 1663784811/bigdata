@@ -202,6 +202,8 @@
         <div class="headerBox">
           <div></div>
           <div>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})" >添加</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" >添加从表格选择</Button>
             <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
               查看代码
             </Button>

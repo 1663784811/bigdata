@@ -21,9 +21,6 @@
         </div>
       </div>
     </div>
-    <div class="commonTableBox" v-if="configModule.configPage.select === 'commonTable'">
-      <ConfigCommonTable :setting="configModule.configPage.data"/>
-    </div>
     <div class="newTable" v-if="configModule.configPage.select === 'newTable'">
       <ConfigNewTable :setting="configModule.configPage.data"/>
     </div>
@@ -64,7 +61,6 @@
   </div>
 </template>
 <script setup>
-import ConfigCommonTable from './ConfigCommonTable.vue'
 import ConfigNewTable from './ConfigNewTable.vue'
 import ConfigSelectData from './ConfigSelectData.vue'
 import ConfigDataTree from './ConfigDataTree.vue'
@@ -342,10 +338,6 @@ const initSave = () => {
       "javaType": "string",
       "isShowSave": true,
       "filters": [
-        {
-          "value": "commonTable",
-          "label": "公共表格"
-        },
         {
           "value": "newTable",
           "label": "新表格"
