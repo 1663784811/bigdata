@@ -339,6 +339,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             name: '商业历史',
                             icon: 'md-settings',
                             routeName: 'commerceHistory'
+                        },
+                        {
+                            name: '人物录',
+                            icon: 'md-settings',
+                            routeName: 'people'
                         }
                     ]
                 }

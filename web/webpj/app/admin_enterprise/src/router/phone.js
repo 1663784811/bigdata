@@ -48,6 +48,14 @@ export const phone = {
                 title: '商业历史',
             },
             component: () => import('@/views/app/phone/CommerceHistory.vue')
+        },
+        {
+            path: 'people',
+            name: 'people',
+            meta: {
+                title: '人物录',
+            },
+            component: () => import('@/views/app/phone/people.vue')
         }
     ]
 }
