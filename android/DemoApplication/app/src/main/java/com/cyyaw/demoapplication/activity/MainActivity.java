@@ -34,7 +34,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.cyyaw.demoapplication.R;
-import com.cyyaw.demoapplication.permission.PermissionsCode;
+import com.cyyaw.demoapplication.common.BaseAppCompatActivity;
+import com.cyyaw.demoapplication.common.permission.PermissionsCode;
 import com.cyyaw.demoapplication.service.FloatMarkWindowService;
 import com.cyyaw.demoapplication.service.FloatWindowLogService;
 import com.cyyaw.demoapplication.service.FloatWindowTaskService;
@@ -269,7 +270,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     }
 
     @Override
-    Activity getActivity() {
+    public Activity getActivity() {
         return this;
     }
 

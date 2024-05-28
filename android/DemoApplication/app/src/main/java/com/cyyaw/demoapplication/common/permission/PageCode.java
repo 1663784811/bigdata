@@ -1,4 +1,4 @@
-package com.cyyaw.demoapplication.permission;
+package com.cyyaw.demoapplication.common.permission;
 
 
 /**

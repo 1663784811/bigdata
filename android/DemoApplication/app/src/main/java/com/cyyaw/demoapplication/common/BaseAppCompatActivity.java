@@ -1,9 +1,8 @@
-package com.cyyaw.demoapplication.activity;
+package com.cyyaw.demoapplication.common;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.cyyaw.demoapplication.permission.PermissionsCode;
+import com.cyyaw.demoapplication.common.permission.PermissionsCode;
 
 
 /**
@@ -96,7 +95,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
 
-    abstract Activity getActivity();
+    public abstract Activity getActivity();
 
 
 }

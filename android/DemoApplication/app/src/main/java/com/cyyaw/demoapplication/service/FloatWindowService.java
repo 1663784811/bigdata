@@ -11,7 +11,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.cyyaw.demoapplication.R;
-import com.cyyaw.demoapplication.permission.PageCode;
+import com.cyyaw.demoapplication.common.permission.PageCode;
 import com.cyyaw.demoapplication.service.map.AppGraph;
 import com.cyyaw.demoapplication.service.map.AppNode;
 import com.cyyaw.demoapplication.service.map.Task;

@@ -1,9 +1,8 @@
-package com.cyyaw.demoapplication.permission;
+package com.cyyaw.demoapplication.common.permission;
 
 
 import android.Manifest;
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -11,10 +10,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.accessibility.AccessibilityManager;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-
-import com.cyyaw.demoapplication.service.FloatWindowService;
 
 /**
  * 受权码
