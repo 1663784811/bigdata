@@ -3,19 +3,20 @@ package com.cyyaw.demoapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.GnssStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -46,16 +47,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
 
-    public static final String TAG = "MainActivity";
-
-
-    // 日志信息
-    private ComponentName windowLog;
-
-
-    //
-    private ComponentName componentNamex;
-
+    public static final String TAG = MainActivity.class.getName();
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private PreviewView previewView;
 
@@ -79,6 +71,8 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_picture).setOnClickListener(this);
         findViewById(R.id.btn_video).setOnClickListener(this);
         findViewById(R.id.btn_location).setOnClickListener(this);
+        findViewById(R.id.openBluetooth).setOnClickListener(this);
+        findViewById(R.id.ReadBluetooth).setOnClickListener(this);
 
     }
 
@@ -154,7 +148,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                         }
                     }
                     // 创建 LocationListener 实例
-                    LocationListener  locationListener = new LocationListener() {
+                    LocationListener locationListener = new LocationListener() {
                         @Override
                         public void onLocationChanged(@NonNull Location location) {
                             // 当位置变化时调用此方法
@@ -176,9 +170,57 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                 });
             });
         } else if (id == R.id.btn_go_my_view) {
-
             Intent intent = new Intent(this, ViewTestActivity.class);
             startActivity(intent);
+        } else if (id == R.id.openBluetooth) {
+            requestPermissionsFn(PermissionsCode.BLUETOOTH_CONNECT, () -> {
+                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                if (bluetoothAdapter == null) {
+                    // 设备不支持蓝牙
+                    Toast.makeText(this, "设备不支持蓝牙", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!bluetoothAdapter.isEnabled()) {
+                    // 蓝牙未打开，请求打开蓝牙
+                    Toast.makeText(this, "蓝牙未打开, 正在申请打开...", Toast.LENGTH_SHORT).show();
+                    activityResult.launch(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE));
+                } else {
+                    // 蓝牙已经打开，执行后续操作
+                    Toast.makeText(this, "蓝牙已经打开", Toast.LENGTH_SHORT).show();
+                }
+
+            }, () -> {
+            });
+
+
+        } else if (id == R.id.ReadBluetooth) {
+            requestPermissionsFn(PermissionsCode.BLUETOOTH_CONNECT, () -> {
+                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+                    // 蓝牙未打开，请求打开蓝牙
+                    Toast.makeText(this, "蓝牙未打开, 正在申请打开...", Toast.LENGTH_SHORT).show();
+                    activityResult.launch(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE));
+                } else {
+                    // 蓝牙已经打开，执行后续操作
+                    Toast.makeText(this, "蓝牙已经打开, 开始搜索...", Toast.LENGTH_SHORT).show();
+                    // 开始扫描
+                    BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+                    bluetoothLeScanner.startScan(new ScanCallback() {
+                        @Override
+                        @SuppressLint("MissingPermission")
+                        public void onScanResult(int callbackType, ScanResult result) {
+                            super.onScanResult(callbackType, result);
+                            BluetoothDevice device = result.getDevice();
+                            String name = device.getName();
+                            String address = device.getAddress();
+
+                            Log.d(TAG, "== name:" + name+"   address:"+ address);
+                        }
+                    });
+
+                }
+            }, () -> {
+            });
         }
     }
 
@@ -187,12 +229,14 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
      */
     private synchronized void showFloatWin() {
         Intent in = new Intent(MainActivity.this, FloatWindowLogService.class);
-        windowLog = startService(in);
+        // 日志信息
+        ComponentName windowLog = startService(in);
         Intent ins = new Intent(MainActivity.this, FloatWindowTaskService.class);
         startService(ins);
         // 创建操作跟踪红点
         Intent inx = new Intent(MainActivity.this, FloatMarkWindowService.class);
-        componentNamex = startService(inx);
+        //
+        ComponentName componentNamex = startService(inx);
     }
 
     /**

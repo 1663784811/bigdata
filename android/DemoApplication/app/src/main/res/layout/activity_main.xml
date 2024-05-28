@@ -115,7 +115,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="调用硬件"
+                android:text="调用WIFI硬件"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,25 +124,37 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="读取WIFI" />
+                    android:text="打开WIFI" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="打开WIFI" />
+                    android:text="扫描WIFI" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蓝牙硬件"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="读取蓝牙" />
-                <Button
+                    android:id="@+id/openBluetooth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="打开蓝牙" />
+                <Button
+                    android:id="@+id/ReadBluetooth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="扫描蓝牙" />
+
+
+
+
+
 
             </LinearLayout>
 
