@@ -1,0 +1,10 @@
+beautifulsoup4==4.12.2
+bs4==0.0.1
+reportlab==3.6.12
+Pillow==9.5.0
+requests==2.29.0
+pipreqs==0.4.13
+PyQt5==5.15.9
+pyqt5_plugins==5.15.9.2.3
+qt_material==2.14
+tqdm==4.65.0

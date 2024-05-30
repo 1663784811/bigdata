@@ -14,12 +14,16 @@ onMounted(async () => {
   const {eCode} = loginInfoSt.variable
   const token = loginInfoSt.token
   if (token && eCode) {
-    await router.replace({
-      name: 'home',
-      params: {
-        code: eCode
-      }
-    });
+
+    console.log(loginInfoSt.variable)
+    console.log(eCode)
+
+    // await router.replace({
+    //   name: 'home',
+    //   params: {
+    //     code: eCode
+    //   }
+    // });
   } else {
     loginInfoSt.enterpriseInfo = {}
     await router.replace({name: 'welcomePage'});
