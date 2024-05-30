@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
 
-    <com.necer.view.WeekBar
+    <com.cyyaw.ncalendar.view.WeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-    <com.necer.calendar.Miui10Calendar
+    <com.cyyaw.ncalendar.calendar.Miui10Calendar
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -34,7 +34,7 @@
         </LinearLayout>
 
 
-    </com.necer.calendar.Miui10Calendar>
+    </com.cyyaw.ncalendar.calendar.Miui10Calendar>
 
 
 </LinearLayout>

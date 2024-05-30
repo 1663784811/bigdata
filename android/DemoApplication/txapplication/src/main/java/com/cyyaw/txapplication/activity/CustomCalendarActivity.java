@@ -5,20 +5,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
-import com.necer.calendar.Miui10Calendar;
-import com.necer.enumeration.CheckModel;
-import com.necer.ncalendar.R;
-import com.necer.ncalendar.painter.LigaturePainter;
-import com.necer.ncalendar.painter.TicketPainter;
+import com.cyyaw.ncalendar.calendar.Miui10Calendar;
+import com.cyyaw.ncalendar.enumeration.CheckModel;
+import com.cyyaw.txapplication.R;
+import com.cyyaw.txapplication.painter.LigaturePainter;
+import com.cyyaw.txapplication.painter.TicketPainter;
 
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by necer on 2019/1/4.
- */
+
 public class CustomCalendarActivity extends AppCompatActivity {
 
     Miui10Calendar miui10Calendar;

@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.necer.ncalendar.R;
+import com.cyyaw.txapplication.R;
+
 
 public class Fragment4 extends Fragment {
 

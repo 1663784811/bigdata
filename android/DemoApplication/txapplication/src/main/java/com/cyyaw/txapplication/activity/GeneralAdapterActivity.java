@@ -8,14 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.necer.calendar.BaseCalendar;
-import com.necer.calendar.ICalendar;
-import com.necer.entity.CalendarDate;
-import com.necer.enumeration.DateChangeBehavior;
-import com.necer.listener.OnCalendarChangedListener;
-import com.necer.ncalendar.R;
-import com.necer.painter.CalendarAdapter;
-import com.necer.utils.CalendarUtil;
+import com.cyyaw.ncalendar.calendar.BaseCalendar;
+import com.cyyaw.ncalendar.calendar.ICalendar;
+import com.cyyaw.ncalendar.entity.CalendarDate;
+import com.cyyaw.ncalendar.enumeration.DateChangeBehavior;
+import com.cyyaw.ncalendar.listener.OnCalendarChangedListener;
+import com.cyyaw.ncalendar.painter.CalendarAdapter;
+import com.cyyaw.ncalendar.utils.CalendarUtil;
+import com.cyyaw.txapplication.R;
 
 import org.joda.time.LocalDate;
 

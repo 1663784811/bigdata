@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.necer.ncalendar.R;
-import com.necer.ncalendar.adapter.RecyclerViewAdapter;
+import com.cyyaw.txapplication.adapter.RecyclerViewAdapter;
+import com.cyyaw.txapplication.R;
 
 public class Fragment3 extends Fragment {
 

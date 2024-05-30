@@ -4,8 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.necer.ncalendar.R;
-
+import com.cyyaw.txapplication.R;
 public class TestGeneralActivity extends AppCompatActivity {
 
     @Override

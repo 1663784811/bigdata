@@ -1,17 +1,18 @@
 package com.cyyaw.txapplication.activity;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.necer.ncalendar.R;
-import com.necer.ncalendar.adapter.ViewPagerAdapter;
-import com.necer.ncalendar.fragment.Fragment1;
-import com.necer.ncalendar.fragment.Fragment2;
-import com.necer.ncalendar.fragment.Fragment3;
+import com.cyyaw.txapplication.R;
+import com.cyyaw.txapplication.adapter.ViewPagerAdapter;
+import com.cyyaw.txapplication.fragment.Fragment1;
+import com.cyyaw.txapplication.fragment.Fragment2;
+import com.cyyaw.txapplication.fragment.Fragment3;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

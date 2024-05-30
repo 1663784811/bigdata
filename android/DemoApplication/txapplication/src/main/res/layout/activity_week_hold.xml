@@ -33,7 +33,7 @@
             android:textSize="18sp" />
 
 
-        <com.necer.view.WeekBar
+        <com.cyyaw.ncalendar.view.WeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -41,7 +41,7 @@
     </RelativeLayout>
 
 
-    <com.necer.calendar.Miui9Calendar
+    <com.cyyaw.ncalendar.calendar.Miui9Calendar
         android:id="@+id/miui9Calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +63,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    </com.necer.calendar.Miui9Calendar>
+    </com.cyyaw.ncalendar.calendar.Miui9Calendar>
 
 
 </LinearLayout>

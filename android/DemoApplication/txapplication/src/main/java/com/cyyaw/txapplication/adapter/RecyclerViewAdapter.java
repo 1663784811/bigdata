@@ -8,12 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.necer.ncalendar.R;
-
-
-/**
- * Created by necer on 2017/6/7.
- */
+import com.cyyaw.txapplication.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 

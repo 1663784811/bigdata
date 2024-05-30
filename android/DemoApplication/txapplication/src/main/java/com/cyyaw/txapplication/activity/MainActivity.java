@@ -7,10 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.necer.enumeration.CheckModel;
-import com.necer.ncalendar.R;
-import com.necer.ncalendar.TestActivity;
-
+import com.cyyaw.ncalendar.enumeration.CheckModel;
+import com.cyyaw.txapplication.R;
+import com.cyyaw.txapplication.TestActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override

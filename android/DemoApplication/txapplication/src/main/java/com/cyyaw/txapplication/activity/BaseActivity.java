@@ -5,7 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.necer.enumeration.CheckModel;
+import com.cyyaw.ncalendar.enumeration.CheckModel;
+
 
 public abstract class BaseActivity extends AppCompatActivity {
 

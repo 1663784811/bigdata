@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.necer.ncalendar.R;
-import com.necer.ncalendar.adapter.RecyclerViewAdapter;
+import com.cyyaw.txapplication.R;
+import com.cyyaw.txapplication.adapter.RecyclerViewAdapter;
 
 public class Fragment1 extends Fragment {
 

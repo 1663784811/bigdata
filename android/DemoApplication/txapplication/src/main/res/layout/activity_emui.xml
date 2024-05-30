@@ -61,12 +61,12 @@
 
 
 
-    <com.necer.view.WeekBar
+    <com.cyyaw.ncalendar.view.WeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-    <com.necer.calendar.EmuiCalendar
+    <com.cyyaw.ncalendar.calendar.EmuiCalendar
         android:id="@+id/emuiCalendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,7 +88,7 @@
                 android:textSize="13sp" />
 
         </androidx.core.widget.NestedScrollView>
-    </com.necer.calendar.EmuiCalendar>
+    </com.cyyaw.ncalendar.calendar.EmuiCalendar>
 
 
 </LinearLayout>

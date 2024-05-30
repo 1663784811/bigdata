@@ -5,10 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
-import com.necer.calendar.Miui10Calendar;
-import com.necer.enumeration.CalendarState;
-import com.necer.ncalendar.R;
-
+import com.cyyaw.ncalendar.calendar.Miui10Calendar;
+import com.cyyaw.ncalendar.enumeration.CalendarState;
+import com.cyyaw.txapplication.R;
 public class TestAddViewActivity extends AppCompatActivity {
 
     private Miui10Calendar miui10Calendar;

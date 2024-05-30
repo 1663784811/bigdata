@@ -7,11 +7,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.TextUtils;
 
-import com.necer.ncalendar.DensityUtil;
-import com.necer.painter.CalendarPainter;
-import com.necer.utils.CalendarUtil;
-import com.necer.view.CalendarView;
-import com.necer.view.ICalendarView;
+import com.cyyaw.ncalendar.painter.CalendarPainter;
+import com.cyyaw.txapplication.DensityUtil;
 
 import org.joda.time.LocalDate;
 
