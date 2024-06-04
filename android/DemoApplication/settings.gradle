@@ -19,3 +19,4 @@ rootProject.name = "DemoApplication"
 include ':app'
 include ':ncalendar'
 include ':txapplication'
+include ':test_activity'
