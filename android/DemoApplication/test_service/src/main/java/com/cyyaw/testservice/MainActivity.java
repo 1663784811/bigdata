@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cyyaw.testservice.service.MyService;
+import com.cyyaw.testservice.service.MyService2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         test01Btn.setOnClickListener((View v)->{
             myService.performTask();
         });
+
+        Button startServiceBtn = findViewById(R.id.startServiceBtn);
+        startServiceBtn.setOnClickListener((View v)->{
+            Intent intent = new Intent(this, MyService2.class);
+            startService(intent);
+        });
+
     }
 
 
