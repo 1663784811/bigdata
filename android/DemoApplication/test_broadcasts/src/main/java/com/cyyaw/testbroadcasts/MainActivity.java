@@ -1,30 +1,15 @@
 package com.cyyaw.testbroadcasts;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    public static final String receiverKey = "com.cyyaw.testbroadcasts.MainActivity";
-
-
-    // 动态注册广播接收器
-    BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // 处理接收到的广播
-            if (receiverKey.equals(intent.getAction())) {
-                Toast.makeText(MainActivity.this, "sssss", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+    public static final String broadcastKey = "com.cyyaw.testbroadcasts.MainActivity";
 
 
     @Override
@@ -32,29 +17,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // 注册广播接收器
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(receiverKey);
-        registerReceiver(receiver, filter);
-
-
-        // 发送标准广播
-        Intent intent = new Intent(receiverKey);
-        sendBroadcast(intent);
+        Button sendBroadcastButton = findViewById(R.id.sendBroadcastButton);
+        sendBroadcastButton.setOnClickListener((View v) -> {
+            Intent intent = new Intent();
+            intent.setAction(broadcastKey);
+            intent.putExtra("data", "Nothing to see here, move along.");
+            sendBroadcast(intent);
+        });
 
 
-
-
-
+        startService(new Intent(this, MyService.class));
     }
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(receiver);
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
-
-
