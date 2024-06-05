@@ -7,12 +7,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 public class MyService extends Service {
-
     private static final String TAG = "MyService";
-
-
-    public MyService() {
-    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -20,11 +15,7 @@ public class MyService extends Service {
     }
 
     public void performTask() {
-
-
         Toast.makeText(this, "sssssseeeeeeeeee", Toast.LENGTH_LONG).show();
-
-
     }
 
 

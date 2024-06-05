@@ -19,11 +19,7 @@ public class MyService2 extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         Toast.makeText(this, "sssssssssssssssssssssssss", Toast.LENGTH_LONG).show();
-
-
-
         return super.onStartCommand(intent, flags, startId);
     }
 
