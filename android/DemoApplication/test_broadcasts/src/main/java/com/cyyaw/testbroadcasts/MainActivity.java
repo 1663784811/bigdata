@@ -19,10 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
         Button sendBroadcastButton = findViewById(R.id.sendBroadcastButton);
         sendBroadcastButton.setOnClickListener((View v) -> {
+
             Intent intent = new Intent();
             intent.setAction(broadcastKey);
             intent.putExtra("data", "Nothing to see here, move along.");
+            // 发送标准广播
             sendBroadcast(intent);
+            // 发送有序广播
+            // sendOrderedBroadcast(intent, null);
         });
 
 
