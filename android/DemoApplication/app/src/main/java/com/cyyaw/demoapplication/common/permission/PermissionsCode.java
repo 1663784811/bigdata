@@ -46,7 +46,9 @@ public enum PermissionsCode {
     //
     , BLUETOOTH_REQUEST_ENABLE(BluetoothAdapter.ACTION_REQUEST_ENABLE, 1300, "打开蓝牙", null, false)
     //
-    , BLUETOOTH_CONNECT(Manifest.permission.BLUETOOTH_CONNECT, 1400, "蓝牙连接", null, false);
+    , BLUETOOTH_CONNECT(Manifest.permission.BLUETOOTH_CONNECT, 1400, "蓝牙连接", null, false)
+    , BLUETOOTH_SCAN(Manifest.permission.BLUETOOTH_SCAN, 1400, "蓝牙扫描", null, false)
+    ;
 
     /**
      * 系统权限

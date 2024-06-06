@@ -75,6 +75,7 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_location).setOnClickListener(this);
         findViewById(R.id.openBluetooth).setOnClickListener(this);
         findViewById(R.id.ReadBluetooth).setOnClickListener(this);
+        findViewById(R.id.linkBluetooth).setOnClickListener(this);
 
     }
 
@@ -215,13 +216,17 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
                             BluetoothDevice device = result.getDevice();
                             String name = device.getName();
                             String address = device.getAddress();
-
-                            Log.d(TAG, "== name:" + name+"   address:"+ address);
+                            Log.d(TAG, "== name:" + name + "   address:" + address);
                         }
                     });
 
                 }
             }, () -> {
+            });
+        } else if (id == R.id.linkBluetooth) {
+            requestPermissionsFn(PermissionsCode.BLUETOOTH_CONNECT, () -> {
+
+                Toast.makeText(this, "有蓝牙连接权限", Toast.LENGTH_SHORT).show();
             });
         }
     }

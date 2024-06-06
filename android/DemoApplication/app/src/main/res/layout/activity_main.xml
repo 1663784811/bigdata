@@ -152,6 +152,11 @@
                     android:text="扫描蓝牙" />
 
 
+                <Button
+                    android:id="@+id/linkBluetooth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="连接蓝牙" />
 
 
 
