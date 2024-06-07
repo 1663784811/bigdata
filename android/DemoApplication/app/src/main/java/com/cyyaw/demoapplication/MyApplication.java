@@ -28,7 +28,7 @@ public class MyApplication extends Application {
         sToast.show();
     }
 
-    public static void runUi(Runnable runnable) {
+    public static void run(Runnable runnable) {
         sHandler.post(runnable);
     }
 }
