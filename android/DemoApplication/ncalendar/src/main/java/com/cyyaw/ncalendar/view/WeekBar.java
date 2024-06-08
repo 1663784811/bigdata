@@ -14,7 +14,7 @@ import com.cyyaw.ncalendar.utils.Attrs;
 import com.cyyaw.ncalendar.R;
 
 /**
- * Created by necer on 2018/12/24.
+ *  周 Bar
  */
 public class WeekBar extends AppCompatTextView {
 
@@ -39,15 +39,16 @@ public class WeekBar extends AppCompatTextView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int paddingLeft = getPaddingLeft();
-        int paddingRight = getPaddingRight();
+        int paddingLeft = getPaddingLeft();   //   左边padding大小
+        int paddingRight = getPaddingRight(); //
 
         int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
 
-        int width = getMeasuredWidth() - paddingRight - paddingLeft;
-        int height = getMeasuredHeight() - paddingTop - paddingBottom;
+        int width = getMeasuredWidth() - paddingRight - paddingLeft;  // 计算总内容宽度
+        int height = getMeasuredHeight() - paddingTop - paddingBottom; // 计算总内容高度
         for (int i = 0; i < days.length; i++) {
+
             Rect rect = new Rect(paddingLeft + (i * width / days.length), paddingTop, paddingLeft + ((i + 1) * width / days.length), paddingTop + height);
             Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
             float top = fontMetrics.top;
@@ -60,6 +61,8 @@ public class WeekBar extends AppCompatTextView {
             } else {
                 day = days[i];
             }
+
+            // 画文字
             canvas.drawText(day, rect.centerX(), baseLineY, textPaint);
         }
     }
