@@ -194,21 +194,6 @@ public class PrintBitMapImageView extends View {
     }
 
     /**
-     * 画矩形
-     */
-    private Bitmap drawRectangle(int w, int h) {
-        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        Canvas cs = new Canvas(bitmap);
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        //paint.setStrokeWidth(10); // 画笔大小
-        paint.setStyle(Paint.Style.FILL); // 设置画笔样式为填充
-        // 在 Bitmap 上绘制一条红色的对角线
-        cs.drawRect(0, 0, w, h, paint);
-        return bitmap;
-    }
-
-    /**
      * 画文字
      */
     public void setWordData(String word) {
@@ -220,12 +205,12 @@ public class PrintBitMapImageView extends View {
     }
 
     /**
-     *
+     * 绘制文字
      */
     private Bitmap drawWord(String word) {
         // 文字
         TextPaint textPaint = new TextPaint();
-        textPaint.setColor(Color.BLUE);
+        textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(50);
         textPaint.setAntiAlias(true);
         StaticLayout staticLayout = StaticLayout.Builder.obtain(word, 0, word.length(), textPaint, showPrintWidth)
