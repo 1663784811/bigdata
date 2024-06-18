@@ -7,14 +7,17 @@ import android.view.SurfaceHolder;
 
 public class DrawingThread extends Thread {
     private SurfaceHolder surfaceHolder;
-    private boolean running;
+    private volatile boolean running;
     private Paint paint;
 
     public DrawingThread(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
         running = false;
+        // 创建画笔
         paint = new Paint();
+        // 设置颜色
         paint.setColor(Color.RED);
+        // 设置宽度
         paint.setStrokeWidth(5);
     }
 
@@ -27,6 +30,7 @@ public class DrawingThread extends Thread {
         while (running) {
             Canvas canvas = null;
             try {
+                // 获取画册布
                 canvas = surfaceHolder.lockCanvas();
                 if (canvas != null) {
                     synchronized (surfaceHolder) {
@@ -41,6 +45,9 @@ public class DrawingThread extends Thread {
         }
     }
 
+    /**
+     * 画线
+     */
     private void drawSomething(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
         canvas.drawLine(0, 0, canvas.getWidth(), canvas.getHeight(), paint);

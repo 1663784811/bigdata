@@ -44,6 +44,14 @@
         </dependency>
 
         <dependency>
+            <groupId>org.webrtc</groupId>
+            <artifactId>google-webrtc</artifactId>
+            <version>1.0.32006</version>
+        </dependency>
+
+
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>

@@ -19,9 +19,16 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         init();
     }
 
+
+    /**
+     * 初始化
+     */
     private void init() {
+        // 获取持有人
         surfaceHolder = getHolder();
+        // 添加回调
         surfaceHolder.addCallback(this);
+        //  创建绘图线程
         drawingThread = new DrawingThread(surfaceHolder);
     }
 
@@ -31,11 +38,19 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         drawingThread.start();
     }
 
+
+    /**
+     * 当surface改变时
+     */
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         // Handle surface changes if needed
     }
 
+
+    /**
+     * surface销毁时
+     */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
