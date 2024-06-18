@@ -21,4 +21,18 @@
         tools:ignore="MissingConstraints"
         />
 
+
+
+
+    <Button
+        android:id="@+id/nowPrintBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="立即打印"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

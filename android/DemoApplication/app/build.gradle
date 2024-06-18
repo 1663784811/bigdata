@@ -40,11 +40,18 @@ dependencies {
     implementation 'androidx.camera:camera-lifecycle:1.1.0-alpha10'
     implementation 'androidx.camera:camera-view:1.0.0-alpha23'
 
-
-
     implementation 'androidx.camera:camera-view:1.0.0-alpha23'
 
-    implementation 'cn.hutool:hutool-all:5.8.26'
+
+
+    // 第三方
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
+
+
+
 
 
     testImplementation 'junit:junit:4.13.2'
