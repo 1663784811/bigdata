@@ -149,9 +149,7 @@ public class RTCVideoEffector {
         if (this.helper != null) {
             return;
         }
-        ThreadUtils.invokeAtFrontUninterruptibly(this.helper.getHandler(), () ->
-                disposeInternal()
-        );
+        ThreadUtils.invokeAtFrontUninterruptibly(this.helper.getHandler(), () -> disposeInternal());
     }
 
     private void disposeInternal() {

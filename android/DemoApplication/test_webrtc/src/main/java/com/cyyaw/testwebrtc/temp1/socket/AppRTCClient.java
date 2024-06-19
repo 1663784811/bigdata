@@ -21,7 +21,6 @@ public interface AppRTCClient {
 
     class RoomConnectionParameters {
         public final String roomId;
-
         public RoomConnectionParameters(String roomId) {
             this.roomId = roomId;
         }

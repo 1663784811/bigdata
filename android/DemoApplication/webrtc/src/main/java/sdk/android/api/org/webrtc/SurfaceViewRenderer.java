@@ -143,6 +143,7 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
 
     /**
      * Set if the video stream should be mirrored or not.
+     * 设置是否应镜像视频流
      */
     public void setMirror(final boolean mirror) {
         eglRenderer.setMirror(mirror);

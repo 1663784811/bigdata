@@ -74,8 +74,10 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         // 加载布局
         setContentView(R.layout.activity_connect2);
         // 接收参数
-        mIpAddress = "0.0.0.0";
-        mIsServer = true;
+        Intent intent = getIntent();
+        int mRoleType = intent.getIntExtra(ARG_ROLE_TYPE, 0);
+        mIpAddress = intent.getStringExtra(ARG_IP_ADDRESS);
+        mIsServer = mRoleType == TYPE_SERVER;
         // ======================================================= 大视窗
         mFullView = findViewById(R.id.full_surface_render);
         // 小视窗
@@ -113,8 +115,15 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         statsReportUtil = new StatsReportUtil();
 
 
-        // 初始化socket
-        initSocket();
+        //=============================================================== 初始化socket 网络
+        // 时间
+        callStartedTimeMs = System.currentTimeMillis();
+        //
+        mDirectRTCClient = new DirectRTCClient(this);
+        // 设置连接参数
+        AppRTCClient.RoomConnectionParameters parameters = new AppRTCClient.RoomConnectionParameters(mIpAddress);
+        // 连接房间
+        mDirectRTCClient.connectToRoom(parameters);
     }
 
     @Override
@@ -137,16 +146,7 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
     }
 
 
-    private void initSocket() {
-        // 时间
-        callStartedTimeMs = System.currentTimeMillis();
-        //
-        mDirectRTCClient = new DirectRTCClient(this);
-        //
-        AppRTCClient.RoomConnectionParameters parameters = new AppRTCClient.RoomConnectionParameters(mIpAddress);
-        // 连接房间
-        mDirectRTCClient.connectToRoom(parameters);
-    }
+
 
     public void onHungUp(View view) {
         disconnect();
@@ -188,9 +188,15 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
 
     private boolean isSwappedFeeds;
 
+
+    /**
+     * 切换显示
+     */
     private void setSwappedFeeds(boolean isSwappedFeeds) {
         this.isSwappedFeeds = isSwappedFeeds;
+        // 本地
         localProxyVideoSink.setTarget(isSwappedFeeds ? mFullView : mPipView);
+        // 远程
         remoteProxyRenderer.setTarget(isSwappedFeeds ? mPipView : mFullView);
         mFullView.setMirror(isSwappedFeeds);
         mPipView.setMirror(!isSwappedFeeds);

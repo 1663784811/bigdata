@@ -30,12 +30,12 @@ import java.util.regex.Pattern;
  * Implementation of AppRTCClient that uses direct TCP connection as the signaling channel.
  * This eliminates the need for an external server. This class does not support loopback
  * connections.
- *
+ * <p>
  * 客服端
- *
  */
 public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChannelEvents {
     private static final String TAG = "DirectRTCClient";
+    // 默认端口
     private static final int DEFAULT_PORT = 8888;
 
     // Regex pattern used for checking if room id looks like an IP.
@@ -43,15 +43,11 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
             // IPv4
             + "((\\d+\\.){3}\\d+)|"
             // IPv6
-            + "\\[((([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?::"
-            + "(([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?)\\]|"
-            + "\\[(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4})\\]|"
+            + "\\[((([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?::" + "(([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?)\\]|" + "\\[(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4})\\]|"
             // IPv6 without []
-            + "((([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?::(([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?)|"
-            + "(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4})|"
+            + "((([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?::(([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4})?)|" + "(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4})|"
             // Literals
-            + "localhost"
-            + ")"
+            + "localhost" + ")"
             // Optional port number
             + "(:(\\d+))?");
 
@@ -76,6 +72,7 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     /**
      * Connects to the room, roomId in connectionsParameters is required. roomId must be a valid
      * IP address matching IP_PATTERN.
+     * 连接到房间，连接中的房间ID参数是必需的。roomId必须是有效的 IP地址匹配IP_PATTERN。
      */
     @Override
     public void connectToRoom(RoomConnectionParameters connectionParameters) {
@@ -90,24 +87,21 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
 
     /**
      * Connects to the room.
+     * 连接到房间。
      * <p>
      * Runs on the looper thread.
      */
     private void connectToRoomInternal() {
         this.roomState = ConnectionState.NEW;
-
         String endpoint = connectionParameters.roomId;
-
         Matcher matcher = IP_PATTERN.matcher(endpoint);
         if (!matcher.matches()) {
             reportError("roomId must match IP_PATTERN for DirectRTCClient.");
             return;
         }
-
         String ip = matcher.group(1);
         String portStr = matcher.group(matcher.groupCount());
         int port;
-
         if (portStr != null) {
             try {
                 port = Integer.parseInt(portStr);
@@ -118,7 +112,6 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
         } else {
             port = DEFAULT_PORT;
         }
-
         tcpClient = new TCPChannelClient(executor, this, ip, port);
     }
 
@@ -213,8 +206,7 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
 
             SignalingParameters parameters = new SignalingParameters(
                     // Ice servers are not needed for direct connections.
-                    new ArrayList<>(),
-                    true, // Server side acts as the initiator on direct connections.
+                    new ArrayList<>(), true, // Server side acts as the initiator on direct connections.
                     null// offerSdp
             );
             events.onConnectedToRoom(parameters);
@@ -239,19 +231,16 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
                     events.onRemoteIceCandidatesRemoved(candidates);
                     break;
                 case "answer": {
-                    SessionDescription sdp = new SessionDescription(
-                            SessionDescription.Type.fromCanonicalForm(type), json.getString("sdp"));
+                    SessionDescription sdp = new SessionDescription(SessionDescription.Type.fromCanonicalForm(type), json.getString("sdp"));
                     events.onRemoteDescription(sdp);
                     break;
                 }
                 case "offer": {
-                    SessionDescription sdp = new SessionDescription(
-                            SessionDescription.Type.fromCanonicalForm(type), json.getString("sdp"));
+                    SessionDescription sdp = new SessionDescription(SessionDescription.Type.fromCanonicalForm(type), json.getString("sdp"));
 
                     SignalingParameters parameters = new SignalingParameters(
                             // Ice servers are not needed for direct connections.
-                            new ArrayList<>(),
-                            false, // This code will only be run on the client side. So, we are not the initiator.
+                            new ArrayList<>(), false, // This code will only be run on the client side. So, we are not the initiator.
                             sdp // offerSdp
                     );
                     roomState = ConnectionState.CONNECTED;
@@ -313,7 +302,6 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
 
     // Converts a JSON candidate to a Java object.
     private static IceCandidate toJavaCandidate(JSONObject json) throws JSONException {
-        return new IceCandidate(
-                json.getString("id"), json.getInt("label"), json.getString("candidate"));
+        return new IceCandidate(json.getString("id"), json.getInt("label"), json.getString("candidate"));
     }
 }

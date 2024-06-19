@@ -96,10 +96,7 @@ public class VideoEffectorContext {
         }
     }
 
-    void updateFrameInfo(int width,
-                         int height,
-                         int rotation,
-                         long timestamp) {
+    void updateFrameInfo(int width, int height, int rotation, long timestamp) {
         this.frameInfo.update(width, height, rotation, timestamp);
     }
 
