@@ -19,5 +19,3 @@ target_include_directories( yuvconv
 target_link_libraries(yuvconv
                       yuv
                       log)
-
-
