@@ -163,6 +163,7 @@ public class RTCEngine {
         gpuImageBeautyFilter = new GPUImageBeautyFilter();
         rtcVideoEffector.addGPUImageFilter(gpuImageBeautyFilter);
         mVideoEffectProcessor = new VideoEffectProcessor(mSurfaceTextureHelper, rtcVideoEffector);
+        // 连接视频
         mVideoSource.setVideoProcessor(mVideoEffectProcessor);
         return videoTrack;
     }

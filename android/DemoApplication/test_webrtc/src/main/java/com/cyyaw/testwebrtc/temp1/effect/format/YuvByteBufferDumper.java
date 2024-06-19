@@ -26,10 +26,9 @@ public class YuvByteBufferDumper {
 
     // TODO: org.webrtc.YuvConverter.convert() 不能原样使用？
     public VideoFrame.I420Buffer dump(int lastTextureId, int width, int height, int strideY, int strideU, int strideV) {
-
+        final ByteBuffer rgbaBuffer = ByteBuffer.allocateDirect(width * height * 4);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, bufferId);
         GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, lastTextureId, 0);
-        final ByteBuffer rgbaBuffer = ByteBuffer.allocateDirect(width * height * 4);
         GLES20.glViewport(0, 0, width, height);
         GLES20.glReadPixels(0, 0, width, height, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, rgbaBuffer);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);

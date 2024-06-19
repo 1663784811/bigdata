@@ -35,15 +35,12 @@ public class RTCVideoEffector {
     void init(SurfaceTextureHelper helper) {
 
         VideoEffectorLogger.d(TAG, "init");
-
         this.helper = helper;
 
         yuvBytesReader = new YuvByteBufferReader();
         yuvBytesReader.init();
-
         yuvBytesDumper = new YuvByteBufferDumper();
         yuvBytesDumper.init();
-
 
         for (FrameImageFilter filter : filters) {
             filter.init();
@@ -61,10 +58,8 @@ public class RTCVideoEffector {
         addMediaEffectFilter(name, null);
     }
 
-    public void addMediaEffectFilter(String name,
-                                     MediaEffectFilter.Listener listener) {
-        VideoEffectorLogger.d(TAG, "addMediaEffectFilter: " + name +
-                ", listener: " + listener);
+    public void addMediaEffectFilter(String name, MediaEffectFilter.Listener listener) {
+        VideoEffectorLogger.d(TAG, "addMediaEffectFilter: " + name + ", listener: " + listener);
         this.filters.add(new MediaEffectFilter(name, listener));
     }
 
@@ -73,10 +68,8 @@ public class RTCVideoEffector {
         this.filters.add(new GPUImageFilterWrapper(filter));
     }
 
-    public void addGPUImageFilter(GPUImageFilter filter,
-                                  GPUImageFilterWrapper.Listener listener) {
-        VideoEffectorLogger.d(TAG, "addGPUImageFilter: " + filter.toString() +
-                ", listener: " + listener);
+    public void addGPUImageFilter(GPUImageFilter filter, GPUImageFilterWrapper.Listener listener) {
+        VideoEffectorLogger.d(TAG, "addGPUImageFilter: " + filter.toString() + ", listener: " + listener);
         this.filters.add(new GPUImageFilterWrapper(filter, listener));
     }
 

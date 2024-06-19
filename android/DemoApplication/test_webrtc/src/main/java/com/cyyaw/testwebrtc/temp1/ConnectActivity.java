@@ -96,6 +96,7 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
             public void onFirstFrameRendered() {
 
             }
+
             @Override
             public void onFrameResolutionChanged(int videoWidth, int videoHeight, int rotation) {
 
@@ -110,7 +111,6 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         //
         mRtcEngine = new RTCEngine(getApplicationContext(), eglBase, localProxyVideoSink);
         statsReportUtil = new StatsReportUtil();
-
 
 
         // 初始化socket
@@ -135,9 +135,6 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         }
         super.onDestroy();
     }
-
-
-
 
 
     private void initSocket() {
@@ -372,8 +369,5 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         logToast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         logToast.show();
     }
-
-
-
 
 }

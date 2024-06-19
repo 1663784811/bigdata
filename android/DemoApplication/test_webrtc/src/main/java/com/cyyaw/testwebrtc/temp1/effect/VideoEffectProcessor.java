@@ -11,6 +11,10 @@ import org.webrtc.VideoFrame;
 import org.webrtc.VideoProcessor;
 import org.webrtc.VideoSink;
 
+
+/**
+ * 处理视频数据
+ */
 public class VideoEffectProcessor implements VideoProcessor {
     private static final String TAG = "FilterProcessor";
     private VideoSink mSink;
@@ -36,6 +40,10 @@ public class VideoEffectProcessor implements VideoProcessor {
         Log.d(TAG, "onCapturerStopped: ");
     }
 
+
+    /**
+     * 捕获摄像头数据
+     */
     @Override
     public void onFrameCaptured(VideoFrame frame) {
         // 读取数据到新的VideoFrame

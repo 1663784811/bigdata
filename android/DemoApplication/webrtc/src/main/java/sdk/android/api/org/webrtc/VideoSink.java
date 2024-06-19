@@ -12,6 +12,8 @@ package org.webrtc;
 
 /**
  * Java version of rtc::VideoSinkInterface.
+ *
+ * 连接 视频 数据
  */
 public interface VideoSink {
   /**
