@@ -11,13 +11,11 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.accessibility.AccessibilityManager;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 /**
  * 受权码
  */
-@RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public enum PermissionsCode {
 
     READ_CONTACTS(Manifest.permission.READ_CONTACTS, 111, "读取联系人信息", null, false)
@@ -27,6 +25,8 @@ public enum PermissionsCode {
     , BIND_ACCESSIBILITY_SERVICE(Manifest.permission.BIND_ACCESSIBILITY_SERVICE, 333, "无障碍服务AccessibilityService", Settings.ACTION_ACCESSIBILITY_SETTINGS, false)
     //
     , CAMERA(Manifest.permission.CAMERA, 444, "摄像头", null, false)
+    //
+    , RECORD_AUDIO(Manifest.permission.RECORD_AUDIO, 550, "音频", null, false)
     //
     , READ_MEDIA_AUDIO(Manifest.permission.READ_MEDIA_AUDIO, 555, "音频", null, false)
     //

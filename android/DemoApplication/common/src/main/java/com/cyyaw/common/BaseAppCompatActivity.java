@@ -3,13 +3,11 @@ package com.cyyaw.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -19,7 +17,6 @@ import com.cyyaw.common.permission.PermissionsCode;
 /**
  * 处理权限受权问题
  */
-@RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**

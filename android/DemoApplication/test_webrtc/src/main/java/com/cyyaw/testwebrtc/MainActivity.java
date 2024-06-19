@@ -1,12 +1,13 @@
 package com.cyyaw.testwebrtc;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.cyyaw.common.BaseAppCompatActivity;
+import com.cyyaw.common.permission.PermissionsCode;
 import com.cyyaw.testwebrtc.rtc.ProxyVideoSink;
 import com.cyyaw.testwebrtc.rtc.RTCEngine;
 import com.cyyaw.testwebrtc.rtc.RTCPeer;
@@ -20,7 +21,7 @@ import org.webrtc.RendererCommon;
 import org.webrtc.SessionDescription;
 import org.webrtc.SurfaceViewRenderer;
 
-public class MainActivity extends AppCompatActivity implements AppRTCClient.SignalingEvents, RTCPeer.PeerConnectionEvents {
+public class MainActivity extends BaseAppCompatActivity implements AppRTCClient.SignalingEvents, RTCPeer.PeerConnectionEvents {
 
     private static final String TAG = "MainActivity";
     private SurfaceViewRenderer mFullView;
@@ -49,13 +50,14 @@ public class MainActivity extends AppCompatActivity implements AppRTCClient.Sign
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        requestPermissionsFn(PermissionsCode.CAMERA, () -> {
+            requestPermissionsFn(PermissionsCode.RECORD_AUDIO, () -> {
+                init();
+            });
+        });
     }
 
     private void init() {
-
-
         mIpAddress = "0.0.0.0";
         mIsServer = true;
         // 大视窗
@@ -185,5 +187,10 @@ public class MainActivity extends AppCompatActivity implements AppRTCClient.Sign
     @Override
     public void onPeerConnectionStatsReady(RTCStatsReport report) {
 
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
     }
 }
