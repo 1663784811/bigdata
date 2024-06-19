@@ -45,12 +45,16 @@ public class MainActivity extends AppCompatActivity implements AppRTCClient.Sign
 //    private StatsReportUtil statsReportUtil;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+    }
+
+    private void init() {
+
 
         mIpAddress = "0.0.0.0";
         mIsServer = true;
@@ -106,11 +110,6 @@ public class MainActivity extends AppCompatActivity implements AppRTCClient.Sign
         mFullView.setMirror(isSwappedFeeds);
         mPipView.setMirror(!isSwappedFeeds);
     }
-
-
-
-
-
 
 
     @Override

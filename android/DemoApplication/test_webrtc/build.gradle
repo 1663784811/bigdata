@@ -14,6 +14,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'
+        }
+
     }
 
     buildTypes {
@@ -26,6 +32,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/cpp/libyuv/libs']
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+
 }
 
 
@@ -41,6 +67,10 @@ dependencies {
 
     implementation 'org.webrtc:google-webrtc:1.0.32006'
     implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
 
 
     testImplementation 'junit:junit:4.13.2'
