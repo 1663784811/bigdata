@@ -22,24 +22,28 @@ android {
 
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//        debug{
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    sourceSets.main {
-        jniLibs.srcDir 'libs'
-    }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
+//    sourceSets.main {
+//        jniLibs.srcDir 'libs'
+//    }
+//    lintOptions {
+//        checkReleaseBuilds false
+//        abortOnError false
+//    }
 
     sourceSets {
         main {
