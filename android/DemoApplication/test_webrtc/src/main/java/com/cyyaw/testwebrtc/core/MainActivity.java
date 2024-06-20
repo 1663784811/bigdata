@@ -32,17 +32,18 @@ public class MainActivity extends BaseActivity implements IUserState {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_user, R.id.navigation_room, R.id.navigation_setting)
-                .build();
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_user, R.id.navigation_room, R.id.navigation_setting).build();
         // 設置ActionBar跟随联动
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         // 设置Nav跟随联动
         NavigationUI.setupWithNavController(navView, navController);
         // 设置登录状态回调
         SocketManager.getInstance().addUserStateCallback(this);
+
         isFromCall = getIntent().getBooleanExtra("isFromCall", false);
         Log.d(TAG, "onCreate isFromCall = " + isFromCall);
         if (isFromCall) { //无权限，来电申请权限会走这里

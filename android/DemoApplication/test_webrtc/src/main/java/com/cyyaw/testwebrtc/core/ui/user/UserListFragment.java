@@ -33,8 +33,8 @@ public class UserListFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private TextView no_data;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel = new ViewModelProvider(requireActivity()).get(UserListViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         initView(root);

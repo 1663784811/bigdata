@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyyaw.testwebrtc.core.MainActivity;
 import com.cyyaw.testwebrtc.core.base.BaseActivity;
 import com.cyyaw.testwebrtc.core.consts.Urls;
 import com.cyyaw.testwebrtc.core.socket.IUserState;
@@ -38,7 +39,9 @@ public class LauncherActivity extends BaseActivity implements IUserState {
 
     @Override
     public void userLogin() {
+        // 开启新页面
         startActivity(new Intent(this, MainActivity.class));
+        // 结束当前页面
         finish();
     }
 

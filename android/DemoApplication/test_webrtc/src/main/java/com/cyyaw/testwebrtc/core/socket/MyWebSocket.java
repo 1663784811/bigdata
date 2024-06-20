@@ -21,8 +21,7 @@ import java.util.Map;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * Created by dds on 2019/7/26.
- * android_shuai@163.com
+ *
  */
 public class MyWebSocket extends WebSocketClient {
     private final static String TAG = SkyLog.createTag("WebSocket");
@@ -35,6 +34,9 @@ public class MyWebSocket extends WebSocketClient {
         this.iEvent = event;
     }
 
+    /**
+     * 关闭连接
+     */
     @Override
     public void onClose(int code, String reason, boolean remote) {
         Log.e("dds_error", "onClose:" + reason + "remote:" + remote);
@@ -51,6 +53,9 @@ public class MyWebSocket extends WebSocketClient {
 
     }
 
+    /**
+     * 错误
+     */
     @Override
     public void onError(Exception ex) {
         Log.e("dds_error", "onError:" + ex.toString());
@@ -58,6 +63,9 @@ public class MyWebSocket extends WebSocketClient {
         connectFlag = false;
     }
 
+    /**
+     * 打开连接
+     */
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         Log.e("dds_info", "onOpen");
@@ -65,6 +73,9 @@ public class MyWebSocket extends WebSocketClient {
         connectFlag = true;
     }
 
+    /**
+     * 收到消息
+     */
     @Override
     public void onMessage(String message) {
         Log.d(TAG, message);

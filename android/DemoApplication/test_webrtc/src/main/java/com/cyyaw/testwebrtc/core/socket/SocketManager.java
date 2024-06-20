@@ -48,6 +48,10 @@ public class SocketManager implements IEvent {
         return Holder.socketManager;
     }
 
+
+    /**
+     * 连接websocket
+     */
     public void connect(String url, String userId, int device) {
         if (webSocket == null || !webSocket.isOpen()) {
             URI uri;
@@ -82,8 +86,6 @@ public class SocketManager implements IEvent {
             // 开始connect
             webSocket.connect();
         }
-
-
     }
 
     public void unConnect() {
