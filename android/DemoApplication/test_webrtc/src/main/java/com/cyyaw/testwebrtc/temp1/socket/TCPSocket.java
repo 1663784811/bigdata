@@ -20,9 +20,6 @@ public abstract class TCPSocket extends Thread {
 
     private final ExecutorService executor;
 
-    // Lock for editing out and rawSocket
-    protected final Object rawSocketLock = new Object();
-
     private final TCPChannelEvents eventListener;
 
     @Nullable
@@ -43,23 +40,16 @@ public abstract class TCPSocket extends Thread {
     @Override
     public void run() {
         Log.d(TAG, "Listening thread started...");
-
         // Receive connection to temporary variable first, so we don't block.
         Socket tempSocket = connect();
         BufferedReader in;
-
         Log.d(TAG, "TCP connection established.");
-
-        synchronized (rawSocketLock) {
-            if (rawSocket != null) {
-                Log.e(TAG, "Socket already existed and will be replaced.");
-            }
-            rawSocket = tempSocket;
-            // Connecting failed, error has already been reported, just exit.
-            if (rawSocket == null) {
-                return;
-            }
-
+        if (rawSocket != null) {
+            Log.e(TAG, "Socket already existed and will be replaced.");
+        }
+        rawSocket = tempSocket;
+        // Connecting failed, error has already been reported, just exit.
+        if (rawSocket != null) {
             try {
                 out = new PrintWriter(new OutputStreamWriter(rawSocket.getOutputStream(), StandardCharsets.UTF_8), true);
                 in = new BufferedReader(new InputStreamReader(rawSocket.getInputStream(), StandardCharsets.UTF_8));
@@ -67,65 +57,48 @@ public abstract class TCPSocket extends Thread {
                 reportError("Failed to open IO on rawSocket: " + e.getMessage());
                 return;
             }
-        }
-
-        Log.v(TAG, "Execute onTCPConnected");
-        executor.execute(() -> {
-            Log.v(TAG, "Run onTCPConnected");
-            eventListener.onTCPConnected(isServer());
-        });
-
-        while (true) {
-            final String message;
-            try {
-                message = in.readLine();
-            } catch (IOException e) {
-                synchronized (rawSocketLock) {
-                    // If socket was closed, this is expected.
-                    if (rawSocket == null) {
-                        break;
-                    }
-                }
-
-                reportError("Failed to read from rawSocket: " + e.getMessage());
-                break;
-            }
-
-            // No data received, rawSocket probably closed.
-            if (message == null) {
-                break;
-            }
-
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Log.v(TAG, "Receive: " + message);
-                    eventListener.onTCPMessage(message);
-                }
+            Log.v(TAG, "Execute onTCPConnected");
+            executor.execute(() -> {
+                Log.v(TAG, "Run onTCPConnected");
+                eventListener.onTCPConnected(isServer());
             });
+
+            while (true) {
+                String message;
+                try {
+                    // 读取发过来的数据
+                    message = in.readLine();
+                } catch (IOException e) {
+                    break;
+                }
+                if (message != null) {
+                    executor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.v(TAG, "Receive: " + message);
+                            eventListener.onTCPMessage(message);
+                        }
+                    });
+                } else {
+                    break;
+                }
+            }
         }
-
-        Log.d(TAG, "Receiving thread exiting...");
-
-        // Close the rawSocket if it is still open.
         disconnect();
     }
 
     public void disconnect() {
         try {
-            synchronized (rawSocketLock) {
-                if (rawSocket != null) {
-                    rawSocket.close();
-                    rawSocket = null;
-                    out = null;
-
-                    executor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            eventListener.onTCPClose();
-                        }
-                    });
-                }
+            if (rawSocket != null) {
+                rawSocket.close();
+                rawSocket = null;
+                out = null;
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        eventListener.onTCPClose();
+                    }
+                });
             }
         } catch (IOException e) {
             reportError("Failed to close rawSocket: " + e.getMessage());
@@ -134,16 +107,12 @@ public abstract class TCPSocket extends Thread {
 
     public void send(String message) {
         Log.v(TAG, "Send: " + message);
-
-        synchronized (rawSocketLock) {
-            if (out == null) {
-                reportError("Sending data on closed socket.");
-                return;
-            }
-
-            out.write(message + "\n");
-            out.flush();
+        if (out == null) {
+            reportError("Sending data on closed socket.");
+            return;
         }
+        out.write(message + "\n");
+        out.flush();
     }
 
 

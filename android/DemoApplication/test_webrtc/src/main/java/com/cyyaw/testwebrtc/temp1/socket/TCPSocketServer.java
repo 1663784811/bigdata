@@ -36,7 +36,6 @@ public class TCPSocketServer extends TCPSocket {
     @Override
     public Socket connect() {
         Log.d(TAG, "Listening on [" + address.getHostAddress() + "]:" + Integer.toString(port));
-
         final ServerSocket tempSocket;
         try {
             tempSocket = new ServerSocket(port, 0, address);
@@ -44,15 +43,10 @@ public class TCPSocketServer extends TCPSocket {
             reportError("Failed to create server socket: " + e.getMessage());
             return null;
         }
-
-        synchronized (rawSocketLock) {
-            if (serverSocket != null) {
-                Log.e(TAG, "Server rawSocket was already listening and new will be opened.");
-            }
-
-            serverSocket = tempSocket;
+        if (serverSocket != null) {
+            Log.e(TAG, "Server rawSocket was already listening and new will be opened.");
         }
-
+        serverSocket = tempSocket;
         try {
             return tempSocket.accept();
         } catch (IOException e) {
@@ -67,16 +61,13 @@ public class TCPSocketServer extends TCPSocket {
     @Override
     public void disconnect() {
         try {
-            synchronized (rawSocketLock) {
-                if (serverSocket != null) {
-                    serverSocket.close();
-                    serverSocket = null;
-                }
+            if (serverSocket != null) {
+                serverSocket.close();
+                serverSocket = null;
             }
         } catch (IOException e) {
             reportError("Failed to close server socket: " + e.getMessage());
         }
-
         super.disconnect();
     }
 

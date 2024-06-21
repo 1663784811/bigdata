@@ -8,25 +8,22 @@ import java.util.concurrent.ExecutorService;
 
 
 public class TCPChannelClient {
-    private static final String TAG = "TCPChannelClient";
+    private static final String TAG = TCPChannelClient.class.getName();
 
-    private final ExecutorService executor;
     private final ThreadUtils.ThreadChecker executorThreadCheck;
 
     private TCPSocket socket;
 
-
     /**
+     *
      */
     public TCPChannelClient(ExecutorService executor, TCPChannelEvents eventListener, String ip, int port) {
-        this.executor = executor;
         executorThreadCheck = new ThreadUtils.ThreadChecker();
         executorThreadCheck.detachThread();
         InetAddress address;
         try {
             address = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
-            // reportError("Invalid IP address.");
             return;
         }
         if (address.isAnyLocalAddress()) {
@@ -37,12 +34,8 @@ public class TCPChannelClient {
         socket.start();
     }
 
-    /**
-     * Disconnects the client if not already disconnected. This will fire the onTCPClose event.
-     */
     public void disconnect() {
         executorThreadCheck.checkIsOnValidThread();
-
         socket.disconnect();
     }
 
