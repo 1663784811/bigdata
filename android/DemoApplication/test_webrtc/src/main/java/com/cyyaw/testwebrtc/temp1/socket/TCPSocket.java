@@ -40,49 +40,27 @@ public abstract class TCPSocket extends Thread {
     @Override
     public void run() {
         Log.d(TAG, "Listening thread started...");
-        // Receive connection to temporary variable first, so we don't block.
-        Socket tempSocket = connect();
-        BufferedReader in;
-        Log.d(TAG, "TCP connection established.");
-        if (rawSocket != null) {
-            Log.e(TAG, "Socket already existed and will be replaced.");
-        }
-        rawSocket = tempSocket;
-        // Connecting failed, error has already been reported, just exit.
-        if (rawSocket != null) {
-            try {
-                out = new PrintWriter(new OutputStreamWriter(rawSocket.getOutputStream(), StandardCharsets.UTF_8), true);
-                in = new BufferedReader(new InputStreamReader(rawSocket.getInputStream(), StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                reportError("Failed to open IO on rawSocket: " + e.getMessage());
-                return;
-            }
-            Log.v(TAG, "Execute onTCPConnected");
+        try {
+            rawSocket = connect();
+            out = new PrintWriter(new OutputStreamWriter(rawSocket.getOutputStream(), StandardCharsets.UTF_8), true);
+            BufferedReader  in = new BufferedReader(new InputStreamReader(rawSocket.getInputStream(), StandardCharsets.UTF_8));
             executor.execute(() -> {
-                Log.v(TAG, "Run onTCPConnected");
                 eventListener.onTCPConnected(isServer());
             });
-
+            // 读取数据,没有数据了就关闭
             while (true) {
-                String message;
-                try {
-                    // 读取发过来的数据
-                    message = in.readLine();
-                } catch (IOException e) {
-                    break;
-                }
+                // 读取发过来的数据
+                String message = in.readLine();
                 if (message != null) {
-                    executor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.v(TAG, "Receive: " + message);
-                            eventListener.onTCPMessage(message);
-                        }
+                    executor.execute(() -> {
+                        eventListener.onTCPMessage(message);
                     });
                 } else {
                     break;
                 }
             }
+        } catch (IOException e) {
+            Log.d(TAG, "ERROR...");
         }
         disconnect();
     }

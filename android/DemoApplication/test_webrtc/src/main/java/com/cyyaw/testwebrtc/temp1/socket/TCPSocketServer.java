@@ -1,8 +1,6 @@
 package com.cyyaw.testwebrtc.temp1.socket;
 
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
@@ -30,27 +28,15 @@ public class TCPSocketServer extends TCPSocket {
     }
 
     /**
-     * Opens a listening socket and waits for a connection.
      */
     @Nullable
     @Override
     public Socket connect() {
-        Log.d(TAG, "Listening on [" + address.getHostAddress() + "]:" + Integer.toString(port));
-        final ServerSocket tempSocket;
         try {
-            tempSocket = new ServerSocket(port, 0, address);
+            serverSocket = new ServerSocket(port, 0, address);
+            return serverSocket.accept();
         } catch (IOException e) {
             reportError("Failed to create server socket: " + e.getMessage());
-            return null;
-        }
-        if (serverSocket != null) {
-            Log.e(TAG, "Server rawSocket was already listening and new will be opened.");
-        }
-        serverSocket = tempSocket;
-        try {
-            return tempSocket.accept();
-        } catch (IOException e) {
-            reportError("Failed to receive connection: " + e.getMessage());
             return null;
         }
     }

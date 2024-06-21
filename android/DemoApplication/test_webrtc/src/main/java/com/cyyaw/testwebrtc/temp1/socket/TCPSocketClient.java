@@ -1,7 +1,5 @@
 package com.cyyaw.testwebrtc.temp1.socket;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
@@ -27,8 +25,6 @@ public class TCPSocketClient extends TCPSocket {
     @Nullable
     @Override
     public Socket connect() {
-        Log.d(TAG, "Connecting to [" + address.getHostAddress() + "]:" + Integer.toString(port));
-
         try {
             return new Socket(address, port);
         } catch (IOException e) {
