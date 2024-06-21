@@ -9,7 +9,7 @@ import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 
 /**
  * main control class
- * Created by dds on 2019/8/19.
+ *
  */
 public class SkyEngineKit {
     private final static String TAG = "AVEngineKit";
@@ -86,8 +86,7 @@ public class SkyEngineKit {
     }
 
     // 接听电话
-    public boolean startInCall(Context context, final String room, final String targetId,
-                               final boolean audioOnly) {
+    public boolean startInCall(Context context, final String room, final String targetId, final boolean audioOnly) {
         if (avEngineKit == null) {
             Log.e(TAG, "startInCall error,init is not set");
             return false;

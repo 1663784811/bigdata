@@ -24,7 +24,6 @@ import java.util.concurrent.Executors;
 
 /**
  * 会话层
- * Created by dds on 2019/8/19.
  */
 public class CallSession implements EngineCallback {
     private static final String TAG = SkyLog.createTag(CallSession.class.getSimpleName());
@@ -245,16 +244,12 @@ public class CallSession implements EngineCallback {
             } else {
                 iEngine.joinRoom(mUserIDList);
             }
-
             if (!isAudioOnly()) {
                 // 画面预览
                 if (sessionCallback != null && sessionCallback.get() != null) {
                     sessionCallback.get().didCreateLocalVideoTrack();
                 }
-
             }
-
-
         }));
 
 
@@ -520,7 +515,11 @@ public class CallSession implements EngineCallback {
         }
     }
 
+    /**
+     * 回调
+     */
     public interface CallSessionCallback {
+
         void didCallEndWithReason(EnumType.CallEndReason var1);
 
         void didChangeState(EnumType.CallState var1);

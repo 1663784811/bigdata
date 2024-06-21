@@ -58,7 +58,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DemoApplication">
+        android:theme="@style/Theme.DemoApplication"
+        android:usesCleartextTraffic="true"
+
+        >
 
 
         <activity
@@ -110,7 +113,7 @@
             android:name=".core.voip.VoipReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="${applicationId}.voip.Receiver" />
+                <action android:name="com.cyyaw.testwebrtc.voip.Receiver" />
             </intent-filter>
         </receiver>
 

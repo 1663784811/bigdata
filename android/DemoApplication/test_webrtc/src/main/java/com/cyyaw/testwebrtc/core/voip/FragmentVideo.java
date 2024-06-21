@@ -22,8 +22,6 @@ import com.cyyaw.testwebrtc.rtc.SkyEngineKit;
 import org.webrtc.SurfaceViewRenderer;
 
 /**
- * Created by dds on 2018/7/26.
- * android_shuai@163.com
  * 视频通话控制界面
  */
 public class FragmentVideo extends SingleCallFragment implements View.OnClickListener {
@@ -89,19 +87,12 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
                 params1.topMargin = BarUtils.getStatusBarHeight();
                 minimizeImageView.setLayoutParams(params1);
             });
-
             pipRenderer.post(() -> {
                 FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams) pipRenderer.getLayoutParams();
                 params2.topMargin = (int) (BarUtils.getStatusBarHeight() * 1.2);
                 pipRenderer.setLayoutParams(params2);
             });
         }
-//        if(isOutgoing){ //测试崩溃对方是否会停止
-//            lytParent.postDelayed(() -> {
-//                int i = 1 / 0;
-//            }, 10000);
-//        }
-
     }
 
 
@@ -193,9 +184,7 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
         } else {
             localSurfaceView.setZOrderMediaOverlay(true);
         }
-        Log.d(TAG,
-                "didCreateLocalVideoTrack localSurfaceView != null is " + (localSurfaceView != null) + "; remoteSurfaceView == null = " + (remoteSurfaceView == null)
-        );
+        Log.d(TAG, "didCreateLocalVideoTrack localSurfaceView != null is " + (localSurfaceView != null) + "; remoteSurfaceView == null = " + (remoteSurfaceView == null));
 
         if (localSurfaceView.getParent() != null) {
             ((ViewGroup) localSurfaceView.getParent()).removeView(localSurfaceView);
@@ -263,21 +252,15 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
                     callSingleActivity.finish();
                 }
             }
-        }
-        // 挂断电话
-        if (id == R.id.incomingHangupImageView || id == R.id.outgoingHangupImageView || id == R.id.connectedHangupImageView) {
+        } else if (id == R.id.incomingHangupImageView || id == R.id.outgoingHangupImageView || id == R.id.connectedHangupImageView) {
             if (session != null) {
                 Log.d(TAG, "endCall");
                 SkyEngineKit.Instance().endCall();
             }
             if (callSingleActivity != null) callSingleActivity.finish();
-        }
-
-        // 切换摄像头
-        if (id == R.id.switchCameraImageView) {
+        } else if (id == R.id.switchCameraImageView) {
             session.switchCamera();
-        }
-        if (id == R.id.pip_video_view) {
+        } else if (id == R.id.pip_video_view) {
             boolean isFullScreenRemote = fullscreenRenderer.getChildAt(0) == remoteSurfaceView;
             fullscreenRenderer.removeAllViews();
             pipRenderer.removeAllViews();
@@ -292,18 +275,12 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
                 remoteSurfaceView.setZOrderMediaOverlay(false);
                 fullscreenRenderer.addView(remoteSurfaceView);
             }
-        }
-
-        // 切换到语音拨打
-        if (id == R.id.outgoingAudioOnlyImageView || id == R.id.incomingAudioOnlyImageView || id == R.id.connectedAudioOnlyImageView) {
+        } else if (id == R.id.outgoingAudioOnlyImageView || id == R.id.incomingAudioOnlyImageView || id == R.id.connectedAudioOnlyImageView) {
             if (session != null) {
                 if (callSingleActivity != null) callSingleActivity.isAudioOnly = true;
                 session.switchToAudio();
             }
-        }
-
-        // 小窗
-        if (id == R.id.minimizeImageView) {
+        } else if (id == R.id.minimizeImageView) {
             if (callSingleActivity != null) callSingleActivity.showFloatingView();
         }
     }

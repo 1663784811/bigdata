@@ -1,27 +1,23 @@
 package com.cyyaw.testwebrtc.core.voip;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.cyyaw.testwebrtc.App;
 import com.cyyaw.testwebrtc.R;
+import com.cyyaw.testwebrtc.aaaa.HeadsetPlugReceiver;
+import com.cyyaw.testwebrtc.aaaa.WindHandle;
 import com.cyyaw.testwebrtc.core.base.BaseActivity;
 import com.cyyaw.testwebrtc.permission.Permissions;
 import com.cyyaw.testwebrtc.rtc.CallSession;
@@ -33,7 +29,6 @@ import java.util.UUID;
 
 
 /**
- * Created by dds on 2018/7/26.
  * 单人通话界面
  */
 public class CallSingleActivity extends BaseActivity implements CallSession.CallSessionCallback {
@@ -59,8 +54,7 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
     protected HeadsetPlugReceiver headsetPlugReceiver;
 
 
-    public static Intent getCallIntent(Context context, String targetId, boolean isOutgoing, String inviteUserName,
-                                       boolean isAudioOnly, boolean isClearTop) {
+    public static Intent getCallIntent(Context context, String targetId, boolean isOutgoing, String inviteUserName, boolean isAudioOnly, boolean isClearTop) {
         Intent voip = new Intent(context, CallSingleActivity.class);
         voip.putExtra(CallSingleActivity.EXTRA_MO, isOutgoing);
         voip.putExtra(CallSingleActivity.EXTRA_TARGET, targetId);
@@ -74,8 +68,10 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
     }
 
 
-    public static void openActivity(Context context, String targetId, boolean isOutgoing, String inviteUserName,
-                                    boolean isAudioOnly, boolean isClearTop) {
+    /**
+     * 打开Activity
+     */
+    public static void openActivity(Context context, String targetId, boolean isOutgoing, String inviteUserName, boolean isAudioOnly, boolean isClearTop) {
         Intent intent = getCallIntent(context, targetId, isOutgoing, inviteUserName, isAudioOnly, isClearTop);
         if (context instanceof Activity) {
             context.startActivity(intent);
@@ -88,9 +84,8 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarOrScreenStatus(this);
-        setContentView(R.layout.activity_single_call);
-
+        WindHandle.setStatusBarOrScreenStatus(this);
+        setContentView(R.layout.activity_single_call); // 空白页面？
         try {
             gEngineKit = SkyEngineKit.Instance();
         } catch (NotInitializedException e) {
@@ -161,20 +156,18 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
     private void init(String targetId, boolean outgoing, boolean audioOnly, boolean isReplace) {
         SingleCallFragment fragment;
         if (audioOnly) {
+            // 语音
             fragment = new FragmentAudio();
         } else {
+            // 视频
             fragment = new FragmentVideo();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         currentFragment = fragment;
         if (isReplace) {
-            fragmentManager.beginTransaction()
-                    .replace(android.R.id.content, fragment)
-                    .commit();
+            fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
         } else {
-            fragmentManager.beginTransaction()
-                    .add(android.R.id.content, fragment)
-                    .commit();
+            fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit();
         }
         if (outgoing && !isReplace) {
             // 创建会话
@@ -222,7 +215,7 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
 
     // 显示小窗
     public void showFloatingView() {
-        if (!checkOverlayPermission()) {
+        if (!WindHandle.checkOverlayPermission(this)) {
             return;
         }
         Intent intent = new Intent(this, FloatingVoipService.class);
@@ -238,9 +231,6 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
         init(targetId, isOutgoing, true, true);
     }
 
-    public String getRoomId() {
-        return room;
-    }
 
     // ======================================界面回调================================
     @Override
@@ -289,78 +279,4 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
         handler.post(() -> currentFragment.didDisconnected(userId));
     }
 
-
-    // ========================================================================================
-
-    private boolean checkOverlayPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            SettingsCompat.setDrawOverlays(this, true);
-            if (!SettingsCompat.canDrawOverlays(this)) {
-                Toast.makeText(this, "需要悬浮窗权限", Toast.LENGTH_LONG).show();
-                SettingsCompat.manageDrawOverlays(this);
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    @TargetApi(19)
-    private static int getSystemUiVisibility() {
-        int flags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            flags |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        }
-        return flags;
-    }
-
-    /**
-     * 设置状态栏透明
-     */
-    @TargetApi(19)
-    public void setStatusBarOrScreenStatus(Activity activity) {
-        Window window = activity.getWindow();
-        //全屏+锁屏+常亮显示
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN |
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-        window.getDecorView().setSystemUiVisibility(getSystemUiVisibility());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-            layoutParams.layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(layoutParams);
-        }
-        // 5.0以上系统状态栏透明
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //清除透明状态栏
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //设置状态栏颜色必须添加
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);//设置透明
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //19
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-    }
-
-
-    static class HeadsetPlugReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra("state")) {
-                CallSession session = SkyEngineKit.Instance().getCurrentSession();
-                if (session == null) {
-                    return;
-                }
-                if (intent.getIntExtra("state", 0) == 0) { //拔出耳机
-                    session.toggleHeadset(false);
-                } else if (intent.getIntExtra("state", 0) == 1) { //插入耳机
-                    session.toggleHeadset(true);
-                }
-            }
-        }
-    }
 }

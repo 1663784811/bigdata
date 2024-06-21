@@ -131,8 +131,7 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
         if (isHeadphonesPlugged()) {
             toggleHeadset(true);
         } else {
-            if (mIsAudioOnly)
-                toggleSpeaker(false);
+            if (mIsAudioOnly) toggleSpeaker(false);
             else {
                 audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
             }
@@ -371,9 +370,7 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
             isSpeakerOn = enable;
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
             if (enable) {
-                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
-                        audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL),
-                        AudioManager.FX_KEY_CLICK);
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                 audioManager.setSpeakerphoneOn(true);
             } else {
                 //5.0以上
@@ -385,11 +382,7 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
                     audioManager.setMode(AudioManager.MODE_IN_CALL);
                 }
                 //设置音量，解决有些机型切换后没声音或者声音突然变大的问题
-                audioManager.setStreamVolume(
-                        AudioManager.STREAM_VOICE_CALL,
-                        audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL),
-                        AudioManager.FX_KEY_CLICK
-                );
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
                 audioManager.setSpeakerphoneOn(false);
             }
             return true;
@@ -427,8 +420,7 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AudioDeviceInfo[] audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
             for (AudioDeviceInfo deviceInfo : audioDevices) {
-                if (deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
-                        || deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
+                if (deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADPHONES || deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
                     return true;
                 }
             }
@@ -472,16 +464,11 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
 
     private void initIceServer() {
         // 初始化一些stun和turn的地址
-        PeerConnection.IceServer var1 = PeerConnection.IceServer.builder("stun:stun.l.google.com:19302")
-                .createIceServer();
+        PeerConnection.IceServer var1 = PeerConnection.IceServer.builder("stun:stun.l.google.com:19302").createIceServer();
         iceServers.add(var1);
 
-        PeerConnection.IceServer var11 = PeerConnection.IceServer.builder("stun:42.192.40.58:3478")
-                .createIceServer();
-        PeerConnection.IceServer var12 = PeerConnection.IceServer.builder("turn:42.192.40.58:3478")
-                .setUsername("ddssingsong")
-                .setPassword("123456")
-                .createIceServer();
+        PeerConnection.IceServer var11 = PeerConnection.IceServer.builder("stun:42.192.40.58:3478").createIceServer();
+        PeerConnection.IceServer var12 = PeerConnection.IceServer.builder("turn:42.192.40.58:3478").setUsername("ddssingsong").setPassword("123456").createIceServer();
         iceServers.add(var11);
         iceServers.add(var12);
     }
@@ -493,26 +480,15 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
      */
     public PeerConnectionFactory createConnectionFactory() {
         // 1. 初始化的方法，必须在开始之前调用
-        PeerConnectionFactory.InitializationOptions initializationOptions = PeerConnectionFactory
-                .InitializationOptions
-                .builder(mContext)
-                .createInitializationOptions();
+        PeerConnectionFactory.InitializationOptions initializationOptions = PeerConnectionFactory.InitializationOptions.builder(mContext).createInitializationOptions();
         PeerConnectionFactory.initialize(initializationOptions);
         // 2. 设置编解码方式：默认方法
-        final VideoEncoderFactory encoderFactory = new DefaultVideoEncoderFactory(
-                mRootEglBase.getEglBaseContext(),
-                true,
-                true);
+        final VideoEncoderFactory encoderFactory = new DefaultVideoEncoderFactory(mRootEglBase.getEglBaseContext(), true, true);
         final VideoDecoderFactory decoderFactory = new DefaultVideoDecoderFactory(mRootEglBase.getEglBaseContext());
         // 3. 构造Factory
         AudioDeviceModule audioDeviceModule = JavaAudioDeviceModule.builder(mContext).createAudioDeviceModule();
         PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
-        return PeerConnectionFactory.builder()
-                .setOptions(options)
-                .setAudioDeviceModule(audioDeviceModule)
-                .setVideoEncoderFactory(encoderFactory)
-                .setVideoDecoderFactory(decoderFactory)
-                .createPeerConnectionFactory();
+        return PeerConnectionFactory.builder().setOptions(options).setAudioDeviceModule(audioDeviceModule).setVideoEncoderFactory(encoderFactory).setVideoDecoderFactory(decoderFactory).createPeerConnectionFactory();
     }
 
     /**
@@ -591,14 +567,10 @@ public class WebRTCEngine implements IEngine, Peer.IPeerEvent {
     // 配置音频参数
     private MediaConstraints createAudioConstraints() {
         MediaConstraints audioConstraints = new MediaConstraints();
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_ECHO_CANCELLATION_CONSTRAINT, "true"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_AUTO_GAIN_CONTROL_CONSTRAINT, "false"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_HIGH_PASS_FILTER_CONSTRAINT, "false"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_NOISE_SUPPRESSION_CONSTRAINT, "true"));
+        audioConstraints.mandatory.add(new MediaConstraints.KeyValuePair(AUDIO_ECHO_CANCELLATION_CONSTRAINT, "true"));
+        audioConstraints.mandatory.add(new MediaConstraints.KeyValuePair(AUDIO_AUTO_GAIN_CONTROL_CONSTRAINT, "false"));
+        audioConstraints.mandatory.add(new MediaConstraints.KeyValuePair(AUDIO_HIGH_PASS_FILTER_CONSTRAINT, "false"));
+        audioConstraints.mandatory.add(new MediaConstraints.KeyValuePair(AUDIO_NOISE_SUPPRESSION_CONSTRAINT, "true"));
         return audioConstraints;
     }
 

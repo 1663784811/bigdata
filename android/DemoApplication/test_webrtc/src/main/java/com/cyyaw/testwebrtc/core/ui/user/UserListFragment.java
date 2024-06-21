@@ -117,6 +117,7 @@ public class UserListFragment extends Fragment {
                 holder.item_call_video.setVisibility(View.VISIBLE);
             }
             holder.item_call_video.setOnClickListener(view -> {
+
                 CallSingleActivity.openActivity(getContext(), userBean.getUserId(), true, userBean.getNickName(), false, false);
 
             });

@@ -32,6 +32,9 @@ public class VoipReceiver extends BroadcastReceiver {
     private static final String TAG = "VoipReceiver";
     private AsyncPlayer ringPlayer;
 
+    /**
+     * 接收广播
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();

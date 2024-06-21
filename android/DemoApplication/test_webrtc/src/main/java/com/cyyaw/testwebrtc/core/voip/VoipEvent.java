@@ -13,16 +13,11 @@ import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 import java.util.List;
 
 /**
- * Created by dds on 2019/8/25.
- * android_shuai@163.com
+ *
  */
 public class VoipEvent implements ISkyEvent {
     private static final String TAG = "VoipEvent";
-    private final AsyncPlayer ringPlayer;
-
-    public VoipEvent() {
-        ringPlayer = new AsyncPlayer(null);
-    }
+    private final AsyncPlayer ringPlayer = new AsyncPlayer(null);
 
     @Override
     public void createRoom(String room, int roomSize) {

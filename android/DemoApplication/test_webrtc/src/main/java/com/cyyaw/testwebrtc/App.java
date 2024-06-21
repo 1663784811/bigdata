@@ -16,8 +16,8 @@ import com.cyyaw.testwebrtc.rtc.SkyEngineKit;
 public class App extends Application {
 
     private static App app;
-    private String username = "";
-    private String roomId = "";
+    private String username = "33";
+    private String roomId = "11";
     private String otherUserId = "";
 
     @Override

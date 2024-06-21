@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-
 import com.cyyaw.testwebrtc.temp1.effect.RTCVideoEffector;
 import com.cyyaw.testwebrtc.temp1.effect.VideoEffectProcessor;
 import com.cyyaw.testwebrtc.temp1.effect.filter.GPUImageBeautyFilter;
