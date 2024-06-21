@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.cyyaw.testwebrtc.aaaa.WebRtcDevice;
 import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.temp1.effect.RTCVideoEffector;
 import com.cyyaw.testwebrtc.temp1.effect.VideoEffectProcessor;
@@ -58,11 +59,8 @@ public class RTCEngine {
 
     private RTCPeer mPeer;
     // config
-    private static final String VIDEO_TRACK_ID = "ARDAMSv0";
-    private static final String AUDIO_TRACK_ID = "ARDAMSa0";
-    private static final int VIDEO_RESOLUTION_WIDTH = 1920;
-    private static final int VIDEO_RESOLUTION_HEIGHT = 1080;
-    private static final int FPS = 30;
+
+    private WebRtcDevice webRtcDevice;
 
 
     private static final int BPS_IN_KBPS = 1000;
@@ -70,8 +68,9 @@ public class RTCEngine {
 
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public RTCEngine(Context context, EglBase eglBase, VideoSink localSink) {
+    public RTCEngine(Context context, EglBase eglBase, VideoSink localSink, WebRtcDevice webRtcDevice) {
         mRootEglBase = eglBase;
+        this.webRtcDevice = webRtcDevice;
         // 开启线程
         executor.execute(() -> {
             // 创建连接工厂
@@ -96,9 +95,9 @@ public class RTCEngine {
         mSurfaceTextureHelper = SurfaceTextureHelper.create("CaptureThread", mRootEglBase.getEglBaseContext());
         // 初始化
         mVideoCapturer.initialize(mSurfaceTextureHelper, context, mVideoSource.getCapturerObserver());
-        mVideoCapturer.startCapture(VIDEO_RESOLUTION_WIDTH, VIDEO_RESOLUTION_HEIGHT, FPS);
+        mVideoCapturer.startCapture(webRtcDevice.getVideoWidth(), webRtcDevice.getVideoHeight(), webRtcDevice.getVideoFps());
         // 4. create videoTrack 创建videoTrack
-        VideoTrack videoTrack = mConnectionFactory.createVideoTrack(VIDEO_TRACK_ID, mVideoSource);
+        VideoTrack videoTrack = mConnectionFactory.createVideoTrack(webRtcDevice.getVideoTrackId(), mVideoSource);
         videoTrack.setEnabled(true);
         videoTrack.addSink(localSink);
         // add video effects =============== 添加视频效果
@@ -147,7 +146,7 @@ public class RTCEngine {
 
     private AudioTrack createAudioTrack() {
         mAudioSource = mConnectionFactory.createAudioSource(RtcConfig.createAudioConstraints());
-        mAudioTrack = mConnectionFactory.createAudioTrack(AUDIO_TRACK_ID, mAudioSource);
+        mAudioTrack = mConnectionFactory.createAudioTrack(webRtcDevice.getAudioTrackId(), mAudioSource);
         mAudioTrack.setEnabled(true);
         return mAudioTrack;
     }

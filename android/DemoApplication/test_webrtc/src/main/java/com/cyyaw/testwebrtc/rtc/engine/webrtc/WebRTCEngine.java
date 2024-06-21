@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.cyyaw.testwebrtc.aaaa.WebRtcDevice;
 import com.cyyaw.testwebrtc.rtc.EnumType;
 import com.cyyaw.testwebrtc.rtc.engine.EngineCallback;
 import com.cyyaw.testwebrtc.rtc.engine.IEngine;
@@ -56,11 +57,7 @@ public class WebRTCEngine implements IEngine, PeerEvent {
     private AudioTrack _localAudioTrack;
     private SurfaceViewRenderer localRenderer;
 
-    private static final String VIDEO_TRACK_ID = "ARDAMSv0";
-    private static final String AUDIO_TRACK_ID = "ARDAMSa0";
-    private static final int VIDEO_RESOLUTION_WIDTH = 1280;
-    private static final int VIDEO_RESOLUTION_HEIGHT = 720;
-    private static final int FPS = 30;
+    private WebRtcDevice webRtcDevice;
 
     // 对话实例列表
     private final ConcurrentHashMap<String, Peer> peerList = new ConcurrentHashMap<>();
@@ -77,9 +74,10 @@ public class WebRTCEngine implements IEngine, PeerEvent {
     // 是否正在切换摄像头
     private volatile boolean isSwitch = false;
 
-    public WebRTCEngine(boolean mIsAudioOnly, Context mContext) {
+    public WebRTCEngine(boolean mIsAudioOnly, Context mContext, WebRtcDevice webRtcDevice) {
         this.mIsAudioOnly = mIsAudioOnly;
         this.mContext = mContext;
+        this.webRtcDevice = webRtcDevice;
         audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         // 初始化ice地址 STUN 服务器
         iceServers.addAll(RtcConfig.getIceServer());
@@ -98,18 +96,18 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         }
         // 音频
         audioSource = _factory.createAudioSource(RtcConfig.createAudioConstraints());
-        _localAudioTrack = _factory.createAudioTrack(AUDIO_TRACK_ID, audioSource);
+        _localAudioTrack = _factory.createAudioTrack(webRtcDevice.getAudioTrackId(), audioSource);
         // 视频
         if (!mIsAudioOnly) {
             captureAndroid = createVideoCapture();
             surfaceTextureHelper = SurfaceTextureHelper.create("CaptureThread", mRootEglBase.getEglBaseContext());
             videoSource = _factory.createVideoSource(captureAndroid.isScreencast());
             captureAndroid.initialize(surfaceTextureHelper, mContext, videoSource.getCapturerObserver());
-            captureAndroid.startCapture(VIDEO_RESOLUTION_WIDTH, VIDEO_RESOLUTION_HEIGHT, FPS);
+            captureAndroid.startCapture(webRtcDevice.getVideoWidth(), webRtcDevice.getVideoHeight(), webRtcDevice.getVideoFps());
 
 
             // 回调
-            _localVideoTrack = _factory.createVideoTrack(VIDEO_TRACK_ID, videoSource);
+            _localVideoTrack = _factory.createVideoTrack(webRtcDevice.getVideoTrackId(), videoSource);
         }
     }
 

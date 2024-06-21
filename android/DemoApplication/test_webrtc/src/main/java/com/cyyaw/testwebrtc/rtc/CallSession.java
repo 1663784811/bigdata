@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.cyyaw.testwebrtc.rtc.engine.EngineCallback;
+import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.rtc.engine.webrtc.WebRTCEngine;
 import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 import com.cyyaw.testwebrtc.rtc.log.SkyLog;
@@ -56,7 +57,7 @@ public class CallSession implements EngineCallback {
         this.mRoomId = roomId;
 
         this.mEvent = event;
-        iEngine = AVEngine.createEngine(new WebRTCEngine(audioOnly, context));
+        iEngine = AVEngine.createEngine(new WebRTCEngine(audioOnly, context, RtcConfig.getDifaulWebRtcDevice()));
         iEngine.init(this);
     }
 

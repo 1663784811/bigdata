@@ -2,6 +2,8 @@ package com.cyyaw.testwebrtc.rtc.engine.webrtc;
 
 import android.content.Context;
 
+import com.cyyaw.testwebrtc.aaaa.WebRtcDevice;
+
 import org.webrtc.DefaultVideoDecoderFactory;
 import org.webrtc.DefaultVideoEncoderFactory;
 import org.webrtc.EglBase;
@@ -17,9 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RtcConfig {
-
-    private static final String VIDEO_FLEXFEC_FIELDTRIAL = "WebRTC-FlexFEC-03-Advertised/Enabled/WebRTC-FlexFEC-03/Enabled/";
-    private static final String DISABLE_WEBRTC_AGC_FIELDTRIAL = "WebRTC-Audio-MinimizeResamplingOnMobile/Enabled/";
 
 
     private RtcConfig() {
@@ -76,9 +75,16 @@ public class RtcConfig {
     }
 
 
-    public static String getFieldTrials() {
-        return VIDEO_FLEXFEC_FIELDTRIAL + DISABLE_WEBRTC_AGC_FIELDTRIAL;
+    public static WebRtcDevice getDifaulWebRtcDevice(){
+        WebRtcDevice webRtcDevice = new WebRtcDevice();
+        webRtcDevice.setAudioTrackId("ARDAMSv0");
+        webRtcDevice.setVideoTrackId("ARDAMSa0");
+        webRtcDevice.setVideoFps(30);
+        webRtcDevice.setVideoWidth(1280);
+        webRtcDevice.setVideoHeight(270);
+        return webRtcDevice;
     }
+
 
 
 }

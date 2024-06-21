@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cyyaw.testwebrtc.R;
+import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.rtc.render.ProxyVideoSink;
 import com.cyyaw.testwebrtc.temp1.rtc.RTCEngine;
 import com.cyyaw.testwebrtc.temp1.rtc.RTCPeer;
@@ -110,8 +111,12 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         //
         localProxyVideoSink.setTarget(mPipView);
         remoteProxyRenderer.setTarget(mFullView);
+
+
         //
-        mRtcEngine = new RTCEngine(getApplicationContext(), eglBase, localProxyVideoSink);
+        mRtcEngine = new RTCEngine(getApplicationContext(), eglBase, localProxyVideoSink, RtcConfig.getDifaulWebRtcDevice());
+
+
         statsReportUtil = new StatsReportUtil();
 
         //=============================================================== 初始化socket 网络
@@ -141,8 +146,6 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         }
         super.onDestroy();
     }
-
-
 
 
     public void onHungUp(View view) {
