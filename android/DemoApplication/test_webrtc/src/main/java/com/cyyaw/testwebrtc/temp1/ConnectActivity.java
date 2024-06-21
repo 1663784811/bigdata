@@ -114,7 +114,6 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         mRtcEngine = new RTCEngine(getApplicationContext(), eglBase, localProxyVideoSink);
         statsReportUtil = new StatsReportUtil();
 
-
         //=============================================================== 初始化socket 网络
         // 时间
         callStartedTimeMs = System.currentTimeMillis();

@@ -22,10 +22,8 @@ public abstract class TCPSocket extends Thread {
 
     private final TCPChannelEvents eventListener;
 
-    @Nullable
-    private PrintWriter out;
-    @Nullable
-    private Socket rawSocket;
+    private volatile PrintWriter out;
+    private volatile Socket rawSocket;
 
     @Nullable
     public abstract Socket connect();
