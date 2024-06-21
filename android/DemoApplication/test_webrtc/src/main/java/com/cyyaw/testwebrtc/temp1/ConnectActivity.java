@@ -119,10 +119,8 @@ public class ConnectActivity extends AppCompatActivity implements AppRTCClient.S
         callStartedTimeMs = System.currentTimeMillis();
         //
         mDirectRTCClient = new DirectRTCClient(this);
-        // 设置连接参数
-        AppRTCClient.RoomConnectionParameters parameters = new AppRTCClient.RoomConnectionParameters(mIpAddress);
         // 连接房间
-        mDirectRTCClient.connectToRoom(parameters);
+        mDirectRTCClient.connectToRoom(new AppRTCClient.RoomConnectionParameters(mIpAddress));
     }
 
     @Override

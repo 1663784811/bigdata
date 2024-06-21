@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.temp1.effect.RTCVideoEffector;
 import com.cyyaw.testwebrtc.temp1.effect.VideoEffectProcessor;
 import com.cyyaw.testwebrtc.temp1.effect.filter.GPUImageBeautyFilter;
@@ -14,11 +15,8 @@ import org.webrtc.AudioTrack;
 import org.webrtc.Camera1Enumerator;
 import org.webrtc.CameraEnumerator;
 import org.webrtc.CameraVideoCapturer;
-import org.webrtc.DefaultVideoDecoderFactory;
-import org.webrtc.DefaultVideoEncoderFactory;
 import org.webrtc.EglBase;
 import org.webrtc.IceCandidate;
-import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStreamTrack;
 import org.webrtc.PeerConnectionFactory;
 import org.webrtc.RtpParameters;
@@ -27,13 +25,9 @@ import org.webrtc.RtpTransceiver;
 import org.webrtc.SessionDescription;
 import org.webrtc.SurfaceTextureHelper;
 import org.webrtc.VideoCapturer;
-import org.webrtc.VideoDecoderFactory;
-import org.webrtc.VideoEncoderFactory;
 import org.webrtc.VideoSink;
 import org.webrtc.VideoSource;
 import org.webrtc.VideoTrack;
-import org.webrtc.audio.AudioDeviceModule;
-import org.webrtc.audio.JavaAudioDeviceModule;
 
 import java.util.Collections;
 import java.util.List;
@@ -69,15 +63,7 @@ public class RTCEngine {
     private static final int VIDEO_RESOLUTION_WIDTH = 1920;
     private static final int VIDEO_RESOLUTION_HEIGHT = 1080;
     private static final int FPS = 30;
-    private static final String AUDIO_ECHO_CANCELLATION_CONSTRAINT = "googEchoCancellation";
-    private static final String AUDIO_AUTO_GAIN_CONTROL_CONSTRAINT = "googAutoGainControl";
-    private static final String AUDIO_HIGH_PASS_FILTER_CONSTRAINT = "googHighpassFilter";
-    private static final String AUDIO_NOISE_SUPPRESSION_CONSTRAINT = "googNoiseSuppression";
 
-    private static final String VIDEO_FLEXFEC_FIELDTRIAL =
-            "WebRTC-FlexFEC-03-Advertised/Enabled/WebRTC-FlexFEC-03/Enabled/";
-    private static final String DISABLE_WEBRTC_AGC_FIELDTRIAL =
-            "WebRTC-Audio-MinimizeResamplingOnMobile/Enabled/";
 
     private static final int BPS_IN_KBPS = 1000;
 
@@ -89,7 +75,7 @@ public class RTCEngine {
         // 开启线程
         executor.execute(() -> {
             // 创建连接工厂
-            mConnectionFactory = createConnectionFactory(context);
+            mConnectionFactory = RtcConfig.createConnectionFactory(context, mRootEglBase);
             // 创建视频轨道
             mVideoTrack = createVideoTrack(context, localSink);
             // 创建音频轨道
@@ -98,52 +84,10 @@ public class RTCEngine {
 
     }
 
-    private PeerConnectionFactory createConnectionFactory(Context context) {
-        // 1. init factory
-        final String fieldTrials = getFieldTrials();
-        PeerConnectionFactory.InitializationOptions.Builder builder = PeerConnectionFactory.InitializationOptions.builder(context);
-        builder.setFieldTrials(fieldTrials);
-        PeerConnectionFactory.InitializationOptions initializationOptions = builder.createInitializationOptions();
-        PeerConnectionFactory.initialize(initializationOptions);
-
-        // 2. video encode decode method  视频编解码方法
-        final VideoEncoderFactory encoderFactory = new DefaultVideoEncoderFactory(mRootEglBase.getEglBaseContext(), true, true);
-        final VideoDecoderFactory decoderFactory = new DefaultVideoDecoderFactory(mRootEglBase.getEglBaseContext());
-
-        // 3. audio deal 音频交易
-        AudioDeviceModule audioDeviceModule = JavaAudioDeviceModule.builder(context).createAudioDeviceModule();
-
-        // 4. create connectFactory
-        PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
-        PeerConnectionFactory.Builder builder1 = PeerConnectionFactory.builder();
-        builder1.setOptions(options)
-                .setAudioDeviceModule(audioDeviceModule)
-                .setVideoEncoderFactory(encoderFactory)
-                .setVideoDecoderFactory(decoderFactory);
-        PeerConnectionFactory peerConnectionFactory = builder1.createPeerConnectionFactory();
-        audioDeviceModule.release();
-        return peerConnectionFactory;
-    }
-
-    private String getFieldTrials() {
-        String fieldTrials = "";
-        if (true) {
-            fieldTrials += VIDEO_FLEXFEC_FIELDTRIAL;
-            Log.d(TAG, "Enable FlexFEC field trial.");
-        }
-        if (true) {
-            fieldTrials += DISABLE_WEBRTC_AGC_FIELDTRIAL;
-            Log.d(TAG, "Disable WebRTC AGC field trial.");
-        }
-        return fieldTrials;
-    }
-
-
     /**
      * ===================================  创建视频轨道
      */
     private VideoTrack createVideoTrack(Context context, VideoSink localSink) {
-
         // 1. create video source  创建视频源
         mVideoSource = mConnectionFactory.createVideoSource(false);
         // 2. create video capture 创建视频捕获
@@ -202,24 +146,12 @@ public class RTCEngine {
     }
 
     private AudioTrack createAudioTrack() {
-        mAudioSource = mConnectionFactory.createAudioSource(createAudioConstraints());
+        mAudioSource = mConnectionFactory.createAudioSource(RtcConfig.createAudioConstraints());
         mAudioTrack = mConnectionFactory.createAudioTrack(AUDIO_TRACK_ID, mAudioSource);
         mAudioTrack.setEnabled(true);
         return mAudioTrack;
     }
 
-    private MediaConstraints createAudioConstraints() {
-        MediaConstraints audioConstraints = new MediaConstraints();
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_ECHO_CANCELLATION_CONSTRAINT, "true"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_AUTO_GAIN_CONTROL_CONSTRAINT, "true"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_HIGH_PASS_FILTER_CONSTRAINT, "true"));
-        audioConstraints.mandatory.add(
-                new MediaConstraints.KeyValuePair(AUDIO_NOISE_SUPPRESSION_CONSTRAINT, "true"));
-        return audioConstraints;
-    }
 
     public void createPeerConnection(RTCPeer.PeerConnectionEvents events, VideoSink remoteSink) {
         executor.execute(() -> {

@@ -18,6 +18,9 @@ import java.util.List;
 
 public class RtcConfig {
 
+    private static final String VIDEO_FLEXFEC_FIELDTRIAL = "WebRTC-FlexFEC-03-Advertised/Enabled/WebRTC-FlexFEC-03/Enabled/";
+    private static final String DISABLE_WEBRTC_AGC_FIELDTRIAL = "WebRTC-Audio-MinimizeResamplingOnMobile/Enabled/";
+
 
     private RtcConfig() {
     }
@@ -59,8 +62,23 @@ public class RtcConfig {
         final VideoDecoderFactory decoderFactory = new DefaultVideoDecoderFactory(eglBase.getEglBaseContext());
         // 3. 构造Factory
         AudioDeviceModule audioDeviceModule = JavaAudioDeviceModule.builder(mContext).createAudioDeviceModule();
+        // 4. create connectFactory
         PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
-        return PeerConnectionFactory.builder().setOptions(options).setAudioDeviceModule(audioDeviceModule).setVideoEncoderFactory(encoderFactory).setVideoDecoderFactory(decoderFactory).createPeerConnectionFactory();
+        PeerConnectionFactory factory = PeerConnectionFactory.builder()
+                .setOptions(options)
+                .setAudioDeviceModule(audioDeviceModule)
+                .setVideoEncoderFactory(encoderFactory)
+                .setVideoDecoderFactory(decoderFactory)
+                .createPeerConnectionFactory();
+        // 释放
+        audioDeviceModule.release();
+        return factory;
     }
+
+
+    public static String getFieldTrials() {
+        return VIDEO_FLEXFEC_FIELDTRIAL + DISABLE_WEBRTC_AGC_FIELDTRIAL;
+    }
+
 
 }

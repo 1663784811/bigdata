@@ -86,6 +86,7 @@ public class WebRTCEngine implements IEngine, PeerEvent {
     }
 
     // -----------------------------------对外方法------------------------------------------
+
     @Override
     public void init(EngineCallback callback) {
         mCallback = callback;
@@ -105,6 +106,9 @@ public class WebRTCEngine implements IEngine, PeerEvent {
             videoSource = _factory.createVideoSource(captureAndroid.isScreencast());
             captureAndroid.initialize(surfaceTextureHelper, mContext, videoSource.getCapturerObserver());
             captureAndroid.startCapture(VIDEO_RESOLUTION_WIDTH, VIDEO_RESOLUTION_HEIGHT, FPS);
+
+
+            // 回调
             _localVideoTrack = _factory.createVideoTrack(VIDEO_TRACK_ID, videoSource);
         }
     }

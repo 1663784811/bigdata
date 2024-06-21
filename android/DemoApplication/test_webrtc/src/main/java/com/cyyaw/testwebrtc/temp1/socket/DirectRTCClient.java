@@ -187,9 +187,6 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelEvents {
     public void onTCPConnected(boolean isServer) {
         if (isServer) {
             roomState = ConnectionState.CONNECTED;
-            // Ice servers are not needed for direct connections.
-            // Server side acts as the initiator on direct connections.
-            // offerSdp
             events.onConnectedToRoom(new SignalingParameters(new ArrayList<>(), true, null));
         }
     }
