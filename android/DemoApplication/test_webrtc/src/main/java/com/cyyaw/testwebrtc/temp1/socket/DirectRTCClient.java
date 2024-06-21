@@ -27,13 +27,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Implementation of AppRTCClient that uses direct TCP connection as the signaling channel.
- * This eliminates the need for an external server. This class does not support loopback
- * connections.
- * <p>
  * 客服端
  */
-public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChannelEvents {
+public class DirectRTCClient implements AppRTCClient, TCPChannelEvents {
     private static final String TAG = "DirectRTCClient";
     // 默认端口
     private static final int DEFAULT_PORT = 8888;
@@ -51,7 +47,7 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
             // Optional port number
             + "(:(\\d+))?");
 
-    private final ExecutorService executor;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final SignalingEvents events;
     @Nullable
     private TCPChannelClient tcpClient;
@@ -60,13 +56,10 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     private enum ConnectionState {NEW, CONNECTED, CLOSED, ERROR}
 
     // All alterations of the room state should be done from inside the looper thread.
-    private ConnectionState roomState;
+    private ConnectionState roomState = ConnectionState.NEW;
 
     public DirectRTCClient(SignalingEvents events) {
         this.events = events;
-        // 线程池
-        executor = Executors.newSingleThreadExecutor();
-        roomState = ConnectionState.NEW;
     }
 
     /**
@@ -112,7 +105,6 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
 
     /**
      * Disconnects from the room.
-     * <p>
      * Runs on the looper thread.
      */
     private void disconnectFromRoomInternal() {
@@ -198,13 +190,10 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     public void onTCPConnected(boolean isServer) {
         if (isServer) {
             roomState = ConnectionState.CONNECTED;
-
-            SignalingParameters parameters = new SignalingParameters(
-                    // Ice servers are not needed for direct connections.
-                    new ArrayList<>(), true, // Server side acts as the initiator on direct connections.
-                    null// offerSdp
-            );
-            events.onConnectedToRoom(parameters);
+            // Ice servers are not needed for direct connections.
+            // Server side acts as the initiator on direct connections.
+            // offerSdp
+            events.onConnectedToRoom(new SignalingParameters(new ArrayList<>(), true, null));
         }
     }
 
