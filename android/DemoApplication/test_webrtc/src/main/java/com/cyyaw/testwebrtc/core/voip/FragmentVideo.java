@@ -174,6 +174,7 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
     @Override
     public void didCreateLocalVideoTrack() {
         if (localSurfaceView == null) {
+            //
             View surfaceView = gEngineKit.getCurrentSession().setupLocalVideo(true);
             if (surfaceView != null) {
                 localSurfaceView = (SurfaceViewRenderer) surfaceView;
@@ -241,9 +242,9 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        // 接听
         CallSession session = gEngineKit.getCurrentSession();
         if (id == R.id.acceptImageView) {
+            // 接听
             if (session != null && session.getState() == CallState.Incoming) {
                 session.joinHome(session.getRoomId());
             } else if (session != null) {
@@ -261,6 +262,7 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
         } else if (id == R.id.switchCameraImageView) {
             session.switchCamera();
         } else if (id == R.id.pip_video_view) {
+            // 点击渲染器
             boolean isFullScreenRemote = fullscreenRenderer.getChildAt(0) == remoteSurfaceView;
             fullscreenRenderer.removeAllViews();
             pipRenderer.removeAllViews();

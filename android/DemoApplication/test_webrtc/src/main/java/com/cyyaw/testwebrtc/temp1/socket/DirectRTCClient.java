@@ -70,8 +70,6 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     }
 
     /**
-     * Connects to the room, roomId in connectionsParameters is required. roomId must be a valid
-     * IP address matching IP_PATTERN.
      * 连接到房间，连接中的房间ID参数是必需的。roomId必须是有效的 IP地址匹配IP_PATTERN。
      */
     @Override
@@ -86,10 +84,7 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     }
 
     /**
-     * Connects to the room.
      * 连接到房间。
-     * <p>
-     * Runs on the looper thread.
      */
     private void connectToRoomInternal() {
         this.roomState = ConnectionState.NEW;

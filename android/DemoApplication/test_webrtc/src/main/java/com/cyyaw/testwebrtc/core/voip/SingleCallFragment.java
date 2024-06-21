@@ -124,9 +124,7 @@ public abstract class SingleCallFragment extends Fragment {
         outgoingActionContainer = view.findViewById(R.id.outgoingActionContainer);
         incomingActionContainer = view.findViewById(R.id.incomingActionContainer);
         connectedActionContainer = view.findViewById(R.id.connectedActionContainer);
-
         durationTextView.setVisibility(View.GONE);
-
         if (isOutgoing) {
             handler.postDelayed(waitingRunnable,OUTGOING_WAITING_TIME);
         }

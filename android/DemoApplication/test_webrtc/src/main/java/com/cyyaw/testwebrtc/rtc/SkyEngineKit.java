@@ -9,7 +9,6 @@ import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 
 /**
  * main control class
- *
  */
 public class SkyEngineKit {
     private final static String TAG = "AVEngineKit";
@@ -60,8 +59,7 @@ public class SkyEngineKit {
     }
 
     // 拨打电话
-    public boolean startOutCall(Context context, final String room, final String targetId,
-                                final boolean audioOnly) {
+    public boolean startOutCall(Context context, final String room, final String targetId, final boolean audioOnly) {
         // 未初始化
         if (avEngineKit == null) {
             Log.e(TAG, "startOutCall error,please init first");

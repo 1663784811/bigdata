@@ -26,7 +26,6 @@ import com.cyyaw.testwebrtc.rtc.exception.NotInitializedException;
 import java.util.UUID;
 
 /**
- * Created by dds on 2018/7/26.
  * 多人通话界面
  */
 public class CallMultiActivity extends BaseActivity implements CallSession.CallSessionCallback, View.OnClickListener {

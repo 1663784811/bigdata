@@ -25,18 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dds on 2020/3/11.
- * android_shuai@163.com
+ * 同伴
  */
 public class Peer implements SdpObserver, PeerConnection.Observer {
     private final static String TAG = SkyLog.createTag(Peer.class.getSimpleName());
+    // peer 连接
     private final PeerConnection pc;
     private final String mUserId;
     private volatile List<IceCandidate> queuedRemoteCandidates;
     private SessionDescription localSdp;
     private final PeerConnectionFactory mFactory;
     private final List<PeerConnection.IceServer> mIceLis;
-    private final IPeerEvent mEvent;
+    private final PeerEvent mEvent;
     private boolean isOffer;
 
     public MediaStream _remoteStream;
@@ -44,7 +44,7 @@ public class Peer implements SdpObserver, PeerConnection.Observer {
     public ProxyVideoSink sink;
 
 
-    public Peer(PeerConnectionFactory factory, List<PeerConnection.IceServer> list, String userId, IPeerEvent event) {
+    public Peer(PeerConnectionFactory factory, List<PeerConnection.IceServer> list, String userId, PeerEvent event) {
         mFactory = factory;
         mIceLis = list;
         mEvent = event;
@@ -52,9 +52,11 @@ public class Peer implements SdpObserver, PeerConnection.Observer {
         queuedRemoteCandidates = new ArrayList<>();
         this.pc = createPeerConnection();
         Log.d(TAG, "create Peer:" + mUserId + ",this.pc = " + this.pc);
-
     }
 
+    /**
+     * 创建同伴与同伴之间的连接
+     */
     public PeerConnection createPeerConnection() {
         return mFactory.createPeerConnection(mIceLis, this);
     }
@@ -63,7 +65,9 @@ public class Peer implements SdpObserver, PeerConnection.Observer {
         this.isOffer = isOffer;
     }
 
-    // 创建offer
+    /**
+     * 创建offer
+     */
     public void createOffer() {
         if (pc == null) return;
         Log.d(TAG, "createOffer");
@@ -120,7 +124,6 @@ public class Peer implements SdpObserver, PeerConnection.Observer {
                         queuedRemoteCandidates.add(candidate);
                     }
                 }
-
             } else {
                 pc.addIceCandidate(candidate);
             }
@@ -338,20 +341,6 @@ public class Peer implements SdpObserver, PeerConnection.Observer {
 
     // ----------------------------回调-----------------------------------
 
-    public interface IPeerEvent {
 
-
-        void onSendIceCandidate(String userId, IceCandidate candidate);
-
-        void onSendOffer(String userId, SessionDescription description);
-
-        void onSendAnswer(String userId, SessionDescription description);
-
-        void onRemoteStream(String userId, MediaStream stream);
-
-        void onRemoveStream(String userId, MediaStream stream);
-
-        void onDisconnected(String userId);
-    }
 
 }

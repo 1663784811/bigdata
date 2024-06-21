@@ -29,15 +29,11 @@ public interface IEngine {
 
     /**
      * 用户拒绝
-     * @param userId userId
-     * @param type type
      */
     void userReject(String userId,int type);
 
     /**
      * 用户网络断开
-     * @param userId userId
-     * @param reason
      */
     void disconnected(String userId, EnumType.CallEndReason reason);
 

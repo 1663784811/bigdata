@@ -1,11 +1,13 @@
 package com.cyyaw.testwebrtc.rtc;
 
 /**
- * Created by dds on 2019/8/22.
- * android_shuai@163.com
+ * 类型
  */
 public class EnumType {
 
+    /**
+     * 电话状态
+     */
     public enum CallState {
         Idle,
         Outgoing,
@@ -16,6 +18,7 @@ public class EnumType {
         CallState() {
         }
     }
+
 
     public enum CallEndReason {
         Busy,
