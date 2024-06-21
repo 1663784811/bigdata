@@ -43,7 +43,7 @@ public abstract class TCPSocket extends Thread {
         try {
             rawSocket = connect();
             out = new PrintWriter(new OutputStreamWriter(rawSocket.getOutputStream(), StandardCharsets.UTF_8), true);
-            BufferedReader  in = new BufferedReader(new InputStreamReader(rawSocket.getInputStream(), StandardCharsets.UTF_8));
+            BufferedReader in = new BufferedReader(new InputStreamReader(rawSocket.getInputStream(), StandardCharsets.UTF_8));
             executor.execute(() -> {
                 eventListener.onTCPConnected(isServer());
             });
@@ -67,15 +67,15 @@ public abstract class TCPSocket extends Thread {
 
     public void disconnect() {
         try {
+            if (null != out) {
+                out.close();
+                out = null;
+            }
             if (rawSocket != null) {
                 rawSocket.close();
                 rawSocket = null;
-                out = null;
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        eventListener.onTCPClose();
-                    }
+                executor.execute(() -> {
+                    eventListener.onTCPClose();
                 });
             }
         } catch (IOException e) {
