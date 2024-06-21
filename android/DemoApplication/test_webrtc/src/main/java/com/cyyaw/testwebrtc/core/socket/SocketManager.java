@@ -7,12 +7,11 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.cyyaw.testwebrtc.App;
+import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
+import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
 import com.cyyaw.testwebrtc.core.voip.Consts;
 import com.cyyaw.testwebrtc.core.voip.VoipReceiver;
-import com.cyyaw.testwebrtc.rtc.CallSession;
-import com.cyyaw.testwebrtc.rtc.EnumType;
-import com.cyyaw.testwebrtc.rtc.SkyEngineKit;
-import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 
 import java.lang.ref.WeakReference;
 import java.net.URI;
@@ -25,11 +24,9 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 /**
- * Created by dds on 2019/7/26.
- * ddssignsong@163.com
  */
 public class SocketManager implements IEvent {
-    private final static String TAG = SkyLog.createTag("SocketManager");
+    private final static String TAG = SocketManager.class.getName();
     private MyWebSocket webSocket;
     private int userState;
     private String myId;

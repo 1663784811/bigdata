@@ -18,9 +18,9 @@ import androidx.fragment.app.FragmentManager;
 import com.cyyaw.testwebrtc.R;
 import com.cyyaw.testwebrtc.core.base.BaseActivity;
 import com.cyyaw.testwebrtc.permission.Permissions;
-import com.cyyaw.testwebrtc.rtc.CallSession;
-import com.cyyaw.testwebrtc.rtc.EnumType;
-import com.cyyaw.testwebrtc.rtc.SkyEngineKit;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
+import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
+import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
 import com.cyyaw.testwebrtc.rtc.exception.NotInitializedException;
 
 import java.util.UUID;

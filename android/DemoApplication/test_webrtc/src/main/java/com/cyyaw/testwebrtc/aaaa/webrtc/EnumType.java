@@ -1,4 +1,4 @@
-package com.cyyaw.testwebrtc.rtc;
+package com.cyyaw.testwebrtc.aaaa.webrtc;
 
 /**
  * 类型

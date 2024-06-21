@@ -1,4 +1,4 @@
-package com.cyyaw.testwebrtc.rtc.engine.webrtc;
+package com.cyyaw.testwebrtc.aaaa.webrtc;
 
 import android.content.Context;
 import android.media.AudioDeviceInfo;
@@ -9,10 +9,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.cyyaw.testwebrtc.aaaa.WebRtcDevice;
-import com.cyyaw.testwebrtc.rtc.EnumType;
-import com.cyyaw.testwebrtc.rtc.engine.EngineCallback;
-import com.cyyaw.testwebrtc.rtc.engine.IEngine;
-import com.cyyaw.testwebrtc.rtc.render.ProxyVideoSink;
+import com.cyyaw.testwebrtc.aaaa.webrtc.peer.Peer;
+import com.cyyaw.testwebrtc.aaaa.webrtc.peer.PeerEvent;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.EngineCallback;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.IEngine;
+import com.cyyaw.testwebrtc.aaaa.webrtc.render.ProxyVideoSink;
 
 import org.webrtc.AudioSource;
 import org.webrtc.AudioTrack;
@@ -45,16 +46,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WebRTCEngine implements IEngine, PeerEvent {
     private final static String TAG = WebRTCEngine.class.getSimpleName();
-    private PeerConnectionFactory _factory;
+    private PeerConnectionFactory factory;
     private EglBase mRootEglBase;
     // video
-    private VideoTrack _localVideoTrack;
+    private VideoTrack localVideoTrack;
     private VideoSource videoSource;
     private VideoCapturer captureAndroid;
     private SurfaceTextureHelper surfaceTextureHelper;
     // audio
     private AudioSource audioSource;
-    private AudioTrack _localAudioTrack;
+    private AudioTrack localAudioTrack;
     private SurfaceViewRenderer localRenderer;
 
     private WebRtcDevice webRtcDevice;
@@ -78,9 +79,9 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         this.mIsAudioOnly = mIsAudioOnly;
         this.mContext = mContext;
         this.webRtcDevice = webRtcDevice;
-        audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        this.audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         // 初始化ice地址 STUN 服务器
-        iceServers.addAll(RtcConfig.getIceServer());
+        this.iceServers.addAll(RtcConfig.getIceServer());
     }
 
     // -----------------------------------对外方法------------------------------------------
@@ -91,23 +92,21 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         if (mRootEglBase == null) {
             mRootEglBase = EglBase.create();
         }
-        if (_factory == null) {
-            _factory = RtcConfig.createConnectionFactory(mContext, mRootEglBase);
+        if (factory == null) {
+            factory = RtcConfig.createConnectionFactory(mContext, mRootEglBase);
         }
         // 音频
-        audioSource = _factory.createAudioSource(RtcConfig.createAudioConstraints());
-        _localAudioTrack = _factory.createAudioTrack(webRtcDevice.getAudioTrackId(), audioSource);
+        audioSource = factory.createAudioSource(RtcConfig.createAudioConstraints());
+        localAudioTrack = factory.createAudioTrack(webRtcDevice.getAudioTrackId(), audioSource);
         // 视频
         if (!mIsAudioOnly) {
             captureAndroid = createVideoCapture();
             surfaceTextureHelper = SurfaceTextureHelper.create("CaptureThread", mRootEglBase.getEglBaseContext());
-            videoSource = _factory.createVideoSource(captureAndroid.isScreencast());
+            videoSource = factory.createVideoSource(captureAndroid.isScreencast());
             captureAndroid.initialize(surfaceTextureHelper, mContext, videoSource.getCapturerObserver());
             captureAndroid.startCapture(webRtcDevice.getVideoWidth(), webRtcDevice.getVideoHeight(), webRtcDevice.getVideoFps());
-
-
             // 回调
-            _localVideoTrack = _factory.createVideoTrack(webRtcDevice.getVideoTrackId(), videoSource);
+            localVideoTrack = factory.createVideoTrack(webRtcDevice.getVideoTrackId(), videoSource);
         }
     }
 
@@ -122,14 +121,14 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         Log.d(TAG, "joinRoom: " + userIds.toString());
         for (String id : userIds) {
             // create Peer  创建新的同伴
-            Peer peer = new Peer(_factory, iceServers, id, this);
+            Peer peer = new Peer(factory, iceServers, id, this);
             peer.setOffer(false);
             List<String> mediaStreamLabels = Collections.singletonList("ARDAMS");
-            if (_localVideoTrack != null) { // 如果视频通道是空则创建
-                peer.addVideoTrack(_localVideoTrack, mediaStreamLabels);
+            if (localVideoTrack != null) { // 如果视频通道是空则创建
+                peer.addVideoTrack(localVideoTrack, mediaStreamLabels);
             }
-            if (_localAudioTrack != null) {// 如果音频通道是空则创建
-                peer.addAudioTrack(_localAudioTrack, mediaStreamLabels);
+            if (localAudioTrack != null) {// 如果音频通道是空则创建
+                peer.addAudioTrack(localAudioTrack, mediaStreamLabels);
             }
             // 添加列表
             peerList.put(id, peer);
@@ -137,7 +136,6 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         if (mCallback != null) {
             mCallback.joinRoomSucc();
         }
-
         if (isHeadphonesPlugged()) {
             toggleHeadset(true);
         } else {
@@ -154,14 +152,14 @@ public class WebRTCEngine implements IEngine, PeerEvent {
     @Override
     public void userIn(String userId) {
         Log.d(TAG, "userIn:用户进入 " + userId);
-        Peer peer = new Peer(_factory, iceServers, userId, this);
+        Peer peer = new Peer(factory, iceServers, userId, this);
         peer.setOffer(true);
         List<String> mediaStreamLabels = Collections.singletonList("ARDAMS");
-        if (_localVideoTrack != null) {
-            peer.addVideoTrack(_localVideoTrack, mediaStreamLabels);
+        if (localVideoTrack != null) {
+            peer.addVideoTrack(localVideoTrack, mediaStreamLabels);
         }
-        if (_localAudioTrack != null) {
-            peer.addAudioTrack(_localAudioTrack, mediaStreamLabels);
+        if (localAudioTrack != null) {
+            peer.addAudioTrack(localAudioTrack, mediaStreamLabels);
         }
         // 添加列表
         peerList.put(userId, peer);
@@ -258,8 +256,8 @@ public class WebRTCEngine implements IEngine, PeerEvent {
 
         ProxyVideoSink localSink = new ProxyVideoSink();
         localSink.setTarget(localRenderer);
-        if (_localVideoTrack != null) {
-            _localVideoTrack.addSink(localSink);
+        if (localVideoTrack != null) {
+            localVideoTrack.addSink(localSink);
         }
         return localRenderer;
     }
@@ -357,8 +355,8 @@ public class WebRTCEngine implements IEngine, PeerEvent {
 
     @Override
     public boolean muteAudio(boolean enable) {
-        if (_localAudioTrack != null) {
-            _localAudioTrack.setEnabled(!enable);
+        if (localAudioTrack != null) {
+            localAudioTrack.setEnabled(!enable);
             return true;
         }
         return false;
@@ -444,9 +442,9 @@ public class WebRTCEngine implements IEngine, PeerEvent {
         }
         // 停止预览
         stopPreview();
-        if (_factory != null) {
-            _factory.dispose();
-            _factory = null;
+        if (factory != null) {
+            factory.dispose();
+            factory = null;
         }
         if (mRootEglBase != null) {
             mRootEglBase.release();

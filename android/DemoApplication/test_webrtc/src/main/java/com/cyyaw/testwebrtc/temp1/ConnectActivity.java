@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cyyaw.testwebrtc.R;
-import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
-import com.cyyaw.testwebrtc.rtc.render.ProxyVideoSink;
+import com.cyyaw.testwebrtc.aaaa.webrtc.RtcConfig;
+import com.cyyaw.testwebrtc.aaaa.webrtc.render.ProxyVideoSink;
 import com.cyyaw.testwebrtc.temp1.rtc.RTCEngine;
 import com.cyyaw.testwebrtc.temp1.rtc.RTCPeer;
 import com.cyyaw.testwebrtc.temp1.socket.AppRTCClient;

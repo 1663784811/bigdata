@@ -3,10 +3,8 @@ package com.cyyaw.testwebrtc.temp1.rtc;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import com.cyyaw.testwebrtc.aaaa.WebRtcDevice;
-import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
+import com.cyyaw.testwebrtc.aaaa.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.temp1.effect.RTCVideoEffector;
 import com.cyyaw.testwebrtc.temp1.effect.VideoEffectProcessor;
 import com.cyyaw.testwebrtc.temp1.effect.filter.GPUImageBeautyFilter;
@@ -170,7 +168,7 @@ public class RTCEngine {
         });
     }
 
-    private @Nullable VideoTrack getRemoteVideoTrack() {
+    private VideoTrack getRemoteVideoTrack() {
         for (RtpTransceiver transceiver : mPeer.getTransceivers()) {
             MediaStreamTrack track = transceiver.getReceiver().track();
             if (track instanceof VideoTrack) {

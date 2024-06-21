@@ -1,14 +1,13 @@
-package com.cyyaw.testwebrtc.rtc.engine;
+package com.cyyaw.testwebrtc.aaaa.webrtc.session;
 
 
 
-import com.cyyaw.testwebrtc.rtc.EnumType;
+import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
 
 import org.webrtc.IceCandidate;
 import org.webrtc.SessionDescription;
 
 /**
- * Created by dds on 2020/4/12.
  * 框架回调
  */
 public interface EngineCallback {
@@ -26,7 +25,6 @@ public interface EngineCallback {
 
     /**
      * 拒绝连接
-     * @param type type
      */
     void reject(int type);
 

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.cyyaw.testwebrtc.core.util.StringUtil;
-import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -24,7 +23,7 @@ import javax.net.ssl.X509TrustManager;
  *
  */
 public class MyWebSocket extends WebSocketClient {
-    private final static String TAG = SkyLog.createTag("WebSocket");
+    private final static String TAG = MyWebSocket.class.getName();
     private final IEvent iEvent;
     private boolean connectFlag = false;
 

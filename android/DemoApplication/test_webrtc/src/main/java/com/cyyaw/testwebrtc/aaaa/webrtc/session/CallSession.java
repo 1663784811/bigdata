@@ -1,4 +1,4 @@
-package com.cyyaw.testwebrtc.rtc;
+package com.cyyaw.testwebrtc.aaaa.webrtc.session;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,9 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.cyyaw.testwebrtc.rtc.engine.EngineCallback;
-import com.cyyaw.testwebrtc.rtc.engine.webrtc.RtcConfig;
-import com.cyyaw.testwebrtc.rtc.engine.webrtc.WebRTCEngine;
+import com.cyyaw.testwebrtc.aaaa.webrtc.WebRTCEngine;
+import com.cyyaw.testwebrtc.aaaa.webrtc.AVEngine;
+import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
+import com.cyyaw.testwebrtc.aaaa.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 
@@ -24,7 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 会话层
+ * 会话 回调
  */
 public class CallSession implements EngineCallback {
     private static final String TAG = SkyLog.createTag(CallSession.class.getSimpleName());
@@ -55,7 +56,6 @@ public class CallSession implements EngineCallback {
         executor = Executors.newSingleThreadExecutor();
         this.mIsAudioOnly = audioOnly;
         this.mRoomId = roomId;
-
         this.mEvent = event;
         iEngine = AVEngine.createEngine(new WebRTCEngine(audioOnly, context, RtcConfig.getDifaulWebRtcDevice()));
         iEngine.init(this);
@@ -122,7 +122,7 @@ public class CallSession implements EngineCallback {
     }
 
     // 发送忙时拒绝
-    void sendBusyRefuse(String room, String targetId) {
+    public void sendBusyRefuse(String room, String targetId) {
         executor.execute(() -> {
             if (mEvent != null) {
                 // 取消拨出
