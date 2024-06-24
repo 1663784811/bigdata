@@ -5,12 +5,11 @@ import android.view.View;
 
 import com.cyyaw.testwebrtc.aaaa.webrtc.session.EngineCallback;
 import com.cyyaw.testwebrtc.aaaa.webrtc.session.IEngine;
-import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 
 import java.util.List;
 
 public class AVEngine implements IEngine {
-    private static final String TAG = SkyLog.createTag("AVEngine");
+    private static final String TAG = "AVEngine";
     private final IEngine iEngine;
     private static volatile AVEngine instance;
 

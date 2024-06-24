@@ -11,18 +11,17 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.cyyaw.testwebrtc.App;
 import com.cyyaw.testwebrtc.R;
 import com.cyyaw.testwebrtc.aaaa.HeadsetPlugReceiver;
 import com.cyyaw.testwebrtc.aaaa.WindHandle;
-import com.cyyaw.testwebrtc.core.base.BaseActivity;
-import com.cyyaw.testwebrtc.permission.Permissions;
-import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
 import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
 import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
-import com.cyyaw.testwebrtc.rtc.exception.NotInitializedException;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
+import com.cyyaw.testwebrtc.permission.Permissions;
 
 import java.util.UUID;
 
@@ -30,7 +29,7 @@ import java.util.UUID;
 /**
  * 单人通话界面
  */
-public class CallSingleActivity extends BaseActivity implements CallSession.CallSessionCallback {
+public class CallSingleActivity extends AppCompatActivity implements CallSession.CallSessionCallback {
 
     public static final String EXTRA_TARGET = "targetId";
     public static final String EXTRA_MO = "isOutGoing";
@@ -85,16 +84,7 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
         super.onCreate(savedInstanceState);
         WindHandle.setStatusBarOrScreenStatus(this);
         setContentView(R.layout.activity_single_call); // 空白页面？
-        try {
-            gEngineKit = SkyEngineKit.Instance();
-        } catch (NotInitializedException e) {
-            SkyEngineKit.init(new VoipEvent());
-            try {
-                gEngineKit = SkyEngineKit.Instance();
-            } catch (NotInitializedException ex) {
-                finish();
-            }
-        }
+        gEngineKit = SkyEngineKit.Instance();
         final Intent intent = getIntent();
         targetId = intent.getStringExtra(EXTRA_TARGET);
         isFromFloatingView = intent.getBooleanExtra(EXTRA_FROM_FLOATING_VIEW, false);
@@ -138,35 +128,20 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
         handler.removeCallbacksAndMessages(null);
     }
 
-    @Override
-    public void onBackPressed() {
-        //通话时不能按返回键，跟微信同现象，只能挂断结束或者接听
-//        super.onBackPressed();
-//        if (currentFragment != null) {
-//            if (currentFragment instanceof FragmentAudio) {
-//                ((FragmentAudio) currentFragment).onBackPressed();
-//            } else if (currentFragment instanceof FragmentVideo) {
-//                ((FragmentVideo) currentFragment).onBackPressed();
-//            }
-//        }
-
-    }
 
     private void init(String targetId, boolean outgoing, boolean audioOnly, boolean isReplace) {
-        SingleCallFragment fragment;
         if (audioOnly) {
             // 语音
-            fragment = new FragmentAudio();
+            currentFragment = new FragmentAudio();
         } else {
             // 视频
-            fragment = new FragmentVideo();
+            currentFragment = new FragmentVideo();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
-        currentFragment = fragment;
         if (isReplace) {
-            fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
+            fragmentManager.beginTransaction().replace(android.R.id.content, currentFragment).commit();
         } else {
-            fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit();
+            fragmentManager.beginTransaction().add(android.R.id.content, currentFragment).commit();
         }
         if (outgoing && !isReplace) {
             // 创建会话
@@ -191,7 +166,7 @@ public class CallSingleActivity extends BaseActivity implements CallSession.Call
             } else {
                 if (session.isAudioOnly() && !audioOnly) { //这种情况是，对方切换成音频的时候，activity还没启动，这里启动后需要切换一下
                     isAudioOnly = session.isAudioOnly();
-                    fragment.didChangeMode(true);
+                    currentFragment.didChangeMode(true);
                 }
                 session.setSessionCallback(this);
             }

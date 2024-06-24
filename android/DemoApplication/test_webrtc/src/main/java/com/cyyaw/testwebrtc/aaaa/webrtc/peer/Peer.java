@@ -3,7 +3,6 @@ package com.cyyaw.testwebrtc.aaaa.webrtc.peer;
 import android.content.Context;
 import android.util.Log;
 
-import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 import com.cyyaw.testwebrtc.aaaa.webrtc.render.ProxyVideoSink;
 
 import org.webrtc.AudioTrack;
@@ -28,7 +27,7 @@ import java.util.List;
  * 同伴
  */
 public class Peer implements SdpObserver, PeerConnection.Observer {
-    private final static String TAG = SkyLog.createTag(Peer.class.getSimpleName());
+    private final static String TAG = Peer.class.getSimpleName();
     // peer 连接
     private final PeerConnection pc;
     private final String mUserId;

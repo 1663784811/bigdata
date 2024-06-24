@@ -1,4 +1,4 @@
-package com.cyyaw.testwebrtc.core.consts;
+package com.cyyaw.testwebrtc;
 
 /**
  * Created by dds on 2020/4/19.

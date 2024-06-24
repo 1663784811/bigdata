@@ -2,20 +2,10 @@ package com.cyyaw.testwebrtc.rtc.inter;
 
 import java.util.List;
 
-/**
- * Created by dds on 2019/8/21.
- * android_shuai@163.com
- */
+
 public interface ISkyEvent {
 
-    /**
-     * create room
-     * Every net call must create a room
-     * @param room room tag
-     * @param roomSize room size
-     *                 single call size == 2
-     *                 multi call size >= 2
-     */
+
     void createRoom(String room, int roomSize);
 
     // 发送单人邀请

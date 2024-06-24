@@ -7,16 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.cyyaw.testwebrtc.core.MainActivity;
-import com.cyyaw.testwebrtc.core.base.BaseActivity;
-import com.cyyaw.testwebrtc.core.consts.Urls;
 import com.cyyaw.testwebrtc.core.socket.IUserState;
 import com.cyyaw.testwebrtc.core.socket.SocketManager;
 import com.cyyaw.testwebrtc.temp1.Temple1Activity;
 import com.cyyaw.testwebrtc.temp2.Temple2Activity;
 
 
-public class LauncherActivity extends BaseActivity implements IUserState {
+public class LauncherActivity extends AppCompatActivity implements IUserState {
     private EditText etUser;
 
     @Override

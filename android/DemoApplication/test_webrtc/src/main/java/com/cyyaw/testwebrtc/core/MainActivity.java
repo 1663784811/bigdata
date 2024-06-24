@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.cyyaw.testwebrtc.App;
 import com.cyyaw.testwebrtc.LauncherActivity;
 import com.cyyaw.testwebrtc.R;
-import com.cyyaw.testwebrtc.core.base.BaseActivity;
 import com.cyyaw.testwebrtc.core.socket.IUserState;
 import com.cyyaw.testwebrtc.core.socket.SocketManager;
 import com.cyyaw.testwebrtc.core.voip.Consts;
@@ -24,7 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * 主界面
  */
-public class MainActivity extends BaseActivity implements IUserState {
+public class MainActivity extends AppCompatActivity implements IUserState {
     private static final String TAG = "MainActivity";
     boolean isFromCall;
 

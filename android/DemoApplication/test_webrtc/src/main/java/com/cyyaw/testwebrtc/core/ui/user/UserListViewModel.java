@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.alibaba.fastjson.JSON;
-import com.cyyaw.testwebrtc.core.consts.Urls;
+import com.cyyaw.testwebrtc.Urls;
 import com.cyyaw.testwebrtc.net.HttpRequestPresenter;
 import com.cyyaw.testwebrtc.net.ICallback;
 

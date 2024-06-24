@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
-import com.cyyaw.testwebrtc.rtc.exception.NotInitializedException;
 import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
 
 
@@ -19,12 +18,7 @@ public class SkyEngineKit {
     private boolean isAudioOnly = false;
 
     public static SkyEngineKit Instance() {
-        SkyEngineKit var;
-        if ((var = avEngineKit) != null) {
-            return var;
-        } else {
-            throw new NotInitializedException();
-        }
+        return avEngineKit;
     }
 
     /**

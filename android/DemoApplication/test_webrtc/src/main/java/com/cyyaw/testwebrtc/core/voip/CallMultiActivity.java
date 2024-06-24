@@ -12,23 +12,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.cyyaw.testwebrtc.R;
-import com.cyyaw.testwebrtc.core.base.BaseActivity;
-import com.cyyaw.testwebrtc.permission.Permissions;
-import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
 import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
 import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
-import com.cyyaw.testwebrtc.rtc.exception.NotInitializedException;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
+import com.cyyaw.testwebrtc.permission.Permissions;
 
 import java.util.UUID;
 
 /**
  * 多人通话界面
  */
-public class CallMultiActivity extends BaseActivity implements CallSession.CallSessionCallback, View.OnClickListener {
+public class CallMultiActivity extends AppCompatActivity implements CallSession.CallSessionCallback, View.OnClickListener {
     private SkyEngineKit gEngineKit;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private ImageView meetingHangupImageView;
@@ -58,11 +57,6 @@ public class CallMultiActivity extends BaseActivity implements CallSession.CallS
         initData();
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
-
     private void initView() {
         meetingHangupImageView = findViewById(R.id.meetingHangupImageView);
         Fragment fragment = new FragmentMeeting();
@@ -81,11 +75,7 @@ public class CallMultiActivity extends BaseActivity implements CallSession.CallS
         Intent intent = getIntent();
         String room = intent.getStringExtra("room");
         isOutgoing = intent.getBooleanExtra(EXTRA_MO, false);
-        try {
-            gEngineKit = SkyEngineKit.Instance();
-        } catch (NotInitializedException e) {
-            finish();
-        }
+        gEngineKit = SkyEngineKit.Instance();
         String[] per = new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA};
         Permissions.request(this, per, integer -> {
             if (integer == 0) {

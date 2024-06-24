@@ -12,7 +12,6 @@ import com.cyyaw.testwebrtc.aaaa.webrtc.AVEngine;
 import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
 import com.cyyaw.testwebrtc.aaaa.webrtc.RtcConfig;
 import com.cyyaw.testwebrtc.rtc.inter.ISkyEvent;
-import com.cyyaw.testwebrtc.rtc.log.SkyLog;
 
 import org.webrtc.IceCandidate;
 import org.webrtc.SessionDescription;
@@ -28,7 +27,7 @@ import java.util.concurrent.Executors;
  * 会话 回调
  */
 public class CallSession implements EngineCallback {
-    private static final String TAG = SkyLog.createTag(CallSession.class.getSimpleName());
+    private static final String TAG = CallSession.class.getSimpleName();
     private WeakReference<CallSessionCallback> sessionCallback;
     private final ExecutorService executor;
     private final Handler handler = new Handler(Looper.getMainLooper());
