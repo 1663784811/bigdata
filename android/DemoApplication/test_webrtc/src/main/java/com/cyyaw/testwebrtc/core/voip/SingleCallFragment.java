@@ -23,12 +23,6 @@ import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
 
 
 /**
- * <pre>
- *     author : Jasper
- *     e-mail : 229605030@qq.com
- *     time   : 2021/02/01
- *     desc   :
- * </pre>
  */
 public abstract class SingleCallFragment extends Fragment {
     private static final String TAG = "SingleCallFragment";

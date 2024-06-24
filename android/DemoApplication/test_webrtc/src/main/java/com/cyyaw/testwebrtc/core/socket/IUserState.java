@@ -1,8 +1,6 @@
 package com.cyyaw.testwebrtc.core.socket;
 
 /**
- * Created by dds on 2019/8/2.
- * android_shuai@163.com
  */
 public interface IUserState {
 

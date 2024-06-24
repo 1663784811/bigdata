@@ -18,7 +18,6 @@ import com.cyyaw.testwebrtc.core.util.RomUtil;
 import java.lang.reflect.Method;
 
 /**
- * Created by dds on 2018/3/20.
  */
 
 public class SettingsCompat {

@@ -23,9 +23,6 @@ public final class BarUtils {
     }
 
     /**
-     * Return the status bar's height.
-     *
-     * @return the status bar's height
      */
     public static int getStatusBarHeight() {
         Resources resources = App.getInstance().getResources();

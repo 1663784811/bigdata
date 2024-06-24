@@ -21,16 +21,11 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Permission-related helpers
- */
+
 public class Permissions {
 
 
-    /**
-     * @param callback will be called if request is not canceled, with either
-     *                 {@link PackageManager#PERMISSION_GRANTED} or {@link PackageManager#PERMISSION_DENIED}
-     */
+
     public static void request(Activity activity, String permission, Consumer<Integer> callback) {
         if (Build.VERSION.SDK_INT >= M) {
             request2(activity, permission, callback);
@@ -44,10 +39,7 @@ public class Permissions {
 
     }
 
-    /**
-     * @param callback will be called if request is not canceled, with either
-     *                 {@link PackageManager#PERMISSION_GRANTED} or {@link PackageManager#PERMISSION_DENIED}
-     */
+
     public static void request(Activity activity, String[] permissions, Consumer<Integer> callback) {
         if (Build.VERSION.SDK_INT >= M) {
             request2(activity, permissions, callback);

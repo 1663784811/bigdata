@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 
 import com.cyyaw.testwebrtc.R;
+import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType;
+import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
+import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
 import com.cyyaw.testwebrtc.core.util.BarUtils;
 import com.cyyaw.testwebrtc.core.util.OSUtils;
-import com.cyyaw.testwebrtc.aaaa.webrtc.session.CallSession;
-import com.cyyaw.testwebrtc.aaaa.webrtc.EnumType.CallState;
-import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
 
 import org.webrtc.SurfaceViewRenderer;
 
@@ -103,11 +103,11 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
         if (session != null) {
             currentState = session.getState();
         }
-        if (session == null || CallState.Idle == session.getState()) {
+        if (session == null || EnumType.CallState.Idle == session.getState()) {
             if (callSingleActivity != null) {
                 callSingleActivity.finish();
             }
-        } else if (CallState.Connected == session.getState()) {
+        } else if (EnumType.CallState.Connected == session.getState()) {
             incomingActionContainer.setVisibility(View.GONE);
             outgoingActionContainer.setVisibility(View.GONE);
             connectedActionContainer.setVisibility(View.VISIBLE);
@@ -125,7 +125,7 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
                 outgoingActionContainer.setVisibility(View.GONE);
                 connectedActionContainer.setVisibility(View.GONE);
                 descTextView.setText(R.string.av_video_invite);
-                if (currentState == CallState.Incoming) {
+                if (currentState == EnumType.CallState.Incoming) {
                     View surfaceView = gEngineKit.getCurrentSession().setupLocalVideo(false);
                     Log.d(TAG, "init surfaceView != null is " + (surfaceView != null) + "; isOutgoing = " + isOutgoing + "; currentState = " + currentState);
                     if (surfaceView != null) {
@@ -145,11 +145,11 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
     }
 
     @Override
-    public void didChangeState(CallState state) {
+    public void didChangeState(EnumType.CallState state) {
         currentState = state;
         Log.d(TAG, "didChangeState, state = " + state);
         runOnUiThread(() -> {
-            if (state == CallState.Connected) {
+            if (state == EnumType.CallState.Connected) {
 
                 incomingActionContainer.setVisibility(View.GONE);
                 outgoingActionContainer.setVisibility(View.GONE);
@@ -245,7 +245,7 @@ public class FragmentVideo extends SingleCallFragment implements View.OnClickLis
         CallSession session = gEngineKit.getCurrentSession();
         if (id == R.id.acceptImageView) {
             // 接听
-            if (session != null && session.getState() == CallState.Incoming) {
+            if (session != null && session.getState() == EnumType.CallState.Incoming) {
                 session.joinHome(session.getRoomId());
             } else if (session != null) {
                 if (callSingleActivity != null) {

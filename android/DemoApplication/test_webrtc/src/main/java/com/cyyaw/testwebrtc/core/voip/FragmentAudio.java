@@ -16,8 +16,6 @@ import com.cyyaw.testwebrtc.aaaa.webrtc.SkyEngineKit;
 
 
 /**
- * Created by dds on 2018/7/26.
- * android_shuai@163.com
  * 语音通话控制界面
  */
 public class FragmentAudio extends SingleCallFragment implements View.OnClickListener {

@@ -1,8 +1,6 @@
 package com.cyyaw.testwebrtc.core.socket;
 
 /**
- * Created by dds on 2019/7/26.
- * ddssingsong@163.com
  */
 public interface IEvent {
 

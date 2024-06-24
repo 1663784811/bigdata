@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by rhm on 2018/1/12.
  */
 
 public class OSUtils {
