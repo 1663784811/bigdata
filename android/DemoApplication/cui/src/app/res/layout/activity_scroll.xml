@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="#ccc">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Scrollview"
+        android:text="ssssss"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <com.cyyaw.cui.CuiPopup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff4400"
+        android:layout_margin="10dp"
+        android:background="#fff"
         app:defaultHeight="110dp"
         app:realHeight="440dp">
 

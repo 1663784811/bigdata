@@ -45,16 +45,24 @@ public class CuiPopup extends LinearLayout {
      */
     private float realHeight;
 
-    //拉伸距离顶部的间距
+    /**
+     * 拉伸距离顶部的间距
+     */
     private float realMarginTop;
 
-    //收缩时候距离顶部的距离
+    /**
+     * 收缩时候距离顶部的距离
+     */
     private float defaultMarginTop;
 
-    //记录滑动的状态，上滑or下滑
+    /**
+     * 记录滑动的状态，上滑or下滑
+     */
     private float startY, moveState;
 
-    //标识内部是否包含滚动条,默认没有
+    /**
+     * 标识内部是否包含滚动条,默认没有
+     */
     private boolean noHaveScroll;
 
     private View touchView;
@@ -75,10 +83,10 @@ public class CuiPopup extends LinearLayout {
 
     public CuiPopup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HrLayout);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CuiPopup);
         if (typedArray != null) {
-            defaultHeight = typedArray.getDimension(R.styleable.HrLayout_defaultHeight, 0);
-            realHeight = typedArray.getDimension(R.styleable.HrLayout_realHeight, 0);
+            defaultHeight = typedArray.getDimension(R.styleable.CuiPopup_defaultHeight, 0);
+            realHeight = typedArray.getDimension(R.styleable.CuiPopup_realHeight, 0);
             typedArray.recycle();
         }
         init();
@@ -138,13 +146,17 @@ public class CuiPopup extends LinearLayout {
         Log.d(TAG, "高度：" + h);
     }
 
-    //设置默认露出的高度，参数单位px
+    /**
+     * 设置默认露出的高度，参数单位px
+     */
     public CuiPopup setDefaultHeight(float defaultHeight) {
         this.defaultHeight = defaultHeight;
         return this;
     }
 
-    //设置预计露出的高度，参数单位px
+    /**
+     * 设置预计露出的高度，参数单位px
+     */
     public CuiPopup setRealHeight(float realHeight) {
         this.realHeight = realHeight;
         return this;
