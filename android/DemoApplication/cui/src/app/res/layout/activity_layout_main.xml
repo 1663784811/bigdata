@@ -51,11 +51,11 @@
         android:text="导航栏" />
 
 
-    <com.cyyaw.cui.CuiNavBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ccc"
-        />
+<!--    <com.cyyaw.cui.CuiNavBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#ccc"-->
+<!--        />-->
 
 
 </LinearLayout>
