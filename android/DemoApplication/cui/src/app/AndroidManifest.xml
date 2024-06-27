@@ -82,6 +82,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".test.ScrollActivity"></activity>
+        <activity android:name=".test.RecyleActivity"></activity>
+        <activity android:name=".test.ListViewActivity"></activity>
+        <activity android:name=".test.ViewActivity"></activity>
+        <activity android:name=".test.NestScrollActivity"></activity>
+
+
 
     </application>
 
