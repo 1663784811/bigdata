@@ -1,11 +1,10 @@
-package com.cyyaw.testview;
+package com.cyyaw.testview.printer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.Layout;
@@ -16,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import com.cyyaw.testview.R;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

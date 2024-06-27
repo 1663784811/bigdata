@@ -21,8 +21,6 @@ import com.cyyaw.testwebrtc.permission.Permissions;
 import java.util.ArrayList;
 
 /**
- * Created by dds on 2019/8/25.
- * android_shuai@163.com
  */
 public class VoipReceiver extends BroadcastReceiver {
     private static final String TAG = "VoipReceiver";

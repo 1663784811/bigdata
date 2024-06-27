@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="RecyclerView"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.cyyaw.cui.CuiPopup
+        android:id="@+id/hrLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff4400"
+        android:orientation="vertical"
+        app:defaultHeight="110dp"
+        app:realHeight="440dp">
+
+        <TextView
+            android:id="@+id/tvTouchView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="#fff"
+            android:onClick="funClick"
+            android:text="点击弹起/关闭" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.cyyaw.cui.CuiPopup>
+
+</RelativeLayout>
