@@ -140,6 +140,10 @@ public class CuiPopup extends LinearLayout {
         Log.d(TAG, "屏幕高：" + windowsHeight + "     测量高度：" + height + "   defaultHeight：" + defaultHeight + "   realHeight：" + realHeight);
     }
 
+
+    /**
+     * 大小改变
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -359,7 +363,6 @@ public class CuiPopup extends LinearLayout {
 
     /**
      * 动画
-     *
      */
     private void startAnim(float startHeight, final float endHeight) {
         //上滑
@@ -404,7 +407,9 @@ public class CuiPopup extends LinearLayout {
         anim.start();
     }
 
-    //获取屏幕的高度
+    /**
+     * 获取屏幕的高度
+     */
     public static int getWindowsHeight(Activity activity) {
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);

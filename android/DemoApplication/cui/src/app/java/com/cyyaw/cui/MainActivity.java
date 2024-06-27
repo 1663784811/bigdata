@@ -6,11 +6,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cyyaw.cui.test.ListViewActivity;
-import com.cyyaw.cui.test.NestScrollActivity;
-import com.cyyaw.cui.test.RecyleActivity;
-import com.cyyaw.cui.test.ScrollActivity;
-import com.cyyaw.cui.test.ViewActivity;
+import com.cyyaw.cui.test.popup.ListViewActivity;
+import com.cyyaw.cui.test.popup.NestScrollActivity;
+import com.cyyaw.cui.test.popup.RecyleActivity;
+import com.cyyaw.cui.test.popup.ScrollActivity;
+import com.cyyaw.cui.test.popup.ViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 

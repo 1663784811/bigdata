@@ -346,6 +346,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: 'people'
                         }
                     ]
+                },
+                {
+                    name: '交友APP',
+                    icon: 'md-settings',
+                    routeName: '',
+                    children: [
+                        {
+                            name: '用户列表',
+                            icon: 'md-settings',
+                            routeName: 'phoneList'
+                        }
+                    ]
                 }
             ])
 
