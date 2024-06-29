@@ -67,8 +67,8 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
     }
 
     @Override
-    public BaseResult queryMenu() {
-        List<TPower> powers = tPowerDao.findAll();
+    public BaseResult queryMenu(String eCode) {
+        List<TPower> powers = tPowerDao.findAllByEnterpriseCode(eCode);
         // 组装成树
         TreeEntity treeEntity = new TreeEntity();
         for (TPower tpower : powers) {
@@ -114,7 +114,7 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
 
 
     @Override
-    public TPower save(TPower tPower) {
+    public TPower save(TPower tPower, String eCode) {
         Integer id = tPower.getId();
         if (null != id) {
             // 修改
@@ -124,15 +124,15 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
             String pid = obj.getPid();
             TPower parent = tPowerDao.findByTid(pid);
             // 查询子节点
-
-
             return tPowerDao.save(obj);
         } else {
             // 添加
             tPower.setTid(WhyStringUtil.getUUID());
             tPower.setCreateTime(new Date());
             tPower.setDel(0);
-            tPower.setNote("");
+            if (StrUtil.isBlank(tPower.getEnterpriseCode())) {
+                tPower.setEnterpriseCode(eCode);
+            }
             if (tPower.getIsPower() == null) {
                 tPower.setIsPower(0);
             }

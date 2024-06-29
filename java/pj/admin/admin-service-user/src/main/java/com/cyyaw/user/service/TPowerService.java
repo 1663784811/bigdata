@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface TPowerService extends BaseTableService<TPower, Integer> {
 
+
+    TPower save(TPower tPower, String eCode);
+
     /**
      * 查询用户权限
      */
@@ -23,14 +26,12 @@ public interface TPowerService extends BaseTableService<TPower, Integer> {
     /**
      * 查询菜单
      */
-    BaseResult queryMenu();
+    BaseResult queryMenu(String eCode);
 
     /**
      * 删除菜单
      */
     BaseResult delMenu(Integer id);
-
-
 
 
 }

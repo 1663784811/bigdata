@@ -20,8 +20,7 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})">添加
-            </Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})">添加</Button>
             <Button class="dataBtn" type="primary" icon="md-cloud-upload">添加从表格选择</Button>
             <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
               查看代码
@@ -131,7 +130,10 @@ const state = reactive({
   // ===============  保存
   saveObj: {
     url: '',
-    columns: []
+    columns: [],
+    data: {},
+    show: false,
+    saveType: ''
   },
   showCode: {
     show: false,
@@ -200,6 +202,8 @@ const showCodeFn = () => {
  * 保存组件数据
  */
 const saveComponentsFn = () => {
+
+
   compileCode();
   saveComponents({
     id: state.jsonData.id,
@@ -234,6 +238,9 @@ const initFn = () => {
   }
   if (saveObj) {
     state.saveObj = saveObj;
+    if (!state.saveObj.columns) {
+      state.saveObj.columns = [];
+    }
   }
   state.jsonData.id = id;
 }

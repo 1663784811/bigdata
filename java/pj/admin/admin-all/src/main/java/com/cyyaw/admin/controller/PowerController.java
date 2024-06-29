@@ -21,21 +21,21 @@ public class PowerController {
 
     @ApiOperation(value = "查询系统菜单", notes = "查询系统菜单")
     @GetMapping("/queryMenu")
-    public BaseResult queryMenu(@RequestParam Map<String, Object> map) {
+    public BaseResult queryMenu(@RequestParam Map<String, Object> map, @PathVariable String eCode) {
         // 查询数据
-        return tPowerService.queryMenu();
+        return tPowerService.queryMenu(eCode);
     }
 
     @ApiOperation(value = "保存菜单", notes = "保存菜单")
     @PostMapping("/saveMenu")
-    public BaseResult saveMenu(@RequestBody TPower tPower){
-        TPower save = tPowerService.save(tPower);
+    public BaseResult saveMenu(@RequestBody TPower tPower, @PathVariable String eCode) {
+        TPower save = tPowerService.save(tPower, eCode);
         return BaseResult.ok(save);
     }
 
     @ApiOperation(value = "删除菜单", notes = "删除菜单")
     @PostMapping("/delMenu")
-    public BaseResult delMenu(@RequestBody TPower tPower){
+    public BaseResult delMenu(@RequestBody TPower tPower) {
         Integer id = tPower.getId();
         tPowerService.delMenu(id);
         return BaseResult.ok();

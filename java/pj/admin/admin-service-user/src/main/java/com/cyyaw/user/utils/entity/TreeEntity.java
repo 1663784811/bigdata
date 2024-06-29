@@ -45,7 +45,7 @@ public class TreeEntity<T> {
                     String treePid = tNode.getPid();
                     if (StrUtil.isNotBlank(treePid)) {
                         int size = root.size();
-                        Node<T> nexTreeNode = root.get(i - 1);
+                        Node<T> nexTreeNode = root.get(size - 1);
                         boolean b = this.addTreeToForest(nexTreeNode, tNode);
                         if (b) {
                             root.remove(i);

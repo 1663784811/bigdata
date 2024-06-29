@@ -29,4 +29,7 @@ public interface TPowerDao extends BaseDao<TPower, Integer> {
     TPower findByTid(String pid);
 
 
+    @Query("select m from TPower m where m.enterpriseCode = ?1")
+    List<TPower> findAllByEnterpriseCode(String eCode);
+
 }
