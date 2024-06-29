@@ -98,9 +98,10 @@
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
 import {reactive, onMounted, watch} from 'vue'
-import {saveComponents, loadTable} from '@/api/api.js'
+import {saveComponents} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 import {Message} from "view-ui-plus";
+import draggable from "vuedraggable";
 
 const configModule = useConfigModule();
 
@@ -128,7 +129,10 @@ const state = reactive({
     }
   },
   // ===============  保存
-  saveObj: {},
+  saveObj: {
+    url: '',
+    columns: []
+  },
   showCode: {
     show: false,
     data: '',
@@ -221,7 +225,7 @@ const compileCode = () => {
 
 const initFn = () => {
   const {setting} = props;
-  const {queryRequest, delRequest, saveObj} = setting
+  const {queryRequest, delRequest, saveObj, id} = setting
   if (queryRequest) {
     state.queryRequest = queryRequest;
   }
@@ -231,6 +235,7 @@ const initFn = () => {
   if (saveObj) {
     state.saveObj = saveObj;
   }
+  state.jsonData.id = id;
 }
 
 watch(() => props.setting, () => {

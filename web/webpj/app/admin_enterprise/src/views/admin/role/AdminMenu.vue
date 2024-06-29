@@ -1,11 +1,11 @@
 <template>
-  <tree-type :setting="tableSetting" :editer="true"/>
+  <new-tree :setting="tableSetting" :editer="true"/>
 </template>
 
 <script setup>
 import {ref} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
-import TreeType from "@/component/tree/TreeType.vue";
+import NewTree from "@/component/tree/NewTree.vue";
 
 const usePageConfig = pageConfig();
 const tableSetting = ref({});
