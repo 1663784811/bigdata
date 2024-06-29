@@ -84,7 +84,8 @@
       </div>
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
+         @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
 
@@ -99,7 +100,7 @@ import DatabaseLoad from '../DatabaseLoad.vue'
 import {reactive, onMounted, watch} from 'vue'
 import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
-
+import {Message} from "view-ui-plus";
 
 const configModule = useConfigModule();
 
@@ -201,6 +202,10 @@ const saveComponentsFn = () => {
     data: state.jsonData.data
   }, true).finally(() => {
     state.jsonData.loading = false;
+    Message.success({
+      background: true,
+      content: '操作成功'
+    });
   })
 }
 
@@ -216,23 +221,15 @@ const compileCode = () => {
 
 const initFn = () => {
   const {setting} = props;
-  console.log('sssssssss:', setting);
-  const {saveObj, tableObj, searchObj, id, tid} = setting
-  if (searchObj) {
-    state.searchObj = searchObj;
+  const {queryRequest, delRequest, saveObj} = setting
+  if (queryRequest) {
+    state.queryRequest = queryRequest;
   }
-  if (tableObj) {
-    state.tableObj = tableObj;
-    state.operationObj = tableObj.operation;
+  if (delRequest) {
+    state.delRequest = delRequest;
   }
   if (saveObj) {
     state.saveObj = saveObj;
-  }
-  if (id) {
-    state.jsonData.id = id;
-  }
-  if (tid) {
-    state.jsonData.tid = tid;
   }
 }
 
