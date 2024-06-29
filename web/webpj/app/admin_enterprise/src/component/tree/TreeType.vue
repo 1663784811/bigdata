@@ -241,7 +241,7 @@ const selectTreeFn = (arr, obj) => {
 // =======================================
 watch(() => props.setting, () => {
   const setting = props.setting;
-  console.log("=========== props =======")
+  console.log("=========== props =======", setting)
   if (setting) {
     if (setting.columns) {
       saveData.value.columns = setting.columns;

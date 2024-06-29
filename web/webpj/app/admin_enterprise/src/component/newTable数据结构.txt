@@ -1,0 +1,173 @@
+{
+  // 搜索模块
+  "searchObj": {
+    // 是否显示
+    "show": true,
+    // 字段
+    "columns": [
+      {
+        "even": "search",
+        "name": "搜索",
+        "show": true,
+        "icon": "ios-search",
+        "type": "success",
+        "url": "",
+        "parameter": [
+          {
+            "key": "name",
+            "title": "角色名称",
+            "type": "html",
+            "length": 32,
+            "isRequire": false,
+            "regStr": "",
+            "message": "角色名称",
+            "controlType": "input",
+            "format": "",
+            "isWhere": true,
+            "isShowColumn": true,
+            "javaWhere": "lk",
+            "javaType": "string",
+            "isShowSave": true,
+            "isShowSearch": true
+          }
+        ]
+      }
+    ]
+  },
+  // 表格模块
+  "tableObj": {
+    // 查询数据
+    "queryRequest": {
+      "url": "/admin/${eCode}/common/query",
+      "parameter": {
+        "code": "select_t_role"
+      }
+    },
+    // 删除数据
+    "delRequest": {
+      "url": "/admin/${eCode}/common/del",
+      "parameter": {
+        "code": "select_t_role"
+      }
+    },
+    // 字段
+    "columns": [
+      {
+        "width": 60,
+        "key": "id",
+        "title": "id",
+        "type": "selection",
+        "length": 10,
+        "isRequire": false,
+        "regStr": "",
+        "message": "id",
+        "controlType": "hidden",
+        "format": "",
+        "isWhere": false,
+        "isShowColumn": true,
+        "javaWhere": "eq",
+        "javaType": "integer",
+        "isShowSave": true
+      }
+    ],
+    "loading": true,
+    "showColumns": false,
+    "operationObj": {},
+    // 操作列
+    "operation": {
+      "show": true,
+      "title": "操作",
+      "key": "operation",
+      "width": "240",
+      "operationArr": [
+        {
+          "label": "查看",
+          "even": "",
+          "show": true
+        },
+        {
+          "label": "修改",
+          "even": "",
+          "show": true
+        },
+        {
+          "label": "删除",
+          "even": "",
+          "show": true
+        },
+        {
+          "label": "部门",
+          "even": "department",
+          "show": true
+        }
+      ]
+    }
+  },
+  // 保存模块
+  "saveObj": {
+    // 是否显示
+    "show": false,
+    // 地址
+    "url": "/admin/role/saveTRole",
+    "loading": true,
+    "editor": true,
+    "data": {},
+    // 字段
+    "columns": [
+      {
+        "width": 60,
+        "key": "id",
+        "title": "id",
+        "type": "selection",
+        "length": 10,
+        "isRequire": false,
+        "regStr": "",
+        "message": "id",
+        "controlType": "hidden",
+        "format": "",
+        "isWhere": false,
+        "isShowColumn": true,
+        "javaWhere": "eq",
+        "javaType": "integer",
+        "isShowSave": false
+      }
+    ],
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

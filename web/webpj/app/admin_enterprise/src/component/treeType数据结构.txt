@@ -1,0 +1,89 @@
+{
+    // 查询数据
+    "queryRequest": {
+      "url": "/admin/${eCode}/common/query",
+      "parameter": {
+        "code": "select_t_role"
+      }
+    },
+    // 删除数据
+    "delRequest": {
+      "url": "/admin/${eCode}/common/del",
+      "parameter": {
+        "code": "select_t_role"
+      }
+    },
+  // 查询模块
+  "treeObj": {
+
+    "loading": true,
+    "showColumns": false,
+  },
+  // 保存模块
+  "saveObj": {
+    // 是否显示
+    "show": false,
+    // 地址
+    "url": "/admin/role/saveTRole",
+    "loading": true,
+    "editor": true,
+    "data": {},
+    // 字段
+    "columns": [
+      {
+        "width": 60,
+        "key": "id",
+        "title": "id",
+        "type": "selection",
+        "length": 10,
+        "isRequire": false,
+        "regStr": "",
+        "message": "id",
+        "controlType": "hidden",
+        "format": "",
+        "isWhere": false,
+        "isShowColumn": true,
+        "javaWhere": "eq",
+        "javaType": "integer",
+        "isShowSave": false
+      }
+    ],
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

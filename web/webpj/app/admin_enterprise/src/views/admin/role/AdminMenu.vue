@@ -13,7 +13,7 @@ const tableSetting = ref({});
 const initFn = async () => {
   const pageCode = 'adminMenu'
   const pageData = await usePageConfig.getPageConfig(pageCode);
-  tableSetting.value = pageData.commonTable;
+  tableSetting.value = pageData.dataTree;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 initFn();
