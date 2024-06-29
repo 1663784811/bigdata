@@ -4,7 +4,6 @@ package com.cyyaw.app.controller.user;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.TAdminService;
 import com.cyyaw.user.service.UUserService;
-import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;

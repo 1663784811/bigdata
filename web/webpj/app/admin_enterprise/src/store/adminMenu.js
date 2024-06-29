@@ -22,143 +22,143 @@ export const useAdminMenuStore = defineStore('adminMenu',
             const leftMenu = ref([]);
             const topMenu = ref([
                 {
-                    name: 'Dashboard',
+                    title: 'Dashboard',
                     icon: 'md-settings',
-                    routeName: '',
+                    routeName:  '',
                     children: [
                         {
-                            name: '主控台',
+                            title: '主控台',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName:  'dashboard'
                         },
                         {
-                            name: '系统监控',
+                            title: '系统监控',
                             icon: 'md-settings',
-                            routeName: 'systemMonitor'
+                            routeName:  'systemMonitor'
                         },
                         {
-                            name: '应用中心',
+                            title: '应用中心',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName:  'appCenter'
                         }
                     ]
                 },
                 {
-                    name: '后台设置',
+                    title: '后台设置',
                     icon: 'md-settings',
                     children: [
                         {
-                            name: '组积架构',
+                            title: '组积架构',
                             icon: 'md-settings',
-                            routeName: '',
+                            routeName:  '',
                             children: [
                                 {
-                                    name: '部门管理',
+                                    title: '部门管理',
                                     icon: 'md-settings',
-                                    routeName: 'adminDepartment'
+                                    routeName:  'adminDepartment'
                                 },
                                 {
-                                    name: '角色列表',
+                                    title: '角色列表',
                                     icon: 'md-settings',
-                                    routeName: 'role'
+                                    routeName:  'role'
                                 },
                                 {
-                                    name: '管理员管理',
+                                    title: '管理员管理',
                                     icon: 'md-settings',
-                                    routeName: 'admin'
+                                    routeName:  'admin'
                                 },
                                 {
-                                    name: '权限管理',
+                                    title: '权限管理',
                                     icon: 'md-settings',
-                                    routeName: 'adminPower'
+                                    routeName:  'adminPower'
                                 },
                                 {
-                                    name: '权限分配到角色',
+                                    title: '权限分配到角色',
                                     icon: 'md-settings',
-                                    routeName: 'adminRolePower'
+                                    routeName:  'adminRolePower'
                                 },
                                 {
-                                    name: '菜单管理',
+                                    title: '菜单管理',
                                     icon: 'md-settings',
-                                    routeName: 'menu'
+                                    routeName:  'menu'
                                 }
                             ]
                         },
                         {
-                            name: '任务管理',
+                            title: '任务管理',
                             icon: 'md-settings',
-                            routeName: '',
+                            routeName:  '',
                             children: [
                                 {
-                                    name: '流程管理',
+                                    title: '流程管理',
                                     icon: 'md-settings',
-                                    routeName: '',
+                                    routeName:  '',
                                     children: [
                                         {
-                                            name: '模型管理',
+                                            title: '模型管理',
                                             icon: 'md-settings',
-                                            routeName: 'modelList'
+                                            routeName:  'modelList'
                                         },
                                         {
-                                            name: '部署管理',
+                                            title: '部署管理',
                                             icon: 'md-settings',
-                                            routeName: 'modelArrange'
+                                            routeName:  'modelArrange'
                                         },
                                     ]
                                 },
                                 {
-                                    name: '待办任务',
+                                    title: '待办任务',
                                     icon: 'md-settings',
-                                    routeName: '',
+                                    routeName:  '',
                                     children: [
                                         {
-                                            name: '我的待办',
+                                            title: '我的待办',
                                             icon: 'md-settings',
-                                            routeName: 'myTask'
+                                            routeName:  'myTask'
                                         },
                                         {
-                                            name: '全部待办',
+                                            title: '全部待办',
                                             icon: 'md-settings',
-                                            routeName: 'adminPower'
+                                            routeName:  'adminPower'
                                         },
                                     ]
                                 },
                                 {
-                                    name: '功能表',
+                                    title: '功能表',
                                     icon: 'md-settings',
-                                    routeName: '',
+                                    routeName:  '',
                                     children: [
                                         {
-                                            name: '请假申请',
+                                            title: '请假申请',
                                             icon: 'md-settings',
-                                            routeName: ''
+                                            routeName:  ''
                                         },
                                         {
-                                            name: '采购申请',
+                                            title: '采购申请',
                                             icon: 'md-settings',
-                                            routeName: ''
+                                            routeName:  ''
                                         },
                                         {
-                                            name: '发起会议',
+                                            title: '发起会议',
                                             icon: 'md-settings',
-                                            routeName: 'meeting'
+                                            routeName:  'meeting'
                                         }
                                     ]
                                 },
                                 {
-                                    name: '流程监控',
+                                    title: '流程监控',
                                     icon: 'md-settings',
-                                    routeName: '',
+                                    routeName:  '',
                                     children: [
                                         {
-                                            name: '流程实例',
+                                            title: '流程实例',
                                             icon: 'md-settings',
-                                            routeName: 'processList'
+                                            routeName:  'processList'
                                         },
                                         {
-                                            name: '运行历史',
+                                            title: '运行历史',
                                             icon: 'md-settings',
-                                            routeName: 'historyProcess'
+                                            routeName:  'historyProcess'
                                         }
                                     ]
                                 }
@@ -167,195 +167,195 @@ export const useAdminMenuStore = defineStore('adminMenu',
                     ]
                 },
                 {
-                    name: '商城',
+                    title: '商城',
                     icon: 'md-settings',
-                    routeName: '',
+                    routeName:  '',
                     children: [
                         {
-                            name: '商城概览',
+                            title: '商城概览',
                             icon: 'md-settings',
-                            routeName: 'shoppingDashboard'
+                            routeName:  'shoppingDashboard'
                         },
                         {
-                            name: '用户管理',
+                            title: '用户管理',
                             icon: 'md-settings',
-                            routeName: 'shoppingUser'
+                            routeName:  'shoppingUser'
                         },
                         {
-                            name: '门店管理',
+                            title: '门店管理',
                             icon: 'md-settings',
                             children: [
                                 {
-                                    name: '门店列表',
+                                    title: '门店列表',
                                     icon: 'md-settings',
-                                    routeName: 'storeList',
+                                    routeName:  'storeList',
                                 }
                             ]
                         },
                         {
-                            name: '订单管理',
+                            title: '订单管理',
                             icon: 'md-settings',
-                            routeName: 'dashboard',
+                            routeName:  'dashboard',
                             children: [
                                 {
-                                    name: '订单列表',
+                                    title: '订单列表',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingOrderList',
+                                    routeName:  'shoppingOrderList',
                                 },
                                 {
-                                    name: '异常订单',
+                                    title: '异常订单',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingExceptionalOrder',
+                                    routeName:  'shoppingExceptionalOrder',
                                 },
                             ]
                         },
                         {
-                            name: '商城设置',
+                            title: '商城设置',
                             icon: 'md-settings',
                             children: [
                                 {
-                                    name: '商城设置',
+                                    title: '商城设置',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingSettings'
+                                    routeName:  'shoppingSettings'
                                 },
                                 {
-                                    name: '首页banner图',
+                                    title: '首页banner图',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingBanner'
+                                    routeName:  'shoppingBanner'
                                 },
                                 {
-                                    name: '商品分类',
+                                    title: '商品分类',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingGType'
+                                    routeName:  'shoppingGType'
                                 },
                                 {
-                                    name: '商品品牌',
+                                    title: '商品品牌',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingBrand'
+                                    routeName:  'shoppingBrand'
                                 }
                             ]
                         },
                         {
-                            name: '支付设置',
+                            title: '支付设置',
                             icon: 'md-settings',
-                            routeName: '',
+                            routeName:  '',
                             children: [
                                 {
-                                    name: '微信支付',
+                                    title: '微信支付',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingWeixinPay',
+                                    routeName:  'shoppingWeixinPay',
                                 },
                                 {
-                                    name: '支付宝支付',
+                                    title: '支付宝支付',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingAliPay',
+                                    routeName:  'shoppingAliPay',
                                 },
                             ]
                         }
                     ]
                 },
                 {
-                    name: '点餐系统',
+                    title: '点餐系统',
                     icon: 'md-settings',
-                    routeName: 'appCenter',
+                    routeName:  'appCenter',
                     children: [
                         {
-                            name: '系统概览',
+                            title: '系统概览',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName:  'dashboard'
                         },
                         {
-                            name: '门店管理',
+                            title: '门店管理',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName:  'appCenter'
                         }
                     ]
                 },
                 {
-                    name: '小黑屋',
+                    title: '小黑屋',
                     icon: 'md-settings',
-                    routeName: 'appCenter',
+                    routeName:  'appCenter',
                     children: [
                         {
-                            name: '设置',
+                            title: '设置',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName:  'dashboard'
                         },
                         {
-                            name: '小黑人列表',
+                            title: '小黑人列表',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName:  'appCenter'
                         }
                     ]
                 },
                 {
-                    name: '记账',
+                    title: '记账',
                     icon: 'md-settings',
-                    routeName: 'enterprise',
+                    routeName:  'enterprise',
                     children: [
                         {
-                            name: '设置',
+                            title: '设置',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName:  'dashboard'
                         },
                         {
-                            name: '小黑人列表',
+                            title: '小黑人列表',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName:  'appCenter'
                         }
                     ]
                 },
                 {
-                    name: '手机管理',
+                    title: '手机管理',
                     icon: 'md-settings',
-                    routeName: '',
+                    routeName:  '',
                     children: [
                         {
-                            name: '手机列表',
+                            title: '手机列表',
                             icon: 'md-settings',
-                            routeName: 'phoneList'
+                            routeName:  'phoneList'
                         },
                         {
-                            name: '公司',
+                            title: '公司',
                             icon: 'md-settings',
-                            routeName: 'companyList'
+                            routeName:  'companyList'
                         },
                         {
-                            name: '黑洞',
+                            title: '黑洞',
                             icon: 'md-settings',
-                            routeName: 'spiderData'
+                            routeName:  'spiderData'
                         },
                         {
-                            name: '单词解释',
+                            title: '单词解释',
                             icon: 'md-settings',
-                            routeName: 'bookWord'
+                            routeName:  'bookWord'
                         },
                         {
-                            name: '招聘列表',
+                            title: '招聘列表',
                             icon: 'md-settings',
-                            routeName: 'recruitList'
+                            routeName:  'recruitList'
                         },
                         {
-                            name: '商业历史',
+                            title: '商业历史',
                             icon: 'md-settings',
-                            routeName: 'commerceHistory'
+                            routeName:  'commerceHistory'
                         },
                         {
-                            name: '人物录',
+                            title: '人物录',
                             icon: 'md-settings',
-                            routeName: 'people'
+                            routeName:  'people'
                         }
                     ]
                 },
                 {
-                    name: '交友APP',
+                    title: '交友APP',
                     icon: 'md-settings',
-                    routeName: '',
+                    routeName:  '',
                     children: [
                         {
-                            name: '用户列表',
+                            title: '用户列表',
                             icon: 'md-settings',
-                            routeName: 'phoneList'
+                            routeName:  'phoneList'
                         }
                     ]
                 }
@@ -373,7 +373,8 @@ export const useAdminMenuStore = defineStore('adminMenu',
 
             const loadMenu = () => {
                 apiAdminMenu({}).then((res) => {
-                    topMenu.value.push(...res.data);
+                    console.log('ssssssssssssssssssss', res)
+                    //topMenu.value.push(...res.data);
                 })
             }
 

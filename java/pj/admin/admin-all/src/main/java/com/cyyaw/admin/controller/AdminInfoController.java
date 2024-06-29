@@ -57,8 +57,8 @@ public class AdminInfoController {
      * @return
      */
     @GetMapping(value = "/menu")
-    public BaseResult adminMenu() {
-        String adminId = "admin";
+    public BaseResult adminMenu(@TokenData LoginInfo loginInfo) {
+        String adminId = loginInfo.getId();
         List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId);
         return BaseResult.ok(arr);
     }

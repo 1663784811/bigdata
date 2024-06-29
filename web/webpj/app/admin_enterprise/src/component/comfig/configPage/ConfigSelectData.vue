@@ -168,7 +168,7 @@
 
 </template>
 <script setup>
-import DatabaseLoad from './DatabaseLoad.vue'
+import DatabaseLoad from '../DatabaseLoad.vue'
 
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";

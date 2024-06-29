@@ -21,16 +21,20 @@
         </div>
       </div>
     </div>
+    <!--  新表格  -->
     <div class="newTable" v-if="configModule.configPage.select === 'newTable'">
       <ConfigNewTable :setting="configModule.configPage.data"/>
     </div>
+    <!--  数据选择  -->
     <div class="selectData" v-if="configModule.configPage.select === 'selectData'">
       <ConfigSelectData :setting="configModule.configPage.data"/>
     </div>
+    <!--  数据树  -->
     <div class="dataTree" v-if="configModule.configPage.select === 'dataTree'">
       <ConfigDataTree :setting="configModule.configPage.data"/>
     </div>
   </Drawer>
+  <!-- ======================= -->
   <div class="configOperation" v-show="configModule.configPage.showOperation">
     <div @click="configModule.configPage.showOperation = false">xxxx</div>
     <div class="pageContent">
@@ -40,7 +44,7 @@
       </div>
       <div class="pageList">
         <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
-          <div @click="selectPage(item)">{{ item.name +"\t"+ item.pageCode }}</div>
+          <div @click="selectPage(item)">{{ item.name + "\t" + item.pageCode }}</div>
           <div class="rightBtn">
             <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updatePage(item)"/>
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delPage(item)"/>
@@ -61,9 +65,9 @@
   </div>
 </template>
 <script setup>
-import ConfigNewTable from './ConfigNewTable.vue'
-import ConfigSelectData from './ConfigSelectData.vue'
-import ConfigDataTree from './ConfigDataTree.vue'
+import ConfigNewTable from './configPage/ConfigNewTable.vue'
+import ConfigSelectData from './configPage/ConfigSelectData.vue'
+import ConfigDataTree from './configPage/ConfigDataTree.vue'
 
 
 import {onMounted, reactive} from "vue";
@@ -228,6 +232,9 @@ const clickSqlConfigFn = () => {
   configModule.sqlConfig.show = true;
 }
 
+/**
+ * 加载数据
+ */
 const loadData = (pageCode) => {
   configModule.configPage.pageCode = pageCode;
   pageSetting({
