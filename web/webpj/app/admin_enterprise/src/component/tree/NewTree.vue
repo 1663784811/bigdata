@@ -9,6 +9,7 @@
       </template>
     </Tree>
   </div>
+  {{ state.saveObj }}
   <ModalDataList
       v-model="state.saveObj.show"
       :modalSetting="state.saveObj"
@@ -32,7 +33,28 @@ const loginInfoSt = loginInfo();
 const props = defineProps({
   setting: {
     type: Object,
-    default: {},
+    default: {
+      queryRequest: {
+        url: '',
+        parameter: {
+          code: ""
+        }
+      },
+      delRequest: {
+        url: "",
+        parameter: {
+          code: ""
+        }
+      },
+      // ===============  保存
+      saveObj: {
+        url: '',
+        columns: [],
+        data: {},
+        show: false,
+        saveType: ''
+      },
+    },
     required: false
   },
   style: {
@@ -75,8 +97,6 @@ const state = reactive({
     show: false,
     saveType: ''
   },
-  // 字段
-  columns: [],
 });
 
 
@@ -95,9 +115,7 @@ const objConfig = ref(
 // ======================================================
 
 const initFn = async () => {
-  if (props.setting) {
-    state.saveObj.columns = getAddColumns(props.setting.columns);
-  }
+
 }
 initFn();
 
@@ -204,16 +222,16 @@ const handleContextMenuDelete = () => {
 
 const saveEventFn = (ev, itemData) => {
   if ('ok' === ev) {
-    const {url, parameter} = state.saveRequest;
+    const {url, parameter} = state.saveObj;
     commonRequest(url, {
       ...parameter,
       ...itemData
     }, 'post').then((rest) => {
-      saveData.value.data = rest.data;
+      state.saveObj.data = rest.data;
       Message.success({
         content: `${rest.msg}`,
         onClose: () => {
-          saveData.value.show = false;
+          state.saveObj.show = false;
           loadData();
         }
       })
@@ -221,9 +239,9 @@ const saveEventFn = (ev, itemData) => {
       Message.error({
         content: `${err}`
       })
-      saveData.value.loading = false;
+      state.saveObj.loading = false;
       setTimeout(() => {
-        saveData.value.loading = true;
+        state.saveObj.loading = true;
       })
     })
 

@@ -106,7 +106,7 @@ onMounted(() => {
 })
 
 const loadPage = () => {
-  commonRequest("/admin/{eCode}/common/query", {
+  commonRequest("/admin/${eCode}/common/query", {
     code: 'select_c_page',
     size: 1000
   }).then((rest) => {
