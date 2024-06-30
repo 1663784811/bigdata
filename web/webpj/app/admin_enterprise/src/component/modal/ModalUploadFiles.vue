@@ -5,7 +5,7 @@
       @on-ok="eventFn('ok')"
       @on-cancel="eventFn('cancel')"
       :mask-closable="false"
-      :loading="true"
+      :loading="state.loading"
       width="600px"
   >
     <div class="showImageBox">
@@ -96,7 +96,8 @@ const state = reactive({
       text: '16:9',
       data: [16, 9]
     }
-  ]
+  ],
+  loading: true
 });
 
 
@@ -121,6 +122,15 @@ const eventFn = (ev) => {
       formData.append('file', blob, 'face.jpeg');
       uploadFile(formData, 'aaa').then(rest => {
         console.log(rest)
+        fileStore.eventFn({
+          ev,
+          data: rest.data
+        });
+      }).finally(() => {
+        state.loading = false;
+        setTimeout(() => {
+          state.loading = true;
+        })
       })
     });
   } else {
@@ -142,7 +152,7 @@ const selectImgFun = (e) => {
   reader.onload = eve => {
     let data;
     if (typeof eve.target.result === "object") {
-      data = window.URL.createObjectURL(new Blob([eve.target.result]));
+      data = new Blob([eve.target.result]);
     } else {
       data = eve.target.result;
     }

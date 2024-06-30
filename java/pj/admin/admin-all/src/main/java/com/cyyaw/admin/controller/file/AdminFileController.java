@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,12 +28,13 @@ public class AdminFileController {
     private WebImageService webImageService;
 
 
-    private String rootPath = "F:/webTemp/file";
+    @Value("${cyyaw.file-path}")
+    private String rootPath;
 
 
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @PostMapping("/upload")
-    public BaseResult upload(@RequestParam("file") MultipartFile uploadFile) throws IOException {
+    public BaseResult upload(@RequestParam("file") MultipartFile uploadFile, @PathVariable String eCode) throws IOException {
         if (!uploadFile.isEmpty()) {
             // 上传到本地
             // 生成目录    //  /xxxx/年月/年月日/文件
@@ -40,7 +42,7 @@ public class AdminFileController {
             int year = date.year();
             int month = date.monthBaseOne();
             int day = date.dayOfMonth();
-            String basePath = "/" + year + "-" + month + "/" + year + "-" + month + "-" + day;
+            String basePath = "/" + eCode + " / " + year + " - " + month + " / " + year + " - " + month + " - " + day;
             File dir = new File(rootPath + basePath);
             if (!dir.exists()) {
                 dir.mkdirs();
