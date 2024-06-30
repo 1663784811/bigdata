@@ -148,7 +148,12 @@
                 </div>
               </div>
             </div>
-
+            <div class="row">
+              <div class="label">备注</div>
+              <div class="content">
+                <Input v-model="sqlData.note" placeholder="备注" type="textarea" :rows="8"/>
+              </div>
+            </div>
 
           </div>
           <div class="sqlNote">
