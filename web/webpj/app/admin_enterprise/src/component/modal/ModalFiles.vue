@@ -17,11 +17,7 @@
       <div class="btnBox">
         <Button class="btn" type="success" icon="ios-search">搜索</Button>
       </div>
-      <Upload
-          multiple
-          :format="['jpg','jpeg','png']"
-          action="http://192.168.0.130:8080/admin/file/upload"
-      >
+      <Upload multiple :format="['jpg','jpeg','png']" action="http://192.168.0.130:8080/admin/file/upload">
         <Button icon="ios-cloud-upload-outline">上传图片</Button>
       </Upload>
     </div>
@@ -36,10 +32,7 @@
         </div>
       </div>
       <div class="pageBox">
-        <Page :total="state.photoObj.pageData.total"
-              :page-size="state.photoObj.pageData.size"
-              @on-change="changePage"
-              show-elevator/>
+        <Page :total="state.photoObj.pageData.total" :page-size="state.photoObj.pageData.size" @on-change="changePage" show-elevator/>
       </div>
     </div>
   </Modal>

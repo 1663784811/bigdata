@@ -46,10 +46,10 @@ router.beforeEach(({meta = {}, name, params}, from, next) => {
     const {title, notLogin} = meta;
     if (title) document.title = title;
     const useUser = loginInfo();
+    useUser.variable.eCode = params.code;
     let token = useUser.token;
     if (!token && !notLogin) {
         // 未登录
-        console.log(params)
         if (params.code) {
             next({
                 name: 'login',

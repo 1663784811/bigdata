@@ -26,8 +26,7 @@ public class AdminFileController {
     @Autowired
     private WebImageService webImageService;
 
-    //    @Autowired
-//    private FtpService ftpService;
+
     private String rootPath = "F:/webTemp/file";
 
 

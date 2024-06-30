@@ -53,6 +53,7 @@ import {onMounted, reactive, ref} from "vue";
 import {useUploadFileStore} from '@/store/uploadFile.js'
 import 'vue-cropper/dist/index.css'
 import {Message} from "view-ui-plus";
+import {uploadFile} from '@/api/api.js'
 import {VueCropper} from "vue-cropper";
 
 const fileStore = useUploadFileStore();
@@ -107,20 +108,27 @@ const clickFixed = (index) => {
   state.cropper.fnIndex = index;
   state.cropper.fixedNumber = state.fixedNumber[index].data;
   cropper.value.refresh();
-  // cropper.value.getCropData(data=>{
-  //   console.log(data)
-  // });
 }
 
 /**
  * 事件
  */
 const eventFn = (ev) => {
-  console.log(ev)
-  // fileStore.eventFn({
-  //   ev,
-  //   data: 'ssss'
-  // });
+  if (ev === 'ok') {
+    cropper.value.getCropBlob(blob => {
+      console.log(blob)
+      const formData = new FormData();
+      formData.append('file', blob, 'face.jpeg');
+      uploadFile(formData, 'aaa').then(rest => {
+        console.log(rest)
+      })
+    });
+  } else {
+    fileStore.eventFn({
+      ev,
+      data: ''
+    });
+  }
 }
 
 const selectImgFun = (e) => {
