@@ -1,8 +1,8 @@
 <template>
   <div class="peopleCenter">
     <div class="userInfo">
-      <div class="faceBox">
-        头像
+      <div class="faceBox" @click="updateFaceFn">
+        <img src=""/>
       </div>
       <div class="updatePwdBox">
         <div class="rowTitle">
@@ -17,7 +17,7 @@
         <div class="row">
           <div class="rowLabel">新密码:</div>
           <div class="rowVal">
-            <Input clearable/>
+            <Input clearable icon="ios-clock-outline"/>
           </div>
         </div>
         <div class="row">
@@ -28,7 +28,7 @@
         </div>
         <div class="row">
           <div class="rowVal">
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload">修改</Button>
+            <Button class="dataBtn" type="success" icon="ios-create" @click="updatePwdFn">修改密码</Button>
           </div>
         </div>
       </div>
@@ -54,12 +54,16 @@
         <div class="infoRow">
           <div class="rowLabel">性别:</div>
           <div class="rowVal">
-            <Input v-model="state.userData.sex" clearable/>
+            <Select v-model="state.userData.sex">
+              <Option value="0" key="0">保密</Option>
+              <Option value="1" key="1">男</Option>
+              <Option value="2" key="2">女</Option>
+            </Select>
           </div>
         </div>
         <div class="infoRow">
           <div class="rowLabel">身份证号:</div>
-          <div class="rowVal">
+          <div class="rowVal ivu-form-item-error">
             <Input v-model="state.userData.idCar" clearable/>
           </div>
         </div>
@@ -83,7 +87,7 @@
         </div>
         <div class="infoRow">
           <div class="rowVal">
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload">修改</Button>
+            <Button class="dataBtn" type="success" disabled icon="ios-create">修改基本资料</Button>
           </div>
         </div>
       </div>
@@ -106,6 +110,10 @@
 
 import {userInfo} from '@/api/api.js'
 import {onMounted, reactive} from "vue";
+import {useUploadFileStore} from "@/store/uploadFile";
+
+const fileStore = useUploadFileStore();
+
 
 const state = reactive({
   userData: {
@@ -139,6 +147,15 @@ onMounted(() => {
 
 })
 
+const updateFaceFn = () => {
+  fileStore.uploadFile.show = true;
+
+
+}
+
+const updatePwdFn = () => {
+}
+
 
 </script>
 <style scoped lang="less">
@@ -154,9 +171,15 @@ onMounted(() => {
       width: 130px;
       height: 130px;
       margin: 20px auto;
-      padding: 10px;
       border-radius: 50%;
       background: #ccc;
+      overflow: hidden;
+      cursor: pointer;
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
     }
 
     .updatePwdBox {

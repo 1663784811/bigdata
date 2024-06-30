@@ -7,9 +7,10 @@
         <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuDelete" style="color: #ed4014">删除
         </DropdownItem>
       </template>
+
+
     </Tree>
   </div>
-  {{ state.saveObj }}
   <ModalDataList
       v-model="state.saveObj.show"
       :modalSetting="state.saveObj"
@@ -210,7 +211,7 @@ const handleContextMenuDelete = () => {
   const {url} = state.saveRequest;
   const id = selectData.value.data.id;
   commonRequest(
-      url,
+      loginInfoSt.reLoadUrl(url),
       [id],
       'post'
   ).then((res) => {
@@ -223,7 +224,7 @@ const handleContextMenuDelete = () => {
 const saveEventFn = (ev, itemData) => {
   if ('ok' === ev) {
     const {url, parameter} = state.saveObj;
-    commonRequest(url, {
+    commonRequest(loginInfoSt.reLoadUrl(url), {
       ...parameter,
       ...itemData
     }, 'post').then((rest) => {
