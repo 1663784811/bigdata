@@ -1,5 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 def isLibraryMode = project.hasProperty('LIBRARY_MODE') && project.LIBRARY_MODE.toBoolean()
@@ -60,3 +61,32 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
+
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier = "sources"
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.cyyaw'
+            artifactId = 'cui'
+            version = '0.01'
+
+            // 上传 AAR 包
+            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
+            // 向 Maven 仓库中上传源码
+            artifact sourceJar
+        }
+    }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+
+{"result":null,
+
+"data":{
+
+
+"jwtToken":"JWT:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc29fIiwibmJmIjoxNzE5NzQwMTc4LCJpc3MiOiJjeXlhdyIsImNsYWltIjoie1wiaWRcIjpcIjU0NjdiZjMwYjJiYjQ4NTA5YjI4OWJjNzA2YmVhMWJhXCIsX
+CJ0eXBlXCI6MyxcImFjY291bnRcIjpcInJvb3RcIixcInVzZXJOYW1lXCI6XCJuaWNrTmFtZVwiLFwiZW50ZXJwcmlzZUNvZGVcIjpcInNzc1wiLFwiYXBw
+SWRcIjpcInNzc1wifSIsImV4cCI6MTcyMTIwMjIzMywiaWF0IjoxNzE5NzQwMTc4LCJqdGkiOiI1NDY3YmYzMGIyYmI0ODUwOWIyODliYzcwNmJlYTFiYSJ9.iTJ_1TviOEQRED8bbZ2
+I9LRhgZVYoI7ObmRAwF61B1s",
+
+"uuser":{
+
+
+"id":229,"tid":"5467bf30b2bb48509b289bc706bea1ba","createTime":"2023-07-25 22:54:28","del":0,"note":"商城用户注册","appId":"sss","account":"root","password":null,"trueName":"","phone":
+"","nickName":"nickName","face":"https://dgss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2419543103,211913797&fm=30&app=106&f=JPEG?w=312&h=208&s=2F506887544036F
+D9E8911020300F091","sex":"","canLoginTime":null,"email":"","ip":"","lastLoginTime":null,"salt":"女","status":0,"type":0,"adminId":"","balance":null,"inte
+gral":0,"openId":"","unionId":"","introduceSign":"ss"}
+
+},"msg":"登录成功","code":2000}
