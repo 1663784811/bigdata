@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!--  主题色  -->
+    <color name="cui_themes">#0D77CC</color>
+
+    <color name="gradientEnd">#4AABF8</color>
+    <color name="defaultBackground">#FAFAFA</color>
+
+
+</resources>

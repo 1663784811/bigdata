@@ -74,8 +74,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.cyyaw'
             artifactId = 'cui'
-            version = '0.01'
-
+            version = '0.0.1'
             // 上传 AAR 包
             afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
             // 向 Maven 仓库中上传源码
