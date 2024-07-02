@@ -6,7 +6,9 @@ import com.cyyaw.config.exception.WebException;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.jpa.BaseService;
 import com.cyyaw.user.service.UUserService;
+import com.cyyaw.user.table.dao.UFriendsUserDao;
 import com.cyyaw.user.table.dao.UUserDao;
+import com.cyyaw.user.table.entity.UFriendsUser;
 import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.util.tools.WhyException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +26,9 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
 
     @Autowired
     private UUserDao uUserDao;
+
+    @Autowired
+    private UFriendsUserDao uFriendsUserDao;
 
     @Override
     public BaseDao getBaseDao() {
@@ -59,6 +65,31 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
         } else {
             return null;
         }
+    }
+
+
+    @Override
+    public List<UFriendsUser> myFriends(String uid, String appId) {
+        List<UFriendsUser> rest = uFriendsUserDao.findAllByUserid(uid);
+        List<String> userIdList = new ArrayList<>();
+        for (int i = 0; i < rest.size(); i++) {
+            userIdList.add(rest.get(i).getToUserId());
+        }
+        List<UUser> userList = uUserDao.findByTidIn(userIdList);
+        for (int i = 0; i < rest.size(); i++) {
+            UFriendsUser uFriendsUser = rest.get(i);
+            String toUserId = uFriendsUser.getToUserId();
+            if (StrUtil.isNotBlank(toUserId)) {
+                for (int j = 0; j < userList.size(); j++) {
+                    UUser uUser = userList.get(j);
+                    if (uUser.getTid().equals(toUserId)) {
+                        uFriendsUser.setToUser(uUser);
+                        break;
+                    }
+                }
+            }
+        }
+        return rest;
     }
 
 }

@@ -33,7 +33,7 @@ public class AllApplication {
         log.info("------------ 启动成功 ---------");
         Environment environment = run.getBean(Environment.class);
         log.info("打开程序：http://127.0.0.1:" + environment.getProperty("local.server.port"));
-
+        log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
 
     }
 
@@ -52,7 +52,6 @@ public class AllApplication {
                 long start = System.currentTimeMillis();
                 int count = 0;
                 for (int i = 0; i < list.size(); i++) {
-
 
 
                     StWord stWord = list.get(i);

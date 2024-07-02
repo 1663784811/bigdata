@@ -8,13 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
 @Entity
 @Table(name = "u_friends_user")
 @org.hibernate.annotations.Table(appliesTo = "u_friends_user", comment = "好友关联表")
-public class UFriendsUser implements BaseEntity<Integer>,  Serializable {
+public class UFriendsUser implements BaseEntity<Integer>, Serializable {
 
     private static final long serialVersionUID = 1366301723582985L;
 
@@ -52,6 +53,10 @@ public class UFriendsUser implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "friends_group_id", columnDefinition = "varchar(32) COMMENT 'u_friends_group好友分组表id'")
     private String friendsGroupId;
+
+
+    @Transient
+    private UUser toUser;
 
 
 }

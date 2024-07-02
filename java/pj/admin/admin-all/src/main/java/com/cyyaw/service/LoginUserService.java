@@ -4,6 +4,8 @@ import com.cyyaw.user.table.entity.UUser;
 import com.cyyaw.user.utils.entity.LoginRequest;
 import com.cyyaw.user.utils.entity.UserAuthToken;
 
+import java.util.List;
+
 public interface LoginUserService {
 
 

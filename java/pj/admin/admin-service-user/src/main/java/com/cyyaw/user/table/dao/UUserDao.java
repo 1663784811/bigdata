@@ -3,13 +3,17 @@ package com.cyyaw.user.table.dao;
 import com.cyyaw.jpa.BaseDao;
 import com.cyyaw.user.table.entity.UUser;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface UUserDao extends BaseDao<UUser, Integer> {
 
-    @Query("select m from UUser m where m.tid in ( select t.toUserId from UFriendsUser t where t.userId = ?1 )")
-    List<UUser> findByUserid(String userid);
+    /**
+     * 好友
+     */
+    @Query("select m from UUser m where m.tid in ( select t.toUserId from UFriendsUser t where t.userId = ?1 ) and m.appId=?2")
+    List<UUser> findMyFriendsByUserid(String userid, String appId);
 
     @Query("select m from UUser m where m.type =?1")
     List<UUser> findByType(Integer type);
@@ -36,4 +40,6 @@ public interface UUserDao extends BaseDao<UUser, Integer> {
     @Query("select m from UUser m where m.appId=?1 and m.phone=?2")
     List<UUser> findByAppIdAndPhone(String appId, String phone);
 
+    @Query("select m from UUser m where m.tid in (:userIdList)")
+    List<UUser> findByTidIn(@Param("userIdList") List<String> userIdList);
 }
