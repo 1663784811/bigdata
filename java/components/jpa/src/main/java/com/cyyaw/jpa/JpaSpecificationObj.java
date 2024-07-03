@@ -47,132 +47,132 @@ public class JpaSpecificationObj<T> implements Specification<T> {
     }
 
 
-    private JpaSpecificationObj<T> like(String key, String value) {
+    public JpaSpecificationObj<T> like(String key, String value) {
         if (StrUtil.isNotBlank(value)) {
             return likeV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> likeV(String key, String value) {
+    public JpaSpecificationObj<T> likeV(String key, String value) {
         String keyStr = JpaWhereType.like.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
 
-    private JpaSpecificationObj<T> likeRight(String key, String value) {
+    public JpaSpecificationObj<T> likeRight(String key, String value) {
         if (StrUtil.isNotBlank(value)) {
             return likeRightV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> likeRightV(String key, String value) {
+    public JpaSpecificationObj<T> likeRightV(String key, String value) {
         String keyStr = JpaWhereType.likeR.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> likeLeft(String key, String value) {
+    public JpaSpecificationObj<T> likeLeft(String key, String value) {
         if (StrUtil.isNotBlank(value)) {
             return likeLeftV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> likeLeftV(String key, String value) {
+    public JpaSpecificationObj<T> likeLeftV(String key, String value) {
         String keyStr = JpaWhereType.likeL.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> eq(String key, Object value) {
+    public JpaSpecificationObj<T> eq(String key, Object value) {
         if (ObjUtil.isNotEmpty(value)) {
             return eqV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> eqV(String key, Object value) {
+    public JpaSpecificationObj<T> eqV(String key, Object value) {
         String keyStr = JpaWhereType.eq.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> neq(String key, Object value) {
+    public JpaSpecificationObj<T> neq(String key, Object value) {
         if (ObjUtil.isNotEmpty(value)) {
             return neqV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> neqV(String key, Object value) {
+    public JpaSpecificationObj<T> neqV(String key, Object value) {
         String keyStr = JpaWhereType.neq.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> geq(String key, Number value) {
+    public JpaSpecificationObj<T> geq(String key, Number value) {
         if (ObjUtil.isNotEmpty(value)) {
             return geqV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> geqV(String key, Number value) {
+    public JpaSpecificationObj<T> geqV(String key, Number value) {
         String keyStr = JpaWhereType.geq.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> gt(String key, Number value) {
+    public JpaSpecificationObj<T> gt(String key, Number value) {
         if (ObjUtil.isNotEmpty(value)) {
             return gtV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> gtV(String key, Number value) {
+    public JpaSpecificationObj<T> gtV(String key, Number value) {
         String keyStr = JpaWhereType.gt.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> leq(String key, Number value) {
+    public JpaSpecificationObj<T> leq(String key, Number value) {
         if (ObjUtil.isNotEmpty(value)) {
             return leqV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> leqV(String key, Number value) {
+    public JpaSpecificationObj<T> leqV(String key, Number value) {
         String keyStr = JpaWhereType.leq.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> ltq(String key, Number value) {
+    public JpaSpecificationObj<T> ltq(String key, Number value) {
         if (ObjUtil.isNotEmpty(value)) {
             return ltV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> ltV(String key, Number value) {
+    public JpaSpecificationObj<T> ltV(String key, Number value) {
         String keyStr = JpaWhereType.lt.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
     }
 
-    private JpaSpecificationObj<T> in(String key, String value) {
+    public JpaSpecificationObj<T> in(String key, String value) {
         if (ObjUtil.isNotEmpty(value)) {
             return inV(key, value);
         }
         return this;
     }
 
-    private JpaSpecificationObj<T> inV(String key, String value) {
+    public JpaSpecificationObj<T> inV(String key, String value) {
         String keyStr = JpaWhereType.in.getWhere() + "_" + key;
         whereList.put(keyStr, value);
         return this;
