@@ -9,6 +9,13 @@ public class JpaUtils {
     /**
      * 获取PageRequest  =====     分页
      */
+    public static PageRequest getPageRequest(Integer page, Integer size) {
+        return getPageRequest(page, size, null);
+    }
+
+    /**
+     * 获取PageRequest  =====     分页
+     */
     public static PageRequest getPageRequest(Integer page, Integer size, Sort sort) {
         PageRequest pageRequest;
         page = page == null ? 1 : page;
