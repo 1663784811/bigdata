@@ -44,6 +44,7 @@ public class JpaSpecification<T> implements Specification<T> {
      * @param cb    标准查询构造器
      * @return
      */
+    @Override
     public Predicate toPredicate(final Root<T> root, final CriteriaQuery<?> query, final CriteriaBuilder cb) {
         if (pred != null) {
             return pred;
@@ -120,7 +121,6 @@ public class JpaSpecification<T> implements Specification<T> {
         EntityType<T> model = root.getModel();
         Set<Attribute<? super T, ?>> attributes = model.getAttributes();
         Attribute at = null;
-
         for (Attribute attribute : attributes) {
             String name = attribute.getName();
             if (columns.equals(name)) {
@@ -128,37 +128,41 @@ public class JpaSpecification<T> implements Specification<T> {
                 break;
             }
         }
-
         if (null != at) {
-            Predicate predicate = null;
-            if (JpaWhereType.like.equals(wheres)) {
-                predicate = cb.like(root.get(columns).as(String.class), "%" + value + "%");
-            } else if (JpaWhereType.likeL.equals(wheres)) {
-                predicate = cb.like(root.get(columns).as(String.class), "%" + value);
-            } else if (JpaWhereType.likeR.equals(wheres)) {
-                predicate = cb.like(root.get(columns), value + "%");
-            } else if (JpaWhereType.neq.equals(wheres)) {
-                predicate = cb.notEqual(root.get(columns), value);
-            } else if (JpaWhereType.geq.equals(wheres)) {
-                predicate = cb.ge(root.get(columns), (Number) value);
-            } else if (JpaWhereType.gt.equals(wheres)) {
-                predicate = cb.gt(root.get(columns), (Number) value);
-            } else if (JpaWhereType.leq.equals(wheres)) {
-                predicate = cb.le(root.get(columns), (Number) value);
-            } else if (JpaWhereType.lt.equals(wheres)) {
-                predicate = cb.lt(root.get(columns), (Number) value);
-            } else if (JpaWhereType.in.equals(wheres)) {
-                CriteriaBuilder.In<Object> in = cb.in(root.get(columns));
-                String[] split = value.toString().split(",");
-                for (int i = 0; i < split.length; i++) {
-                    in.value(split[i]);
-                }
-                predicate = in;
-            } else {
-                predicate = cb.equal(root.get(columns), value);
-            }
-            return predicate;
+            return predicateWhere(root, cb, wheres, columns, value);
         }
         return null;
+    }
+
+
+    private Predicate predicateWhere(final Root root, final CriteriaBuilder cb, JpaWhereType wheres, final String columns, Object value) {
+        Predicate predicate = null;
+        if (JpaWhereType.like.equals(wheres)) {
+            predicate = cb.like(root.get(columns).as(String.class), "%" + value + "%");
+        } else if (JpaWhereType.likeL.equals(wheres)) {
+            predicate = cb.like(root.get(columns).as(String.class), "%" + value);
+        } else if (JpaWhereType.likeR.equals(wheres)) {
+            predicate = cb.like(root.get(columns), value + "%");
+        } else if (JpaWhereType.neq.equals(wheres)) {
+            predicate = cb.notEqual(root.get(columns), value);
+        } else if (JpaWhereType.geq.equals(wheres)) {
+            predicate = cb.ge(root.get(columns), (Number) value);
+        } else if (JpaWhereType.gt.equals(wheres)) {
+            predicate = cb.gt(root.get(columns), (Number) value);
+        } else if (JpaWhereType.leq.equals(wheres)) {
+            predicate = cb.le(root.get(columns), (Number) value);
+        } else if (JpaWhereType.lt.equals(wheres)) {
+            predicate = cb.lt(root.get(columns), (Number) value);
+        } else if (JpaWhereType.in.equals(wheres)) {
+            CriteriaBuilder.In<Object> in = cb.in(root.get(columns));
+            String[] split = value.toString().split(",");
+            for (int i = 0; i < split.length; i++) {
+                in.value(split[i]);
+            }
+            predicate = in;
+        } else {
+            predicate = cb.equal(root.get(columns), value);
+        }
+        return predicate;
     }
 }
