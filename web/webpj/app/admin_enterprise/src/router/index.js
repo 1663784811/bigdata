@@ -9,6 +9,7 @@ import {shopping} from './shopping.js'
 import {login} from './login.js'
 import {worker} from './worker.js'
 import {phone} from './phone.js'
+import {friends} from './friends.js'
 import {loginInfo} from '../store/loginInfo.js'
 
 
@@ -33,7 +34,8 @@ const router = createRouter({
                         spider,
                         shopping,
                         worker,
-                        phone
+                        phone,
+                        friends
                     ]
                 }
             ]

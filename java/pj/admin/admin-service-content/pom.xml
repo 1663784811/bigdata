@@ -3,102 +3,61 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--============-->
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
-        <relativePath/>
+        <groupId>com.cyyaw</groupId>
+        <artifactId>admin-parent</artifactId>
+        <version>2.0.0</version>
+        <relativePath>../admin-parent</relativePath>
     </parent>
 
     <groupId>com.cyyaw</groupId>
-    <artifactId>admin-parent</artifactId>
+    <artifactId>admin-service-content</artifactId>
     <version>2.0.0</version>
-    <packaging>pom</packaging>
+    <description>内容管理</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-
-    <modules>
-        <module>../admin-controller</module>
-        <module>../admin-service-web</module>
-        <module>../admin-service-user</module>
-        <module>../admin-service-sql</module>
-        <module>../admin-service-spider</module>
-        <module>../admin-service-integration</module>
-        <module>../admin-service-enterprise</module>
-        <module>../admin-service-signin</module>
-        <module>../admin-service-story</module>
-        <module>../admin-service-store</module>
-        <module>../admin-service-activiti</module>
-        <module>../admin-service-black-room</module>
-        <module>../admin-dao</module>
-        <module>../admin-all</module>
-        <module>../admin-service-monitor</module>
-        <module>../admin-tools-weixin</module>
-        <module>../admin-tools-pay</module>
-        <module>../admin-service-food</module>
-        <module>../admin-service-content</module>
-
-
-    </modules>
-
-    <dependencyManagement>
-
-        <dependencies>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.78</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>5.8.6</version>
-            </dependency>
-
-
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
+
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.10.5</version>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>jpa</artifactId>
+            <version>2.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.9</version>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>config</artifactId>
+            <version>2.0.0</version>
         </dependency>
 
     </dependencies>
-
-
 
     <build>
         <directory>${project.basedir}/target</directory>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/java</directory>
             </resource>
         </resources>
         <testResources>

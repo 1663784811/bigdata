@@ -76,11 +76,11 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.cyyaw</groupId>
-            <artifactId>admin-service-activiti</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.cyyaw</groupId>-->
+<!--            <artifactId>admin-service-activiti</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
 
         <dependency>
@@ -99,6 +99,12 @@
         <dependency>
             <groupId>com.cyyaw</groupId>
             <artifactId>admin-service-spider</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-content</artifactId>
             <version>${project.version}</version>
         </dependency>
 
