@@ -32,6 +32,7 @@ public class CPageServiceImpl extends BaseService<CPage, Integer> implements CPa
     @Autowired
     private CPageDao cPageDao;
 
+    @Autowired
     private CPageComponentsObjDao componentsObjDao;
 
     @Autowired

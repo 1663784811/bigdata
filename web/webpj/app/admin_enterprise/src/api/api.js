@@ -18,6 +18,8 @@ export const loadColumn = (params) => {return axios.get( `${baseUrl}/admin/commo
 export const findSetting = (params) => {return axios.get( `${baseUrl}/tx/config/page/findSetting`, params);}
 // 保存组件
 export const saveComponents = (params) => {return axios.post( `${baseUrl}/tx/config/page/saveComponents`, params);}
+// 复制页面
+export const copyCPageRequest = (params) => {return axios.post( `${baseUrl}/admin/config/page/copyCPage`, params);}
 // 上传文件
 export const uploadFile = (formData) =>{return upLoadFile.post(`${baseUrl}/admin/\${eCode}/file/upload`,formData);};
 // ===============================================================================================================================================================================================================

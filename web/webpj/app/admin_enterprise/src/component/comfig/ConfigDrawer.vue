@@ -46,7 +46,8 @@
         <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
           <div @click="selectPage(item)">{{ item.name + "\t" + item.pageCode }}</div>
           <div class="rightBtn">
-            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updatePage(item)"/>
+            <Button class="dataBtn" type="success" icon="md-create" size="small" @click="updatePage(item)"/>
+            <Button class="dataBtn" type="warning" icon="ios-copy" size="small" @click="copyPage(item)"/>
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delPage(item)"/>
           </div>
         </div>
@@ -73,7 +74,7 @@ import ConfigDataTree from './configPage/ConfigDataTree.vue'
 import {onMounted, reactive} from "vue";
 import {pageConfig} from "@/store/pageConfig.js";
 import {useConfigModule} from "@/store/configModule.js";
-import {pageSetting, findIdCPageComponents, commonRequest} from "@/api/api.js";
+import {pageSetting, findIdCPageComponents, commonRequest, copyCPageRequest} from "@/api/api.js";
 import {useRoute, useRouter} from "vue-router";
 import {useWinModal} from "@/store/winModal.js";
 import {Message, Modal} from "view-ui-plus";
@@ -219,6 +220,24 @@ const updatePage = (row) => {
 
 const delPage = (row) => {
 
+
+}
+
+const copyPage = (row) => {
+  Modal.confirm({
+    title: `您是否要复制【 ${row.name} 】页面?`,
+    content: `${row.name}`,
+    okText: '',
+    loading: true,
+    onOk: () => {
+      copyCPageRequest(row).then(rest => {
+        Modal.remove();
+        Message.error({
+          content: `${rest.msg}`
+        })
+      })
+    },
+  });
 
 }
 
@@ -411,11 +430,11 @@ const initSave = () => {
   padding: 6px;
   border-radius: 4px;
   min-height: 100px;
-  width: 450px;
+  width: 600px;
   display: flex;
 
   .pageContent {
-    width: 300px;
+    flex: 1;
     background: #f5f5f5;
 
     .pageTitle {
@@ -428,6 +447,7 @@ const initSave = () => {
         cursor: pointer;
         display: flex;
         justify-content: space-between;
+        margin: 2px 0;
 
         &:hover {
           background: #ccc;
@@ -435,6 +455,10 @@ const initSave = () => {
 
         .rightBtn {
           display: flex;
+
+          .dataBtn {
+            margin: 0 4px;
+          }
         }
       }
     }
