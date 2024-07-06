@@ -49,4 +49,14 @@ public class CPageController {
         return BaseResult.ok(obj);
     }
 
+
+    /**
+     * 复制新页面
+     */
+    @PostMapping("/copyCPage")
+    public BaseResult copyCPage(@RequestBody CPage cPage) {
+        cPageService.copyCPage(cPage);
+        return BaseResult.ok();
+    }
+
 }

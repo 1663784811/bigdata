@@ -9,4 +9,9 @@ public interface CPageService extends BaseTableService<CPage, Integer> {
 
     CPage findByPageCode(String pageCod);
 
+    /**
+     * 复制新页面
+     */
+    void copyCPage(CPage cPage);
+
 }
