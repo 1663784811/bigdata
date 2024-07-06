@@ -1,5 +1,6 @@
 package com.cyyaw.admin.controller.login;
 
+import cn.hutool.core.util.StrUtil;
 import com.cyyaw.enterprise.service.EEnterpriseService;
 import com.cyyaw.enterprise.table.entity.EEnterprise;
 import com.cyyaw.service.LoginService;
@@ -46,6 +47,9 @@ public class AdminLoginController {
     public BaseResult login(@RequestBody LoginRequest loginRequest, @PathVariable String eCode) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
+        if (StrUtil.isBlank(userName) || StrUtil.isBlank(password)) {
+            return BaseResult.fail("参数错误...");
+        }
         AdminAuthToken authToken = loginService.loginEnterUserNameAndPassword(eCode, userName, password);
         TAdmin tAdmin = authToken.getTAdmin();
         tAdmin.setPassword(null);

@@ -67,7 +67,7 @@ const clickLogin = function () {
       })
       setTimeout(() => {
         loginInfoSt.variable.eCode = route.params.code;
-        router.push({name: 'home'})
+        router.push({name: 'dashboard'})
       }, 500)
     }
   }).catch((err) => {

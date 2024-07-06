@@ -73,14 +73,14 @@ public class LoginServiceImpl implements LoginService {
         // 第一步: 查用户
         TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
         if (ObjectUtils.isEmpty(tAdmin)) {
-            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "账号或密码错误");
         }
         String account = tAdmin.getAccount();
         String tid = tAdmin.getTid();
         String passworded = tAdmin.getPassword();
         // 第二步: 对比密码
 //        if (!BCryptUtil.matches(password, passworded)) {
-//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "密码错误");
+//            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "账号或密码错误");
 //        }
         // 第三步: 查角色
         List<TRole> roleList = tRoleDao.findByAdminId(tid);
@@ -114,7 +114,7 @@ public class LoginServiceImpl implements LoginService {
     public AdminAuthToken appAdminLogin(String appId, String userName, String password) {
         TAdmin tAdmin = tAdminDao.findByAccountAndAppId(userName, appId);
         if (ObjectUtils.isEmpty(tAdmin)) {
-            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "用户名不存在");
+            WebException.fail(WebErrCodeEnum.WEB_LOGINERR, "账号或密码错误");
         }
         // 第二步: 对比密码
 //        if (!BCryptUtil.matches(password, passworded)) {
@@ -146,7 +146,7 @@ public class LoginServiceImpl implements LoginService {
     public TAdmin getLoginInfo(String account, String enterpriseCode) {
         List<TAdmin> tAdmins = tAdminDao.getLoginInfo(account, enterpriseCode);
         if (tAdmins == null || tAdmins.size() == 0) {
-            WebException.fail("账号不存在");
+            WebException.fail("账号或密码错误");
         } else if (tAdmins.size() > 1) {
             WebException.fail("账号异常请与管理员联系");
         }
@@ -278,14 +278,14 @@ public class LoginServiceImpl implements LoginService {
         // 判断企业
         EEnterprise eEnterprise = eEnterpriseDao.findByEnterpriseByCode(eCode);
         if (eEnterprise == null) {
-            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "企业不存在");
+            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "账号或密码错误");
         }
         // 判断用户是否存在
         String userName = registerInfo.getUserName();
         String password = registerInfo.getPassword();
         TAdmin tAdmin = tAdminDao.findByAccount(eCode, userName);
         if (!ObjectUtils.isEmpty(tAdmin)) {
-            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "用户已存在");
+            WebException.fail(WebErrCodeEnum.WEB_REGISTER_ERR, "账号或密码错误");
         }
         // 添加用户
         String encode = BCryptUtil.encode(password);
