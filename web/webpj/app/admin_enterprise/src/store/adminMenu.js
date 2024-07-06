@@ -58,24 +58,19 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     routeName: 'adminDepartment'
                                 },
                                 {
-                                    title: '角色列表',
-                                    icon: 'md-settings',
-                                    routeName: 'role'
-                                },
-                                {
                                     title: '管理员管理',
                                     icon: 'md-settings',
                                     routeName: 'admin'
                                 },
                                 {
+                                    title: '角色列表',
+                                    icon: 'md-settings',
+                                    routeName: 'role'
+                                },
+                                {
                                     title: '权限管理',
                                     icon: 'md-settings',
                                     routeName: 'adminPower'
-                                },
-                                {
-                                    title: '权限分配到角色',
-                                    icon: 'md-settings',
-                                    routeName: 'adminRolePower'
                                 },
                                 {
                                     title: '菜单管理',

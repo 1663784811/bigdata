@@ -39,9 +39,11 @@
               <div class="rightInput">
                 <Input v-model="item.type" placeholder="icon"/>
               </div>
-              <div>事件:</div>
               <div class="rightInput">
                 <Input v-model="item.even" placeholder="事件" clearable/>
+              </div>
+              <div class="rightInput">
+                <Input v-model="item.power" placeholder="授权码" clearable/>
               </div>
             </div>
             <!-- ================== -->
@@ -153,9 +155,10 @@
               item-key="id"
           >
             <template #item="{ element, index }">
-              <div class="row" >
+              <div class="row">
                 <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline" @click="state.tableObj.columns.splice(index, 1)"/>
+                  <Button size="small" type="error" icon="ios-trash-outline"
+                          @click="state.tableObj.columns.splice(index, 1)"/>
                 </div>
                 <div class="rowItem">
                   <Checkbox v-model="element.isShowColumn"/>
@@ -202,8 +205,9 @@
         <div class="headerBox">
           <div></div>
           <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})" >添加</Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" >添加从表格选择</Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})">添加
+            </Button>
+            <Button class="dataBtn" type="primary" icon="md-cloud-upload">添加从表格选择</Button>
             <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
               查看代码
             </Button>
@@ -223,7 +227,8 @@
             <template #item="{ element, index }">
               <div class="row">
                 <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline" @click="state.saveObj.columns.splice(index, 1)"/>
+                  <Button size="small" type="error" icon="ios-trash-outline"
+                          @click="state.saveObj.columns.splice(index, 1)"/>
                 </div>
                 <div class="rowItem">
                   <Checkbox v-model="element.isShowSave"/>
@@ -256,7 +261,8 @@
       </div>
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
+         @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
 
@@ -269,7 +275,7 @@
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
 import {reactive, onMounted, watch} from 'vue'
-import {Input} from "view-ui-plus";
+import {Input, Message} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 import draggable from "vuedraggable";
@@ -422,7 +428,12 @@ const saveComponentsFn = () => {
   saveComponents({
     id: state.jsonData.id,
     data: state.jsonData.data
-  }, true).finally(() => {
+  }).then(rest => {
+    Message.success({
+      background: true,
+      content: `${rest.msg}`
+    });
+  }).finally(() => {
     state.jsonData.loading = false;
   })
 }

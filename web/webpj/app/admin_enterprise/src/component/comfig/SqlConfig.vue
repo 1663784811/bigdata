@@ -2,10 +2,8 @@
   <Modal
       v-model="configModule.sqlConfig.show"
       title="SQL列表数据"
-      @on-ok="modalData.Save()"
       @on-cancel="modalData.Cancel()"
       :mask-closable="false"
-      :loading="true"
       width="80wh"
   >
     <div class="sqlPage">
@@ -345,6 +343,7 @@ const delTableData = (row, index) => {
       console.log("onOk", this);
       delSql([row.id]).then(res => {
         Modal.remove();
+        loadTableData();
       });
     },
   });

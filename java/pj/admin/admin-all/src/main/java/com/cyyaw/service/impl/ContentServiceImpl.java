@@ -3,6 +3,7 @@ package com.cyyaw.service.impl;
 import com.cyyaw.content.table.dao.CttCommentDao;
 import com.cyyaw.content.table.dao.CttContentDao;
 import com.cyyaw.content.table.entity.CttContent;
+import com.cyyaw.jpa.JpaSpecificationObj;
 import com.cyyaw.jpa.util.tools.JpaUtils;
 import com.cyyaw.service.ContentService;
 import com.cyyaw.user.table.dao.UUserDao;
@@ -32,11 +33,11 @@ public class ContentServiceImpl implements ContentService {
 
 
     @Override
-    public BaseResult findContent(Integer page, Integer size) {
+    public BaseResult<List<ContentResponse>> findContent(String appId, Integer page, Integer size) {
+        JpaSpecificationObj where = JpaSpecificationObj.getInstance().eq("appId", appId);
         PageRequest pageRequest = JpaUtils.getPageRequest(page, size);
-        Page<CttContent> contentPage = cttContentDao.findAll(pageRequest);
+        Page<CttContent> contentPage = cttContentDao.findAll(where, pageRequest);
         List<CttContent> content = contentPage.getContent();
-
         List<String> userIdList = new ArrayList<>();
         for (int i = 0; i < content.size(); i++) {
             CttContent cttContent = content.get(i);

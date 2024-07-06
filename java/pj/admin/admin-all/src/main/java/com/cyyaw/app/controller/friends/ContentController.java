@@ -29,7 +29,7 @@ public class ContentController {
         Integer page = json.getInteger("page");
         Integer size = json.getInteger("size");
 
-        return contentService.findContent(page, size);
+        return contentService.findContent(appId, page, size);
     }
 
 
