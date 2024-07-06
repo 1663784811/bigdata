@@ -28,8 +28,6 @@ public class FriendsController {
     private UUserService userService;
 
 
-
-
     @ApiOperation(value = "获取我的好友列表", notes = "获取我的好友列表")
     @GetMapping(value = "/myFriends")
     public BaseResult myFriends(@TokenData LoginInfo loginInfo, @PathVariable String appId) {
@@ -37,5 +35,18 @@ public class FriendsController {
         return BaseResult.ok(userService.myFriends(uid, appId));
     }
 
+    @ApiOperation(value = "查询好友", notes = "查询好友")
+    @GetMapping(value = "/findFriends")
+    public BaseResult findFriends(String userId, @PathVariable String appId) {
+        return BaseResult.ok(userService.findByTid(userId));
+    }
+
+    @ApiOperation(value = "添加好友", notes = "添加好友")
+    @GetMapping(value = "/addFriends")
+    public BaseResult addFriends(@TokenData LoginInfo loginInfo, String userId, @PathVariable String appId) {
+
+
+        return BaseResult.ok();
+    }
 
 }
