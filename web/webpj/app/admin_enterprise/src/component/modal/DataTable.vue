@@ -451,6 +451,13 @@ watch(() => props.modelValue, () => {
 //==============================
 
 
+/**
+ * 创建表格Html
+ * @param columnsItem
+ * @param h
+ * @param params
+ * @returns {string|*}
+ */
 const createH = (columnsItem, h, params) => {
   const hArr = [];
   const {row, index} = params;
