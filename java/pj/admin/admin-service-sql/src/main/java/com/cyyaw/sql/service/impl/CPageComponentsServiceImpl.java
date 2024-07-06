@@ -34,6 +34,8 @@ public class CPageComponentsServiceImpl extends BaseService<CPageComponents, Int
     public List<CPageComponents> findByPageId(String pageId) {
         List<CPageComponents> componentsList = cPageComponentsDao.findByPageId(pageId);
         List<String> tidList = JpaUtils.getTidList(componentsList);
+
+
         List<CPageComponentsObj> objList = componentsObjDao.findByPageComponentsIdIn(tidList);
         for (int i = 0; i < componentsList.size(); i++) {
             CPageComponents component = componentsList.get(i);

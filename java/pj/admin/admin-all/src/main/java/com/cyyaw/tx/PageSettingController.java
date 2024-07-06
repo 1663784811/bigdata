@@ -74,7 +74,7 @@ public class PageSettingController {
         JSONObject rest = new JSONObject();
         for (int i = 0; i < components.size(); i++) {
             CPageComponents cPageComponents = components.get(i);
-            String data = cPageComponents.getData();
+            String data = getJsonData(cPageComponents.getTid());
             String componentsCode = cPageComponents.getComponentsCode();
             if (StrUtil.isBlank(componentsCode)) componentsCode = "commonTable";
             if (StrUtil.isBlank(data)) data = "{}";
@@ -121,6 +121,25 @@ public class PageSettingController {
         return BaseResult.ok();
     }
 
+
+    private String getJsonData(String componentsId) {
+        JSONObject json = new JSONObject();
+        CPageComponentsObj componentsObj = new CPageComponentsObj();
+        componentsObj.setPageComponentsId("" + componentsId);
+        List<CPageComponentsObj> all = cPageComponentsObjService.findByExample(componentsObj);
+        for (int i = 0; i < all.size(); i++) {
+            CPageComponentsObj obj = all.get(i);
+            String data = obj.getData();
+            if (StrUtil.isNotBlank(data)) {
+                if (data.indexOf("[") == 0) {
+                    json.set(obj.getDataKey(), new JSONArray(data));
+                } else {
+                    json.set(obj.getDataKey(), new JSONObject(data));
+                }
+            }
+        }
+        return json.toString();
+    }
 
     private void saveToComponentsObj(CPageComponents components) {
         // 第一步:清空数据
