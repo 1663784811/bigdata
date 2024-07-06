@@ -21,6 +21,9 @@ const responseConfig = function (rest) {
         console.error('服务端异常！')
         return Promise.reject(rest)
     }
+    if (rest.data && rest.data.code !== 2000) {
+        return Promise.reject(rest.data)
+    }
     return rest.data
 }
 

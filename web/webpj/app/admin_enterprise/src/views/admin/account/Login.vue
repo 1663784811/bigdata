@@ -3,23 +3,20 @@
     <div class="loginContent">
 
       <div class="imgContent">
-        <img data-v-aa5851c8="" class="login-left-img"
-             src="https://admin.spicyboy.cn/assets/png/login_left-VQgr6mRR.png" alt="login">
+        <img data-v-aa5851c8="" class="login-left-img" src="~@/assets/vue.svg" alt="login">
       </div>
       <div class="contentBox">
-
-
         <div class="loginBox">
           <div class="loginTitle">登录</div>
           <div class="loginRow">
-            <Input placeholder="用户名" v-model="loginParams.userName"/>
+            <Input placeholder="用户名" v-model="state.params.userName" clearable/>
           </div>
           <div class="loginRow">
-            <Input placeholder="密码" v-model="loginParams.password"/>
+            <Input placeholder="密码" v-model="state.params.password" clearable/>
           </div>
           <div class="loginRow">
-            <Button class="submitBtn" long>重置</Button>
-            <Button class="submitBtn" type="success" long @click="clickLogin">登录</Button>
+            <Button class="submitBtn" long @click="state.params.userName='';state.params.password='';">重置</Button>
+            <Button class="submitBtn" type="success" long :loading="state.isLoading" @click="clickLogin">登录</Button>
           </div>
         </div>
       </div>
@@ -29,7 +26,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import AccountFooter from "./AccountFooter.vue"
 import {useRouter, useRoute} from "vue-router";
 import {logInFn} from "@/api/api.js"
@@ -40,15 +37,14 @@ const router = useRouter();
 const route = useRoute();
 const loginInfoSt = loginInfo();
 
-const enterprise = ref({
-  tid: ''
-});
-
-const loginParams = {
-  userName: "root",
-  password: "root",
-  code: "123456"
-};
+const state = reactive({
+  isLoading: false,
+  params: {
+    userName: "root",
+    password: "root",
+    code: "123456"
+  }
+})
 
 
 onMounted(() => {
@@ -60,7 +56,8 @@ onMounted(() => {
  * 点击登录
  */
 const clickLogin = function () {
-  logInFn(loginParams, route.params.code).then((res) => {
+  state.isLoading = true;
+  logInFn(state.params, route.params.code).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
       loginInfoSt.token = jwtToken;
@@ -78,6 +75,8 @@ const clickLogin = function () {
     Message.error({
       content: `${err.msg}`
     });
+  }).finally(() => {
+    state.isLoading = false;
   });
 }
 
