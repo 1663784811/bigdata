@@ -1,6 +1,7 @@
 package com.cyyaw;
 
 import cn.hutool.core.util.StrUtil;
+import com.cyyaw.data.PageSettingData;
 import com.cyyaw.service.StWordService;
 import com.cyyaw.spider.table.dao.StWordDao;
 import com.cyyaw.spider.table.entity.StWord;
@@ -29,12 +30,14 @@ public class AllApplication {
         ConfigurableApplicationContext run = SpringApplication.run(AllApplication.class, args);
         DataSource ds = run.getBean(DataSource.class);
         Connection connection = ds.getConnection();
-        log.info("{}", connection.getCatalog());
+        log.info("数据库: {}", connection.getCatalog());
         log.info("------------ 启动成功 ---------");
         Environment environment = run.getBean(Environment.class);
         log.info("打开程序：http://127.0.0.1:" + environment.getProperty("local.server.port"));
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
 
+        PageSettingData pageSettingData = run.getBean(PageSettingData.class);
+        pageSettingData.pageComponentsToComponentsObj();
     }
 
 

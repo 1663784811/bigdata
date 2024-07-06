@@ -1,7 +1,12 @@
 package com.cyyaw.jpa.util.tools;
 
+import com.cyyaw.jpa.util.entity.BaseEntity;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JpaUtils {
 
@@ -59,5 +64,15 @@ public class JpaUtils {
         return sort;
     }
 
+
+    public static <T extends BaseEntity> List<String> getTidList(List<T> list) {
+        List<String> rest = new ArrayList<>();
+        if (null != list) {
+            for (int i = 0; i < list.size(); i++) {
+                rest.add(list.get(i).getTid());
+            }
+        }
+        return rest;
+    }
 
 }

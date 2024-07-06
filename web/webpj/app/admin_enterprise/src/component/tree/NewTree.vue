@@ -21,11 +21,11 @@
 <script setup>
 
 import {defineEmits, reactive, ref, watch} from "vue";
-import {commonRequest} from "@/api/api.js"
+import {commonRequest, delSql} from "@/api/api.js"
 import ModalDataList from '@/component/modal/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
-import {Message} from "view-ui-plus";
+import {Message, Modal} from "view-ui-plus";
 import {loginInfo} from "@/store/loginInfo";
 
 const emits = defineEmits(['event', 'selectChange']);
@@ -208,17 +208,26 @@ const handleContextMenuSave = (isEditor) => {
  * 删除
  */
 const handleContextMenuDelete = () => {
-  const {url} = state.saveRequest;
-  const id = selectData.value.data.id;
-  commonRequest(
-      loginInfoSt.reLoadUrl(url),
-      [id],
-      'post'
-  ).then((res) => {
-    console.log(res)
-  }).finally(() => {
-    loadData();
-  })
+  const {url} = state.delRequest;
+  const dataObj = selectData.value.data;
+
+  Modal.confirm({
+    title: '是否删除?',
+    content: `${dataObj.name}`,
+    okText: '删除',
+    loading: true,
+    onOk: () => {
+      commonRequest(
+          loginInfoSt.reLoadUrl(url),
+          dataObj,
+          'post'
+      ).then((res) => {
+        Modal.remove();
+      }).finally(() => {
+        loadData();
+      })
+    },
+  });
 }
 
 const saveEventFn = (ev, itemData) => {

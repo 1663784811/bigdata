@@ -8,15 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "c_page_components")
-@org.hibernate.annotations.Table(appliesTo = "c_page_components", comment = "页面组件")
-public class CPageComponents implements BaseEntity<Integer>, Serializable {
+@Table(name = "c_page_components_obj")
+@org.hibernate.annotations.Table(appliesTo = "c_page_components_obj", comment = "页面组件对象")
+public class CPageComponentsObj implements BaseEntity<Integer>,  Serializable {
 
-    private static final long serialVersionUID = 1667229296952725L;
+    private static final long serialVersionUID = 167229296952725L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,31 +38,20 @@ public class CPageComponents implements BaseEntity<Integer>, Serializable {
     private String note;
 
     // ==================================================
-
+    @Basic
+    @Column(name = "page_components_id", columnDefinition = "varchar(32) COMMENT '组件ID'")
+    private String pageComponentsId;
 
     @Basic
-    @Column(name = "page_id", columnDefinition = "varchar(45) COMMENT '页面ID'")
-    private String pageId;
-    @Basic
-    @Column(name = "name", columnDefinition = "varchar(45) COMMENT '名称'")
+    @Column(name = "name", columnDefinition = "varchar(32) COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "components_code", columnDefinition = "varchar(45) COMMENT '类型'")
-    private String componentsCode;
-    @Basic
-    @Column(name = "type", columnDefinition = "varchar(32) COMMENT '类型'")
-    private String type;
+    @Column(name = "data_key", columnDefinition = "varchar(32) COMMENT '数据Key'")
+    private String dataKey;
     @Basic
     @Column(name = "data", columnDefinition = "text COMMENT '数据'")
     private String data;
     @Basic
-    @Column(name = "icon", columnDefinition = "varchar(255) COMMENT 'icon图标'")
-    private String icon;
-    @Basic
     @Column(name = "sort", columnDefinition = "int COMMENT '排序'")
     private Integer sort;
-
-    // ===  组件对象
-    @Transient
-    private List<CPageComponentsObj> objList;
 }

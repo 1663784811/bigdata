@@ -107,7 +107,6 @@ public class PageSettingController {
             String newData = components.getData();
             obj.setData(newData);
             cPageComponentsService.save(obj);
-            // 先删除
         } else {
             return BaseResult.fail("找不到数据:" + JSONUtil.toJsonStr(new JSONObject(components)));
         }

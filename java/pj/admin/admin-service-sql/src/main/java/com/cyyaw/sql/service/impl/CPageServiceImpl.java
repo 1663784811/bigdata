@@ -56,10 +56,8 @@ public class CPageServiceImpl extends BaseService<CPage, Integer> implements CPa
         List<CPage> all = cPageDao.findAll(example);
         if (all.size() > 0) {
             CPage cPage1 = all.get(0);
-            String tid1 = cPage1.getTid();
-            CPageComponents ex = new CPageComponents();
-            ex.setPageId(tid1);
-            List<CPageComponents> cPageComponentsList = cPageComponentsService.findByExample(ex);
+            String pageId = cPage1.getTid();
+            List<CPageComponents> cPageComponentsList = cPageComponentsService.findByPageId(pageId);
             cPage1.setComponents(cPageComponentsList);
             return cPage1;
         }
