@@ -4,6 +4,7 @@ import java.util.Date;
 
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.service.CPageComponentsObjService;
 import com.cyyaw.sql.service.CPageComponentsService;
@@ -35,8 +36,13 @@ public class PageSettingData {
 
 
     public void pageComponentsToComponentsObj() {
+        // 第一步:清空数据
+        List<CPageComponentsObj> all = cPageComponentsObjService.findAll(new JSONObject());
+        for (int i = 0; i < all.size(); i++) {
+            cPageComponentsObjService.del(all.get(i).getId());
+        }
         // 第一步: 查找所有组件
-        List<CPageComponents> componentsList = cPageComponentsService.findAll(null);
+        List<CPageComponents> componentsList = cPageComponentsService.findAll(new JSONObject());
         for (int i = 0; i < componentsList.size(); i++) {
             CPageComponents cPageComponents = componentsList.get(i);
             String data = cPageComponents.getData();
@@ -45,13 +51,24 @@ public class PageSettingData {
             if (StrUtil.isNotBlank(data)) {
                 JSONObject json = new JSONObject(data);
                 for (String key : json.keySet()) {
-                    JSONObject jsonObject = json.getJSONObject(key);
-                    CPageComponentsObj obj = new CPageComponentsObj();
-                    obj.setPageComponentsId(tid);
-                    obj.setName(name);
-                    obj.setDataKey(key);
-                    obj.setData(jsonObject.toString());
-                    cPageComponentsObjService.save(obj);
+                    Object ob = json.getObj(key);
+                    if (ob instanceof JSONArray) {
+                        JSONArray array = json.getJSONArray(key);
+                        CPageComponentsObj obj = new CPageComponentsObj();
+                        obj.setPageComponentsId(tid);
+                        obj.setName(name);
+                        obj.setDataKey(key);
+                        obj.setData(array.toString());
+                        cPageComponentsObjService.save(obj);
+                    } else {
+                        JSONObject jsonObject = json.getJSONObject(key);
+                        CPageComponentsObj obj = new CPageComponentsObj();
+                        obj.setPageComponentsId(tid);
+                        obj.setName(name);
+                        obj.setDataKey(key);
+                        obj.setData(jsonObject.toString());
+                        cPageComponentsObjService.save(obj);
+                    }
                 }
             }
         }

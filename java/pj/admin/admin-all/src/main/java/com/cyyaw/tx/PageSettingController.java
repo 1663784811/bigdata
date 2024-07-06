@@ -1,14 +1,17 @@
 package com.cyyaw.tx;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.cyyaw.sql.service.CPageComponentsLogService;
+import com.cyyaw.sql.service.CPageComponentsObjService;
 import com.cyyaw.sql.service.CPageComponentsService;
 import com.cyyaw.sql.service.CPageService;
 import com.cyyaw.sql.table.entity.CPage;
 import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.sql.table.entity.CPageComponentsLog;
+import com.cyyaw.sql.table.entity.CPageComponentsObj;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +36,10 @@ public class PageSettingController {
 
     @Autowired
     private CPageComponentsLogService cPageComponentsLogService;
+
+    @Autowired
+    private CPageComponentsObjService cPageComponentsObjService;
+
 
     /**
      * 获取页面配置
@@ -107,11 +114,48 @@ public class PageSettingController {
             String newData = components.getData();
             obj.setData(newData);
             cPageComponentsService.save(obj);
+            saveToComponentsObj(obj);
         } else {
             return BaseResult.fail("找不到数据:" + JSONUtil.toJsonStr(new JSONObject(components)));
         }
         return BaseResult.ok();
     }
 
+
+    private void saveToComponentsObj(CPageComponents components) {
+        // 第一步:清空数据
+        CPageComponentsObj componentsObj = new CPageComponentsObj();
+        componentsObj.setPageComponentsId("" + components.getTid());
+        List<CPageComponentsObj> all = cPageComponentsObjService.findByExample(componentsObj);
+        for (int i = 0; i < all.size(); i++) {
+            cPageComponentsObjService.del(all.get(i).getId());
+        }
+        String data = components.getData();
+        String name = components.getName();
+        String tid = components.getTid();
+        if (StrUtil.isNotBlank(data)) {
+            JSONObject json = new JSONObject(data);
+            for (String key : json.keySet()) {
+                Object ob = json.getObj(key);
+                if (ob instanceof JSONArray) {
+                    JSONArray array = json.getJSONArray(key);
+                    CPageComponentsObj obj = new CPageComponentsObj();
+                    obj.setPageComponentsId(tid);
+                    obj.setName(name);
+                    obj.setDataKey(key);
+                    obj.setData(array.toString());
+                    cPageComponentsObjService.save(obj);
+                } else {
+                    JSONObject jsonObject = json.getJSONObject(key);
+                    CPageComponentsObj obj = new CPageComponentsObj();
+                    obj.setPageComponentsId(tid);
+                    obj.setName(name);
+                    obj.setDataKey(key);
+                    obj.setData(jsonObject.toString());
+                    cPageComponentsObjService.save(obj);
+                }
+            }
+        }
+    }
 
 }
