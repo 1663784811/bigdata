@@ -15,7 +15,7 @@ public interface CPageComponentsObjDao extends BaseDao<CPageComponentsObj, Integ
     List<CPageComponentsObj> findByPageComponentsIdIn(@Param("componentsIds") List<String> componentsIds);
 
 
-    @Query("select m from CPageComponentsObj m where m.pageComponentsId = 1?")
+    @Query("select m from CPageComponentsObj m where m.pageComponentsId = ?1")
     List<CPageComponentsObj> findByComponentsId(String pageComponentsId);
 
 }
