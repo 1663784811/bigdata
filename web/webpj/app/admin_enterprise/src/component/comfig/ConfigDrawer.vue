@@ -109,7 +109,7 @@ onMounted(() => {
 const loadPage = () => {
   commonRequest("/admin/${eCode}/common/query", {
     code: 'select_c_page',
-    size: 1000
+    size: 10000
   }).then((rest) => {
     const {data} = rest;
     state.pageList = data;
@@ -232,9 +232,10 @@ const copyPage = (row) => {
     onOk: () => {
       copyCPageRequest(row).then(rest => {
         Modal.remove();
-        Message.error({
+        Message.success({
           content: `${rest.msg}`
         })
+        loadPage();
       })
     },
   });

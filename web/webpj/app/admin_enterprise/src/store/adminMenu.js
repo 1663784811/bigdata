@@ -353,6 +353,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             routeName: 'friendsUser'
                         },
                         {
+                            title: '好友列表',
+                            icon: 'md-settings',
+                            routeName: 'friendsList'
+                        },
+                        {
                             title: '内容管理',
                             icon: 'md-settings',
                             routeName: 'friendsContent'

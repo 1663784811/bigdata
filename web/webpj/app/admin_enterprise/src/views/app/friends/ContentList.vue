@@ -9,7 +9,6 @@ import {pageConfig} from '@/store/pageConfig.js'
 
 const usePageConfig = pageConfig();
 const commonTableSearchData = ref({})
-provide("commonTableSearchData", commonTableSearchData);
 
 const state = reactive({
   pageData: {},
@@ -24,7 +23,7 @@ onMounted(()=>{
 })
 
 const initFn = async () => {
-  const pageCode = 'ent_shopping_user'
+  const pageCode = 'ent_friends_content'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.newTable = pageData.newTable;
   commonTableSearchData.value = {"appId": 'sss'}

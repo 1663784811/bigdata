@@ -32,7 +32,7 @@ const initFn = async (pageCode) => {
   console.log("页面ID:", pageCode)
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.newTable = pageData.newTable;
-  commonTableSearchData.value = {"appId": 'sss'}
+  commonTableSearchData.value = {"appId": ''}
 }
 
 </script>

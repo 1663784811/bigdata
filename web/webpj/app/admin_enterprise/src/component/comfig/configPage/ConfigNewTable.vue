@@ -25,7 +25,8 @@
           <template v-for="(item, index) in state.searchObj.columns" :key="index">
             <div class="row">
               <div class="sortBtn">
-                <Button size="small" type="error" icon="ios-trash-outline"/>
+                <Button size="small" type="error" icon="ios-trash-outline"
+                        @click="state.searchObj.columns.splice(index,1)"/>
                 <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
               </div>
               <div>名称:</div>

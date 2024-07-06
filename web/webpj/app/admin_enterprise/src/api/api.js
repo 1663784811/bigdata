@@ -57,7 +57,7 @@ export const apiAdminMenu = (params) => {return axios.get( `${baseUrl}/admin/\${
 //
 export const findPageWebImage = (params) => {return axios.get( `${baseUrl}/admin/\${eCode}/user/menu`, params);}
 
-export const findIdCPageComponents = (params) => {return axios.get( `${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, params);}
+export const findIdCPageComponents = (params) => {return axios.get( `${baseUrl}/admin/config/cpagecomponents/findIdCPageComponents`, {params});}
 export const findCPageComponents = (params) => {return axios.get( `${baseUrl}/admin/config/cpagecomponents/findPage`, params);}
 export const loadTable = (params) => {return axios.get( `${baseUrl}/admin/buildCode/loadTable`, params);}
 export const findIdGGoods = (params) => {return axios.get( `${baseUrl}/admin/gGoods/findIdGGoods`, params);}

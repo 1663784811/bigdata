@@ -96,8 +96,8 @@ public class CPageServiceImpl extends BaseService<CPage, Integer> implements CPa
             CPageComponents co = components.get(i);
             CPageComponents obj = new CPageComponents();
             obj.setPageId(save.getTid());
-            obj.setName(co.getName() + "_copy");
-            obj.setComponentsCode(co.getComponentsCode() + "_copy");
+            obj.setName(co.getName());
+            obj.setComponentsCode(co.getComponentsCode());
             obj.setType(co.getType());
             obj.setData(co.getData());
             obj.setIcon(co.getIcon());
