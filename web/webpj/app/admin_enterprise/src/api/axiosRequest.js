@@ -18,7 +18,7 @@ const requestConfig = function (config) {
 
 const responseConfig = function (rest) {
     if (typeof rest.data !== 'object') {
-        console.error('服务端异常！')
+        console.error('网络错误', rest)
         return Promise.reject(rest)
     }
     if (rest.data && rest.data.code !== 2000) {

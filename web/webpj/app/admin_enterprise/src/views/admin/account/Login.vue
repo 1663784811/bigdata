@@ -3,7 +3,7 @@
     <div class="loginContent">
 
       <div class="imgContent">
-        <img data-v-aa5851c8="" class="login-left-img" src="~@/assets/vue.svg" alt="login">
+        <img data-v-aa5851c8="" class="login-left-img" src="~@/assets/loginback.png" alt="login">
       </div>
       <div class="contentBox">
         <div class="loginBox">
@@ -73,7 +73,7 @@ const clickLogin = function () {
   }).catch((err) => {
     console.log(err)
     Message.error({
-      content: `${err.msg}`
+      content: `${err.msg?err.msg:err.message}`
     });
   }).finally(() => {
     state.isLoading = false;
