@@ -16,12 +16,10 @@ public class RabbitConfig {
     /**
      * Direct 交换机
      * 1. 直连交换机的路由算法非常简单：将消息准送到binding key与该消息的routing key相同的队列
-     * 2. ...
      */
     @Bean
     public DirectExchange directExchange() {
-        DirectExchange exchange = new DirectExchange("ssssssssss", true, false);
-
+        DirectExchange exchange = new DirectExchange("test_direct_exchange", true, false);
         return exchange;
     }
 
@@ -35,7 +33,7 @@ public class RabbitConfig {
      */
     @Bean
     public TopicExchange topicExchange() {
-        return new TopicExchange("topicExchange");
+        return new TopicExchange("test_topic_exchange", true, false);
     }
 
     /**
@@ -44,30 +42,37 @@ public class RabbitConfig {
      */
     @Bean
     public FanoutExchange fanoutExchange() {
-        return new FanoutExchange("fanoutExchange");
+        return new FanoutExchange("test_fanout_exchange", true, false);
     }
 
     /**
-     * head Exchange
-     *
+     * 根据消息头属性而不是路由键来路由消息。绑定时，可以指定一组键值对，
+     * 只有当消息的头属性与绑定中指定的键值对匹配时，消息才会被路由到队列。
      */
     @Bean
     public HeadersExchange headersExchange() {
-        return new HeadersExchange("headersExchange");
+        return new HeadersExchange("test_headers_exchange", true, false);
     }
 
 
+    // =========================================================================      队列
 
-    // ============================================      队列
+    /**
+     *
+     */
     @Bean
     public Queue topicQueue1() {
-        return new Queue("topicQueue1", true);
+        return new Queue("test_topicQueue1");
     }
 
+    /**
+     *
+     */
     @Bean
     public Queue topicQueue2() {
-        return new Queue("topicQueue2", true);
+        return new Queue("test_topicQueue2");
     }
+
 
     // ============================================      队列 绑定 交换机
     @Bean
