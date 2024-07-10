@@ -60,6 +60,11 @@ public class RabbitConfig {
         return ExchangeBuilder.topicExchange("amq.rabbitmq.event").durable(true).internal().build();
     }
 
+    @Bean
+    public Exchange mqttExchange() {
+        return ExchangeBuilder.topicExchange("amq.topic").durable(true).build();
+    }
+
     // =========================================================================      队列
 
 //    /**
@@ -84,7 +89,14 @@ public class RabbitConfig {
      */
     @Bean
     public Queue eventQueue() {
-        return QueueBuilder.durable( "event_queue").build();
+        return QueueBuilder.durable("event_queue").build();
+    }
+    /**
+     * mqtt
+     */
+    @Bean
+    public Queue mqttQueue() {
+        return QueueBuilder.durable("mqtt_service").build();
     }
 
     // ============================================      队列 绑定 交换机
@@ -101,6 +113,11 @@ public class RabbitConfig {
     @Bean
     public Binding binding() {
         return BindingBuilder.bind(eventQueue()).to(eventExchange()).with("connection.#").noargs();
+    }
+
+    @Bean
+    public Binding bindingMqtt() {
+        return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("#").noargs();
     }
 
 }

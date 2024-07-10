@@ -28,12 +28,14 @@ public class RabbitMQService {
     }
 
 
-    //    @RabbitListener(queues = "mqtt_test_service")
-//    public void listenSimpleQueueMessage(String msg) throws InterruptedException {
-//        System.out.println("spring 消费者接收到消息 ：【" + msg + "】");
-//    }
-//
-//
+    @RabbitListener(queues = "mqtt_service")
+    public void listenSimpleQueueMessage(Message message) {
+        System.out.println("spring 消费者接收到消息 ：【" + message + "】");
+    }
+
+
+
+
     @RabbitListener(queues = "event_queue")
     public void handleDeviceConnectedEvent(Message message) {
         MessageProperties messageProperties = message.getMessageProperties();
@@ -41,13 +43,14 @@ public class RabbitMQService {
         String receivedRoutingKey = messageProperties.getReceivedRoutingKey();
         if ("connection.created".equals(receivedRoutingKey)) {
             messageProperties.getHeader("queue");
+            // 通知 我的好友 在线
 
         } else if ("connection.closed".equals(receivedRoutingKey)) {
             messageProperties.getHeader("queue");
-
+            // 通知我的好友 离线
         }
         System.out.println("" + headers.get("client_properties"));
-        System.out.println("消费者接收到消息:" + receivedRoutingKey + "   " + headers);
+        System.out.println("设备上线下线 event: " + receivedRoutingKey + "   " + headers);
     }
 
 }
