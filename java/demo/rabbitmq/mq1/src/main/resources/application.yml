@@ -1,13 +1,13 @@
 server:
-  port: 8080
+  port: 8086
 
 spring:
   rabbitmq:
     host: 192.168.0.158
     port: 5672
-    username: mqtt_test_user
+    username: admin
     password: 123456
-    virtual-host: mqtt_test
+    virtual-host: /
 
 
 
