@@ -40,7 +40,7 @@ public class RabbitConfig {
 
     // ============================================      队列 绑定 交换机
     @Bean
-    public Binding binding() {
+    public Binding bindingEvent() {
         return BindingBuilder.bind(eventQueue()).to(eventExchange()).with("connection.#").noargs();
     }
 
