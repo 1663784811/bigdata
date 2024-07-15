@@ -5,8 +5,26 @@ import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class RabbitConfig {
+
+    // 事件交换机
+    private static final String EVENT_EXCHANGE = "amq.rabbitmq.event";
+    // MQTT交换机
+    private static final String MQTT_EXCHANGE = "amq.topic";
+    public static final String  MQTT_QUEUE = "mqtt_service";
+
+
+    //死信交换机名称
+    private static final String DEAD_EXCHANGE = "dead.exchange";
+
+    //死信队列名称
+    public static final String DEAD_QUEUE = "dead_queue";
+
+
 
     // ============================================      虚拟主机
 
@@ -14,15 +32,22 @@ public class RabbitConfig {
     // ============================================      交换机
     @Bean
     public Exchange eventExchange() {
-        return ExchangeBuilder.topicExchange("amq.rabbitmq.event").durable(true).internal().build();
+        return ExchangeBuilder.topicExchange(EVENT_EXCHANGE).durable(true).internal().build();
     }
 
     @Bean
     public Exchange mqttExchange() {
-        return ExchangeBuilder.topicExchange("amq.topic").durable(true).build();
+        return ExchangeBuilder.topicExchange(MQTT_EXCHANGE).durable(true).build();
     }
 
+    @Bean
+    public Exchange deadExchange() {
+        return ExchangeBuilder.topicExchange(DEAD_EXCHANGE).build();
+    }
+
+
     // =========================================================================      队列
+
     /**
      * 事件队列
      */
@@ -30,12 +55,25 @@ public class RabbitConfig {
     public Queue eventQueue() {
         return QueueBuilder.durable("event_queue").build();
     }
+
     /**
      * mqtt
      */
     @Bean
     public Queue mqttQueue() {
-        return QueueBuilder.durable("mqtt_service").build();
+        Map<String, Object> arguments = new HashMap<>();
+        //设置死信交换机
+        arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
+        //设置死信routingKey
+        arguments.put("x-dead-letter-routing-key", "x.dead.letter.routing.key");
+        // 设置死信时间 ( 10秒 )
+        arguments.put("x-message-ttl", 10000);
+        return QueueBuilder.durable(MQTT_QUEUE).withArguments(arguments).build();
+    }
+
+    @Bean
+    public Queue deadQueue() {
+        return QueueBuilder.durable(DEAD_QUEUE).build();
     }
 
     // ============================================      队列 绑定 交换机
@@ -48,5 +86,11 @@ public class RabbitConfig {
     public Binding bindingMqtt() {
         return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("#").noargs();
     }
+
+    @Bean
+    public Binding bindingDead() {
+        return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("#").noargs();
+    }
+
 
 }
