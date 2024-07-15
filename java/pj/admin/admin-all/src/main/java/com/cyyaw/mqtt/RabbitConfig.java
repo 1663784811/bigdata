@@ -15,7 +15,7 @@ public class RabbitConfig {
     private static final String EVENT_EXCHANGE = "amq.rabbitmq.event";
     // MQTT交换机
     private static final String MQTT_EXCHANGE = "amq.topic";
-    public static final String  MQTT_QUEUE = "mqtt_service";
+    public static final String MQTT_QUEUE = "mqtt_service";
 
 
     //死信交换机名称
@@ -24,6 +24,12 @@ public class RabbitConfig {
     //死信队列名称
     public static final String DEAD_QUEUE = "dead_queue";
 
+
+    //延时交换机
+    private static final String DELAY_EXCHANGE = "delay.exchange";
+
+    //延时队列
+    public static final String DELAY_QUEUE = "delay_queue";
 
 
     // ============================================      虚拟主机
@@ -42,9 +48,17 @@ public class RabbitConfig {
 
     @Bean
     public Exchange deadExchange() {
-        return ExchangeBuilder.topicExchange(DEAD_EXCHANGE).build();
+        return ExchangeBuilder.directExchange(DEAD_EXCHANGE).build();
     }
 
+
+    @Bean
+    public Exchange delayedMessageExchange() {
+        Map<String, Object> args = new HashMap<>();
+        // 自定义交换机的类型
+        args.put("x-delayed-type", "direct");
+        return new CustomExchange(DELAY_EXCHANGE, "x-delayed-message", true, false, args);
+    }
 
     // =========================================================================      队列
 
@@ -76,6 +90,11 @@ public class RabbitConfig {
         return QueueBuilder.durable(DEAD_QUEUE).build();
     }
 
+
+    @Bean
+    public Queue delayedMessageQueue() {
+        return QueueBuilder.durable(DELAY_QUEUE).build();
+    }
     // ============================================      队列 绑定 交换机
     @Bean
     public Binding bindingEvent() {
@@ -90,6 +109,11 @@ public class RabbitConfig {
     @Bean
     public Binding bindingDead() {
         return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("#").noargs();
+    }
+
+    @Bean
+    public Binding bindingDelayedMessage() {
+        return BindingBuilder.bind(delayedMessageQueue()).to(delayedMessageExchange()).with("#").noargs();
     }
 
 

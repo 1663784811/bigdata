@@ -62,4 +62,12 @@ public class RabbitMQService {
         String msg = new String(message.getBody());
         log.info("当前时间：{}，发送一条消息给两个TTL队列：{}", new Date().toString(), msg);
     }
+
+
+    @RabbitListener(queues = RabbitConfig.DELAY_QUEUE)
+    public void receiveDelayedQueue(Message message) {
+        String msg = new String(message.getBody());
+        log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
+    }
+
 }
