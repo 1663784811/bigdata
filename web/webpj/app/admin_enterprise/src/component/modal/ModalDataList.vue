@@ -1,5 +1,7 @@
 <template>
-  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')" :mask-closable="false" :loading="modalData.loading" width="auto" style="max-width: 1000px; margin-bottom: 300px">
+  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')"
+         :mask-closable="false" :loading="modalData.loading" width="auto"
+         style="max-width: 1000px; margin-bottom: 300px">
     <div class="modalBox">
       <div>
         <template v-for="(item,index) in modalData.columns" :key="index">
@@ -7,15 +9,17 @@
             <div class="label">{{ item.title }}:</div>
             <!--     ==========      长文本     ===========       -->
             <div class="content" v-if="item.controlType === 'textarea'">
-              <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"  :disabled="!modalData.editor" />
+              <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"
+                     :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      日期时间     ===========       -->
             <div class="content" v-else-if="item.controlType === 'datetime'">
-              <DatePicker style="width: 100%" v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"  :disabled="!modalData.editor"/>
+              <DatePicker style="width: 100%" v-model="modalData.data[item.key]" type="datetime"
+                          format="yyyy-MM-dd HH:mm" :placeholder="item.node" :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      选择     ===========       -->
             <div class="content" v-else-if="item.controlType === 'select'">
-              <Select v-model="modalData.data[item.key]" clearable  :disabled="!modalData.editor">
+              <Select v-model="modalData.data[item.key]" clearable :disabled="!modalData.editor">
                 <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{ it.label }}</Option>
               </Select>
             </div>
@@ -33,11 +37,12 @@
             </div>
             <!--     ==========      数字     ===========       -->
             <div class="content" v-else-if="item.controlType === 'number'">
-              <Input v-model="modalData.data[item.key]" :placeholder="item.node" type="number" :disabled="!modalData.editor"/>
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" type="number"
+                     :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      文本     ===========       -->
             <div class="content" v-else>
-              <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor" />
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor"/>
             </div>
           </div>
         </template>
@@ -99,8 +104,26 @@ watch(() => modalData.value.show, () => {
  * 事件
  */
 const eventFn = (ev) => {
-  const {data} = modalData.value;
-  emits('event', ev, data);
+  const {data, columns} = modalData.value;
+  if (ev === 'ok' && modalData.value.editor) {
+    // 验证数据
+    for (let i = 0; i < columns.length; i++) {
+      const {key, regStr} = columns[i];
+      console.log(key, data[key]);
+      if (regStr && regStr.length > 0) {
+
+      }
+    }
+
+
+
+
+
+
+
+  } else {
+    emits('event', ev, data);
+  }
 }
 
 /**
@@ -112,6 +135,7 @@ const updateImage = (key) => {
     modalData.value.data[key] = data.data;
   }
 }
+
 
 </script>
 
