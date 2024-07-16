@@ -24,7 +24,7 @@
               </Select>
             </div>
             <!--     ==========      图片     ===========       -->
-            <div class="content" v-else-if="item.controlType === 'img'">
+            <div class="content imgContent" v-else-if="item.controlType === 'img'">
               <div class="imageBox" v-if="modalData.data[item.key]">
                 <div class="closeImg">
                   <Icon type="md-close-circle" @click="delete modalData.data[item.key]"/>
@@ -41,8 +41,9 @@
                      :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      文本     ===========       -->
-            <div class="content" v-else>
+            <div class="content" :class="{'ivu-form-item-error': true}" v-else>
               <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor"/>
+              <div>111</div>
             </div>
           </div>
         </template>
@@ -148,49 +149,50 @@ const updateImage = (key) => {
     .label {
       width: 150px;
       padding-right: 10px;
-      align-items: center;
       display: flex;
       justify-content: right;
     }
 
     .content {
       flex: 1;
-      display: flex;
-      align-items: center;
 
-      .imageBox {
-        height: 50px;
-        border: 1px solid #ccc;
-        padding: 4px;
-        border-radius: 2px;
-        margin: 0 4px;
-        position: relative;
+      &.imgContent{
         display: flex;
         align-items: center;
-        min-width: 50px;
-        justify-content: center;
-
-        .closeImg {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          border-radius: 50%;
+        .imageBox {
+          height: 50px;
+          border: 1px solid #ccc;
+          padding: 4px;
+          border-radius: 2px;
+          margin: 0 4px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          min-width: 50px;
           justify-content: center;
-          align-content: center;
+
+          .closeImg {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            border-radius: 50%;
+            justify-content: center;
+            align-content: center;
+            cursor: pointer;
+          }
+
+          img {
+            height: 100%;
+          }
+        }
+
+        .addImage {
           cursor: pointer;
-        }
+          font-size: 20px;
 
-        img {
-          height: 100%;
-        }
-      }
-
-      .addImage {
-        cursor: pointer;
-        font-size: 20px;
-
-        &:hover {
-          background: #ddd;
+          &:hover {
+            background: #ddd;
+          }
         }
       }
     }
