@@ -254,6 +254,15 @@
                     <Option value="number">数字</Option>
                   </Select>
                 </div>
+                <div class="rowItem">
+                  <Switch v-model="element.isRequire">
+                    <template #open>必需</template>
+                  </Switch>
+                </div>
+                <div class="rowItem">
+                  正则
+                  <Input v-model="element.regStr" placeholder="key" clearable style="width: 200px"/>
+                </div>
               </div>
             </template>
           </draggable>

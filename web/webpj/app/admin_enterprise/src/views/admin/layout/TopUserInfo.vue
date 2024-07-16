@@ -5,6 +5,10 @@
     </div>
 
     <div class="userInfoItem">
+      <Switch v-model="configModule.configPage.showOperation" />
+    </div>
+
+    <div class="userInfoItem">
       <div class="textNote" @click="debuggerFn">
         <Icon class="icon" type="md-notifications"/>
       </div>

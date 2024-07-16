@@ -118,29 +118,35 @@ const eventFn = (ev) => {
     let h = true;
     // 验证数据
     for (let i = 0; i < columns.length; i++) {
-      const {key, regStr} = columns[i];
-      console.log(key, data[key]);
-
-      if (regStr && regStr.length > 0) {
-        if (1 === 1) {
-          h = false;
-          state.verifyData[key] = true;
-        }
+      if (!verifyDataFn(columns[i], data[columns[i].key])) {
+        state.verifyData[columns[i].key] = true;
+        h = false;
       }
     }
     if (h) {
-      // emits('event', ev, data);
+      emits('event', ev, data);
+    } else {
+      modalData.value.loading = false;
+      setTimeout(() => {
+        modalData.value.loading = true;
+      });
     }
   } else {
     emits('event', ev, data);
   }
 }
-
+/**
+ * 数据改变 ( 获取焦点时 )
+ */
 const inputFocusFn = (column, value) => {
   if (state.verifyData[column.key] != undefined) {
     changDataFn(column, value);
   }
 }
+
+/**
+ * 数据改变
+ */
 const changDataFn = (column, value) => {
   if (verifyDataFn(column, value)) {
     state.verifyData[column.key] = false;
@@ -149,11 +155,13 @@ const changDataFn = (column, value) => {
   }
 }
 
+/**
+ * 验证数据
+ */
 const verifyDataFn = (column, value) => {
-  console.log(column)
   if (!column.isRequire) {
     // 不是必需
-    if ((value + "").trim().length > 0) {
+    if (column.regStr && (value + "").trim().length > 0) {
       // 验证正则
       return verifyReg(column.regStr, value);
     } else {
@@ -166,6 +174,9 @@ const verifyDataFn = (column, value) => {
   return false;
 }
 
+/**
+ * 验证正则
+ */
 const verifyReg = (regStr, value) => {
   if (regStr && regStr.length > 0) {
     return new RegExp(regStr).test(value);

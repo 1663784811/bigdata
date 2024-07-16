@@ -116,13 +116,6 @@ const state = reactive({
   }
 });
 
-const saveData = ref({
-  url: '',
-  columns: [],
-  data: {},
-  show: false
-});
-
 
 const filterChange = (data) => {
   console.log(data)
@@ -172,6 +165,7 @@ const searchBoxEven = (item, index) => {
     search(item.parameter);
   } else if (item.even === 'save') {
     state.saveObj.show = true;
+    state.saveObj.editor = true;
     state.saveObj.data = {};
   } else if (item.even === 'del') {
     // console.log(item)
