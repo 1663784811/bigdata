@@ -1,5 +1,5 @@
 <template>
-  <ModalDataList
+  <modal-data-list
       v-model="winModal.winData.show"
       :modalSetting="winModal.winData"
       @event="saveEventFn"
@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-import ModalDataList from './ModalDataList.vue'
 import {useWinModal} from '@/store/winModal.js'
 import {commonRequest} from "@/api/api.js";
 import {Message} from "view-ui-plus";

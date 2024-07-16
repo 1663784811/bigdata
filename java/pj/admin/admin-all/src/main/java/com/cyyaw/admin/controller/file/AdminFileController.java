@@ -42,7 +42,7 @@ public class AdminFileController {
             int year = date.year();
             int month = date.monthBaseOne();
             int day = date.dayOfMonth();
-            String basePath = "/" + eCode + " / " + year + " - " + month + " / " + year + " - " + month + " - " + day;
+            String basePath = "/" + eCode + "/" + year + "-" + month + "/" + year + "-" + month + "-" + day;
             File dir = new File(rootPath + basePath);
             if (!dir.exists()) {
                 dir.mkdirs();

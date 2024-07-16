@@ -9,7 +9,7 @@
       </template>
     </Tree>
   </div>
-  <ModalDataList
+  <modal-data-list
       v-model="saveData.show"
       :modalSetting="saveData"
       @event="saveEventFn"
@@ -20,7 +20,6 @@
 
 import {defineEmits, ref, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
-import ModalDataList from '@/component/modal/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";

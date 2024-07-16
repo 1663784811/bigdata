@@ -60,7 +60,7 @@
     </div>
   </div>
   <!--==================  保存数据  ====================-->
-  <ModalDataList
+  <modal-data-list
       v-model="state.saveObj.show"
       :modalSetting="state.saveObj"
       @event="saveEventFn"
@@ -71,7 +71,6 @@
 import {defineEmits, inject, reactive, ref, resolveComponent, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
-import ModalDataList from './ModalDataList.vue'
 import {loginInfo} from "@/store/loginInfo.js";
 
 const loginInfoSt = loginInfo();

@@ -11,7 +11,7 @@
 
     </Tree>
   </div>
-  <ModalDataList
+  <modal-data-list
       v-model="state.saveObj.show"
       :modalSetting="state.saveObj"
       @event="saveEventFn"
@@ -22,7 +22,6 @@
 
 import {defineEmits, reactive, ref, watch} from "vue";
 import {commonRequest, delSql} from "@/api/api.js"
-import ModalDataList from '@/component/modal/ModalDataList.vue'
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message, Modal} from "view-ui-plus";
