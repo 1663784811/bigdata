@@ -53,7 +53,7 @@
     </div>
   </div>
   <!--==================    ====================-->
-  <ModalDataList
+  <modal-data-list
       v-model="saveData.show"
       :modalSetting="saveData"
       @event="saveEventFn"
@@ -64,7 +64,6 @@
 import {defineEmits, ref, watch, resolveComponent, provide, inject} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
-import ModalDataList from './modal/ModalDataList.vue'
 import {loginInfo} from "@/store/loginInfo.js";
 
 const loginInfoSt = loginInfo();
@@ -119,7 +118,8 @@ const saveData = ref({
   url: '',
   columns: [],
   data: {},
-  show: false
+  show: false,
+  editor: false
 });
 
 // ======================================================
@@ -198,6 +198,7 @@ const addData = () => {
 const selectTableData = (row, index, editor) => {
   saveData.value.show = true;
   saveData.value.data = row;
+  saveData.value.editor = editor;
 }
 
 /**

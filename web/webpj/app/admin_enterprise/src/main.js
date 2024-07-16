@@ -10,6 +10,7 @@ import 'view-ui-plus/dist/styles/viewuiplus.css'
 import CommonTable from '@/component/CommonTable.vue'
 import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
 import DataTable from '@/component/modal/DataTable.vue'
+import ModalDataList from '@/component/modal/ModalDataList.vue'
 
 import {use} from 'echarts/core';
 import {CanvasRenderer} from 'echarts/renderers';
@@ -28,9 +29,16 @@ app.use(ViewUIPlus);
 app.use(pinia);
 
 
+// ================== 被组件调用的组件
+app.component('modal-data-list', ModalDataList)
+
+
+// =================== 组件
 app.component('common-table', CommonTable);
 app.component('data-table', DataTable);
 app.component('select-dataDrawer', SelectDataDrawer);
+
+
 
 app.mount('#app');
 

@@ -7,15 +7,15 @@
             <div class="label">{{ item.title }}:</div>
             <!--     ==========      长文本     ===========       -->
             <div class="content" v-if="item.controlType === 'textarea'">
-              <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"/>
+              <Input v-model="modalData.data[item.key]" type="textarea" :rows="10" :placeholder="item.node"  :disabled="!modalData.editor" />
             </div>
             <!--     ==========      日期时间     ===========       -->
             <div class="content" v-else-if="item.controlType === 'datetime'">
-              <DatePicker style="width: 100%" v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"/>
+              <DatePicker style="width: 100%" v-model="modalData.data[item.key]" type="datetime" format="yyyy-MM-dd HH:mm" :placeholder="item.node"  :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      选择     ===========       -->
             <div class="content" v-else-if="item.controlType === 'select'">
-              <Select v-model="modalData.data[item.key]" clearable>
+              <Select v-model="modalData.data[item.key]" clearable  :disabled="!modalData.editor">
                 <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{ it.label }}</Option>
               </Select>
             </div>
@@ -33,11 +33,11 @@
             </div>
             <!--     ==========      数字     ===========       -->
             <div class="content" v-else-if="item.controlType === 'number'">
-              <Input v-model="modalData.data[item.key]" :placeholder="item.node" type="number"/>
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" type="number" :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      文本     ===========       -->
             <div class="content" v-else>
-              <Input v-model="modalData.data[item.key]" :placeholder="item.node"/>
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor" />
             </div>
           </div>
         </template>
@@ -60,7 +60,13 @@ const props = defineProps({
   },
   modalSetting: {
     type: Object,
-    default: {},
+    default: {
+      loading: true,
+      show: false,
+      editor: true,
+      data: {},
+      columns: []
+    },
     required: false
   }
 });
@@ -68,7 +74,7 @@ const props = defineProps({
 const modalData = ref({
   loading: true,
   show: false,
-  editor: false,
+  editor: true,
   data: {},
   columns: []
 })

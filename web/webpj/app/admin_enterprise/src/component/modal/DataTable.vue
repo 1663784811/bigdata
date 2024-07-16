@@ -280,6 +280,7 @@ const initSave = () => {
 const selectTableData = (row, index, editor) => {
   state.saveObj.show = true;
   state.saveObj.data = row;
+  state.saveObj.editor = editor;
 }
 
 // ==========================================
@@ -377,9 +378,13 @@ const changePage = (page) => {
 
 // ===================================================
 const saveEventFn = (ev, itemData) => {
-  if ('ok' === ev) {
-    Save(itemData)
-  } else if ('cancel' === ev) {
+  if(state.saveObj.editor){
+    if ('ok' === ev) {
+      Save(itemData)
+    } else if ('cancel' === ev) {
+      Cancel(itemData);
+    }
+  }else{
     Cancel(itemData);
   }
 }
@@ -417,6 +422,7 @@ const Save = (itemData) => {
 }
 const Cancel = (itemData) => {
   console.log('cancel', itemData)
+  state.saveObj.show = false;
 }
 
 
