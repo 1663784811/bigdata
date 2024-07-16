@@ -276,11 +276,6 @@ public class MainActivity extends BaseAppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public Activity getActivity() {
-        return this;
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
 
