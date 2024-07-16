@@ -5,3 +5,25 @@ spring:
     username: admin
     password: 123456
     virtual-host: /
+    listener:
+      type: direct
+      direct:
+        acknowledge-mode: manual
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

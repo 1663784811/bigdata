@@ -7,9 +7,12 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -39,7 +42,7 @@ public class RabbitMQService {
 
 
     @RabbitListener(queues = "event_queue")
-    public void handleDeviceConnectedEvent(Message message) {
+    public void handleDeviceConnectedEvent(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         MessageProperties messageProperties = message.getMessageProperties();
         Map<String, Object> headers = messageProperties.getHeaders();
         String receivedRoutingKey = messageProperties.getReceivedRoutingKey();
@@ -53,6 +56,14 @@ public class RabbitMQService {
         }
         System.out.println("" + headers.get("client_properties"));
         System.out.println("设备上线下线 event: " + receivedRoutingKey + "   " + headers);
+
+        if ("".equals("")) {
+            System.out.println("业务正常处理，确认消息");
+            channel.basicAck(tag, false);
+        } else {
+            System.out.println("业务处理失败，拒绝接收消息");
+            channel.basicNack(tag, false, true);
+        }
     }
 
 
@@ -65,7 +76,7 @@ public class RabbitMQService {
 
 
     @RabbitListener(queues = RabbitConfig.DELAY_QUEUE)
-    public void receiveDelayedQueue(Message message) {
+    public void receiveDelayedQueue(Message message, Channel channel) {
         String msg = new String(message.getBody());
         log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
     }
