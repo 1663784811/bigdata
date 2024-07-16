@@ -41,9 +41,12 @@
                      :disabled="!modalData.editor"/>
             </div>
             <!--     ==========      文本     ===========       -->
-            <div class="content" :class="{'ivu-form-item-error': true}" v-else>
-              <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor"/>
-              <div>111</div>
+            <div class="content" :class="{'ivu-form-item-error': !!state.verifyData[item.key]}" v-else>
+              <Input v-model="modalData.data[item.key]" :placeholder="item.node" :disabled="!modalData.editor"
+                     @on-blur="changDataFn(item,modalData.data[item.key])"
+                     @on-focus="inputFocusFn(item,modalData.data[item.key])"
+                     clearable/>
+              <div v-show="!!state.verifyData[item.key]">{{ item.message }}</div>
             </div>
           </div>
         </template>
@@ -53,7 +56,7 @@
 </template>
 
 <script setup>
-import {defineEmits, ref, watch} from "vue";
+import {defineEmits, reactive, ref, watch} from "vue";
 import {useUploadFileStore} from "@/store/uploadFile.js";
 
 const fileStore = useUploadFileStore();
@@ -85,6 +88,10 @@ const modalData = ref({
   columns: []
 })
 
+const state = reactive({
+  verifyData: {}
+});
+
 watch(() => props.modalSetting, () => {
   modalData.value = {
     ...modalData.value,
@@ -94,6 +101,7 @@ watch(() => props.modalSetting, () => {
 
 watch(() => props.modelValue, () => {
   modalData.value.show = props.modelValue;
+  state.verifyData = {}
 })
 
 watch(() => modalData.value.show, () => {
@@ -107,25 +115,64 @@ watch(() => modalData.value.show, () => {
 const eventFn = (ev) => {
   const {data, columns} = modalData.value;
   if (ev === 'ok' && modalData.value.editor) {
+    let h = true;
     // 验证数据
     for (let i = 0; i < columns.length; i++) {
       const {key, regStr} = columns[i];
       console.log(key, data[key]);
-      if (regStr && regStr.length > 0) {
 
+      if (regStr && regStr.length > 0) {
+        if (1 === 1) {
+          h = false;
+          state.verifyData[key] = true;
+        }
       }
     }
-
-
-
-
-
-
-
+    if (h) {
+      // emits('event', ev, data);
+    }
   } else {
     emits('event', ev, data);
   }
 }
+
+const inputFocusFn = (column, value) => {
+  if (state.verifyData[column.key] != undefined) {
+    changDataFn(column, value);
+  }
+}
+const changDataFn = (column, value) => {
+  if (verifyDataFn(column, value)) {
+    state.verifyData[column.key] = false;
+  } else {
+    state.verifyData[column.key] = true;
+  }
+}
+
+const verifyDataFn = (column, value) => {
+  console.log(column)
+  if (!column.isRequire) {
+    // 不是必需
+    if ((value + "").trim().length > 0) {
+      // 验证正则
+      return verifyReg(column.regStr, value);
+    } else {
+      return true;
+    }
+  } else if (value && (value + "").trim().length > 0) {
+    // 必需,验证正则
+    return verifyReg(column.regStr, value);
+  }
+  return false;
+}
+
+const verifyReg = (regStr, value) => {
+  if (regStr && regStr.length > 0) {
+    return new RegExp(regStr).test(value);
+  }
+  return true;
+}
+
 
 /**
  * 上传文件
@@ -156,9 +203,10 @@ const updateImage = (key) => {
     .content {
       flex: 1;
 
-      &.imgContent{
+      &.imgContent {
         display: flex;
         align-items: center;
+
         .imageBox {
           height: 50px;
           border: 1px solid #ccc;
