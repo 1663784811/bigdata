@@ -45,7 +45,7 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+
 public class MainActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
 
