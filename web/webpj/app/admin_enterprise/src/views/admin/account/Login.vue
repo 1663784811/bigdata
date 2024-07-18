@@ -6,7 +6,7 @@
         <img data-v-aa5851c8="" class="login-left-img" src="~@/assets/loginback.png" alt="login">
       </div>
       <div class="contentBox">
-        <div class="loginBox">
+        <div class="loginBox" v-if="state.isLoginBox">
           <div class="loginTitle">登录</div>
           <div class="loginRow">
             <Input placeholder="用户名" v-model="state.params.userName" clearable/>
@@ -18,7 +18,33 @@
             <Button class="submitBtn" long @click="state.params.userName='';state.params.password='';">重置</Button>
             <Button class="submitBtn" type="success" long :loading="state.isLoading" @click="clickLogin">登录</Button>
           </div>
+          <div>
+            <span style="cursor: pointer" @click="goToForgetPwd(false)">忘记密码？</span>
+          </div>
         </div>
+        <div class="loginBox" v-else>
+          <div class="loginTitle">重置密码</div>
+          <div class="loginRow">
+            <Input placeholder="用户名" v-model="state.params.userName" clearable/>
+          </div>
+          <div class="loginRow">
+            <Input placeholder="手机号" v-model="state.params.password" clearable/>
+          </div>
+          <div class="loginRow">
+            <Input placeholder="验证码" v-model="state.forgetPwd.checkCode" clearable enter-button="获取验证码">
+              <template #append>
+                <Button>获取验证码</Button>
+              </template>
+            </Input>
+          </div>
+          <div class="loginRow">
+            <Button class="submitBtn" long type="success" disabled>重置密码</Button>
+          </div>
+          <div>
+            <span style="cursor: pointer" @click="goToForgetPwd(true)">用户登录</span>
+          </div>
+        </div>
+
       </div>
     </div>
     <AccountFooter/>
@@ -39,10 +65,14 @@ const loginInfoSt = loginInfo();
 
 const state = reactive({
   isLoading: false,
+  isLoginBox: true,
   params: {
     userName: "root",
     password: "root",
     code: "123456"
+  },
+  forgetPwd: {
+    checkCode: ''
   }
 })
 
@@ -50,6 +80,10 @@ const state = reactive({
 onMounted(() => {
 
 })
+
+const goToForgetPwd = (b) => {
+  state.isLoginBox = b;
+}
 
 
 /**
@@ -73,7 +107,7 @@ const clickLogin = function () {
   }).catch((err) => {
     console.log(err)
     Message.error({
-      content: `${err.msg?err.msg:err.message}`
+      content: `${err.msg ? err.msg : err.message}`
     });
   }).finally(() => {
     state.isLoading = false;

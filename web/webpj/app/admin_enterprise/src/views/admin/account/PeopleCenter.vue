@@ -87,7 +87,11 @@
         </div>
         <div class="infoRow">
           <div class="rowVal">
-            <Button class="dataBtn" type="success" disabled icon="ios-create">修改基本资料</Button>
+            <Button class="dataBtn" type="success"
+                    icon="ios-create"
+                    :loading="state.loadingInfo"
+                    @click="updateBaseInfo">修改基本资料
+            </Button>
           </div>
         </div>
       </div>
@@ -117,6 +121,7 @@ const fileStore = useUploadFileStore();
 
 
 const state = reactive({
+  loadingInfo: false,
   userData: {
     account: null,
     address: null,
@@ -182,6 +187,10 @@ const querySysLog = () => {
   })
 }
 
+const updateBaseInfo = () => {
+  state.loadingInfo = true;
+
+}
 
 </script>
 <style scoped lang="less">
