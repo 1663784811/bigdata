@@ -95,12 +95,13 @@
         操作日志:
       </div>
       <div class="logBox">
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
-        <div class="logLi">2024-01-12 01:10:00 登录系统</div>
+        <div class="logLi" v-for="(item, index) in state.log.data ">【{{ item.createTime }}】 {{ item.log }}</div>
+      </div>
+      <div class="pageBox" v-if="state.log.data.length>0 || state.log.result.total>0">
+        <Page :total="state.log.result.total" @on-change="onChange"/>
+      </div>
+      <div class="pageBox" v-else>
+        <div>没有数据</div>
       </div>
     </div>
 
@@ -108,7 +109,7 @@
 </template>
 <script setup>
 
-import {userInfo} from '@/api/api.js'
+import {userInfo, commonQuery} from '@/api/api.js'
 import {onMounted, reactive} from "vue";
 import {useUploadFileStore} from "@/store/uploadFile";
 
@@ -135,6 +136,14 @@ const state = reactive({
     sex: null,
     status: null,
     trueName: null
+  },
+  log: {
+    data: [],
+    result: {
+      page: 1,
+      size: 30,
+      total: 100
+    }
   }
 })
 
@@ -144,16 +153,33 @@ onMounted(() => {
   userInfo().then((res) => {
     state.userData = res.data
   })
+  querySysLog();
 
 })
 
 const updateFaceFn = () => {
   fileStore.uploadFile.show = true;
-
-
 }
 
 const updatePwdFn = () => {
+}
+
+const onChange = (page) => {
+  state.log.result.page = page;
+  querySysLog();
+}
+
+const querySysLog = () => {
+  commonQuery({
+    code: 'select_sys_log',
+    ...state.log.result
+  }).then(rest => {
+    if (rest.data) {
+      console.log(rest)
+      state.log.data = rest.data;
+      state.log.result = rest.data;
+    }
+  })
 }
 
 
@@ -246,6 +272,11 @@ const updatePwdFn = () => {
       .logLi {
         margin: 6px 0;
       }
+    }
+
+    .pageBox {
+      text-align: center;
+      padding: 10px 0;
     }
   }
 
