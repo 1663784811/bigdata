@@ -19,7 +19,9 @@ export const useWinModal = defineStore('useWinModal', {
             data: {},
             show: false,
             pageCode: '',
-            loading: true
+            loading: true,
+            changeDataFn:null,
+            saveAfterFn:null,
         });
         return {
             winData

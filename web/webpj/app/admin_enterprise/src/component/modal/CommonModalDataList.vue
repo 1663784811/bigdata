@@ -20,6 +20,10 @@ const saveEventFn = (ev, itemData) => {
     save(itemData)
   } else if ('cancel' === ev) {
     // Cancel(itemData);
+  } else if (ev == 'change') {
+    if (winModal.winData.changeDataFn) {
+      winModal.winData.changeDataFn(itemData);
+    }
   }
 }
 

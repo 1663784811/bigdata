@@ -276,6 +276,7 @@ const clickComponentItem = (item) => {
 const updateComponent = (item) => {
   winModal.winData.show = true;
   initSave();
+  winModal.winData.changeDataFn = changeDataFn;
   findIdCPageComponents({
     id: item.id
   }).then(rest => {
@@ -316,6 +317,17 @@ const addComponent = () => {
   winModal.winData.data = {
     pageId: configModule.configPage.pageId
   };
+  winModal.winData.changeDataFn = changeDataFn;
+}
+
+const changeDataFn = (dataObj) => {
+  if (dataObj.key === 'type') {
+    if (dataObj.allData) {
+      if (!dataObj.allData.componentsCode) {
+        winModal.winData.data.componentsCode = dataObj.value;
+      }
+    }
+  }
 }
 
 

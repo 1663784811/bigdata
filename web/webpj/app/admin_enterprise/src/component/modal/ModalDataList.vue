@@ -19,7 +19,8 @@
             </div>
             <!--     ==========      选择     ===========       -->
             <div class="content" v-else-if="item.controlType === 'select'">
-              <Select v-model="modalData.data[item.key]" clearable :disabled="!modalData.editor">
+              <Select v-model="modalData.data[item.key]" clearable :disabled="!modalData.editor"
+                      @on-change="onChangeData(item.key,modalData.data[item.key])" label-in-value>
                 <Option v-for="(it, inx) in item.filters" :value="it.value" :key="inx">{{ it.label }}</Option>
               </Select>
             </div>
@@ -195,6 +196,13 @@ const updateImage = (key) => {
   }
 }
 
+const onChangeData = (key, val) => {
+  emits('event', 'change', {
+    key: key,
+    value: val,
+    allData: modalData.value.data
+  });
+}
 
 </script>
 
