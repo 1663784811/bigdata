@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.config;
+package com.cyyaw.config;
 
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.service.WxPayService;

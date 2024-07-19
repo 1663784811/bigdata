@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cyyaw</groupId>
-    <artifactId>sentinel</artifactId>
+    <artifactId>master_slave</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>

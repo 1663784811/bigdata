@@ -1,4 +1,4 @@
-package com.cyyaw.appadmin.config;
+package com.cyyaw.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.cyyaw.mqtt;
+package com.cyyaw.config;
 
 
 import org.springframework.amqp.core.*;
