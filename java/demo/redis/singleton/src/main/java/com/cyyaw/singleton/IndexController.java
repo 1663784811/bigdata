@@ -12,19 +12,14 @@ public class IndexController {
 
 
     @Autowired
-    private RedisTemplate<String, Object> masterRedisTemplate;
+    private RedisTemplate<String, String> masterRedisTemplate;
 
     @GetMapping("")
     @ResponseBody
     public String index() {
-
         masterRedisTemplate.opsForValue().set("key", "木木木木ssssssssssssssssssssssssssssssssssssssssssssss");
-
         Object o = masterRedisTemplate.opsForValue().get("key");
-
-
         System.out.println(o);
-
         return "ok";
     }
 
