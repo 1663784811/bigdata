@@ -2,6 +2,12 @@ spring:
   redis:
     sentinel:
       master: mymaster
+      username:
+      password:
+      dataNode:
+        username:
+        password:
+        database:
       nodes:
         - 192.168.126.156:31756
         - 192.168.126.155:31756
