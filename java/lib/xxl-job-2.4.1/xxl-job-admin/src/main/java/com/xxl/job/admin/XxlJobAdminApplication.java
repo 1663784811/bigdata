@@ -17,6 +17,7 @@ public class XxlJobAdminApplication {
 		ConfigurableApplicationContext run = SpringApplication.run(XxlJobAdminApplication.class, args);
 		Environment environment = run.getBean(Environment.class);
 		System.out.println("打开程序：http://127.0.0.1:" + environment.getProperty("local.server.port")+"/xxl-job-admin");
+		System.out.println("初始用户名/密码:admin/123456");
 	}
 
 }
