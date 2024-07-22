@@ -1,13 +1,17 @@
 spring:
   application:
     name: test-gateway
+  config:
+    import:
+      - nacos:nacos-config-example.properties?refreshEnabled=true
   cloud:
     nacos:
-      #      serverAddr: 192.168.0.103:8848
+      server-addr: 192.168.0.103:8848   # 配置中心
+      username: nacos
+      password: nacos
+      group: dev
       discovery: # 服务发现
         server-addr: 192.168.0.103:8848
-        username: nacos
-        password: nacos
         watchDelay: 30000
 
 
