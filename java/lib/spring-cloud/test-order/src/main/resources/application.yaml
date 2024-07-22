@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: test-order
+  config:
+    import:
+      - nacos:application-config.yaml?refreshEnabled=true
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.0.103:8848   # 配置中心
+        username: nacos
+        password: nacos
+        namespace: dev
+        group: dev
+
+      discovery: # 服务发现
+        server-addr: 192.168.0.103:8848
+        username: nacos
+        password: nacos
+        watchDelay: 30000
+        namespace: dev
+        group: dev
+
+
+
+
+
+
+
+

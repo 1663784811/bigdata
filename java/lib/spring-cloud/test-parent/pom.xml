@@ -24,6 +24,7 @@
     <modules>
         <module>../test-gateway</module>
         <module>../test-admin</module>
+        <module>../test-order</module>
     </modules>
 
     <dependencyManagement>
