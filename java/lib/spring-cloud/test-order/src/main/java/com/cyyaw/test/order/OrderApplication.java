@@ -16,7 +16,7 @@ public class OrderApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(OrderApplication.class, args);
         Environment environment = run.getBean(Environment.class);
-        log.info("网关地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "");
+        log.info("地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "");
     }
 
 
