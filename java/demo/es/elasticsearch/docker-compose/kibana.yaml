@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  mysql:
+  kibana:
     restart: always
     image: kibana:8.6.1
     container_name: kibana
