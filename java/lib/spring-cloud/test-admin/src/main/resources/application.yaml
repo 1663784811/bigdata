@@ -1,10 +1,9 @@
 server:
-  port: 8080
-
+  port: 8081
 
 spring:
   application:
-    name: test-gateway
+    name: test-admin
   config:
     import:
       - nacos:nacos-config-example.properties?refreshEnabled=true
