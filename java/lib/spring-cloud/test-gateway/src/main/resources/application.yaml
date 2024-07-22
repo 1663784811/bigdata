@@ -7,7 +7,7 @@ spring:
     name: test-gateway
   config:
     import:
-      - nacos:nacos-config-example.properties?refreshEnabled=true
+      - nacos:application-config.yaml?refreshEnabled=true
   cloud:
     nacos:
       config:
