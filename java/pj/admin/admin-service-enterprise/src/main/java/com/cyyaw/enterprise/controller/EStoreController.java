@@ -42,38 +42,4 @@ public class EStoreController {
         return BaseResult.ok(obj);
     }
 
-
-    /**
-     * 添加或修改
-     */
-    @PostMapping("/saveEStore")
-    public BaseResult saveEStore(@RequestBody EStore saveObj) {
-        EStore obj = null;
-        Integer id = saveObj.getId();
-        if (ObjectUtils.isEmpty(id)) {
-            //添加
-            saveObj.setCreateTime(new Date());
-            saveObj.setTid(WhyStringUtil.getUUID());
-            log.info("添加:{}", saveObj);
-            obj = eStoreService.save(saveObj);
-        } else {
-            //修改
-            log.info("修改:{}", saveObj);
-            EStore cpObj = eStoreService.findId(id);
-            Assert.notNull(cpObj, "操作失败！");
-            BeanUtils.copyProperties(saveObj, cpObj);
-            obj = eStoreService.save(cpObj);
-        }
-        return BaseResult.ok(obj);
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delEStore")
-    public BaseResult delEStore(@RequestBody Integer idArr[]) {
-        eStoreService.del(idArr);
-        return BaseResult.ok("删除成功");
-    }
-
 }

@@ -189,7 +189,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 {
                                     title: '门店列表',
                                     icon: 'md-settings',
-                                    routeName: 'storeList',
+                                    routeName: 'shoppingStore',
                                     params: {
                                         appId: 'sss'
                                     }
