@@ -118,7 +118,7 @@ public class PageSettingController {
             String newData = components.getData();
             obj.setData(newData);
             cPageComponentsService.save(obj);
-            saveToComponentsObj(obj);
+            pageSettingData.saveToComponentsObj(obj);
         } else {
             return BaseResult.fail("找不到数据:" + JSONUtil.toJsonStr(new JSONObject(components)));
         }
@@ -152,40 +152,5 @@ public class PageSettingController {
         return json.toString();
     }
 
-    private void saveToComponentsObj(CPageComponents components) {
-        // 第一步:清空数据
-        CPageComponentsObj componentsObj = new CPageComponentsObj();
-        componentsObj.setPageComponentsId("" + components.getTid());
-        List<CPageComponentsObj> all = cPageComponentsObjService.findByExample(componentsObj);
-        for (int i = 0; i < all.size(); i++) {
-            cPageComponentsObjService.del(all.get(i).getId());
-        }
-        String data = components.getData();
-        String name = components.getName();
-        String tid = components.getTid();
-        if (StrUtil.isNotBlank(data)) {
-            JSONObject json = new JSONObject(data);
-            for (String key : json.keySet()) {
-                Object ob = json.getObj(key);
-                if (ob instanceof JSONArray) {
-                    JSONArray array = json.getJSONArray(key);
-                    CPageComponentsObj obj = new CPageComponentsObj();
-                    obj.setPageComponentsId(tid);
-                    obj.setName(name);
-                    obj.setDataKey(key);
-                    obj.setData(array.toString());
-                    cPageComponentsObjService.save(obj);
-                } else {
-                    JSONObject jsonObject = json.getJSONObject(key);
-                    CPageComponentsObj obj = new CPageComponentsObj();
-                    obj.setPageComponentsId(tid);
-                    obj.setName(name);
-                    obj.setDataKey(key);
-                    obj.setData(jsonObject.toString());
-                    cPageComponentsObjService.save(obj);
-                }
-            }
-        }
-    }
 
 }
