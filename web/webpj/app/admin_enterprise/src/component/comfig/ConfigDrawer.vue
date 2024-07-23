@@ -21,6 +21,9 @@
             <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="commonTableToNewTable(item)"
                     v-if="item.type === 'commonTable'">转新表格
             </Button>
+            <Button class="dataBtn" type="success" icon="md-create" size="small" @click="commonTableToNewTable(item)">
+              组件日志
+            </Button>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ import CommonTable from '@/component/CommonTable.vue'
 import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
 import DataTable from '@/component/modal/DataTable.vue'
 import ModalDataList from '@/component/modal/ModalDataList.vue'
+import ModalTable from '@/component/modal/ModalTable.vue'
 
 import {use} from 'echarts/core';
 import {CanvasRenderer} from 'echarts/renderers';
@@ -31,6 +32,7 @@ app.use(pinia);
 
 // ================== 被组件调用的组件
 app.component('modal-data-list', ModalDataList)
+app.component('modal-table', ModalTable)
 
 
 // =================== 组件
