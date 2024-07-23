@@ -120,13 +120,13 @@ public class PageSettingData {
         tableObj.set("operation", new JSONObject());
         //
         JSONObject saveObj = new JSONObject();
-        tableObj.set("show", false);
-        tableObj.set("loading", true);
-        tableObj.set("editor", true);
-        tableObj.set("editor", true);
-        tableObj.set("url", saveRequest.get("url"));
-        tableObj.set("data", new JSONObject());
-        tableObj.set("columns", columns);
+        saveObj.set("show", false);
+        saveObj.set("loading", true);
+        saveObj.set("editor", true);
+        saveObj.set("editor", true);
+        saveObj.set("url", saveRequest.get("url"));
+        saveObj.set("data", new JSONObject());
+        saveObj.set("columns", columns);
         // ===
         JSONObject restJson = new JSONObject();
         restJson.set("searchObj", searchObj);

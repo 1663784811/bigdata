@@ -41,7 +41,7 @@ public class PageSettingController {
     @Autowired
     private CPageComponentsObjService cPageComponentsObjService;
 
-
+    @Autowired
     private PageSettingData pageSettingData;
 
 
