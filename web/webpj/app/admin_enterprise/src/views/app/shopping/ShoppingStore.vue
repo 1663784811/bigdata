@@ -1,25 +1,39 @@
 <template>
-  <div>
-    <CommonTable :table-setting="commonTable"/>
-  </div>
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
-import CommonTable from '@/component/CommonTable.vue'
-import {pageConfig} from "@/store/pageConfig.js";
-import {ref} from "vue";
+
+import {onMounted, provide, reactive, ref} from "vue";
+import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute} from "vue-router";
+
+const route = useRoute();
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
-const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("shoppingStore");
-  commonTable.value = role.commonTable;
-}
-initFn();
+const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
+const state = reactive({
+  pageData: {},
+  drawerSetting: {},
+  newTable: {
+    show: true
+  },
+})
+
+onMounted(() => {
+  initFn();
+})
+
+const initFn = async () => {
+  const pageCode = 'shoppingStore'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
+  commonTableSearchData.value = {"appId": `${route.params.appId}`}
+}
 
 </script>
 
 <style scoped lang="less">
-
 </style>
