@@ -169,12 +169,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '商城概览',
                             icon: 'md-settings',
-                            routeName: 'shoppingDashboard'
+                            routeName: 'shoppingDashboard',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '用户管理',
                             icon: 'md-settings',
-                            routeName: 'shoppingUser'
+                            routeName: 'shoppingUser',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '门店管理',
@@ -184,6 +190,9 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     title: '门店列表',
                                     icon: 'md-settings',
                                     routeName: 'storeList',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 }
                             ]
                         },
@@ -196,11 +205,17 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     title: '订单列表',
                                     icon: 'md-settings',
                                     routeName: 'shoppingOrderList',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                                 {
                                     title: '异常订单',
                                     icon: 'md-settings',
                                     routeName: 'shoppingExceptionalOrder',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                             ]
                         },
@@ -211,7 +226,10 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 {
                                     title: '商城设置',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingSettings'
+                                    routeName: 'shoppingSettings',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                                 {
                                     title: '首页banner图',
@@ -378,7 +396,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
 
             const loadMenu = () => {
                 apiAdminMenu({}).then((res) => {
-                    console.log('ssssssssssssssssssss', res)
+                    console.log('sss', res)
                     //topMenu.value.push(...res.data);
                 })
             }

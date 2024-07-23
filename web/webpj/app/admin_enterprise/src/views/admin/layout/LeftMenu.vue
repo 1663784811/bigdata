@@ -46,14 +46,21 @@ const router = useRouter();
 
 const clickMenu = (item) => {
   let query = {};
+  let params = {};
   if (item.query) {
     query = item.query;
+  }
+  if (item.params) {
+    params = item.params
   }
   if (item.routeName) {
     router.replace({
       name: item.routeName,
       query: {
         ...query
+      },
+      params: {
+        ...params
       }
     })
   }
