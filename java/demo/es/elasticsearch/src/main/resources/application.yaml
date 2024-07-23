@@ -1,8 +1,8 @@
 spring:
   elasticsearch:
-    uris: http://node1:9200,http://node2:9200,http://node3:9200
-    username: your_username
-    password: your_password
+    uris: http://192.168.0.136:9200,http://192.168.0.136:9200,http://192.168.0.136:9200
+    username: elastic
+    password: Sy_*lqEciee7N-a*NB0p
 
 
 
