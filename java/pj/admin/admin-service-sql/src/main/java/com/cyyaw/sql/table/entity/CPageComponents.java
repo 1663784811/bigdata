@@ -48,7 +48,7 @@ public class CPageComponents implements BaseEntity<Integer>, Serializable {
     @Column(name = "name", columnDefinition = "varchar(45) COMMENT '名称'")
     private String name;
     @Basic
-    @Column(name = "components_code", columnDefinition = "varchar(45) COMMENT '类型'")
+    @Column(name = "components_code", columnDefinition = "varchar(45) COMMENT '组件编号'")
     private String componentsCode;
     @Basic
     @Column(name = "type", columnDefinition = "varchar(32) COMMENT '类型'")

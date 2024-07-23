@@ -1,17 +1,20 @@
 package com.cyyaw.data;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.sql.service.CPageComponentsObjService;
 import com.cyyaw.sql.service.CPageComponentsService;
 import com.cyyaw.sql.table.dao.CPageComponentsDao;
 import com.cyyaw.sql.table.dao.CPageComponentsObjDao;
 import com.cyyaw.sql.table.entity.CPageComponents;
 import com.cyyaw.sql.table.entity.CPageComponentsObj;
+import com.cyyaw.util.tools.BaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,6 +75,58 @@ public class PageSettingData {
                 }
             }
         }
+    }
+
+
+    public void commonTableToNewTable(Integer id) {
+        CPageComponents obj = cPageComponentsService.findId(id);
+        if (null != obj) {
+            String type = obj.getType();
+            if (type == null || "commonTable".equals(type)) {
+                obj.setType("newTable");
+                obj.setComponentsCode("newTable");
+                String data = obj.getData();
+                obj.setData(commonTableToNewTableData(data));
+                cPageComponentsService.save(obj);
+            }
+        }
+    }
+
+
+    public String commonTableToNewTableData(String data) {
+        JSONObject json = new JSONObject(data);
+        JSONObject requestObj = json.getJSONObject("requestObj");
+        JSONObject queryRequest = requestObj.getJSONObject("queryRequest");
+        JSONObject saveRequest = requestObj.getJSONObject("saveRequest");
+        JSONObject delRequest = requestObj.getJSONObject("delRequest");
+        JSONArray columns = json.getJSONArray("columns");
+        JSONObject searchObj = new JSONObject();
+        searchObj.set("show", true);
+        searchObj.set("columns", new ArrayList<>());
+        //
+        JSONObject tableObj = new JSONObject();
+        tableObj.set("queryRequest", queryRequest);
+        tableObj.set("delRequest", delRequest);
+        tableObj.set("columns", columns);
+        tableObj.set("loading", true);
+        tableObj.set("showColumns", false);
+        tableObj.set("operation", new JSONObject());
+        //
+        JSONObject saveObj = new JSONObject();
+        tableObj.set("show", false);
+        tableObj.set("loading", true);
+        tableObj.set("editor", true);
+        tableObj.set("editor", true);
+        tableObj.set("url", saveRequest.get("url"));
+        tableObj.set("data", new JSONObject());
+        tableObj.set("columns", columns);
+        // ===
+        JSONObject restJson = new JSONObject();
+        restJson.set("searchObj", searchObj);
+        restJson.set("tableObj", tableObj);
+        restJson.set("saveObj", saveObj);
+
+        return JSONUtil.toJsonStr(restJson);
     }
 
 

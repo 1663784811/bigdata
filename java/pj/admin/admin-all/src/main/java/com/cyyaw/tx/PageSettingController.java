@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.cyyaw.data.PageSettingData;
 import com.cyyaw.sql.service.CPageComponentsLogService;
 import com.cyyaw.sql.service.CPageComponentsObjService;
 import com.cyyaw.sql.service.CPageComponentsService;
@@ -39,6 +40,9 @@ public class PageSettingController {
 
     @Autowired
     private CPageComponentsObjService cPageComponentsObjService;
+
+
+    private PageSettingData pageSettingData;
 
 
     /**
@@ -120,6 +124,13 @@ public class PageSettingController {
         }
         return BaseResult.ok();
     }
+
+    @GetMapping("/commonTableToNewTable")
+    public BaseResult commonTableToNewTable(Integer id) {
+        pageSettingData.commonTableToNewTable(id);
+        return BaseResult.ok();
+    }
+
 
 
     private String getJsonData(String componentsId) {

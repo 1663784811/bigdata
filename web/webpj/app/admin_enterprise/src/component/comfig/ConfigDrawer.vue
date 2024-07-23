@@ -16,7 +16,11 @@
         <div class="comItem" v-for="(item, index) in state.pageObj" :key="index" @click="clickComponentItem(item)">
           <div>组件ID:{{ item.id }} 名称:{{ item.name }} 类型:{{ item.type }}
             <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updateComponent(item)"/>
+
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delComponent(item)"/>
+            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="commonTableToNewTable(item)"
+                    v-if="item.type === 'commonTable'">转新表格
+            </Button>
           </div>
         </div>
       </div>
@@ -311,6 +315,33 @@ const delComponent = (row) => {
   });
 }
 
+const commonTableToNewTable = (row) => {
+  Modal.confirm({
+    title: '是否转至新表格?',
+    okText: '确定',
+    loading: true,
+    onOk: () => {
+      commonRequest("/tx/config/page/commonTableToNewTable", {
+        id: row.id
+      }).then((rest) => {
+        Message.success({
+          content: `${rest.data ? rest.data : rest.msg}`,
+          onClose: () => {
+            Modal.remove();
+            loadPage();
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        Message.error({
+          content: `${err}`,
+        })
+      })
+    },
+  });
+}
+
+
 const addComponent = () => {
   winModal.winData.show = true;
   initSave();
@@ -427,6 +458,10 @@ const initSave = () => {
 
       &:hover {
         background: #e5e5e5;
+      }
+
+      .dataBtn {
+        margin-right: 10px;
       }
     }
   }
