@@ -6,6 +6,8 @@ import com.cyyaw.user.table.entity.TAdmin;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WhyStringUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @Slf4j
-@RequestMapping("/admin/{eCode}/admin")
 @RestController
+@Api(tags = "后台管理员")
+@RequestMapping("/admin/{eCode}/admin")
 public class AdminController {
 
     @Autowired
     private TAdminService tAdminService;
 
 
-    /**
-     * 添加或修改
-     */
+
+    @ApiOperation(value = "添加或修改", notes = "添加或修改")
     @PostMapping("/saveTAdmin")
     public BaseResult saveTAdmin(@RequestBody TAdmin saveObj,  @TokenData LoginInfo loginInfo) {
         TAdmin obj = null;
