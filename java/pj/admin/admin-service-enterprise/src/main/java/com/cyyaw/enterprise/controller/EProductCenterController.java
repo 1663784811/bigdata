@@ -67,13 +67,4 @@ public class EProductCenterController {
         return BaseResult.ok(obj);
     }
 
-    /**
-     * 删除
-     */
-    @PostMapping("/delEProductCenter")
-    public BaseResult delEProductCenter(@RequestBody Integer idArr[]) {
-        eProductCenterService.del(idArr);
-        return BaseResult.ok("删除成功");
-    }
-
 }
