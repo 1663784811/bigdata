@@ -234,17 +234,26 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                 {
                                     title: '首页banner图',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingBanner'
+                                    routeName: 'shoppingBanner',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                                 {
                                     title: '商品分类',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingGType'
+                                    routeName: 'shoppingGType',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                                 {
                                     title: '商品品牌',
                                     icon: 'md-settings',
-                                    routeName: 'shoppingBrand'
+                                    routeName: 'shoppingBrand',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 }
                             ]
                         },
@@ -257,11 +266,17 @@ export const useAdminMenuStore = defineStore('adminMenu',
                                     title: '微信支付',
                                     icon: 'md-settings',
                                     routeName: 'shoppingWeixinPay',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                                 {
                                     title: '支付宝支付',
                                     icon: 'md-settings',
                                     routeName: 'shoppingAliPay',
+                                    params: {
+                                        appId: 'sss'
+                                    }
                                 },
                             ]
                         }
@@ -275,12 +290,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '系统概览',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName: 'dashboard',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '门店管理',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'appCenter',
+                            params: {
+                                appId: 'sss'
+                            }
                         }
                     ]
                 },
@@ -292,12 +313,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '设置',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName: 'dashboard',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '小黑人列表',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'appCenter',
+                            params: {
+                                appId: 'sss'
+                            }
                         }
                     ]
                 },
@@ -309,12 +336,18 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '设置',
                             icon: 'md-settings',
-                            routeName: 'dashboard'
+                            routeName: 'dashboard',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '小黑人列表',
                             icon: 'md-settings',
-                            routeName: 'appCenter'
+                            routeName: 'appCenter',
+                            params: {
+                                appId: 'sss'
+                            }
                         }
                     ]
                 },
@@ -326,37 +359,58 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '手机列表',
                             icon: 'md-settings',
-                            routeName: 'phoneList'
+                            routeName: 'phoneList',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '公司',
                             icon: 'md-settings',
-                            routeName: 'companyList'
+                            routeName: 'companyList',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '黑洞',
                             icon: 'md-settings',
-                            routeName: 'spiderData'
+                            routeName: 'spiderData',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '单词解释',
                             icon: 'md-settings',
-                            routeName: 'bookWord'
+                            routeName: 'bookWord',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '招聘列表',
                             icon: 'md-settings',
-                            routeName: 'recruitList'
+                            routeName: 'recruitList',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '商业历史',
                             icon: 'md-settings',
-                            routeName: 'commerceHistory'
+                            routeName: 'commerceHistory',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '人物录',
                             icon: 'md-settings',
-                            routeName: 'people'
+                            routeName: 'people',
+                            params: {
+                                appId: 'sss'
+                            }
                         }
                     ]
                 },
@@ -368,17 +422,26 @@ export const useAdminMenuStore = defineStore('adminMenu',
                         {
                             title: '用户列表',
                             icon: 'md-settings',
-                            routeName: 'friendsUser'
+                            routeName: 'friendsUser',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '好友列表',
                             icon: 'md-settings',
-                            routeName: 'friendsList'
+                            routeName: 'friendsList',
+                            params: {
+                                appId: 'sss'
+                            }
                         },
                         {
                             title: '内容管理',
                             icon: 'md-settings',
-                            routeName: 'friendsContent'
+                            routeName: 'friendsContent',
+                            params: {
+                                appId: 'sss'
+                            }
                         }
                     ]
                 }

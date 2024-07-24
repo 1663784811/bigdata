@@ -6,9 +6,13 @@
 
 import {onMounted, provide, reactive, ref} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute} from "vue-router";
+
+const route = useRoute();
 
 const usePageConfig = pageConfig();
 const commonTableSearchData = ref({})
+provide("commonTableSearchData", commonTableSearchData);
 
 const state = reactive({
   pageData: {},
@@ -18,7 +22,7 @@ const state = reactive({
   },
 })
 
-onMounted(()=>{
+onMounted(() => {
   initFn();
 })
 
@@ -26,7 +30,7 @@ const initFn = async () => {
   const pageCode = 'ent_friends_content'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.newTable = pageData.newTable;
-  commonTableSearchData.value = {"appId": 'sss'}
+  commonTableSearchData.value = {"appId": `${route.params.appId}`}
 }
 
 </script>

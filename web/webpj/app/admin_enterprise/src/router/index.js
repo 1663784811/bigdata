@@ -32,14 +32,20 @@ const router = createRouter({
                         sql,
                         role,
                         spider,
+                        worker,
                         {
                             meta: {title: '商城'},
                             path: 'shopping/:appId',
                             children: shopping
                         },
-                        worker,
-                        phone,
-                        friends
+                        {
+                            path: 'phone/:appId',
+                            children: phone
+                        },
+                        {
+                            path: 'friends/:appId',
+                            children: friends
+                        }
                     ]
                 }
             ]

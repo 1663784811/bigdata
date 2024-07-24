@@ -1,29 +1,26 @@
-export const friends = {
-    path: '/:code/friends',
-    children: [
-        {
-            path: 'userList',
-            name: 'friendsUser',
-            meta: {
-                title: '用户',
-            },
-            component: () => import('@/views/app/friends/UserList.vue')
+export const friends = [
+    {
+        path: 'userList',
+        name: 'friendsUser',
+        meta: {
+            title: '用户',
         },
-        {
-            path: 'friendsList',
-            name: 'friendsList',
-            meta: {
-                title: '好友列表',
-            },
-            component: () => import('@/views/app/friends/FriendsList.vue')
+        component: () => import('@/views/app/friends/UserList.vue')
+    },
+    {
+        path: 'friendsList',
+        name: 'friendsList',
+        meta: {
+            title: '好友列表',
         },
-        {
-            path: 'content',
-            name: 'friendsContent',
-            meta: {
-                title: '内容管理',
-            },
-            component: () => import('@/views/app/friends/ContentList.vue')
-        }
-    ]
-}
+        component: () => import('@/views/app/friends/FriendsList.vue')
+    },
+    {
+        path: 'content',
+        name: 'friendsContent',
+        meta: {
+            title: '内容管理',
+        },
+        component: () => import('@/views/app/friends/ContentList.vue')
+    }
+]
