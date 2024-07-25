@@ -16,7 +16,7 @@
 </template>
 <script setup>
 import {onMounted, reactive} from "vue";
-import {commonRequest} from '@/api/api.js'
+import {commonQuery} from '@/api/api.js'
 import {loginInfo} from "@/store/loginInfo.js";
 
 const loginInfoSt = loginInfo();
@@ -28,7 +28,7 @@ const state = reactive({
 
 
 onMounted(() => {
-  commonRequest(loginInfoSt.reLoadUrl("/admin/${eCode}/common/query"), {
+  commonQuery({
     code: 'select_e_product_center'
   }).then((rest) => {
     const {data} = rest;
@@ -64,6 +64,7 @@ const openApp = (row) => {
       padding: 10px;
       margin: 6px;
       background: #fff;
+      border-radius: 8px;
 
       .logoBox {
         height: 150px;
