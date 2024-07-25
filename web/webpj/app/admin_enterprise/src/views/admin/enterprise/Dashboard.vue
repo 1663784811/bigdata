@@ -38,7 +38,7 @@
 <script setup>
 import TitleBox from '@/component/TitleBox.vue'
 import {onMounted, reactive, ref} from "vue";
-import {commonRequest} from '@/api/api.js'
+import {commonRequest, commonQuery} from '@/api/api.js'
 import {loginInfo} from "@/store/loginInfo.js"
 
 import VChart, {THEME_KEY} from 'vue-echarts';
@@ -53,13 +53,11 @@ const state = reactive({
 
 
 onMounted(() => {
-
   loadData();
-
 })
 
 const loadData = () => {
-  commonRequest(loginInfoSt.reLoadUrl("/admin/${eCode}/common/query"), {
+  commonQuery({
     code: 'select_e_application'
   }).then((rest) => {
     const {data} = rest;
@@ -113,10 +111,10 @@ const option = ref({
 <style scoped lang="less">
 .appBox {
   .titleBox {
-    margin-bottom: 10px;
     padding: 10px;
     box-shadow: 0 0 6px #bdd3f5;
     background: #fff;
+    border-bottom: 1px solid #efefef;
   }
 
   .appRowBox {
@@ -125,13 +123,14 @@ const option = ref({
     margin-bottom: 20px;
     background: #fff;
     padding: 10px 10px 0 10px;
-    min-height: 180px;
+    min-height: 120px;
 
     .rowItem {
-      width: 160px;
-      height: 160px;
+      width: 100px;
+      height: 100px;
       margin: 0 10px 10px 0;
       background: #f7f7f7;
+      border-radius: 6px;
 
       &:hover {
         background: #d5d5d5;
@@ -139,8 +138,8 @@ const option = ref({
       }
 
       .appLogo {
-        width: 120px;
-        height: 120px;
+        width: 60px;
+        height: 60px;
         margin: 10px auto auto;
 
         img {
