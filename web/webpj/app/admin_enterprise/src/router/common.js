@@ -1,5 +1,7 @@
-export const common = {
-    path: 'common/CommonTablePage',
-    component: () => import('@/views/admin/common/CommonTablePage.vue'),
-    name: 'CommonTablePage'
-}
+export const common = [
+    {
+        path: 'CommonTablePage',
+        component: () => import('@/views/admin/common/CommonTablePage.vue'),
+        name: 'CommonTablePage'
+    }
+]

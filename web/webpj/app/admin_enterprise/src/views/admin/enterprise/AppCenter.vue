@@ -18,6 +18,7 @@
 import {onMounted, reactive} from "vue";
 import {commonQuery} from '@/api/api.js'
 import {loginInfo} from "@/store/loginInfo.js";
+import router from "@/router";
 
 const loginInfoSt = loginInfo();
 
@@ -46,7 +47,9 @@ const loadData = () => {
 const openApp = (row) => {
   console.log(row)
 
-
+  router.push({
+    name:'openApp'
+  })
 }
 
 

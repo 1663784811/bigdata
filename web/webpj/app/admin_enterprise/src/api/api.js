@@ -69,7 +69,7 @@ export const enterpriseRegister = (params) => {return axios.get( `${baseUrl}/log
 export const getPhoneList = (params) => {return axios.get( `${baseUrl}/admin/phone/phone/phoneList`, params);}
 
 
-
+export const openApp = (params = {}) => {return axios.post(`${baseUrl}/admin/\${eCode}/app/openApp`, params);}
 
 
 

@@ -23,12 +23,21 @@ const router = createRouter({
             children: [
                 login,
                 {
+                    path: 'openApp',
+                    name: 'openApp',
+                    component: () => import('@/views/admin/enterprise/AppOpen.vue'),
+                },
+                {
                     path: '',
                     name: 'home',
                     component: () => import('@/views/admin/layout/Main.vue'),
                     children: [
                         enterprise,
-                        common,
+                        {
+                            meta: {title: '公共'},
+                            path: 'common',
+                            children: common
+                        },
                         sql,
                         role,
                         spider,
