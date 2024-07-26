@@ -1,9 +1,9 @@
 package com.cyyaw.store.service;
 
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.store.table.goods.entity.GdDetails;
+import com.cyyaw.store.table.goods.entity.GDetails;
 
-public interface GDetailsService extends BaseTableService<GdDetails, Integer> {
+public interface GDetailsService extends BaseTableService<GDetails, Integer> {
 
 
 }

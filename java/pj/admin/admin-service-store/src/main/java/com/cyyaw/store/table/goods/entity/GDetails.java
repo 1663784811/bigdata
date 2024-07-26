@@ -11,10 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "gd_goods")
-@org.hibernate.annotations.Table(appliesTo = "gd_goods", comment = "仓库商品表")
-public class GdGoods implements BaseEntity<Integer>,  Serializable {
-    private static final long serialVersionUID = 13787826273933758L;
+@Table(name = "g_details")
+@org.hibernate.annotations.Table(appliesTo = "g_details", comment = "商品详情表")
+public class GDetails implements BaseEntity<Integer>,  Serializable {
+    private static final long serialVersionUID = 1568777826623933758L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,18 +39,10 @@ public class GdGoods implements BaseEntity<Integer>,  Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "depository_id", columnDefinition = "varchar(32) COMMENT '所属仓库g_depository表ID'")
-    private String depositoryId;
-    @Basic
-    @Column(name = "goods_id", columnDefinition = "varchar(32) COMMENT '所属商品g_goods表ID'")
+    @Column(name = "goods_id",  columnDefinition = "varchar(32) COMMENT '商品ID'")
     private String goodsId;
 
     @Basic
-    @Column(name = "number",  columnDefinition = "int not null default '0' COMMENT '数量'")
-    private Integer number;
-
-    @Basic
-    @Column(name = "details", columnDefinition = "varchar(255) COMMENT '描述'")
+    @Column(name = "details",  columnDefinition = "text COMMENT '商品详情'")
     private String details;
-
 }

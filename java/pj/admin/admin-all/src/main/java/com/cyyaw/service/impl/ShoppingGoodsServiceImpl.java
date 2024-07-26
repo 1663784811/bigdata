@@ -35,7 +35,7 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
     private GPhotoDao gPhotoDao;
 
     @Autowired
-    private GdDetailsDao gdDetailsDao;
+    private GDetailsDao gDetailsDao;
 
     @Override
     public BaseResult<List<GoodsEntity>> searchGoods(GGoodsSearch goodsSearch) {
@@ -178,7 +178,7 @@ public class ShoppingGoodsServiceImpl implements ShoppingGoodsService {
 
     @Override
     public BaseResult goodsDetailsText(String goodsId) {
-        List<GdDetails> gDetailsList = gdDetailsDao.findByGoodsId(goodsId);
+        List<GDetails> gDetailsList = gDetailsDao.findByGoodsId(goodsId);
         if (gDetailsList.size() > 0) {
             return BaseResult.ok(gDetailsList.get(0));
         }
