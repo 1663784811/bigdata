@@ -1,11 +1,9 @@
 <template>
   <Modal
       v-model="configModule.sqlConfig.show"
-      title="保存数据"
-      @on-ok="modalData.Save()"
+      title="SQL列表数据"
       @on-cancel="modalData.Cancel()"
       :mask-closable="false"
-      :loading="true"
       width="80wh"
   >
     <div class="sqlPage">
@@ -38,7 +36,7 @@
       <!--==================    ====================-->
       <Modal
           v-model="modalData.showModal"
-          title="保存数据"
+          title="保存SQL数据"
           @on-ok="modalData.Save()"
           @on-cancel="modalData.Cancel()"
           :mask-closable="false"
@@ -76,6 +74,15 @@
                 <Select v-model="sqlData.login">
                   <Option :value="0">不需要</Option>
                   <Option :value="1">需要</Option>
+                </Select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="label">状态</div>
+              <div class="content">
+                <Select v-model="sqlData.status">
+                  <Option :value="0">启用</Option>
+                  <Option :value="1">停用</Option>
                 </Select>
               </div>
             </div>
@@ -139,7 +146,12 @@
                 </div>
               </div>
             </div>
-
+            <div class="row">
+              <div class="label">备注</div>
+              <div class="content">
+                <Input v-model="sqlData.note" placeholder="备注" type="textarea" :rows="8"/>
+              </div>
+            </div>
 
           </div>
           <div class="sqlNote">
@@ -255,8 +267,8 @@ const tableData = ref({
       key: 'name'
     },
     {
-      title: '类型',
-      key: 'type'
+      title: '状态',
+      key: 'status'
     },
     {
       title: '备注',
@@ -331,6 +343,7 @@ const delTableData = (row, index) => {
       console.log("onOk", this);
       delSql([row.id]).then(res => {
         Modal.remove();
+        loadTableData();
       });
     },
   });

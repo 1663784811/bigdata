@@ -94,6 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                         // ============================================================== appAdmin
                         "/appAdmin/*/login/**",
+                        "/appAdmin/*/store/*/login",
                         "/appAdmin/*/common/query",
 
 

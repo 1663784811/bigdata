@@ -148,6 +148,14 @@ const router = createRouter({
                     meta: {
                         index: 2
                     }
+                },
+                {
+                    path: 'error',
+                    name: 'error',
+                    component: () => import('@/views/common/Error.vue'),
+                    meta: {
+                        index: 2
+                    }
                 }
             ]
         }

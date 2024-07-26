@@ -50,6 +50,10 @@ public class PaySetting implements BaseEntity<Integer>,  Serializable {
     @Column(name = "pay_type", columnDefinition = "int COMMENT '最后付款方式{0:微信,1:支付宝}'")
     private Integer payType;
 
+    @Basic
+    @Column(name = "status", columnDefinition = "int COMMENT '状态{0:禁用,1:启用}'")
+    private Integer status;
+
     //==============
     @Basic
     @Column(name = "pay_app_id", columnDefinition = "varchar(32) not null COMMENT '支付ID'")

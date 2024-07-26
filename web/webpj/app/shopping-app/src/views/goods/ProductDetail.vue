@@ -102,7 +102,7 @@ import sHeader from '@/components/SimpleHeader.vue'
 import {nextTick, onMounted, reactive} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useCartStore} from '@/stores/cart'
-import {addCart,goodsDetails, goodsDetailsText, goodsPhoto} from '@/service/api'
+import {addCart, goodsDetails, goodsDetailsText, goodsPhoto} from '@/service/api'
 import {showSuccessToast} from 'vant'
 
 const route = useRoute()
@@ -124,11 +124,14 @@ const state = reactive({
 
 onMounted(async () => {
   const {id} = route.params
-
+  if (!id || id === "null") {
+    router.replace({name: 'error'})
+  }
   // cart.updateCart()
   const {data} = await goodsDetails({skuId: id}, route.params.appid)
   state.detail = data;
 
+  console.log(data)
   // 查商品图片
   goodsPhoto({goodsId: data.ggoods.tid}).then(rest => {
     const {data} = rest;

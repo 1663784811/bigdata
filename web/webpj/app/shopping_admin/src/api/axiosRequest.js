@@ -7,43 +7,49 @@ instance.defaults.withCredentials = true
 instance.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 
-/**
- * 请求拦截器
- */
-instance.interceptors.request.use(config => {
+const requestConfig = function (config) {
     const userStore = loginInfo();
     config.headers['token'] = userStore.token;
+    if (userStore.variable.eCode) {
+        config.url = config.url.replace("${eCode}", userStore.variable.eCode)
+    }
+    if (userStore.variable.appId) {
+        config.url = config.url.replace("${appId}", userStore.variable.appId)
+    }
+    if (userStore.variable.storeId) {
+        config.url = config.url.replace("${storeId}", userStore.variable.storeId)
+    }
     return config
-}, error => {
-    return Promise.reject(error)
-})
+}
 
+const responseConfig = function (rest) {
+    if (typeof rest.data !== 'object') {
+        console.error('网络错误', rest)
+        return Promise.reject(rest)
+    }
+    if (rest.data && rest.data.code !== 2000) {
+        return Promise.reject(rest.data)
+    }
+    return rest.data
+}
 
+/**
+ *
+ */
+instance.interceptors.request.use(requestConfig, error => Promise.reject(error));
 /**
  * 响应拦截器
  */
-instance.interceptors.response.use(res => {
-    if (typeof res.data !== 'object') {
-        console.error('服务端异常！')
-        return Promise.reject(res)
-    }
-    // if (res.data.code != 2000) {
-    //     if (res.data.message) showFailToast(res.data.message)
-    //     // if (res.data.resultCode == 416) {
-    //     //   router.push({ path: '/login' })
-    //     // }
-    //     if (res.data.data && window.location.hash == '#/login') {
-    //         setLocal('token', res.data.data)
-    //         axios.defaults.headers['token'] = res.data.data
-    //     }
-    //     console.log("=============================")
-    //     return Promise.reject(res.data)
-    // }
-    return res.data
-}, error => {
-    console.error('服务端异常！')
-    return Promise.reject(error)
-})
-
+instance.interceptors.response.use(responseConfig, error => Promise.reject(error));
 export default instance
+
+
+// ====================================================================
+
+const upLoad = axios.create();
+//请求拦截器
+upLoad.interceptors.request.use(requestConfig, error => Promise.reject(error))
+// 响应拦截器
+upLoad.interceptors.response.use(responseConfig, error => Promise.reject(error))
+export const upLoadFile = upLoad;
  

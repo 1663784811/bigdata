@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,16 +41,23 @@ public class PopupActivity extends AppCompatActivity {
         //代码的话，你会发现，当你把PopupWindow显示出来了，无论你按多少次后退键
         //PopupWindow并不会关闭，而且退不出程序，加上下述代码可以解决这个问题
         popWindow.setTouchable(true);
-        popWindow.setTouchInterceptor(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-                // 这里如果返回true的话，touch事件将被拦截
-                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
-            }
-        });
+//        popWindow.setTouchInterceptor(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return false;
+//                // 这里如果返回true的话，touch事件将被拦截
+//                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+//            }
+//        });
         popWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));    //要为popWindow设置一个背景才有效
         //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
         popWindow.showAsDropDown(v, 50, 0);
+
+
+
+
+
+
+
     }
 }

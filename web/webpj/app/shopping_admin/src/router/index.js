@@ -14,7 +14,7 @@ const router = createRouter({
     routes: [
         ...welcome,
         {
-            path: '/:appid/store/:storeId',
+            path: '/:appId/store/:storeId',
             component: () => import('@/views/admin/AppMain.vue'),
             children: [
                 login,
@@ -42,9 +42,11 @@ router.beforeEach(({meta = {}, name, params}, from, next) => {
     if (title) document.title = title;
     const useUser = loginInfo();
     let token = useUser.token;
+    useUser.variable.appId = params.appId;
+    useUser.variable.storeId = params.storeId;
     if (!token && !notLogin) {
         // 未登录
-        if (params.appid && params.storeId) {
+        if (params.appId && params.storeId) {
             next({
                 name: 'login',
                 params

@@ -16,24 +16,32 @@
         <div class="comItem" v-for="(item, index) in state.pageObj" :key="index" @click="clickComponentItem(item)">
           <div>组件ID:{{ item.id }} 名称:{{ item.name }} 类型:{{ item.type }}
             <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updateComponent(item)"/>
+
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delComponent(item)"/>
+            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="commonTableToNewTable(item)"
+                    v-if="item.type === 'commonTable'">转新表格
+            </Button>
+            <Button class="dataBtn" type="success" icon="md-create" size="small" @click="commonTableToNewTable(item)">
+              组件日志
+            </Button>
           </div>
         </div>
       </div>
     </div>
-    <div class="commonTableBox" v-if="configModule.configPage.select === 'commonTable'">
-      <ConfigCommonTable :setting="configModule.configPage.data"/>
-    </div>
+    <!--  新表格  -->
     <div class="newTable" v-if="configModule.configPage.select === 'newTable'">
       <ConfigNewTable :setting="configModule.configPage.data"/>
     </div>
+    <!--  数据选择  -->
     <div class="selectData" v-if="configModule.configPage.select === 'selectData'">
       <ConfigSelectData :setting="configModule.configPage.data"/>
     </div>
+    <!--  数据树  -->
     <div class="dataTree" v-if="configModule.configPage.select === 'dataTree'">
       <ConfigDataTree :setting="configModule.configPage.data"/>
     </div>
   </Drawer>
+  <!-- ======================= -->
   <div class="configOperation" v-show="configModule.configPage.showOperation">
     <div @click="configModule.configPage.showOperation = false">xxxx</div>
     <div class="pageContent">
@@ -43,9 +51,10 @@
       </div>
       <div class="pageList">
         <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
-          <div @click="selectPage(item)">{{ item.name +"\t"+ item.pageCode }}</div>
+          <div @click="selectPage(item)">{{ item.name + "\t" + item.pageCode }}</div>
           <div class="rightBtn">
-            <Button class="dataBtn" type="warning" icon="md-create" size="small" @click="updatePage(item)"/>
+            <Button class="dataBtn" type="success" icon="md-create" size="small" @click="updatePage(item)"/>
+            <Button class="dataBtn" type="warning" icon="ios-copy" size="small" @click="copyPage(item)"/>
             <Button class="dataBtn" type="error" icon="md-trash" size="small" @click="delPage(item)"/>
           </div>
         </div>
@@ -64,16 +73,15 @@
   </div>
 </template>
 <script setup>
-import ConfigCommonTable from './ConfigCommonTable.vue'
-import ConfigNewTable from './ConfigNewTable.vue'
-import ConfigSelectData from './ConfigSelectData.vue'
-import ConfigDataTree from './ConfigDataTree.vue'
+import ConfigNewTable from './configPage/ConfigNewTable.vue'
+import ConfigSelectData from './configPage/ConfigSelectData.vue'
+import ConfigDataTree from './configPage/ConfigDataTree.vue'
 
 
 import {onMounted, reactive} from "vue";
 import {pageConfig} from "@/store/pageConfig.js";
 import {useConfigModule} from "@/store/configModule.js";
-import {pageSetting, findIdCPageComponents, commonRequest} from "@/api/api.js";
+import {pageSetting, findIdCPageComponents, commonRequest, copyCPageRequest} from "@/api/api.js";
 import {useRoute, useRouter} from "vue-router";
 import {useWinModal} from "@/store/winModal.js";
 import {Message, Modal} from "view-ui-plus";
@@ -106,12 +114,11 @@ onMounted(() => {
 })
 
 const loadPage = () => {
-  commonRequest("/admin/{eCode}/common/query", {
+  commonRequest("/admin/${eCode}/common/query", {
     code: 'select_c_page',
-    size: 1000
+    size: 10000
   }).then((rest) => {
     const {data} = rest;
-    console.log('eeeeeeeeeeeeeeeeeeeeeee', data)
     state.pageList = data;
   })
 }
@@ -223,6 +230,25 @@ const delPage = (row) => {
 
 }
 
+const copyPage = (row) => {
+  Modal.confirm({
+    title: `您是否要复制【 ${row.name} 】页面?`,
+    content: `${row.name}`,
+    okText: '',
+    loading: true,
+    onOk: () => {
+      copyCPageRequest(row).then(rest => {
+        Modal.remove();
+        Message.success({
+          content: `${rest.msg}`
+        })
+        loadPage();
+      })
+    },
+  });
+
+}
+
 const selectPage = (row) => {
   configModule.configPage.pageId = row.tid;
   loadData(row.pageCode)
@@ -232,6 +258,9 @@ const clickSqlConfigFn = () => {
   configModule.sqlConfig.show = true;
 }
 
+/**
+ * 加载数据
+ */
 const loadData = (pageCode) => {
   configModule.configPage.pageCode = pageCode;
   pageSetting({
@@ -254,6 +283,7 @@ const clickComponentItem = (item) => {
 const updateComponent = (item) => {
   winModal.winData.show = true;
   initSave();
+  winModal.winData.changeDataFn = changeDataFn;
   findIdCPageComponents({
     id: item.id
   }).then(rest => {
@@ -288,12 +318,50 @@ const delComponent = (row) => {
   });
 }
 
+const commonTableToNewTable = (row) => {
+  Modal.confirm({
+    title: '是否转至新表格?',
+    okText: '确定',
+    loading: true,
+    onOk: () => {
+      commonRequest("/tx/config/page/commonTableToNewTable", {
+        id: row.id
+      }).then((rest) => {
+        Message.success({
+          content: `${rest.data ? rest.data : rest.msg}`,
+          onClose: () => {
+            Modal.remove();
+            loadPage();
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        Message.error({
+          content: `${err}`,
+        })
+      })
+    },
+  });
+}
+
+
 const addComponent = () => {
   winModal.winData.show = true;
   initSave();
   winModal.winData.data = {
     pageId: configModule.configPage.pageId
   };
+  winModal.winData.changeDataFn = changeDataFn;
+}
+
+const changeDataFn = (dataObj) => {
+  if (dataObj.key === 'type') {
+    if (dataObj.allData) {
+      if (!dataObj.allData.componentsCode) {
+        winModal.winData.data.componentsCode = dataObj.value;
+      }
+    }
+  }
 }
 
 
@@ -342,10 +410,6 @@ const initSave = () => {
       "javaType": "string",
       "isShowSave": true,
       "filters": [
-        {
-          "value": "commonTable",
-          "label": "公共表格"
-        },
         {
           "value": "newTable",
           "label": "新表格"
@@ -398,6 +462,10 @@ const initSave = () => {
       &:hover {
         background: #e5e5e5;
       }
+
+      .dataBtn {
+        margin-right: 10px;
+      }
     }
   }
 }
@@ -413,11 +481,11 @@ const initSave = () => {
   padding: 6px;
   border-radius: 4px;
   min-height: 100px;
-  width: 450px;
+  width: 600px;
   display: flex;
 
   .pageContent {
-    width: 300px;
+    flex: 1;
     background: #f5f5f5;
 
     .pageTitle {
@@ -430,6 +498,7 @@ const initSave = () => {
         cursor: pointer;
         display: flex;
         justify-content: space-between;
+        margin: 2px 0;
 
         &:hover {
           background: #ccc;
@@ -437,6 +506,10 @@ const initSave = () => {
 
         .rightBtn {
           display: flex;
+
+          .dataBtn {
+            margin: 0 4px;
+          }
         }
       }
     }

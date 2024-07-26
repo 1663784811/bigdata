@@ -60,7 +60,7 @@
     </div>
   </div>
   <!--==================  保存数据  ====================-->
-  <ModalDataList
+  <modal-data-list
       v-model="state.saveObj.show"
       :modalSetting="state.saveObj"
       @event="saveEventFn"
@@ -71,7 +71,6 @@
 import {defineEmits, inject, reactive, ref, resolveComponent, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
-import ModalDataList from './ModalDataList.vue'
 import {loginInfo} from "@/store/loginInfo.js";
 
 const loginInfoSt = loginInfo();
@@ -115,13 +114,6 @@ const state = reactive({
     size: 10,
     sort: ''
   }
-});
-
-const saveData = ref({
-  url: '',
-  columns: [],
-  data: {},
-  show: false
 });
 
 
@@ -173,6 +165,7 @@ const searchBoxEven = (item, index) => {
     search(item.parameter);
   } else if (item.even === 'save') {
     state.saveObj.show = true;
+    state.saveObj.editor = true;
     state.saveObj.data = {};
   } else if (item.even === 'del') {
     // console.log(item)
@@ -280,6 +273,7 @@ const initSave = () => {
 const selectTableData = (row, index, editor) => {
   state.saveObj.show = true;
   state.saveObj.data = row;
+  state.saveObj.editor = editor;
 }
 
 // ==========================================
@@ -377,9 +371,13 @@ const changePage = (page) => {
 
 // ===================================================
 const saveEventFn = (ev, itemData) => {
-  if ('ok' === ev) {
-    Save(itemData)
-  } else if ('cancel' === ev) {
+  if(state.saveObj.editor){
+    if ('ok' === ev) {
+      Save(itemData)
+    } else if ('cancel' === ev) {
+      Cancel(itemData);
+    }
+  }else{
     Cancel(itemData);
   }
 }
@@ -417,6 +415,7 @@ const Save = (itemData) => {
 }
 const Cancel = (itemData) => {
   console.log('cancel', itemData)
+  state.saveObj.show = false;
 }
 
 
@@ -451,6 +450,13 @@ watch(() => props.modelValue, () => {
 //==============================
 
 
+/**
+ * 创建表格Html
+ * @param columnsItem
+ * @param h
+ * @param params
+ * @returns {string|*}
+ */
 const createH = (columnsItem, h, params) => {
   const hArr = [];
   const {row, index} = params;
