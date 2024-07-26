@@ -2,7 +2,7 @@
   <div class="menuBox">
     <div class="menuItem" v-for="(item,index) in store.topMenu" :key="index" @click="gotoPage(item)">
       <Icon type="md-settings"/>
-      {{ item.name }}
+      {{ item.title }}
     </div>
   </div>
 </template>

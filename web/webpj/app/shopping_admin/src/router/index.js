@@ -5,9 +5,11 @@ import {role} from './role.js'
 import {login} from './login.js'
 import {pay} from './pay.js'
 import {web} from './web.js'
+import {depository} from './depository.js'
 import {order} from './order.js'
 import {goods} from './goods.js'
 import {loginInfo} from '../store/loginInfo.js'
+
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -28,7 +30,12 @@ const router = createRouter({
                         role,
                         pay,
                         order,
-                        goods
+                        goods,
+                        {
+                            path: 'depository',
+                            name: 'depository',
+                            children: depository
+                        }
                     ]
                 }
             ]

@@ -11,9 +11,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository_goods")
-@org.hibernate.annotations.Table(appliesTo = "g_depository_goods", comment = "仓库商品表")
-public class GDepositoryGoods implements BaseEntity<Integer>,  Serializable {
+@Table(name = "gd_goods")
+@org.hibernate.annotations.Table(appliesTo = "gd_goods", comment = "仓库商品表")
+public class GdGoods implements BaseEntity<Integer>,  Serializable {
     private static final long serialVersionUID = 13787826273933758L;
 
     @Id

@@ -11,10 +11,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "g_depository")
-@org.hibernate.annotations.Table(appliesTo = "g_depository", comment = "仓库表")
-public class GDepository implements BaseEntity<Integer>,  Serializable {
-    private static final long serialVersionUID = 13687826273933758L;
+@Table(name = "gd_details")
+@org.hibernate.annotations.Table(appliesTo = "gd_details", comment = "商品详情表")
+public class GdDetails implements BaseEntity<Integer>,  Serializable {
+    private static final long serialVersionUID = 1568777826623933758L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,29 +38,11 @@ public class GDepository implements BaseEntity<Integer>,  Serializable {
 
     // =================================================================================
 
+    @Basic
+    @Column(name = "goods_id",  columnDefinition = "varchar(32) COMMENT '商品ID'")
+    private String goodsId;
 
     @Basic
-    @Column(name = "enterprise_code", columnDefinition = "varchar(32) COMMENT '所属企业e_enterprise表code'")
-    private String enterpriseCode;
-
-    @Basic
-    @Column(name = "store_id", columnDefinition = "varchar(32) COMMENT '所属门店e_storeid表ID'")
-    private String storeId;
-
-
-
-    // =================================================================================
-
-    @Basic
-    @Column(name = "name",  columnDefinition = "varchar(255) not null COMMENT '仓库名称'")
-    private String name;
-    @Basic
-    @Column(name = "address",   columnDefinition = "varchar(255) COMMENT '仓库地址'")
-    private String address;
-
-    @Basic
-    @Column(name = "type", columnDefinition = "int default '0' COMMENT '仓库类型{1:正品仓库,2:赠品仓库}'")
-    private String type;
-
-
+    @Column(name = "details",  columnDefinition = "text COMMENT '商品详情'")
+    private String details;
 }

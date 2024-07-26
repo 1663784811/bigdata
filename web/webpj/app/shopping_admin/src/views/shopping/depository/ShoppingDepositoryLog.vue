@@ -1,20 +1,35 @@
 <template>
-  <CommonTable :table-setting="commonTable"/>
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
 
-import {ref} from "vue";
-import CommonTable from '@/component/CommonTable.vue'
+import {onMounted, reactive} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute} from "vue-router";
+
+const route = useRoute();
 
 const usePageConfig = pageConfig();
-const commonTable = ref(null);
+
+const state = reactive({
+  pageData: {},
+  drawerSetting: {},
+  newTable: {
+    show: true
+  },
+})
+
+onMounted(() => {
+  initFn();
+})
+
 const initFn = async () => {
-  const role = await usePageConfig.getPageConfig("admin");
-  commonTable.value = role.commonTable;
+  const pageCode = 'depositoryLog'
+  const pageData = await usePageConfig.getPageConfig(pageCode);
+  state.newTable = pageData.newTable;
 }
-initFn();
+
 </script>
 
 <style scoped lang="less">
