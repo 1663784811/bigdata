@@ -8,4 +8,6 @@ public interface EApplicationService extends BaseTableService<EApplication, Inte
 
     EApplication findByCode(String appId);
 
+    EApplication openApp(EApplication application);
+
 }

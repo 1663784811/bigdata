@@ -25,5 +25,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        findViewById(R.id.goPop).setOnClickListener((View v) -> {
+            Intent intent = new Intent(MainActivity.this, PopupActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

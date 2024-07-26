@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
 @Slf4j
 @Service
 public class EApplicationServiceImpl extends BaseService<EApplication, Integer> implements EApplicationService {
@@ -27,6 +26,20 @@ public class EApplicationServiceImpl extends BaseService<EApplication, Integer> 
     public EApplication findByCode(String appId) {
         EApplication eApplication = eApplicationDao.findByCode(appId);
         return eApplication;
+    }
+
+    @Override
+    public EApplication openApp(EApplication application) {
+        // 判断当前登录是否是管理员
+
+        // 生成目标菜单
+
+        // 初始化应用
+
+        // 生成应用编码
+        application.setCode("");
+
+        return save(application);
     }
 }
 

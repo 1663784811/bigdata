@@ -1,4 +1,4 @@
-package com.cyyaw.testview;
+package com.cyyaw.testview.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

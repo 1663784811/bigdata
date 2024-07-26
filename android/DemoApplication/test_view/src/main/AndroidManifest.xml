@@ -19,6 +19,7 @@
 
         <activity android:name=".printer.PrinterActivity" />
 
+        <activity android:name=".PopupActivity" />
 
     </application>
 
