@@ -54,6 +54,11 @@ public class CPage implements BaseEntity<Integer>,  Serializable {
     private String pageCode;
 
 
+    @Basic
+    @Column(name = "type", columnDefinition = "int default '0' COMMENT '页面类型{0:企业,1:APP管理,2:门店管理}'")
+    private Integer type;
+
+
     // ==================================================
     // 组件列表
     @Transient
