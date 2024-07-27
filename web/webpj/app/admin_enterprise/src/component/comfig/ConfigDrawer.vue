@@ -44,13 +44,15 @@
   <!-- ======================= -->
   <div class="configOperation" v-show="configModule.configPage.showOperation">
     <div @click="configModule.configPage.showOperation = false">xxxx</div>
-    <div class="pageContent">
+    <div class="pageContent" v-for="inx in 3" :key="inx">
       <div class="pageTitle">
-        <div>页面</div>
+        <div v-if="inx === 1">企业页面</div>
+        <div v-else-if="inx === 2">APP管理</div>
+        <div v-else-if="inx === 3">门店管理</div>
         <Button class="dataBtn" type="primary" icon="md-cloud-upload" size="small" @click="addPage">添加页面</Button>
       </div>
       <div class="pageList">
-        <div class="pageItem" v-for="(item, index) in state.pageList" :key="index">
+        <div class="pageItem" v-for="(item, index) in state.pageList" :key="index" v-show="item.type === (inx -1)">
           <div @click="selectPage(item)">{{ item.name + "\t" + item.pageCode }}</div>
           <div class="rightBtn">
             <Button class="dataBtn" type="success" icon="md-create" size="small" @click="updatePage(item)"/>
@@ -125,87 +127,81 @@ const loadPage = () => {
 
 const initPage = () => {
 
-  winModal.winData.columns = [{
-    "width": 60,
-    "key": "id",
-    "title": "id",
-    "type": "selection",
-    "length": 10,
-    "controltype": "hidden",
-    "max": "",
-    "min": "",
-    "isShowColumn": true,
-    "javawhere": "equals",
-    "javatype": "integer",
-    "isShowSave": false
-  }, {
-    "key": "pageCode",
-    "title": "pageCode",
-    "length": 32,
-    "controltype": "input",
-    "isShowColumn": true,
-    "iswhere": true,
-    "javawhere": "like",
-    "javatype": "string",
-    "width": "160",
-    "isShowSearch": true,
-    "javaWhere": "lk"
-  }, {
-    "key": "pageIcon",
-    "title": "图标",
-    "length": 65535,
-    "controltype": "textarea",
-    "isShowColumn": true,
-    "iswhere": true,
-    "javawhere": "like",
-    "javatype": "string",
-    "tooltip": false,
-    "width": "100"
-  }, {
-    "key": "name",
-    "title": "名称",
-    "length": 32,
-    "controltype": "input",
-    "isShowColumn": true,
-    "iswhere": true,
-    "javawhere": "like",
-    "javatype": "string",
-    "isShowSearch": true,
-    "javaWhere": "lk"
-  }, {
-    "key": "createTime",
-    "title": "创建时间",
-    "length": 19,
-    "controltype": "datetime",
-    "isShowColumn": true,
-    "iswhere": true,
-    "javawhere": "equals",
-    "javatype": "date",
-    "width": "160",
-    "isShowSave": false
-  }, {
-    "key": "note",
-    "title": "备注",
-    "length": 255,
-    "controltype": "input",
-    "isShowColumn": true,
-    "iswhere": true,
-    "javawhere": "like",
-    "javatype": "string",
-    "controlType": "textarea"
-  }, {
-    "key": "tid",
-    "title": "tid",
-    "controlType": "text",
-    "isShowColumn": false,
-    "isWhere": true,
-    "javaWhere": "like",
-    "javaType": "string",
-    "type": "text",
-    "tooltip": true,
-    "width": "150",
-    "isShowSave": false
-  }]
+  winModal.winData.columns = [
+    {
+      "key": "pageCode",
+      "title": "pageCode",
+      "length": 32,
+      "controlType": "input",
+      "isShowColumn": true,
+      "iswhere": true,
+      "javawhere": "like",
+      "javatype": "string",
+      "width": "160",
+      "isShowSearch": true,
+      "javaWhere": "lk"
+    },
+    {
+      "key": "pageIcon",
+      "title": "图标",
+      "length": 65535,
+      "controlType": "input",
+      "isShowColumn": true,
+      "iswhere": true,
+      "javawhere": "like",
+      "javatype": "string",
+      "tooltip": false,
+      "width": "100"
+    },
+    {
+      "key": "name",
+      "title": "名称",
+      "length": 32,
+      "controlType": "input",
+      "isShowColumn": true,
+      "iswhere": true,
+      "javawhere": "like",
+      "javatype": "string",
+      "isShowSearch": true,
+      "javaWhere": "lk"
+    },
+    {
+      "key": "type",
+      "title": "类型",
+      "length": 32,
+      "controlType": "select",
+      "isShowColumn": true,
+      "iswhere": true,
+      "javawhere": "eq",
+      "javatype": "integer",
+      "isShowSearch": true,
+      "javaWhere": "lk",
+      "filters": [
+        {
+          "value": "0",
+          "label": "企业页面"
+        },
+        {
+          "value": "1",
+          "label": "APP管理"
+        },
+        {
+          "value": "2",
+          "label": "门店管理"
+        }
+      ],
+    },
+    {
+      "key": "note",
+      "title": "备注",
+      "length": 255,
+      "controlType": "textarea",
+      "isShowColumn": true,
+      "iswhere": true,
+      "javawhere": "like",
+      "javatype": "string"
+    }
+  ]
 
 }
 
@@ -472,7 +468,7 @@ const initSave = () => {
 
 .configOperation {
   position: fixed;
-  left: 50%;
+  right: 100px;
   top: 10%;
   z-index: 99;
   background: #fff;
@@ -481,12 +477,13 @@ const initSave = () => {
   padding: 6px;
   border-radius: 4px;
   min-height: 100px;
-  width: 600px;
+  width: 1920px;
   display: flex;
 
   .pageContent {
     flex: 1;
     background: #f5f5f5;
+    margin-right: 20px;
 
     .pageTitle {
       display: flex;
