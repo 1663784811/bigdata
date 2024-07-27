@@ -42,8 +42,18 @@ public class GdLog implements BaseEntity<Integer>,  Serializable {
     @Column(name = "depository_id", columnDefinition = "varchar(32) COMMENT '所属仓库g_depository表ID'")
     private String depositoryId;
     @Basic
-    @Column(name = "goods_id", columnDefinition = "varchar(32) COMMENT '所属商品g_goods表ID'")
+    @Column(name = "goods_id", columnDefinition = "varchar(32) COMMENT '货品ID'")
     private String goodsId;
+
+    // ================================================================================
+    @Basic
+    @Column(name = "code_no", columnDefinition = "varchar(32) COMMENT '批次号'")
+    private String codeNo;
+
+    @Basic
+    @Column(name = "name", columnDefinition = "varchar(255) COMMENT '货品名'")
+    private String name;
+
 
     @Basic
     @Column(name = "number",  columnDefinition = "int not null default '0' COMMENT '数量'")
