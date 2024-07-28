@@ -2,10 +2,13 @@ package com.cyyaw.mqtt.handle;
 
 
 import cn.hutool.json.JSONObject;
+import com.cyyaw.mqtt.MqttService;
 import com.cyyaw.mqtt.MsgType;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.websocket.Session;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -14,6 +17,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
 public class WebRtcMsgHandle implements MsgHandle {
+
+    @Autowired
+    private MqttService mqttService;
+
 
     // 在线用户表
     public static ConcurrentHashMap<String, UserBean> userBeans = new ConcurrentHashMap<>();
@@ -350,12 +357,8 @@ public class WebRtcMsgHandle implements MsgHandle {
      * 给不同设备发送消息
      */
     private void sendMsg(UserBean userBean, String data) {
-
-        userBean.getUserId();
-
-
-
-
+        String userId = userBean.getUserId();
+        mqttService.send(userId, data);
     }
 
 
