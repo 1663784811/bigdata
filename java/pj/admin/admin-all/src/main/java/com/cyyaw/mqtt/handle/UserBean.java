@@ -13,8 +13,4 @@ public class UserBean {
     private String userId;
     @JsonFormat
     private String avatar;
-
-    private boolean isPhone;
-
-
 }

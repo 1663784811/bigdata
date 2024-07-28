@@ -119,7 +119,7 @@ public class WebRtcMsgHandle implements MsgHandle {
             map.put("roomSize", size);
             map.put("room", room);
             send.setData(map);
-            sendMsg(my, -1, new JSONObject(send).toString());
+            sendMsg(my, new JSONObject(send).toString());
         }
     }
 
@@ -137,7 +137,7 @@ public class WebRtcMsgHandle implements MsgHandle {
         for (String user : users) {
             UserBean userBean = userBeans.get(user);
             if (userBean != null) {
-                sendMsg(userBean, -1, message);
+                sendMsg(userBean, message);
             }
         }
 
@@ -151,7 +151,7 @@ public class WebRtcMsgHandle implements MsgHandle {
 
         UserBean userBean = userBeans.get(inviteId);
         if (userBean != null) {
-            sendMsg(userBean, -1, message);
+            sendMsg(userBean, message);
         }
     }
 
@@ -163,15 +163,12 @@ public class WebRtcMsgHandle implements MsgHandle {
         for (String userId : users) {
             UserBean userBean = userBeans.get(userId);
             if (userBean != null) {
-                sendMsg(userBean, -1, message);
+                sendMsg(userBean, message);
             }
         }
-
-        if (rooms.get(room) != null) {
+        if (null != room && rooms.get(room) != null) {
             rooms.remove(room);
         }
-
-
     }
 
     // 拒绝接听
@@ -180,7 +177,7 @@ public class WebRtcMsgHandle implements MsgHandle {
         String toID = (String) data.get("toID");
         UserBean userBean = userBeans.get(toID);
         if (userBean != null) {
-            sendMsg(userBean, -1, message);
+            sendMsg(userBean, message);
         }
         RoomInfo roomInfo = rooms.get(room);
         if (roomInfo != null) {
@@ -241,7 +238,7 @@ public class WebRtcMsgHandle implements MsgHandle {
         map.put("you", userID);
         map.put("roomSize", roomInfo.getMaxSize());
         send.setData(map);
-        sendMsg(my, -1, new JSONObject(send).toString());
+        sendMsg(my, new JSONObject(send).toString());
 
 
         // 3. 给房间里的其他人发送消息
@@ -254,7 +251,7 @@ public class WebRtcMsgHandle implements MsgHandle {
             if (userBean.getUserId().equals(userID)) {
                 continue;
             }
-            sendMsg(userBean, -1, new JSONObject(newPeer).toString());
+            sendMsg(userBean, new JSONObject(newPeer).toString());
         }
 
 
@@ -268,7 +265,7 @@ public class WebRtcMsgHandle implements MsgHandle {
             System.out.println("用户 " + userId + " 不存在");
             return;
         }
-        sendMsg(userBean, -1, message);
+        sendMsg(userBean, message);
     }
 
     // 意外断开
@@ -279,14 +276,14 @@ public class WebRtcMsgHandle implements MsgHandle {
             System.out.println("用户 " + userId + " 不存在");
             return;
         }
-        sendMsg(userBean, -1, message);
+        sendMsg(userBean, message);
     }
 
     // 发送offer
     private void offer(String message, Map<String, Object> data) {
         String userId = (String) data.get("userID");
         UserBean userBean = userBeans.get(userId);
-        sendMsg(userBean, -1, message);
+        sendMsg(userBean, message);
     }
 
     // 发送answer
@@ -297,7 +294,7 @@ public class WebRtcMsgHandle implements MsgHandle {
             System.out.println("用户 " + userId + " 不存在");
             return;
         }
-        sendMsg(userBean, -1, message);
+        sendMsg(userBean, message);
 
     }
 
@@ -309,7 +306,7 @@ public class WebRtcMsgHandle implements MsgHandle {
             System.out.println("用户 " + userId + " 不存在");
             return;
         }
-        sendMsg(userBean, -1, message);
+        sendMsg(userBean, message);
     }
 
     // 离开房间
@@ -329,7 +326,7 @@ public class WebRtcMsgHandle implements MsgHandle {
                 continue;
             }
             // 发送消息
-            sendMsg(userBean, -1, message);
+            sendMsg(userBean, message);
         }
 
 
@@ -352,53 +349,13 @@ public class WebRtcMsgHandle implements MsgHandle {
     /**
      * 给不同设备发送消息
      */
-    private void sendMsg(UserBean userBean, int device, String str) {
-//        if (device == 0) {
-//            Session phoneSession = userBean.getPhoneSession();
-//            if (phoneSession != null) {
-//                synchronized (object) {
-//                    phoneSession.getAsyncRemote().sendText(str);
-//                }
-//            }
-//        } else if (device == 1) {
-//            Session pcSession = userBean.getPcSession();
-//            if (pcSession != null) {
-//                synchronized (object) {
-//                    pcSession.getAsyncRemote().sendText(str);
-//                }
-//            }
-//        } else {
-//            Session phoneSession = userBean.getPhoneSession();
-//            boolean sent = false;
-//            boolean exception = false;
-//            while (!sent) {
-//                if (phoneSession != null) {
-//                    synchronized (object) {
-//                        try {
-//                            phoneSession.getAsyncRemote().sendText(str);
-//                            sent = true;
-//                            exception = false;
-//                        } catch (IllegalStateException error) {
-//                            System.out.println("TEST--TEST:" + error);
-//                            exception = true;
-//                        }
-//                    }
-//                    if (exception) {
-//                        try {
-//                            Thread.sleep(10);
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                }
-//            }
-//            Session pcSession = userBean.getPcSession();
-//            if (pcSession != null) {
-//                synchronized (object) {
-//                    pcSession.getAsyncRemote().sendText(str);
-//                }
-//            }
-//        }
+    private void sendMsg(UserBean userBean, String data) {
+
+        userBean.getUserId();
+
+
+
+
     }
 
 
