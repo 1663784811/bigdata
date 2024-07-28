@@ -32,6 +32,9 @@ public class RabbitConfig {
     public static final String DELAY_QUEUE = "delay_queue";
 
 
+
+    public static final String EVENT_QUEUE = "event_queue";
+
     // ============================================      虚拟主机
 
 
@@ -67,7 +70,7 @@ public class RabbitConfig {
      */
     @Bean
     public Queue eventQueue() {
-        return QueueBuilder.durable("event_queue").build();
+        return QueueBuilder.durable(EVENT_QUEUE).build();
     }
 
     /**

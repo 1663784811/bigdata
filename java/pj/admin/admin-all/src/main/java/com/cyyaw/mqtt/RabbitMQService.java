@@ -1,8 +1,11 @@
 package com.cyyaw.mqtt;
 
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.config.RabbitConfig;
 import com.cyyaw.mqtt.handle.MsgHandle;
+import com.cyyaw.mqtt.handle.UserBean;
+import com.cyyaw.mqtt.handle.WebRtcMsgHandle;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -58,22 +61,39 @@ public class RabbitMQService {
         }
     }
 
-    @RabbitListener(queues = "event_queue")
+    @RabbitListener(queues = RabbitConfig.EVENT_QUEUE)
     public void handleDeviceConnectedEvent(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         MessageProperties messageProperties = message.getMessageProperties();
         Map<String, Object> headers = messageProperties.getHeaders();
         String receivedRoutingKey = messageProperties.getReceivedRoutingKey();
+
+        String id = null;
+        JSONArray array = new JSONArray(headers.get("client_properties"));
+        if (null != array && array.size() > 0) {
+            String str = array.getStr(0);
+            str.toString();
+            String[] split = str.split(",");
+            if (split.length >= 3) {
+                id = split[2].replace("<<\"", "").replace("\">>}", "");
+            }
+        }
+
         if ("connection.created".equals(receivedRoutingKey)) {
             messageProperties.getHeader("queue");
             // 通知 我的好友 在线
+            UserBean userBean = new UserBean();
+            userBean.setUserId(id);
+            WebRtcMsgHandle.userBeans.put(id, userBean);
+            System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
 
         } else if ("connection.closed".equals(receivedRoutingKey)) {
             messageProperties.getHeader("queue");
             // 通知我的好友 离线
+            System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
+            WebRtcMsgHandle.userBeans.remove(id);
         }
-        System.out.println("" + headers.get("client_properties"));
-        System.out.println("设备上线下线 event: " + receivedRoutingKey + "   " + headers);
 
+        System.out.println("ID : " + id);
         if ("".equals("")) {
             System.out.println("业务正常处理，确认消息");
             channel.basicAck(tag, false);

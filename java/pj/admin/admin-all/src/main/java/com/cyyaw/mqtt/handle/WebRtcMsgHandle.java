@@ -4,8 +4,6 @@ package com.cyyaw.mqtt.handle;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.mqtt.MqttService;
 import com.cyyaw.mqtt.MsgType;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
