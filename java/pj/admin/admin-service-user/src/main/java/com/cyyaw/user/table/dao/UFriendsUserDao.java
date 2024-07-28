@@ -12,4 +12,11 @@ public interface UFriendsUserDao extends BaseDao<UFriendsUser, Integer> {
     @Query("select m from UFriendsUser m where m.userId = ?1")
     List<UFriendsUser> findAllByUserid(String uid);
 
+
+
+    @Query("select m from UFriendsUser m where m.userId = ?1 and m.toUserId = ?2")
+    List<UFriendsUser> findByUserIdAndToUserId(String userId, String targetId);
+
+
+
 }

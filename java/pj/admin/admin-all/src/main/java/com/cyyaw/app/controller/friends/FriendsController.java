@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,10 +39,19 @@ public class FriendsController {
     }
 
     @ApiOperation(value = "添加好友", notes = "添加好友")
-    @GetMapping(value = "/addFriends")
+    @PostMapping(value = "/addFriends")
     public BaseResult addFriends(@TokenData LoginInfo loginInfo, String userId, @PathVariable String appId) {
 
+        return BaseResult.ok();
+    }
 
+
+    @ApiOperation(value = "删除好友", notes = "删除好友")
+    @PostMapping(value = "/delFriends")
+    public BaseResult delFriends(@RequestBody UUser user, @TokenData LoginInfo loginInfo) {
+        String userId = loginInfo.getId();
+        String targetId = user.getTid();
+        userService.delFriends(userId, targetId);
         return BaseResult.ok();
     }
 

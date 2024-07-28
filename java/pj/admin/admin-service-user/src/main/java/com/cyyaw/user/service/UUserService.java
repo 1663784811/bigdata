@@ -27,6 +27,6 @@ public interface UUserService extends BaseTableService<UUser, Integer> {
     List<UFriendsUser> myFriends(String uid, String appId);
 
 
-
+    void delFriends(String userId, String targetId);
 
 }

@@ -1,6 +1,8 @@
 package com.cyyaw.mqtt;
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.config.RabbitConfig;
+import com.cyyaw.mqtt.handle.MsgHandle;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -14,6 +16,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -26,6 +29,9 @@ public class RabbitMQService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    @Autowired
+    private Map<String, MsgHandle> msgHandleMap;
+
     public void sendMessage(String message) {
         rabbitTemplate.convertAndSend("ssssssssss", message);
     }
@@ -37,9 +43,20 @@ public class RabbitMQService {
 
     @RabbitListener(queues = RabbitConfig.MQTT_QUEUE)
     public void listenSimpleQueueMessage(Message message) {
-        System.out.println("spring 消费者接收到消息 ：【" + message + "】");
+        String data = new String(message.getBody());
+        System.out.println("spring 消费者接收到消息 ：【" + data + "】");
+        if (data.length() > 0) {
+            JSONObject json = new JSONObject(data);
+            MsgData msgData = json.toBean(MsgData.class);
+            String type = msgData.getType();
+            for (String key : msgHandleMap.keySet()) {
+                MsgHandle msgHandle = msgHandleMap.get(key);
+                if (msgHandle.getHandleCode().equals(type)) {
+                    msgHandle.handle(msgData.getFrom(), msgData.getTo(), msgData.getData());
+                }
+            }
+        }
     }
-
 
     @RabbitListener(queues = "event_queue")
     public void handleDeviceConnectedEvent(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {

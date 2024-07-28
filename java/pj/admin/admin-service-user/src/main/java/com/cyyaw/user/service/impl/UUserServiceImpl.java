@@ -92,5 +92,14 @@ public class UUserServiceImpl extends BaseService<UUser, Integer> implements UUs
         return rest;
     }
 
+    @Override
+    public void delFriends(String userId, String targetId) {
+        List<UFriendsUser> friendsUserList = uFriendsUserDao.findByUserIdAndToUserId(userId, targetId);
+        for (int i = 0; i < friendsUserList.size(); i++) {
+            UFriendsUser uFriendsUser = friendsUserList.get(i);
+            uFriendsUserDao.delete(uFriendsUser);
+        }
+    }
+
 }
 
