@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,8 @@ public class RabbitMQService {
 
 
     @RabbitListener(queues = RabbitConfig.MQTT_QUEUE)
-    public void listenSimpleQueueMessage(Message message) {
+    public void listenSimpleQueueMessage(Message message, Channel channel) throws IOException {
+        long tag = message.getMessageProperties().getDeliveryTag();
         String data = new String(message.getBody());
         System.out.println("spring 消费者接收到消息 ：【" + data + "】");
         if (data.length() > 0) {
@@ -58,6 +60,12 @@ public class RabbitMQService {
                     msgHandle.handle(msgData.getFrom(), msgData.getTo(), msgData.getData());
                 }
             }
+        }
+
+        try {
+            channel.basicAck(tag, false);
+        } catch (IOException e) {
+            channel.basicNack(tag, false, true);
         }
     }
 
@@ -74,7 +82,7 @@ public class RabbitMQService {
             str.toString();
             String[] split = str.split(",");
             if (split.length >= 3) {
-                id = split[2].replace("<<\"", "").replace("\">>}", "");
+                id = split[2].replace("<<\"", "").replace("\">>}", "").replace("chat_application_", "");
             }
         }
 

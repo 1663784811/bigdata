@@ -1,6 +1,7 @@
 package com.cyyaw.app.controller.friends;
 
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.UUser;
@@ -54,5 +55,14 @@ public class FriendsController {
         userService.delFriends(userId, targetId);
         return BaseResult.ok();
     }
+
+
+    @ApiOperation(value = "查询好友", notes = "查询好友")
+    @GetMapping(value = "/searchFriends")
+    public BaseResult searchFriends(String userId, @PathVariable String appId) {
+        List<UUser> userList = userService.findAll(new JSONObject());
+        return BaseResult.ok(userList);
+    }
+
 
 }
