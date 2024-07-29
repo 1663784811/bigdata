@@ -51,7 +51,7 @@ public class RabbitConfig {
 
     @Bean
     public Exchange deadExchange() {
-        return ExchangeBuilder.directExchange(DEAD_EXCHANGE).build();
+        return ExchangeBuilder.directExchange(DEAD_EXCHANGE).durable(true).build();
     }
 
 
@@ -106,7 +106,7 @@ public class RabbitConfig {
 
     @Bean
     public Binding bindingMqtt() {
-        return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("#").noargs();
+        return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("mqtt_service").noargs();
     }
 
     @Bean
