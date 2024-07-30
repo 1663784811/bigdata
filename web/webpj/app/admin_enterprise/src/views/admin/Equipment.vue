@@ -2,9 +2,6 @@
   <data-table :setting="state.newTable" @event="eventFn"/>
 
 
-
-
-
 </template>
 
 <script setup>
@@ -12,6 +9,7 @@
 import {onMounted, reactive} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 import {useRoute} from "vue-router";
+
 
 const route = useRoute();
 
@@ -38,7 +36,6 @@ const initFn = async () => {
 
 const eventFn = (dataObj) => {
   if (dataObj.even === "sendData") {
-
   }
 }
 

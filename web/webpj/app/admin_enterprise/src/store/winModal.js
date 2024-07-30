@@ -23,8 +23,20 @@ export const useWinModal = defineStore('useWinModal', {
             changeDataFn:null,
             saveAfterFn:null,
         });
+        const winMqtt = ref({
+            url: '',
+            columns: [],
+            data: {},
+            show: false,
+            pageCode: '',
+            loading: true,
+            changeDataFn:null,
+            saveAfterFn:null,
+        });
+
         return {
-            winData
+            winData,
+            winMqtt
         }
     }
 })
