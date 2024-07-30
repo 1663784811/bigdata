@@ -45,6 +45,11 @@ export const useAdminMenuStore = defineStore('adminMenu',
                             title: '面试试题',
                             icon: 'md-settings',
                             routeName: 'questions'
+                        },
+                        {
+                            title: '设备管理',
+                            icon: 'md-settings',
+                            routeName: 'equipment'
                         }
                     ]
                 },
