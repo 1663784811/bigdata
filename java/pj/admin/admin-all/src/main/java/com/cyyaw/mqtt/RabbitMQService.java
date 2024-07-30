@@ -91,37 +91,38 @@ public class RabbitMQService {
                 id = split[2].replace("<<\"", "").replace("\">>}", "").replace("chat_application_", "");
             }
         }
+        if(id.indexOf("rabbitConnectionFactory") == -1){
+            if ("connection.created".equals(receivedRoutingKey)) {
+                messageProperties.getHeader("queue");
+                // 通知 我的好友 在线
+                UserBean userBean = new UserBean();
+                userBean.setUserId(id);
+                WebRtcMsgHandle.userBeans.put(id, userBean);
+                System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
 
-        if ("connection.created".equals(receivedRoutingKey)) {
-            messageProperties.getHeader("queue");
-            // 通知 我的好友 在线
-            UserBean userBean = new UserBean();
-            userBean.setUserId(id);
-            WebRtcMsgHandle.userBeans.put(id, userBean);
-            System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
+                EqEquipment equipment = eqEquipmentService.findByCode(id);
+                if (null != equipment) {
+                    // 更新设备状态为在线
+                } else {
+                    EqEquipment newEquipment = new EqEquipment();
+                    newEquipment.setNote("");
+                    newEquipment.setCode(id);
+                    newEquipment.setName("新设备");
+                    newEquipment.setStatus(1);
+                    newEquipment.setType(0);
+                    eqEquipmentService.save(newEquipment);
+                }
 
-            EqEquipment equipment = eqEquipmentService.findByCode(id);
-            if (null != equipment) {
-                // 更新设备状态为在线
-            } else {
-                EqEquipment newEquipment = new EqEquipment();
-                newEquipment.setNote("");
-                newEquipment.setCode(id);
-                newEquipment.setName("新设备");
-                newEquipment.setStatus(1);
-                newEquipment.setType(0);
-                eqEquipmentService.save(newEquipment);
-            }
-
-        } else if ("connection.closed".equals(receivedRoutingKey)) {
-            messageProperties.getHeader("queue");
-            // 通知我的好友 离线
-            System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
-            WebRtcMsgHandle.userBeans.remove(id);
-            EqEquipment equipment = eqEquipmentService.findByCode(id);
-            if (null != equipment) {
-                equipment.setStatus(0);
-                eqEquipmentService.save(equipment);
+            } else if ("connection.closed".equals(receivedRoutingKey)) {
+                messageProperties.getHeader("queue");
+                // 通知我的好友 离线
+                System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
+                WebRtcMsgHandle.userBeans.remove(id);
+                EqEquipment equipment = eqEquipmentService.findByCode(id);
+                if (null != equipment) {
+                    equipment.setStatus(0);
+                    eqEquipmentService.save(equipment);
+                }
             }
         }
 

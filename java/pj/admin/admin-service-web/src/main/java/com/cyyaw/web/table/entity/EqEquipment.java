@@ -47,7 +47,7 @@ public class EqEquipment implements BaseEntity<Integer>, Serializable {
     // =================================================================================
 
     @Basic
-    @Column(name = "code", columnDefinition = "varchar(32) COMMENT '设备编号'")
+    @Column(name = "code", columnDefinition = "varchar(255) COMMENT '设备编号'")
     private String code;
 
     @Basic
