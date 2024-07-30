@@ -300,6 +300,9 @@ public class CommonDaoImpl implements CommonDao {
         BaseResult<Object> rest = new BaseResult<>();
         String sql = SqlUtils.delExplainSql(delSql, json);
         String[] strArr = SqlUtils.saveExplainData(delSql, json);
+        log.info("============================================");
+        log.info("执行删除语句: {} , {}", sql, json);
+        log.info("============================================");
         int update = jdbcTemplate.update(sql, strArr);
         if (update > 0) {
             rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
@@ -409,6 +412,7 @@ public class CommonDaoImpl implements CommonDao {
             if (StrUtil.isBlank(mainIdData)) {
                 return insertData(insetSql, json);
             } else {
+
                 List<JSONObject> tableData = execSql("select * from " + mainTable + " c where c." + mainId + " = ?", true, new String[]{mainIdData});
                 if (tableData.size() > 1) {
                     WebException.fail("查询到有多条件数据,表:" + mainTable + ", ID:" + mainId);
@@ -434,6 +438,9 @@ public class CommonDaoImpl implements CommonDao {
         BaseResult rest = new BaseResult();
         String sql = SqlUtils.saveExplainSql(insertSql);
         String[] strArr = SqlUtils.saveExplainData(insertSql, json);
+        log.info("============================================");
+        log.info("执行保存语句: {} , {}", sql, json);
+        log.info("============================================");
         int update = jdbcTemplate.update(sql, strArr);
         if (update > 0) {
             rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());
@@ -455,6 +462,9 @@ public class CommonDaoImpl implements CommonDao {
         String sql = SqlUtils.saveExplainSql(updateSql);
         String[] strArr = SqlUtils.updateExplainData(updateSql, newData, oldData);
         //=====
+        log.info("============================================");
+        log.info("执行保存语句: {} , {}", sql, newData);
+        log.info("============================================");
         int update = jdbcTemplate.update(sql, strArr);
         if (update > 0) {
             rest.setCode(WebErrCodeEnum.WEB_SUCCESS.getCode());

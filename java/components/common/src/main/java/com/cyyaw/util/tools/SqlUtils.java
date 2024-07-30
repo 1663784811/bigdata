@@ -457,24 +457,12 @@ public class SqlUtils {
     public static String delExplainSql(String sql, JSONObject json) {
         StringBuffer sb = new StringBuffer();
         boolean start = false;
-        int startFlag = 0;
         for (int i = 0; i < sql.length(); i++) {
             if (sql.charAt(i) == '[') {
                 start = true;
-                startFlag = i + 1;
             } else if (sql.charAt(i) == ']') {
                 start = false;
-                String substr = sql.substring(startFlag, i);
-                if (substr.indexOf("&") == 0) {
-                    String key = substr.substring(1, substr.length());
-                    if (ObjectUtil.isEmpty(json.get(key))) {
-                        sb.append("1<>1");
-                    } else {
-                        sb.append(key + "=?");
-                    }
-                } else {
-                    sb.append(substr + "=?");
-                }
+                sb.append("?");
             } else if (!start) {
                 sb.append(sql.charAt(i));
             }
