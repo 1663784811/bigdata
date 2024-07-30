@@ -168,7 +168,7 @@ const searchBoxEven = (item, index) => {
     state.saveObj.editor = true;
     state.saveObj.data = {};
   } else if (item.even === 'del') {
-    // console.log(item)
+    delSelect();
   } else {
     emits('event', {
       even: item.even,
@@ -323,9 +323,27 @@ const selectDataChange = (rows) => {
  */
 const delSelect = () => {
   const selectData = objConfig.value.selectData;
-  for (let i = 0; i < selectData.length; i++) {
-    delTableDataFn(selectData[i])
+  if (selectData.length > 0) {
+    Modal.confirm({
+      title: '是否删除?',
+      okText: '删除',
+      loading: true,
+      onOk: async () => {
+        console.log('sssssssssssss')
+        for (let i = 0; i < selectData.length; i++) {
+          await runDelTableDataFn(selectData[i])
+        }
+        Message.success('删除成功');
+        Modal.remove();
+        loadData();
+      },
+    });
+  } else {
+    Message.error({
+      content: `请选择数据`,
+    })
   }
+
 }
 /**
  * 删除单条数据
@@ -342,14 +360,14 @@ const delTableDataFn = (dataObj) => {
     okText: '删除',
     loading: true,
     onOk: () => {
-      runDelTableDataFn(dataObj);
+      runDelTableDataFn(dataObj, true);
     },
   });
 }
 /**
  * 执行删除
  */
-const runDelTableDataFn = (itemData) => {
+const runDelTableDataFn = (itemData, show) => {
   const {url, isCommonUrl, parameter} = state.tableObj.delRequest;
   let ptr;
   if (url && isCommonUrl) {
@@ -364,13 +382,15 @@ const runDelTableDataFn = (itemData) => {
     }
   }
   commonRequest(url, ptr, 'post').then((rest) => {
-    Message.success({
-      content: `${rest.data ? rest.data : rest.msg}`,
-      onClose: () => {
-        Modal.remove();
-        loadData();
-      }
-    })
+    if (show) {
+      Message.success({
+        content: `${rest.data ? rest.data : rest.msg}`,
+        onClose: () => {
+          Modal.remove();
+          loadData();
+        }
+      })
+    }
   }).catch((err) => {
     console.log(err);
     Message.error({
