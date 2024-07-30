@@ -1,5 +1,10 @@
 <template>
-  <data-table :setting="state.newTable"/>
+  <data-table :setting="state.newTable" @event="eventFn"/>
+
+
+
+
+
 </template>
 
 <script setup>
@@ -28,6 +33,13 @@ const initFn = async () => {
   const pageCode = 'eq_equipment'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   state.newTable = pageData.newTable;
+}
+
+
+const eventFn = (dataObj) => {
+  if (dataObj.even === "sendData") {
+
+  }
 }
 
 </script>

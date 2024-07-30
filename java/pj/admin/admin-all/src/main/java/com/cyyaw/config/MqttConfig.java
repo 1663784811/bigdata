@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class MqttConfig {
 
     String broker = "tcp://192.168.0.158:1883";
-    private String clientId = "1111111111111111111111111111111111111111111111111111111111";
+    private String clientId = "11111111111111111";
 
     @Bean
     public MqttClient client() throws MqttException {

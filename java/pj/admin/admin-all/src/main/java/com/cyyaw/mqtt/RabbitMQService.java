@@ -103,6 +103,8 @@ public class RabbitMQService {
                 EqEquipment equipment = eqEquipmentService.findByCode(id);
                 if (null != equipment) {
                     // 更新设备状态为在线
+                    equipment.setStatus(1);
+                    eqEquipmentService.save(equipment);
                 } else {
                     EqEquipment newEquipment = new EqEquipment();
                     newEquipment.setNote("");
