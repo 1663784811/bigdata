@@ -54,6 +54,11 @@ const router = createRouter({
                         {
                             path: 'friends/:appId',
                             children: friends
+                        },
+                        {
+                            path: 'questions',
+                            name: 'questions',
+                            component:  () => import('@/views/admin/Questions.vue'),
                         }
                     ]
                 }
