@@ -322,45 +322,61 @@ const selectDataChange = (rows) => {
  * 点击删除
  */
 const delSelect = () => {
-  const arr = [];
   const selectData = objConfig.value.selectData;
   for (let i = 0; i < selectData.length; i++) {
-    arr.push(selectData[i].id)
+    delTableDataFn(selectData[i])
   }
-  delTableDataFn(arr)
 }
 /**
  * 删除单条数据
  */
 const delTableData = (row, index) => {
-  delTableDataFn([row.id])
+  delTableDataFn(row)
 }
 /**
  * 执行删除
  */
-const delTableDataFn = (idArr = []) => {
+const delTableDataFn = (dataObj) => {
   Modal.confirm({
     title: '是否删除?',
     okText: '删除',
     loading: true,
     onOk: () => {
-      const url = loginInfoSt.reLoadUrl(state.tableObj.delRequest.url);
-      commonRequest(url, idArr, 'post').then((rest) => {
-        Message.success({
-          content: `${rest.data ? rest.data : rest.msg}`,
-          onClose: () => {
-            Modal.remove();
-            loadData();
-          }
-        })
-      }).catch((err) => {
-        console.log(err);
-        Message.error({
-          content: `${err}`,
-        })
-      })
+      runDelTableDataFn(dataObj);
     },
   });
+}
+/**
+ * 执行删除
+ */
+const runDelTableDataFn = (itemData) => {
+  const {url, isCommonUrl, parameter} = state.tableObj.delRequest;
+  let ptr;
+  if (url && isCommonUrl) {
+    ptr = {
+      ...parameter,
+      data: itemData
+    }
+  } else {
+    ptr = {
+      ...parameter,
+      ...itemData
+    }
+  }
+  commonRequest(url, ptr, 'post').then((rest) => {
+    Message.success({
+      content: `${rest.data ? rest.data : rest.msg}`,
+      onClose: () => {
+        Modal.remove();
+        loadData();
+      }
+    })
+  }).catch((err) => {
+    console.log(err);
+    Message.error({
+      content: `${err}`,
+    })
+  })
 }
 
 
@@ -397,7 +413,9 @@ const Save = (itemData) => {
   }
   commonRequest(loginInfoSt.reLoadUrl(url), parameter, 'post').then((rest) => {
     if (rest.code === 2000) {
-      state.saveObj.data = rest.data;
+      if (rest.data) {
+        state.saveObj.data = rest.data;
+      }
       Message.success({
         content: `${rest.msg}`,
         onClose: () => {

@@ -21,6 +21,6 @@ public interface CommonDao {
     /**
      * 通用删除
      */
-    BaseResult<Object> del(JSONObject json);
+    BaseResult<Object> del(String code, JSONObject json);
 
 }

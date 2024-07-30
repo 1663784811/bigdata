@@ -77,10 +77,12 @@ public class AppCommonController {
      * }
      */
     @ApiOperation(value = "通用删除")
-    @RequestMapping("/del")
-    public BaseResult del(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
+    @PostMapping("/del")
+    public BaseResult del(@RequestBody Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-        return commonDao.del(json);
+        String code = json.getString("code");
+        JSONObject data = json.getJSONObject("data");
+        return commonDao.del(code, data);
     }
 
 }

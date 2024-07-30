@@ -52,7 +52,7 @@ public class CommonController {
 
 
     @ApiOperation(value = "通用修改或添加")
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public BaseResult<Object> save(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
         String code = json.getString("code");
@@ -62,13 +62,15 @@ public class CommonController {
 
 
     @ApiOperation(value = "通用删除")
-    @RequestMapping("/del")
-    public BaseResult<Object> del(@RequestBody @RequestParam Map<String, Object> map, @TokenData LoginInfo loginInfo) {
+    @PostMapping("/del")
+    public BaseResult<Object> del(@RequestBody Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-        return commonDao.del(json);
+        String code = json.getString("code");
+        JSONObject data = json.getJSONObject("data");
+        return commonDao.del(code, data);
     }
 
-    @RequestMapping("/saveSql")
+    @PostMapping("/saveSql")
     public BaseResult<Object> saveSql(@RequestBody CSql cSql) {
         String tid = cSql.getTid();
         if (StrUtil.isNotBlank(tid)) {

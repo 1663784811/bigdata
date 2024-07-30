@@ -335,7 +335,7 @@ public class SqlUtils {
                     if (defIndex == 0) {
                         // 设置默认
                         String[] split = key.split(":");
-                        if (split.length > 2) {
+                        if (split.length >= 2) {
                             String defType = split[1];
                             if (defType.indexOf("str_") == 0) {
                                 rest.add(defType.substring("str_".length(), defType.length()));

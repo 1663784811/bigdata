@@ -118,14 +118,14 @@ public class CommonDaoImpl implements CommonDao {
         String querySql = SqlUtils.explainSql(sqlContent, json);
         log.info("执行sql语句: {} ", querySql);
         log.info("============================================");
-        return execSql(querySql, touName);
+        return execSql(querySql, touName, null);
     }
 
     /**
      * 执行sql语句
      */
-    private List<JSONObject> execSql(String querySql, boolean touName) {
-        List<Map<String, Object>> data = jdbcTemplate.queryForList(querySql);
+    private List<JSONObject> execSql(String querySql, boolean touName, String[] val) {
+        List<Map<String, Object>> data = jdbcTemplate.queryForList(querySql, val);
         List<JSONObject> resData = new ArrayList<>();
         if (null != data && data.size() > 0) {
             for (int i = 0; i < data.size(); i++) {
@@ -280,8 +280,7 @@ public class CommonDaoImpl implements CommonDao {
     }
 
     @Override
-    public BaseResult<Object> del(JSONObject json) {
-        String code = json.getString("code");
+    public BaseResult<Object> del(String code, JSONObject json) {
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.tid = ?", code);
         if (sqlRowSet.next()) {
             String mainTable = sqlRowSet.getString("main_table");
@@ -294,7 +293,7 @@ public class CommonDaoImpl implements CommonDao {
                 WebException.fail("没有查到数据,表:" + mainTable + ", ID:" + mainId);
             }
         }
-        return null;
+        return BaseResult.fail();
     }
 
     private BaseResult<Object> delData(String delSql, JSONObject json) {
@@ -410,7 +409,7 @@ public class CommonDaoImpl implements CommonDao {
             if (StrUtil.isBlank(mainIdData)) {
                 return insertData(insetSql, json);
             } else {
-                List<JSONObject> tableData = execSql("select * from " + mainTable + " c where c." + mainId + " = ?", true);
+                List<JSONObject> tableData = execSql("select * from " + mainTable + " c where c." + mainId + " = ?", true, new String[]{mainIdData});
                 if (tableData.size() > 1) {
                     WebException.fail("查询到有多条件数据,表:" + mainTable + ", ID:" + mainId);
                 } else if (tableData.size() == 1) {
