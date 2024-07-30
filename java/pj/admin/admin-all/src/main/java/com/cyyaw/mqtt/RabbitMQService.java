@@ -6,6 +6,8 @@ import com.cyyaw.config.RabbitConfig;
 import com.cyyaw.mqtt.handle.MsgHandle;
 import com.cyyaw.mqtt.handle.UserBean;
 import com.cyyaw.mqtt.handle.WebRtcMsgHandle;
+import com.cyyaw.web.service.EqEquipmentService;
+import com.cyyaw.web.table.entity.EqEquipment;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -35,6 +37,10 @@ public class RabbitMQService {
 
     @Autowired
     private Map<String, MsgHandle> msgHandleMap;
+
+
+    @Autowired
+    private EqEquipmentService eqEquipmentService;
 
     public void sendMessage(String message) {
         rabbitTemplate.convertAndSend("ssssssssss", message);
@@ -94,11 +100,29 @@ public class RabbitMQService {
             WebRtcMsgHandle.userBeans.put(id, userBean);
             System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
 
+            EqEquipment equipment = eqEquipmentService.findByCode(id);
+            if (null != equipment) {
+                // 更新设备状态为在线
+            } else {
+                EqEquipment newEquipment = new EqEquipment();
+                newEquipment.setNote("");
+                newEquipment.setCode(id);
+                newEquipment.setName("新设备");
+                newEquipment.setStatus(1);
+                newEquipment.setType(0);
+                eqEquipmentService.save(newEquipment);
+            }
+
         } else if ("connection.closed".equals(receivedRoutingKey)) {
             messageProperties.getHeader("queue");
             // 通知我的好友 离线
             System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
             WebRtcMsgHandle.userBeans.remove(id);
+            EqEquipment equipment = eqEquipmentService.findByCode(id);
+            if (null != equipment) {
+                equipment.setStatus(0);
+                eqEquipmentService.save(equipment);
+            }
         }
 
         System.out.println("ID : " + id);
