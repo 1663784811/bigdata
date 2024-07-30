@@ -382,7 +382,6 @@ const saveEventFn = (ev, itemData) => {
   }
 }
 const Save = (itemData) => {
-  debugger
   const {url, isCommonUrl} = state.saveObj;
   let parameter;
   if (url && isCommonUrl) {
