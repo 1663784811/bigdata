@@ -304,7 +304,12 @@ public class SqlUtils {
      *
      * @param sql
      * @param json
-     * @return
+     *
+     * 正常[]
+     * 默认字符串[df:str_默认字符串]
+     * 函数[df:fn_函数名]
+     *      支持的函数名: uuid     (  32位 )
+     *
      */
     public static String[] saveExplainData(String sql, JSONObject json) {
         List<String> rest = new ArrayList<>();
