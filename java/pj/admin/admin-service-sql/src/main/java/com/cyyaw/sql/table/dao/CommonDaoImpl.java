@@ -439,7 +439,7 @@ public class CommonDaoImpl implements CommonDao {
         String sql = SqlUtils.saveExplainSql(insertSql);
         String[] strArr = SqlUtils.saveExplainData(insertSql, json);
         log.info("============================================");
-        log.info("执行保存语句: {} , {}", sql, json);
+        log.info("执行更新语句: {} , {}", sql, json);
         log.info("============================================");
         int update = jdbcTemplate.update(sql, strArr);
         if (update > 0) {
