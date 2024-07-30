@@ -371,24 +371,29 @@ const changePage = (page) => {
 
 // ===================================================
 const saveEventFn = (ev, itemData) => {
-  if(state.saveObj.editor){
+  if (state.saveObj.editor) {
     if ('ok' === ev) {
       Save(itemData)
     } else if ('cancel' === ev) {
       Cancel(itemData);
     }
-  }else{
+  } else {
     Cancel(itemData);
   }
 }
 const Save = (itemData) => {
-  let url = state.saveObj.url;
-  let parameter = itemData;
-  if (!url || url === '/admin/common/save') {
-    url = "/admin/common/save";
+  debugger
+  const {url, isCommonUrl} = state.saveObj;
+  let parameter;
+  if (url && isCommonUrl) {
     parameter = {
       ...state.saveObj.parameter,
-      data: [itemData]
+      data: itemData
+    }
+  } else {
+    parameter = {
+      ...state.saveObj.parameter,
+      ...itemData
     }
   }
   commonRequest(loginInfoSt.reLoadUrl(url), parameter, 'post').then((rest) => {
