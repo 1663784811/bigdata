@@ -20,14 +20,15 @@
           <div class="row">
             <div class="labelLeft">显示搜索模块:</div>
             <Checkbox border v-model="state.searchObj.show"></Checkbox>
-            <Button class="dataBtn" type="primary" icon="md-list">添加</Button>
+            <Button class="dataBtn" type="primary" icon="md-list" @click="state.searchObj.columns.push({})">添加</Button>
           </div>
           <template v-for="(item, index) in state.searchObj.columns" :key="index">
             <div class="row">
               <div class="sortBtn">
                 <Button size="small" type="error" icon="ios-trash-outline"
                         @click="state.searchObj.columns.splice(index,1)"/>
-                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
+                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"
+                        @click="arrUp(state.searchObj.columns,index)"/>
               </div>
               <div>名称:</div>
               <Checkbox border v-model="item.show"></Checkbox>
@@ -488,6 +489,15 @@ const initFn = () => {
   }
   if (tid) {
     state.jsonData.tid = tid;
+  }
+}
+
+const arrUp = (list, index) => {
+  if (index > 0) {
+    let nowObj = list[index];
+    let prObj = list[index - 1];
+    list[index] = prObj;
+    list[index - 1] = nowObj;
   }
 }
 

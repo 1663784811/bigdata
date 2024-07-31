@@ -12,6 +12,9 @@ import {pageSetting} from "@/api/api.js";
 
 
 export const useWinModal = defineStore('useWinModal', {
+    persist: {
+        enabled: false
+    },
     state: () => {
         const winData = ref({
             url: '',
@@ -19,10 +22,20 @@ export const useWinModal = defineStore('useWinModal', {
             data: {},
             show: false,
             pageCode: '',
-            loading: true
+            loading: true,
+            changeDataFn: null,
+            saveAfterFn: null,
         });
+        const winMqtt = ref({
+            code: '',   // 设备编号
+            name: '',  // 设备名
+            show: false, // 显示连接框
+            callBack: null // 回调（ 没想好用在什么地方 ）
+        });
+
         return {
-            winData
+            winData,
+            winMqtt
         }
     }
 })

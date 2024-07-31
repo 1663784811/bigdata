@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import {defineEmits, reactive, ref, watch} from "vue";
+import { reactive, ref, watch} from "vue";
 import {useUploadFileStore} from "@/store/uploadFile.js";
 
 const fileStore = useUploadFileStore();

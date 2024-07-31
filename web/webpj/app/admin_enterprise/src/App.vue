@@ -7,6 +7,7 @@
   <sql-config/>
   <modal-upload-files/>
   <modal-mqtt-msg/>
+  <modal-icon/>
 </template>
 <script setup>
 // 文件管理

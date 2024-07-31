@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import {defineEmits, inject, reactive, ref, resolveComponent, watch} from "vue"
+import { inject, reactive, ref, resolveComponent, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import {loginInfo} from "@/store/loginInfo.js";
@@ -168,7 +168,7 @@ const searchBoxEven = (item, index) => {
     state.saveObj.editor = true;
     state.saveObj.data = {};
   } else if (item.even === 'del') {
-    // console.log(item)
+    delSelect();
   } else {
     emits('event', {
       even: item.even,
@@ -322,45 +322,81 @@ const selectDataChange = (rows) => {
  * 点击删除
  */
 const delSelect = () => {
-  const arr = [];
   const selectData = objConfig.value.selectData;
-  for (let i = 0; i < selectData.length; i++) {
-    arr.push(selectData[i].id)
+  if (selectData.length > 0) {
+    Modal.confirm({
+      title: '是否删除?',
+      okText: '删除',
+      loading: true,
+      onOk: async () => {
+        console.log('sssssssssssss')
+        for (let i = 0; i < selectData.length; i++) {
+          await runDelTableDataFn(selectData[i])
+        }
+        Message.success('删除成功');
+        Modal.remove();
+        loadData();
+      },
+    });
+  } else {
+    Message.error({
+      content: `请选择数据`,
+    })
   }
-  delTableDataFn(arr)
+
 }
 /**
  * 删除单条数据
  */
 const delTableData = (row, index) => {
-  delTableDataFn([row.id])
+  delTableDataFn(row)
 }
 /**
  * 执行删除
  */
-const delTableDataFn = (idArr = []) => {
+const delTableDataFn = (dataObj) => {
   Modal.confirm({
     title: '是否删除?',
     okText: '删除',
     loading: true,
     onOk: () => {
-      const url = loginInfoSt.reLoadUrl(state.tableObj.delRequest.url);
-      commonRequest(url, idArr, 'post').then((rest) => {
-        Message.success({
-          content: `${rest.data ? rest.data : rest.msg}`,
-          onClose: () => {
-            Modal.remove();
-            loadData();
-          }
-        })
-      }).catch((err) => {
-        console.log(err);
-        Message.error({
-          content: `${err}`,
-        })
-      })
+      runDelTableDataFn(dataObj, true);
     },
   });
+}
+/**
+ * 执行删除
+ */
+const runDelTableDataFn = (itemData, show) => {
+  const {url, isCommonUrl, parameter} = state.tableObj.delRequest;
+  let ptr;
+  if (url && isCommonUrl) {
+    ptr = {
+      ...parameter,
+      data: itemData
+    }
+  } else {
+    ptr = {
+      ...parameter,
+      ...itemData
+    }
+  }
+  commonRequest(url, ptr, 'post').then((rest) => {
+    if (show) {
+      Message.success({
+        content: `${rest.data ? rest.data : rest.msg}`,
+        onClose: () => {
+          Modal.remove();
+          loadData();
+        }
+      })
+    }
+  }).catch((err) => {
+    console.log(err);
+    Message.error({
+      content: `${err}`,
+    })
+  })
 }
 
 
@@ -371,29 +407,35 @@ const changePage = (page) => {
 
 // ===================================================
 const saveEventFn = (ev, itemData) => {
-  if(state.saveObj.editor){
+  if (state.saveObj.editor) {
     if ('ok' === ev) {
       Save(itemData)
     } else if ('cancel' === ev) {
       Cancel(itemData);
     }
-  }else{
+  } else {
     Cancel(itemData);
   }
 }
 const Save = (itemData) => {
-  let url = state.saveObj.url;
-  let parameter = itemData;
-  if (!url || url === '/admin/common/save') {
-    url = "/admin/common/save";
+  const {url, isCommonUrl} = state.saveObj;
+  let parameter;
+  if (url && isCommonUrl) {
     parameter = {
       ...state.saveObj.parameter,
-      data: [itemData]
+      data: itemData
+    }
+  } else {
+    parameter = {
+      ...state.saveObj.parameter,
+      ...itemData
     }
   }
   commonRequest(loginInfoSt.reLoadUrl(url), parameter, 'post').then((rest) => {
     if (rest.code === 2000) {
-      state.saveObj.data = rest.data;
+      if (rest.data) {
+        state.saveObj.data = rest.data;
+      }
       Message.success({
         content: `${rest.msg}`,
         onClose: () => {
