@@ -43,7 +43,7 @@ public class MqttConfig implements MqttCallback {
      */
     @Override
     public void connectionLost(Throwable cause) {
-        log.error("连接断开:{}", cause.getCause().toString());
+        log.error("连接断开:{}", clientId);
     }
 
     /**
@@ -64,10 +64,9 @@ public class MqttConfig implements MqttCallback {
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
         try {
-            MqttMessage message = token.getMessage();
-            int id = message.getId();
-            log.info("消息传递完成: {}", id);
-        } catch (MqttException e) {
+            int messageId = token.getMessageId();
+            log.info("消息传递完成: {}", messageId);
+        } catch (Exception e) {
             log.error("错误:{}", e.getMessage());
         }
     }
