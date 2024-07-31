@@ -36,7 +36,7 @@
                 <Input v-model="item.name" placeholder="名称"/>
               </div>
               <div class="rightInput">
-                <Input v-model="item.icon" placeholder="icon"/>
+                <Input v-model="item.icon" placeholder="icon" @on-focus="selectIconFn(item, 'icon')"/>
               </div>
               <div class="rightInput">
                 <Input v-model="item.type" placeholder="icon"/>
@@ -290,9 +290,11 @@ import {Input, Message} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 import draggable from "vuedraggable";
+import {useWinModal} from '@/store/winModal.js'
 
 
 const configModule = useConfigModule();
+const winIcon = useWinModal().winIcon;
 
 
 const props = defineProps({
@@ -498,6 +500,13 @@ const arrUp = (list, index) => {
     let prObj = list[index - 1];
     list[index] = prObj;
     list[index - 1] = nowObj;
+  }
+}
+
+const selectIconFn = (obj, key) => {
+  winIcon.show = true;
+  winIcon.callBack = (iconText) => {
+    obj[key] = iconText;
   }
 }
 

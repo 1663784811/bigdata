@@ -25,7 +25,7 @@ import {useWinModal} from "@/store/winModal.js";
 import iconArr from '@/api/icon.js'
 
 
-const winIcon = useWinModal().winIcon;
+const {winIcon} = useWinModal();
 const emits = defineEmits(['event', 'update:modelValue']);
 
 const state = reactive({

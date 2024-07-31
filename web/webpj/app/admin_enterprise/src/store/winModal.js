@@ -24,13 +24,13 @@ export const useWinModal = defineStore('useWinModal', {
             callBack: null // 回调（ 没想好用在什么地方 ）
         });
         const winIcon = ref({
-            show: true, // 显示连接框
+            show: false, // 显示连接框
             callBack: null
         });
         return {
             winData,
             winMqtt,
-            winIcon
+            winIcon,
         }
     }
 })
