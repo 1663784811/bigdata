@@ -104,7 +104,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/app/*/food/websocket/**",
                         "/app/*/store/*/food/**",
                         "/app/*/shopping/**",  //   商城
-                        "/app/*/order/countGoodsPrice"
+                        "/app/*/order/countGoodsPrice",
+
+
+                        // ============================================================== 页面
+                        "/enterprise/**"
+
+
 
                 ).permitAll()
                 // 每一个请求都要验证

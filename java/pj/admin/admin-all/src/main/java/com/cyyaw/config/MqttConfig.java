@@ -1,8 +1,10 @@
 package com.cyyaw.config;
 
+import com.cyyaw.mqtt.MqttService;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +15,11 @@ public class MqttConfig implements MqttCallback {
 
     String broker = "tcp://192.168.0.158:1883";
     private String clientId = "11111111111111111";
+
+
+    @Autowired
+    private MqttService mqttService;
+
 
     @Bean
     public MqttClient client() throws MqttException {
@@ -50,9 +57,9 @@ public class MqttConfig implements MqttCallback {
      * 接收到消息
      */
     @Override
-    public void messageArrived(String topic, MqttMessage message) throws Exception {
+    public void messageArrived(String topic, MqttMessage message) {
         String data = new String(message.getPayload());
-        log.info("接收到消息: {}", data);
+        log.info("接收到消息: 主题:{}  内容: {} ", topic, data);
     }
 
     /**
