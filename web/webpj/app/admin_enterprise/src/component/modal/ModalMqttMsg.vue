@@ -6,65 +6,16 @@
       @on-ok="eventFn('ok')"
       @on-cancel="eventFn('cancel')"
       :mask-closable="false"
-      :loading="modalData.loading"
       width="900px"
   >
     <template #header>
       <div>
-        Mqtt 连接 向设备【 xxxx 】 发送数据
+        Mqtt连接: 向设备【 {{ winMqtt.name }} : {{ winMqtt.code }} 】 发送数据
       </div>
     </template>
     <div class="msgContent">
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
-      </div>
-      <div class="msgRight">
-        <span class="msgText">sssssssssssssssssss</span>
-      </div>
-      <div class="msgLeft">
-        <span class="msgText">sssssssssssssssssssssssssssssssssssssssssssssssssssss</span>
+      <div v-for="(item, index) in state.logDataArr" :key="index" :class="{msgRight:item.send, msgLeft:!item.send}">
+        <span class="msgText">{{ item.data }}</span>
       </div>
     </div>
     <template #footer>
@@ -109,18 +60,16 @@ const props = defineProps({
 
 const state = reactive({
   loading: false,
-  oaaArr: [],
-  inputData: ''
+  logDataArr: [],
+  inputData: '',
+  modalData: {}
 })
 const modalData = ref({
-  loading: true,
-  show: true,
   editor: false,
   data: {},
   columns: []
 })
 onMounted(() => {
-  console.log("sssssssssssssssss")
   initMqtt();
 })
 
@@ -139,7 +88,11 @@ const initMqtt = () => {
   client.on('reconnect', () => console.log('Reconnecting...'));
 
   client.on('message', (topic, message) => {
-    console.log(`Received message on ${topic}: ${message}`);
+    console.log(`接收：主题 ${topic}: 内容 ${message}`);
+    state.logDataArr.push({
+      send: false,
+      data: message
+    });
   });
   client.subscribe(clientId);
 }
@@ -148,8 +101,12 @@ const publishMsg = () => {
   state.loading = true;
   const inputData = state.inputData;
   if (inputData && inputData.length > 0) {
-    client.publish('mqtt_service.client.equipment.aaaaaa', `${inputData}`);
+    client.publish(`mqtt_service.${winMqtt.code}`, `${inputData}`);
     state.inputData = ''
+    state.logDataArr.push({
+      send: true,
+      data: inputData
+    });
   }
   state.loading = false;
 }

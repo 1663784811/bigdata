@@ -35,7 +35,8 @@ public class MqttService {
         try {
             mqttClient.publish(topic, message);
         } catch (Exception e) {
-            log.error("错误", e.getMessage());
+            log.error("错误:{}", e.getMessage());
+            e.printStackTrace();
         }
     }
 }

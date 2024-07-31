@@ -1,7 +1,6 @@
 package com.cyyaw.mqtt;
 
 import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
 import com.cyyaw.config.RabbitConfig;
 import com.cyyaw.mqtt.handle.MsgHandle;
 import com.cyyaw.mqtt.handle.UserBean;
@@ -10,7 +9,6 @@ import com.cyyaw.web.service.EqEquipmentService;
 import com.cyyaw.web.table.entity.EqEquipment;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
