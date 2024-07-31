@@ -18,7 +18,7 @@
 
 <script setup>
 
-import {defineEmits, ref, watch} from "vue";
+import { ref, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'

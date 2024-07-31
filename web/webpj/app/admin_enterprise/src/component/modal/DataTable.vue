@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import {defineEmits, inject, reactive, ref, resolveComponent, watch} from "vue"
+import { inject, reactive, ref, resolveComponent, watch} from "vue"
 import {commonRequest} from "@/api/api";
 import {Message, Modal} from "view-ui-plus";
 import {loginInfo} from "@/store/loginInfo.js";

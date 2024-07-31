@@ -34,7 +34,7 @@
 
 <script setup>
 import mqtt from "mqtt";
-import {defineEmits, onMounted, reactive, watch} from "vue";
+import { onMounted, reactive, watch} from "vue";
 
 import {useWinModal} from "@/store/winModal.js";
 

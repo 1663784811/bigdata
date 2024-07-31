@@ -48,7 +48,7 @@
 
 <script setup>
 import DataTable from "@/component/modal/DataTable.vue";
-import {reactive, inject, watch, defineEmits, ref} from "vue";
+import {reactive, inject, watch,  ref} from "vue";
 import {commonRequest} from "@/api/api.js";
 import {loginInfo} from "@/store/loginInfo.js";
 import {Message, Modal} from "view-ui-plus";

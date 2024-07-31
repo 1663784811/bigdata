@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import {defineEmits, ref, watch, provide, onMounted, reactive} from "vue";
+import {ref, watch, onMounted, reactive} from "vue";
 import {findPageWebImage} from '@/api/api.js'
 
 const emits = defineEmits(['event', 'update:modelValue']);

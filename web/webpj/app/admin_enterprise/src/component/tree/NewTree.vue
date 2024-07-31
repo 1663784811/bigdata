@@ -20,7 +20,7 @@
 
 <script setup>
 
-import {defineEmits, reactive, ref, watch} from "vue";
+import { reactive, ref, watch} from "vue";
 import {commonRequest, delSql} from "@/api/api.js"
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
