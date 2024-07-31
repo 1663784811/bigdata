@@ -29,7 +29,7 @@ export const useWinModal = defineStore('useWinModal', {
         const winMqtt = ref({
             code: '',   // 设备编号
             name: '',  // 设备名
-            show: true, // 显示连接框
+            show: false, // 显示连接框
             callBack: null // 回调（ 没想好用在什么地方 ）
         });
 

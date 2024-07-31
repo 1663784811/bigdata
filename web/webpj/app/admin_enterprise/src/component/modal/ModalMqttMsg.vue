@@ -24,7 +24,7 @@
           <Input v-model="state.inputData" placeholder="请输入要发送的数据" :rows="4" type="textarea"/>
         </div>
         <div class="btnBox">
-          <div>状态: 已连接服务器</div>
+          <div>状态: {{ state.statusText }}</div>
           <Button type="success" :loading="state.loading" @click="publishMsg">发送</Button>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
 <script setup>
 import mqtt from "mqtt";
-import {defineEmits, onMounted, reactive, ref, watch} from "vue";
+import {defineEmits, onMounted, reactive, watch} from "vue";
 
 import {useWinModal} from "@/store/winModal.js";
 
@@ -47,10 +47,6 @@ let client;
 const clientId = 'client.web.web3';
 
 const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false
-  },
   modalSetting: {
     type: Object,
     default: {},
@@ -62,31 +58,46 @@ const state = reactive({
   loading: false,
   logDataArr: [],
   inputData: '',
-  modalData: {}
+  modalData: {},
+  statusText: '未初化',
+  errorNum: 0
 })
-const modalData = ref({
-  editor: false,
-  data: {},
-  columns: []
-})
+
 onMounted(() => {
-  initMqtt();
+  if (winMqtt.show) {
+    initMqtt();
+  }
 })
 
 const initMqtt = () => {
+  state.statusText = '正在初始化....';
   client = mqtt.connect("ws://192.168.0.158:15675/ws", {
     clientId: clientId, // 客户端ID
     username: 'admin', // 用户名
     password: '123456', // 密码
-    keepalive: 6, // 保持连接的时间间隔
+    keepalive: 60, // 保持连接的时间间隔
     clean: false, // 是否清理会话
   });
-
-  client.on('connect', () => console.log('Connected to MQTT Broker.'));
-  client.on('error', (err) => console.error('An error occurred: ', err));
-  client.on('offline', () => console.log('We are offline.'));
-  client.on('reconnect', () => console.log('Reconnecting...'));
-
+  client.on('connect', () => {
+    state.statusText = '连接服务器成功';
+  });
+  client.on('error', (err) => {
+    console.error('mqtt错误: ', err)
+    state.statusText = '连接服务错误';
+  });
+  client.on('offline', () => {
+    state.errorNum += 1;
+    if (state.errorNum > 5) {
+      client.end();
+      state.statusText = '连接服务offline';
+    }
+  });
+  client.on('reconnect', () => {
+    state.statusText = '正在重新连接';
+  });
+  client.on('close', () => {
+    state.statusText = '连接已关闭ss';
+  });
   client.on('message', (topic, message) => {
     console.log(`接收：主题 ${topic}: 内容 ${message}`);
     state.logDataArr.push({
@@ -97,6 +108,9 @@ const initMqtt = () => {
   client.subscribe(clientId);
 }
 
+/**
+ * 发布主题
+ */
 const publishMsg = () => {
   state.loading = true;
   const inputData = state.inputData;
@@ -112,28 +126,21 @@ const publishMsg = () => {
 }
 
 
-watch(() => props.modalSetting, () => {
-  modalData.value = {
-    ...modalData.value,
-    ...props.modalSetting
+watch(() => winMqtt.show, (val) => {
+  if (val) {
+    if (!client || !client.connected) {
+      initMqtt();
+    }
+  } else {
+
   }
-}, {deep: true, immediate: true})
-
-watch(() => props.modelValue, () => {
-  modalData.value.show = props.modelValue;
 })
-
-watch(() => modalData.value.show, () => {
-  emits('update:modelValue', modalData.value.show);
-})
-
 
 /**
  * 事件
  */
 const eventFn = (ev) => {
-  const {data} = modalData.value;
-  emits('event', ev, data);
+  console.log(ev)
 }
 
 
