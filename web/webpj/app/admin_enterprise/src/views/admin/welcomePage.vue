@@ -3,11 +3,22 @@
     <div class="header">
       <div class="headerContainer">
         <div class="container">
-          <div class="menuItem">首页</div>
-          <div class="menuItem">点餐系统</div>
-          <div class="menuItem">即时聊天</div>
-          <div class="menuItem">物联网</div>
+          <div class="menuLeft">
+            <div class="menuItem logo">
+              <img class="logoImg" src="~@/assets/logo_64.png" alt="">
+              <span class="logText">听心智能</span>
+            </div>
+            <div class="menuItem">点餐系统</div>
+            <div class="menuItem">即时聊天</div>
+            <div class="menuItem">物联网</div>
+          </div>
+          <div class="menuRight">
+            <div class="menuItem">关于我们</div>
+            <div class="menuItem">联系电话: 12345678901</div>
+          </div>
         </div>
+
+
       </div>
     </div>
 
@@ -16,7 +27,10 @@
         <div class="title">
           我们的产品
         </div>
-        <div class="subtitle">针对行业特征及细分业务场景深度定制，打造一站式解决方案</div>
+        <div class="subtitle">
+          <div>小程序+APP+代运营+精准投放一站式解决方案</div>
+          <div>针对行业特征及细分业务场景深度定制，打造一站式解决方案</div>
+        </div>
         <div class="productBox">
           <div class="productItem">
             <div class="productHeader">点餐系统</div>
@@ -105,9 +119,10 @@ const goFn = (name) => {
 .welcomeBox {
   height: 100vh;
   overflow: auto;
+  background: #f2f4f7;
 
   .header {
-    padding-bottom: 65px;
+    padding-bottom: 49px;
 
     .headerContainer {
       background: rgba(0, 0, 0, .85);
@@ -120,15 +135,52 @@ const goFn = (name) => {
 
       .container {
         display: flex;
-        height: 65px;
+        height: 49px;
         align-items: center;
+        justify-content: space-between;
 
-        .menuItem {
-          flex-shrink: 0;
-          flex-grow: 0;
-          margin: 0 20px;
-          font-size: 20px;
-          cursor: pointer;
+        .menuLeft {
+          display: flex;
+
+          .menuItem {
+            flex-shrink: 0;
+            flex-grow: 0;
+            margin: 0 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+          }
+
+          .logo {
+            .logoImg {
+              width: 30px;
+            }
+
+            .logText {
+              font-size: 18px;
+              margin-left: 6px;
+              color: #00a870;
+            }
+          }
+        }
+
+        .menuRight {
+          display: flex;
+
+          .menuItem {
+            flex-shrink: 0;
+            flex-grow: 0;
+            margin: 0 10px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+          }
         }
       }
 
