@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
-import {reactive, ref} from "vue";
-import {apiAdminMenu} from "@/api/api.js"
+import {ref} from "vue";
 
 /**
  * 配置模块
@@ -31,8 +30,10 @@ export const useConfigModule = defineStore('configModule', {
             show: false
         });
         const sqlModal = ref({
+            editor: true,
             show: true,
-            data: {}
+            data: {},
+            callBack: null
         });
         return {
             configPage,

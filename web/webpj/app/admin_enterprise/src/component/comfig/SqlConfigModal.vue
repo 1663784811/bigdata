@@ -168,9 +168,8 @@
 </template>
 
 <script setup>
-import {reactive, ref} from "vue";
-import {getSqlList, saveSql, delSql, loadColumn} from '@/api/api.js'
-import {Modal} from 'view-ui-plus'
+import {reactive, watch} from "vue";
+import {loadColumn, saveSql} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 
 
@@ -189,27 +188,26 @@ const state = reactive({
   }
 })
 
-const modalData = ref({
-  showModal: false,
-  editor: false,
-})
-
 // =====================================
 
 const Save = () => {
-  saveSql(state.sqlData.value).then((rest) => {
+  saveSql(state.sqlData).then((rest) => {
     console.log(rest);
     state.sqlData.value = rest.data;
-    loadTableData();
+    if (sqlModal.callBack) {
+      sqlModal.callBack();
+    }
     sqlModal.show = false;
   }).catch(err => {
-    console.log('dddd');
-
+    console.log(err);
   })
   return false;
 }
 const Cancel = () => {
   console.log('dddd')
+  if (sqlModal.callBack) {
+    sqlModal.callBack();
+  }
 }
 
 //======================================
@@ -220,6 +218,15 @@ const loadTableFn = () => {
     state.tableColumn = res.data;
   })
 }
+
+
+watch(() => sqlModal.show, (val) => {
+  if (val) {
+    state.sqlData = sqlModal.data;
+  } else {
+    sqlModal.callBack = null;
+  }
+})
 
 </script>
 <style scoped lang="less">

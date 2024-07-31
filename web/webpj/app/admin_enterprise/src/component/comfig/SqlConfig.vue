@@ -18,7 +18,7 @@
           <Table border ref="selection" :columns="tableData.columns" :data="tableData.data">
             <!--   表格操作  -->
             <template #operation="{ row, index }">
-              <Button size="small" type="info" @click="selectTableData(row,index,true)" style="margin-right: 5px">
+              <Button size="small" type="info" @click="selectTableData(row,index,false)" style="margin-right: 5px">
                 查看
               </Button>
               <Button size="small" type="warning" @click="selectTableData(row,index,true)" style="margin-right: 5px">
@@ -38,7 +38,7 @@
 
 <script setup>
 import {reactive, ref} from "vue";
-import {getSqlList, saveSql, delSql, loadColumn} from '@/api/api.js'
+import {delSql, getSqlList} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
 import {useConfigModule} from "@/store/configModule.js";
 
@@ -69,7 +69,10 @@ const search = () => {
 }
 
 const addData = () => {
+  sqlModal.editor = true;
   sqlModal.show = true;
+  sqlModal.data = {};
+  sqlModal.callBack = search;
 }
 
 
@@ -150,13 +153,13 @@ const loadTableData = () => {
 loadTableData();
 
 const selectTableData = (row, index, editor = false) => {
+  sqlModal.editor = editor;
   sqlModal.show = true;
-  sqlModal.data = editor;
-  console.log("sssssss")
+  sqlModal.data = row;
+  sqlModal.callBack = search;
   if (!row.type) {
     row.type = 0;
   }
-  sqlData.value = row;
 }
 /**
  * 删除数据
