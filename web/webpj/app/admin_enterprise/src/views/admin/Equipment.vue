@@ -9,7 +9,9 @@
 import {onMounted, reactive} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 import {useRoute} from "vue-router";
+import {useWinModal} from "@/store/winModal.js";
 
+const winMqtt = useWinModal().winMqtt;
 
 const route = useRoute();
 
@@ -35,10 +37,11 @@ const initFn = async () => {
 
 
 const eventFn = (dataObj) => {
-  if (dataObj.even === "sendData") {
-
-    console.log(dataObj)
-
+  const {even, data} = dataObj;
+  if (even === "sendData") {
+    winMqtt.code = data.code;
+    winMqtt.name = data.name;
+    winMqtt.show = true;
   }
 }
 
