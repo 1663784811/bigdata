@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "c_sql")
 @org.hibernate.annotations.Table(appliesTo = "c_sql", comment = "查询语句")
-public class CSql implements BaseEntity<Integer>,  Serializable {
+public class CSql implements BaseEntity<Integer>, Serializable {
     private static final long serialVersionUID = 1665182321135876L;
 
     @Id
@@ -67,6 +67,10 @@ public class CSql implements BaseEntity<Integer>,  Serializable {
     @Basic
     @Column(name = "del_sql", columnDefinition = "text COMMENT '删除sql内容'")
     private String delSql;
+
+    @Basic
+    @Column(name = "mount_fields", columnDefinition = "text COMMENT '外挂字段'")
+    private String mountFields;
 
     @Basic
     @Column(name = "login", columnDefinition = "int default '1' COMMENT '是否需要登录{0:否,1:是}'")

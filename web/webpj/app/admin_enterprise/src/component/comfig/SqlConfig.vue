@@ -1,8 +1,7 @@
 <template>
   <Modal
-      v-model="configModule.sqlConfig.show"
+      v-model="sqlConfig.show"
       title="SQL列表数据"
-      @on-cancel="modalData.Cancel()"
       :mask-closable="false"
       width="80wh"
   >
@@ -33,166 +32,6 @@
           </div>
         </div>
       </div>
-      <!--==================    ====================-->
-      <Modal
-          v-model="modalData.showModal"
-          title="保存SQL数据"
-          @on-ok="modalData.Save()"
-          @on-cancel="modalData.Cancel()"
-          :mask-closable="false"
-          :loading="true"
-          width="80wh"
-      >
-        <div class="modalBox">
-          <div class="sqlContent">
-            <div class="row">
-              <div class="label">ID</div>
-              <div class="content">
-                <Input v-model="sqlData.tid" placeholder="ID"/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">名称</div>
-              <div class="content">
-                <Input v-model="sqlData.name" placeholder="名称"/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">类型</div>
-              <div class="content">
-                <Select v-model="sqlData.type">
-                  <Option :value="0">查询</Option>
-                  <Option :value="1">保存</Option>
-                  <Option :value="2">删除</Option>
-                </Select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="label">是否需要登录</div>
-              <div class="content">
-                <Select v-model="sqlData.login">
-                  <Option :value="0">不需要</Option>
-                  <Option :value="1">需要</Option>
-                </Select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">状态</div>
-              <div class="content">
-                <Select v-model="sqlData.status">
-                  <Option :value="0">启用</Option>
-                  <Option :value="1">停用</Option>
-                </Select>
-              </div>
-            </div>
-            <div v-if="sqlData.type === 0">
-              <div class="row">
-                <div class="label">查询语句</div>
-                <div class="content">
-                  <Input v-model="sqlData.contentSql" placeholder="sql" type="textarea" :rows="8"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">统计数量</div>
-                <div class="content">
-                  <Input v-model="sqlData.countSql" placeholder="sql" type="textarea" :rows="8"/>
-                </div>
-              </div>
-            </div>
-            <div v-else-if="sqlData.type === 1">
-              <div class="row">
-                <div class="label">主表</div>
-                <div class="content">
-                  <Input v-model="sqlData.mainTable" placeholder="主表"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">主表ID</div>
-                <div class="content">
-                  <Input v-model="sqlData.mainId" placeholder="主表ID"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">插入语句</div>
-                <div class="content">
-                  <Input v-model="sqlData.insetSql" placeholder="sql" type="textarea" :rows="8"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">更新语句</div>
-                <div class="content">
-                  <Input v-model="sqlData.updateSql" placeholder="sql" type="textarea" :rows="8"/>
-                </div>
-              </div>
-            </div>
-            <div v-else-if="sqlData.type === 2">
-              <div class="row">
-                <div class="label">主表</div>
-                <div class="content">
-                  <Input v-model="sqlData.mainTable" placeholder="主表"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">主表ID</div>
-                <div class="content">
-                  <Input v-model="sqlData.mainId" placeholder="主表ID"/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="label">删除语句:</div>
-                <div class="content">
-                  <Input v-model="sqlData.delSql" placeholder="delSql" type="textarea" :rows="8"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="label">备注</div>
-              <div class="content">
-                <Input v-model="sqlData.note" placeholder="备注" type="textarea" :rows="8"/>
-              </div>
-            </div>
-
-          </div>
-          <div class="sqlNote">
-            <p>[&] ---&gt; 必传参</p>
-            <p>[:=] ----&gt; 别名 [别名:=数据库字段]</p>
-            <p>[] ---&gt; =</p>
-            <p>[@] ---&gt; in</p>
-            <p>[!@] ----&gt; not in</p>
-            <p>[%] ----&gt; like</p>
-            <p>[L%] ----&gt; like</p>
-            <p>[R%] ----&gt; like</p>
-            <p>[!%] ----&gt; not like</p>
-            <p>[!!&lt;=] ----&gt; 大于等于</p>
-            <p>[!!&lt;=] ----&gt; 小于等于</p>
-
-            <div>----------------------------------</div>
-            <div>----------------------------------</div>
-            <div>内置变量</div>
-            <div>__user_eCode:登录所在的企业</div>
-            <div>__user_appId:登录所在的app</div>
-            <div>__user_uId:用户ID</div>
-            <div>__user_account:用户账号</div>
-            <div>__user_name:用户名</div>
-
-          </div>
-          <div style="width: 500px">
-            <div style="display: flex">
-              <Input placeholder="主表" v-model="state.mainTable"/>
-              <Button size="small" type="warning" style="margin-right: 5px" @click="loadTableFn">加载表字段</Button>
-            </div>
-            <div>
-              <p v-for="(it, index) in state.tableColumn" :key="index">{{ it }}</p>
-            </div>
-            <div>-------------------------</div>
-            <div>
-              <span v-for="(it, index) in state.tableColumn" :key="index">{{ it }}</span>
-            </div>
-          </div>
-        </div>
-
-      </Modal>
     </div>
   </Modal>
 </template>
@@ -203,8 +42,7 @@ import {getSqlList, saveSql, delSql, loadColumn} from '@/api/api.js'
 import {Modal} from 'view-ui-plus'
 import {useConfigModule} from "@/store/configModule.js";
 
-
-const configModule = useConfigModule();
+const {sqlConfig, sqlModal} = useConfigModule();
 
 const state = reactive({
   mainTable: '',
@@ -215,23 +53,14 @@ const pageData = ref({
   total: 0,
   size: 10,
   lk_name: '',
-  lk_tid: ''
+  lk_tid: '',
+  sort: 'createTime_desc'
 });
 
 const changePage = (page) => {
   pageData.value.page = page;
   loadTableData();
 }
-
-// ====================================
-
-let sqlData = ref({
-  tid: '',
-  name: '',
-  contentSql: '',
-  countSql: '',
-  type: 0
-});
 
 // =====================================  搜索
 const search = () => {
@@ -240,8 +69,7 @@ const search = () => {
 }
 
 const addData = () => {
-  sqlData.value = {};
-  modalData.value.showModal = true;
+  sqlModal.show = true;
 }
 
 
@@ -322,8 +150,8 @@ const loadTableData = () => {
 loadTableData();
 
 const selectTableData = (row, index, editor = false) => {
-  modalData.value.showModal = true;
-  modalData.value.editor = editor;
+  sqlModal.show = true;
+  sqlModal.data = editor;
   console.log("sssssss")
   if (!row.type) {
     row.type = 0;
@@ -348,39 +176,6 @@ const delTableData = (row, index) => {
     },
   });
 
-}
-// =====================================
-
-const Save = () => {
-  saveSql(sqlData.value).then((rest) => {
-    console.log(rest);
-    sqlData.value = rest.data;
-    loadTableData();
-    modalData.value.showModal = false;
-  }).catch(err => {
-    console.log('dddd');
-
-  })
-  return false;
-}
-const Cancel = () => {
-  console.log('dddd')
-}
-
-const modalData = ref({
-  showModal: false,
-  editor: false,
-  Save,
-  Cancel
-})
-//======================================
-const loadTableFn = () => {
-  console.log('aaaaaaaaaaaa')
-  loadColumn({
-    table: state.mainTable
-  }).then(res => {
-    state.tableColumn = res.data;
-  })
 }
 
 </script>
@@ -433,38 +228,4 @@ const loadTableFn = () => {
   }
 }
 
-.modalBox {
-  display: flex;
-  min-height: 50vh;
-
-  .sqlContent {
-    flex: 1;
-
-    .row {
-      display: flex;
-      padding: 10px;
-      margin-bottom: 10px;
-      background: #f0f0f0;
-
-      .label {
-        width: 100px;
-        padding: 0 10px;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-items: right;
-      }
-
-      .content {
-        flex: 1;
-      }
-    }
-  }
-
-  .sqlNote {
-    width: 220px;
-    margin: 0 10px;
-    padding: 10px;
-  }
-}
 </style>

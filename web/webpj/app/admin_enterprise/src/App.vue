@@ -8,6 +8,7 @@
   <modal-upload-files/>
   <modal-mqtt-msg/>
   <modal-icon/>
+  <sql-config-modal/>
 </template>
 <script setup>
 // 文件管理
@@ -18,6 +19,8 @@ import SelectPanel from '@/component/modal/SelectPanel.vue'
 import ConfigDrawer from '@/component/comfig/ConfigDrawer.vue'
 // sql配置
 import SqlConfig from '@/component/comfig/SqlConfig.vue'
+import SqlConfigModal from '@/component/comfig/SqlConfigModal.vue'
+
 
 import CommonModalDataList from '@/component/modal/CommonModalDataList.vue'
 // 上传文件
