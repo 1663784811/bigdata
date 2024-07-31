@@ -1,7 +1,7 @@
 <!--       图列表弹出层        -->
 <template>
   <Modal
-      v-model="modalData.show"
+      v-model="winMqtt.show"
       title="Mqtt 连接 "
       @on-ok="eventFn('ok')"
       @on-cancel="eventFn('cancel')"
@@ -70,11 +70,11 @@
     <template #footer>
       <div class="chatFooter">
         <div>
-          <Input placeholder="请输入要发送的数据" :rows="4" type="textarea"/>
+          <Input v-model="state.inputData" placeholder="请输入要发送的数据" :rows="4" type="textarea"/>
         </div>
         <div class="btnBox">
           <div>状态: 已连接服务器</div>
-          <Button type="success">发送</Button>
+          <Button type="success" :loading="state.loading" @click="publishMsg">发送</Button>
         </div>
       </div>
     </template>
@@ -85,7 +85,15 @@
 import mqtt from "mqtt";
 import {defineEmits, onMounted, reactive, ref, watch} from "vue";
 
+import {useWinModal} from "@/store/winModal.js";
+
+
+const winMqtt = useWinModal().winMqtt;
+
 const emits = defineEmits(['event', 'update:modelValue']);
+
+let client;
+const clientId = 'client.web.web3';
 
 const props = defineProps({
   modelValue: {
@@ -99,7 +107,11 @@ const props = defineProps({
   }
 });
 
-const state = reactive({})
+const state = reactive({
+  loading: false,
+  oaaArr: [],
+  inputData: ''
+})
 const modalData = ref({
   loading: true,
   show: true,
@@ -113,12 +125,12 @@ onMounted(() => {
 })
 
 const initMqtt = () => {
-  const client = mqtt.connect("ws://192.168.0.158:15675/ws", {
-    clientId: 'my_unique_client_id', // 客户端ID
+  client = mqtt.connect("ws://192.168.0.158:15675/ws", {
+    clientId: clientId, // 客户端ID
     username: 'admin', // 用户名
     password: '123456', // 密码
-    keepalive: 60, // 保持连接的时间间隔
-    clean: true, // 是否清理会话
+    keepalive: 6, // 保持连接的时间间隔
+    clean: false, // 是否清理会话
   });
 
   client.on('connect', () => console.log('Connected to MQTT Broker.'));
@@ -126,15 +138,20 @@ const initMqtt = () => {
   client.on('offline', () => console.log('We are offline.'));
   client.on('reconnect', () => console.log('Reconnecting...'));
 
-  // publish a message
-  client.publish('mqtt/test', 'Hello MQTT');
-
-  // subscribe to a topic
-  client.subscribe('mqtt/test');
-  // handle messages
   client.on('message', (topic, message) => {
     console.log(`Received message on ${topic}: ${message}`);
   });
+  client.subscribe(clientId);
+}
+
+const publishMsg = () => {
+  state.loading = true;
+  const inputData = state.inputData;
+  if (inputData && inputData.length > 0) {
+    client.publish('mqtt_service.client.equipment.aaaaaa', `${inputData}`);
+    state.inputData = ''
+  }
+  state.loading = false;
 }
 
 

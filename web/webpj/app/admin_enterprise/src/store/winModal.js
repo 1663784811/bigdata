@@ -12,6 +12,9 @@ import {pageSetting} from "@/api/api.js";
 
 
 export const useWinModal = defineStore('useWinModal', {
+    persist: {
+        enabled: false
+    },
     state: () => {
         const winData = ref({
             url: '',
@@ -20,18 +23,13 @@ export const useWinModal = defineStore('useWinModal', {
             show: false,
             pageCode: '',
             loading: true,
-            changeDataFn:null,
-            saveAfterFn:null,
+            changeDataFn: null,
+            saveAfterFn: null,
         });
         const winMqtt = ref({
-            url: '',
-            columns: [],
             data: {},
-            show: false,
-            pageCode: '',
-            loading: true,
-            changeDataFn:null,
-            saveAfterFn:null,
+            show: true,
+            callBack: null
         });
 
         return {

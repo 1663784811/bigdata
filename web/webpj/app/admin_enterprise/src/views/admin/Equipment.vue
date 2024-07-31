@@ -36,6 +36,9 @@ const initFn = async () => {
 
 const eventFn = (dataObj) => {
   if (dataObj.even === "sendData") {
+
+    console.log(dataObj)
+
   }
 }
 

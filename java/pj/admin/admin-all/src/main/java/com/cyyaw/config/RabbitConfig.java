@@ -106,7 +106,7 @@ public class RabbitConfig {
 
     @Bean
     public Binding bindingMqtt() {
-        return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("mqtt_service").noargs();
+        return BindingBuilder.bind(mqttQueue()).to(mqttExchange()).with("mqtt_service.#").noargs();
     }
 
     @Bean

@@ -26,4 +26,16 @@ public class MqttService {
             log.error("错误", e.getMessage());
         }
     }
+
+
+    public void sendData(String topic, String data) {
+        MqttMessage message = new MqttMessage();
+        message.setQos(1);
+        message.setPayload(data.getBytes());
+        try {
+            mqttClient.publish(topic, message);
+        } catch (Exception e) {
+            log.error("错误", e.getMessage());
+        }
+    }
 }

@@ -10,6 +10,7 @@ import com.cyyaw.web.service.EqEquipmentService;
 import com.cyyaw.web.table.entity.EqEquipment;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -40,6 +41,10 @@ public class RabbitMQService {
 
 
     @Autowired
+    private MqttService mqttService;
+
+
+    @Autowired
     private EqEquipmentService eqEquipmentService;
 
     public void sendMessage(String message) {
@@ -53,20 +58,30 @@ public class RabbitMQService {
 
     @RabbitListener(queues = RabbitConfig.MQTT_QUEUE)
     public void listenSimpleQueueMessage(Message message, Channel channel) throws IOException {
-        long tag = message.getMessageProperties().getDeliveryTag();
+        MessageProperties msp = message.getMessageProperties();
+        long tag = msp.getDeliveryTag();
+        String routingKey = msp.getReceivedRoutingKey();
         String data = new String(message.getBody());
         System.out.println("spring 消费者接收到消息 ：【" + data + "】");
-        if (data.length() > 0) {
-            JSONObject json = new JSONObject(data);
-            MsgData msgData = json.toBean(MsgData.class);
-            String type = msgData.getType();
-            for (String key : msgHandleMap.keySet()) {
-                MsgHandle msgHandle = msgHandleMap.get(key);
-                if (msgHandle.getHandleCode().equals(type)) {
-                    msgHandle.handle(msgData.getFrom(), msgData.getTo(), msgData.getData());
-                }
-            }
+
+        int index = routingKey.indexOf("mqtt_service.");
+        if (index != -1) {
+            String topic = routingKey.replace("mqtt_service.", "");
+            mqttService.sendData(topic, data);
         }
+
+//        if (data.length() > 0) {
+//            JSONObject json = new JSONObject(data);
+//            MsgData msgData = json.toBean(MsgData.class);
+//            String type = msgData.getType();
+//            for (String key : msgHandleMap.keySet()) {
+//                MsgHandle msgHandle = msgHandleMap.get(key);
+//                if (msgHandle.getHandleCode().equals(type)) {
+//                    msgHandle.handle(msgData.getFrom(), msgData.getTo(), msgData.getData());
+//                }
+//            }
+//        }
+
 
         try {
             channel.basicAck(tag, false);
@@ -91,7 +106,7 @@ public class RabbitMQService {
                 id = split[2].replace("<<\"", "").replace("\">>}", "").replace("chat_application_", "");
             }
         }
-        if(id.indexOf("rabbitConnectionFactory") == -1){
+        if (id.indexOf("rabbitConnectionFactory") == -1) {
             if ("connection.created".equals(receivedRoutingKey)) {
                 messageProperties.getHeader("queue");
                 // 通知 我的好友 在线
