@@ -11,7 +11,6 @@ import CommonTable from '@/component/CommonTable.vue'
 import SelectDataDrawer from '@/component/modal/SelectDataDrawer.vue'
 import DataTable from '@/component/modal/DataTable.vue'
 import ModalDataList from '@/component/modal/ModalDataList.vue'
-import ModalTable from '@/component/modal/ModalTable.vue'
 import ModalMqttMsg from '@/component/modal/ModalMqttMsg.vue'
 import ModalIcon from '@/component/modal/ModalIcon.vue'
 
@@ -34,7 +33,6 @@ app.use(pinia);
 
 // ================== 被组件调用的组件
 app.component('modal-data-list', ModalDataList)
-app.component('modal-table', ModalTable)
 app.component('modal-mqtt-msg', ModalMqttMsg)
 app.component('modal-icon', ModalIcon)
 
