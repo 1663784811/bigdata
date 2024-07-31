@@ -21,11 +21,11 @@
     <template #footer>
       <div class="chatFooter">
         <div>
-          <Input v-model="state.inputData" placeholder="请输入要发送的数据" :rows="4" type="textarea"/>
+          <Input v-model="state.inputData" placeholder="请输入要发送的数据" :rows="4" type="textarea" @on-change="changeInput"/>
         </div>
         <div class="btnBox">
           <div>状态: {{ state.statusText }}</div>
-          <Button type="success" :loading="state.loading" @click="publishMsg">发送</Button>
+          <Button type="success" :loading="state.loading" :disabled="state.disable" @click="publishMsg">发送</Button>
         </div>
       </div>
     </template>
@@ -56,6 +56,7 @@ const props = defineProps({
 
 const state = reactive({
   loading: false,
+  disable: true,
   logDataArr: [],
   inputData: '',
   modalData: {},
@@ -96,7 +97,7 @@ const initMqtt = () => {
     state.statusText = '正在重新连接';
   });
   client.on('close', () => {
-    state.statusText = '连接已关闭ss';
+    state.statusText = '连接已关闭';
   });
   client.on('message', (topic, message) => {
     console.log(`接收：主题 ${topic}: 内容 ${message}`);
@@ -113,18 +114,31 @@ const initMqtt = () => {
  */
 const publishMsg = () => {
   state.loading = true;
-  const inputData = state.inputData;
-  if (inputData && inputData.length > 0) {
-    client.publish(`mqtt_service.${winMqtt.code}`, `${inputData}`);
-    state.inputData = ''
-    state.logDataArr.push({
-      send: true,
-      data: inputData
-    });
+  if (client.connected) {
+    const inputData = state.inputData;
+    if (inputData && inputData.length > 0) {
+      client.publish(`mqtt_service.${winMqtt.code}`, `${inputData}`);
+      state.inputData = ''
+      state.logDataArr.push({
+        send: true,
+        data: inputData
+      });
+    }
+  } else {
+    state.statusText = '连接已关闭';
   }
   state.loading = false;
 }
 
+
+const changeInput = () => {
+  const inputData = state.inputData;
+  if (inputData && inputData.length > 0) {
+    state.disable = false;
+  } else {
+    state.disable = true;
+  }
+}
 
 watch(() => winMqtt.show, (val) => {
   if (val) {
