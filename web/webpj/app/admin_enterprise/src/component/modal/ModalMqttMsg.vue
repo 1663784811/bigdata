@@ -38,13 +38,16 @@ import {defineEmits, onMounted, reactive, watch} from "vue";
 
 import {useWinModal} from "@/store/winModal.js";
 
+const MQTT_URL = import.meta.env.VITE_MQTT_URL;
+const MQTT_USER_NAME = import.meta.env.VITE_MQTT_USER_NAME;
+const MQTT_PASSWORD = import.meta.env.VITE_MQTT_PASSWORD;
+const MQTT_CLIENTID = import.meta.env.VITE_MQTT_CLIENTID;
 
 const winMqtt = useWinModal().winMqtt;
-
 const emits = defineEmits(['event', 'update:modelValue']);
 
+
 let client;
-const clientId = 'client.web.web3';
 
 const props = defineProps({
   modalSetting: {
@@ -72,10 +75,10 @@ onMounted(() => {
 
 const initMqtt = () => {
   state.statusText = '正在初始化....';
-  client = mqtt.connect("ws://192.168.0.158:15675/ws", {
-    clientId: clientId, // 客户端ID
-    username: 'admin', // 用户名
-    password: '123456', // 密码
+  client = mqtt.connect(MQTT_URL, {
+    clientId: MQTT_CLIENTID, // 客户端ID
+    username: MQTT_USER_NAME, // 用户名
+    password: MQTT_PASSWORD, // 密码
     keepalive: 60, // 保持连接的时间间隔
     clean: false, // 是否清理会话
   });
@@ -106,7 +109,7 @@ const initMqtt = () => {
       data: message
     });
   });
-  client.subscribe(clientId);
+  client.subscribe(MQTT_CLIENTID);
 }
 
 /**
