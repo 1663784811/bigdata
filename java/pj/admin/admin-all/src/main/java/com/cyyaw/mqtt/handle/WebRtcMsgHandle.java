@@ -28,9 +28,8 @@ public class WebRtcMsgHandle {
     public static ConcurrentHashMap<String, RoomInfo> rooms = new ConcurrentHashMap<>();
 
 
-
-    public void handle(String from, String to, String data) {
-        System.out.println("==========" + from + to + data);
+    public void handle(String to, String data) {
+        System.out.println("==========" + to + data);
         EventData eventData = new JSONObject(data).toBean(EventData.class);
 
         switch (eventData.getEventName()) {

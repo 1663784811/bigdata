@@ -75,11 +75,7 @@ public class RabbitMQService {
                 chatMsgHandle.handle(from, to, msg);
             } else if (strArr.length > 1 && strArr[1].equals("webrtc")) {
                 String to = routingKey.replace("mqtt_service.webrtc.", "");
-                JSONObject json = new JSONObject(data);
-                MsgData msgData = json.toBean(MsgData.class);
-                String from = msgData.getFrom();
-                String msg = msgData.getData();
-                webRtcMsgHandle.handle(from, to, msg);
+                webRtcMsgHandle.handle(to, data);
             } else {
                 String topic = routingKey.replace("mqtt_service.", "");
                 mqttService.sendData(topic, data);
