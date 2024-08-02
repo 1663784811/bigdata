@@ -4,7 +4,6 @@ package com.cyyaw.mqtt.handle;
 import cn.hutool.json.JSONObject;
 import com.cyyaw.mqtt.MqttService;
 import com.cyyaw.mqtt.MsgData;
-import com.cyyaw.mqtt.MsgType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -355,7 +354,7 @@ public class WebRtcMsgHandle {
         msgData.setData(data);
         msgData.setFrom("");
         msgData.setTo(userId);
-        mqttService.send(userId, new JSONObject(msgData).toString());
+        mqttService.sendWebrtc(userId, new JSONObject(msgData).toString());
     }
 
 

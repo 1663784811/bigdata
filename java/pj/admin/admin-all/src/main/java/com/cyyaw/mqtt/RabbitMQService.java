@@ -68,17 +68,13 @@ public class RabbitMQService {
         if (strArr.length > 0 && strArr[0].equals("mqtt_service")) {
             if (strArr.length > 1 && strArr[1].equals("chat")) {
                 String to = routingKey.replace("mqtt_service.chat.", "");
-                JSONObject json = new JSONObject(data);
-                MsgData msgData = json.toBean(MsgData.class);
-                String from = msgData.getFrom();
-                String msg = msgData.getData();
-                chatMsgHandle.handle(from, to, msg);
+                chatMsgHandle.handle(to, data);
             } else if (strArr.length > 1 && strArr[1].equals("webrtc")) {
                 String to = routingKey.replace("mqtt_service.webrtc.", "");
                 webRtcMsgHandle.handle(to, data);
             } else {
                 String topic = routingKey.replace("mqtt_service.", "");
-                mqttService.sendData(topic, data);
+                mqttService.send(topic, data);
             }
         }
         try {

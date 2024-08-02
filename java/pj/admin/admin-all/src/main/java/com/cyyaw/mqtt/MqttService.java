@@ -16,19 +16,17 @@ public class MqttService {
     @Autowired
     private MqttClient mqttClient;
 
-    public void send(String userId, String data) {
-        MqttMessage message = new MqttMessage();
-        message.setQos(1);
-        message.setPayload(data.getBytes());
-        try {
-            mqttClient.publish("chat_application_" + userId, message);
-        } catch (Exception e) {
-            log.error("错误", e.getMessage());
-        }
+    public void sendWebrtc(String userId, String data) {
+        send("webrtc." + userId, data);
     }
 
 
-    public void sendData(String topic, String data) {
+    public void sendChat(String userId, String data) {
+        send("chat." + userId, data);
+    }
+
+
+    public void send(String topic, String data) {
         MqttMessage message = new MqttMessage();
         message.setQos(1);
         message.setPayload(data.getBytes());
