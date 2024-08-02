@@ -64,17 +64,16 @@ public class RabbitMQService {
         String data = new String(message.getBody());
         System.out.println("spring 消费者接收到消息 ：【" + data + "】");
 
-        String[] strArr = routingKey.split(".");
-
-        if (strArr[0].equals("mqtt_service")) {
-            if (strArr.length > 2 && strArr[1].equals("chat")) {
+        String[] strArr = routingKey.split("\\.");
+        if (strArr.length > 0 && strArr[0].equals("mqtt_service")) {
+            if (strArr.length > 1 && strArr[1].equals("chat")) {
                 String to = routingKey.replace("mqtt_service.chat.", "");
                 JSONObject json = new JSONObject(data);
                 MsgData msgData = json.toBean(MsgData.class);
                 String from = msgData.getFrom();
                 String msg = msgData.getData();
                 chatMsgHandle.handle(from, to, msg);
-            } else if (strArr.length > 2 && strArr[1].equals("webrtc")) {
+            } else if (strArr.length > 1 && strArr[1].equals("webrtc")) {
                 String to = routingKey.replace("mqtt_service.webrtc.", "");
                 JSONObject json = new JSONObject(data);
                 MsgData msgData = json.toBean(MsgData.class);
