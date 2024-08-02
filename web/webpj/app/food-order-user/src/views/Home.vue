@@ -83,9 +83,9 @@ const state = reactive({
 })
 
 onMounted(async () => {
-  if (userStore.token) {
+  // if (userStore.token) {
     state.isLogin = true;
-  }
+  // }
   goodsType();
   findMyCartFn();
 })

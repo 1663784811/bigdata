@@ -59,11 +59,18 @@
             </div>
           </div>
           <div>
-            <div>
+            <Button size="small" type="success" icon="md-add"/>
+            <div class="mountFieldsBox">
               <div>外挂字段</div>
-              <div><Input type="text"/>字段</div>
-              <div><Input type="text"/>sql</div>
-              <div><Input type="text"/>关联</div>
+              <div>
+                <Input type="text" placeholder="字段"/>
+              </div>
+              <div>
+                <Input type="textarea" placeholder="sql"/>
+              </div>
+              <div>
+                <Input type="textarea" placeholder="关联"/>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -256,6 +263,10 @@ watch(() => sqlModal.show, (val) => {
       .content {
         flex: 1;
       }
+    }
+
+    .mountFieldsBox {
+      background: #ccc;
     }
   }
 

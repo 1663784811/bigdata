@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
-public class WebRtcMsgHandle implements MsgHandle {
+public class WebRtcMsgHandle {
 
     @Autowired
     private MqttService mqttService;
@@ -28,12 +28,7 @@ public class WebRtcMsgHandle implements MsgHandle {
     public static ConcurrentHashMap<String, RoomInfo> rooms = new ConcurrentHashMap<>();
 
 
-    @Override
-    public String getHandleCode() {
-        return MsgType.WEBRTC.getCode();
-    }
 
-    @Override
     public void handle(String from, String to, String data) {
         System.out.println("==========" + from + to + data);
         EventData eventData = new JSONObject(data).toBean(EventData.class);
@@ -358,7 +353,6 @@ public class WebRtcMsgHandle implements MsgHandle {
     private void sendMsg(UserBean userBean, String data) {
         String userId = userBean.getUserId();
         MsgData msgData = new MsgData();
-        msgData.setType("webrtc");
         msgData.setData(data);
         msgData.setFrom("");
         msgData.setTo(userId);

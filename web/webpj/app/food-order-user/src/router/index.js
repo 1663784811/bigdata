@@ -45,19 +45,20 @@ const router = createRouter({
 
 router.beforeEach(({meta = {}, name, params}, from, next) => {
     const {title, notLogin} = meta;
-    if (title) document.title = title;
-    const useUser = useUserStore();
-    let token = useUser.token;
-    if (!token && !notLogin) {
-        // 未登录
-        if (params.appid) {
-            next({name: 'selectNumber', params})
-        } else {
-            next({name: 'welcomePage'})
-        }
-    } else {
-        next()
-    }
+    console.log(meta)
+    // if (title) document.title = title;
+    // const useUser = useUserStore();
+    // let token = useUser.token;
+    // if (!token && !notLogin) {
+    //     // 未登录
+    //     if (params.appid) {
+    //         next({name: 'selectNumber', params})
+    //     } else {
+    //         next({name: 'welcomePage'})
+    //     }
+    // } else {
+    //     next()
+    // }
 });
 
 

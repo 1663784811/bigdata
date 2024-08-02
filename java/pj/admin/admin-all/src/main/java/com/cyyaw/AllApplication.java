@@ -1,8 +1,6 @@
 package com.cyyaw;
 
 import cn.hutool.core.util.StrUtil;
-import com.cyyaw.data.PageSettingData;
-import com.cyyaw.mqtt.handle.MsgHandle;
 import com.cyyaw.service.StWordService;
 import com.cyyaw.spider.table.dao.StWordDao;
 import com.cyyaw.spider.table.entity.StWord;
@@ -38,10 +36,6 @@ public class AllApplication {
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
 
 //         run.getBean(PageSettingData.class).pageComponentsToComponentsObj();
-
-
-        Map<String, MsgHandle> beansOfType = run.getBeansOfType(MsgHandle.class);
-
     }
 
 

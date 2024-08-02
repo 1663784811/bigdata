@@ -1,8 +1,9 @@
 package com.cyyaw.mqtt;
 
 import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.config.RabbitConfig;
-import com.cyyaw.mqtt.handle.MsgHandle;
+import com.cyyaw.mqtt.handle.ChatMsgHandle;
 import com.cyyaw.mqtt.handle.UserBean;
 import com.cyyaw.mqtt.handle.WebRtcMsgHandle;
 import com.cyyaw.web.service.EqEquipmentService;
@@ -34,8 +35,10 @@ public class RabbitMQService {
     private AmqpTemplate amqpTemplate;
 
     @Autowired
-    private Map<String, MsgHandle> msgHandleMap;
+    private ChatMsgHandle chatMsgHandle;
 
+    @Autowired
+    private WebRtcMsgHandle webRtcMsgHandle;
 
     @Autowired
     private MqttService mqttService;
@@ -61,25 +64,28 @@ public class RabbitMQService {
         String data = new String(message.getBody());
         System.out.println("spring 消费者接收到消息 ：【" + data + "】");
 
-        int index = routingKey.indexOf("mqtt_service.");
-        if (index != -1) {
-            String topic = routingKey.replace("mqtt_service.", "");
-            mqttService.sendData(topic, data);
+        String[] strArr = routingKey.split(".");
+
+        if (strArr[0].equals("mqtt_service")) {
+            if (strArr.length > 2 && strArr[1].equals("chat")) {
+                String to = routingKey.replace("mqtt_service.chat.", "");
+                JSONObject json = new JSONObject(data);
+                MsgData msgData = json.toBean(MsgData.class);
+                String from = msgData.getFrom();
+                String msg = msgData.getData();
+                chatMsgHandle.handle(from, to, msg);
+            } else if (strArr.length > 2 && strArr[1].equals("webrtc")) {
+                String to = routingKey.replace("mqtt_service.webrtc.", "");
+                JSONObject json = new JSONObject(data);
+                MsgData msgData = json.toBean(MsgData.class);
+                String from = msgData.getFrom();
+                String msg = msgData.getData();
+                webRtcMsgHandle.handle(from, to, msg);
+            } else {
+                String topic = routingKey.replace("mqtt_service.", "");
+                mqttService.sendData(topic, data);
+            }
         }
-
-//        if (data.length() > 0) {
-//            JSONObject json = new JSONObject(data);
-//            MsgData msgData = json.toBean(MsgData.class);
-//            String type = msgData.getType();
-//            for (String key : msgHandleMap.keySet()) {
-//                MsgHandle msgHandle = msgHandleMap.get(key);
-//                if (msgHandle.getHandleCode().equals(type)) {
-//                    msgHandle.handle(msgData.getFrom(), msgData.getTo(), msgData.getData());
-//                }
-//            }
-//        }
-
-
         try {
             channel.basicAck(tag, false);
         } catch (IOException e) {

@@ -9,8 +9,6 @@ import lombok.Data;
 @Data
 public class MsgData {
 
-    private String type;
-
     private String data;
 
     private String from;

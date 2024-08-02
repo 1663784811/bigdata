@@ -14,25 +14,17 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class ChatMsgHandle implements MsgHandle {
+public class ChatMsgHandle {
 
     @Autowired
     private MqttService mqttService;
 
-    @Override
-    public String getHandleCode() {
-        return MsgType.CHAT.getCode();
-    }
 
-    @Override
     public void handle(String from, String to, String data) {
-
         MsgData msgData = new MsgData();
-        msgData.setType(MsgType.CHAT.getCode());
         msgData.setData(data);
         msgData.setFrom(from);
         msgData.setTo(to);
-
         mqttService.send(to, new JSONObject(msgData).toString());
     }
 
