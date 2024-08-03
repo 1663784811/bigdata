@@ -15,13 +15,11 @@
       <div>操作对象</div>
       <div>
         显示
-        <div v-if="setting.queryRequest">
-          查询地址: <Input v-model="setting.queryRequest.url" placeholder="查询地址" clearable/>
-        </div>
-        <div v-if="setting.delRequest">
-          删除地址: <Input v-model="setting.delRequest.url" placeholder="删除地址" clearable/>
-        </div>
+        <ObjRequest :setting="setting.queryRequest" title="查询地址"/>
+        <ObjRequest :setting="setting.delRequest" title="删除地址"/>
       </div>
+
+
       <draggable
           ghost-class="ghost"
           chosen-class="chosenClass"
@@ -77,6 +75,7 @@
 
 <script setup>
 import draggable from "vuedraggable";
+import ObjRequest from './ObjRequest.vue'
 
 const emits = defineEmits(['showCode', 'update:modelValue']);
 const props = defineProps({

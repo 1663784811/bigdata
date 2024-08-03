@@ -1,5 +1,5 @@
 <template>
-  <div class="configBox">
+  <div class="configBox" v-if="setting">
     <div class="headerBox">
       <div></div>
       <div>
@@ -62,18 +62,12 @@
       </draggable>
     </div>
   </div>
-  <Modal v-model="state.showCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
-    <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
-  </Modal>
 </template>
 
 <script setup>
 import draggable from "vuedraggable";
-import {inject, onMounted, reactive} from "vue";
 
 const emits = defineEmits(['showCode', 'update:modelValue']);
-
-
 const props = defineProps({
   setting: {
     type: Object,
@@ -83,32 +77,10 @@ const props = defineProps({
     required: false
   }
 });
-
-
-const state = reactive({
-  showCode: {
-    show: false,
-    data: '',
-  }
-})
-
-
-onMounted(() => {
-  initFn();
-})
-
 const showCodeTableFn = (modal) => {
   emits('showCode');
 }
-
-
-const initFn = () => {
-
-}
-
-
 </script>
-
 <style scoped lang="less">
 .configBox {
   .headerBox {

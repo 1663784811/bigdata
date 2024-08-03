@@ -7,22 +7,22 @@
   <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
     <TabPane label="查询" name="查询">
       <div>
-        sss
+        <ObjRequest :setting="state.queryObj" title="查询地址"/>
       </div>
     </TabPane>
     <TabPane label="添加" name="添加">
       <div class="configBox">
-        <ObjSave :setting="state.addObj" />
+        <ObjSave :setting="state.addObj"/>
       </div>
     </TabPane>
     <TabPane label="更新" name="更新">
       <div class="configBox">
-        <ObjSave :setting="state.updateObj" />
+        <ObjSave :setting="state.updateObj"/>
       </div>
     </TabPane>
     <TabPane label="删除" name="删除">
-      <div class="configBox">
-        木ssdddddd
+      <div>
+        <ObjRequest :setting="state.delObj" title="删除地址"/>
       </div>
     </TabPane>
   </Tabs>
@@ -32,6 +32,9 @@
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
 import ObjSave from './com/ObjSave.vue'
+import ObjRequest from './com/ObjRequest.vue'
+
+
 import {reactive, onMounted, watch, ref, provide} from 'vue'
 import {Input, Message} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'
@@ -42,7 +45,6 @@ import {useWinModal} from '@/store/winModal.js'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;
-
 
 
 const props = defineProps({
@@ -62,11 +64,26 @@ const state = reactive({
     }
   },
   // ===============  添加
-  addObj: {},
+  addObj: {
+    url: "/appAdmin/{appid}/common/del",
+    parameter: {
+      code: ""
+    }
+  },
   // ===============  更新
-  updateObj: {},
+  updateObj: {
+    url: "/appAdmin/{appid}/common/del",
+    parameter: {
+      code: ""
+    }
+  },
   // ===============  删除
-  delObj: {},
+  delObj: {
+    url: "/appAdmin/{appid}/common/del",
+    parameter: {
+      code: ""
+    }
+  },
   // ===============
 })
 
