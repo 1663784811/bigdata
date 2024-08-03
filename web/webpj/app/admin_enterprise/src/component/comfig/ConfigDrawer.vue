@@ -40,6 +40,10 @@
     <div class="dataTree" v-if="configModule.configPage.select === 'dataTree'">
       <ConfigDataTree :setting="configModule.configPage.data"/>
     </div>
+    <!--  数据树  -->
+    <div class="dataTree" v-if="configModule.configPage.select === 'pageForm'">
+      <ConfigPageForm :setting="configModule.configPage.data"/>
+    </div>
   </Drawer>
   <!-- ======================= -->
   <div class="configOperation" v-show="configModule.configPage.showOperation">
@@ -78,6 +82,7 @@
 import ConfigNewTable from './configPage/ConfigNewTable.vue'
 import ConfigSelectData from './configPage/ConfigSelectData.vue'
 import ConfigDataTree from './configPage/ConfigDataTree.vue'
+import ConfigPageForm from './configPage/ConfigPageForm.vue'
 
 
 import {onMounted, reactive} from "vue";
@@ -417,6 +422,10 @@ const initSave = () => {
         {
           "value": "dataTree",
           "label": "数据树"
+        },
+        {
+          "value": "pageForm",
+          "label": "页面表单"
         }
       ],
     },

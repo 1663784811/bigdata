@@ -26,7 +26,7 @@
 </template>
 <script setup>
 
-import { ref, watch} from "vue";
+import {ref, watch} from "vue";
 import {loadTable} from "@/api/api.js";
 
 const emits = defineEmits(['event', "update:modelValue"]);
@@ -61,10 +61,6 @@ const dataLoad = ref({
   selectData: {},
   selectType: [
     {
-      value: 'commonTable',
-      label: '公共表格'
-    },
-    {
       value: 'newTable',
       label: '新表格'
     },
@@ -75,6 +71,10 @@ const dataLoad = ref({
     {
       value: 'column',
       label: '字段数据'
+    },
+    {
+      value: 'pageForm',
+      label: '页面表单'
     },
   ],
   jsData: '',

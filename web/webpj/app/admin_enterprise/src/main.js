@@ -13,6 +13,7 @@ import DataTable from '@/component/modal/DataTable.vue'
 import ModalDataList from '@/component/modal/ModalDataList.vue'
 import ModalMqttMsg from '@/component/modal/ModalMqttMsg.vue'
 import ModalIcon from '@/component/modal/ModalIcon.vue'
+import FormInput from '@/component/modal/FormInput.vue'
 
 import {use} from 'echarts/core';
 import {CanvasRenderer} from 'echarts/renderers';
@@ -35,6 +36,7 @@ app.use(pinia);
 app.component('modal-data-list', ModalDataList)
 app.component('modal-mqtt-msg', ModalMqttMsg)
 app.component('modal-icon', ModalIcon)
+app.component('form-input', FormInput)
 
 
 // =================== 组件

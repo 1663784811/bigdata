@@ -272,8 +272,7 @@
       </div>
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
-         @on-ok="saveComponentsFn">
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
 
@@ -512,7 +511,7 @@ const selectIconFn = (obj, key) => {
 
 watch(() => props.setting, () => {
   initFn()
-}, {deep: false, immediate: false})
+})
 
 </script>
 <style scoped lang="less">

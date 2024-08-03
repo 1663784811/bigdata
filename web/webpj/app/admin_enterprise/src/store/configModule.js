@@ -29,6 +29,7 @@ export const useConfigModule = defineStore('configModule', {
         const sqlConfig = ref({
             show: false
         });
+        // sql 编辑
         const sqlModal = ref({
             editor: true,
             show: true,

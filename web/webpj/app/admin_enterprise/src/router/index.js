@@ -23,16 +23,15 @@ const router = createRouter({
             children: [
                 login,
                 {
-                    path: 'openApp',
-                    name: 'openApp',
-                    component: () => import('@/views/admin/enterprise/AppOpen.vue'),
-                },
-                {
                     path: '',
                     name: 'home',
                     component: () => import('@/views/admin/layout/Main.vue'),
                     children: [
-                        enterprise,
+                        {
+                            meta: {title: '企业'},
+                            path: 'enterprise',
+                            children: enterprise
+                        },
                         {
                             meta: {title: '公共'},
                             path: 'common',
