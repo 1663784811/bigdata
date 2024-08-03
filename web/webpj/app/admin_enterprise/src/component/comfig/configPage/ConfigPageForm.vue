@@ -12,12 +12,12 @@
     </TabPane>
     <TabPane label="添加" name="添加">
       <div class="configBox">
-        <SaveObj :setting="state.addObj" />
+        <ObjSave :setting="state.addObj" />
       </div>
     </TabPane>
     <TabPane label="更新" name="更新">
       <div class="configBox">
-        <SaveObj :setting="state.updateObj" />
+        <ObjSave :setting="state.updateObj" />
       </div>
     </TabPane>
     <TabPane label="删除" name="删除">
@@ -31,7 +31,7 @@
 </template>
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
-import SaveObj from './com/SaveObj.vue'
+import ObjSave from './com/ObjSave.vue'
 import {reactive, onMounted, watch, ref, provide} from 'vue'
 import {Input, Message} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'

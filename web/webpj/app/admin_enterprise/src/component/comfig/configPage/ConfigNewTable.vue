@@ -124,155 +124,10 @@
       </div>
     </TabPane>
     <TabPane label="表格" name="表格">
-      <div class="configBox">
-        <div class="headerBox">
-          <div></div>
-          <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('table')">
-              查看代码
-            </Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addColumn('table')">
-              添加字段
-            </Button>
-          </div>
-        </div>
-        <div class="dataContent">
-          <div>
-            操作对象
-          </div>
-          <div>
-            显示
-            <div v-if="state.tableObj.queryRequest">
-              查询地址: <Input v-model="state.tableObj.queryRequest.url" placeholder="查询地址" clearable/>
-            </div>
-            <div v-if="state.tableObj.delRequest">
-              删除地址: <Input v-model="state.tableObj.delRequest.url" placeholder="删除地址" clearable/>
-            </div>
-          </div>
-          <draggable
-              ghost-class="ghost"
-              chosen-class="chosenClass"
-              animation="300"
-              :list="state.tableObj.columns"
-              item-key="id"
-          >
-            <template #item="{ element, index }">
-              <div class="row">
-                <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline"
-                          @click="state.tableObj.columns.splice(index, 1)"/>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="element.isShowColumn"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.title" placeholder="标题" clearable style="width: 130px"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.key" placeholder="key" clearable style="width: 100px"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.width" placeholder="宽" clearable type="number" style="width: 80px"/>
-                </div>
-                <div class="rowItem">
-                  <Select v-model="element.type" size="small" clearable style="width:110px">
-                    <Option value="text">文本</Option>
-                    <Option value="selection">选择框</Option>
-                    <Option value="img">图片</Option>
-                    <Option value="filters">过滤</Option>
-                    <Option value="filters">开关</Option>
-                  </Select>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="element.tooltip">越长不换行</Checkbox>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="element.sortable">排序</Checkbox>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.event" placeholder="事件" clearable style="width: 100px"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.event" placeholder="表达式" clearable style="width: 100px"/>
-                </div>
-              </div>
-            </template>
-          </draggable>
-
-        </div>
-      </div>
+      <ObjTable :setting="state.tableObj" @showCode="showCodeTableFn('table')"/>
     </TabPane>
     <TabPane label="保存" name="保存">
-      <div class="configBox">
-        <div class="headerBox">
-          <div></div>
-          <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.saveObj.columns.push({})">添加
-            </Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload">添加从表格选择</Button>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('save')">
-              查看代码
-            </Button>
-          </div>
-        </div>
-        <div class="dataContent">
-          <div v-if="state.saveObj">
-            保存地址: <Input v-model="state.saveObj.url" placeholder="保存地址" clearable/>
-          </div>
-          <draggable
-              ghost-class="ghost"
-              chosen-class="chosenClass"
-              animation="300"
-              :list="state.saveObj.columns"
-              item-key="id"
-          >
-            <template #item="{ element, index }">
-              <div class="row">
-                <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline"
-                          @click="state.saveObj.columns.splice(index, 1)"/>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="element.isShowSave"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.title" placeholder="标题" clearable style="width: 130px"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="element.key" placeholder="key" clearable style="width: 100px"/>
-                </div>
-                <div class="rowItem">
-                  输入类型:
-                  <Select v-model="element.controlType" clearable size="small" style="width:100px">
-                    <Option value="hidden">隐藏框</Option>
-                    <Option value="text">文本</Option>
-                    <Option value="textarea">长文本</Option>
-                    <Option value="date">日期</Option>
-                    <Option value="time">时间</Option>
-                    <Option value="datetime">日期时间</Option>
-                    <Option value="img">图片</Option>
-                    <Option value="select">单选</Option>
-                    <Option value="number">数字</Option>
-                  </Select>
-                </div>
-                <div class="rowItem">
-                  <Switch v-model="element.isRequire">
-                    <template #open>必需</template>
-                  </Switch>
-                </div>
-                <div class="rowItem">
-                  正则
-                  <Input v-model="element.regStr" placeholder="key" clearable style="width: 200px"/>
-                </div>
-              </div>
-            </template>
-          </draggable>
-
-        </div>
-      </div>
-
-      <SaveObj :setting="state.saveObj"  @showCode="showCodeTableFn('save')"  />
-
+      <ObjSave :setting="state.saveObj" @showCode="showCodeTableFn('save')"/>
     </TabPane>
   </Tabs>
   <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
@@ -294,7 +149,8 @@ import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 import draggable from "vuedraggable";
 import {useWinModal} from '@/store/winModal.js'
-import SaveObj from './com/SaveObj.vue'
+import ObjSave from './com/ObjSave.vue'
+import ObjTable from './com/ObjTable.vue'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;
@@ -397,12 +253,6 @@ const showCodeHandleFn = () => {
   }
 }
 
-const addColumn = (name) => {
-
-  if (name === 'table') {
-    state.tableObj.columns.push({})
-  }
-}
 
 const upIndexDataFn = (index) => {
   if (index > 0) {
