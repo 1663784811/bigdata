@@ -15,7 +15,7 @@ export const useUserStore = defineStore('foodLoginInfo', {
         const userInfo = ref({});
         const token = ref("");
         const variable = ref({
-            appid: ''
+            appId: ''
         });
         return {
             userInfo,

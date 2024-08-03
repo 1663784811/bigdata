@@ -17,7 +17,7 @@ const router = createRouter({
             meta: {notLogin: true, title: '欢迎页面'}
         },
         {
-            path: '/:appid/store/:storeId',
+            path: '/:appId/store/:storeId',
             component: () => import('@/views/AppMain.vue'),
             children: [
                 {
@@ -46,19 +46,19 @@ const router = createRouter({
 router.beforeEach(({meta = {}, name, params}, from, next) => {
     const {title, notLogin} = meta;
     console.log(meta)
-    // if (title) document.title = title;
-    // const useUser = useUserStore();
-    // let token = useUser.token;
-    // if (!token && !notLogin) {
-    //     // 未登录
-    //     if (params.appid) {
-    //         next({name: 'selectNumber', params})
-    //     } else {
-    //         next({name: 'welcomePage'})
-    //     }
-    // } else {
-    //     next()
-    // }
+    if (title) document.title = title;
+    const useUser = useUserStore();
+    let token = useUser.token;
+    if (!token && !notLogin) {
+        // 未登录
+        if (params.appid) {
+            next({name: 'selectNumber', params})
+        } else {
+            next({name: 'welcomePage'})
+        }
+    } else {
+        next()
+    }
 });
 
 

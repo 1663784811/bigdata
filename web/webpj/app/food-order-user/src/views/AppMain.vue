@@ -15,21 +15,21 @@ const loginInfoSt = useUserStore();
 const socket = ref(null);
 
 onMounted(async () => {
-  const {appid, storeId} = route.params;
+  const {appId, storeId} = route.params;
   // 查询门店
   const {data} = await commonQuery({
     code: 'select_e_store_by_storeId',
     storeId: storeId,
-    appid
-  }, appid)
+    appId
+  }, appId)
   if (data && data.length === 1) {
     // 保存app信息
-    loginInfoSt.variable.appid = appid;
+    loginInfoSt.variable.appId = appId;
     // 查询当前餐台状态
     initWebSocket();
   } else {
-    console.log(data)
-    delete loginInfoSt.variable.appid;
+    console.log('不存在', data)
+    delete loginInfoSt.variable.appId;
     await router.replace({name: 'welcomePage'});
   }
 
