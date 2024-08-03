@@ -49,9 +49,11 @@ public class BuildCodeController {
         for (int i = 0; i < tableList.size(); i++) {
             JavaData javaData = tableList.get(i);
             JSONObject rest = new JSONObject();
-            rest.set("commonTable", commonTableFn(javaData));
+            // =====================================================================
             rest.set("newTable", newTableFn(javaData));
             rest.set("selectData", selectDataFn(javaData));
+            rest.set("pageForm", pageFormFn(javaData));
+            // =====================================================================
             JSONObject jsobj = new JSONObject();
             jsobj.set("pageConfig", rest);
             jsobj.set("table", javaData.getTable());
@@ -65,18 +67,14 @@ public class BuildCodeController {
 
     private JSONObject selectDataFn(JavaData javaData) {
 
-
         JSONObject selectObj = new JSONObject();
         selectObj.set("queryRequest", getRequest("/admin/${eCode}/common/query"));
         selectObj.set("delRequest", getRequest("/admin/${eCode}/common/del"));
-
 
         JSONObject saveObj = new JSONObject();
         saveObj.set("saveRequest", getRequest("/admin/${eCode}/common/del"));
 
         JSONObject tableObj = new JSONObject();
-
-
 
         JSONObject js = new JSONObject();
         js.set("selectObj", selectObj);
@@ -85,83 +83,27 @@ public class BuildCodeController {
         return js;
     }
 
-    private JSONObject commonTableFn(JavaData javaData) {
-        JSONObject js = new JSONObject();
+    private JSONObject pageFormFn(JavaData javaData){
         List<JavaColumn> javaColumns = javaData.getJavaColumns();
-        String table = javaData.getTable();
-        String strurl = OperationTools.indexToLowerCase(table);
-        String strTable = OperationTools.indexToUpperCase(table);
-        JSONObject requestObj = new JSONObject();
-        JSONObject queryRequest = new JSONObject();
-        queryRequest.set("url", "/admin/" + strurl + "/findPage");
-        queryRequest.set("show", true);
-        requestObj.set("queryRequest", queryRequest);
-        JSONObject saveRequest = new JSONObject();
-        saveRequest.set("url", "/admin/" + strurl + "/save" + strTable);
-        saveRequest.set("show", true);
-        requestObj.set("saveRequest", saveRequest);
-        JSONObject delRequest = new JSONObject();
-        delRequest.set("url", "/admin/" + strurl + "/del" + strTable);
-        delRequest.set("show", true);
-        requestObj.set("delRequest", delRequest);
-        JSONObject operation = new JSONObject();
-        operation.set("title", "操作");
-        operation.set("key", "operation");
-        operation.set("width", 200);
-        JSONArray operationArr = new JSONArray();
-        JSONObject arr1 = new JSONObject();
-        arr1.set("label", "查看");
-        arr1.set("even", "");
-        operationArr.add(arr1);
-        JSONObject arr2 = new JSONObject();
-        arr2.set("label", "修改");
-        arr2.set("even", "");
-        operationArr.add(arr2);
-        JSONObject arr3 = new JSONObject();
-        arr3.set("label", "删除");
-        arr3.set("even", "");
-        operationArr.add(arr3);
-        operation.set("operationArr", operationArr);
-        // ===================
         List<VueJson> vueJsons = TypeTools.javaColumnList2VueJsonList(javaColumns);
-        for (int j = 0; j < vueJsons.size(); j++) {
-            VueJson vueJson = vueJsons.get(j);
-            List<Filters> filters = vueJson.getFilters();
-            if (null != filters) {
-                if (filters.size() == 0) {
-                    vueJson.setFilters(null);
-                }
-            }
-            String key = vueJson.getKey();
-            String message = vueJson.getMessage();
-            if ("id".equals(key)) {
-                vueJson.setWidth(60);
-                vueJson.setControlType("hidden");
-            }
-            if ("del".equals(key)) {
-                vueJsons.remove(j);
-                j--;
-                continue;
-            }
-            if ("tid".equals(key)) {
-                vueJson.setTooltip(true);
-                vueJson.setIsShowColumn(false);
-                vueJson.setControlType("hidden");
-            }
-            if ("createTime".equals(key)) {
-                vueJson.setWidth(160);
-                vueJson.setControlType("hidden");
-            }
-            if (null != message && message.indexOf("名") != -1) {
-                vueJson.setIsShowSearch(true);
-            }
-        }
-        js.set("requestObj", requestObj);
-        js.set("operation", operation);
-        js.set("columns", vueJsons);
+        JSONArray columns = tableObjFn(vueJsons);
+
+        JSONObject queryObj = getRequest("/admin/${eCode}/common/query");
+        JSONObject delObj = getRequest("/admin/${eCode}/common/del");
+
+        JSONObject addObj = new JSONObject();
+        addObj.set("show", false);
+        addObj.set("loading", true);
+        addObj.set("data", new JSONObject());
+        addObj.set("columns", columns);
+
+        JSONObject js = new JSONObject();
+        js.set("queryObj", queryObj);
+        js.set("addObj", addObj);
+        js.set("updateObj", addObj);
+        js.set("delObj", delObj);
         return js;
     }
-
 
     private JSONObject newTableFn(JavaData javaData) {
 

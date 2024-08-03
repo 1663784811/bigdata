@@ -49,7 +49,7 @@
       </div>
     </template>
     <div>
-      <slot name="footer"/>
+      <slot name="footer" :data="state.data"/>
     </div>
   </div>
 </template>

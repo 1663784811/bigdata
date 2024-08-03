@@ -270,9 +270,13 @@
 
         </div>
       </div>
+
+      <SaveObj :setting="state.saveObj"  @showCode="showCodeTableFn('save')"  />
+
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
+         @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
 
@@ -290,7 +294,7 @@ import {saveComponents, loadTable} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
 import draggable from "vuedraggable";
 import {useWinModal} from '@/store/winModal.js'
-
+import SaveObj from './com/SaveObj.vue'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;

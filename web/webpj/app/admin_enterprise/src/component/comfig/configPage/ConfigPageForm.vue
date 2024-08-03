@@ -1,5 +1,4 @@
 <template>
-
   <div class="aaa">
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.databaseLoad = true">加载数据库</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
@@ -43,10 +42,6 @@ import {useWinModal} from '@/store/winModal.js'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;
-
-const commonTableSearchData = ref({})
-provide("commonTableSearchData", commonTableSearchData);
-
 
 
 

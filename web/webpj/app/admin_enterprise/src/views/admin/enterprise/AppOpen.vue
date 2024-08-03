@@ -1,11 +1,10 @@
 <template>
   <div class="container formBox">
     <form-input :settings="state.settings">
-      <template #footer="footer">
+      <template #footer="{data}" >
         <div style="margin: 50px 0">
-          <Button type="success" long shape="circle" @click="openAppFn">开通</Button>
+          <Button type="success" long shape="circle" @click="openAppFn(data)">开通</Button>
         </div>
-
       </template>
     </form-input>
 
@@ -405,7 +404,7 @@ onMounted(() => {
 })
 
 
-const openAppFn = () => {
+const openAppFn = (data) => {
 
 
   openApp().then((rest) => {
