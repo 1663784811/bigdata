@@ -38,9 +38,11 @@ export const loginInfo = defineStore('loginInfo', {
         const reLoadParameter = (obj) => {
             if (obj) {
                 for (const objKey in obj) {
-                    for (const key in variable.value) {
-                        const val = variable.value[key];
-                        obj[objKey] = obj[objKey].replaceAll('${' + key + '}', val ? val : '');
+                    if ((obj[objKey]+"").indexOf("$") !== -1) {
+                        for (const key in variable.value) {
+                            const val = variable.value[key];
+                            obj[objKey] = obj[objKey].replaceAll('${' + key + '}', val ? val : '');
+                        }
                     }
                 }
             }
