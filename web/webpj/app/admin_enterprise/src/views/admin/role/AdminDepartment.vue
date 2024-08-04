@@ -17,7 +17,6 @@ const initFn = async () => {
   const pageCode = 'department'
   const pageData = await usePageConfig.getPageConfig(pageCode);
   dataTree.value = pageData.dataTree;
-
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 

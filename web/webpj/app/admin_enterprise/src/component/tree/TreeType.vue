@@ -1,7 +1,6 @@
 <template>
   <div class="menuBox" :style="style">
-    <Tree :data="state.objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn"
-          show-checkbox>
+    <Tree :data="state.objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn" show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
         <DropdownItem v-if="state.objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>

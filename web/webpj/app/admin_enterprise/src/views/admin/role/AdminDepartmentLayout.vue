@@ -6,7 +6,7 @@
         部门
       </div>
       <div>
-        <tree-type :setting="treeSetting" style="width: 0; background: none; padding: 0"
+        <tree-type :setting="state.treeSetting" style="width: 0; background: none; padding: 0"
                    @selectChange="selectChange"/>
       </div>
     </div>
@@ -16,7 +16,7 @@
 
 <script setup>
 
-import {ref, provide} from "vue";
+import {ref, provide, reactive, onMounted} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
 import TreeType from "@/component/tree/TreeType.vue";
 
@@ -26,11 +26,18 @@ const treeSetting = ref({});
 const commonTableSearchData = ref({})
 provide("commonTableSearchData", commonTableSearchData);
 
+const state = reactive({
+  treeSetting: {}
+});
+
+onMounted(() => {
+  initFn();
+})
 const initFn = async () => {
   const department = await usePageConfig.getPageConfig("department");
-  treeSetting.value = department.commonTable;
+  state.treeSetting = department.dataTree;
 }
-initFn();
+
 
 const selectChange = (arr, obj) => {
   const departmentArr = []
