@@ -38,19 +38,25 @@ public class TreeEntity<T> {
                 }
                 if (!h) {
                     root.add(node);
-                }
-                // 整理森林
-                for (int i = root.size() - 1; i < 1; i++) {
-                    Node<T> tNode = root.get(i);
-                    String treePid = tNode.getPid();
-                    if (StrUtil.isNotBlank(treePid)) {
-                        int size = root.size();
-                        Node<T> nexTreeNode = root.get(size - 1);
-                        boolean b = this.addTreeToForest(nexTreeNode, tNode);
-                        if (b) {
-                            root.remove(i);
+                    // 整理森林
+                    for (int i = 0; i < root.size(); i++) {
+                        Node<T> tNode = root.get(i);
+                        String treePid = tNode.getPid();
+                        if (StrUtil.isNotBlank(treePid)) {
+                            for (int j = 0; j < root.size(); j++) {
+                                if (i != j) {
+                                    Node<T> nexTreeNode = root.get(j);
+                                    boolean b = this.addTreeToForest(nexTreeNode, tNode);
+                                    if (b) {
+                                        root.remove(i);
+                                        i--;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
             }
         } else {
@@ -70,7 +76,9 @@ public class TreeEntity<T> {
             for (int i = 0; i < children.size(); i++) {
                 Node childNode = children.get(i);
                 boolean b = addTreeToForest(childNode, node);
-                return b;
+                if (b) {
+                    return b;
+                }
             }
         }
         return false;

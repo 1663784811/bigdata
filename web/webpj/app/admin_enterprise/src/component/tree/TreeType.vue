@@ -179,16 +179,16 @@ const handleContextMenuDelete = () => {
 
 const saveEventFn = (ev, itemData) => {
   if ('ok' === ev) {
-    const {url, parameter} = searchObj.value.saveRequest;
+    const {url, parameter} = state.saveObj;
     commonRequest(url, {
       ...parameter,
       ...itemData
     }, 'post').then((rest) => {
-      saveData.value.data = rest.data;
+      state.saveObj.data = rest.data;
       Message.success({
         content: `${rest.msg}`,
         onClose: () => {
-          saveData.value.show = false;
+          state.saveObj.show = false;
           loadData();
         }
       })
@@ -196,9 +196,9 @@ const saveEventFn = (ev, itemData) => {
       Message.error({
         content: `${err}`
       })
-      saveData.value.loading = false;
+      state.saveObj.loading = false;
       setTimeout(() => {
-        saveData.value.loading = true;
+        state.saveObj.loading = true;
       })
     })
 
