@@ -1,29 +1,27 @@
 <template>
-  <new-tree :setting="tableSetting" :editer="true"/>
+  <tree-type :setting="state.treeSetting" :editer="true"/>
 </template>
 
 <script setup>
-import {ref} from "vue";
-import {pageConfig} from '@/store/pageConfig.js'
-import NewTree from "@/component/tree/NewTree.vue";
+import TreeType from '@/component/tree/TreeType.vue'
+import {pageConfig} from "@/store/pageConfig.js";
+import {reactive, ref} from "vue";
 
 const usePageConfig = pageConfig();
-const tableSetting = ref({});
+
+
+const state = reactive({
+  treeSetting: {}
+});
 
 const initFn = async () => {
   const pageCode = 'adminMenu'
   const pageData = await usePageConfig.getPageConfig(pageCode);
-  tableSetting.value = pageData.dataTree;
+  state.treeSetting = pageData.dataTree;
   usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
 }
 initFn();
-
 </script>
 
 <style lang="less" scoped>
-.menuBox {
-  padding: 20px;
-  width: 400px;
-  background: #fff;
-}
 </style>
