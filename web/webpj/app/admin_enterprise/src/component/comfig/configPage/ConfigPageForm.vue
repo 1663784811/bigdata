@@ -1,7 +1,7 @@
 <template>
   <div class="aaa">
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.databaseLoad = true">加载数据库</Button>
-    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
+    <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('')">查看代码</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
   </div>
   <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
@@ -12,12 +12,12 @@
     </TabPane>
     <TabPane label="添加" name="添加">
       <div class="configBox">
-        <ObjSave :setting="state.outObj.addObj"/>
+        <ObjSave :setting="state.outObj.addObj" @showCode="showCodeTableFn('addObj')"/>
       </div>
     </TabPane>
     <TabPane label="更新" name="更新">
       <div class="configBox">
-        <ObjSave :setting="state.outObj.updateObj"/>
+        <ObjSave :setting="state.outObj.updateObj" @showCode="showCodeTableFn('updateObj')"/>
       </div>
     </TabPane>
     <TabPane label="删除" name="删除">
@@ -26,9 +26,6 @@
       </div>
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
-    <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
-  </Modal>
   <Modal v-model="state.showCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
     <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
@@ -91,13 +88,24 @@ onMounted(() => {
   initFn();
 })
 
+const showCodeTableFn = (modalKey) => {
+  state.showCode.show = true;
+  state.showCode.modal = modalKey
+  if (modalKey) {
+    state.showCode.data = JSON.stringify(state.outObj[modalKey], null, "  ");
+  } else {
+    state.showCode.data = JSON.stringify(state.outObj, null, "  ");
+  }
+}
 
-/**
- * 显示代码
- */
-const showCodeFn = () => {
-  state.jsonData.show = true;
-  compileCode();
+
+const showCodeHandleFn = () => {
+  const {modal} = state.showCode;
+  if (modal) {
+    state.outObj[modal] = JSON.parse(state.showCode.data);
+  } else {
+    state.outObj = JSON.parse(state.showCode.data);
+  }
 }
 
 /**
@@ -128,15 +136,6 @@ const loadDataHandleFn = (data) => {
   };
 }
 
-const showCodeHandleFn = () => {
-  if (state.showCode.modal === 'table') {
-    state.tableObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'search') {
-    state.searchObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'save') {
-    state.saveObj = JSON.parse(state.showCode.data);
-  }
-}
 
 const initFn = () => {
   const {setting} = props;

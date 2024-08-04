@@ -52,6 +52,7 @@ public class BuildCodeController {
             // =====================================================================
             rest.set("newTable", newTableFn(javaData));
             rest.set("selectData", selectDataFn(javaData));
+            rest.set("dataTree", pageFormFn(javaData));
             rest.set("pageForm", pageFormFn(javaData));
             // =====================================================================
             JSONObject jsobj = new JSONObject();

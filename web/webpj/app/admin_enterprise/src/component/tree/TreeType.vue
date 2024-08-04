@@ -1,30 +1,31 @@
 <template>
   <div class="menuBox" :style="style">
-    <Tree :data="objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn" show-checkbox>
+    <Tree :data="state.objConfig.data" @on-contextmenu="handleContextMenu" @on-check-change="selectTreeFn"
+          show-checkbox>
       <template #contextMenu>
         <DropdownItem @click="handleContextMenuSave(false)">添加</DropdownItem>
-        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>
-        <DropdownItem v-if="objConfig.showMainMenu" @click="handleContextMenuDelete" style="color: #ed4014">删除
+        <DropdownItem v-if="state.objConfig.showMainMenu" @click="handleContextMenuSave(true)">编辑</DropdownItem>
+        <DropdownItem v-if="state.objConfig.showMainMenu" @click="handleContextMenuDelete" style="color: #ed4014">删除
         </DropdownItem>
       </template>
     </Tree>
+    {{ setting }}
   </div>
-  <modal-data-list
-      v-model="saveData.show"
-      :modalSetting="saveData"
-      @event="saveEventFn"
-  />
+  <modal-data-list v-model="state.saveObj.show" :modalSetting="state.saveObj" @event="saveEventFn"/>
 </template>
 
 <script setup>
 
-import { ref, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
 import {pageConfig} from '@/store/pageConfig.js'
 import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";
 
 const emits = defineEmits(['event', 'selectChange']);
+
+const usePageConfig = pageConfig();
+const selectData = ref({});
 
 const props = defineProps({
   setting: {
@@ -49,51 +50,32 @@ const props = defineProps({
   }
 });
 
-const searchObj = ref({
-  columns: [],
-  queryRequest: {
-    url: '',
-    parameter: {}
-  },
-  saveRequest: {
-    url: '',
-    parameter: {}
-  },
-  delRequest: {
-    url: '',
-    parameter: {}
-  }
-});
-
-const saveData = ref({
-  url: '',
+const state = reactive({
   columns: [],
   data: {},
   show: false,
-  saveType: ''
-});
-
-
-const objConfig = ref(
-    {
-      showMainMenu: false,
-      data: [
-        {
-          title: '全部',
-          expand: true,
-          contextmenu: props.editer,
-          children: []
-        }
-      ]
-    });
+  saveType: '',
+  saveObj: {},
+  objConfig: {
+    showMainMenu: false,
+    data: [
+      {
+        title: '全部',
+        expand: true,
+        contextmenu: props.editer,
+        children: []
+      }
+    ]
+  }
+})
 // ======================================================
 
+onMounted(() => {
+  initFn();
+});
 const initFn = async () => {
-  if (props.setting) {
-    saveData.value.columns = getAddColumns(props.setting.columns);
-  }
+  loadData();
 }
-initFn();
 
 
 // ======================================================
@@ -101,33 +83,35 @@ initFn();
  * 加载数据
  */
 const loadData = () => {
-  objConfig.value.loading = true;
-  commonRequest(
-      searchObj.value.queryRequest.url,
-      {
-        ...searchObj.value.queryRequest.pm,
-        ...searchObj.value.queryRequest.parameter,
+  state.loading = true;
+  const {setting} = props;
+  console.log(setting)
+  if (setting.queryObj) {
+    commonRequest(
+        setting.queryObj.url,
+        {
+          ...setting.queryObj.parameter,
+          ...setting.queryObj.pm,
+        }
+    ).then((rest) => {
+      console.log('ssssssssssssssss', rest)
+      const {data} = rest;
+      const arr = [];
+      if (data && data.root && data.root.length > 0) {
+        arr.push(...reTree(data.root));
+      } else if (data) {
+        arr.push(...reTree(data));
       }
-  ).then((rest) => {
-    const {data} = rest;
-    const arr = [];
-    if (data && data.root && data.root.length > 0) {
-      arr.push(...reTree(data.root));
-    } else if (data) {
-      arr.push(...reTree(data));
-    }
-    objConfig.value.data[0].children = arr;
-  }).catch(err => {
-    objConfig.value.data = [];
-  }).finally(() => {
-    objConfig.value.loading = false;
-  })
+      state.objConfig.data[0].children = arr;
+    }).catch(err => {
+      state.objConfig.data = [];
+    }).finally(() => {
+      state.objConfig.loading = false;
+    })
+  }
+
 }
 // ======================================================
-
-const usePageConfig = pageConfig();
-
-const selectData = ref({});
 
 
 /**
@@ -150,7 +134,6 @@ const reTree = (list) => {
 
 
 const handleContextMenu = (data, event, position) => {
-  console.log(data, position)
   if (data.nodeKey === 0) {
     objConfig.value.showMainMenu = false;
   } else {
@@ -227,6 +210,9 @@ const saveEventFn = (ev, itemData) => {
   }
 }
 
+/**
+ * 选择树
+ */
 const selectTreeFn = (arr, obj) => {
   const tempArr = []
   for (let i = 0; i < arr.length; i++) {
@@ -237,29 +223,9 @@ const selectTreeFn = (arr, obj) => {
   emits('selectChange', tempArr, obj);
 }
 
-// =======================================
 watch(() => props.setting, () => {
-  const setting = props.setting;
-  console.log("=========== props =======", setting)
-  if (setting) {
-    if (setting.columns) {
-      saveData.value.columns = setting.columns;
-    }
-    if (setting.columns) {
-      objConfig.value.columnsList = setting.columns;
-      setTimeout(() => {
-        initFn();
-        loadData();
-      })
-    }
-    searchObj.value.queryRequest = setting.requestObj.queryRequest;
-    searchObj.value.saveRequest = setting.requestObj.saveRequest;
-    searchObj.value.delRequest = setting.requestObj.delRequest;
-  } else {
-    console.log("=========== 未设置数据 =======", setting)
-  }
-}, {deep: false, immediate: false})
-// =======================================
+  initFn();
+})
 
 
 </script>

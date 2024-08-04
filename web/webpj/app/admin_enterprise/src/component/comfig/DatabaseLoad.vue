@@ -73,6 +73,10 @@ const dataLoad = ref({
       label: '字段数据'
     },
     {
+      value: "dataTree",
+      label: "数据树"
+    },
+    {
       value: 'pageForm',
       label: '页面表单'
     },
