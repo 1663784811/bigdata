@@ -25,12 +25,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 
     @Override
-    public List<TreeEntity.Node<TPower>> adminMenu(String adminId) {
+    public List<TreeEntity.Node<TPower>> adminMenu(String adminId, Integer userType) {
         // 第一步: 查询用户角色
         List<TRole> roles = tRoleDao.findByAdminId(adminId);
         // 第二步: 查询角色权限
         List<String> rolesId = roles.stream().map(TRole::getTid).collect(Collectors.toList());
-        List<TPower> powers = tPowerDao.findPowerByRole(rolesId);
+        List<TPower> powers = tPowerDao.findPowerByRoleAndUserType(rolesId, userType);
         // 第三步: 整理数据
         TreeEntity treeEntity = new TreeEntity();
         for (TPower tpower : powers) {

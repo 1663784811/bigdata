@@ -59,7 +59,7 @@ public class AppAdminInfoController {
     @GetMapping(value = "/menu")
     public BaseResult adminMenu() {
         String adminId = "admin";
-        List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId);
+        List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId, 2);
         return BaseResult.ok(arr);
     }
 

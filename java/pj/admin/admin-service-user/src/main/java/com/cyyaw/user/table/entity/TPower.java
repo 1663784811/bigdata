@@ -75,4 +75,9 @@ public class TPower implements TreeEntity<Integer>, Serializable {
     @Basic
     @Column(name = "sort", columnDefinition = "int default '1' COMMENT '排序'")
     private Integer sort;
+
+    @Basic
+    @Column(name = "user_type", columnDefinition = "int default '0' COMMENT '用户类型{0:企业,1:APP,2:门店}'")
+    private Integer userType;
+
 }
