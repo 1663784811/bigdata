@@ -17,35 +17,25 @@
           </div>
         </div>
         <div class="dataContent">
+
+
+
           <div v-if="state.selectObj && state.selectObj.queryRequest">
-            查询地址: <Input v-model="state.selectObj.queryRequest.url" placeholder="查询地址" clearable/>
-            <div>
-              参数:
-              <div v-for="(parameter, pa) in state.selectObj.queryRequest.parameter" :key="pa">
-                {{ pa }} <Input
-                  v-model="state.selectObj.queryRequest.parameter[pa]"
-                  placeholder="查询地址" clearable
-                  type="textarea"/>
-              </div>
-            </div>
+            <ObjRequest :setting="state.selectObj.queryRequest" title="查询地址" />
           </div>
+
           <div v-if="state.selectObj && state.selectObj.delRequest">
-            删除地址: <Input v-model="state.selectObj.delRequest.url" placeholder="删除地址" clearable/>
-            <div>
-              参数:
-              <div v-for="(parameter, pa) in state.selectObj.delRequest.parameter" :key="pa">
-                {{ pa }} <Input
-                  v-model="state.selectObj.delRequest.parameter[pa]"
-                  placeholder="查询地址" clearable
-                  type="textarea"/>
-              </div>
-            </div>
+            <ObjRequest :setting="state.selectObj.delRequest" title="删除地址" />
           </div>
+
+
         </div>
       </div>
     </TabPane>
     <TabPane label="保存" name="保存">
       <div class="configBox">
+
+
         <div class="headerBox">
           <div></div>
           <div>
@@ -55,18 +45,11 @@
             <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('save')">加载默认</Button>
           </div>
         </div>
+
+
         <div class="dataContent">
           <div v-if="state.saveObj && state.saveObj.saveRequest">
-            保存地址: <Input v-model="state.saveObj.saveRequest.url" placeholder="保存地址" clearable/>
-            <div>
-              参数:
-              <div v-for="(parameter, pa) in state.saveObj.saveRequest.parameter" :key="pa">
-                {{ pa }} <Input
-                  v-model="state.saveObj.saveRequest.parameter[pa]"
-                  placeholder="查询地址" clearable
-                  type="textarea"/>
-              </div>
-            </div>
+            <ObjRequest :setting="state.saveObj.saveRequest" title="保存地址" />
           </div>
           <div>
             <div>映射</div>
@@ -78,6 +61,8 @@
             </div>
           </div>
         </div>
+
+
       </div>
     </TabPane>
     <TabPane label="表格" name="表格">
@@ -93,16 +78,7 @@
         </div>
         <div class="dataContent">
           <div v-if="state.tableObj && state.tableObj.queryRequest">
-            查询地址: <Input v-model="state.tableObj.queryRequest.url" placeholder="查询地址" clearable/>
-            <div>
-              参数:
-              <div v-for="(parameter, pa) in state.tableObj.queryRequest.parameter" :key="pa">
-                {{ pa }} <Input
-                  v-model="state.tableObj.queryRequest.parameter[pa]"
-                  placeholder="查询地址" clearable
-                  type="textarea"/>
-              </div>
-            </div>
+            <ObjRequest :setting="state.tableObj.queryRequest" title="查询地址" />
           </div>
           <div>
             <Button class="dataBtn" type="primary" icon="md-list" @click="loadTableColumns('tableColumns')">
@@ -169,7 +145,7 @@
 </template>
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
-
+import ObjRequest from './com/ObjRequest.vue'
 import {reactive, onMounted, watch} from 'vue'
 import {Input} from "view-ui-plus";
 import {saveComponents, loadTable} from '@/api/api.js'

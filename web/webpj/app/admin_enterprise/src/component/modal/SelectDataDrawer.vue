@@ -48,7 +48,7 @@
 
 <script setup>
 import DataTable from "@/component/modal/DataTable.vue";
-import {reactive, inject, watch,  ref} from "vue";
+import {reactive, inject, watch, ref} from "vue";
 import {commonRequest} from "@/api/api.js";
 import {loginInfo} from "@/store/loginInfo.js";
 import {Message, Modal} from "view-ui-plus";
@@ -202,13 +202,25 @@ const delDataFn = (objArr = []) => {
     okText: '删除',
     loading: true,
     onOk: async () => {
+      const {parameter, isCommonUrl} = state.selectObj.delRequest;
+
       for (let i = 0; i < objArr.length; i++) {
         const url = loginInfoSt.reLoadUrl(state.selectObj.delRequest.url);
-        const parameter = {
-          ...objArr[i],
-          ...state.selectObj.delRequest.parameter
+        let pm = {};
+        if (isCommonUrl) {
+          pm = {
+            ...parameter,
+            data: {
+              ...objArr[i]
+            }
+          }
+        } else {
+          pm = {
+            ...objArr[i],
+            ...state.selectObj.delRequest.parameter
+          }
         }
-        await commonRequest(url, parameter, 'post').then((rest) => {
+        await commonRequest(url, pm, 'post').then((rest) => {
           Message.success(`${rest.msg}`)
         }).catch((err) => {
           console.log(err);
