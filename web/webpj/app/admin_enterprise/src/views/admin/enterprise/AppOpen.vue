@@ -1,6 +1,6 @@
 <template>
   <div class="container formBox">
-    <form-input :settings="state.pageForm">
+    <form-input :settings="state.pageForm">z
       <template #footer="{data}">
         <div style="margin: 50px 0">
           <Button type="success" long shape="circle" @click="openAppFn(data)">开通</Button>
