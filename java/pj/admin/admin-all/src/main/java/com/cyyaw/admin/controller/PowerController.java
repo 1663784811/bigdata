@@ -1,5 +1,6 @@
 package com.cyyaw.admin.controller;
 
+import cn.hutool.json.JSONObject;
 import com.cyyaw.user.service.TPowerService;
 import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.util.tools.BaseResult;
@@ -23,7 +24,9 @@ public class PowerController {
     @GetMapping("/queryMenu")
     public BaseResult queryMenu(@RequestParam Map<String, Object> map, @PathVariable String eCode) {
         // 查询数据
-        return tPowerService.queryMenu(eCode);
+        JSONObject json = new JSONObject(map);
+        Integer powerType = json.getInt("powerType", 1);
+        return tPowerService.queryMenu(eCode, powerType);
     }
 
     @ApiOperation(value = "保存菜单", notes = "保存菜单")

@@ -26,7 +26,7 @@ public interface TPowerService extends BaseTableService<TPower, Integer> {
     /**
      * 查询菜单
      */
-    BaseResult queryMenu(String eCode);
+    BaseResult queryMenu(String eCode, Integer powerType);
 
     /**
      * 删除菜单

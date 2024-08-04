@@ -67,8 +67,8 @@ public class TPowerServiceImpl extends BaseService<TPower, Integer> implements T
     }
 
     @Override
-    public BaseResult queryMenu(String eCode) {
-        List<TPower> powers = tPowerDao.findAllByEnterpriseCode(eCode);
+    public BaseResult queryMenu(String eCode, Integer powerType) {
+        List<TPower> powers = tPowerDao.findAllByEnterpriseCodeAndType(eCode, powerType);
         // 组装成树
         TreeEntity treeEntity = new TreeEntity();
         for (TPower tpower : powers) {

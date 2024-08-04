@@ -14,7 +14,7 @@ public interface TPowerDao extends BaseDao<TPower, Integer> {
 
 
     @Query("select m from TPower m where m.tid in ( select t.powerId from TRolePower t where t.roleId in (:rolesId)) and m.userType = :userType")
-    List<TPower> findPowerByRoleAndUserType(@Param("rolesId") List<String> rolesId,@Param("userType") Integer userType);
+    List<TPower> findPowerByRoleAndUserType(@Param("rolesId") List<String> rolesId, @Param("userType") Integer userType);
 
 
     @Query("select m from TPower m where m.tid in( select t.powerId from TAdminPower t where t.adminId = ?1) or m.isPower = 0 order by m.sort asc ")
@@ -29,7 +29,8 @@ public interface TPowerDao extends BaseDao<TPower, Integer> {
     TPower findByTid(String pid);
 
 
-    @Query("select m from TPower m where m.enterpriseCode = ?1")
-    List<TPower> findAllByEnterpriseCode(String eCode);
+    @Query("select m from TPower m where m.enterpriseCode = ?1 and m.powerType = ?2 ")
+    List<TPower> findAllByEnterpriseCodeAndType(String eCode, Integer powerType);
+
 
 }
