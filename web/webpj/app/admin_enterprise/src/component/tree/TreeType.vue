@@ -9,23 +9,20 @@
         </DropdownItem>
       </template>
     </Tree>
-    {{ setting }}
   </div>
   <modal-data-list v-model="state.saveObj.show" :modalSetting="state.saveObj" @event="saveEventFn"/>
 </template>
 
 <script setup>
 
-import {onMounted, reactive, ref, watch} from "vue";
+import {onMounted, reactive, watch} from "vue";
 import {commonRequest} from "@/api/api.js"
 import {pageConfig} from '@/store/pageConfig.js'
-import {getAddColumns} from '@/api/webUtil.js'
 import {Message} from "view-ui-plus";
 
 const emits = defineEmits(['event', 'selectChange']);
 
 const usePageConfig = pageConfig();
-const selectData = ref({});
 
 const props = defineProps({
   setting: {
@@ -47,15 +44,18 @@ const props = defineProps({
     type: Boolean,
     default: false,
     required: false
-  }
+  },
+  selectData: {}
 });
 
 const state = reactive({
   columns: [],
   data: {},
   show: false,
-  saveType: '',
-  saveObj: {},
+  saveObj: {
+    columns: [],
+    url: ''
+  },
   objConfig: {
     showMainMenu: false,
     data: [
@@ -85,7 +85,6 @@ const initFn = async () => {
 const loadData = () => {
   state.loading = true;
   const {setting} = props;
-  console.log(setting)
   if (setting.queryObj) {
     commonRequest(
         setting.queryObj.url,
@@ -94,7 +93,6 @@ const loadData = () => {
           ...setting.queryObj.pm,
         }
     ).then((rest) => {
-      console.log('ssssssssssssssss', rest)
       const {data} = rest;
       const arr = [];
       if (data && data.root && data.root.length > 0) {
@@ -109,10 +107,8 @@ const loadData = () => {
       state.objConfig.loading = false;
     })
   }
-
 }
 // ======================================================
-
 
 /**
  * 处理树结构
@@ -132,35 +128,37 @@ const reTree = (list) => {
   return list;
 }
 
-
+/**
+ * 点击右键菜单
+ */
 const handleContextMenu = (data, event, position) => {
   if (data.nodeKey === 0) {
-    objConfig.value.showMainMenu = false;
+    state.objConfig.showMainMenu = false;
   } else {
-    objConfig.value.showMainMenu = true;
+    state.objConfig.showMainMenu = true;
   }
-  selectData.value = data;
+  state.selectData = data.data;
 }
 /**
  * 编辑
  */
 const handleContextMenuSave = (isEditor) => {
-  saveData.value.show = true;
+  const {setting} = props;
   if (isEditor) {
-    saveData.value.saveType = 'editor'
-    saveData.value.data = selectData.value.data || {}
+    state.saveObj = setting.updateObj;
+    state.saveObj.data = state.selectData;
   } else {
-    saveData.value.saveType = 'add'
-    const {data} = selectData.value
-    if (data) {
-      saveData.value.data = {
-        pid: data.tid
+    state.saveObj = setting.addObj;
+    const selectData = state.selectData;
+    if (selectData) {
+      state.saveObj.data = {
+        pid: selectData.tid
       }
     } else {
-      saveData.value.data = {}
+      state.saveObj.data = {}
     }
-
   }
+  state.saveObj.show = true;
 }
 
 /**
@@ -168,7 +166,7 @@ const handleContextMenuSave = (isEditor) => {
  */
 const handleContextMenuDelete = () => {
   const {url} = searchObj.value.delRequest;
-  const id = selectData.value.data.id;
+  const id = state.selectData.data.id;
   commonRequest(
       url,
       [id],
