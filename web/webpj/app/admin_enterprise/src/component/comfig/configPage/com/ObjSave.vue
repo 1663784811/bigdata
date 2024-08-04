@@ -9,9 +9,7 @@
       </div>
     </div>
     <div class="dataContent">
-      <div v-if="setting">
-        保存地址: <Input v-model="setting.url" placeholder="保存地址" clearable/>
-      </div>
+      <ObjRequest :setting="setting" title="保存地址" />
       <draggable
           ghost-class="ghost"
           chosen-class="chosenClass"
@@ -66,6 +64,8 @@
 
 <script setup>
 import draggable from "vuedraggable";
+import ObjRequest from './ObjRequest.vue'
+
 
 const emits = defineEmits(['showCode', 'update:modelValue']);
 const props = defineProps({

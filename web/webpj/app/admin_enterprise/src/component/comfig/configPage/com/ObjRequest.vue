@@ -1,6 +1,15 @@
 <template>
-  <div v-if="setting">
-    {{ title }}: <Input v-model="setting.url" placeholder="url" clearable/>
+  <div class="requestBox" v-if="setting">
+    {{ title }}:
+    <div class="urlBox">
+      <Checkbox v-model="setting.isCommonUrl"/>
+      <Input v-model="setting.url" placeholder="url" clearable/>
+    </div>
+    <div>
+      参数：
+
+    </div>
+
   </div>
 </template>
 
@@ -16,6 +25,7 @@ const props = defineProps({
     type: Object,
     default: {
       url: '',
+      isCommonUrl: true,
       parameter: {
         code: ""
       }
@@ -26,5 +36,15 @@ const props = defineProps({
 </script>
 
 <style scoped lang="less">
+.requestBox {
+  background: #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 
+  .urlBox {
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

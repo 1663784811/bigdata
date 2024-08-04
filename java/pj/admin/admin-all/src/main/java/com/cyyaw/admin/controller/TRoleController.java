@@ -24,6 +24,7 @@ public class TRoleController {
      */
     @PostMapping("/saveTRole")
     public BaseResult saveTRole(@RequestBody TRole saveObj, @TokenData LoginInfo loginInfo) {
+        saveObj.setEnterpriseCode(loginInfo.getEnterpriseCode());
         TRole obj = tRoleService.saveTree(saveObj);
         return BaseResult.ok(obj);
     }

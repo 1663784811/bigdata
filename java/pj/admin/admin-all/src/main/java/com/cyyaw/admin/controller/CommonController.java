@@ -67,7 +67,11 @@ public class CommonController {
         JSONObject json = new JSONObject(map);
         String code = json.getString("code");
         JSONObject data = json.getJSONObject("data");
-        return commonDao.del(code, data);
+        if (data != null) {
+            return commonDao.del(code, data);
+        } else {
+            return BaseResult.fail("删除失败");
+        }
     }
 
     @PostMapping("/saveSql")
