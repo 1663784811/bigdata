@@ -26,7 +26,6 @@
       </div>
     </TabPane>
   </Tabs>
-
   <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
@@ -93,12 +92,6 @@ onMounted(() => {
 })
 
 
-const loadDefaultFn = (str) => {
-  if (str === 'operation') {
-    state.operationObj = state.defaultConfig.operation;
-  }
-}
-
 /**
  * 显示代码
  */
@@ -126,20 +119,13 @@ const saveComponentsFn = () => {
 }
 
 const compileCode = () => {
-  state.tableObj.operation = state.operationObj;
-  const json = {
-    searchObj: state.state,
-    tableObj: state.tableObj,
-    saveObj: state.saveObj,
-  }
-  state.jsonData.data = JSON.stringify(json, null, "  ");
+  state.jsonData.data = JSON.stringify(state.outObj, null, "  ");
 }
 
 const loadDataHandleFn = (data) => {
-  state.queryObj = data.queryObj;
-  state.addObj = data.addObj
-  state.updateObj = data.updateObj;
-  state.delObj = data.delObj
+  state.outObj = {
+    ...data
+  };
 }
 
 const showCodeHandleFn = () => {
@@ -154,23 +140,23 @@ const showCodeHandleFn = () => {
 
 const initFn = () => {
   const {setting} = props;
-  const {saveObj, tableObj, searchObj, id, tid} = setting
-  // if (searchObj) {
-  //   state.searchObj = searchObj;
-  // }
-  // if (tableObj) {
-  //   state.tableObj = tableObj;
-  //   state.operationObj = tableObj.operation;
-  // }
-  // if (saveObj) {
-  //   state.saveObj = saveObj;
-  // }
-  // if (id) {
-  //   state.jsonData.id = id;
-  // }
-  // if (tid) {
-  //   state.jsonData.tid = tid;
-  // }
+  console.log(setting)
+  const {queryObj, addObj, updateObj, delObj, id} = setting
+  if (queryObj) {
+    state.outObj.queryObj = queryObj;
+  }
+  if (addObj) {
+    state.outObj.addObj = addObj;
+  }
+  if (updateObj) {
+    state.outObj.updateObj = updateObj;
+  }
+  if (delObj) {
+    state.outObj.delObj = delObj;
+  }
+  if (id) {
+    state.jsonData.id = id;
+  }
 }
 
 
