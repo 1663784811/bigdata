@@ -235,8 +235,8 @@ export const useAdminMenuStore = defineStore('adminMenu',
                 return rest;
             }
 
-            const loadMenu = (params, appid) => {
-                apiAdminMenu(params, appid).then((res) => {
+            const loadMenu = (params, appId) => {
+                apiAdminMenu(params, appId).then((res) => {
                     topMenu.value.push(...res.data);
                 })
             }

@@ -82,7 +82,7 @@ onMounted(() => {
 
   // commonQuery({
   //   code: ""
-  // }, route.params.appid).then((rest) => {
+  // }, route.params.appId).then((rest) => {
   //   console.log(rest)
   // })
 })

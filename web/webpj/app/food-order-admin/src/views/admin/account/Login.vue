@@ -2,8 +2,7 @@
   <div class="winHeight">
     <div class="loginContent">
       <div class="imgContent">
-        <img data-v-aa5851c8="" class="login-left-img"
-             src="https://admin.spicyboy.cn/assets/png/login_left-VQgr6mRR.png" alt="login">
+        <img data-v-aa5851c8="" class="login-left-img" src="~@/assets/loginback.png" alt="login">
       </div>
       <div class="contentBox">
         <div class="loginBox">
@@ -59,7 +58,7 @@ onMounted(() => {
  */
 const clickLogin = function () {
   loginParams.storeId = route.params.storeId
-  logInFn(loginParams, route.params.appid).then((res) => {
+  logInFn(loginParams, route.params.appId).then((res) => {
     if (res.data) {
       const {jwtToken, tadmin} = res.data;
       loginInfoSt.token = jwtToken;
@@ -68,7 +67,7 @@ const clickLogin = function () {
         content: `${res.msg}`
       })
       setTimeout(() => {
-        loginInfoSt.variable.eCode = route.params.appid;
+        loginInfoSt.variable.eCode = route.params.appId;
         router.push({name: 'home'})
       }, 500)
     }

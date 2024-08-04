@@ -299,9 +299,11 @@ const delComponent = (row) => {
     loading: true,
     onOk: () => {
       commonRequest("/admin/{eCode}/common/del", {
-        tid: row.tid,
+        data: {
+          tid: row.tid,
+        },
         code: 'del_c_page_components'
-      }).then((rest) => {
+      }, 'post').then((rest) => {
         Message.success({
           content: `${rest.data ? rest.data : rest.msg}`,
           onClose: () => {

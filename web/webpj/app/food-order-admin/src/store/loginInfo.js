@@ -14,7 +14,7 @@ export const loginInfo = defineStore('loginInfo', {
     state: () => {
         const variable = ref({
             eCode: '',
-            appid: '',
+            appId: '',
             storeId: '',
         })
         const userInfo = ref({});

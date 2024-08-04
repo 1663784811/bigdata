@@ -37,7 +37,7 @@ public class EApplicationServiceImpl extends BaseService<EApplication, Integer> 
         // 初始化应用
 
         // 生成应用编码
-        application.setCode("");
+        application.setCode("001");
 
         return save(application);
     }

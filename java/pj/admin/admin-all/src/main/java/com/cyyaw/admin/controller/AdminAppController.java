@@ -35,16 +35,12 @@ public class AdminAppController {
     @ApiOperation(value = "开通APP", notes = "开通APP")
     @PostMapping("/openApp")
     public BaseResult openApp(EApplication application, @TokenData LoginInfo loginInfo) {
-
-
         String enterpriseCode = loginInfo.getEnterpriseCode();
         application.setEnterpriseCode(enterpriseCode);
         application.setUrl("");
 
 
         EApplication app = applicationService.openApp(application);
-
-
         return BaseResult.ok(app);
     }
 

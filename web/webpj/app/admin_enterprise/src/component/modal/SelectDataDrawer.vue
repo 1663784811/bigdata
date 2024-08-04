@@ -208,7 +208,7 @@ const delDataFn = (objArr = []) => {
           ...objArr[i],
           ...state.selectObj.delRequest.parameter
         }
-        await commonRequest(url, parameter).then((rest) => {
+        await commonRequest(url, parameter, 'post').then((rest) => {
           Message.success(`${rest.msg}`)
         }).catch((err) => {
           console.log(err);
