@@ -73,6 +73,9 @@ public class TPower implements TreeEntity<Integer>, Serializable {
     @Column(name = "url", columnDefinition = "varchar(255) COMMENT 'url'")
     private String url;
     @Basic
+    @Column(name = "route_name", columnDefinition = "varchar(255) COMMENT '路由'")
+    private String routeName;
+    @Basic
     @Column(name = "sort", columnDefinition = "int default '1' COMMENT '排序'")
     private Integer sort;
 

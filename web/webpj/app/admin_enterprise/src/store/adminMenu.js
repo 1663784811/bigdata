@@ -1,11 +1,12 @@
 import {defineStore} from 'pinia'
 import {reactive, ref} from "vue";
 import {apiAdminMenu} from "@/api/api.js"
+import {left} from "vuedraggable/dist/vuedraggable.common";
 
 export const useAdminMenuStore = defineStore('adminMenu',
     {
         persist: {
-            enabled: true,//开启数据持久化
+            enabled: false,//开启数据持久化
             strategies: [
                 {
                     key: 'enterpriseMenu',
@@ -470,7 +471,10 @@ export const useAdminMenuStore = defineStore('adminMenu',
             const loadMenu = () => {
                 apiAdminMenu({}).then((res) => {
                     console.log('sss', res)
-                    //topMenu.value.push(...res.data);
+                    const {data} = res;
+                    if (data && data.length > 0) {
+                        topMenu.value.push(...data);
+                    }
                 })
             }
 

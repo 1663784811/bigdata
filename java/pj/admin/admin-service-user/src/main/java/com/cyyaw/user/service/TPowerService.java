@@ -3,6 +3,7 @@ package com.cyyaw.user.service;
 
 import com.cyyaw.jpa.BaseTableService;
 import com.cyyaw.user.table.entity.TPower;
+import com.cyyaw.user.utils.entity.TreeEntity;
 import com.cyyaw.util.tools.BaseResult;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface TPowerService extends BaseTableService<TPower, Integer> {
     /**
      * 查询菜单
      */
-    BaseResult queryMenu(String eCode, Integer powerType);
+    BaseResult<TreeEntity<TPower>> queryMenu(String eCode, Integer powerType);
 
     /**
      * 删除菜单

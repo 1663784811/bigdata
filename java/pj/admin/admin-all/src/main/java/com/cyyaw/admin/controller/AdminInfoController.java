@@ -4,10 +4,13 @@ package com.cyyaw.admin.controller;
 import com.cyyaw.service.AdminUserService;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.service.TAdminService;
+import com.cyyaw.user.service.TPowerService;
 import com.cyyaw.user.service.UUserService;
 import com.cyyaw.user.table.entity.TAdmin;
 import com.cyyaw.user.table.entity.TPower;
 import com.cyyaw.user.utils.LoginInfo;
+import com.cyyaw.user.utils.MenuUtils;
+import com.cyyaw.user.utils.entity.MenuEntity;
 import com.cyyaw.user.utils.entity.TreeEntity;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +38,9 @@ public class AdminInfoController {
 
     @Autowired
     private AdminUserService adminUserService;
+
+    @Autowired
+    private TPowerService powerService;
 
 
     @ApiOperation(value = "管理员信息", notes = "管理员信息")
@@ -58,9 +65,11 @@ public class AdminInfoController {
      */
     @GetMapping(value = "/menu")
     public BaseResult adminMenu(@TokenData LoginInfo loginInfo) {
-        String adminId = loginInfo.getId();
-        List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId, 0);
-        return BaseResult.ok(arr);
+        //String adminId = loginInfo.getId();
+        //List<TreeEntity.Node<TPower>> arr = adminUserService.adminMenu(adminId, 0);
+        //        return BaseResult.ok(arr);
+        BaseResult<TreeEntity<TPower>> rest = powerService.queryMenu(loginInfo.getEnterpriseCode(), 1);
+        return BaseResult.ok(MenuUtils.getMenu(rest.getData()));
     }
 
 
