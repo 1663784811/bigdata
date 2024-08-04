@@ -12,6 +12,7 @@ const requestConfig = function (config) {
     config.headers['token'] = userStore.token;
     if (userStore.variable.eCode) {
         config.url = config.url.replace("${eCode}", userStore.variable.eCode)
+        console.log(config.url)
     }
     return config
 }

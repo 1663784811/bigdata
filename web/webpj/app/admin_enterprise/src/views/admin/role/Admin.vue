@@ -1,22 +1,28 @@
 <template>
-  <CommonTable :table-setting="tableSetting"/>
+  <data-table :setting="state.newTable"/>
 </template>
 
 <script setup>
-
-import {ref} from "vue";
-import CommonTable from '@/component/CommonTable.vue'
+import {onMounted, reactive} from "vue";
 import {pageConfig} from '@/store/pageConfig.js'
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 const usePageConfig = pageConfig();
-const tableSetting = ref(null);
+const state = reactive({
+  newTable: {
+    show: true
+  },
+})
+onMounted(() => {
+  initFn();
+})
+
 const initFn = async () => {
   const pageCode = 'admin'
   const pageData = await usePageConfig.getPageConfig(pageCode);
-  tableSetting.value = pageData.commonTable;
-  usePageConfig.componentConfig.pageCodeList[pageCode] = pageCode
+  state.newTable = pageData.newTable;
 }
-initFn();
 </script>
 
 <style scoped lang="less">
