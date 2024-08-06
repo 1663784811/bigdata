@@ -1,6 +1,6 @@
 package com.cyyaw.user.table.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

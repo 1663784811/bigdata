@@ -1,10 +1,10 @@
 package com.cyyaw.util.tools;
 
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +48,8 @@ public class ReadExcelUtils {
 
     private static List<JSONObject> read(ExcelReaderSheetBuilder sheet, Integer rowNum) {
         List<Object> data = sheet.doReadSync();
-        JSONArray tmp = JSONObject.parseArray(JSONObject.toJSONString(data));
-
+        JSONArray tmp =  new JSONArray(data);
         List<JSONObject> rest = new ArrayList<>();
-
         for (int i = rowNum; i < tmp.size(); i++) {
             JSONObject o = tmp.getJSONObject(i);
             // 处理合并列问题 START

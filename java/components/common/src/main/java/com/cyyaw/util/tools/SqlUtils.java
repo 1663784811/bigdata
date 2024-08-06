@@ -1,9 +1,8 @@
 package com.cyyaw.util.tools;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONObject;
 import com.alibaba.excel.util.StringUtils;
-import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,10 +134,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not in (" + addstr(value, ",", "'") + ")";
@@ -147,10 +146,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " in (" + addstr(value, ",", "'") + ")";
@@ -159,10 +158,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " not like '" + value + "'";
@@ -171,10 +170,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "'";
@@ -183,10 +182,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '" + value + "%'";
@@ -195,10 +194,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " like '%" + value + "%'";
@@ -207,10 +206,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " >= '" + value + "'";
@@ -219,10 +218,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 2);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " <= '" + value + "'";
@@ -231,10 +230,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " > '" + value + "'";
@@ -243,10 +242,10 @@ public class SqlUtils {
             String keyN = str.substring(index + 1);
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " < '" + value + "'";
@@ -255,10 +254,10 @@ public class SqlUtils {
             String keyN = str;
             String value = null;
             if (null != key) {
-                value = json.getString(key);
+                value = json.getStr(key);
             } else {
                 String[] s = keyN.split("\\.");
-                value = json.getString(s[s.length - 1]);
+                value = json.getStr(s[s.length - 1]);
             }
             if (!StringUtils.isEmpty(value)) {
                 return keyN + " = '" + value + "'";
@@ -326,7 +325,7 @@ public class SqlUtils {
                 } else {
                     jsonKey.append(key);
                 }
-                String str = json.getString(jsonKey.toString());
+                String str = json.getStr(jsonKey.toString());
                 if (StrUtil.isNotBlank(str)) {
                     rest.add(str);
                 } else {
@@ -407,7 +406,7 @@ public class SqlUtils {
                 } else {
                     jsonKey.append(key);
                 }
-                String str = newData.getString(jsonKey.toString());
+                String str = newData.getStr(jsonKey.toString());
                 if (StrUtil.isNotBlank(str)) {
                     rest.add(str);
                 } else {

@@ -2,12 +2,12 @@ package com.cyyaw.config.exception;
 
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import com.cyyaw.util.tools.WhyException;
-import org.apache.shiro.authc.AuthenticationException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;

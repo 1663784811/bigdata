@@ -1,9 +1,8 @@
-package com.cyyaw.web.service;
+package com.cyyaw.equipment.service;
 
 
+import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.jpa.BaseTableService;
-import com.cyyaw.web.table.entity.EqEquipment;
-import com.cyyaw.web.table.entity.WebImageType;
 
 public interface EqEquipmentService extends BaseTableService<EqEquipment, Integer> {
 

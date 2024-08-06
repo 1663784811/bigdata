@@ -115,13 +115,18 @@
             <artifactId>admin-service-content</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>admin-service-equipment</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
             <version>1.2.5</version>
         </dependency>
+
 
     </dependencies>
 

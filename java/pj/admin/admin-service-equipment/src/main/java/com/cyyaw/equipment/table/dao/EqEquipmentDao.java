@@ -1,8 +1,8 @@
-package com.cyyaw.web.table.dao;
+package com.cyyaw.equipment.table.dao;
 
+
+import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.jpa.BaseDao;
-import com.cyyaw.web.table.entity.EqEquipment;
-import com.cyyaw.web.table.entity.WBanner;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;

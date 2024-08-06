@@ -6,7 +6,7 @@ import {left} from "vuedraggable/dist/vuedraggable.common";
 export const useAdminMenuStore = defineStore('adminMenu',
     {
         persist: {
-            enabled: false,//开启数据持久化
+            enabled: true,//开启数据持久化
             strategies: [
                 {
                     key: 'enterpriseMenu',

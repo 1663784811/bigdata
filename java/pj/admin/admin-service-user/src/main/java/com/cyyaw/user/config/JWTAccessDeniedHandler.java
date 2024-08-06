@@ -1,6 +1,7 @@
 package com.cyyaw.user.config;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import org.springframework.security.access.AccessDeniedException;
@@ -21,7 +22,7 @@ public class JWTAccessDeniedHandler implements AccessDeniedHandler {
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         WebErrCodeEnum err = WebErrCodeEnum.WEB_AUTHENTICATION_ERR;
         BaseResult rest = BaseResult.rest(err);
-        String json = JSONObject.toJSONString(rest);
+        String json = JSONUtil.toJsonStr(new JSONObject(rest));
         httpServletResponse.getWriter().write(json);
     }
 }

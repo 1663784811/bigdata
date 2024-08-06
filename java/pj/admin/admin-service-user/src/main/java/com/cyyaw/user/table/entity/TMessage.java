@@ -1,6 +1,6 @@
 package com.cyyaw.user.table.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_message")
 @org.hibernate.annotations.Table(appliesTo = "t_message", comment = "消息表")
-public class TMessage implements BaseEntity<Integer>,  Serializable {
+public class TMessage implements BaseEntity<Integer>, Serializable {
     private static final long serialVersionUID = 1568782627345202L;
 
     @Id
@@ -46,20 +46,19 @@ public class TMessage implements BaseEntity<Integer>,  Serializable {
     @Column(name = "content", columnDefinition = "varchar(255) COMMENT '内容'")
     private String content;
     @Basic
-    @Column(name = "mssagetype",columnDefinition = "int COMMENT '消息类型'")
+    @Column(name = "mssagetype", columnDefinition = "int COMMENT '消息类型'")
     private Integer mssagetype;
 
     @Basic
-    @Column(name = "orginal",columnDefinition = "int COMMENT '是否原创{0:否,1:是}'")
+    @Column(name = "orginal", columnDefinition = "int COMMENT '是否原创{0:否,1:是}'")
     private Integer orginal;
     @Basic
     @Column(name = "publishtime", columnDefinition = "datetime COMMENT '发布时间'")
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishtime;
     @Basic
-    @Column(name = "status",columnDefinition = "int COMMENT '状态'")
+    @Column(name = "status", columnDefinition = "int COMMENT '状态'")
     private Integer status;
     @Basic
     @Column(name = "title", columnDefinition = "varchar(255) COMMENT '标题'")

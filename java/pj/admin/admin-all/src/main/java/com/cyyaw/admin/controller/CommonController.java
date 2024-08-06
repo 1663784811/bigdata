@@ -1,7 +1,7 @@
 package com.cyyaw.admin.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.table.dao.*;
 import com.cyyaw.sql.table.entity.CSql;
 import com.cyyaw.table.spider.tag.dao.TagDao;
@@ -55,7 +55,7 @@ public class CommonController {
     @PostMapping("/save")
     public BaseResult<Object> save(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
-        String code = json.getString("code");
+        String code = json.getStr("code");
         JSONObject data = json.getJSONObject("data");
         return commonDao.save(code, data);
     }
@@ -65,7 +65,7 @@ public class CommonController {
     @PostMapping("/del")
     public BaseResult<Object> del(@RequestBody Map<String, Object> map, @TokenData LoginInfo loginInfo) {
         JSONObject json = new JSONObject(map);
-        String code = json.getString("code");
+        String code = json.getStr("code");
         JSONObject data = json.getJSONObject("data");
         if (data != null) {
             return commonDao.del(code, data);

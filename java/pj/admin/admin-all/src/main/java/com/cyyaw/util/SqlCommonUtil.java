@@ -1,6 +1,6 @@
 package com.cyyaw.util;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.user.utils.LoginInfo;
 
 public class SqlCommonUtil {
@@ -12,7 +12,6 @@ public class SqlCommonUtil {
         if (null != json && null != loginInfo) {
             json.put("__user_eCode", loginInfo.getEnterpriseCode());
             json.put("__user_appId", loginInfo.getAppId());
-
             json.put("__user_uId", loginInfo.getId());
             json.put("__user_account", loginInfo.getAccount());
             json.put("__user_name", loginInfo.getUserName());

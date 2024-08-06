@@ -1,7 +1,7 @@
 package com.cyyaw.app.controller.friends;
 
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.service.ContentService;
 import com.cyyaw.util.tools.BaseResult;
 import io.swagger.annotations.Api;
@@ -26,9 +26,8 @@ public class ContentController {
     @GetMapping(value = "/findContent")
     public BaseResult findContent(@RequestParam Map<String, Object> map, @PathVariable String appId) {
         JSONObject json = new JSONObject(map);
-        Integer page = json.getInteger("page");
-        Integer size = json.getInteger("size");
-
+        Integer page = json.getInt("page");
+        Integer size = json.getInt("size");
         return contentService.findContent(appId, page, size);
     }
 

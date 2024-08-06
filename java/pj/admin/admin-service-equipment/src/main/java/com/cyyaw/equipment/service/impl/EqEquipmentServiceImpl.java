@@ -1,13 +1,11 @@
-package com.cyyaw.web.service.impl;
+package com.cyyaw.equipment.service.impl;
 
+import com.cyyaw.equipment.service.EqEquipmentService;
+import com.cyyaw.equipment.table.dao.EqEquipmentDao;
+import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.jpa.BaseDao;
+
 import com.cyyaw.jpa.BaseService;
-import com.cyyaw.web.service.EqEquipmentService;
-import com.cyyaw.web.service.WebImageTypeService;
-import com.cyyaw.web.table.dao.EqEquipmentDao;
-import com.cyyaw.web.table.dao.WebImageTypeDao;
-import com.cyyaw.web.table.entity.EqEquipment;
-import com.cyyaw.web.table.entity.WebImageType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

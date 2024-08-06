@@ -2,8 +2,8 @@ package com.cyyaw.sql.table.dao;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.config.exception.WebException;
 import com.cyyaw.jpa.util.DataBaseUtils;
 import com.cyyaw.jpa.util.entity.CommonSaveData;
@@ -46,14 +46,14 @@ public class CommonDaoImpl implements CommonDao {
     public BaseResult query(JSONObject json) {
         BaseResult rest = new BaseResult();
         //第一步：查询  sql 字符串
-        String code = json.getString("code");
+        String code = json.getStr("code");
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet("select * from c_sql c where c.status = 0 and c.tid = ?", code);
         if (sqlRowSet.next()) {
             String countsql = sqlRowSet.getString("count_sql");
             String sqlcontent = sqlRowSet.getString("content_sql");
             Integer login = sqlRowSet.getInt("login");
             if (null == login || login == 1) {
-                String uId = json.getString("__user_uId");
+                String uId = json.getStr("__user_uId");
                 if (StrUtil.isNotBlank(uId)) {
                     return query(countsql, sqlcontent, json, true);
                 } else {
@@ -77,9 +77,9 @@ public class CommonDaoImpl implements CommonDao {
      * @return
      */
     public BaseResult query(String sqlCount, String sqlcontent, JSONObject json, boolean touName) {
-        Integer page = json.getInteger("page");
-        Integer size = json.getInteger("size");
-        String sort = json.getString("sort");
+        Integer page = json.getInt("page");
+        Integer size = json.getInt("size");
+        String sort = json.getStr("sort");
         page = (page == null || page <= 0) ? 1 : page;
         size = (size == null || size <= 0) ? 30 : size;
         // ================
@@ -173,7 +173,7 @@ public class CommonDaoImpl implements CommonDao {
                     pk = columnName;
                     for (int j = 0; j < data.size(); j++) {
                         JSONObject mm = data.getJSONObject(j);
-                        String id = mm.getString(columnName);
+                        String id = mm.getStr(columnName);
                         if (WhyStringUtil.isEmpty(id)) {
                             addArr.add(mm);
                         } else {
@@ -205,7 +205,7 @@ public class CommonDaoImpl implements CommonDao {
                             String name = js.getField();
                             String dataType = js.getType();
                             String columnKey = js.getKey();
-                            String cn = obj.getString(name);
+                            String cn = obj.getStr(name);
                             if ((!"datetime".equals(dataType) && null != cn) || (!WhyStringUtil.isEmpty(cn))) {
                                 if (columnKey.equals("PRI")) {
                                     pkvalue = cn;
@@ -228,7 +228,7 @@ public class CommonDaoImpl implements CommonDao {
                             list.add(pkvalue);
                             // 处理树
                             String oldTreecode = null;
-                            String pid = obj.getString("pid");
+                            String pid = obj.getStr("pid");
                             if (tree == 3) {
                                 // 第一步：查询原数据
                                 String sql = "select * from " + table + " where `" + pk + "` = ?";
@@ -251,8 +251,8 @@ public class CommonDaoImpl implements CommonDao {
                                     List<Map<String, Object>> setcode = jdbcTemplate.queryForList(max, l, parentTreeCode + "%");
                                     int trint = 1;
                                     if (setcode.size() > 0) {
-                                        JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(setcode.get(0)));
-                                        trint = js.getInteger("tree_code");
+                                        JSONObject js = new JSONObject(setcode.get(0));
+                                        trint = js.getInt("tree_code");
                                     }
                                     String tr = WhyStringUtil.createStrLength(trint + "", 3, "0");
                                     obj.put("tree_code", parentTreeCode + tr);
@@ -261,7 +261,7 @@ public class CommonDaoImpl implements CommonDao {
                             jdbcTemplate.update(sb.toString(), list.toArray());
                             if (oldTreecode != null) {
                                 // 更新数据下的 treecode
-                                String tr = obj.getString("tree_code");
+                                String tr = obj.getStr("tree_code");
                                 String updateTree = "update t_power t set t.treecode = concat( ? ,substring(t.treecode, ? )) where t.treecode like ? ";
                                 jdbcTemplate.update(updateTree, tr, oldTreecode.length() + 1, oldTreecode + "%");
                             }
@@ -286,7 +286,7 @@ public class CommonDaoImpl implements CommonDao {
             String mainTable = sqlRowSet.getString("main_table");
             String mainId = sqlRowSet.getString("main_id");
             String delSql = sqlRowSet.getString("del_sql").replaceAll("\n", "");
-            String mainIdData = json.getString(mainId);
+            String mainIdData = json.getStr(mainId);
             if (StrUtil.isNotBlank(mainIdData)) {
                 return delData(delSql, json);
             } else {
@@ -327,7 +327,7 @@ public class CommonDaoImpl implements CommonDao {
             FieldInfo js = page.get(j);
             String name = js.getField();
             String dataType = js.getType();
-            String cn = obj.getString(name);
+            String cn = obj.getStr(name);
             // 初始化数据
             if (WhyStringUtil.isEmpty(cn) && name.equals("tid")) {
                 cn = WhyStringUtil.getUUID();
@@ -359,7 +359,7 @@ public class CommonDaoImpl implements CommonDao {
 
         //=======================  如果是树
         if (tree == 3 && index != -1) {
-            String pid = obj.getString("pid");
+            String pid = obj.getStr("pid");
             if (null != pid) {
                 String parentTreeCode = "";
                 // 第二步： 查找新的父节点数据
@@ -374,8 +374,8 @@ public class CommonDaoImpl implements CommonDao {
                 List<Map<String, Object>> setcode = jdbcTemplate.queryForList(max, l, parentTreeCode + "%");
                 int trint = 1;
                 if (setcode.size() > 0) {
-                    JSONObject js = JSONObject.parseObject(JSONObject.toJSONString(setcode.get(0)));
-                    trint = js.getInteger("tree_code");
+                    JSONObject js = new JSONObject(setcode.get(0));
+                    trint = js.getInt("tree_code");
                 }
                 String tr = WhyStringUtil.createStrLength(trint + "", 3, "0");
                 obj.put("tree_code", parentTreeCode + tr);
@@ -408,7 +408,7 @@ public class CommonDaoImpl implements CommonDao {
             String insetSql = sqlRowSet.getString("inset_sql").replaceAll("\n", "");
             String updateSql = sqlRowSet.getString("update_sql").replaceAll("\n", "");
             // 第一步: 查询主表是否有数据
-            String mainIdData = json.getString(mainId);
+            String mainIdData = json.getStr(mainId);
             if (StrUtil.isBlank(mainIdData)) {
                 return insertData(insetSql, json);
             } else {

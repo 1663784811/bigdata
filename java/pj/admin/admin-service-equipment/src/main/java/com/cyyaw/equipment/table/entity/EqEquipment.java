@@ -1,4 +1,4 @@
-package com.cyyaw.web.table.entity;
+package com.cyyaw.equipment.table.entity;
 
 
 import com.cyyaw.jpa.util.entity.BaseEntity;

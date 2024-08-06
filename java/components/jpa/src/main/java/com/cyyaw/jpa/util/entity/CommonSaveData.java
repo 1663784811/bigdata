@@ -1,7 +1,7 @@
 package com.cyyaw.jpa.util.entity;
 
 
-import com.alibaba.fastjson.JSONArray;
+import cn.hutool.json.JSONArray;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,5 @@
 package com.cyyaw.user.table.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -51,7 +50,6 @@ public class TAdmin implements BaseEntity<Integer>, Serializable {
     private String account;
     @Basic
     @Column(name = "can_login_time", columnDefinition = "datetime COMMENT '可登录时间'")
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date canLoginTime;
@@ -63,7 +61,6 @@ public class TAdmin implements BaseEntity<Integer>, Serializable {
     private String ip;
     @Basic
     @Column(name = "last_login_time", columnDefinition = "datetime COMMENT '最后登录时间'")
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;

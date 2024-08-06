@@ -1,7 +1,7 @@
 package com.cyyaw.store.table.activity.entity;
 
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.cyyaw.jpa.util.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -51,13 +51,13 @@ public class ACoupon implements BaseEntity<Integer>,  Serializable {
 
     @Basic
     @Column(name = "starttime", columnDefinition = "datetime COMMENT '开始时间'")
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date starttime;
     @Basic
     @Column(name = "endtime", columnDefinition = "datetime COMMENT '结束时间'")
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endtime;

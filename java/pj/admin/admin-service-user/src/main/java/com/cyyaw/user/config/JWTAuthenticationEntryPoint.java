@@ -1,6 +1,7 @@
 package com.cyyaw.user.config;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cyyaw.util.tools.BaseResult;
 import com.cyyaw.util.tools.WebErrCodeEnum;
 import org.springframework.security.core.AuthenticationException;
@@ -21,7 +22,7 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_OK);
         WebErrCodeEnum err = WebErrCodeEnum.WEB_NOT_LOGIN;
         BaseResult rest = BaseResult.rest(err);
-        String json = JSONObject.toJSONString(rest);
+        String json = JSONUtil.toJsonStr(new JSONObject(rest));
         response.getWriter().write(json);
     }
 }

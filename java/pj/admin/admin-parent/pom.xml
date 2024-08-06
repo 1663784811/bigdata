@@ -41,6 +41,7 @@
         <module>../admin-tools-pay</module>
         <module>../admin-service-food</module>
         <module>../admin-service-content</module>
+        <module>../admin-service-equipment</module>
 
 
     </modules>

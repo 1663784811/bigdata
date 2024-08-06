@@ -1,6 +1,6 @@
 package com.cyyaw.sql.table.dao;
 
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.util.tools.BaseResult;
 
 public interface CommonDao {
