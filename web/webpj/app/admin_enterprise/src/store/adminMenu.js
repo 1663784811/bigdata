@@ -473,7 +473,7 @@ export const useAdminMenuStore = defineStore('adminMenu',
                     console.log('sss', res)
                     const {data} = res;
                     if (data && data.length > 0) {
-                        topMenu.value.push(...data);
+                        // topMenu.value = data;
                     }
                 })
             }
