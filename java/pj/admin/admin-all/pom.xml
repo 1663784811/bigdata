@@ -25,7 +25,11 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.cyyaw</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.cyyaw</groupId>
@@ -133,13 +137,16 @@
             <artifactId>admin-service-monitor</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
+            <version>5.14.0</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
+            <version>5.14.0</version>
         </dependency>
 
 

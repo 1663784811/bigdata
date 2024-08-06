@@ -14,6 +14,11 @@ public class Cpu {
     private int cpuNum;
 
     /**
+     * 线程
+     */
+    private int threadNum;
+
+    /**
      * CPU总的使用率
      */
     private double total;
@@ -37,6 +42,15 @@ public class Cpu {
      * CPU当前空闲率
      */
     private double free;
+
+
+    public int getThreadNum() {
+        return threadNum;
+    }
+
+    public void setThreadNum(int threadNum) {
+        this.threadNum = threadNum;
+    }
 
     public int getCpuNum() {
         return cpuNum;

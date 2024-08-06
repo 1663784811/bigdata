@@ -81,7 +81,8 @@ public class ServerInfo {
         long iowait = ticks[TickType.IOWAIT.getIndex()] - prevTicks[TickType.IOWAIT.getIndex()];
         long idle = ticks[TickType.IDLE.getIndex()] - prevTicks[TickType.IDLE.getIndex()];
         long totalCpu = user + nice + cSys + idle + iowait + irq + softirq + steal;
-        cpu.setCpuNum(processor.getLogicalProcessorCount());
+        cpu.setCpuNum(processor.getPhysicalProcessorCount());
+        cpu.setThreadNum(processor.getLogicalProcessorCount());
         cpu.setTotal(totalCpu);
         cpu.setSys(cSys);
         cpu.setUsed(user);
