@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="infoBoxRow">
       <div class="infoBox">
         <div class="infoHead">
@@ -30,7 +29,6 @@
         </div>
       </div>
     </div>
-
     <div class="infoBoxRow">
       <div class="infoBox">
         <div class="infoHead">
@@ -46,11 +44,21 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 <script setup>
+import {serverNodeInfo} from '@/api/api.js'
+import {onMounted} from "vue";
+
+
+onMounted(() => {
+
+  serverNodeInfo().then((rest) => {
+    console.log(rest)
+  })
+
+})
+
 
 </script>
 <style scoped lang="less">

@@ -20,6 +20,10 @@ export const findSetting = (params) => {return axios.get( `${baseUrl}/tx/config/
 export const saveComponents = (params) => {return axios.post( `${baseUrl}/tx/config/page/saveComponents`, params);}
 // 复制页面
 export const copyCPageRequest = (params) => {return axios.post( `${baseUrl}/admin/config/page/copyCPage`, params);}
+
+// 服务器监控
+export const serverNodeInfo = (params) => {return axios.get( `${baseUrl}/admin/monitor/server/serverInfo`, params);}
+
 // 上传文件
 export const uploadFile = (formData) =>{return upLoadFile.post(`${baseUrl}/admin/\${eCode}/file/upload`,formData);};
 // ===============================================================================================================================================================================================================
