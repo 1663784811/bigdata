@@ -1,4 +1,4 @@
-package com.cyyaw;
+package com.cyyaw.springutils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ public class AmqpStarter implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         log.info(" ============== 开始 rabbiMq 初始化");
         customBeanRegistrar.scanAndRegisterBeans("com.cyyaw.mqtt.**");
-        log.info(" ============== rabbiMq 初始化完成");
     }
 
 }

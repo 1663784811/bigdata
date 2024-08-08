@@ -28,10 +28,6 @@ public class AppApplication {
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
 
 
-        new Thread(()->{
-            RabbitMqService bean = run.getBean(RabbitMqService.class);
-            log.info("bean: {}", bean);
-        }).start();
 
     }
 
