@@ -34,8 +34,8 @@
         <module>../admin-service-store</module>
         <module>../admin-service-activiti</module>
         <module>../admin-service-black-room</module>
-        <module>../admin-dao</module>
         <module>../admin-all</module>
+        <module>../admin-app</module>
         <module>../admin-service-monitor</module>
         <module>../admin-tools-weixin</module>
         <module>../admin-tools-pay</module>

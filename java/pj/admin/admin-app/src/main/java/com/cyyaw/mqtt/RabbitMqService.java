@@ -3,16 +3,16 @@ package com.cyyaw.mqtt;
 import cn.hutool.json.JSONArray;
 import com.cyyaw.equipment.service.EqEquipmentService;
 import com.cyyaw.equipment.table.entity.EqEquipment;
-import com.cyyaw.mqtt.handle.ChatMsgHandle;
-import com.cyyaw.mqtt.handle.UserBean;
-import com.cyyaw.mqtt.handle.WebRtcMsgHandle;
+import com.cyyaw.mqtt.rabbit.RabbitMqDead;
+import com.cyyaw.mqtt.rabbit.RabbitMqDelay;
+import com.cyyaw.mqtt.rabbit.RabbitMqEvent;
+import com.cyyaw.mqtt.rabbit.RabbitMqMqtt;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
@@ -24,19 +24,10 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class RabbitMQService {
-
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+public class RabbitMqService {
 
     @Autowired
     private AmqpTemplate amqpTemplate;
-
-    @Autowired
-    private ChatMsgHandle chatMsgHandle;
-
-    @Autowired
-    private WebRtcMsgHandle webRtcMsgHandle;
 
     @Autowired
     private MqttService mqttService;
@@ -45,16 +36,8 @@ public class RabbitMQService {
     @Autowired
     private EqEquipmentService eqEquipmentService;
 
-    public void sendMessage(String message) {
-        rabbitTemplate.convertAndSend("ssssssssss", message);
-    }
 
-    public String receiveMessage() {
-        return (String) rabbitTemplate.receiveAndConvert("myQueue");
-    }
-
-
-    @RabbitListener(queues = RabbitMqConfig.MQTT_QUEUE)
+    @RabbitListener(queues = RabbitMqMqtt.MQTT_QUEUE)
     public void listenSimpleQueueMessage(Message message, Channel channel) throws IOException {
         MessageProperties msp = message.getMessageProperties();
         long tag = msp.getDeliveryTag();
@@ -66,10 +49,10 @@ public class RabbitMQService {
         if (strArr.length > 0 && strArr[0].equals("mqtt_service")) {
             if (strArr.length > 1 && strArr[1].equals("chat")) {
                 String to = routingKey.replace("mqtt_service.chat.", "");
-                chatMsgHandle.handle(to, data);
+//                chatMsgHandle.handle(to, data);
             } else if (strArr.length > 1 && strArr[1].equals("webrtc")) {
                 String to = routingKey.replace("mqtt_service.webrtc.", "");
-                webRtcMsgHandle.handle(to, data);
+//                webRtcMsgHandle.handle(to, data);
             } else {
                 String topic = routingKey.replace("mqtt_service.", "");
                 mqttService.send(topic, data);
@@ -82,7 +65,7 @@ public class RabbitMQService {
         }
     }
 
-    @RabbitListener(queues = "event_queue")
+    @RabbitListener(queues = RabbitMqEvent.EVENT_QUEUE)
     public void handleDeviceConnectedEvent(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         MessageProperties messageProperties = message.getMessageProperties();
         Map<String, Object> headers = messageProperties.getHeaders();
@@ -103,9 +86,9 @@ public class RabbitMQService {
                 if ("connection.created".equals(receivedRoutingKey)) {
                     messageProperties.getHeader("queue");
                     // 通知 我的好友 在线
-                    UserBean userBean = new UserBean();
-                    userBean.setUserId(id);
-                    WebRtcMsgHandle.userBeans.put(id, userBean);
+//                    UserBean userBean = new UserBean();
+//                    userBean.setUserId(id);
+//                    WebRtcMsgHandle.userBeans.put(id, userBean);
                     System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
 
                     EqEquipment equipment = eqEquipmentService.findByCode(id);
@@ -144,6 +127,23 @@ public class RabbitMQService {
             System.out.println("业务处理失败，拒绝接收消息");
             channel.basicNack(tag, false, true);
         }
+    }
+
+
+    //接收消息
+    @RabbitListener(queues = RabbitMqDead.DEAD_QUEUE)
+    public void receiveD(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+        String msg = new String(message.getBody());
+        log.info("【 死信队列 】 当前时间：{}，发送一条消息给两个TTL队列：{}", new Date().toString(), msg);
+        channel.basicAck(tag, false);
+    }
+
+
+    @RabbitListener(queues = RabbitMqDelay.DELAY_QUEUE)
+    public void receiveDelayedQueue(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+        String msg = new String(message.getBody());
+        log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
+        channel.basicAck(tag, false);
     }
 
 }

@@ -108,7 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                         // ============================================================== 页面
-                        "/enterprise/**"
+                        "/enterprise/**",
+                        "/rabbitmq/**"
 
 
 

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
@@ -21,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
+@ComponentScan(basePackages = {"com.cyyaw.**"}, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com\\.cyyaw\\.mqtt\\..*"))
 @SpringBootApplication
 public class AllApplication {
 

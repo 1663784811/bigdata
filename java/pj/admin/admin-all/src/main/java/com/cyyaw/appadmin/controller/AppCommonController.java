@@ -2,7 +2,7 @@ package com.cyyaw.appadmin.controller;
 
 import cn.hutool.json.JSONObject;
 import com.cyyaw.sql.table.dao.*;
-import com.cyyaw.table.spider.tag.dao.TagDao;
+import com.cyyaw.spider.table.dao.TagDao;
 import com.cyyaw.user.config.TokenData;
 import com.cyyaw.user.utils.LoginInfo;
 import com.cyyaw.util.SqlCommonUtil;
