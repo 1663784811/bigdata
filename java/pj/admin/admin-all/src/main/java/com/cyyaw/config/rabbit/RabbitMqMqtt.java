@@ -111,7 +111,7 @@ public class RabbitMqMqtt {
         //设置死信routingKey
         arguments.put("x-dead-letter-routing-key", "x.dead.letter.routing.key");
         // 设置死信时间 ( 30秒 )
-        arguments.put("x-message-ttl", 30000);
+        arguments.put("x-message-ttl", 10000);
         return arguments;
     }
     /**
