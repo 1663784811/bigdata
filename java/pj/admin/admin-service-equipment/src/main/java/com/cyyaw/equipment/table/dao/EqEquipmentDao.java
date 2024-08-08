@@ -14,4 +14,6 @@ public interface EqEquipmentDao extends BaseDao<EqEquipment, Integer> {
     List<EqEquipment> findByCode(String code);
 
 
+    @Query("select m from EqEquipment m where m.tid = ?1")
+    EqEquipment findByTid(String tid);
 }

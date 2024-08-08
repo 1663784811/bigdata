@@ -36,8 +36,13 @@ public class EqEquipmentServiceImpl extends BaseService<EqEquipment, Integer> im
         } else if (size > 1) {
             log.info("存在多个设备code");
         }
-
         return null;
     }
+
+    @Override
+    public EqEquipment findByTid(String tid) {
+        return eqEquipmentDao.findByTid(tid);
+    }
+
 }
 

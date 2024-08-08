@@ -28,7 +28,6 @@ public class AppApplication {
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
 
 
-
     }
 
 

@@ -7,4 +7,11 @@ import com.cyyaw.jpa.BaseTableService;
 public interface EqEquipmentService extends BaseTableService<EqEquipment, Integer> {
 
     EqEquipment findByCode(String code);
+
+
+    EqEquipment findByTid(String tid);
+
+
+
+
 }
