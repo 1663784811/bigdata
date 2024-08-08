@@ -30,10 +30,6 @@ public class RabbitMqService {
     private AmqpTemplate amqpTemplate;
 
     @Autowired
-    private MqttService mqttService;
-
-
-    @Autowired
     private EqEquipmentService eqEquipmentService;
 
 
@@ -44,7 +40,6 @@ public class RabbitMqService {
         String routingKey = msp.getReceivedRoutingKey();
         String data = new String(message.getBody());
         System.out.println("spring 消费者接收到消息 ：【" + data + "】");
-
         String[] strArr = routingKey.split("\\.");
         if (strArr.length > 0 && strArr[0].equals("mqtt_service")) {
             if (strArr.length > 1 && strArr[1].equals("chat")) {
@@ -55,7 +50,7 @@ public class RabbitMqService {
 //                webRtcMsgHandle.handle(to, data);
             } else {
                 String topic = routingKey.replace("mqtt_service.", "");
-                mqttService.send(topic, data);
+//                mqttService.send(topic, data);
             }
         }
         try {

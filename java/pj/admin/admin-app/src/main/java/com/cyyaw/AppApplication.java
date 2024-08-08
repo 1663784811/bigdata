@@ -1,5 +1,6 @@
 package com.cyyaw;
 
+import com.cyyaw.mqtt.RabbitMqService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +26,13 @@ public class AppApplication {
         Environment environment = run.getBean(Environment.class);
         log.info("打开程序：http://127.0.0.1:" + environment.getProperty("local.server.port"));
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
+
+
+        new Thread(()->{
+            RabbitMqService bean = run.getBean(RabbitMqService.class);
+            log.info("bean: {}", bean);
+        }).start();
+
     }
 
 

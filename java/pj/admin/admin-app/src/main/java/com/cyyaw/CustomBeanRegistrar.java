@@ -31,6 +31,7 @@ public class CustomBeanRegistrar implements ApplicationContextAware {
      */
     public void scanAndRegisterBeans(String packageName) {
         // 创建一个扫描器，用于扫描指定包内的 Bean
+        log.info(" ==============  扫描包 : {}", packageName);
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(applicationContext, false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Component.class));
         // 扫描指定包
