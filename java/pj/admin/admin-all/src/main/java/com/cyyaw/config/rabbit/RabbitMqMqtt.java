@@ -12,70 +12,70 @@ import java.util.Map;
 public class RabbitMqMqtt {
 
     // MQTT交换机
-    private static final String MQTT_EXCHANGE = "amq.topic";
+    public static final String MQTT_EXCHANGE = "amq.topic";
     public static final String MQTT_QUEUE = "mqtt_service";
 
 
     //===
-    private static final String MQTT_SERVER_EXCHANGE = "mqtt.server.exchange";
+    public static final String MQTT_SERVER_EXCHANGE = "mqtt.server.exchange";
 
-    private static final String MQTT_SERVER_QUEUE = "mqtt.server.queue";
+    public static final String MQTT_SERVER_QUEUE = "mqtt.server.queue";
 
     // ========================================================================================================================
     /**
      * 1.申请账号
      */
-    private static final String MQTT_PWD_DEV = "get_dev_pwd";
+    public static final String MQTT_PWD_DEV = "get_dev_pwd";
 
     /**
      * 2.设备注册
      */
-    private static final String MQTT_LOGIN_DEV = "get_dev_login";
+    public static final String MQTT_LOGIN_DEV = "get_dev_login";
 
     /**
      * 3.获取设备信息
      */
-    private static final String MQTT_DEVINFO_JSON = "topic_json_devInfo";
+    public static final String MQTT_DEVINFO_JSON = "topic_json_devInfo";
     /**
      * 4.设置设备时间
      */
-    private static final String MQTT_DEVICETIMECHECK_JSON = "topic_json_devicetimeCheck";
+    public static final String MQTT_DEVICETIMECHECK_JSON = "topic_json_devicetimeCheck";
 
     /**
      * 5.设置设备参数信息
      */
-    private static final String MQTT_CIRBIZCONFIG_JSON = "topic_json_cirBizConfig";
+    public static final String MQTT_CIRBIZCONFIG_JSON = "topic_json_cirBizConfig";
 
     /**
      * 6.获取设备参数信息
      */
-    private static final String MQTT_CIRBIZINFO_JSON = "topic_json_cirBizInfo";
+    public static final String MQTT_CIRBIZINFO_JSON = "topic_json_cirBizInfo";
 
     /**
      * 7.获取计量实时数据
      */
-    private static final String MQTT_MEASUREREALTIME_JSON = "topic_json_measureRealtime";
+    public static final String MQTT_MEASUREREALTIME_JSON = "topic_json_measureRealtime";
 
     /**
      * 8. 控制设置
      */
-    private static final String MQTT_CIRAUTH_JSON = "topic_json_cirAuth";
+    public static final String MQTT_CIRAUTH_JSON = "topic_json_cirAuth";
 
     /**
      * 9. 获取控制参数
      */
-    private static final String MQTT_SWDATA_JSON = "topic_json_swData";
+    public static final String MQTT_SWDATA_JSON = "topic_json_swData";
 
 
     /**
      * 10. 遥控
      */
-    private static final String MQTT_SWCHANGE_JSON = "topic_json_swChange";
+    public static final String MQTT_SWCHANGE_JSON = "topic_json_swChange";
 
     /**
      * 11. 设备告警
      */
-    private static final String MQTT_SENDALARM_DEV = "get_dev_sendAlarm";
+    public static final String MQTT_SENDALARM_DEV = "get_dev_sendAlarm";
 
 
     // ============================================      虚拟主机
