@@ -1,7 +1,10 @@
 package com.cyyaw.mqtt;
 
 import cn.hutool.json.JSONArray;
-import com.cyyaw.config.RabbitConfig;
+import com.cyyaw.config.rabbit.RabbitMqMqtt;
+import com.cyyaw.config.rabbit.RabbitMqDead;
+import com.cyyaw.config.rabbit.RabbitMqDelay;
+import com.cyyaw.config.rabbit.RabbitMqEvent;
 import com.cyyaw.equipment.service.EqEquipmentService;
 import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.mqtt.handle.ChatMsgHandle;
@@ -55,7 +58,7 @@ public class RabbitMQService {
     }
 
 
-    @RabbitListener(queues = RabbitConfig.MQTT_QUEUE)
+    @RabbitListener(queues = RabbitMqMqtt.MQTT_QUEUE)
     public void listenSimpleQueueMessage(Message message, Channel channel) throws IOException {
         MessageProperties msp = message.getMessageProperties();
         long tag = msp.getDeliveryTag();
@@ -83,7 +86,7 @@ public class RabbitMQService {
         }
     }
 
-    @RabbitListener(queues = RabbitConfig.EVENT_QUEUE)
+    @RabbitListener(queues = RabbitMqEvent.EVENT_QUEUE)
     public void handleDeviceConnectedEvent(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         MessageProperties messageProperties = message.getMessageProperties();
         Map<String, Object> headers = messageProperties.getHeaders();
@@ -99,43 +102,44 @@ public class RabbitMQService {
                 id = split[2].replace("<<\"", "").replace("\">>}", "").replace("chat_application_", "");
             }
         }
-        if (id.indexOf("rabbitConnectionFactory") == -1) {
-            if ("connection.created".equals(receivedRoutingKey)) {
-                messageProperties.getHeader("queue");
-                // 通知 我的好友 在线
-                UserBean userBean = new UserBean();
-                userBean.setUserId(id);
-                WebRtcMsgHandle.userBeans.put(id, userBean);
-                System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
+        if (null != id) {
+            if (id.indexOf("rabbitConnectionFactory") == -1) {
+                if ("connection.created".equals(receivedRoutingKey)) {
+                    messageProperties.getHeader("queue");
+                    // 通知 我的好友 在线
+                    UserBean userBean = new UserBean();
+                    userBean.setUserId(id);
+                    WebRtcMsgHandle.userBeans.put(id, userBean);
+                    System.out.println("设备上线 event: " + receivedRoutingKey + "   " + headers);
 
-                EqEquipment equipment = eqEquipmentService.findByCode(id);
-                if (null != equipment) {
-                    // 更新设备状态为在线
-                    equipment.setStatus(1);
-                    eqEquipmentService.save(equipment);
-                } else {
-                    EqEquipment newEquipment = new EqEquipment();
-                    newEquipment.setNote("");
-                    newEquipment.setCode(id);
-                    newEquipment.setName("新设备");
-                    newEquipment.setStatus(1);
-                    newEquipment.setType(0);
-                    eqEquipmentService.save(newEquipment);
-                }
+                    EqEquipment equipment = eqEquipmentService.findByCode(id);
+                    if (null != equipment) {
+                        // 更新设备状态为在线
+                        equipment.setStatus(1);
+                        eqEquipmentService.save(equipment);
+                    } else {
+                        EqEquipment newEquipment = new EqEquipment();
+                        newEquipment.setNote("");
+                        newEquipment.setCode(id);
+                        newEquipment.setName("新设备");
+                        newEquipment.setStatus(1);
+                        newEquipment.setType(0);
+                        eqEquipmentService.save(newEquipment);
+                    }
 
-            } else if ("connection.closed".equals(receivedRoutingKey)) {
-                messageProperties.getHeader("queue");
-                // 通知我的好友 离线
-                System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
-                WebRtcMsgHandle.userBeans.remove(id);
-                EqEquipment equipment = eqEquipmentService.findByCode(id);
-                if (null != equipment) {
-                    equipment.setStatus(0);
-                    eqEquipmentService.save(equipment);
+                } else if ("connection.closed".equals(receivedRoutingKey)) {
+                    messageProperties.getHeader("queue");
+                    // 通知我的好友 离线
+                    System.out.println("设备下线 event: " + receivedRoutingKey + "   " + headers);
+                    WebRtcMsgHandle.userBeans.remove(id);
+                    EqEquipment equipment = eqEquipmentService.findByCode(id);
+                    if (null != equipment) {
+                        equipment.setStatus(0);
+                        eqEquipmentService.save(equipment);
+                    }
                 }
             }
         }
-
         System.out.println("ID : " + id);
         if ("".equals("")) {
             System.out.println("业务正常处理，确认消息");
@@ -148,17 +152,19 @@ public class RabbitMQService {
 
 
     //接收消息
-    @RabbitListener(queues = RabbitConfig.DEAD_QUEUE)
-    public void receiveD(Message message, Channel channel) throws Exception {
+    @RabbitListener(queues = RabbitMqDead.DEAD_QUEUE)
+    public void receiveD(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         String msg = new String(message.getBody());
-        log.info("当前时间：{}，发送一条消息给两个TTL队列：{}", new Date().toString(), msg);
+        log.info("【 死信队列 】 当前时间：{}，发送一条消息给两个TTL队列：{}", new Date().toString(), msg);
+        channel.basicAck(tag, false);
     }
 
 
-    @RabbitListener(queues = RabbitConfig.DELAY_QUEUE)
-    public void receiveDelayedQueue(Message message, Channel channel) {
+    @RabbitListener(queues = RabbitMqDelay.DELAY_QUEUE)
+    public void receiveDelayedQueue(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         String msg = new String(message.getBody());
         log.info("当前时间：{},收到延时队列的消息：{}", new Date().toString(), msg);
+        channel.basicAck(tag, false);
     }
 
 }
