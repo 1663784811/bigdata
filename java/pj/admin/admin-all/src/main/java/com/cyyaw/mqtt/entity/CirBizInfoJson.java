@@ -1,83 +1,90 @@
 package com.cyyaw.mqtt.entity;
 
-import com.sun.xml.bind.v2.model.core.ID;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class CirBizInfoJson {
 
-    /**
-     * 类型 Sizeof(long) CirBizInfo
-     */
-    private String type;
-    /**
-     * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
-     */
-    private String txnNo;
-    /**
-     * 账号 char[accountAck_LEN]
-     */
-    private String accountAck;
-    /**
-     * 密码 char[pwdAck_LEN]
-     */
-    private String pwdAck;
-    /**
-     * 平台编码 char[registerId_LEN] 运维监控系统设备ID
-     */
-    private String registerId;
-    /**
-     * 设备编码 char[deviceId_LEN] 唯一标识
-     */
-    private String deviceId;
-    /**
-     * 厂家编码 char[producer_LEN]
-     */
-    private String producer;
-    /**
-     * 设备资产编码默认为空，12 位字母数字组合
-     */
-    private String deviceAssetId;
-    /**
-     * 站址 ID char[siteId_LEN]
-     */
-    private String siteId;
-    /**
-     * 模块在位数量char[cirInPlaceNum_LEN]1～12
-     */
-    private String cirInPlaceNum;
-    /**
-     * 模块授权数量 char[cirAuthNum _LEN] 1～12
-     */
-    private String cirAuthNum;
-    /**
-     * 免责时段起止时间HHMM.HHMM13 TempAuthDays 临时授权天数 int
-     */
-    private String exemption;
-    /**
-     * 一级低压脱离电压46.5
-     */
-    private String l1lpdv;
-    /**
-     * 一级低压脱离恢复电压
-     */
-    private String l1lprv;
-    /**
-     * 设备温度阈值 150℃
-     */
-    private String deviceTempT;
-    /**
-     * 失败原因 char[msg_LEN]
-     */
-    private String msg;
-    /**
-     * Values Sizeof(TThreshold)
-     */
-    private String Values;
-    /**
-     * 模块数据集Sizeof[CirBInfo_Describe]
-     */
-    private String cirSet;
+
+    @Data
+    public static class PkType {
+        /**
+         * 类型 Sizeof(long) CirBizInfo
+         */
+        private String type;
+        /**
+         * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
+         */
+        private String txnNo;
+        /**
+         * 设备资产编码默认为空，12 位字母数字组合
+         */
+        private String deviceAssetId;
+    }
+
+    @Data
+    public static class Values {
+        /**
+         * 账号 char[accountAck_LEN]
+         */
+        private String accountAck;
+        /**
+         * 密码 char[pwdAck_LEN]
+         */
+        private String pwdAck;
+        /**
+         * 平台编码 char[registerId_LEN] 运维监控系统设备ID
+         */
+        private String registerId;
+        /**
+         * 设备编码 char[deviceId_LEN] 唯一标识
+         */
+        private String deviceId;
+
+        /**
+         * 厂家编码 char[producer_LEN]
+         */
+        private String producer;
+
+        /**
+         * 站址 ID char[siteId_LEN]
+         */
+        private String siteId;
+        /**
+         * 模块在位数量char[cirInPlaceNum_LEN]1～12
+         */
+        private String cirInPlaceNum;
+        /**
+         * 模块授权数量 char[cirAuthNum _LEN] 1～12
+         */
+        private String cirAuthNum;
+        /**
+         * 免责时段起止时间HHMM.HHMM13 TempAuthDays 临时授权天数 int
+         */
+        private String exemption;
+        /**
+         * 一级低压脱离电压46.5
+         */
+        private String l1lpdv;
+        /**
+         * 一级低压脱离恢复电压
+         */
+        private String l1lprv;
+        /**
+         * 设备温度阈值 150℃
+         */
+        private String deviceTempT;
+        /**
+         * Values Sizeof(TThreshold)
+         */
+        private String Values;
+        /**
+         * 模块数据集Sizeof[CirBInfo_Describe]
+         */
+        private List<CirSet> cirSet;
+    }
 
 
     public static class CirSet {

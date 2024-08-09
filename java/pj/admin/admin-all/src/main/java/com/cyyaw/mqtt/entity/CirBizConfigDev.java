@@ -2,61 +2,70 @@ package com.cyyaw.mqtt.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CirBizConfigDev {
 
 
-    /**
-     * 类型 Sizeof(long) cirBizInfo
-     */
-    private String type;
-    /**
-     * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
-     */
-    private String txnNo;
-    /**
-     * 平台编码 char[registerId_LEN] 运维监控系统设备ID
-     */
-    private String registerId;
-    /**
-     * 厂家编码 char[producer_LEN]
-     */
-    private String producer;
-    /**
-     * 设备编码 char[deviceId_LEN] 唯一标识6 siteId 站址 ID char[siteId_LEN]
-     */
-    private String deviceId;
-    /**
-     * 免责时段起止时间设置格式HHMM.HHMM，以小数点分隔，默认2400.2400
-     */
-    private String exemption;
-    /**
-     * 临时授权天数 int
-     */
-    private String TempAuthDays;
+    @Data
+    public static class PkType {
+        /**
+         * 类型 Sizeof(long) cirBizInfo
+         */
+        private String type;
+        /**
+         * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
+         */
+        private String txnNo;
+        /**
+         * 平台编码 char[registerId_LEN] 运维监控系统设备ID
+         */
+        private String registerId;
+        /**
+         * 厂家编码 char[producer_LEN]
+         */
+        private String producer;
+        /**
+         * 设备编码 char[deviceId_LEN] 唯一标识6 siteId 站址 ID char[siteId_LEN]
+         */
+        private String deviceId;
+    }
 
-    /**
-     * 一级低压脱离电压设置默认值46.5
-     */
-    private String l1lpdv;
-    /**
-     * 一级低压脱离恢复电压设置
-     */
-    private String l1lprv;
-    /**
-     * 设备温度阈值
-     */
-    private String deviceTempT;
-    /**
-     * 模块在位数量 char[cirInPlaceNum_LEN] 1～12
-     */
-    private String cirInPlaceNum;
-    /**
-     * 模块数据集sizeof(CirBInfo_Describe)
-     */
-    private String cirSet;
+    @Data
+    public static class Values {
+        /**
+         * 免责时段起止时间设置格式HHMM.HHMM，以小数点分隔，默认2400.2400
+         */
+        private String exemption;
+        /**
+         * 临时授权天数 int
+         */
+        private String TempAuthDays;
 
+        /**
+         * 一级低压脱离电压设置默认值46.5
+         */
+        private String l1lpdv;
+        /**
+         * 一级低压脱离恢复电压设置
+         */
+        private String l1lprv;
+        /**
+         * 设备温度阈值
+         */
+        private String deviceTempT;
+        /**
+         * 模块在位数量 char[cirInPlaceNum_LEN] 1～12
+         */
+        private String cirInPlaceNum;
+        /**
+         * 模块数据集sizeof(CirBInfo_Describe)
+         */
+        private List<CirSet> cirSet;
+    }
 
+    @Data
     public static class CirSet {
 
         /**
