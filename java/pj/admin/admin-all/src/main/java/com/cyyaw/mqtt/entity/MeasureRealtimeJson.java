@@ -4,79 +4,86 @@ import com.sun.xml.bind.v2.model.core.ID;
 import lombok.Data;
 import org.checkerframework.checker.units.qual.A;
 
+import java.util.List;
+
 @Data
 public class MeasureRealtimeJson {
 
-    /**
-     * 类型 Sizeof(long) measureRealtime
-     */
-    private String type;
-    /**
-     * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
-     */
-    private String txnNo;
-    /**
-     * 平台编码 char[registerId_LEN] 运维监控系统设备ID
-     */
-    private String registerId;
-    /**
-     * 设备编码 char[deviceId_LEN] 唯一标识
-     */
-    private String deviceId;
-    /**
-     * 厂家编码 char[producer_LEN] producer
-     */
-    private String producer;
-    /**
-     * 站址 ID char[siteId_LEN]
-     */
-    private String siteId;
-    /**
-     * 系统时间
-     */
-    private String deviceTime;
-    /**
-     * 设备输入电压
-     */
-    private String deviceVin;
-    /**
-     * 设备负载总电流
-     */
-    private String deviceITotal;
-    /**
-     * 设备负载总功率
-     */
-    private String devicepPTotal;
-    /**
-     * 设备负载总电能
-     */
-    private String deviceQTotal;
-    /**
-     * 日设备负载总电能
-     */
-    private String deviceQTotalYda;
-    /**
-     * 市电停电状态 0 未停电，1停电
-     */
-    private String outageState;
-    /**
-     * 油机发电状态 0 未发电，1发电
-     */
-    private String generatorState;
-    /**
-     * 机箱内温度
-     */
-    private String deviceTemp;
-    /**
-     * 模块集 Sizeof[CirData_LEN]
-     */
-    private String cirSet;
-    /**
-     * 返回状态 EnumResult true/flase18 msg 失败原因 char[msg_LEN]
-     */
-    private String result;
+
+    @Data
+    public static class PkType {
+        /**
+         * 类型 Sizeof(long) measureRealtime
+         */
+        private String type;
+        /**
+         * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
+         */
+        private String txnNo;
+    }
 
 
+    @Data
+    public static class Values {
+        /**
+         * 平台编码 char[registerId_LEN] 运维监控系统设备ID
+         */
+        private String registerId;
+        /**
+         * 设备编码 char[deviceId_LEN] 唯一标识
+         */
+        private String deviceId;
+        /**
+         * 厂家编码 char[producer_LEN] producer
+         */
+        private String producer;
+        /**
+         * 站址 ID char[siteId_LEN]
+         */
+        private String siteId;
+        /**
+         * 系统时间
+         */
+        private String deviceTime;
+        /**
+         * 设备输入电压
+         */
+        private String deviceVin;
+        /**
+         * 设备负载总电流
+         */
+        private String deviceITotal;
+        /**
+         * 设备负载总功率
+         */
+        private String devicepPTotal;
+        /**
+         * 设备负载总电能
+         */
+        private String deviceQTotal;
+        /**
+         * 日设备负载总电能
+         */
+        private String deviceQTotalYda;
+        /**
+         * 市电停电状态 0 未停电，1停电
+         */
+        private String outageState;
+        /**
+         * 油机发电状态 0 未发电，1发电
+         */
+        private String generatorState;
+        /**
+         * 机箱内温度
+         */
+        private String deviceTemp;
+        /**
+         * 模块集 Sizeof[CirData_LEN]
+         */
+        private List<CirSet> cirSet;
+    }
+
+    @Data
     public static class CirSet {
         /**
          * 模块序号 char[cirNo_LEN]
