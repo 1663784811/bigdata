@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, watch} from "vue";
+import {reactive, ref, watch} from "vue";
 import {useUploadFileStore} from "@/store/uploadFile.js";
 
 const fileStore = useUploadFileStore();
@@ -94,6 +94,13 @@ const state = reactive({
 });
 
 watch(() => props.modalSetting, () => {
+  const {columns, data} = props.modalSetting;
+  for (let i = 0; i < columns.length; i++) {
+    const {dfval, key} = columns[i];
+    if (dfval && !data[key]) {
+      data[key] = dfval;
+    }
+  }
   modalData.value = {
     ...modalData.value,
     ...props.modalSetting
