@@ -63,7 +63,7 @@ public class SqlController {
         JSONObject rest = new JSONObject();
         if (null != tableList) {
             List<String> query = new ArrayList<>();
-            StringBuffer save = new StringBuffer("inset into  " + table + " (");
+            StringBuffer save = new StringBuffer("insert into  " + table + " (");
             StringBuffer update = new StringBuffer("update from " + table);
             StringBuffer del = new StringBuffer("delete from "+ table + " where id = [id]");
             List<JavaColumn> columnList = tableList.getJavaColumns();
@@ -71,20 +71,21 @@ public class SqlController {
                 JavaColumn javaColumn = columnList.get(i);
                 String javaType = javaColumn.getJavaType();
                 String str = "";
+                String fstr = javaColumn.getColumnName();
                 if ("Integer".equals(javaType)) {
-                    str = ("[eq_" + javaColumn.getJavaField() + ":=" + javaColumn.getColumnName() + "]");
+                    str = ("[eq_" + javaColumn.getJavaField() + ":=" + fstr + "]");
                 } else if ("String".equals(javaType)) {
-                    str = ("[%lk_" + javaColumn.getJavaField() + ":=" + javaColumn.getColumnName() + "]");
+                    str = ("[%lk_" + javaColumn.getJavaField() + ":=" + fstr + "]");
                 }
                 if (StrUtil.isNotBlank(str)) {
                     if (!query.isEmpty()) {
                         query.add(" and " + str);
-                        save.append("," + str);
-                        update.append(" ,set " + str + " = [" + str + "]");
+                        save.append(",`" + fstr+"`");
+                        update.append(" ,set `" + fstr + "` = [" + fstr + "]");
                     } else {
                         query.add(str);
-                        save.append(str);
-                        update.append(" set " + str + " = [" + str + "]");
+                        save.append("`"+fstr+"`");
+                        update.append(" set `" + fstr + "` = [" + fstr + "]");
                     }
                 }
             }

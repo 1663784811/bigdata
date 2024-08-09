@@ -25,7 +25,7 @@ export const loginInfo = defineStore('loginInfo', {
         /**
          * 解释地址
          */
-        const reLoadUrl = (url) => {
+        const reLoadUrl = (url = '') => {
             for (const key in variable.value) {
                 const val = variable.value[key];
                 url = url.replaceAll('${' + key + '}', val ? val : '');
@@ -38,7 +38,7 @@ export const loginInfo = defineStore('loginInfo', {
         const reLoadParameter = (obj) => {
             if (obj) {
                 for (const objKey in obj) {
-                    if ((obj[objKey]+"").indexOf("$") !== -1) {
+                    if ((obj[objKey] + "").indexOf("$") !== -1) {
                         for (const key in variable.value) {
                             const val = variable.value[key];
                             obj[objKey] = obj[objKey].replaceAll('${' + key + '}', val ? val : '');
