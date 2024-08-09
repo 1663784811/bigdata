@@ -60,8 +60,12 @@ public class SqlController {
         Connection connection = jdbcTemplate.getDataSource().getConnection();
         DataBase dataBase = new DataBase(connection);
         JavaData tableList = dataBase.getTable(table);
-        List<String> rest = new ArrayList<>();
+        JSONObject rest = new JSONObject();
         if (null != tableList) {
+            List<String> query = new ArrayList<>();
+            StringBuffer save = new StringBuffer("inset into  " + table + " (");
+            StringBuffer update = new StringBuffer("update from " + table);
+            StringBuffer del = new StringBuffer("delete from "+ table + " where id = [id]");
             List<JavaColumn> columnList = tableList.getJavaColumns();
             for (int i = 0; i < columnList.size(); i++) {
                 JavaColumn javaColumn = columnList.get(i);
@@ -72,14 +76,22 @@ public class SqlController {
                 } else if ("String".equals(javaType)) {
                     str = ("[%lk_" + javaColumn.getJavaField() + ":=" + javaColumn.getColumnName() + "]");
                 }
-                if(StrUtil.isNotBlank(str)){
-                    if(!rest.isEmpty()){
-                        rest.add(" and " +str);
-                    }else{
-                        rest.add(str);
+                if (StrUtil.isNotBlank(str)) {
+                    if (!query.isEmpty()) {
+                        query.add(" and " + str);
+                        save.append("," + str);
+                        update.append(" ,set " + str + " = [" + str + "]");
+                    } else {
+                        query.add(str);
+                        save.append(str);
+                        update.append(" set " + str + " = [" + str + "]");
                     }
                 }
             }
+            rest.set("query", query);
+            rest.set("save", save + " ) values ( )");
+            rest.set("update", update);
+            rest.set("del", del);
         }
         return BaseResult.ok(rest);
     }
