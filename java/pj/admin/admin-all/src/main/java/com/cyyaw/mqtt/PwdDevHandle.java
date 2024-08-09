@@ -1,4 +1,4 @@
-package com.cyyaw.mqtt.handle;
+package com.cyyaw.mqtt;
 
 
 import cn.hutool.json.JSONObject;
@@ -6,6 +6,7 @@ import com.cyyaw.equipment.service.EqEquipmentService;
 import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.mqtt.entity.PwDev;
 import com.cyyaw.mqtt.entity.PwJson;
+import com.cyyaw.mqtt.handle.HandleUtils;
 import com.cyyaw.mqtt.rabbit.RabbitMqMqtt;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,6 @@ import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Slf4j
 @Component
@@ -43,24 +42,23 @@ public class PwdDevHandle {
         PwDev.PkType pkType = request.getJSONObject("PK_Type").toBean(PwDev.PkType.class);
         PwDev.Values values = request.getJSONObject("Info").getJSONObject("Values").toBean(PwDev.Values.class);
         String registerId = pkType.getRegisterId();
+        String txnNo = pkType.getTxnNo();
         String deviceId = pkType.getDeviceId();
 
-        EqEquipment equipment = eqEquipmentService.findByTid(registerId);
-
+         EqEquipment equipment = eqEquipmentService.findByTid(registerId);
         PwJson.Info info = new PwJson.Info();
-
         if (null != equipment) {
             info.setResult("true");
+            info.setAccountAck("");
+            info.setPwdAck("");
         } else {
             info.setResult("false");
+            info.setAccountAck("");
+            info.setPwdAck("");
         }
-
-
         PwJson.PkType pt = new PwJson.PkType();
-//        pt.setType();
-//        pt.setTxnNo();
-
-
+        pt.setType("GET_pwd_ACK");
+        pt.setTxnNo(txnNo);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         // 回复
         String sendStr = HandleUtils.getSendStr(pt, info);
