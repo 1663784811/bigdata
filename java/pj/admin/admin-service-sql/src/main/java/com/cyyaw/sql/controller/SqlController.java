@@ -89,13 +89,13 @@ public class SqlController {
                         query.add(str);
                         save.append("`" + columnStr + "`");
                         update.append(" set `" + columnStr + "` = [" + javaField + "]");
-                        saveValue.append(",[" + javaField + "]");
+                        saveValue.append("[" + javaField + "]");
                     }
                 }
             }
             rest.set("query", query);
             rest.set("save", save + " ) values ( " + saveValue + " )");
-            rest.set("update", update);
+            rest.set("update", update +" where id = [id]");
             rest.set("del", del);
         }
         return BaseResult.ok(rest);

@@ -2,7 +2,7 @@
   <div class="requestBox" v-if="setting">
     {{ title }}:
     <div class="urlBox">
-      <Checkbox v-model="setting.isCommonUrl"/>
+      <Checkbox v-model="setting.isCommonUrl" @on-change="changeIsCommonUrl"/>
       <Input v-model="setting.url" placeholder="url" clearable/>
     </div>
     <div>
@@ -55,11 +55,17 @@ const changeArr = () => {
   let obj = {}
   for (let i = 0; i < arr.length; i++) {
     const arrObj = arr[i];
-    if(arrObj.key){
+    if (arrObj.key) {
       obj[arrObj.key] = arrObj.val;
     }
   }
   props.setting.parameter = obj;
+}
+
+const changeIsCommonUrl = () => {
+  if (props.setting.isCommonUrl && !props.setting.url) {
+    props.setting.url = '/admin/${eCode}/common/query'
+  }
 }
 
 watch(() => state.parameterArr, () => {
