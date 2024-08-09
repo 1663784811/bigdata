@@ -11,7 +11,6 @@ import com.cyyaw.mqtt.rabbit.RabbitMqMqtt;
 import com.cyyaw.util.tools.WhyStringUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
@@ -26,9 +25,6 @@ public class PwdDevHandle extends ReceiveHandle {
 
     @Autowired
     private EqEquipmentService eqEquipmentService;
-
-    @Autowired
-    private AmqpTemplate amqpTemplate;
 
 
     /**

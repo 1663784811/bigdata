@@ -80,4 +80,28 @@ public class EqEquipment implements BaseEntity<Integer>, Serializable {
     private String pwd;
 
 
+    @Basic
+    @Column(name = "producer_code", columnDefinition = "varchar(64) default '' COMMENT '厂家编号'")
+    private String producerCode;
+
+
+    @Basic
+    @Column(name = "device_asset_code", columnDefinition = "varchar(64) default '' COMMENT '设备资产编码'")
+    private String deviceAssetCode;
+
+
+    @Basic
+    @Column(name = "software_version", columnDefinition = "varchar(32) default '' COMMENT '系统版本号'")
+    private String softwareVersion;
+
+    @Basic
+    @Column(name = "protocol_version", columnDefinition = "varchar(32) default '' COMMENT '协议版本'")
+    private String protocolVersion;
+
+    @Basic
+    @Column(name = "cir_in_Place_num", columnDefinition = "varchar(32) default '' COMMENT '模块在位数量'")
+    private String cirInPlaceNum;
+
+
+
 }

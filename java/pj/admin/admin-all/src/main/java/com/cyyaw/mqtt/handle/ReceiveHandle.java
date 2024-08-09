@@ -2,11 +2,17 @@ package com.cyyaw.mqtt.handle;
 
 import cn.hutool.json.JSONObject;
 import com.rabbitmq.client.Channel;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 
 public abstract class ReceiveHandle {
+
+
+    @Autowired
+    protected AmqpTemplate amqpTemplate;
 
 
     /**

@@ -6,46 +6,31 @@ import lombok.Data;
 import java.util.List;
 
 
-
 @Data
 public class LoginJson {
 
-    /**
-     * 系统版本号
-     */
-    private String softwareVersion;
-
-    /**
-     * 4G 协议版本
-     */
-    private String protocolVersion;
-
-    /**
-     * 模块在位数量
-     */
-    private String cirInPlaceNum;
-
-    /**
-     * 模块数据集
-     */
-    private List<CirSet> cirSet;
-
 
     @Data
-    public static class CirSet {
+    public static class PkType {
         /**
-         * 模块序号
+         * 类型 Sizeof(long) login
          */
-        private String cirNo;
+        private String type;
         /**
-         * 模块类型
+         * 请求流水号 int防止异步错误，取值为当前毫秒级时间戳
          */
-        private String cirType;
-        /**
-         * 模块容量
-         */
-        private String cirCapacity;
+        private String txnNo;
     }
 
-
+    @Data
+    public static class Info {
+        /**
+         * 返回状态 Enumresult true/flase
+         */
+        private String result;
+        /**
+         * 失败原因 char[msg_LEN]
+         */
+        private String msg;
+    }
 }
