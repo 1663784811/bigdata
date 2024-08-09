@@ -173,6 +173,7 @@ public class BuildCodeController {
         js.set("searchObj", searchObj);
         js.set("tableObj", tableObj);
         js.set("saveObj", saveObj);
+        js.set("updateObj", saveObj);
         return js;
     }
 

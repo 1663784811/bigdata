@@ -5,24 +5,13 @@
       <Checkbox v-model="setting.isCommonUrl" @on-change="changeIsCommonUrl"/>
       <Input v-model="setting.url" placeholder="url" clearable/>
     </div>
-    <div>
-      <div>
-        参数：
-        <Button type="success" icon="md-add-circle" @click="state.parameterArr.push({key:'', val:''})" size="small"/>
-      </div>
-      <div v-for="(item, index) in state.parameterArr" :key="index">
-        <Input style="width: 200px" v-model="item.key" @on-change="changeArr" placeholder="key"/>:
-        <Input style="width: 200px" v-model="item.val" @on-change="changeArr" placeholder="val"/>
-        <Button type="error" icon="md-trash" @click="state.parameterArr.splice(index, 1)" size="small"/>
-      </div>
-    </div>
-
+    <obj-json title="参数" :setting="setting.parameter"/>
   </div>
 </template>
 
 <script setup>
 
-import {reactive, watch} from "vue";
+import ObjJson from './ObjJson.vue'
 
 const props = defineProps({
   title: {
@@ -42,47 +31,11 @@ const props = defineProps({
     required: false
   }
 });
-
-
-const state = reactive({
-  parameterArr: [],
-  init: false
-})
-
-
-const changeArr = () => {
-  const arr = state.parameterArr;
-  let obj = {}
-  for (let i = 0; i < arr.length; i++) {
-    const arrObj = arr[i];
-    if (arrObj.key) {
-      obj[arrObj.key] = arrObj.val;
-    }
-  }
-  props.setting.parameter = obj;
-}
-
 const changeIsCommonUrl = () => {
   if (props.setting.isCommonUrl && !props.setting.url) {
     props.setting.url = '/admin/${eCode}/common/query'
   }
 }
-
-watch(() => state.parameterArr, () => {
-  changeArr()
-})
-watch(() => props.setting.parameter, () => {
-  const {parameter} = props.setting;
-  if (parameter && !state.init) {
-    state.init = true;
-    state.parameterArr = [];
-    for (let key in parameter) {
-      const val = parameter[key];
-      state.parameterArr.push({key: key, val: val})
-    }
-  }
-})
-
 </script>
 
 <style scoped lang="less">
