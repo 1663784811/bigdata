@@ -19,8 +19,6 @@ public class RabbitMqMqtt {
     //===
     public static final String MQTT_SERVER_EXCHANGE = "mqtt.server.exchange";
 
-    public static final String MQTT_SERVER_QUEUE = "mqtt.server.queue";
-
     // ========================================================================================================================
     /**
      * 1.申请账号
@@ -111,7 +109,7 @@ public class RabbitMqMqtt {
         //设置死信routingKey
         arguments.put("x-dead-letter-routing-key", "x.dead.letter.routing.key");
         // 设置死信时间 ( 120秒 )
-        arguments.put("x-message-ttl", 1000 * 120);
+        arguments.put("x-message-ttl", 1000 * 10);
         return arguments;
     }
     /**
@@ -122,10 +120,8 @@ public class RabbitMqMqtt {
         return QueueBuilder.durable(MQTT_QUEUE).withArguments(getArguments()).build();
     }
 
-    @Bean
-    public Queue mqttServerQueue() {
-        return QueueBuilder.durable(MQTT_SERVER_QUEUE).withArguments(getArguments()).build();
-    }
+
+    // ===================
 
     @Bean
     public Queue mqttPWDDEVQueue() {
@@ -195,17 +191,11 @@ public class RabbitMqMqtt {
 
 
     @Bean
-    public Binding bindingMqttServer() {
-        return BindingBuilder.bind(mqttServerQueue()).to(mqttServerExchange()).with("#").noargs();
-    }
-
-
-    @Bean
     public Binding bindingMqttToMqttServer() {
         return BindingBuilder.bind(mqttServerExchange()).to(mqttExchange()).with("#").noargs();
     }
 
-
+    // ===========
     @Bean
     public Binding bindingPwdDev() {
         return BindingBuilder.bind(mqttPWDDEVQueue()).to(mqttServerExchange()).with(MQTT_PWD_DEV + ".#").noargs();

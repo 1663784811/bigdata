@@ -1,4 +1,4 @@
-package com.cyyaw.mqtt;
+package com.cyyaw.mqtt.handle;
 
 
 import cn.hutool.core.util.StrUtil;
@@ -7,7 +7,6 @@ import com.cyyaw.equipment.service.EqEquipmentService;
 import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.mqtt.entity.PwDev;
 import com.cyyaw.mqtt.entity.PwJson;
-import com.cyyaw.mqtt.handle.HandleUtils;
 import com.cyyaw.mqtt.rabbit.RabbitMqMqtt;
 import com.cyyaw.util.tools.WhyStringUtil;
 import com.rabbitmq.client.Channel;
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PwdDevHandle {
+public class PwdDevHandle extends ReceiveHandle {
 
 
     @Autowired
@@ -36,7 +35,7 @@ public class PwdDevHandle {
      * 1.申请账号
      */
     @RabbitListener(queues = RabbitMqMqtt.MQTT_PWD_DEV)
-    public void receiveD(Message message, Channel channel, @Header(AmqpHeaders.RECEIVED_ROUTING_KEY) String routingKey, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
+    public void handle(Message message, Channel channel, @Header(AmqpHeaders.RECEIVED_ROUTING_KEY) String routingKey, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         String msg = new String(message.getBody());
         JSONObject entries = new JSONObject(msg);
         log.info("【 申请账号 】{}  {}", routingKey, entries);
@@ -81,19 +80,12 @@ public class PwdDevHandle {
         PwJson.PkType pt = new PwJson.PkType();
         pt.setType("GET_pwd_ACK");
         pt.setTxnNo(txnNo);
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        channel.basicAck(tag, false);
         // 回复
-        String sendStr = HandleUtils.getSendStr(pt, info);
-        amqpTemplate.convertAndSend(RabbitMqMqtt.MQTT_EXCHANGE, recoverTopic(routingKey), sendStr);
-    }
-
-
-    public String recoverTopic(String key) {
-        int index = key.indexOf(".");
-        if (index != -1) {
-            return "topic_json_pw" + key.substring(index);
-        }
-        return "";
+        String sendStr = getResponse(pt, info);
+        String rKey = recoverTopic("topic_json_pw", routingKey);
+        log.info("【 申请账号回复 】{}  {}", rKey, entries);
+        amqpTemplate.convertAndSend(RabbitMqMqtt.MQTT_EXCHANGE, rKey, sendStr);
     }
 
 }
