@@ -66,8 +66,8 @@
                 <Input v-model="element.event" placeholder="表达式" clearable style="width: 100px"/>
               </div>
             </div>
-            <div>
-              <obj-arr v-if="element.type==='filters'" title="aaa" :setting="element.filters"/>
+            <div v-if="element.type==='filters'" class="filtersBox">
+              <obj-arr title="过滤字段" :setting="element.filters"/>
             </div>
           </div>
         </template>
@@ -149,6 +149,10 @@ const changeType = (item) => {
           width: 120px;
           text-align: right;
         }
+      }
+
+      .filtersBox {
+        padding-left: 70px;
       }
     }
   }

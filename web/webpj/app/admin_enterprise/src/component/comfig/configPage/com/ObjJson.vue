@@ -1,19 +1,10 @@
 <template>
-  <div>
-    <div>
-      {{ title }}：
-      <Button type="success" icon="md-add-circle" @click="state.parameterArr.push({key:'', val:''})" size="small"/>
-    </div>
-    <div v-for="(item, index) in state.parameterArr" :key="index">
-      <Input style="width: 200px" v-model="item.key" @on-change="changeArr" placeholder="key"/>:
-      <Input style="width: 200px" v-model="item.val" @on-change="changeArr" placeholder="val"/>
-      <Button type="error" icon="md-trash" @click="state.parameterArr.splice(index, 1);changeArr()" size="small"/>
-    </div>
-  </div>
+  <obj-arr :title="title" :setting="state.parameterArr"  @event="changeArr"></obj-arr>
 </template>
 
 <script setup>
 import {reactive, watch} from "vue";
+import ObjArr from './ObjArr.vue'
 
 const props = defineProps({
   title: {
@@ -37,15 +28,15 @@ const changeArr = () => {
   let obj = {}
   for (let i = 0; i < parameterArr.length; i++) {
     const arrObj = parameterArr[i];
-    if (arrObj.key) {
-      obj[arrObj.key] = arrObj.val;
+    if (arrObj.label) {
+      obj[arrObj.label] = arrObj.value;
     }
   }
-  for (const settingKey in props.setting) {
-    delete props.setting[settingKey]
+  for (const settinglabel in props.setting) {
+    delete props.setting[settinglabel]
   }
-  for (const objKey in obj) {
-    props.setting[objKey] = obj[objKey]
+  for (const objlabel in obj) {
+    props.setting[objlabel] = obj[objlabel]
   }
 }
 
@@ -54,9 +45,9 @@ watch(() => props.setting, () => {
   const setting = props.setting;
   if (setting) {
     state.parameterArr = [];
-    for (let key in setting) {
-      const val = setting[key];
-      state.parameterArr.push({key: key, val: val})
+    for (let label in setting) {
+      const value = setting[label];
+      state.parameterArr.push({label: label, value: value})
     }
   }
 })
