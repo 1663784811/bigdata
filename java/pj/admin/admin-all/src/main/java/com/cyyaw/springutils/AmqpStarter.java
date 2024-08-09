@@ -16,8 +16,8 @@ public class AmqpStarter implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        log.info(" ============== 开始 rabbiMq 初始化");
-        customBeanRegistrar.scanAndRegisterBeans("com.cyyaw.mqtt.**");
+//        log.info(" ============== 开始 rabbiMq 初始化");
+//        customBeanRegistrar.scanAndRegisterBeans("com.cyyaw.mqtt.**");
     }
 
 }

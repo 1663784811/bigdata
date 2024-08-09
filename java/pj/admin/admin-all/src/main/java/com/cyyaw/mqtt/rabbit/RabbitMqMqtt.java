@@ -104,14 +104,14 @@ public class RabbitMqMqtt {
     // =====================================================================================================================================      队列
     // =====================================================================================================================================
     // =====================================================================================================================================
-    private Map<String, Object> getArguments(){
+    private Map<String, Object> getArguments() {
         Map<String, Object> arguments = new HashMap<>();
         //设置死信交换机
         arguments.put("x-dead-letter-exchange", RabbitMqDead.DEAD_EXCHANGE);
         //设置死信routingKey
         arguments.put("x-dead-letter-routing-key", "x.dead.letter.routing.key");
-        // 设置死信时间 ( 30秒 )
-        arguments.put("x-message-ttl", 10000);
+        // 设置死信时间 ( 120秒 )
+        arguments.put("x-message-ttl", 1000 * 120);
         return arguments;
     }
     /**
@@ -146,18 +146,22 @@ public class RabbitMqMqtt {
     public Queue mqttDEVICETIMECHECKJSONQueue() {
         return QueueBuilder.durable(MQTT_DEVICETIMECHECK_JSON).withArguments(getArguments()).build();
     }
+
     @Bean
     public Queue mqttCIRBIZCONFIGJSONQueue() {
         return QueueBuilder.durable(MQTT_CIRBIZCONFIG_JSON).withArguments(getArguments()).build();
     }
+
     @Bean
     public Queue mqttCIRBIZINFOJSONQueue() {
         return QueueBuilder.durable(MQTT_CIRBIZINFO_JSON).withArguments(getArguments()).build();
     }
+
     @Bean
     public Queue mqttMEASUREREALTIMEJSONQueue() {
         return QueueBuilder.durable(MQTT_MEASUREREALTIME_JSON).withArguments(getArguments()).build();
     }
+
     @Bean
     public Queue mqttCIRAUTHJSONQueue() {
         return QueueBuilder.durable(MQTT_CIRAUTH_JSON).withArguments(getArguments()).build();
@@ -204,57 +208,57 @@ public class RabbitMqMqtt {
 
     @Bean
     public Binding bindingPwdDev() {
-        return BindingBuilder.bind(mqttPWDDEVQueue()).to(mqttServerExchange()).with(MQTT_PWD_DEV+".#").noargs();
+        return BindingBuilder.bind(mqttPWDDEVQueue()).to(mqttServerExchange()).with(MQTT_PWD_DEV + ".#").noargs();
     }
 
     @Bean
     public Binding bindingLOGINDev() {
-        return BindingBuilder.bind(mqttLOGINDevQueue()).to(mqttServerExchange()).with(MQTT_LOGIN_DEV+".#").noargs();
+        return BindingBuilder.bind(mqttLOGINDevQueue()).to(mqttServerExchange()).with(MQTT_LOGIN_DEV + ".#").noargs();
     }
 
     @Bean
     public Binding bindingDEVINFOJSON() {
-        return BindingBuilder.bind(mqttDEVINFOJSONQueue()).to(mqttServerExchange()).with(MQTT_DEVINFO_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttDEVINFOJSONQueue()).to(mqttServerExchange()).with(MQTT_DEVINFO_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingDEVICETIMECHECKJSON() {
-        return BindingBuilder.bind(mqttDEVICETIMECHECKJSONQueue()).to(mqttServerExchange()).with(MQTT_DEVICETIMECHECK_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttDEVICETIMECHECKJSONQueue()).to(mqttServerExchange()).with(MQTT_DEVICETIMECHECK_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingCIRBIZCONFIGJSON() {
-        return BindingBuilder.bind(mqttCIRBIZCONFIGJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRBIZCONFIG_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttCIRBIZCONFIGJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRBIZCONFIG_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingCIRBIZINFOJSON() {
-        return BindingBuilder.bind(mqttCIRBIZINFOJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRBIZINFO_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttCIRBIZINFOJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRBIZINFO_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingMEASUREREALTIMEJSON() {
-        return BindingBuilder.bind(mqttMEASUREREALTIMEJSONQueue()).to(mqttServerExchange()).with(MQTT_MEASUREREALTIME_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttMEASUREREALTIMEJSONQueue()).to(mqttServerExchange()).with(MQTT_MEASUREREALTIME_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingCIRAUTHJSON() {
-        return BindingBuilder.bind(mqttCIRAUTHJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRAUTH_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttCIRAUTHJSONQueue()).to(mqttServerExchange()).with(MQTT_CIRAUTH_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingSWDATAJSON() {
-        return BindingBuilder.bind(mqttSWDATAJSONQueue()).to(mqttServerExchange()).with(MQTT_SWDATA_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttSWDATAJSONQueue()).to(mqttServerExchange()).with(MQTT_SWDATA_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingSWCHANGEJSON() {
-        return BindingBuilder.bind(mqttSWCHANGEJSONQueue()).to(mqttServerExchange()).with(MQTT_SWCHANGE_JSON+".#").noargs();
+        return BindingBuilder.bind(mqttSWCHANGEJSONQueue()).to(mqttServerExchange()).with(MQTT_SWCHANGE_JSON + ".#").noargs();
     }
 
     @Bean
     public Binding bindingSENDALARMDEV() {
-        return BindingBuilder.bind(mqttSENDALARMDEVQueue()).to(mqttServerExchange()).with(MQTT_SENDALARM_DEV+".#").noargs();
+        return BindingBuilder.bind(mqttSENDALARMDEVQueue()).to(mqttServerExchange()).with(MQTT_SENDALARM_DEV + ".#").noargs();
     }
 
 }

@@ -23,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
-@ComponentScan(basePackages = {"com.cyyaw.**"}, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com\\.cyyaw\\.mqtt\\..*"))
 @SpringBootApplication
 public class AllApplication {
 
