@@ -129,6 +129,9 @@
     <TabPane label="保存" name="保存">
       <ObjSave :setting="state.saveObj" @showCode="showCodeTableFn('save')"/>
     </TabPane>
+    <TabPane label="修改" name="修改">
+      <ObjSave :setting="state.updateObj" @showCode="showCodeTableFn('update')"/>
+    </TabPane>
   </Tabs>
   <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
          @on-ok="saveComponentsFn">
@@ -171,6 +174,8 @@ const state = reactive({
   tableObj: {},
   // ===============  保存
   saveObj: {},
+  // =============== 修改
+  updateObj: {},
   showCode: {
     show: false,
     data: '',
@@ -222,6 +227,7 @@ onMounted(() => {
 
 const loadDataHandleFn = (data) => {
   state.saveObj = data.saveObj;
+  state.updateObj = data.updateObj;
   state.searchObj = data.searchObj
   state.tableObj = data.tableObj;
   state.operationObj = data.operationObj
@@ -237,6 +243,8 @@ const showCodeTableFn = (modal) => {
     state.showCode.data = JSON.stringify(state.searchObj, null, "  ");
   } else if (state.showCode.modal === 'save') {
     state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
+  } else if (state.showCode.modal === 'update') {
+    state.showCode.data = JSON.stringify(state.updateObj, null, "  ");
   } else {
     state.showCode.data = "";
   }
@@ -250,25 +258,8 @@ const showCodeHandleFn = () => {
     state.searchObj = JSON.parse(state.showCode.data);
   } else if (state.showCode.modal === 'save') {
     state.saveObj = JSON.parse(state.showCode.data);
-  }
-}
-
-
-const upIndexDataFn = (index) => {
-  if (index > 0) {
-    const objA = state.tableObj.columns[index - 1]
-    const objB = state.tableObj.columns[index]
-    state.tableObj.columns[index - 1] = objB
-    state.tableObj.columns[index] = objA
-  }
-}
-
-const upIndexSaveFn = (index) => {
-  if (index > 0) {
-    const objA = state.saveObj.columns[index - 1]
-    const objB = state.saveObj.columns[index]
-    state.saveObj.columns[index - 1] = objB
-    state.saveObj.columns[index] = objA
+  } else if (state.showCode.modal === 'update') {
+    state.updateObj = JSON.parse(state.showCode.data);
   }
 }
 
@@ -310,6 +301,7 @@ const compileCode = () => {
     searchObj: state.searchObj,
     tableObj: state.tableObj,
     saveObj: state.saveObj,
+    updateObj: state.updateObj,
   }
   state.jsonData.data = JSON.stringify(json, null, "  ");
 }
@@ -328,7 +320,7 @@ const addOperationFn = () => {
 
 const initFn = () => {
   const {setting} = props;
-  const {saveObj, tableObj, searchObj, id, tid} = setting
+  const {updateObj, saveObj, tableObj, searchObj, id, tid} = setting
   if (searchObj) {
     state.searchObj = searchObj;
   }
@@ -338,6 +330,9 @@ const initFn = () => {
   }
   if (saveObj) {
     state.saveObj = saveObj;
+  }
+  if (updateObj) {
+    state.updateObj = updateObj;
   }
   if (id) {
     state.jsonData.id = id;

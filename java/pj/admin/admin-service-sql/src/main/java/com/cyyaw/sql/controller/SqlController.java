@@ -65,7 +65,7 @@ public class SqlController {
             List<String> query = new ArrayList<>();
             StringBuffer save = new StringBuffer("insert into  " + table + " (");
             StringBuffer saveValue = new StringBuffer("");
-            StringBuffer update = new StringBuffer("update from " + table);
+            StringBuffer update = new StringBuffer("update table " + table);
             StringBuffer del = new StringBuffer("delete from " + table + " where id = [id]");
             List<JavaColumn> columnList = tableList.getJavaColumns();
             for (int i = 0; i < columnList.size(); i++) {
@@ -83,7 +83,7 @@ public class SqlController {
                     if (!query.isEmpty()) {
                         query.add(" and " + str);
                         save.append(",`" + columnStr + "`");
-                        update.append(" ,set `" + columnStr + "` = [" + javaField + "]");
+                        update.append(" ,`" + columnStr + "` = [" + javaField + "]");
                         saveValue.append(",[" + javaField + "]");
                     } else {
                         query.add(str);

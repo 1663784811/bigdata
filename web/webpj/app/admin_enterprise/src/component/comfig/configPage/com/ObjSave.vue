@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="dataContent">
-      <ObjRequest :setting="setting" title="保存地址" />
+      <ObjRequest :setting="setting" title="保存地址"/>
       <draggable
           ghost-class="ghost"
           chosen-class="chosenClass"
@@ -68,6 +68,7 @@
 <script setup>
 import draggable from "vuedraggable";
 import ObjRequest from './ObjRequest.vue'
+import {watch} from "vue";
 
 
 const emits = defineEmits(['showCode', 'update:modelValue']);
@@ -83,6 +84,12 @@ const props = defineProps({
 const showCodeTableFn = (modal) => {
   emits('showCode');
 }
+
+watch(() => props.setting, () => {
+  if (!props.setting.columns) {
+    props.setting.columns = []
+  }
+})
 </script>
 <style scoped lang="less">
 .configBox {
