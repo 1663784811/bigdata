@@ -168,6 +168,18 @@
         <div>
           <span v-for="(it, index) in state.tableColumn" :key="index">{{ it }}</span>
         </div>
+        <div>-----------save--------------</div>
+        <div>
+          <span>{{ state.saveStr }}</span>
+        </div>
+        <div>-----------upate--------------</div>
+        <div>
+          <span>{{ state.updateStr }}</span>
+        </div>
+        <div>-----------delete--------------</div>
+        <div>
+          <span>{{ state.deleteStr }}</span>
+        </div>
       </div>
     </div>
   </Modal>
@@ -186,6 +198,9 @@ const {sqlModal} = useConfigModule();
 const state = reactive({
   mainTable: '',
   tableColumn: [],
+  saveStr: '',
+  updateStr: '',
+  deleteStr: '',
   sqlData: {
     tid: '',
     name: '',
@@ -222,7 +237,10 @@ const loadTableFn = () => {
   loadColumn({
     table: state.mainTable
   }).then(res => {
-    state.tableColumn = res.data;
+    state.tableColumn = res.data.query;
+    state.saveStr = res.data.save;
+    state.updateStr = res.data.update;
+    state.deleteStr = res.data.del;
   })
 }
 

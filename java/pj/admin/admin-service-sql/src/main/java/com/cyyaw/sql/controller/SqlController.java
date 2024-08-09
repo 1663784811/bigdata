@@ -64,33 +64,37 @@ public class SqlController {
         if (null != tableList) {
             List<String> query = new ArrayList<>();
             StringBuffer save = new StringBuffer("insert into  " + table + " (");
+            StringBuffer saveValue = new StringBuffer("");
             StringBuffer update = new StringBuffer("update from " + table);
-            StringBuffer del = new StringBuffer("delete from "+ table + " where id = [id]");
+            StringBuffer del = new StringBuffer("delete from " + table + " where id = [id]");
             List<JavaColumn> columnList = tableList.getJavaColumns();
             for (int i = 0; i < columnList.size(); i++) {
                 JavaColumn javaColumn = columnList.get(i);
                 String javaType = javaColumn.getJavaType();
                 String str = "";
-                String fstr = javaColumn.getColumnName();
+                String javaField = javaColumn.getJavaField();
+                String columnStr = javaColumn.getColumnName();
                 if ("Integer".equals(javaType)) {
-                    str = ("[eq_" + javaColumn.getJavaField() + ":=" + fstr + "]");
+                    str = ("[eq_" + javaField + ":=" + columnStr + "]");
                 } else if ("String".equals(javaType)) {
-                    str = ("[%lk_" + javaColumn.getJavaField() + ":=" + fstr + "]");
+                    str = ("[%lk_" + javaField + ":=" + columnStr + "]");
                 }
                 if (StrUtil.isNotBlank(str)) {
                     if (!query.isEmpty()) {
                         query.add(" and " + str);
-                        save.append(",`" + fstr+"`");
-                        update.append(" ,set `" + fstr + "` = [" + fstr + "]");
+                        save.append(",`" + columnStr + "`");
+                        update.append(" ,set `" + columnStr + "` = [" + javaField + "]");
+                        saveValue.append(",[" + javaField + "]");
                     } else {
                         query.add(str);
-                        save.append("`"+fstr+"`");
-                        update.append(" set `" + fstr + "` = [" + fstr + "]");
+                        save.append("`" + columnStr + "`");
+                        update.append(" set `" + columnStr + "` = [" + javaField + "]");
+                        saveValue.append(",[" + javaField + "]");
                     }
                 }
             }
             rest.set("query", query);
-            rest.set("save", save + " ) values ( )");
+            rest.set("save", save + " ) values ( " + saveValue + " )");
             rest.set("update", update);
             rest.set("del", del);
         }
