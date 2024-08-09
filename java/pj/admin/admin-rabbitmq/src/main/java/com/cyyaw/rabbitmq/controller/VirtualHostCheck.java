@@ -6,7 +6,7 @@
  * Copyright (c) 2017-2020 VMware, Inc. or its affiliates.  All rights reserved.
  */
 
-package com.cyyaw.admin.controller.rabbitmq;
+package com.cyyaw.rabbitmq.controller;
 
 public class VirtualHostCheck extends BaseCheck {
 

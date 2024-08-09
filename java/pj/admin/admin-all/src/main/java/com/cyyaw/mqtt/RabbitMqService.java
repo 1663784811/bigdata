@@ -1,6 +1,7 @@
 package com.cyyaw.mqtt;
 
 import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import com.cyyaw.equipment.service.EqEquipmentService;
 import com.cyyaw.equipment.table.entity.EqEquipment;
 import com.cyyaw.mqtt.rabbit.RabbitMqDead;
@@ -129,7 +130,7 @@ public class RabbitMqService {
     @RabbitListener(queues = RabbitMqDead.DEAD_QUEUE)
     public void receiveD(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws Exception {
         String msg = new String(message.getBody());
-        log.info("【 死信队列 】 当前时间：{}，发送一条消息给两个TTL队列：{}", new Date().toString(), msg);
+        log.info("【 死信队列 】：{}", new JSONObject(msg));
         channel.basicAck(tag, false);
     }
 

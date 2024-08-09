@@ -60,4 +60,24 @@ public class EqEquipment implements BaseEntity<Integer>, Serializable {
     @Basic
     @Column(name = "type", columnDefinition = "int default '0' COMMENT '设备类型{0:未知,1:手机APP}'")
     private Integer type;
+
+
+    @Basic
+    @Column(name = "df_account", columnDefinition = "varchar(32) default '' COMMENT '默认账号'")
+    private String dfAccount;
+
+    @Basic
+    @Column(name = "df_pwd", columnDefinition = "varchar(32) default '' COMMENT '默认密码'")
+    private String dfPwd;
+
+
+    @Basic
+    @Column(name = "account", columnDefinition = "varchar(32) default '' COMMENT '账号'")
+    private String account;
+
+    @Basic
+    @Column(name = "pwd", columnDefinition = "varchar(32) default '' COMMENT '密码'")
+    private String pwd;
+
+
 }

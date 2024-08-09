@@ -37,8 +37,6 @@ public class AllApplication {
         Environment environment = run.getBean(Environment.class);
         log.info("打开程序：http://127.0.0.1:" + environment.getProperty("local.server.port"));
         log.info("文档地址：http://127.0.0.1:" + environment.getProperty("local.server.port") + "/doc.html");
-
-//         run.getBean(PageSettingData.class).pageComponentsToComponentsObj();
     }
 
 
