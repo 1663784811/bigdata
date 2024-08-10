@@ -4,6 +4,7 @@
       <div></div>
       <div>
         <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn">加载默认</Button>
+        <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看代码</Button>
       </div>
     </div>
     <div class="dataContent" v-if="setting">
@@ -42,6 +43,9 @@
 
 <script setup>
 import {reactive} from "vue";
+import {useWinModal} from "@/store/winModal.js";
+
+const {winIcon, winCode} = useWinModal();
 
 const props = defineProps({
   setting: {
@@ -87,6 +91,19 @@ const loadDefaultFn = () => {
   }
 }
 
+const showCodeFn = () => {
+  winCode.show = true;
+  winCode.data = JSON.stringify(props.setting, null, "  ");
+  winCode.callBack = (data) => {
+    for (const dataKey in props.setting) {
+      delete props.setting[dataKey]
+    }
+    const obj = JSON.parse(data);
+    for (const objKey in obj) {
+      props.setting[objKey] = obj[objKey]
+    }
+  }
+}
 
 </script>
 

@@ -12,22 +12,25 @@
       <obj-operation :setting="state.operationObj"/>
     </TabPane>
     <TabPane label="表格" name="表格">
-      <ObjTable :setting="state.tableObj" @showCode="showCodeTableFn('table')"/>
+      <ObjTable :setting="state.tableObj"/>
     </TabPane>
     <TabPane label="保存" name="保存">
-      <ObjSave :setting="state.saveObj" @showCode="showCodeTableFn('save')"/>
+      <ObjSave :setting="state.saveObj"/>
     </TabPane>
     <TabPane label="修改" name="修改">
-      <ObjSave :setting="state.updateObj" @showCode="showCodeTableFn('update')"/>
+      <ObjSave :setting="state.updateObj"/>
     </TabPane>
   </Tabs>
-  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw"
-         @on-ok="saveComponentsFn">
+
+  <Modal v-model="state.jsonData.show" :loading="state.jsonData.loading" title="数据" width="80vw" @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
-  <Modal v-model="state.showCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
-    <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
+
+
+  <Modal v-model="winCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
+    <Input v-model="winCode.data" type="textarea" :rows="30"/>
   </Modal>
+
   <DatabaseLoad v-model="state.databaseLoad" @event="loadDataHandleFn"/>
 
 </template>
@@ -44,7 +47,7 @@ import ObjSearch from './com/ObjSearch.vue'
 import ObjOperation from './com/ObjOperation.vue'
 
 const configModule = useConfigModule();
-const winIcon = useWinModal().winIcon;
+const {winIcon, winCode} = useWinModal();
 
 
 const props = defineProps({
@@ -64,11 +67,6 @@ const state = reactive({
   saveObj: {},
   // =============== 修改
   updateObj: {},
-  showCode: {
-    show: false,
-    data: '',
-    modal: ''
-  },
   operationObj: {},
   columnsArr: [],
   jsonData: {
@@ -94,33 +92,10 @@ const loadDataHandleFn = (data) => {
   state.operationObj = data.operationObj
 }
 
-
-const showCodeTableFn = (modal) => {
-  state.showCode.show = true;
-  state.showCode.modal = modal
-  if (state.showCode.modal === 'table') {
-    state.showCode.data = JSON.stringify(state.tableObj, null, "  ");
-  } else if (state.showCode.modal === 'search') {
-    state.showCode.data = JSON.stringify(state.searchObj, null, "  ");
-  } else if (state.showCode.modal === 'save') {
-    state.showCode.data = JSON.stringify(state.saveObj, null, "  ");
-  } else if (state.showCode.modal === 'update') {
-    state.showCode.data = JSON.stringify(state.updateObj, null, "  ");
-  } else {
-    state.showCode.data = "";
-  }
-
-}
-
 const showCodeHandleFn = () => {
-  if (state.showCode.modal === 'table') {
-    state.tableObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'search') {
-    state.searchObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'save') {
-    state.saveObj = JSON.parse(state.showCode.data);
-  } else if (state.showCode.modal === 'update') {
-    state.updateObj = JSON.parse(state.showCode.data);
+  if (winCode.callBack) {
+    winCode.callBack(winCode.data);
+    winCode.callBack = null;
   }
 }
 
@@ -192,50 +167,4 @@ watch(() => props.setting, () => {
 
 </script>
 <style scoped lang="less">
-.configBox {
-  .headerBox {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  .dataContent {
-    min-height: 800px;
-
-    .row {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-top: 1px solid #f1f1f1;
-
-      &:hover {
-        background: #f1f1f1;
-      }
-
-      .labelLeft {
-        width: 120px;
-        text-align: right;
-        margin-right: 10px;
-      }
-
-      .rightInput {
-        flex: 1;
-        margin-right: 10px;
-      }
-
-      .rowItem {
-        margin: 0 4px;
-      }
-
-      .sortBtn {
-      }
-
-      .saveTitle {
-        width: 120px;
-        text-align: right;
-      }
-    }
-  }
-}
-
 </style>
