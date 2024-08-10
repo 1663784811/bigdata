@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
-import {reactive, ref} from "vue";
-import {apiAdminMenu} from "@/api/api.js"
+import {ref} from "vue";
 
 export const useUploadFileStore = defineStore('uploadFile', {
     persist: {

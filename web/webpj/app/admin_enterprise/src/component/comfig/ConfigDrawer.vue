@@ -139,12 +139,8 @@ const initPage = () => {
       "length": 32,
       "controlType": "input",
       "isShowColumn": true,
-      "iswhere": true,
-      "javawhere": "like",
-      "javatype": "string",
       "width": "160",
       "isShowSearch": true,
-      "javaWhere": "lk"
     },
     {
       "key": "pageIcon",
@@ -152,9 +148,6 @@ const initPage = () => {
       "length": 65535,
       "controlType": "input",
       "isShowColumn": true,
-      "iswhere": true,
-      "javawhere": "like",
-      "javatype": "string",
       "tooltip": false,
       "width": "100"
     },
@@ -164,9 +157,6 @@ const initPage = () => {
       "length": 32,
       "controlType": "input",
       "isShowColumn": true,
-      "iswhere": true,
-      "javawhere": "like",
-      "javatype": "string",
       "isShowSearch": true,
       "javaWhere": "lk"
     },
@@ -176,9 +166,6 @@ const initPage = () => {
       "length": 32,
       "controlType": "select",
       "isShowColumn": true,
-      "iswhere": true,
-      "javawhere": "eq",
-      "javatype": "integer",
       "isShowSearch": true,
       "javaWhere": "lk",
       "filters": [
@@ -202,9 +189,7 @@ const initPage = () => {
       "length": 255,
       "controlType": "textarea",
       "isShowColumn": true,
-      "iswhere": true,
       "javawhere": "like",
-      "javatype": "string"
     }
   ]
 
@@ -380,8 +365,6 @@ const initSave = () => {
       "length": 255,
       "controlType": "input",
       "isShowColumn": true,
-      "isWhere": true,
-      "javaType": "string",
       "isShowSave": true
     }, {
       "key": "name",
@@ -389,9 +372,7 @@ const initSave = () => {
       "length": 45,
       "controlType": "input",
       "isShowColumn": true,
-      "isWhere": true,
       "javaWhere": "lk",
-      "javaType": "string",
       "isShowSave": true,
       "isShowSearch": true
     }, {
@@ -400,8 +381,6 @@ const initSave = () => {
       "length": 45,
       "controlType": "input",
       "isShowColumn": true,
-      "isWhere": true,
-      "javaType": "string",
       "isShowSave": true
     }, {
       "key": "type",
@@ -409,8 +388,6 @@ const initSave = () => {
       "length": 45,
       "controlType": "select",
       "isShowColumn": true,
-      "isWhere": true,
-      "javaType": "string",
       "isShowSave": true,
       "filters": [
         {
@@ -436,9 +413,6 @@ const initSave = () => {
       "title": "备注",
       "length": 255,
       "isShowColumn": true,
-      "isWhere": true,
-      "javaWhere": "like",
-      "javaType": "string",
       "isShowSave": true
     }, {
       "key": "pageId",
@@ -446,9 +420,6 @@ const initSave = () => {
       "length": 45,
       "controlType": "input",
       "isShowColumn": false,
-      "isWhere": true,
-      "javaWhere": "like",
-      "javaType": "string",
       "isShowSave": true
     }]
 }

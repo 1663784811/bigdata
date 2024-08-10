@@ -76,6 +76,20 @@
                     <Option value="lt">小于</Option>
                   </Select>
                 </div>
+                <div class="rowItem">
+                  {{it}}
+                  <Select v-model="it.javaWhere" clearable size="small" style="width:160px">
+                    <Option value="lk">%模糊查询%</Option>
+                    <Option value="lkR">模糊查询%</Option>
+                    <Option value="lkL">%模糊查询</Option>
+                    <Option value="eq">等于</Option>
+                    <Option value="neq">不等于</Option>
+                    <Option value="geq">大于等于</Option>
+                    <Option value="gt">大于</Option>
+                    <Option value="leq">小于等于</Option>
+                    <Option value="lt">小于</Option>
+                  </Select>
+                </div>
               </div>
             </template>
             <!-- ================== -->

@@ -365,9 +365,7 @@ const addJsonData = () => {
     title: "标题",
     controlType: "text",
     isShowColumn: true,
-    isWhere: true,
     javaWhere: "like",
-    javaType: "string",
   };
   columnsArr.value.push(js);
 }
