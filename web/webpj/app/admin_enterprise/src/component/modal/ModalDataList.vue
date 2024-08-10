@@ -1,5 +1,5 @@
 <template>
-  <Modal v-model="modalData.show" title="数据" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')"
+  <Modal v-model="modalData.show" :title="title" @on-ok="eventFn('ok')" @on-cancel="eventFn('cancel')"
          :mask-closable="false" :loading="modalData.loading" width="auto"
          style="max-width: 1000px; margin-bottom: 300px">
     <div class="modalBox">
@@ -67,6 +67,10 @@ const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false
+  },
+  title: {
+    type: String,
+    default: '数据',
   },
   modalSetting: {
     type: Object,

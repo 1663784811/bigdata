@@ -136,7 +136,6 @@ const filterChange = (data) => {
   loadData();
 }
 const filterMethod = (value, row) => {
-  console.log(value, row)
   return true;
 }
 
@@ -243,8 +242,7 @@ const initTable = () => {
   for (let i = 0; i < columns.length; i++) {
     const itemObj = columns[i];
     if (itemObj.isShowColumn) {
-      console.log(itemObj.type)
-      if (itemObj.type == 'img' || itemObj.type == 'filters') {
+      if (itemObj.type === 'img' || itemObj.type === 'filters') {
         itemObj.render = (h, params) => {
           return createH(itemObj, h, params);
         }
@@ -549,7 +547,7 @@ const createH = (columnsItem, h, params) => {
         }
       }))
     }
-  } else if (columnsItem.type == 'img') {
+  } else if (columnsItem.type === 'img') {
     const face = row[columnsItem.key];
     if (face) {
       hArr.push(h('img', {
@@ -565,7 +563,7 @@ const createH = (columnsItem, h, params) => {
         height: '40px'
       }
     }, hArr);
-  } else if (columnsItem.type == 'filters') {
+  } else if (columnsItem.type === 'filters') {
     let strData = ''
     const objData = row[columnsItem.key];
     if (columnsItem.filters && columnsItem.filters.length > 0) {
