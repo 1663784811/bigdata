@@ -1,8 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import {welcome} from './welcome.js'
 import {enterprise} from './enterprise.js'
-import {common} from './common.js'
-import {sql} from './sql.js'
 import {role} from './role.js'
 import {spider} from './spider.js'
 import {shopping} from './shopping.js'
@@ -10,7 +8,7 @@ import {login} from './login.js'
 import {worker} from './worker.js'
 import {phone} from './phone.js'
 import {friends} from './friends.js'
-import {loginInfo} from '../store/loginInfo.js'
+import {loginInfo} from '@/store/loginInfo.js'
 
 
 const router = createRouter({
@@ -32,12 +30,6 @@ const router = createRouter({
                             path: 'enterprise',
                             children: enterprise
                         },
-                        {
-                            meta: {title: '公共'},
-                            path: 'common',
-                            children: common
-                        },
-                        sql,
                         role,
                         spider,
                         worker,

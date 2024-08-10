@@ -8,95 +8,7 @@
 
   <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
     <TabPane label="搜索" name="搜索">
-      <div class="configBox">
-        <div class="headerBox">
-          <div></div>
-          <div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeTableFn('search')">查看代码
-            </Button>
-          </div>
-        </div>
-        <div class="dataContent">
-          <div class="row">
-            <div class="labelLeft">显示搜索模块:</div>
-            <Checkbox border v-model="state.searchObj.show"></Checkbox>
-            <Button class="dataBtn" type="primary" icon="md-list" @click="state.searchObj.columns.push({})">添加</Button>
-          </div>
-          <template v-for="(item, index) in state.searchObj.columns" :key="index">
-            <div class="row">
-              <div class="sortBtn">
-                <Button size="small" type="error" icon="ios-trash-outline"
-                        @click="state.searchObj.columns.splice(index,1)"/>
-                <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"
-                        @click="arrUp(state.searchObj.columns,index)"/>
-              </div>
-              <div>名称:</div>
-              <Checkbox border v-model="item.show"></Checkbox>
-              <div class="rightInput">
-                <Input v-model="item.name" placeholder="名称"/>
-              </div>
-              <div class="rightInput">
-                <Input v-model="item.icon" placeholder="icon" @on-focus="selectIconFn(item, 'icon')"/>
-              </div>
-              <div class="rightInput">
-                <Input v-model="item.type" placeholder="icon"/>
-              </div>
-              <div class="rightInput">
-                <Input v-model="item.even" placeholder="事件" clearable/>
-              </div>
-              <div class="rightInput">
-                <Input v-model="item.power" placeholder="授权码" clearable/>
-              </div>
-            </div>
-            <!-- ================== -->
-            <template v-if="item.even === 'search' && item.parameter.length>0">
-              <div class="row" style="margin-left: 100px;" v-for="(it,inx) in item.parameter" :key="inx">
-                <div class="rowItem sortBtn">
-                  <Button size="small" type="error" icon="ios-trash-outline" @click="item.parameter.splice(inx, 1)"/>
-                  <Button v-if="inx>0" size="small" type="primary" icon="md-arrow-up" disabled/>
-                </div>
-                <div class="rowItem">
-                  <Checkbox v-model="it.isShowColumn"/>
-                  <Input v-model="it.title" placeholder="标题" clearable style="width: 130px"/>
-                </div>
-                <div class="rowItem">
-                  <Input v-model="it.key" placeholder="key" clearable style="width: 100px"/>
-                </div>
-                <div class="rowItem">
-                  搜索条件:
-                  <Select v-model="it.javaWhere" clearable size="small" style="width:160px">
-                    <Option value="lk">%模糊查询%</Option>
-                    <Option value="lkR">模糊查询%</Option>
-                    <Option value="lkL">%模糊查询</Option>
-                    <Option value="eq">等于</Option>
-                    <Option value="neq">不等于</Option>
-                    <Option value="geq">大于等于</Option>
-                    <Option value="gt">大于</Option>
-                    <Option value="leq">小于等于</Option>
-                    <Option value="lt">小于</Option>
-                  </Select>
-                </div>
-                <div class="rowItem">
-                  {{it}}
-                  <Select v-model="it.javaWhere" clearable size="small" style="width:160px">
-                    <Option value="lk">%模糊查询%</Option>
-                    <Option value="lkR">模糊查询%</Option>
-                    <Option value="lkL">%模糊查询</Option>
-                    <Option value="eq">等于</Option>
-                    <Option value="neq">不等于</Option>
-                    <Option value="geq">大于等于</Option>
-                    <Option value="gt">大于</Option>
-                    <Option value="leq">小于等于</Option>
-                    <Option value="lt">小于</Option>
-                  </Select>
-                </div>
-              </div>
-            </template>
-            <!-- ================== -->
-          </template>
-
-        </div>
-      </div>
+      <obj-search :setting="state.searchObj" />
     </TabPane>
     <TabPane label="操作对象" name="操作对象">
       <div class="configBox">
@@ -168,6 +80,7 @@ import draggable from "vuedraggable";
 import {useWinModal} from '@/store/winModal.js'
 import ObjSave from './com/ObjSave.vue'
 import ObjTable from './com/ObjTable.vue'
+import ObjSearch from './com/ObjSearch.vue'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;
@@ -365,12 +278,7 @@ const arrUp = (list, index) => {
   }
 }
 
-const selectIconFn = (obj, key) => {
-  winIcon.show = true;
-  winIcon.callBack = (iconText) => {
-    obj[key] = iconText;
-  }
-}
+
 
 watch(() => props.setting, () => {
   initFn()
