@@ -12,6 +12,7 @@
 <script setup>
 
 import ObjJson from './ObjJson.vue'
+import {watch} from "vue";
 
 const props = defineProps({
   title: {
@@ -36,6 +37,13 @@ const changeIsCommonUrl = () => {
     props.setting.url = '/admin/${eCode}/common/query'
   }
 }
+
+watch(() => props.setting, () => {
+  if (!props.setting.parameter) {
+    props.setting.parameter = {}
+  }
+})
+
 </script>
 
 <style scoped lang="less">
