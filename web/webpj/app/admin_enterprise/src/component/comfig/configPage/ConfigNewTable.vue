@@ -1,53 +1,15 @@
 <template>
-
   <div class="aaa">
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="state.databaseLoad = true">加载数据库</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="showCodeFn">查看配置</Button>
     <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="saveComponentsFn">保存</Button>
   </div>
-
   <Tabs v-model="configModule.configPage.tabsName" @onClick="(name)=>{configModule.configPage.tabsName = name}">
     <TabPane label="搜索" name="搜索">
-      <obj-search :setting="state.searchObj" />
+      <obj-search :setting="state.searchObj"/>
     </TabPane>
     <TabPane label="操作对象" name="操作对象">
-      <div class="configBox">
-        <div class="headerBox">
-          <div></div>
-          <div>
-            <Button class="dataBtn" type="primary" icon="md-list" @click="loadDefaultFn('operation')">加载默认</Button>
-          </div>
-        </div>
-        <div class="dataContent" v-if="state.operationObj">
-          <div class="row">
-            <div class="labelLeft">操作标题:</div>
-            <Checkbox border v-model="state.operationObj.show"></Checkbox>
-            <div class="rightInput">
-              <Input v-model="state.operationObj.title" placeholder="标题"/>
-            </div>
-            <div>宽度:</div>
-            <div class="rightInput">
-              <Input v-model="state.operationObj.width" placeholder="宽" clearable type="number"/>
-            </div>
-            <Button class="dataBtn" type="primary" icon="md-cloud-upload" @click="addOperationFn">添加</Button>
-          </div>
-          <div class="row" v-for="(item, index) in state.operationObj.operationArr" :key="index">
-            <div class="sortBtn">
-              <Button size="small" type="error" icon="ios-trash-outline" @click="delOperationFn(index)"/>
-              <Button v-if="index>0" size="small" type="primary" icon="md-arrow-up"/>
-            </div>
-            <div>名称:</div>
-            <Checkbox border v-model="item.show"></Checkbox>
-            <div class="rightInput">
-              <Input v-model="item.label" placeholder="名称"/>
-            </div>
-            <div>事件:</div>
-            <div class="rightInput">
-              <Input v-model="item.even" placeholder="事件" clearable/>
-            </div>
-          </div>
-        </div>
-      </div>
+      <obj-operation :setting="state.operationObj"/>
     </TabPane>
     <TabPane label="表格" name="表格">
       <ObjTable :setting="state.tableObj" @showCode="showCodeTableFn('table')"/>
@@ -63,7 +25,6 @@
          @on-ok="saveComponentsFn">
     <Input v-model="state.jsonData.data" type="textarea" :rows="40"/>
   </Modal>
-
   <Modal v-model="state.showCode.show" title="查看代码" width="80vw" @on-ok="showCodeHandleFn">
     <Input v-model="state.showCode.data" type="textarea" :rows="30"/>
   </Modal>
@@ -72,15 +33,15 @@
 </template>
 <script setup>
 import DatabaseLoad from '../DatabaseLoad.vue'
-import {reactive, onMounted, watch} from 'vue'
-import {Input, Message} from "view-ui-plus";
-import {saveComponents, loadTable} from '@/api/api.js'
+import {onMounted, reactive, watch} from 'vue'
+import {Message} from "view-ui-plus";
+import {saveComponents} from '@/api/api.js'
 import {useConfigModule} from "@/store/configModule.js";
-import draggable from "vuedraggable";
 import {useWinModal} from '@/store/winModal.js'
 import ObjSave from './com/ObjSave.vue'
 import ObjTable from './com/ObjTable.vue'
 import ObjSearch from './com/ObjSearch.vue'
+import ObjOperation from './com/ObjOperation.vue'
 
 const configModule = useConfigModule();
 const winIcon = useWinModal().winIcon;
@@ -118,33 +79,6 @@ const state = reactive({
     data: ''
   },
   databaseLoad: false,
-  // ===========================
-  defaultConfig: {
-    operation: {
-      show: true,
-      title: '操作',
-      key: 'operation',
-      width: 200,
-      operationArr: [
-        {
-          label: "查看",
-          even: '',
-          show: true,
-        },
-        {
-          label: "修改",
-          even: '',
-          show: true,
-        },
-        {
-          label: "删除",
-          even: '',
-          show: true,
-        }
-      ]
-    },
-  }
-
 })
 
 
@@ -190,11 +124,6 @@ const showCodeHandleFn = () => {
   }
 }
 
-const loadDefaultFn = (str) => {
-  if (str === 'operation') {
-    state.operationObj = state.defaultConfig.operation;
-  }
-}
 
 /**
  * 显示代码
@@ -233,18 +162,6 @@ const compileCode = () => {
   state.jsonData.data = JSON.stringify(json, null, "  ");
 }
 
-const delOperationFn = (index) => {
-  state.operationObj.operationArr.splice(index, 1);
-}
-const addOperationFn = () => {
-  state.operationObj.operationArr.push({
-    label: "",
-    even: '',
-    show: true
-  })
-}
-
-
 const initFn = () => {
   const {setting} = props;
   const {updateObj, saveObj, tableObj, searchObj, id, tid} = setting
@@ -268,17 +185,6 @@ const initFn = () => {
     state.jsonData.tid = tid;
   }
 }
-
-const arrUp = (list, index) => {
-  if (index > 0) {
-    let nowObj = list[index];
-    let prObj = list[index - 1];
-    list[index] = prObj;
-    list[index - 1] = nowObj;
-  }
-}
-
-
 
 watch(() => props.setting, () => {
   initFn()
