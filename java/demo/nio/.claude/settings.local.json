@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn compile)",
+      "Bash(javac -version:*)",
+      "Bash(javac:*)",
+      "Bash(java -cp target/classes com.cyyaw.nio.NioApplication:*)",
+      "Bash(timeout 5 java -cp target/classes com.cyyaw.nio.NioClient:*)",
+      "Bash(mvn clean compile:*)",
+      "Bash(timeout 3 java -cp target/classes com.cyyaw.nio.NioClient:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}
