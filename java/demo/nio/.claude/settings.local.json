@@ -10,7 +10,8 @@
       "Bash(timeout 3 java -cp target/classes com.cyyaw.nio.NioClient:*)",
       "Bash(cat:*)",
       "Bash(mvn dependency:resolve:*)",
-      "Bash(java -version:*)"
+      "Bash(java -version:*)",
+      "Bash(dir:*)"
     ]
   }
 }

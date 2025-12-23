@@ -1,4 +1,4 @@
-package com.cyyaw.nio;
+package com.cyyaw.netty;
 
 import com.cyyaw.netty.RtspRequest;
 import com.cyyaw.netty.RtspResponse;
@@ -110,8 +110,10 @@ public class RtspServer {
             String uri = matcher.group(2);
             String version = matcher.group(3);
 
+            // Create RTSP request object
+            RtspRequest request = new RtspRequest(method, uri, version);
+
             // Read headers
-            StringBuilder headersBuilder = new StringBuilder();
             while (true) {
                 int headerStart = lineEnd + 2; // Skip CRLF
                 if (headerStart >= in.writerIndex()) {
@@ -127,9 +129,6 @@ public class RtspServer {
 
                 // Empty line indicates end of headers (assuming no body handling for now)
                 if (headerLine.isEmpty()) {
-                    // Create RTSP request object
-                    RtspRequest request = new RtspRequest(method, uri, version);
-
                     // Move reader index past headers
                     in.readerIndex(nextCrlf + 2);
 
