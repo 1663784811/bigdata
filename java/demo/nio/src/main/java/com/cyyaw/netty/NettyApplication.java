@@ -1,8 +1,5 @@
 package com.cyyaw.netty;
 
-import com.cyyaw.nio.RtspServer;
-
-
 public class NettyApplication {
 
     public static void main(String[] args) throws InterruptedException {
