@@ -88,5 +88,38 @@ java -cp target/classes com.cyyaw.nio.NioClient
 - **Non-blocking**: I/O operations don't block the thread when no data is available
   - **非阻塞**: 当没有数据可用时，I/O操作不会阻塞线程
 
-The server demonstrates the core NIO concepts and provides a solid foundation for building more complex network applications.
-服务器演示了核心NIO概念，并为构建更复杂的网络应用程序提供了坚实的基础。
+## RTSP Server Extension (RTSP服务器扩展)
+
+This project also includes an RTSP (Real Time Streaming Protocol) server implementation using Netty framework.
+本项目还包括使用Netty框架实现的RTSP（实时流协议）服务器。
+
+### RTSP Features:
+- **RTSP Protocol Support**: Complete implementation of RTSP server using Netty
+  - **RTSP协议支持**: 使用Netty完成RTSP服务器的实现
+- **Standard Methods**: Supports OPTIONS, DESCRIBE, SETUP, PLAY, and TEARDOWN methods
+  - **标准方法**: 支持OPTIONS、DESCRIBE、SETUP、PLAY和TEARDOWN方法
+- **SDP Support**: Generates Session Description Protocol responses
+  - **SDP支持**: 生成会话描述协议响应
+- **Session Management**: Handles RTSP session state and transport parameters
+  - **会话管理**: 处理RTSP会话状态和传输参数
+
+### How to Run RTSP Server:
+Prerequisites: Maven must be installed for dependency management.
+前置条件：必须安装Maven进行依赖管理。
+
+```bash
+# Build with Maven (使用Maven构建)
+mvn clean compile
+
+# Run the RTSP Server via NIO Application (通过NIO应用程序运行RTSP服务器)
+mvn exec:java -Dexec.mainClass="com.cyyaw.nio.NioApplication" -Dexec.args="rtsp"
+
+# Or run the RTSP Server via dedicated Netty Application (或通过专用的Netty应用程序运行RTSP服务器)
+mvn exec:java -Dexec.mainClass="com.cyyaw.netty.NettyApplication"
+
+# Or specify a custom port (或指定自定义端口)
+mvn exec:java -Dexec.mainClass="com.cyyaw.netty.NettyApplication" -Dexec.args="8556"
+```
+
+The server demonstrates both core NIO concepts and modern Netty framework usage, providing a solid foundation for building more complex network applications.
+服务器演示了核心NIO概念和现代Netty框架的使用，为构建更复杂的网络应用程序提供了坚实的基础。
